@@ -7,5 +7,7 @@ source = 'awesome/rc.lua'
 target = os.path.join(get_home_dir(), '.config', source)
 
 print make_link(source, target)
+print 'Please install konsole or change terminal value in rc.lua.'
+print 'Please install dmenu.'
 
 
