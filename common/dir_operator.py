@@ -28,6 +28,7 @@ def make_link(source, target):
         mkdir_p(target_dir_name)
 
     print target
-    os.unlink(target)
+    if os.path.exists(target):
+        os.unlink(target)
     os.symlink(source, target)
     return 'success'
