@@ -264,6 +264,38 @@ globalkeys = awful.util.table.join(
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
+              end),
+    awful.key({ }, "XF86AudioPlay",
+              function ()
+                awful.util.spawn("")
+              end),
+    awful.key({ }, "XF86AudioMute",
+              function ()
+                awful.util.spawn("")
+              end),
+    awful.key({ }, "XF86AudioLowerVolume",
+              function ()
+                awful.util.spawn_with_shell("amixer set Master 2%-")
+              end),
+    awful.key({ }, "XF86AudioRaiseVolume",
+              function ()
+                awful.util.spawn_with_shell("mixer set Master 2%+")
+              end),
+    awful.key({ }, "XF86HomePage",
+              function ()
+                awful.util.spawn("google-chrome www.google.com")
+              end),
+    awful.key({ }, "XF86Mail",
+              function ()
+                awful.util.spawn("google-chrome mail.google.com")
+              end),
+    awful.key({ }, "XF86Sleep",
+              function ()
+                awful.util.spawn("")
+              end),
+    awful.key({ }, "XF86Calculator",
+              function ()
+                awful.util.spawn("gnome-calculator")
               end)
 )
 
