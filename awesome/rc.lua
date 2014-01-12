@@ -389,6 +389,39 @@ end)
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 awesome.font = "Droid Sans Mono 8"
+
+local file = io.popen('~/.config/awesome/init_awesome.py')
+local output = file:read('*all')
+file:close()
+
+split = function(s, pattern, maxsplit)
+  local pattern = pattern or ' '
+  local maxsplit = maxsplit or -1
+  local s = s
+  local t = {}
+  local patsz = #pattern
+  while maxsplit ~= 0 do
+    local curpos = 1
+    local found = string.find(s, pattern)
+    if found ~= nil then
+      table.insert(t, string.sub(s, curpos, found - 1))
+      curpos = found + patsz
+      s = string.sub(s, curpos)
+    else
+      table.insert(t, string.sub(s, curpos))
+      break
+    end
+    maxsplit = maxsplit - 1
+    if maxsplit == 0 then
+      table.insert(t, string.sub(s, curpos - patsz - 1))
+    end
+  end
+  return t
+end
+print(split(output, "\n"))
+for key, value in pairs(split(output, "\n")) do
+    awful.util.spawn_with_shell(value)
+end
 awful.util.spawn_with_shell("awsetbg ~/Pictures/background.jpg")
-awful.util.spawn_with_shell("nm-applet")
+
 -- }}}
