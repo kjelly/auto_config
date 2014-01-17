@@ -189,3 +189,6 @@ bindsym $mod+d focus parent
 bindsym $mod+b focus child
 
 force_focus_wrapping yes
+
+exec /usr/bin/nm-applet
+exec /usr/bin/gnome-sound-applet
