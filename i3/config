@@ -140,7 +140,7 @@ bar {
         position top
         # status_command i3status
         # status_command ~/.i3/conky
-        status_command py3status -c ~/.i3/i3status.conf -i /home/ya790206/py3status/examples
+        status_command py3status -c ~/.i3/i3status.conf -i ~/.i3/modules
 
         font pango: Droid Sans Mono 15
         colors { 
