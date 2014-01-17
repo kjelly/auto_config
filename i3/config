@@ -139,7 +139,9 @@ bindsym $mod+s mode "resize"
 bar {
         position top
         # status_command i3status
-        status_command ~/.i3/conky
+        # status_command ~/.i3/conky
+        status_command py3status -c ~/.i3/i3status.conf -i /home/ya790206/py3status/examples
+
         font pango: Droid Sans Mono 15
         colors { 
                 statusline #AAAAAA
