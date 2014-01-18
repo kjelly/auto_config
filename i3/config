@@ -192,3 +192,5 @@ force_focus_wrapping yes
 
 exec /usr/bin/nm-applet
 exec /usr/bin/gnome-sound-applet
+exec cinnamon-sound-applet
+exec bash ~/dual_screen.sh
