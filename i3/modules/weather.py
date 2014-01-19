@@ -13,7 +13,7 @@ CACHE_TIMEOUT = 600
 
 class Py3status:
     def get_local_weather(self, local, data):
-        for i in data.split('\n'):
+        for i in data.split(u'\n'):
             if i.find(local) != -1:
                 target = i
                 break
@@ -25,13 +25,19 @@ class Py3status:
         """
         with open(weather_data_path, 'r') as ftr:
             data = ftr.read().decode('big5').encode('utf-8')
+        data = unicode(data, 'utf-8')
 
-        local_weather = self.get_local_weather('新北市', data)
+        local_weather = self.get_local_weather(u'新北市', data)
+        colomn = local_weather.split()
+        temp_colomn = ''.join(colomn[-3:])
+        colomn = colomn[:-3]
+        colomn.append(temp_colomn)
+
 
 
         response = {
             'cached_until': time() + CACHE_TIMEOUT,
-            'full_text': local_weather,
+            'full_text': u','.join(colomn),
             'name': 'weather_yahoo'
             }
 
