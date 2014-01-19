@@ -2,12 +2,13 @@
 from time import time
 import requests
 import os.path
+import os
 
 
 
 i3_user_config_path = os.path.join(os.path.expanduser('~'), '.i3')
 weather_data_path = os.path.join(i3_user_config_path,'data',  'W002.txt')
-CACHE_TIMEOUT = 600
+CACHE_TIMEOUT = 3600
 
 
 
@@ -23,6 +24,7 @@ class Py3status:
         """
         This method gets executed by py3status
         """
+        os.system('~/.i3/download_weather_data.py')
         with open(weather_data_path, 'r') as ftr:
             data = ftr.read().decode('big5').encode('utf-8')
         data = unicode(data, 'utf-8')
