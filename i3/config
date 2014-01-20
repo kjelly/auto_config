@@ -181,6 +181,8 @@ bindsym XF86TouchpadToggle exec "synclient TouchpadOff=$(synclient | awk '/Touch
 # move container between displays
 bindsym $mod+semicolon move workspace to output left
 bindsym $mod+apostrophe move workspace to output right
+bindsym $mod+Shift+colon exec ~/.i3/move_workspace_left.py
+bindsym $mod+Shift+quotedbl exec ~/.i3/move_workspace_right.py
 
 focus_follows_mouse  no
 
