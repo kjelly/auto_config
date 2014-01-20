@@ -13,3 +13,4 @@ i3.move__workspace__to__output__right()
 # rinse and repeat
 i3.workspace(outputs[1]['current_workspace'])
 i3.move__workspace__to__output__right()
+i3.workspace(outputs[0]['current_workspace'])
