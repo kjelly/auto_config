@@ -152,7 +152,7 @@ bar {
 }
 
 bindsym $mod+m move scratchpad
-bindsym $mod+n scratchpad show
+bindsym $mod+comma scratchpad show
 
 bindsym $mod+F4 kill
 
@@ -187,6 +187,13 @@ focus_follows_mouse  no
 # container navigation
 bindsym $mod+d focus parent
 bindsym $mod+b focus child
+
+bindsym $mod+n workspace next_on_output
+bindsym $mod+p workspace prev_on_output
+
+bindsym $mod+Shift+N workspace next
+bindsym $mod+Shift+P workspace prev
+
 bindsym $mod+c exec ~/.i3/switch.py
 
 force_focus_wrapping yes
