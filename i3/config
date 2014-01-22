@@ -167,7 +167,7 @@ bindsym XF86AudioStop exec "~/.bin/player stop"
 bindsym XF86AudioNext exec "~/.bin/player next"
 bindsym XF86AudioPrev exec "~/.bin/player previous"
 
-bindsym XF86Calculator exec "google-chrome google.com"
+bindsym XF86Calculator exec "xcalc"
 # bindsym XF86Sleep exec ""
 bindsym XF86Mail exec "gogole-chrome mail.google.com"
 bindsym XF86HomePage exec "google-chrome google.com"
