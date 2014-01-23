@@ -196,6 +196,9 @@ bindsym $mod+p workspace prev_on_output
 bindsym $mod+Shift+N workspace next
 bindsym $mod+Shift+P workspace prev
 
+bindsym $mod+z exec ~/.i3/focus_screen0.py
+bindsym $mod+o exec ~/.i3/focus_screen1.py
+
 bindsym $mod+c exec ~/.i3/switch.py
 
 force_focus_wrapping yes
