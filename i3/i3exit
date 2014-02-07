@@ -1,0 +1,30 @@
+#!/bin/sh
+lock() {
+    i3lock -c 000000
+}
+
+case "$1" in
+    lock)
+        lock
+        ;;
+    logout)
+        i3-msg exit
+        ;;
+    suspend)
+        lock && gksu pm-suspend
+        ;;
+    hibernate)
+        lock && gksu pm-hibernate
+        ;;
+    reboot)
+        gksu reboot
+        ;;
+    shutdown)
+        gksu poweroff
+        ;;
+    *)
+        echo "Usage: $0 {lock|logout|suspend|hibernate|reboot|shutdown}"
+        exit 2
+esac
+
+exit 0
