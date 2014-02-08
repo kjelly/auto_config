@@ -206,7 +206,7 @@ force_focus_wrapping yes
 exec /usr/bin/nm-applet
 exec /usr/bin/gnome-sound-applet
 exec cinnamon-sound-applet
-exec bash ~/dual_screen.sh
+exec bash ~/.i3/dual_screen.sh
 
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
