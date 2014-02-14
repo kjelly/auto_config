@@ -223,3 +223,4 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 bindsym Pause mode "$mode_system"
+exec feh --bg-scale ~/Pictures/background.jpg
