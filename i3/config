@@ -225,3 +225,7 @@ mode "$mode_system" {
 }
 bindsym Pause mode "$mode_system"
 exec feh --bg-scale ~/Pictures/background.jpg
+
+bindsym $mod+F5 move container to output LVDS1
+bindsym $mod+F6 move container to output VGA1
+
