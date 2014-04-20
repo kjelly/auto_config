@@ -16,3 +16,7 @@ ftp.cwd('/pub/forecast/')
 with open(weather_data_path, 'w') as f:
     ftp.retrbinary('RETR %s' % 'W002.txt', f.write)
 ftp.close()
+
+
+with open(weather_data_path, 'r') as f:
+    print f.read().decode('big5').encode('utf-8')
