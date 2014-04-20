@@ -23,4 +23,4 @@ class Py3status:
         # set, cache and return the output
         response = {'full_text': username, 'name': 'whoami'}
         response['cached_until'] = time() + CACHE_TIMEOUT
-        return (0, response)
+        return (0, {})

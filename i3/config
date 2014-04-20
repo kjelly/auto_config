@@ -142,7 +142,7 @@ bar {
         # status_command ~/.i3/conky
         status_command py3status -c ~/.i3/i3status.conf -i ~/.i3/modules
 
-        font pango: Droid Sans Mono 9
+        font pango: Droid Sans Mono 14
         colors { 
                 statusline #AAAAAA
                 background #333333

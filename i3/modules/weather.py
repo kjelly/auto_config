@@ -24,6 +24,7 @@ class Py3status:
         """
         This method gets executed by py3status
         """
+        return (0, {})
         os.system('~/.i3/download_weather_data.py')
         with open(weather_data_path, 'r') as ftr:
             data = ftr.read().decode('big5').encode('utf-8')
