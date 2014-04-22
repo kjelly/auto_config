@@ -13,6 +13,7 @@ os.system("sudo apt-get install i3 i3status")
 os.system("sudo apt-get install terminator")
 os.system("sudo apt-get install python-pip")
 os.system("sudo apt-get install dmenu")
+os.system("sudo apt-get install xfce4-panel")
 os.system("sudo pip install py3status")
 
 print 'Please install terminator or change terminal value in .i3/config.'
