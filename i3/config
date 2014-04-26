@@ -178,6 +178,7 @@ bindsym XF86HomePage exec "google-chrome google.com"
 bindsym XF86KbdBrightnessDown exec "sudo /opt/kbdlight/bin/kbdlight -"
 bindsym XF86KbdBrightnessUp exec "sudo /opt/kbdlight/bin/kbdlight +"
 bindsym XF86TouchpadToggle exec "synclient TouchpadOff=$(synclient | awk '/TouchpadOff/ {print ($3+1)%2}')"
+bindsym Print exec xfce4-screenshooter
 
 # move container between displays
 bindsym $mod+semicolon move workspace to output left
