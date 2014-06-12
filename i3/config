@@ -13,7 +13,7 @@ set $mod Mod1
 
 # font for window titles. ISO 10646 = Unicode
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font xft:Droid Sans bold 14.2
+font xft:Droid Sans 12
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -52,7 +52,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+g split h
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -63,19 +63,13 @@ bindsym $mod+f fullscreen
 # change container layout (stacked, tabbed, default)
 # bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout default
+bindsym $mod+e layout splith
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+A floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-# focus the child container
-#bindcode $mod+d focus child
+bindsym $mod+a focus mode_toggle
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -120,6 +114,8 @@ mode "resize" {
         bindsym j resize grow height 10 px or 10 ppt
         bindsym k resize shrink height 10 px or 10 ppt
         bindsym l resize grow width 10 px or 10 ppt
+        bindsym m resize grow width 10 px or 10 ppt
+        bindsym semicolon   resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym 113 resize shrink width 10 px or 10 ppt
@@ -153,7 +149,6 @@ bar {
 
 bindsym $mod+m move scratchpad
 bindsym $mod+comma scratchpad show
-bindsym $mod+period floating toggle
 
 bindsym $mod+F4 kill
 
@@ -178,7 +173,6 @@ bindsym XF86HomePage exec "google-chrome google.com"
 bindsym XF86KbdBrightnessDown exec "sudo /opt/kbdlight/bin/kbdlight -"
 bindsym XF86KbdBrightnessUp exec "sudo /opt/kbdlight/bin/kbdlight +"
 bindsym XF86TouchpadToggle exec "synclient TouchpadOff=$(synclient | awk '/TouchpadOff/ {print ($3+1)%2}')"
-bindsym Print exec xfce4-screenshooter
 
 # move container between displays
 bindsym $mod+semicolon move workspace to output left
@@ -189,8 +183,8 @@ bindsym $mod+Shift+quotedbl exec ~/.i3/move_container_right.py
 focus_follows_mouse  no
 
 # container navigation
-bindsym $mod+d focus parent
-bindsym $mod+b focus child
+bindsym $mod+u focus parent
+bindsym $mod+d focus child
 
 bindsym $mod+n workspace next_on_output
 bindsym $mod+p workspace prev_on_output
@@ -198,8 +192,10 @@ bindsym $mod+p workspace prev_on_output
 bindsym $mod+Shift+N workspace next
 bindsym $mod+Shift+P workspace prev
 
-bindsym $mod+z exec ~/.i3/focus_screen0.py
-bindsym $mod+o exec ~/.i3/focus_screen1.py
+# bindsym $mod+z exec ~/.i3/focus_screen0.py
+bindsym $mod+z focus output HDMI-2
+# bindsym $mod+o exec ~/.i3/focus_screen1.py
+bindsym $mod+o focus output HDMI-2
 
 bindsym $mod+c exec ~/.i3/switch.py
 
@@ -227,8 +223,12 @@ mode "$mode_system" {
 }
 bindsym Pause mode "$mode_system"
 exec feh --bg-scale ~/Pictures/background.jpg
-exec bash ~/.i3/run_xfce4_panel.sh
 
 bindsym $mod+F5 move container to output LVDS1
 bindsym $mod+F6 move container to output VGA1
 
+bindsym $mod+space layout toggle all
+bindsym $mod+Shift+space layout toggle all
+
+
+bindsym $mod+g exec quickswitch.py

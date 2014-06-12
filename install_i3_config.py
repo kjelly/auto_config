@@ -15,6 +15,8 @@ os.system("sudo apt-get -y install python-pip")
 os.system("sudo apt-get -y install dmenu")
 os.system("sudo apt-get -y install xfce4-panel")
 os.system("sudo pip install py3status")
+os.system("sudo pip install i3-py")
+os.system("sudo pip install quickswitch-i3")
 
 print 'Please install terminator or change terminal value in .i3/config.'
 print 'Please install dmenu.'
