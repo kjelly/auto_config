@@ -11,4 +11,5 @@ make_link(config_path, target)
 
 os.chdir(get_home_dir())
 os.system("git clone https://github.com/magicmonty/bash-git-prompt.git .bash-git-prompt")
+os.system("touch ~/.local_bashrc")
 
