@@ -193,9 +193,9 @@ bindsym $mod+Shift+N workspace next
 bindsym $mod+Shift+P workspace prev
 
 # bindsym $mod+z exec ~/.i3/focus_screen0.py
-bindsym $mod+z focus output HDMI-2
+bindsym $mod+z focus output LVDS1
 # bindsym $mod+o exec ~/.i3/focus_screen1.py
-bindsym $mod+o focus output HDMI-2
+bindsym $mod+o focus output VGA1
 
 bindsym $mod+c exec ~/.i3/switch.py
 
@@ -230,5 +230,7 @@ bindsym $mod+F6 move container to output VGA1
 bindsym $mod+space layout toggle all
 bindsym $mod+Shift+space layout toggle all
 
+bindsym Print exec xfce4-screenshooter
+exec bash ~/.i3/run_xfce4_panel.sh
 
 bindsym $mod+g exec quickswitch.py
