@@ -129,7 +129,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+s mode "resize"
+bindsym $mod+Shift+s mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -208,16 +208,33 @@ mode "$mode_screen_output" {
 }
 bindsym $mod+o mode "$mode_screen_output"
 
-
-set $mode_move_container move container
-mode "$mode_move_container" {
+set $mode_move_container_to_output move container
+mode "$mode_move_container_to_output " {
     bindsym 1 exec --no-startup-id ~/.i3/move_container.py 0, mode "default"
     bindsym 2 exec --no-startup-id ~/.i3/move_container.py 1, mode "default"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Shift+o mode "$mode_move_container"
+bindsym $mod+Shift+o mode "$mode_move_container_to_output "
+
+set $mode_swap_workspace swap workspace
+mode "$mode_swap_workspace" {
+    bindsym 1 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 1, mode "default"
+    bindsym 2 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 2, mode "default"
+    bindsym 3 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 3, mode "default"
+    bindsym 4 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 4, mode "default"
+    bindsym 5 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 5, mode "default"
+    bindsym 6 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 6, mode "default"
+    bindsym 7 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 7, mode "default"
+    bindsym 8 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 8, mode "default"
+    bindsym 9 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 9, mode "default"
+    bindsym 0 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 0, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+s mode "$mode_swap_workspace"
 
 bindsym $mod+c exec ~/.i3/switch.py
 
