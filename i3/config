@@ -219,9 +219,6 @@ mode "$mode_move_container" {
 }
 bindsym $mod+Shift+o mode "$mode_move_container"
 
-bindsym $mod+F5 move container to output LVDS1
-
-
 bindsym $mod+c exec ~/.i3/switch.py
 
 force_focus_wrapping yes
