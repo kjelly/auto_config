@@ -37,3 +37,4 @@ nosetests.xml
 
 *~
 i3/data/
+.idea
