@@ -17,4 +17,4 @@ def pip_install(package):
 
 
 apt_get_install("pcmanfm")
-apt_get_install("pcmanx-gtk")
+apt_get_install("pcmanx-gtk2")
