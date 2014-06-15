@@ -19,4 +19,6 @@ def pip_install(package):
 apt_get_install("build-essential")
 apt_get_install("python-dev")
 apt_get_install("wireless-tools")
+apt_get_install("scala")
+apt_get_install("golang")
 pip_install("virtualenvwrapper")
