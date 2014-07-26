@@ -16,7 +16,30 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 font xft:Droid Sans 12
 
 # Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+# floating_modifier $mod
+
+floating_minimum_size 800x600
+# floating_maximum_size 1024x768
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+        position top
+        # status_command i3status
+        # status_command ~/.i3/conky
+        status_command py3status -c ~/.i3/i3status.conf -i ~/.i3/modules
+
+        font pango: Droid Sans Mono 14
+        colors { 
+                statusline #AAAAAA
+                background #333333
+                focused_workspace $gray2 $gray2 #FFFFFF
+                inactive_workspace $gray1 $gray1 #AAAAAA
+        }
+}
+
+focus_follows_mouse  no
+force_focus_wrapping yes
 
 # start a terminal
 bindsym $mod+Return exec terminator
@@ -65,12 +88,6 @@ bindsym $mod+f fullscreen
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout splith
 bindsym $mod+q layout splitv
-
-# toggle tiling / floating
-bindsym $mod+Shift+A floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+a focus mode_toggle
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -131,25 +148,17 @@ mode "resize" {
 
 bindsym $mod+Shift+s mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-        position top
-        # status_command i3status
-        # status_command ~/.i3/conky
-        status_command py3status -c ~/.i3/i3status.conf -i ~/.i3/modules
-
-        font pango: Droid Sans Mono 14
-        colors { 
-                statusline #AAAAAA
-                background #333333
-                focused_workspace $gray2 $gray2 #FFFFFF
-                inactive_workspace $gray1 $gray1 #AAAAAA
-        }
-}
-
+# scratchpad
 bindsym $mod+m move scratchpad
+bindsym $mod+Shift+m scratchpad show
 bindsym $mod+comma scratchpad show
+
+# toggle tiling / floating
+bindsym $mod+Shift+A floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+a focus mode_toggle
+
 
 bindsym $mod+F4 kill
 
@@ -169,8 +178,6 @@ bindsym XF86Calculator exec "xcalc"
 bindsym XF86Mail exec "gogole-chrome mail.google.com"
 bindsym XF86HomePage exec "google-chrome google.com"
 
-
-
 bindsym XF86KbdBrightnessDown exec "sudo /opt/kbdlight/bin/kbdlight -"
 bindsym XF86KbdBrightnessUp exec "sudo /opt/kbdlight/bin/kbdlight +"
 bindsym XF86TouchpadToggle exec "synclient TouchpadOff=$(synclient | awk '/TouchpadOff/ {print ($3+1)%2}')"
@@ -181,7 +188,6 @@ bindsym $mod+apostrophe move workspace to output right
 bindsym $mod+Shift+colon exec ~/.i3/move_container_left.py
 bindsym $mod+Shift+quotedbl exec ~/.i3/move_container_right.py
 
-focus_follows_mouse  no
 
 # container navigation
 bindsym $mod+u focus parent
@@ -192,10 +198,6 @@ bindsym $mod+p workspace prev_on_output
 
 bindsym $mod+Shift+N workspace next
 bindsym $mod+Shift+P workspace prev
-
-# bindsym $mod+z exec ~/.i3/focus_screen0.py
-# bindsym $mod+z exec ~/.i3/focus_screen.py 0
-# bindsym $mod+o exec ~/.i3/focus_screen1.py
 
 set $mode_screen_output focus output
 
@@ -229,7 +231,7 @@ mode "$mode_swap_workspace" {
     bindsym 7 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 7, mode "default"
     bindsym 8 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 8, mode "default"
     bindsym 9 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 9, mode "default"
-    bindsym 0 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 0, mode "default"
+    bindsym 0 exec --no-startup-id ~/.i3/swap_workspace_with_current.py 10, mode "default"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -238,13 +240,6 @@ bindsym $mod+s mode "$mode_swap_workspace"
 
 bindsym $mod+c exec ~/.i3/switch.py
 
-force_focus_wrapping yes
-
-exec /usr/bin/nm-applet
-exec /usr/bin/gnome-sound-applet
-exec cinnamon-sound-applet
-exec bash ~/.i3/dual_screen.sh
-exec workrave
 
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
@@ -261,12 +256,19 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 bindsym Pause mode "$mode_system"
-exec feh --bg-scale ~/Pictures/background.jpg
 
 bindsym $mod+space layout toggle all
 bindsym $mod+Shift+space layout toggle all
 
 bindsym Print exec xfce4-screenshooter
+bindsym $mod+g exec quickswitch.py
+
+exec feh --bg-scale ~/Pictures/background.jpg
 exec bash ~/.i3/run_xfce4_panel.sh
 
-bindsym $mod+g exec quickswitch.py
+exec /usr/bin/nm-applet
+exec /usr/bin/gnome-sound-applet
+exec cinnamon-sound-applet
+exec bash ~/.i3/dual_screen.sh
+exec workrave
+
