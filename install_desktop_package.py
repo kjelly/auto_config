@@ -16,10 +16,5 @@ def pip_install(package):
     sudo(cmd)
 
 
-apt_get_install("build-essential")
-apt_get_install("python-dev")
-apt_get_install("wireless-tools")
-apt_get_install("vim")
-apt_get_install("golang")
-apt_get_install("python-pip")
-pip_install("virtualenvwrapper")
+apt_get_install("pcmanfm")
+apt_get_install("pcmanx-gtk2")
