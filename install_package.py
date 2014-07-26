@@ -14,3 +14,4 @@ def apt_get_install(package):
 apt_get_install("build-essential")
 apt_get_install("python-dev")
 apt_get_install("wireless-tools")
+os.system("sudo pip install virtualenvwrapper")
