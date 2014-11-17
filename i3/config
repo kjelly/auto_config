@@ -9,10 +9,10 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod mod4
 
 # font for window titles. ISO 10646 = Unicode
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 font xft:Droid Sans 12
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -29,7 +29,7 @@ bar {
         # status_command ~/.i3/conky
         status_command py3status -c ~/.i3/i3status.conf -i ~/.i3/modules
 
-        font pango: Droid Sans Mono 14
+        font pango: Droid Sans Mono 12
         colors { 
                 statusline #AAAAAA
                 background #333333
