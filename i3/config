@@ -46,6 +46,7 @@ bindsym $mod+Return exec terminator
 
 # kill focused window
 bindsym $mod+Shift+C kill
+bindsym $mod+Shift+X kill
 
 # start dmenu (a program launcher)
 bindsym $mod+r exec dmenu_run
@@ -272,4 +273,4 @@ exec cinnamon-sound-applet
 exec bash ~/.i3/dual_screen.sh
 exec workrave
 exec xmodmap ~/.Xmodmap
-
+exec xbindkeys
