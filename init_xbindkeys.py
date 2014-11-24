@@ -13,5 +13,6 @@ def make_link_for_file(name):
 make_link_for_file('send_key.py')
 make_link_for_file('.xbindkeysrc')
 
-os.system("sudo apt-get install xbindkeys")
+os.system("sudo apt-get install xbindkeys xvkbd")
+os.system("sudo pip install psutil")
 
