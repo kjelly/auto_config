@@ -441,11 +441,11 @@ let NERDTreeMapOpenInTab='<ENTER>'
 
 "tab mappings
 nmap <C-t> :tabnew<CR>
-nmap <C-x> :tabclose<CR>
+nmap <C-c> :tabclose<CR>
 
 
-nmap <C-[> gT
-nmap <C-]> gt
+nmap <C-a> gT
+nmap <C-d> gt
 
 "autocmd VimEnter * NERDTree
 "autocmd BufEnter * NERDTreeMirror
