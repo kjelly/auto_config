@@ -417,6 +417,12 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'winmanager'
 Bundle 'vim-scripts/grep.vim'
 Bundle 'vim-scripts/OmniCppComplete'
+Bundle 'VimExplorer'
+Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-surround'
+
 
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
@@ -428,3 +434,18 @@ let g:winManagerWindowLayout='FileExplorer'
 nmap wm :WMToggle<cr>
 
 filetype plugin indent on     " required!
+
+map <C-n> :NERDTreeToggle<CR>
+let NERDTreeMapOpenInTab='<ENTER>'
+
+
+"tab mappings
+nmap <C-t> :tabnew<CR>
+nmap <C-x> :tabclose<CR>
+
+
+nmap <C-[> gT
+nmap <C-]> gt
+
+"autocmd VimEnter * NERDTree
+"autocmd BufEnter * NERDTreeMirror
