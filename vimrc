@@ -414,10 +414,17 @@ Bundle 'https://github.com/jnwhiteh/vim-golang'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'JesseKPhillips/d.vim'
 Bundle 'pangloss/vim-javascript'
+Bundle 'winmanager'
+Bundle 'vim-scripts/grep.vim'
+Bundle 'vim-scripts/OmniCppComplete'
 
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
 let g:vim_markdown_folding_disabled=1
+
+
+let g:winManagerWindowLayout='FileExplorer'
+nmap wm :WMToggle<cr>
 
 filetype plugin indent on     " required!
