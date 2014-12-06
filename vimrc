@@ -436,7 +436,8 @@ nmap wm :WMToggle<cr>
 filetype plugin indent on     " required!
 
 map <C-n> :NERDTreeToggle<CR>
-let NERDTreeMapOpenInTab='<ENTER>'
+let NERDTreeMapOpenInTab='<TAB>'
+let g:nerdtree_tabs_focus_on_files=1
 
 
 "tab mappings
@@ -447,5 +448,3 @@ nmap <C-c> :tabclose<CR>
 nmap <C-a> gT
 nmap <C-d> gt
 
-"autocmd VimEnter * NERDTree
-"autocmd BufEnter * NERDTreeMirror
