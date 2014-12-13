@@ -130,3 +130,5 @@ source ~/.liquidprompt/liquidprompt
 export LP_PS1_PREFIX="[+${SHLVL}]"
 
 source ~/.local_bashrc
+
+export PATH="`pwd`/mybin/:$PATH"
