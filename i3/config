@@ -57,12 +57,6 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
 # move focused window
 bindsym $mod+Shift+H move left
 bindsym $mod+Shift+J move down
@@ -264,8 +258,13 @@ bindsym $mod+Shift+space layout toggle all
 bindsym Print exec xfce4-screenshooter
 bindsym $mod+g exec quickswitch.py
 
+bindsym $mod+Left exec xbacklight -5
+bindsym $mod+Right exec xbacklight +5
+bindsym $mod+Up exec amixer -q sset Master 2%+
+bindsym $mod+Down exec amixer -q sset Master 2%-
+
 exec feh --bg-scale ~/Pictures/background.jpg
-exec bash ~/.i3/run_xfce4_panel.sh
+# exec bash ~/.i3/run_xfce4_panel.sh
 
 exec /usr/bin/nm-applet
 exec /usr/bin/gnome-sound-applet
