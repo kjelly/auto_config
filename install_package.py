@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 import os
+import os.path
+from common.dir_operator import make_link, get_home_dir, get_project_dir
 
 
 def sudo(cmd):
@@ -24,3 +26,4 @@ apt_get_install("golang")
 apt_get_install("scala")
 apt_get_install("python-pip")
 pip_install("virtualenvwrapper")
+make_link(os.path.join('gitconfig'),os.path.join(get_home_dir(), '.gitconfig'))
