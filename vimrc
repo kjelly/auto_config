@@ -422,10 +422,18 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-surround'
-
-
+"Bundle 'suan/vim-instant-markdown'
+Bundle 'vim-markdown-preview'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+"Plugin 'conque'
+
+
+Plugin 'honza/vim-snippets'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'tpope/vim-fugitive'
+Plugin 'bling/vim-airline'
+
 
 let g:vim_markdown_folding_disabled=1
 
