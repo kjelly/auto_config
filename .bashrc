@@ -136,6 +136,7 @@ export PATH="`pwd`/mybin/:$PATH"
 # if $STY is not set...
 if [ -z "$STY" ]; then
     # exec screen -ARR
-    screen -ls|grep ".terminator" | grep Detached| awk '{print $1}'| xargs -I{} screen -S {} -X quit
-    exec screen -S terminator
+    # screen -ls|grep ".terminator" | grep Detached| awk '{print $1}'| xargs -I{} screen -S {} -X quit
+    # exec screen -S terminator
+    alias vt='vim -c ":ConqueTerm bash"'
 fi
