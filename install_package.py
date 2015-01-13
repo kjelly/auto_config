@@ -21,7 +21,7 @@ def pip_install(package):
 apt_get_install("build-essential")
 apt_get_install("python-dev")
 apt_get_install("wireless-tools")
-apt_get_install("vim")
+apt_get_install("vim-gtk")
 apt_get_install("golang")
 apt_get_install("scala")
 apt_get_install("python-pip")
