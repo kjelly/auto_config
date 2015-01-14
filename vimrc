@@ -426,6 +426,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'vim-markdown-preview'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'adimit/prolog.vim'
 "Plugin 'conque'
 
 
