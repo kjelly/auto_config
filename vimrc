@@ -455,4 +455,4 @@ nmap <C-c> :tabclose<CR>
 
 nmap <C-a> gT
 nmap <C-d> gt
-set keywordprg=sdcvl.sh
+set keywordprg=sdcvh.sh
