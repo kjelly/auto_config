@@ -456,3 +456,5 @@ nmap <C-c> :tabclose<CR>
 nmap <C-a> gT
 nmap <C-d> gt
 set keywordprg=sdcvh.sh
+"set whichwrap+=h,l
+set whichwrap+=<,>,[,],s,b
