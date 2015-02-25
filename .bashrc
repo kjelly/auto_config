@@ -140,3 +140,5 @@ if [ -z "$STY" ]; then
     # exec screen -S terminator
     alias vt='vim -c ":ConqueTerm bash"'
 fi
+
+alias tclsh=’rlwrap -c tclsh8.6’
