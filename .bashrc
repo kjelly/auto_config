@@ -141,4 +141,5 @@ if [ -z "$STY" ]; then
     alias vt='vim -c ":ConqueTerm bash"'
 fi
 
-alias tclsh=’rlwrap -c tclsh8.6’
+alias tclsh='rlwrap -c tclsh8.6'
+[[ $TERM != "screen" ]] && exec tmux
