@@ -6,7 +6,7 @@ from os import listdir
 target = os.path.join(get_home_dir(), '.bashrc')
 
 config_parent_path = os.path.dirname(__file__)
-config_path = os.path.join(config_parent_path, '.bashrc')
+config_path = os.path.join(config_parent_path, 'bashrc')
 make_link(config_path, target)
 
 os.chdir(get_home_dir())
