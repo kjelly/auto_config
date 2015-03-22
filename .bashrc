@@ -142,4 +142,3 @@ if [ -z "$STY" ]; then
 fi
 
 alias tclsh='rlwrap -c tclsh8.6'
-[[ $TERM != "screen" ]] && exec tmux
