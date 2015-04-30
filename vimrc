@@ -249,9 +249,6 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap VIM 0 to first non-blank character
-map 0 ^
-
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 nmap <M-j> mz:m+<cr>`z
 nmap <M-k> mz:m-2<cr>`z
@@ -410,7 +407,7 @@ let popup_select_first = 0
 let @/ = ""
 set nu
 Bundle 'git://github.com/davidhalter/jedi-vim'
-Bundle 'https://github.com/jnwhiteh/vim-golang'
+Bundle 'fatih/vim-go'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'JesseKPhillips/d.vim'
 Bundle 'pangloss/vim-javascript'
@@ -426,7 +423,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'vim-markdown-preview'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-"Plugin 'conque'
+Plugin 'adimit/prolog.vim'
 
 
 Plugin 'honza/vim-snippets'
@@ -455,4 +452,6 @@ nmap <C-c> :tabclose<CR>
 
 nmap <C-a> gT
 nmap <C-d> gt
-
+set keywordprg=sdcvh.sh
+"set whichwrap+=h,l
+set whichwrap+=<,>,[,],s,b
