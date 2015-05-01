@@ -11,5 +11,5 @@ make_link('%s/atom/config.cson' % config_path, '%s/.atom/config.cson' % get_home
 make_link('%s/atom/keymap.cson' % config_path, '%s/.atom/keymap.cson' % get_home_dir())
 
 os.system("apm install  autocomplete-plus")
-os.system("apm install  autocomplete-plus")
+os.system("apm install  language-restructuredtext")
 os.system("apm install  language-scala")

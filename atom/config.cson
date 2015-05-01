@@ -8,4 +8,6 @@
     'invisibles': {}
     'showInvisibles': true
     'tabLength': 4
+    'autoIndentOnPaste': true
+    'normalizeIndentOnPaste': false
 
