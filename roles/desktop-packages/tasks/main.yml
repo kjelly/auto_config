@@ -11,4 +11,5 @@
       - scim
       - scim-chewing
       - workrave
+      - xclip # for paste.sh
   sudo: yes
