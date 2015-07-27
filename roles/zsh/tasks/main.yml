@@ -15,7 +15,4 @@
   args:
       creates: "~/.zshrc"
 
-
-- lineinfile: dest=~/.zshrc line="export PROMPT=\"${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%~ %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} %# %{$reset_color%}\""
-
 - lineinfile: dest=~/.zshrc line="setopt append_history no_inc_append_history no_share_history"
