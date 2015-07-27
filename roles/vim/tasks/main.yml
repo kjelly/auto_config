@@ -1,0 +1,16 @@
+---
+
+- name: Install vim package
+  apt: name={{ item }} state=installed
+  with_items:
+   - vim
+  sudo: yes
+
+- git: repo=https://github.com/gmarik/vundle.git
+       dest=~/.vim/bundle/vundle
+       depth=1
+
+
+- copy: src="../resources/vimrc" dest="~/.vimrc"
+
+- shell: "vim +PluginInstall +qall now"

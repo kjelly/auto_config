@@ -1,0 +1,32 @@
+---
+
+- name: Install i3 package
+  apt: name={{ item }} state=installed
+  with_items:
+      - i3
+      - i3status
+      - terminator
+      - python-pip
+      - dmenu
+      - xfce4-panel
+      - gnome-control-center
+      - xbacklight
+  sudo: yes
+ 
+- name: Install python package for i3
+  pip: name={{ item }}
+  with_items:
+      - i3-py 
+      - quickswitch-i3
+      - py3status
+  sudo: yes
+
+- copy: src="../resources/i3-config" dest="~/"
+- command: "rm -rf ~/.i3"
+  ignore_errors: True
+- command: "mv ~/i3-config ~/.i3"
+
+- copy: src="../resources/Xmodmap" dest="~/"
+- command: "rm -rf ~/.Xmodmap"
+  ignore_errors: True
+- command: "mv ~/Xmodmap ~/.Xmodmap"

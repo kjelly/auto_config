@@ -1,0 +1,9 @@
+---
+
+- name: Install package
+  apt: name={{ item }} state=installed
+  with_items:
+      - git
+  sudo: yes
+
+- copy: src="../resources/gitconfig" dest="~/.gitconfig"

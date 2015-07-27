@@ -1,0 +1,18 @@
+---
+
+- apt: name={{ item }} state=installed
+  with_items:
+   - xbindkeys
+   - xvkbd
+  sudo: yes
+
+- pip: name={{ item }}
+  with_items:
+      - psutil
+  sudo: yes
+
+- copy: src="../resources/send_key.py"
+        dest="~/send_key.py"
+
+- copy: src="../resources/xbindkeysrc"
+        dest="~/.xbindkeysrc"

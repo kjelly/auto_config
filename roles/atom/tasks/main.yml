@@ -1,0 +1,16 @@
+---
+
+- name: download atom package
+  get_url: url=https://atom.io/download/deb dest=/tmp/atom.deb
+
+- apt: deb=/tmp/atom.deb
+  sudo: yes
+
+
+- shell: apm install {{ item }}
+  with_items:
+      - language-scala
+      - autocomplete-plus
+
+- copy: src="../resources/config.cson" dest="~/.atom/config.cson"
+- copy: src="../resources/keymap.cson" dest="~/.atom/keymap.cson"

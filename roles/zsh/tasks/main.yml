@@ -1,0 +1,21 @@
+---
+
+- name: Install zsh package
+  apt: name={{ item }} state=installed
+  with_items:
+   - zsh
+   - git
+  sudo: yes
+
+- git: repo=https://github.com/robbyrussell/oh-my-zsh.git
+       dest="~/.oh-my-zsh"
+       depth=1
+
+- command: "cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc"
+  args:
+      creates: "~/.zshrc"
+
+
+- lineinfile: dest=~/.zshrc line="export PROMPT=\"${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%~ %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} %# %{$reset_color%}\""
+
+- lineinfile: dest=~/.zshrc line="setopt append_history no_inc_append_history no_share_history"

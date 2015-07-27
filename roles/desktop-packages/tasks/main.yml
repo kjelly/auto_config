@@ -1,0 +1,14 @@
+---
+
+- name: Install desktop package
+  apt: name={{ item }} state=installed
+  with_items:
+      - virtualbox-qt
+      - virtualbox-dkms
+      - pcmanfm
+      - pcmanx-gtk2
+      - vifm
+      - scim
+      - scim-chewing
+      - workrave
+  sudo: yes
