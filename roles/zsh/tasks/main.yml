@@ -16,3 +16,7 @@
       creates: "~/.zshrc"
 
 - lineinfile: dest=~/.zshrc line="setopt append_history no_inc_append_history no_share_history"
+
+- lineinfile: dest=~/.zshrc line="export PATH=\"`pwd`/mybin/:$PATH\""
+- lineinfile: dest=~/.zshrc line="source ~/.local_zshrc"
+- lineinfile: dest=~/.zshrc line="export GOPATH=~/GOPATH"
