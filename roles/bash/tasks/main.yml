@@ -16,5 +16,3 @@
 - copy: src="../resources/bashrc" dest="~/.bashrc"
 
 - shell: "touch ~/.local_bashrc"
-
-- shell: "cat /etc/skel/.bashrc >> ~/.bashrc"
