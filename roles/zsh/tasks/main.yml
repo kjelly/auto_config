@@ -15,6 +15,10 @@
   args:
       creates: "~/.zshrc"
 
+- command: "touch ~/.local_zshrc"
+  args:
+      creates: "~/.local_zshrc"
+
 - lineinfile: dest=~/.zshrc line="setopt append_history no_inc_append_history no_share_history"
 
 - lineinfile: dest=~/.zshrc line="export PATH=\"`pwd`/mybin/:$PATH\""
