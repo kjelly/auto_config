@@ -11,9 +11,12 @@
        dest="~/.oh-my-zsh"
        depth=1
 
-- command: "cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc"
-  args:
-      creates: "~/.zshrc"
+#- command: "cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc"
+#  args:
+#      creates: "~/.zshrc"
+
+- template: src=zshrc dest=~/.zshrc mode=0644
+
 
 - command: "touch ~/.local_zshrc"
   args:
