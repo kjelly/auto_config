@@ -8,7 +8,7 @@ def get_remote_url():
     return output
 
 def get_username_and_repository_from_http_url(url):
-    result = re.search('https://github.com/(?P<username>\w+)/(?P<respository>\w+)(\.git)?', url)
+    result = re.search('https://github.com/(?P<username>\w+)/(?P<respository>(\w|[\-_])+)(\.git)?', url)
     if result:
         return result.groupdict()
     ret = {}
