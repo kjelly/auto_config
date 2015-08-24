@@ -21,12 +21,12 @@
       - py3status
   sudo: yes
 
-- copy: src="../resources/i3-config" dest="~/"
+- copy: src="i3-config" dest="~/"
 - command: "rm -rf ~/.i3"
   ignore_errors: True
 - command: "mv ~/i3-config ~/.i3"
 
-- copy: src="../resources/Xmodmap" dest="~/"
+- copy: src="Xmodmap" dest="~/"
 - command: "rm -rf ~/.Xmodmap"
   ignore_errors: True
 - command: "mv ~/Xmodmap ~/.Xmodmap"

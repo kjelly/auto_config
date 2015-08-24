@@ -6,4 +6,4 @@
       - git
   sudo: yes
 
-- copy: src="../resources/gitconfig" dest="~/.gitconfig"
+- copy: src="gitconfig" dest="~/.gitconfig"

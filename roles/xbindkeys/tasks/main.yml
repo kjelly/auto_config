@@ -11,8 +11,8 @@
       - psutil
   sudo: yes
 
-- copy: src="../resources/send_key.py"
+- copy: src="send_key.py"
         dest="~/send_key.py"
 
-- copy: src="../resources/xbindkeysrc"
+- copy: src="xbindkeysrc"
         dest="~/.xbindkeysrc"

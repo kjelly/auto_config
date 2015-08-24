@@ -12,5 +12,5 @@
       - language-scala
       - autocomplete-plus
 
-- copy: src="../resources/config.cson" dest="~/.atom/config.cson"
-- copy: src="../resources/keymap.cson" dest="~/.atom/keymap.cson"
+- copy: src="config.cson" dest="~/.atom/config.cson"
+- copy: src="keymap.cson" dest="~/.atom/keymap.cson"
