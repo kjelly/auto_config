@@ -11,6 +11,7 @@
       - xfce4-panel
       - gnome-control-center
       - xbacklight
+      - feh
   sudo: yes
  
 - name: Install python package for i3
@@ -30,3 +31,28 @@
 - command: "rm -rf ~/.Xmodmap"
   ignore_errors: True
 - command: "mv ~/Xmodmap ~/.Xmodmap"
+
+- file: path=~/.i3/{{ item }} mode=u+x
+  with_items:
+      - auto_config_resolution.py
+      - focus_screen.py
+      - go_to_window.py
+      - i3.py
+      - lib.py
+      - move_container_left.py
+      - move_container.py
+      - move_container_right.py
+      - move_workspace_left.py
+      - move_workspace_right.py
+      - quick_switch.py
+      - show_output_workspace.py
+      - show_tiling_window_from_scratchpad.py
+      - show_weather.py
+      - swap.py
+      - swap_workspace_with_current.py
+      - switch.py
+      - dual_screen.sh
+      - rename_worksapce.sh
+      - run_xfce4_panel.sh
+      - swap_workspace.sh
+      - i3exit
