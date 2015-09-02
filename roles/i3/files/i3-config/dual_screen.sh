@@ -5,5 +5,5 @@ xrandr --output $screen1 --mode 1920x1080
 xrandr --output $screen2 --mode 1440x900
 xrandr --output $screen2 --left-of $screen1
 #xrandr --output $screen1 --primary
-feh --bg-scale ~/Picture/background.jpg
+feh --bg-scale ~/Pictures/background.jpg
 
