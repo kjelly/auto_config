@@ -11,6 +11,8 @@
   with_items:
       - language-scala
       - autocomplete-plus
+      - scala-format
+      - scala-worksheet
 
 - copy: src="config.cson" dest="~/.atom/config.cson"
 - copy: src="keymap.cson" dest="~/.atom/keymap.cson"
