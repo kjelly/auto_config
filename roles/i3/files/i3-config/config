@@ -181,11 +181,13 @@ bindsym XF86AudioPrev exec "~/.bin/player previous"
 
 bindsym XF86Calculator exec "xcalc"
 # bindsym XF86Sleep exec ""
-bindsym XF86Mail exec "gogole-chrome mail.google.com"
-bindsym XF86HomePage exec "google-chrome google.com"
+bindsym XF86Mail exec "google-chrome mail.google.com"
+bindsym XF86HomePage exec "pcmanfm"
+bindsym XF86Tools exec "google-chrome https://goo.gl/MmPXmJ"
+bindsym XF86Explorer exec "vlc"
 
-bindsym XF86KbdBrightnessDown exec "sudo /opt/kbdlight/bin/kbdlight -"
-bindsym XF86KbdBrightnessUp exec "sudo /opt/kbdlight/bin/kbdlight +"
+bindsym XF86KbdBrightnessDown exec "xbacklight -5"
+bindsym XF86KbdBrightnessUp exec "xbacklight +5"
 bindsym XF86TouchpadToggle exec "synclient TouchpadOff=$(synclient | awk '/TouchpadOff/ {print ($3+1)%2}')"
 
 # move container between displays
