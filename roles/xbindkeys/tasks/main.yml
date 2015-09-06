@@ -13,6 +13,7 @@
 
 - copy: src="send_key.py"
         dest="~/send_key.py"
+        mode="u+x"
 
 - copy: src="xbindkeysrc"
         dest="~/.xbindkeysrc"
