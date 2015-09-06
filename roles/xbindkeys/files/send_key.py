@@ -18,7 +18,7 @@ def get_active_window_pid():
 
 
 def find_all_subprocess_cmdline(pid):
-    process_list = psutil.Process(pid).get_children(recursive=True)
+    process_list = psutil.Process(pid).children(recursive=True)
     cmd_list = map(lambda s: ' '.join(s.cmdline()), process_list)
     logging.debug(cmd_list)
     return cmd_list
