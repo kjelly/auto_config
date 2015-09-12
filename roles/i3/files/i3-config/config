@@ -282,7 +282,7 @@ exec feh --bg-scale ~/Pictures/background.jpg
 exec /usr/bin/nm-applet
 exec /usr/bin/gnome-sound-applet
 exec cinnamon-sound-applet
-# exec bash ~/.i3/dual_screen.sh
+exec bash ~/.i3/dual_screen.sh
 exec workrave
 exec xmodmap ~/.Xmodmap
 exec xbindkeys
