@@ -286,3 +286,4 @@ exec cinnamon-sound-applet
 exec workrave
 exec xmodmap ~/.Xmodmap
 exec xbindkeys
+exec touchegg& 

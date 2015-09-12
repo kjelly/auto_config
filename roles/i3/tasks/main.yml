@@ -12,6 +12,7 @@
       - gnome-control-center
       - xbacklight
       - feh
+      - touchegg
   sudo: yes
  
 - name: Install python package for i3
@@ -56,3 +57,10 @@
       - run_xfce4_panel.sh
       - swap_workspace.sh
       - i3exit
+
+- command: "mkdir -p ~/.config/touchegg/"
+  args:
+      creates: "~/.config/touchegg"
+
+- copy: src="touchegg.conf" dest="~/.config/touchegg/" 
+
