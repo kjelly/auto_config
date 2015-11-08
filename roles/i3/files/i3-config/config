@@ -30,7 +30,7 @@ bar {
         status_command py3status -c ~/.i3/i3status.conf -i ~/.i3/modules
 
         font pango: Droid Sans Mono 12
-        colors { 
+        colors {
                 statusline #AAAAAA
                 background #333333
                 focused_workspace $gray2 $gray2 #FFFFFF
@@ -276,6 +276,8 @@ bindsym $mod+Right exec xbacklight +5
 bindsym $mod+Up exec amixer -q sset Master 2%+
 bindsym $mod+Down exec amixer -q sset Master 2%-
 
+bindsym mod4+XF86TouchpadToggle exec unity-control-center
+
 exec feh --bg-scale ~/Pictures/background.jpg
 # exec bash ~/.i3/run_xfce4_panel.sh
 
@@ -286,4 +288,4 @@ exec bash ~/.i3/dual_screen.sh
 exec workrave
 exec xmodmap ~/.Xmodmap
 exec xbindkeys
-exec touchegg& 
+exec touchegg&
