@@ -5,7 +5,7 @@
   with_items:
       - build-essential
       - python-dev
-      - vim-gtk
+      - vim
       - golang
       - scala
       - python-pip
