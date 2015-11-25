@@ -7,6 +7,7 @@
 - name: unzip sbt.zip
   unarchive: src=/tmp/sbt.zip dest=~/
 
+- file: path=~/mybin/ state=directory
 
 - name: link sbt
   file: src=~/sbt/bin/sbt dest=~/mybin/sbt state=link
