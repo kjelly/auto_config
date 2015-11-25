@@ -1,7 +1,7 @@
 ---
 
 - name: install
-  remote_user: root
+  remote_user: "{{ ansible_user }}"
   hosts: target
 
   roles:
