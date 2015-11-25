@@ -5,12 +5,17 @@
   hosts: target
 
   roles:
-      - common-packages
-      - developer-packages
-      - sdcv
-      - zsh
+      - activator
+      - atom
       - bash
+      - common-packages
       - desktop-packages
+      - developer-packages
+      - docker
       - i3
+      - mybin
+      - sbt
+      - sdcv
       - vim
       - xbindkeys
+      - zsh
