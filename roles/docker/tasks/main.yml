@@ -1,7 +1,7 @@
 ---
 
 - name: Install curl package
-  apt: name=curl state=installed
+  apt: name=curl state=present
   sudo: yes
 
 
