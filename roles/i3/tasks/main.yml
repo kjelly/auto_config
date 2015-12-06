@@ -13,12 +13,13 @@
       - xbacklight
       - feh
       - touchegg
+      - acpi
   sudo: yes
- 
+
 - name: Install python package for i3
   pip: name={{ item }}
   with_items:
-      - i3-py 
+      - i3-py
       - quickswitch-i3
       - py3status
   sudo: yes
@@ -62,5 +63,5 @@
   args:
       creates: "~/.config/touchegg"
 
-- copy: src="touchegg.conf" dest="~/.config/touchegg/" 
+- copy: src="touchegg.conf" dest="~/.config/touchegg/"
 
