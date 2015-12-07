@@ -17,9 +17,8 @@ class Py3status:
         # the current user doesnt change so much, cache it good
         CACHE_TIMEOUT = 600
 
-        raw = check_output('acpi -t', shell=True)
-        temp = raw.split(',')[1].split('degrees')[0].strip()
-        text = 'CPU: %s °C' % temp
+        raw = check_output("sensors|grep 'Core 0'|awk '{print $3 }'", shell=True).strip()
+        text = 'CPU: %s' % raw
 
         # set, cache and return the output
         response = {'full_text': text, 'name': 'cpu-temp'}

@@ -13,7 +13,7 @@
       - xbacklight
       - feh
       - touchegg
-      - acpi
+      - lm-sensors
   sudo: yes
 
 - name: Install python package for i3
