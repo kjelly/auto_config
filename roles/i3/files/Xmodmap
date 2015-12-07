@@ -5,7 +5,7 @@ add mod1 = Super_L
 add mod4 = Alt_L
 
 ! Swap caps lock and escape
-remove Lock = Caps_Lock
-keysym Escape = Caps_Lock
+clear Lock
 keysym Caps_Lock = Escape
+keysym Escape = Caps_Lock
 add Lock = Caps_Lock
