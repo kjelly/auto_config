@@ -1,11 +1,3 @@
-! Exchange left Alt and left Win
-remove mod1 = Alt_L
-remove mod4 = Super_L
-add mod1 = Super_L
-add mod4 = Alt_L
-
 ! Swap caps lock and escape
 clear Lock
-keysym Caps_Lock = Escape
 keysym Escape = Caps_Lock
-add Lock = Caps_Lock
