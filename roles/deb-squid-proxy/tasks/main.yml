@@ -1,0 +1,14 @@
+---
+
+- name: install squid and squidclient
+  apt: name={{ item }} state=present
+  with_items:
+   - squid3
+   - squidclient
+  sudo: yes
+  when: ansible_os_family == "Debian"
+
+- name: config
+  template: src=squid.conf.j2 dest=/etc/squid3/squid.conf mode=0644
+  sudo: yes
+
