@@ -19,5 +19,5 @@ def get_username_and_repository_from_http_url(url):
 
 url = get_remote_url()
 git_info = get_username_and_repository_from_http_url(url)
-os.system("git remote set-url origin git@github.com:%s/%s.git" % (git_info['username'], git_info['respository']))
+os.system("git remote set-url --push origin git@github.com:%s/%s.git" % (git_info['username'], git_info['respository']))
 
