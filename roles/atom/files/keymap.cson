@@ -1,2 +1,6 @@
 '.editor':
   'alt-/': 'autocomplete:toggle'
+  'alt-space': 'autocomplete:toggle'
+'body':
+  'ctrl-tab': 'pane:show-next-item'
+  'ctrl-shift-tab': 'pane:show-previous-item'

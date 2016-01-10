@@ -13,6 +13,7 @@
       - autocomplete-plus
       - scala-format
       - scala-worksheet
-
+      - vim-mode
+      - autocomplete
 - copy: src="config.cson" dest="~/.atom/config.cson"
 - copy: src="keymap.cson" dest="~/.atom/keymap.cson"
