@@ -1,11 +1,17 @@
-'global':
-  'exception-reporting':
-    'userId': '637beacd-ee69-b640-10b9-d7eaba53daa6'
-  'welcome':
-    'showOnStartup': false
-  'core': {}
-  'editor':
-    'invisibles': {}
-    'showInvisibles': true
-    'tabLength': 4
+"*":
+  "exception-reporting":
+    userId: "637beacd-ee69-b640-10b9-d7eaba53daa6"
+  welcome:
+    showOnStartup: false
+  core: {}
+  editor:
+    invisibles: {}
+    showInvisibles: true
+    tabLength: 4
+    fontSize: 20
+    showIndentGuide: true
+  "tree-view": {}
 
+ '.slim.text':
+   whitespace:
+     removeTrailingWhitespace: true
