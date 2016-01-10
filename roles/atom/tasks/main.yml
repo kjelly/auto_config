@@ -15,5 +15,6 @@
       - scala-worksheet
       - vim-mode
       - autocomplete
+      - atom-beautify
 - copy: src="config.cson" dest="~/.atom/config.cson"
 - copy: src="keymap.cson" dest="~/.atom/keymap.cson"
