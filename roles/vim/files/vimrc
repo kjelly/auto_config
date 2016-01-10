@@ -431,6 +431,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
+Plugin 'pearofducks/ansible-vim'
 
 
 let g:vim_markdown_folding_disabled=1
