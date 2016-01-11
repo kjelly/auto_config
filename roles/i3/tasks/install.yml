@@ -1,0 +1,24 @@
+---
+- name: Install i3 package
+  apt: name={{ item }} state=present
+  with_items:
+      - i3
+      - i3status
+      - terminator
+      - python-pip
+      - dmenu
+      - xfce4-panel
+      - gnome-control-center
+      - xbacklight
+      - feh
+      - touchegg
+      - lm-sensors
+  sudo: yes
+
+- name: Install python package for i3
+  pip: name={{ item }}
+  with_items:
+      - i3-py
+      - quickswitch-i3
+      - py3status
+  sudo: yes
