@@ -2,7 +2,7 @@
 
 - name: install
   remote_user: "{{ ansible_user }}"
-  hosts: target
+  hosts: "{{ group }}"
 
   roles:
       - activator
