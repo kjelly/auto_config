@@ -4,3 +4,11 @@
   with_items:
    - bash-completion
   sudo: yes
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install bash-completion package
+  dnf: name={{ item }} state=present
+  with_items:
+   - bash-completion
+  sudo: yes
+  when: ansible_distribution == 'Fedora'
