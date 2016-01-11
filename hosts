@@ -1,3 +1,7 @@
-[target]
+[local]
 localhost       ansible_connection=local
+
+[remote]
+"{{ ip }}"
+
 
