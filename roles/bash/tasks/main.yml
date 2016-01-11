@@ -1,18 +1,2 @@
 ---
-- name: Install bash-completion package
-  apt: name={{ item }} state=present
-  with_items:
-   - bash-completion
-  sudo: yes
-
-- git: repo=https://github.com/magicmonty/bash-git-prompt.git
-       dest=~/.bash-git-prompt
-       depth=1
-
-- git: repo=https://github.com/nojhan/liquidprompt
-       dest=~/.liquidprompt
-       depth=1
-
-- copy: src="../resources/bashrc" dest="~/.bashrc"
-
-- shell: "touch ~/.local_bashrc"
+- include: "{{ action }}.yml"

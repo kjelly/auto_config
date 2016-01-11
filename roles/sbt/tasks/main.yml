@@ -1,13 +1,2 @@
 ---
-
-- name: download sbt.zip
-  get_url: url=https://dl.bintray.com/sbt/native-packages/sbt/0.13.9/sbt-0.13.9.zip dest=/tmp/sbt.zip
-
-
-- name: unzip sbt.zip
-  unarchive: src=/tmp/sbt.zip dest=~/
-
-- file: path=~/mybin/ state=directory
-
-- name: link sbt
-  file: src=~/sbt/bin/sbt dest=~/mybin/sbt state=link
+- include: "{{ action }}.yml"

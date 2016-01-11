@@ -1,0 +1,4 @@
+---
+- copy: src="vimrc" dest="~/.vimrc"
+
+- shell: "vim +PluginInstall +qall now"

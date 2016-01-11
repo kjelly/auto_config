@@ -1,0 +1,53 @@
+---
+
+- apt: name={{ item }} state=present
+  with_items:
+      - w3m
+      - xclip
+      - docker.io
+      - qemu-kvm
+      - qemu-system
+      - qemu-common
+      - qemu-utils
+
+  sudo: yes
+
+- pip: name={{ item }}
+  with_items:
+      - docker-py
+  sudo: yes
+
+- file: path=~/mybin state=directory
+
+- copy: src="{{ item }}"
+        dest="~/mybin/{{ item }}"
+        mode=0755
+  with_items:
+      - asyn
+      - copy.sh
+      - init_sbt.py
+      - paste.sh
+      - p.py
+      - send_key.py
+      - set_cpu_governor.py
+      - to_ebook.sh
+      - to_mobi.sh
+      - to_utf8.py
+      - use_ssh_for_github.py
+      - ydict.sh
+      - dw.py
+      - cmd.py
+      - aboot_x86_64.sh
+      - boot_x86_64.sh
+      - aboot_x86.sh
+      - boot_x86.sh
+      - create_qcow2.sh
+      - del_qcow2_dev.sh
+      - mk_qcow2_dev.sh
+      - mount_qcow2.sh
+      - show_qcow2_partitions.sh
+
+
+- lineinfile: dest=~/.zshrc line="export PATH=\"`pwd`/mybin/:$PATH\""
+
+- lineinfile: dest=~/.bashrc line="export PATH=\"`pwd`/mybin/:$PATH\""

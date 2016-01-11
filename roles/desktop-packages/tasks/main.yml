@@ -1,15 +1,2 @@
 ---
-
-- name: Install desktop package
-  apt: name={{ item }} state=present
-  with_items:
-      - virtualbox-qt
-      - virtualbox-dkms
-      - pcmanfm
-      - pcmanx-gtk2
-      - vifm
-      - scim
-      - scim-chewing
-      - workrave
-      - xclip # for paste.sh
-  sudo: yes
+- include: "{{ action }}.yml"
