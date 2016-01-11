@@ -1,0 +1,3 @@
+---
+- copy: src="xbindkeysrc"
+        dest="~/.xbindkeysrc"

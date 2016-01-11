@@ -1,12 +1,3 @@
 ---
 
-- name: download activator.zip
-  get_url: url=https://downloads.typesafe.com/typesafe-activator/1.3.5/typesafe-activator-1.3.5-minimal.zip dest=/tmp/activator.zip validate_certs=False
-
-
-- name: unzip sbt.zip
-  unarchive: src=/tmp/activator.zip dest=~/
-
-
-#- name: link sbt
-#  file: src=~/sbt/bin/sbt dest=~/mybin/sbt state=link
+- include: "{{ action }}.yml"

@@ -1,0 +1,15 @@
+---
+
+- name: Install curl package
+  apt: name=curl state=present
+  sudo: yes
+
+- name: Install docker
+  shell: curl -sSL https://get.docker.com/ | sh
+  sudo: yes
+  args:
+    creates: /usr/bin/docker
+
+- name: add user to docker group
+  user: append=yes name={{ ansible_ssh_user }} groups=docker
+  sudo: yes
