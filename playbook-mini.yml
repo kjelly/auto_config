@@ -1,0 +1,10 @@
+---
+
+- name: install
+  remote_user: "{{ ansible_user }}"
+  hosts: "{{ group }}"
+
+  roles:
+      - bash
+      - vim
+      - zsh
