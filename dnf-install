@@ -1,0 +1,3 @@
+#! /bin/bash
+
+dnf install python-pip python-devel ansible git vim python-dnfdaemon python-dnf-plugins-core
