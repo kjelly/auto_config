@@ -2,3 +2,12 @@
 - copy: src="vimrc" dest="~/.vimrc"
 
 - shell: "vim +PluginInstall +qall now"
+
+- name: install YouCompleteMe
+  shell: ~/.vim/bundle/YouCompleteMe/install.py --clang-completer
+  args:
+    creates: ~/.vim/ycm_installed
+
+- name: mark ycm installed
+  shell: touch ~/.vim/ycm_installed
+

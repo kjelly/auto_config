@@ -408,6 +408,7 @@ let popup_select_first = 0
 let @/ = ""
 set nu
 Bundle 'git://github.com/davidhalter/jedi-vim'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'fatih/vim-go'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'JesseKPhillips/d.vim'
