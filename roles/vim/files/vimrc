@@ -461,3 +461,5 @@ nmap <leader>q :q<cr>
 nmap <leader>n :set nu!<cr>
 nmap <leader>w :set wrap!<cr>
 nmap <leader>sh :shell<cr>
+nmap <leader>sh :shell<cr>
+nmap <leader>vsh :VimShell<cr>
