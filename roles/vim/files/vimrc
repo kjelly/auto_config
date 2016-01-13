@@ -451,7 +451,10 @@ set whichwrap+=<,>,[,],s,b
 autocmd BufWritePre * :%s/\s\+$//e
 
 
-nmap <leader>gr :Grep<cr>
+nmap <leader>gro :Grep<cr>
+nmap <leader>grr :Rgrep<cr>
+nmap <leader>ge :Egrep<cr>
+nmap <leader>gb :Bgrep<cr>
 nmap <leader>q :q<cr>
 nmap <leader>n :set nu!<cr>
 nmap <leader>w :set wrap!<cr>
