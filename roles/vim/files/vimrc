@@ -272,10 +272,10 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 vnoremap <silent> gv :call VisualSelection('gv')<CR>
 
 " Open vimgrep and put the cursor in the right position
-map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
+map <leader>gv :vimgrep // **/* <left><left><left><left><left><left><left>
 
 " Vimgreps in the current file
-map <leader><space> :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
+map <leader><space> :vimgrep // <Home><right><right><right><right><right><right><right><right><right>
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
@@ -292,10 +292,10 @@ vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 "   <leader>p
 "
 
-"map <leader>cc :botright cope<cr>
-"map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-"map <leader>n :cn<cr>
-"map <leader>p :cp<cr>
+map <leader>gcc :botright cope<cr>
+map <leader>gco ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+map <leader>gn :cn<cr>
+map <leader>gp :cp<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -451,7 +451,7 @@ set whichwrap+=<,>,[,],s,b
 autocmd BufWritePre * :%s/\s\+$//e
 
 
-nmap <leader>g :Grep<cr>
+nmap <leader>gr :Grep<cr>
 nmap <leader>q :q<cr>
 nmap <leader>n :set nu!<cr>
 nmap <leader>w :set wrap!<cr>
