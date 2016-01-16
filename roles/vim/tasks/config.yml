@@ -1,7 +1,8 @@
 ---
 - copy: src="vimrc" dest="~/.vimrc"
 
-#- shell: "vim +PluginInstall +qall now"
+- shell: "vim +PluginInstall +qall now"
+  when: action == "deploy"
 
 - name: install YouCompleteMe
   shell: ~/.vim/bundle/YouCompleteMe/install.py --clang-completer
