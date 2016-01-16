@@ -392,6 +392,7 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
+set shell=/bin/bash
 
 set nocompatible              " be iMproved
 filetype off                  " required!
