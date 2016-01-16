@@ -7,6 +7,6 @@
        dest=~/.liquidprompt
        depth=1
 
-- copy: src="../resources/bashrc" dest="~/.bashrc"
+- copy: src="bashrc" dest="~/.bashrc"
 
 - shell: "touch ~/.local_bashrc"
