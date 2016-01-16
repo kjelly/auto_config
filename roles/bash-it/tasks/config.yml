@@ -5,11 +5,17 @@
     - alias.bash
     - env.bash
 
-- file: src="~/.bash_it/plugins/available/{{ item }}" dest="~/.bash_it/plugins/enabled/{{ item }}" state=link
+- file: src="~/.bash_it/plugins/available/{{ item }}"
+        dest="~/.bash_it/plugins/enabled/{{ item }}"
+        state=link
   with_items:
     - "xterm.plugin.bash"
     - "virtualenv.plugin.bash"
 
-- lineinfile: dest="~/.bashrc" regexp="BASH_IT_THEME" line="export BASH_IT_THEME='modern'"
+- lineinfile: dest="~/.bashrc"
+              regexp="BASH_IT_THEME"
+              line="export BASH_IT_THEME='modern'"
 
-- lineinfile: dest="~/.bashrc" regexp="SCM_CHECK" line="export SCM_CHECK=false"
+- lineinfile: dest="~/.bashrc"
+              regexp="SCM_CHECK"
+              line="export SCM_CHECK=false"
