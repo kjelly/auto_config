@@ -11,3 +11,8 @@
 - name: mark ycm installed
   shell: touch ~/.vim/ycm_installed
 
+- shell: "getent passwd $LOGNAME | cut -d: -f7"
+  register: default_shell
+
+- lineinfile: dest="~/.vimrc" regexp="set shell" line="set shell={{ default_shell.stdout }}"
+
