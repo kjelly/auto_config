@@ -14,3 +14,9 @@
 - template: src=bundle dest="~/.config/omf/bundle"
 
 - template: src=theme dest="~/.config/omf/theme"
+
+- name: install themes
+  command: "fish -c \"omf install {{ item }}\""
+  with_items:
+    - bira
+
