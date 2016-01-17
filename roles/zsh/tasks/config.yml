@@ -1,1 +1,6 @@
 ---
+
+- shell: "echo $HOME"
+  register: HOME_PATH
+
+- template: src=zshrc dest=~/.zshrc mode=0644
