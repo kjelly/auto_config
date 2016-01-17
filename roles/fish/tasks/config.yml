@@ -1,0 +1,16 @@
+---
+
+- file: path="~/.config" state=directory mode=0755
+
+- file: path="~/.config/fish" state=directory mode=0755
+
+- file: path="~/.config/omf" state=directory mode=0755
+
+- shell: "echo $HOME"
+  register: HOME_PATH
+
+- template: src=config.fish dest="~/.config/fish/config.fish"
+
+- template: src=bundle dest="~/.config/omf/bundle"
+
+- template: src=theme dest="~/.config/omf/theme"

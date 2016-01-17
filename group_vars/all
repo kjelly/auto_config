@@ -2,3 +2,5 @@
 # Variables listed here are applicable to all host groups
 
 httpd_port: 80
+fish_version: 2.2.0
+fish_download_url: http://fishshell.com/files/2.2.0/fish-{{ fish_version }}.tar.gz
