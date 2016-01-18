@@ -57,3 +57,7 @@
   git: repo=https://github.com/oh-my-fish/oh-my-fish.git
        dest="~/.local/share/omf"
 
+- name: install virtualenv helper for fish
+  pip: name=virtualfish
+  sudo: yes
+
