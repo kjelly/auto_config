@@ -95,6 +95,6 @@ alias cd5='cd ../../../../..'
 alias cd6='cd ../../../../../..'
 
 setopt append_history no_inc_append_history no_share_history
-export PATH="{{ HOME_PATH.stdout }}/mybin/:$PATH"
+export PATH="{{ HOME_PATH }}/mybin/:$PATH"
 source ~/.local_zshrc
 export GOPATH=~/GOPATH
