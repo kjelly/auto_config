@@ -1,0 +1,9 @@
+---
+
+- shell: "echo $HOME"
+  register: HOME_PATH_RESULT
+
+- set_fact:
+    HOME_PATH: "{{ HOME_PATH_RESULT.stdout }}"
+
+
