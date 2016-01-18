@@ -16,4 +16,4 @@
   command: "fish -c \"omf install {{ item }}\""
   with_items:
     - bira
-
+    - ocean

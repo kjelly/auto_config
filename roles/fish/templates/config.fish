@@ -6,3 +6,5 @@ set -gx OMF_PATH "{{ HOME_PATH }}/.local/share/omf"
 
 # Load oh-my-fish configuration.
 source $OMF_PATH/init.fish
+
+eval (python -m virtualfish)
