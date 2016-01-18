@@ -463,3 +463,4 @@ nmap <leader>w :set wrap!<cr>
 nmap <leader>sh :shell<cr>
 nmap <leader>sh :shell<cr>
 nmap <leader>vsh :VimShell<cr>
+nmap <leader>ff :NERDTreeTabsFind<cr>
