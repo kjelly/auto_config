@@ -426,7 +426,8 @@ Plugin 'bling/vim-airline'
 Plugin 'pearofducks/ansible-vim'
 Plugin 'Shougo/vimshell.vim'
 Plugin 'Shougo/vimproc.vim'
-
+Plugin 'Shougo/unite.vim'
+Plugin 'ervandew/supertab'
 
 let g:vim_markdown_folding_disabled=1
 
@@ -464,3 +465,6 @@ nmap <leader>sh :shell<cr>
 nmap <leader>sh :shell<cr>
 nmap <leader>vsh :VimShell<cr>
 nmap <leader>ff :NERDTreeTabsFind<cr>
+nmap <leader>e :Unite
+nmap <C-e> :Unite
+
