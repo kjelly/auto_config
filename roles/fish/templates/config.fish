@@ -1,5 +1,5 @@
 # Path to Oh My Fish install.
-set -gx OMF_PATH "{{ HOME_PATH.stdout }}/.local/share/omf"
+set -gx OMF_PATH "{{ HOME_PATH }}/.local/share/omf"
 
 # Customize Oh My Fish configuration path.
 #set -gx OMF_CONFIG "/home/kjelly/.config/omf"
