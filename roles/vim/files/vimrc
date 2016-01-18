@@ -436,10 +436,9 @@ nmap wm :WMToggle<cr>
 
 filetype plugin indent on     " required!
 
-map <C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeTabsToggle<CR>
 let NERDTreeMapOpenInTab='<TAB>'
 let g:nerdtree_tabs_focus_on_files=1
-
 
 "tab mappings
 nmap <C-t> :tabnew<CR>
