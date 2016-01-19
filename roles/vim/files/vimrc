@@ -428,6 +428,10 @@ Plugin 'Shougo/vimshell.vim'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/unite.vim'
 Plugin 'ervandew/supertab'
+Plugin 'thinca/vim-quickrun'
+Plugin 'mhinz/vim-startify'
+Plugin 'MattesGroeger/vim-bookmarks'
+Plugin 'mru.vim'
 
 let g:vim_markdown_folding_disabled=1
 
@@ -468,3 +472,12 @@ nmap <leader>ff :NERDTreeTabsFind<cr>
 nmap <leader>e :Unite
 nmap <C-e> :Unite
 
+nmap <Leader>bt <Plug>BookmarkToggle
+nmap <Leader>bi <Plug>BookmarkAnnotate
+nmap <Leader>ba <Plug>BookmarkShowAll
+nmap <Leader>bj <Plug>BookmarkNext
+nmap <Leader>bk <Plug>BookmarkPrev
+nmap <Leader>bc <Plug>BookmarkClear
+nmap <Leader>bx <Plug>BookmarkClearAll
+nmap <Leader>bk <Plug>BookmarkMoveUp
+nmap <Leader>bj <Plug>BookmarkMoveDown
