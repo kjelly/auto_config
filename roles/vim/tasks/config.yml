@@ -8,6 +8,13 @@
   shell: ~/.vim/bundle/YouCompleteMe/install.py --clang-completer
   args:
     creates: ~/.vim/ycm_installed
+  register: command_result
+  ignore_errors: True
+
+- name: remove YouCompleteMe plugin when failed to compile
+  lineinfile: dest="~/.vimrc"
+              state=absent
+              regexp="Bundle 'Valloric/YouCompleteMe'"
 
 - name: mark ycm installed
   shell: touch ~/.vim/ycm_installed
