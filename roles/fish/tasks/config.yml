@@ -17,3 +17,5 @@
   with_items:
     - bira
     - ocean
+
+- template: src=fish_prompt.fish dest="~/.config/fish/functions/fish_prompt.fish"
