@@ -12,6 +12,17 @@
   when: ansible_distribution == 'Ubuntu'
 
 - name: Install fish dependent package
+  apt: name={{ item }} state=present
+  with_items:
+    - build-essential
+    - ncurses-dev
+    - libncurses5-dev
+    - gettext
+    - autoconf
+  sudo: yes
+  when: ansible_distribution == 'Debian'
+
+- name: Install fish dependent package
   dnf: name={{ item }} state=present
   with_items:
     - ncurses-devel
