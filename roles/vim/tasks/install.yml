@@ -4,6 +4,8 @@
   apt: name={{ item }} state=present
   with_items:
    - vim
+   - libncurses5-dev
+   - libncursesw5-dev
   sudo: yes
   when: ansible_distribution == 'Ubuntu'
 
