@@ -6,6 +6,7 @@
    - vim
    - libncurses5-dev
    - libncursesw5-dev
+   - exuberant-ctags
   sudo: yes
   when: ansible_distribution == 'Ubuntu'
 
