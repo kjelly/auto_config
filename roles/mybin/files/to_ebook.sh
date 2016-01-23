@@ -1,3 +1,4 @@
+#!/bin/bash
 s=$1
 fileName=${s##*/}
 basename=${fileName%.*}
