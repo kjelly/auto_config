@@ -4,6 +4,8 @@
 
 - file: path="~/.config/fish" state=directory mode=0755
 
+- file: path="~/.config/fish/functions" state=directory mode=0755
+
 - file: path="~/.config/omf" state=directory mode=0755
 
 - template: src=config.fish dest="~/.config/fish/config.fish"
@@ -17,5 +19,6 @@
   with_items:
     - bira
     - ocean
+
 
 - template: src=fish_prompt.fish dest="~/.config/fish/functions/fish_prompt.fish"
