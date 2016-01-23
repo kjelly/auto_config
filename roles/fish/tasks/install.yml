@@ -46,6 +46,7 @@
 
 - unarchive: src=/tmp/fish.tar.gz
              dest=/tmp/
+  when: need_install
 
 - name: generate fish configure
   command: "{{ item }}"
