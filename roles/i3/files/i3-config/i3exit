@@ -2,7 +2,7 @@
 lock() {
     # xset dpms force off;i3lock -c 000000 -n
     xset dpms force off
-    gnome-screensaver-command -l 
+    i3lock -c 000000
 }
 
 reboot() {
