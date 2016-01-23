@@ -1,15 +1,15 @@
 ---
 
-- name: Install fish dependent package
-  apt: name={{ item }} state=present
-  with_items:
-    - build-essential
-    - ncurses-dev
-    - libncurses5-dev
-    - gettext
-    - autoconf
-  sudo: yes
-  when: ansible_distribution == 'Ubuntu'
+- block:
+  - name: get fish version
+    shell: "fish --version 2>&1 |awk '{print $3}'|egrep '[0-9]+.[0-9]+.[0-9]+'"
+    register: system_fish_version
+  - debug: var=system_fish_version
+  - set_fact:
+      need_install: "{{ fish_version | version_compare(system_fish_version.stdout, '>') }}"
+  rescue:
+  - set_fact:
+      need_install: True
 
 - name: Install fish dependent package
   apt: name={{ item }} state=present
@@ -20,17 +20,29 @@
     - gettext
     - autoconf
   sudo: yes
-  when: ansible_distribution == 'Debian'
+  when: ansible_distribution == 'Ubuntu' and need_install
+
+- name: Install fish dependent package
+  apt: name={{ item }} state=present
+  with_items:
+    - build-essential
+    - ncurses-dev
+    - libncurses5-dev
+    - gettext
+    - autoconf
+  sudo: yes
+  when: ansible_distribution == 'Debian' and need_install
 
 - name: Install fish dependent package
   dnf: name={{ item }} state=present
   with_items:
     - ncurses-devel
   sudo: yes
-  when: ansible_distribution == 'Fedora'
+  when: ansible_distribution == 'Fedora' and need_install
 
 - name: download fish source code
   get_url: url="{{ fish_download_url }}" dest=/tmp/fish.tar.gz mode=0440
+  when: need_install
 
 - unarchive: src=/tmp/fish.tar.gz
              dest=/tmp/
@@ -39,15 +51,19 @@
   command: "{{ item }}"
   args:
     chdir: "/tmp/fish-{{ fish_version }}"
+    creates: "/tmp/fish-{{ fish_version }}/configure"
   with_items:
     - autoconf
+  when: need_install
 
 - name: generate fish Makefile
   command: "{{ item }}"
   args:
     chdir: "/tmp/fish-{{ fish_version }}"
+    creates: "/tmp/fish-{{ fish_version }}/Makefile"
   with_items:
     - "./configure"
+  when: need_install
 
 - name: build fish
   command: "{{ item }}"
@@ -55,6 +71,7 @@
     chdir: "/tmp/fish-{{ fish_version }}"
   with_items:
     - make
+  when: need_install
 
 - name: install fish
   command: "{{ item }}"
@@ -63,6 +80,7 @@
   with_items:
     - "make install"
   sudo: yes
+  when: need_install
 
 - name: install oh-my-fish
   git: repo=https://github.com/oh-my-fish/oh-my-fish.git
