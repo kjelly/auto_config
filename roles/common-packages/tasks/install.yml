@@ -8,7 +8,6 @@
       - golang
       - scala
       - python-pip
-      - tmux
   sudo: yes
   when: ansible_distribution == 'Ubuntu'
 
@@ -24,7 +23,6 @@
       - golang
       - scala
       - python-pip
-      - tmux
   sudo: yes
   when: ansible_distribution == 'Fedora'
 
