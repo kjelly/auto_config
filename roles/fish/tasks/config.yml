@@ -14,12 +14,5 @@
 
 - template: src=theme dest="~/.config/omf/theme"
 
-- name: install themes
-  command: "fish -c \"omf install {{ item }}\""
-  with_items:
-    - bira
-    - ocean
-
-
 - template: src=fish_prompt.fish dest="~/.config/fish/functions/fish_prompt.fish"
 - template: src=fish_title.fish dest="~/.config/fish/functions/fish_title.fish"
