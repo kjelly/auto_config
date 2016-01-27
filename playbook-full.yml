@@ -3,6 +3,8 @@
 - name: install
   remote_user: "{{ ansible_user }}"
   hosts: "{{ group }}"
+  vars:
+      programming: true
 
   roles:
       - activator
