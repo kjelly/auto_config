@@ -413,6 +413,8 @@ Bundle 'thinca/vim-quickrun'
 Bundle 'tpope/vim-fugitive'
 Bundle 'godlygeek/tabular'
 
+Bundle 'dag/vim-fish'
+
 {% if programming %}
 
 Bundle 'tpope/vim-surround'
