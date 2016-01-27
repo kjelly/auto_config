@@ -15,4 +15,5 @@
 - template: src=theme dest="~/.config/omf/theme"
 
 - template: src=fish_prompt.fish dest="~/.config/fish/functions/fish_prompt.fish"
+- template: src=fish_right_prompt.fish dest="~/.config/fish/functions/fish_right_prompt.fish"
 - template: src=fish_title.fish dest="~/.config/fish/functions/fish_title.fish"
