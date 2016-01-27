@@ -1,5 +1,5 @@
 ---
-- copy: src="vimrc" dest="~/.vimrc"
+- template: src="vimrc" dest="~/.vimrc"
 
 - shell: "vim +PluginInstall +qall now"
   when: action == "deploy"
