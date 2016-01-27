@@ -1,0 +1,11 @@
+---
+- name: debug
+  remote_user: "{{ ansible_user }}"
+  hosts: "{{ group }}"
+
+  tasks:
+  - debug: msg="{{ ansible_distribution }}"
+    when: ansible_distribution == "Ubuntu"
+
+  - debug: var=ansible_distribution_version
+
