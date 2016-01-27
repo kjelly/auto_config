@@ -34,6 +34,13 @@
   when: ansible_distribution == 'Debian' and need_install
 
 - name: Install fish dependent package
+  yum: name={{ item }} state=present
+  with_items:
+    - ncurses-devel
+  sudo: yes
+  when: ansible_distribution == 'CentOS' and need_install
+
+- name: Install fish dependent package
   dnf: name={{ item }} state=present
   with_items:
     - ncurses-devel
