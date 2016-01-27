@@ -1,14 +1,7 @@
-# name: ocean
-# A fish theme with ocean in mind.
-
-
-## Set this options in your config.fish (if you want to)
-# set -g theme_display_user yes
-# set -g default_user default_username
-
 set __oceanfish_glyph_anchor \u2693
 set __oceanfish_glyph_flag \u2691
 set __oceanfish_glyph_radioactive \u2622
+set arrow \u21d2
 
 function _git_branch_name
     echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
@@ -19,6 +12,35 @@ function _is_git_dirty
     echo (command git status -s --ignore-submodules=dirty ^/dev/null)
 end
 
+function prompt_segment -d "Function to draw a segment"
+  set -l bg
+  set -l fg
+  if [ -n "$argv[1]" ]
+    set bg $argv[1]
+  else
+    set bg normal
+  end
+  if [ -n "$argv[2]" ]
+    set fg $argv[2]
+  else
+    set fg normal
+  end
+  if [ "$current_bg" != 'NONE' -a "$argv[1]" != "$current_bg" ]
+    set_color -b $bg
+    set_color $current_bg
+    echo -n "$segment_separator "
+    set_color -b $bg
+    set_color $fg
+  else
+    set_color -b $bg
+    set_color $fg
+    echo -n " "
+  end
+  set current_bg $argv[1]
+  if [ -n "$argv[3]" ]
+    echo -n -s $argv[3] " "
+  end
+end
 
 function fish_prompt
     set -l last_status $status
@@ -72,7 +94,9 @@ function fish_prompt
         end
     end
 
+	echo
 
     # Terminate with a space
-    echo -n -s ' ' $normal
+    echo -n -s $arrow ' ' $normal
 end
+
