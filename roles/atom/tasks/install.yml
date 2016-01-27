@@ -1,10 +1,19 @@
 ---
 
-- name: download atom package
-  get_url: url=https://atom.io/download/deb dest=/tmp/atom.deb
+- block:
+    - name: download atom package
+      get_url: url=https://atom.io/download/deb dest=/tmp/deb
+      when: ansible_distribution == 'Ubuntu'
 
-- apt: deb=/tmp/atom.deb
-  sudo: yes
+  rescue:
+    - shell: wget https://atom.io/download/deb
+      args:
+          chdir: /tmp
+      when: ansible_distribution == 'Ubuntu'
+  always:
+    - apt: deb=/tmp/deb
+      sudo: yes
+
 
 
 - shell: apm install {{ item }}
