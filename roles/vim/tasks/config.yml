@@ -10,14 +10,17 @@
     creates: ~/.vim/ycm_installed
   register: command_result
   ignore_errors: True
+  when: programming == true
 
 - name: remove YouCompleteMe plugin when failed to compile
   lineinfile: dest="~/.vimrc"
               state=absent
               regexp="Bundle 'Valloric/YouCompleteMe'"
+  when: programming == true
 
 - name: mark ycm installed
   shell: touch ~/.vim/ycm_installed
+  when: programming == true
 
 - shell: "getent passwd $LOGNAME | cut -d: -f7"
   register: default_shell
@@ -30,4 +33,5 @@
   shell: make
   args:
     chdir: ~/.vim/bundle/vimproc.vim
+  when: programming == true
 

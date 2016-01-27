@@ -413,6 +413,8 @@ Bundle 'thinca/vim-quickrun'
 Bundle 'tpope/vim-fugitive'
 Bundle 'godlygeek/tabular'
 
+{% if programming %}
+
 Bundle 'tpope/vim-surround'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/OmniCppComplete'
@@ -436,6 +438,7 @@ Bundle 'mru.vim'
 Bundle 'Shougo/vimshell.vim'
 Bundle 'Shougo/vimproc.vim'
 
+{% endif %}
 
 let g:vim_markdown_folding_disabled=1
 
