@@ -39,3 +39,7 @@
       creates: "~/.config/touchegg"
 
 - copy: src="touchegg.conf" dest="~/.config/touchegg/"
+
+- file: path="~/.config/lxterminal" state=directory mode=0755
+
+- copy: src="lxterminal.conf" dest="~/.config/lxterminal/"
