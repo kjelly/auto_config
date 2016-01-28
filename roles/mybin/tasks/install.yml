@@ -4,12 +4,16 @@
   with_items:
       - w3m
       - xclip
-      - docker.io
       - qemu-kvm
       - qemu-system
-      - qemu-common
       - qemu-utils
 
+  sudo: yes
+
+- apt: name={{ item }} state=present
+  with_items:
+      - qemu-common
+  ignore_errors: true
   sudo: yes
 
 - pip: name={{ item }}
