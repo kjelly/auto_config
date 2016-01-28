@@ -16,7 +16,8 @@
 
 
 
-- shell: apm install {{ item }}
+- name: apm install
+  shell: apm install {{ item }}
   with_items:
       - language-scala
       - autocomplete-plus
