@@ -13,6 +13,7 @@
       - feh
       - touchegg
       - lm-sensors
+      - lxterminal
   sudo: yes
 
 - name: Install python package for i3
