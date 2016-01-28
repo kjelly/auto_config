@@ -42,7 +42,7 @@ focus_follows_mouse  no
 force_focus_wrapping yes
 
 # start a terminal
-bindsym $mod+Return exec terminator
+bindsym $mod+Return exec lxterminal
 
 # kill focused window
 bindsym $mod+Shift+C kill
