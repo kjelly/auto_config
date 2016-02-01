@@ -1,0 +1,22 @@
+---
+
+- name: Install byobu package
+  apt: name={{ item }} state=present
+  with_items:
+   - byobu
+  sudo: yes
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install byobu package
+  dnf: name={{ item }} state=present
+  with_items:
+   - byobu
+  sudo: yes
+  when: ansible_distribution == 'Fedora'
+
+- name: Install byobu package
+  yum: name={{ item }} state=present
+  with_items:
+   - byobu
+  sudo: yes
+  when: ansible_distribution == 'CentOS'

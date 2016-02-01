@@ -1,0 +1,21 @@
+---
+
+- name: create .byobu
+  file: path="~/.byobu" state=directory mode=0755
+
+- name: copy byobu config
+  copy: src="{{ item }}" dest="~/.byobu/{{ item }}"
+  with_items:
+    - backend
+    - color
+    - color.tmux
+    - datetime.tmux
+    - keybindings
+    - keybindings.tmux
+    - profile
+    - profile.tmux
+    - prompt
+    - status
+    - statusrc
+    - windows
+
