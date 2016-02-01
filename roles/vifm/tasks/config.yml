@@ -1,0 +1,7 @@
+---
+
+- name: create .vifm
+  file: path="~/.vifm" state=directory mode=0755
+
+- name: copy vifmrc
+  template: src=vifmrc dest="~/.vifm/vifmrc"
