@@ -5,3 +5,6 @@
 
 - name: copy vifmrc
   template: src=vifmrc dest="~/.vifm/vifmrc"
+
+- name: copy editit script
+  copy: src="editit.py" dest="~/.vifm/editit.py"
