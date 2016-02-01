@@ -37,9 +37,8 @@ end
 
 function fish_right_prompt -d 'about the right prompt'
   set -l last_status $status
-  set -q theme_date_format; or set -l theme_date_format "+%c"
 
-  set datetime (date $theme_date_format)
+  set datetime (date '+%X')
 
   right_prompt_segment normal $fish_color_autosuggestion[1] "[ $last_status ]"
   right_prompt_segment normal $fish_color_autosuggestion[1] $datetime
