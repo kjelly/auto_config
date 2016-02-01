@@ -10,3 +10,5 @@ source $OMF_PATH/init.fish
 set -gx PATH  "{{ HOME_PATH }}/bin"  "{{ HOME_PATH }}/mybin" $PATH
 
 eval (python -m virtualfish)
+
+fish_vi_mode
