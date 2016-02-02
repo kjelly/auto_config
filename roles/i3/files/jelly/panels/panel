@@ -87,12 +87,14 @@ Plugin {
     ShowIconified=1
     ShowMapped=1
     ShowAllDesks=1
-    UseMouseWheel=1
+    UseMouseWheel=0
     UseUrgencyHint=1
     FlatButton=0
     MaxTaskWidth=150
     spacing=1
     SameMonitorOnly=1
+    GroupedTasks=1
+    DisableUpscale=1
   }
 }
 Plugin {
