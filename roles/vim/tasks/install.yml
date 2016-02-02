@@ -7,6 +7,7 @@
    - libncurses5-dev
    - libncursesw5-dev
    - exuberant-ctags
+   - cmake # for YouCompleteMe
   sudo: yes
   when: ansible_distribution == 'Ubuntu'
 
