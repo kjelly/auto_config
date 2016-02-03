@@ -1,3 +1,3 @@
 #! /usr/bin/env bash
-lxpanel &
+lxpanel --profile jelly &
 disown
