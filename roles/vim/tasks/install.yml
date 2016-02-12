@@ -33,7 +33,3 @@
    - vim-enhanced
   sudo: yes
   when: ansible_distribution == 'Centos'
-
-- git: repo=https://github.com/gmarik/vundle.git
-       dest=~/.vim/bundle/vundle
-       depth=1

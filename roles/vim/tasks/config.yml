@@ -1,4 +1,9 @@
 ---
+- git: repo=https://github.com/gmarik/vundle.git
+       dest=~/.vim/bundle/vundle
+       depth=1
+       force=yes
+
 - template: src="vimrc" dest="~/.vimrc"
 
 - name: clone YouCompleteMe first
