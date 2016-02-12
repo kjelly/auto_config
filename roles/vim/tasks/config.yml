@@ -10,6 +10,7 @@
   git: repo=https://github.com/Valloric/YouCompleteMe
        dest=~/.vim/bundle/YouCompleteMe/
        depth=1
+       force=yes
 
 - block:
     - name: install YouCompleteMe
