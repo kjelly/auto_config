@@ -491,3 +491,6 @@ nmap <Leader>bc <Plug>BookmarkClear
 nmap <Leader>bx <Plug>BookmarkClearAll
 nmap <Leader>bk <Plug>BookmarkMoveUp
 nmap <Leader>bj <Plug>BookmarkMoveDown
+
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
