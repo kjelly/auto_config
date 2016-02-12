@@ -435,7 +435,7 @@ Bundle 'adimit/prolog.vim'
 Bundle 'scrooloose/nerdcommenter'
 
 Bundle 'pearofducks/ansible-vim'
-Bundle 'mhinz/vim-startify'
+"Bundle 'mhinz/vim-startify'
 Bundle 'mru.vim'
 Bundle 'Shougo/vimshell.vim'
 Bundle 'Shougo/vimproc.vim'
