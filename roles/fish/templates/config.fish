@@ -11,4 +11,4 @@ set -gx PATH  "{{ HOME_PATH }}/bin"  "{{ HOME_PATH }}/mybin" $PATH
 
 eval (python -m virtualfish)
 
-fish_vi_mode
+set -g fish_key_bindings fish_user_key_bindings
