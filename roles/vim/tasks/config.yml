@@ -6,13 +6,15 @@
 
 - template: src="vimrc" dest="~/.vimrc"
 
-- name: clone YouCompleteMe first
-  git: repo=https://github.com/Valloric/YouCompleteMe
-       dest=~/.vim/bundle/YouCompleteMe/
-       depth=1
-       force=yes
 
 - block:
+    - name: clone YouCompleteMe first
+      git: repo=https://github.com/Valloric/YouCompleteMe
+           dest=~/.vim/bundle/YouCompleteMe/
+           depth=1
+           force=yes
+      when: programming == true
+
     - name: install YouCompleteMe
       shell: ~/.vim/bundle/YouCompleteMe/install.py --clang-completer
       args:
