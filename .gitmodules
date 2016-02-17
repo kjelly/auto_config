@@ -1,0 +1,3 @@
+[submodule "private_roles"]
+	path = private_roles
+	url = git@bitbucket.org:ya790206/private_roles.git
