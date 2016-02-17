@@ -17,3 +17,4 @@
 - template: src=fish_prompt.fish dest="~/.config/fish/functions/fish_prompt.fish"
 - template: src=fish_right_prompt.fish dest="~/.config/fish/functions/fish_right_prompt.fish"
 - template: src=fish_title.fish dest="~/.config/fish/functions/fish_title.fish"
+- template: src=fish_user_key_bindings.fish dest="~/.config/fish/functions/fish_user_key_bindings.fish"
