@@ -97,6 +97,14 @@
   command: "fish /tmp/fisher_install"
   ignore_errors: yes
 
+- name: install fisher plugin
+  command: "fish -c 'fisher install {{ item }}'"
+  with_items:
+    - spin
+    - shark
+    - bass
+  ignore_errors: yes
+
 - name: install virtualenv helper for fish
   pip: name=virtualfish
   sudo: yes
