@@ -6,7 +6,6 @@
       - i3status
       - terminator
       - python-pip
-      - dmenu
       - xfce4-panel
       - gnome-control-center
       - xbacklight
@@ -23,4 +22,29 @@
       - i3-py
       - quickswitch-i3
       - py3status
+  sudo: yes
+
+- name: download dmenu  source code
+  get_url: url="{{ dmenu_download_url }}" dest=/tmp/dmenu.tar.gz mode=0440
+
+- unarchive: src=/tmp/dmenu.tar.gz
+             dest=/tmp/
+
+- name: change dmenu font
+  lineinfile: dest=/tmp/dmenu-{{ dmenu_version }}/config.def.h
+              regexp='"monospace:size=10"' state=present
+              line='"monospace:size=19"'
+
+- name: change dmenu font
+  lineinfile: dest=/tmp/dmenu-{{ dmenu_version }}/config.mk
+              regexp="\$\{X11INC\}/freetype2"
+              state=absent
+
+- name: generate fish configure
+  command: "{{ item }}"
+  args:
+    chdir: "/tmp/dmenu-{{ dmenu_version }}"
+  with_items:
+    - make
+    - "make install"
   sudo: yes
