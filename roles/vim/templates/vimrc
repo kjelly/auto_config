@@ -439,6 +439,7 @@ Bundle 'pearofducks/ansible-vim'
 Bundle 'mru.vim'
 Bundle 'Shougo/vimshell.vim'
 Bundle 'Shougo/vimproc.vim'
+Bundle 'mbbill/undotree'
 
 {% endif %}
 
@@ -494,3 +495,5 @@ nmap <Leader>bj <Plug>BookmarkMoveDown
 
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+
+nnoremap <C-u> :UndotreeToggle<cr>
