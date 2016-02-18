@@ -90,9 +90,12 @@
   sudo: yes
   when: need_install
 
-- name: install oh-my-fish
-  git: repo=https://github.com/oh-my-fish/oh-my-fish.git
-       dest="~/.local/share/omf"
+- name: download fisher
+  get_url: url=http://get.fisherman.sh dest=/tmp/fisher_install
+
+- name: install fisher
+  command: "fish /tmp/fisher_install"
+  ignore_errors: yes
 
 - name: install virtualenv helper for fish
   pip: name=virtualfish
