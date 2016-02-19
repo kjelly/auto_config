@@ -33,6 +33,11 @@
       - run_xfce4_panel.sh
       - swap_workspace.sh
       - i3exit
+      - new_screen_in.py
+      - quick_insert.py
+      - choose_window_in_scratchpad.py
+      - go_to_mark.py
+      - run_lxpanel.sh
 
 - command: "mkdir -p ~/.config/touchegg/"
   args:
