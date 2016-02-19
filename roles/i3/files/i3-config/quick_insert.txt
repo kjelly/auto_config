@@ -1,0 +1,12 @@
+|grep
+|less
+|tee
+ps aux|grep
+sudo netstat -tulnp
+sudo netstat -tulnp|grep
+sudo apt-get install
+sudo apt-get update
+sudo apt-get dist-upgrade
+git clone
+ifconfig |grep -A 10
+git commit
