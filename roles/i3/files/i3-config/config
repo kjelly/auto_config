@@ -49,7 +49,7 @@ bindsym $mod+Shift+C kill
 bindsym $mod+Shift+X kill
 
 # start dmenu (a program launcher)
-bindsym $mod+r exec dmenu_run
+bindsym $mod+r exec i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -271,7 +271,7 @@ bindsym Pause mode "$mode_system"
 #bindsym $mod+Shift+space layout toggle all
 
 bindsym Print exec xfce4-screenshooter
-bindsym $mod+g exec quickswitch.py
+bindsym $mod+g exec ~/.i3/new_quick_switch.py
 
 bindsym $mod+Left exec xbacklight -5
 bindsym $mod+Right exec xbacklight +5
@@ -308,3 +308,5 @@ mode "mark" {
     bindsym Escape mode "default"
 }
 
+
+bindsym $mod+z exec i3-input

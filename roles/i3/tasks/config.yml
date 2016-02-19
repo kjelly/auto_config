@@ -38,6 +38,7 @@
       - choose_window_in_scratchpad.py
       - go_to_mark.py
       - run_lxpanel.sh
+      - new_quick_switch.py
 
 - command: "mkdir -p ~/.config/touchegg/"
   args:
