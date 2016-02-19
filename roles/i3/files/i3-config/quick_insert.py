@@ -32,5 +32,5 @@ if __name__ == '__main__':
 
     answer = dmenu(text, 'dmenu -i -b -l 30')
     if answer:
-        os.system('''xdotool type --window %s  %s ''' % (wid, shellquote(answer)))
+        os.system('''xdotool type --window %s  %s ''' % (wid, shellquote(answer + ' ')))
 
