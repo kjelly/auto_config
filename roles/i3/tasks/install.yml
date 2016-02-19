@@ -14,6 +14,7 @@
       - lm-sensors
       - lxterminal
       - lxpanel
+      - xdotool
   sudo: yes
 
 - name: Install python package for i3
