@@ -70,10 +70,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+b split h
+#bindsym $mod+b split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+#bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -146,7 +146,9 @@ bindsym $mod+Shift+s mode "resize"
 # scratchpad
 bindsym $mod+m move scratchpad
 bindsym $mod+Shift+m exec "~/.i3/show_tiling_window_from_scratchpad.py"
-bindsym $mod+comma scratchpad show
+bindsym $mod+comma exec "python ~/.i3/choose_window_in_scratchpad.py"
+#for floating
+bindsym $mod+Shift+less exec "python ~/.i3/choose_window_in_scratchpad.py 1"
 
 # toggle tiling / floating
 bindsym $mod+Shift+A floating toggle
@@ -294,3 +296,15 @@ for_window [class=".*"] title_format "%class | %title"
 bindsym $mod+grave exec i3-input -F "workspace %s"
 bindsym $mod+Shift+asciitilde exec i3-input -F "move container to workspace %s"
 bindsym $mod+i exec python ~/.i3/quick_insert.py
+
+#mark
+bindsym $mod+b mode "mark"
+mode "mark" {
+    bindsym u exec --no-startup-id i3-msg "unmark" , mode "default"
+    bindsym m exec --no-startup-id i3-input -F "mark %s" , mode "default"
+    bindsym g exec --no-startup-id ~/.i3/go_to_mark.py 1, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
