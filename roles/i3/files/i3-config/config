@@ -289,3 +289,8 @@ exec workrave
 exec xmodmap ~/.Xmodmap
 exec xbindkeys
 exec touchegg&
+for_window [class=".*"] title_format "%class | %title"
+
+bindsym $mod+grave exec i3-input -F "workspace %s"
+bindsym $mod+Shift+asciitilde exec i3-input -F "move container to workspace %s"
+bindsym $mod+i exec python ~/.i3/quick_insert.py
