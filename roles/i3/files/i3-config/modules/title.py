@@ -23,6 +23,7 @@ def handle_window(window):
             'name': window['name'],
             'id': window['window'],
             'focused': window['focused'],
+            'instance': window['window_properties']['instance'],
          })
         if window['focused']:
             focused = True
@@ -70,6 +71,9 @@ class Py3status:
         """
         # the current user doesnt change so much, cache it good
         CACHE_TIMEOUT = 1
+        length_table = [105,44,29,23,13,7]
+        base_template = u'{: ^%d}'
+
 
         try:
 
@@ -83,13 +87,19 @@ class Py3status:
             index = 0
             pos_info = None
             if focused_workspace in result:
+                window_count = len(result[focused_workspace])
+                title_length = length_table[window_count - 1]
+                template = base_template % (title_length + 3)
                 for i in result[focused_workspace]:
                     index += 1
-                    name = i['name'].strip()[:30]
-                    title = name
+                    instance = i['instance']
+                    #name = (instance + ':' + i['name'].strip())[:title_length]
+                    name = (i['name'].strip())[:title_length]
+                    title = template.format(name)
                     if i['focused']:
-                        pos_info = '%d@%d' % (index, len(result[focused_workspace]))
-                        title_list.append('  >' + title + '<  ')
+                        pos_info = '%d/%d@%s' % (index, window_count,
+                                                 focused_workspace)
+                        title_list.append(' >' + title + '< ')
                     else:
                         title_list.append(title)
                 text = pos_info + '|' +  '|'.join(title_list)
@@ -97,6 +107,8 @@ class Py3status:
                 text = 'workspace: %s' % focused_workspace
 
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             text = str(e)
 
         response = {'full_text': text, 'name': 'title'}
