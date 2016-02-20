@@ -77,6 +77,7 @@ class Py3status:
                 result.update(handle_output(output['nodes']))
             title_list = []
             index = 0
+            pos_info = None
             for i in result[focused_workspace]:
                 index += 1
                 name = i['name'].strip()[:30]
@@ -86,7 +87,10 @@ class Py3status:
                     title_list.append('  >' + title + '<  ')
                 else:
                     title_list.append(title)
-            text = pos_info + '|' +  '|'.join(title_list)
+            if pos_info:
+                text = pos_info + '|' +  '|'.join(title_list)
+            else:
+                text = 'workspace: %s' % focused_workspace
         except Exception as e:
             text = str(e)
 
