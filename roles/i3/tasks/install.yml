@@ -15,6 +15,7 @@
       - lxterminal
       - lxpanel
       - xdotool
+      - rofi
   sudo: yes
 
 - name: Install python package for i3
