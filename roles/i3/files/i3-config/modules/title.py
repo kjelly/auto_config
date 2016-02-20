@@ -9,6 +9,7 @@ from subprocess import check_output
 
 focused = False
 focused_workspace = None
+focus_on_workspace = False
 
 
 def handle_window(window):
@@ -31,14 +32,17 @@ def handle_window(window):
 def handle_workspace(workspace):
     global focused
     global focused_workspace
+    global focus_on_workspace
     ret = defaultdict(lambda: [])
     windows = workspace['nodes']
-    name = workspace['name']
+    num = workspace['num']
     for i in windows:
-        ret[name].extend(handle_window(i))
+        ret[num].extend(handle_window(i))
         if focused == True:
-            focused_workspace = name
+            focused_workspace = num
             focused = False
+    if workspace['focused']:
+        focused_workspace = num
     return ret
 
 
@@ -78,19 +82,20 @@ class Py3status:
             title_list = []
             index = 0
             pos_info = None
-            for i in result[focused_workspace]:
-                index += 1
-                name = i['name'].strip()[:30]
-                title = name
-                if i['focused']:
-                    pos_info = '%d@%d' % (index, len(result[focused_workspace]))
-                    title_list.append('  >' + title + '<  ')
-                else:
-                    title_list.append(title)
-            if pos_info:
+            if focused_workspace in result:
+                for i in result[focused_workspace]:
+                    index += 1
+                    name = i['name'].strip()[:30]
+                    title = name
+                    if i['focused']:
+                        pos_info = '%d@%d' % (index, len(result[focused_workspace]))
+                        title_list.append('  >' + title + '<  ')
+                    else:
+                        title_list.append(title)
                 text = pos_info + '|' +  '|'.join(title_list)
             else:
                 text = 'workspace: %s' % focused_workspace
+
         except Exception as e:
             text = str(e)
 
