@@ -114,6 +114,9 @@ bindsym $mod+Shift+asterisk move container to workspace number 8
 bindsym $mod+Shift+parenleft move container to workspace number 9
 bindsym $mod+Shift+parenright move container to workspace number 10
 
+
+bindsym $mod+slash exec --no-startup-id ~/.i3/i3_switch_workspace.sh
+
 # reload the configuration file
 # bindsym $mod+Shift+C reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
