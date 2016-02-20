@@ -4,6 +4,24 @@ from subprocess import check_output
 import sys
 import json
 import random
+import subprocess
+
+
+def dmenu(options, dmenu):
+    '''Call dmenu with a list of options.'''
+
+    cmd = subprocess.Popen(dmenu,
+                           shell=True,
+                           stdin=subprocess.PIPE,
+                           stdout=subprocess.PIPE,
+                           stderr=subprocess.PIPE)
+    stdout, _ = cmd.communicate('\n'.join(options).encode('utf-8'))
+    return stdout.decode('utf-8').strip('\n')
+
+
+def dmenu_cmd(prompt, lines=30, width=80, size=25, bg='#000000', fg='#505050', opacity=70, border=3):
+    return ('rofi -dmenu -fg "{fg}" -bg "{bg}" -font "mono {size}" -fuzzy -p "{prompt}" '
+            '-width {width} -lines {lines} -opacity {opacity} -bw {border}'.format(**locals()))
 
 
 def list_screen():
@@ -57,4 +75,4 @@ def get_active_workspace():
 
 
 if __name__ == '__main__':
-    print list_screen()
+    print(list_screen())

@@ -3,18 +3,7 @@ import i3
 import json
 from collections import defaultdict
 import subprocess
-
-def dmenu(options, dmenu):
-    '''Call dmenu with a list of options.'''
-
-    cmd = subprocess.Popen(dmenu,
-                           shell=True,
-                           stdin=subprocess.PIPE,
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.PIPE)
-    stdout, _ = cmd.communicate('\n'.join(options).encode('utf-8'))
-    return stdout.decode('utf-8').strip('\n')
-
+from lib import dmenu, dmenu_cmd
 
 
 def handle_window(window):
@@ -63,7 +52,7 @@ def main():
             text_list.append("[{workspace}] -> {name} #{wid}".format(wid=win['id'],
                                                                 workspace=workspace,
                                                                 name=win['name']))
-    answer = dmenu(sorted(text_list), 'dmenu -i -b -l 50')
+    answer = dmenu(sorted(text_list), dmenu_cmd('select window: ', ))
     if answer:
         wid = answer.split('#')[-1]
         i3.focus(id=wid)

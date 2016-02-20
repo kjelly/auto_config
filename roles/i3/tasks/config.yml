@@ -40,6 +40,7 @@
       - run_lxpanel.sh
       - new_quick_switch.py
       - name_workspace.py
+      - i3_switch_workspace.sh
 
 - command: "mkdir -p ~/.config/touchegg/"
   args:
