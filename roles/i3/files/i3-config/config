@@ -32,10 +32,15 @@ bar {
 
         font pango: Droid Sans Mono 13
         colors {
-                statusline #AAAAAA
-                background #333333
-                focused_workspace $gray2 $gray2 #FFFFFF
-                inactive_workspace $gray1 $gray1 #AAAAAA
+                background #000000
+                statusline #ffffff
+                separator  #666666
+
+                # Type             border  background font
+                focused_workspace  #008fff #007fff #ffffff
+                active_workspace   #333333 #5f676a #ffffff
+                inactive_workspace #333333 #222222 #888888
+                urgent_workspace   #aa0000 #990000 #ffffff
         }
 }
 
