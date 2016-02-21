@@ -270,7 +270,7 @@ bindsym $mod+Down exec amixer -q sset Master 2%-
 bindsym mod4+XF86TouchpadToggle exec unity-control-center
 
 exec feh --bg-scale ~/Pictures/background.jpg
-#exec bash ~/.i3/run_lxpanel.sh
+exec bash ~/.i3/run_lxpanel.sh
 
 exec --no-startup-id /usr/bin/nm-applet
 exec --no-startup-id /usr/bin/gnome-sound-applet
