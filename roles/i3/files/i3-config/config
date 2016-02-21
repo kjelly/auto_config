@@ -270,16 +270,16 @@ bindsym $mod+Down exec amixer -q sset Master 2%-
 bindsym mod4+XF86TouchpadToggle exec unity-control-center
 
 exec feh --bg-scale ~/Pictures/background.jpg
-exec bash ~/.i3/run_lxpanel.sh
+#exec bash ~/.i3/run_lxpanel.sh
 
-exec /usr/bin/nm-applet
-exec /usr/bin/gnome-sound-applet
-exec cinnamon-sound-applet
-exec bash ~/.i3/dual_screen.sh
-exec workrave
-exec xmodmap ~/.Xmodmap
-exec xbindkeys
-exec touchegg&
+exec --no-startup-id /usr/bin/nm-applet
+exec --no-startup-id /usr/bin/gnome-sound-applet
+exec --no-startup-id cinnamon-sound-applet
+exec --no-startup-id bash ~/.i3/dual_screen.sh
+exec --no-startup-id workrave
+exec --no-startup-id xmodmap ~/.Xmodmap
+exec --no-startup-id xbindkeys
+exec --no-startup-id touchegg&
 for_window [class=".*"] title_format "%class | %title"
 
 bindsym $mod+grave exec i3-input -F "workspace %s"
