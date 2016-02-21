@@ -15,7 +15,7 @@ def read_history():
         return []
     with open(config_path, 'r') as ftr:
         lines = ftr.readlines()
-    return [ i[0] for i in Counter(lines).most_common()]
+    return [ i[0] for i in Counter(lines).most_common() if i[0].strip() != '']
 
 
 def write_history(name):
@@ -28,8 +28,8 @@ def main():
     for i in workspaces:
         if i['focused']:
             focused_workspace_num = i['num']
-    answer = dmenu(read_history(), dmenu_cmd('Name: '))
-    if answer:
+    answer = dmenu(read_history(), dmenu_cmd('Name: ')).strip()
+    if len(answer) > 0:
         i3.rename__workspace__to('"%d: %s"' % (focused_workspace_num, answer))
         write_history(answer)
 
