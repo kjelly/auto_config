@@ -16,6 +16,8 @@
       - lxpanel
       - xdotool
       - rofi
+      - cinnamon-control-center # for sount-applet
+      - ibus-chewing
   sudo: yes
 
 - name: Install python package for i3
