@@ -50,6 +50,7 @@
       - mk_qcow2_dev.sh
       - mount_qcow2.sh
       - show_qcow2_partitions.sh
+      - vagrant-init.py
 
 
 - lineinfile: dest=~/.zshrc line="export PATH=\"`pwd`/mybin/:$PATH\""
