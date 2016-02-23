@@ -29,8 +29,7 @@ def main():
         with open(todo_db_path, 'w') as ftr:
             ftr.write(json.dumps(db))
         answer = "<span foreground='red'>%s</span>" % answer
-        print('''i3-msg title_format "%class | %title | {note} " '''.format(note=answer))
-        os.system('''i3-msg title_format "%class | %title | {note} " '''.format(note=answer))
+        os.system('''i3-msg title_format "<b>%class | %title | {note}</b> " '''.format(note=answer))
 
 
 if __name__ == '__main__':

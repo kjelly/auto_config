@@ -13,7 +13,7 @@ set $mod mod4
 
 # font for window titles. ISO 10646 = Unicode
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font xft:Droid Sans 10
+font xft:Droid Sans 15
 new_window normal
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -281,7 +281,7 @@ exec --no-startup-id workrave
 exec --no-startup-id xmodmap ~/.Xmodmap
 exec --no-startup-id xbindkeys
 exec --no-startup-id touchegg&
-for_window [class=".*"] title_format "%class | %title"
+for_window [class=".*"] title_format "<b>%class | %title</b>"
 
 bindsym $mod+grave exec i3-input -F "workspace %s"
 bindsym $mod+Shift+asciitilde exec i3-input -F "move container to workspace %s"
