@@ -90,13 +90,6 @@
   sudo: yes
   when: need_install
 
-- name: download fisher
-  get_url: url=http://get.fisherman.sh dest=/tmp/fisher_install
-
-- name: install fisher
-  command: "fish /tmp/fisher_install"
-  ignore_errors: yes
-
 - name: install fisher plugin
   command: "fish -c 'fisher install {{ item }}'"
   with_items:
