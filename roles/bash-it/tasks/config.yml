@@ -18,4 +18,4 @@
 
 - lineinfile: dest="~/.bashrc"
               regexp="SCM_CHECK"
-              line="export SCM_CHECK=false"
+              line="export SCM_CHECK=true"
