@@ -240,7 +240,7 @@ mode "$mode_move_container_to_output " {
 }
 bindsym $mod+Shift+o mode "$mode_move_container_to_output "
 
-bindsym $mod+c exec ~/.i3/switch.py
+bindsym $mod+c exec ~/.i3/create_workspace.py
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
