@@ -1,8 +1,6 @@
 set __oceanfish_glyph_anchor \u2693
 set __oceanfish_glyph_flag \u2691
-set __oceanfish_glyph_radioactive \u2622
-set arrow \u21d2
-
+set __oceanfish_glyph_radioactive \u2622 set arrow \u21d2
 function _git_branch_name
     echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
 end
@@ -57,10 +55,13 @@ function fish_prompt
     set -l normal (set_color normal)
     set -l cwd $white(prompt_pwd)
     set -l uid (id -u $USER)
-    set -l host_info (whoami)(hostname -s)
-    set -l host_info_color_bg (~/.config/fish/get_color.py $host_info 1)
-    set -l host_info_color_fg (~/.config/fish/get_color.py $host_info)
 
+    set -l host_info (whoami)(hostname -s)
+    set -l host_info_color_bg (python ~/.config/fish/get_color.py $host_info 1)
+    set -l host_info_color_fg (python ~/.config/fish/get_color.py $host_info)
+
+    set -l cwd_color_bg (python ~/.config/fish/get_color.py $cwd 1)
+    set -l cwd_color_fg (python ~/.config/fish/get_color.py $cwd)
 
     # Show a yellow radioactive symbol for root privileges
     if [ $uid -eq 0 ]
@@ -81,14 +82,14 @@ function fish_prompt
         echo -n -s $bg_blue $white " $__oceanfish_glyph_anchor " $normal
     end
 
-    echo -n -s $bg_white $cyan " " (whoami) "@" (hostname -s) " " $normal
-
     set_color $host_info_color_fg
-    #set_color -b $host_info_color_bg
-    echo -n "  " (whoami) "@" (hostname -s) " " $normal
+    set_color -b $host_info_color_bg
+    echo -n -s " " (whoami) "@" (hostname -s) " " $normal
 
     # Display current path
-    echo -n -s $bg_cyan " $cwd " $normal
+    set_color $cwd_color_fg
+    set_color -b $cwd_color_bg
+    echo -n -s " $cwd " $normal
 
 
     # Show git branch and dirty state
