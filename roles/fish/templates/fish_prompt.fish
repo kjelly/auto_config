@@ -57,6 +57,9 @@ function fish_prompt
     set -l normal (set_color normal)
     set -l cwd $white(prompt_pwd)
     set -l uid (id -u $USER)
+    set -l host_info (whoami)(hostname -s)
+    set -l host_info_color_bg (~/.config/fish/get_color.py $host_info 1)
+    set -l host_info_color_fg (~/.config/fish/get_color.py $host_info)
 
 
     # Show a yellow radioactive symbol for root privileges
@@ -79,6 +82,10 @@ function fish_prompt
     end
 
     echo -n -s $bg_white $cyan " " (whoami) "@" (hostname -s) " " $normal
+
+    set_color $host_info_color_fg
+    #set_color -b $host_info_color_bg
+    echo -n "  " (whoami) "@" (hostname -s) " " $normal
 
     # Display current path
     echo -n -s $bg_cyan " $cwd " $normal
