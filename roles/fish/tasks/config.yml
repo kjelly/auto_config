@@ -20,3 +20,4 @@
 - template: src=fish_user_key_bindings.fish dest="~/.config/fish/functions/fish_user_key_bindings.fish"
 - template: src=i3run.fish dest="~/.config/fish/functions/i3run.fish"
 - template: src=i3term.fish dest="~/.config/fish/functions/i3term.fish"
+- copy: src=get_color.py dest="~/.config/fish/get_color.py"
