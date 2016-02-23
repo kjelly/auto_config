@@ -9,7 +9,7 @@ import json
 
 
 def main():
-    wid = [i.get('window') for i in i3.filter(nodes=[]) if i.get('focused')][0]
+    wid = str([i.get('window') for i in i3.filter(nodes=[]) if i.get('focused')][0])
 
     home = expanduser("~")
     todo_db_path = os.path.join(home, '.i3_title_todo')
@@ -22,13 +22,16 @@ def main():
     answer = dmenu(db.get(wid, []), dmenu_cmd('note: ')).strip()
 
     if answer:
+        print(type(wid))
         todo_list = db.get(wid, [])
+        print(type(wid))
         if answer not in todo_list:
             todo_list.append(answer)
+        print(type(wid))
         db[wid] = todo_list
         with open(todo_db_path, 'w') as ftr:
             ftr.write(json.dumps(db))
-        answer = "<span foreground='red'>%s</span>" % answer
+        answer = "<span foreground='red'>%s</span>" % wid
         os.system('''i3-msg title_format "<b>%class | %title | {note}</b> " '''.format(note=answer))
 
 
