@@ -1,6 +1,9 @@
 set __oceanfish_glyph_anchor \u2693
 set __oceanfish_glyph_flag \u2691
-set __oceanfish_glyph_radioactive \u2622 set arrow \u21d2
+set __oceanfish_glyph_radioactive \u2622
+set arrow \u21d2
+
+
 function _git_branch_name
     echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
 end
