@@ -13,6 +13,7 @@ template = '''# -*- mode: ruby -*-
 Vagrant.configure(2) do |config|
   config.vm.box = "{box}"
   config.vm.hostname =  Pathname.new(File.dirname(__FILE__)).basename
+  config.vm.network :bridged , :mac => "{mac}"
   config.ssh.insert_key = false
 
   # Disable automatic box update checking. If you disable this, then
@@ -58,8 +59,12 @@ def main():
     path = os.getcwd()
     box = sys.argv[1]
     cpus = subprocess.check_output('cat /proc/cpuinfo |grep processor|wc -l ', shell=True).strip()
+    mac = "52:54:00:%02x:%02x:%02x" % (
+                    random.randint(0, 255),
+                    random.randint(0, 255),
+                    random.randint(0, 255))
     with open(os.path.join(path, 'Vagrantfile'), 'w') as ftr:
-        ftr.write(template.format(cpus=cpus, box=box))
+        ftr.write(template.format(cpus=cpus, box=box, mac=mac))
 
     with open(os.path.join(path, 'bootstrap.sh'), 'w') as ftr:
         ftr.write('')
