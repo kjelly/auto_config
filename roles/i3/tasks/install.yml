@@ -18,6 +18,12 @@
       - rofi
       - cinnamon-control-center # for sount-applet
       - ibus-chewing
+
+      - boxes
+      - libnotify-bin
+      - zenity
+      - toilet
+      - whiptail
   sudo: yes
 
 - name: Install python package for i3
