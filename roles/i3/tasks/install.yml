@@ -24,7 +24,15 @@
       - zenity
       - toilet
       - whiptail
+
+      - dunst
   sudo: yes
+
+- name: remove useless package for i3
+  apt: name={{ item }} state=absent
+  with_items:
+    - xfce4-notifyd
+    - notify-osd
 
 - name: Install python package for i3
   pip: name={{ item }}
