@@ -60,8 +60,8 @@ function fish_prompt
     set -l uid (id -u $USER)
 
     set -l host_info (whoami)(hostname -s)
-    set -l host_info_color_bg (python ~/.config/fish/get_color.py $host_info 1)
-    set -l host_info_color_fg (python ~/.config/fish/get_color.py $host_info)
+    set -l host_info_color_bg (python ~/.config/fish/get_host_color.py 1)
+    set -l host_info_color_fg (python ~/.config/fish/get_host_color.py )
 
     set -l cwd_color_bg (python ~/.config/fish/get_color.py $cwd 1)
     set -l cwd_color_fg (python ~/.config/fish/get_color.py $cwd)
