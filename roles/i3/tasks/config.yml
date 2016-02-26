@@ -43,6 +43,7 @@
       - i3_switch_workspace.sh
       - create_workspace.py
       - noteit.py
+      - show_workspace_info.py
 
 - command: "mkdir -p ~/.config/touchegg/"
   args:
