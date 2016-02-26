@@ -283,7 +283,7 @@ exec --no-startup-id xbindkeys
 exec --no-startup-id touchegg&
 for_window [class=".*"] title_format "<b>%class | %title</b>"
 
-bindsym $mod+grave exec i3-input -F "workspace %s"
+bindsym $mod+grave exec ~/.i3/show_workspace_info.py
 bindsym $mod+Shift+asciitilde exec i3-input -F "move container to workspace %s"
 bindsym $mod+i exec python ~/.i3/quick_insert.py
 
@@ -304,3 +304,4 @@ bindsym $mod+t exec ~/.i3/name_workspace.py
 bindsym $mod+period exec ~/.i3/noteit.py
 exec --no-startup-id i3-msg 'workspace number 1;workspace 1:Web; exec sensible-browser'
 
+exec --no-startup-id dunst -print -fn "Ubuntu 40"
