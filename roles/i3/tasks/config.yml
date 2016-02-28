@@ -44,6 +44,7 @@
       - create_workspace.py
       - noteit.py
       - show_workspace_info.py
+      - insert_from_fish_history.py
 
 - command: "mkdir -p ~/.config/touchegg/"
   args:

@@ -286,6 +286,7 @@ for_window [class=".*"] title_format "<b>%class | %title</b>"
 bindsym $mod+grave exec ~/.i3/show_workspace_info.py
 bindsym $mod+Shift+asciitilde exec i3-input -F "move container to workspace %s"
 bindsym $mod+i exec python ~/.i3/quick_insert.py
+bindsym $mod+Shift+i exec python ~/.i3/insert_from_fish_history.py
 
 #mark
 bindsym $mod+b mode "mark"
