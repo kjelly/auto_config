@@ -4,9 +4,11 @@
   remote_user: "{{ ansible_user }}"
   hosts: "{{ group }}"
   vars:
-      programming: true
+      programming: false
 
   roles:
-      - bash
+      - bash-it
       - vim
+      - fish
       - zsh
+      - byobu
