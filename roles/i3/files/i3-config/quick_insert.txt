@@ -7,6 +7,7 @@ sudo netstat -tulnp|grep
 sudo apt-get install
 sudo apt-get update;
 sudo apt-get dist-upgrade;
+sudo apt-get autoremove;
 git clone
 ifconfig |grep -A 10
 git commit
