@@ -102,3 +102,9 @@
   pip: name=virtualfish
   sudo: yes
 
+- name: clone fzf
+  git: repo=https://github.com/junegunn/fzf dest=~/.fzf
+
+- name: install fzf
+  shell: ~/.fzf/install
+
