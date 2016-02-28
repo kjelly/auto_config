@@ -521,3 +521,7 @@ noremap <M-8> 8gt
 execute "set <M-9>=\e9"
 noremap <M-9> 9gt
 
+noremap H gT
+noremap L gt
+noremap J :CtrlPBuffer<cr>
+
