@@ -499,3 +499,25 @@ inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 
 nnoremap <C-u> :UndotreeToggle<cr>
 nnoremap <C-o> :FZF<cr>
+
+execute "set <M-0>=\e0"
+noremap <M-0> 0gt
+execute "set <M-1>=\e1"
+noremap <M-1> 1gt
+execute "set <M-2>=\e2"
+noremap <M-2> 2gt
+execute "set <M-3>=\e3"
+noremap <M-3> 3gt
+execute "set <M-4>=\e4"
+noremap <M-4> 4gt
+execute "set <M-5>=\e5"
+noremap <M-5> 5gt
+execute "set <M-6>=\e6"
+noremap <M-6> 6gt
+execute "set <M-7>=\e7"
+noremap <M-7> 7gt
+execute "set <M-8>=\e8"
+noremap <M-8> 8gt
+execute "set <M-9>=\e9"
+noremap <M-9> 9gt
+
