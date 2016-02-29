@@ -86,7 +86,6 @@ setopt append_history no_inc_append_history no_share_history
 source ~/.local_zshrc
 export GOPATH=~/GOPATH
 setopt PROMPT_SUBST
-export PATH="`pwd`/mybin/:$PATH"
 alias cd1='cd ..'
 alias cd2='cd ../..'
 alias cd3='cd ../../..'
@@ -95,6 +94,6 @@ alias cd5='cd ../../../../..'
 alias cd6='cd ../../../../../..'
 
 setopt append_history no_inc_append_history no_share_history
-export PATH="{{ HOME_PATH }}/mybin/:$PATH"
+export PATH="{{ HOME_PATH }}/bin/:{{ HOME_PATH }}/gohome/bin/:{{ HOME_PATH }}/mybin/:$PATH"
 source ~/.local_zshrc
 export GOPATH=~/GOPATH
