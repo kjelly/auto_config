@@ -3,7 +3,7 @@ set fisher_config ~/.config/fisherman
 source $fisher_home/config.fish
 
 
-set -gx PATH  "{{ HOME_PATH }}/bin"  "{{ HOME_PATH }}/mybin" $PATH
+set -gx PATH "{{ HOME_PATH }}/gohome/bin"  "{{ HOME_PATH }}/bin"  "{{ HOME_PATH }}/mybin" $PATH
 
 eval (python -m virtualfish)
 

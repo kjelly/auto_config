@@ -131,7 +131,7 @@ export LP_PS1_PREFIX="[+${SHLVL}]"
 
 source ~/.local_bashrc
 
-export PATH="`pwd`/mybin/:$PATH"
+export PATH="`pwd`/bin/:`pwd`/gohome/bin/:`pwd`/mybin/:$PATH"
 
 # if $STY is not set...
 if [ -z "$STY" ]; then
