@@ -15,7 +15,7 @@ if __name__ == '__main__':
         wid, instance, title = [(i.get('window'), i.get('window_properties').get('instance'), i.get('window_properties').get('title')) for i in i3.filter(nodes=[]) if i.get('focused')][0]
         w = [i for i in i3.filter(nodes=[]) if i.get('focused')][0]
 
-        if 'term' in instance and ('fish' in title or 'zsh' in title or 'sh' in title):
+        if 'term' in instance and (' fish ' in title or ' zsh ' in title or ' bash ' in title):
             cmd = 'lxterminal --working-directory=(pwd)'
             os.system('''xdotool type --window %s  %s ''' % (wid, shellquote(cmd)))
             os.system('''xdotool key --window %s  Return ''' % wid)
