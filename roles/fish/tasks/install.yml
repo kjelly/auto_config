@@ -90,13 +90,9 @@
   sudo: yes
   when: need_install
 
-- name: install fisher plugin
-  command: "fish -c 'fisher install {{ item }}'"
-  with_items:
-    - spin
-    - shark
-    - bass
-  ignore_errors: yes
+- name: install oh-my-fish
+  git: repo=https://github.com/eugenesvk/oh-my-fish
+       dest="~/.local/share/omf"
 
 - name: install virtualenv helper for fish
   pip: name=virtualfish
