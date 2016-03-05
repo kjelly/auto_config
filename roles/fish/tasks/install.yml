@@ -44,6 +44,7 @@
   dnf: name={{ item }} state=present
   with_items:
     - ncurses-devel
+    - gcc-c++
   sudo: yes
   when: ansible_distribution == 'Fedora' and need_install
 
