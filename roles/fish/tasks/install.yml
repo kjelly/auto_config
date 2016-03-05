@@ -91,7 +91,7 @@
   when: need_install
 
 - name: install oh-my-fish
-  git: repo=https://github.com/eugenesvk/oh-my-fish
+  git: repo=https://github.com/oh-my-fish/oh-my-fish
        dest="~/.local/share/omf"
 
 - name: install virtualenv helper for fish
