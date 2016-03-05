@@ -33,6 +33,7 @@
   with_items:
     - xfce4-notifyd
     - notify-osd
+  ignore_errors: yes
 
 - name: Install python package for i3
   pip: name={{ item }}
