@@ -17,6 +17,10 @@
    - vim
    - libncurses5-dev
    - libncursesw5-dev
+   - gawk
+   - exuberant-ctags
+   - cmake # for YouCompleteMe
+   - libsm-dev
   sudo: yes
   when: ansible_distribution == 'Debian'
 
