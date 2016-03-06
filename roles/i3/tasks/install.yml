@@ -27,6 +27,22 @@
 
       - dunst
   sudo: yes
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install zsh package
+  dnf: name={{ item }} state=present
+  with_items:
+   - i3
+   - libX11-devel
+   - libXext-devel
+   - libXinerama-devel
+   - libXft-devel
+   - dmenu
+   - lxterminal
+   - i3status
+   - conky
+  sudo: yes
+  when: ansible_distribution == 'Fedora'
 
 - name: remove useless package for i3
   apt: name={{ item }} state=absent
@@ -34,6 +50,7 @@
     - xfce4-notifyd
     - notify-osd
   ignore_errors: yes
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Install python package for i3
   pip: name={{ item }}
@@ -67,3 +84,4 @@
     - make
     - "make install"
   sudo: yes
+  when: ansible_distribution == 'Ubuntu'
