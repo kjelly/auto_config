@@ -107,7 +107,7 @@
               regexp="\$\{X11INC\}/freetype2"
               state=absent
 
-- name: generate fish configure
+- name: build and install dmenu
   command: "{{ item }}"
   args:
     chdir: "/tmp/dmenu-{{ dmenu_version }}"
