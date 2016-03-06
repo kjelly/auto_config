@@ -12,3 +12,4 @@
       - workrave
       - xclip # for paste.sh
   sudo: yes
+  ignore_errors: yes
