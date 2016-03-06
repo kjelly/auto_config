@@ -29,6 +29,37 @@
   sudo: yes
   when: ansible_distribution == 'Ubuntu'
 
+- name: Install i3 package
+  apt: name={{ item }} state=present
+  with_items:
+      - i3
+      - i3status
+      - terminator
+      - python-pip
+      - xfce4-panel
+      - gnome-control-center
+      - xbacklight
+      - feh
+      - lm-sensors
+      - lxterminal
+      - lxpanel
+      - xdotool
+      - cinnamon-control-center # for sount-applet
+      - ibus-chewing
+
+      - boxes
+      - libnotify-bin
+      - zenity
+      - toilet
+      - whiptail
+
+      - dunst
+      - pkg-config
+      - libgtk-3-dev
+      - libstartup-notification0-dev
+  sudo: yes
+  when: ansible_distribution == 'Debian'
+
 - name: Install zsh package
   dnf: name={{ item }} state=present
   with_items:
@@ -85,3 +116,25 @@
     - "make install"
   sudo: yes
   when: ansible_distribution == 'Ubuntu'
+
+- name: download rofi source code
+  get_url: url="{{ rofi_download_url }}" dest=/tmp/rofi.tar.gz mode=0440
+
+- unarchive: src=/tmp/rofi.tar.gz
+             dest=/tmp/
+
+- name: build rofi
+  command: "{{ item }}"
+  args:
+    chdir: "/tmp/rofi-{{ rofi_version }}"
+  with_items:
+    - "./configure"
+    - make
+
+- name: install rofi
+  command: "{{ item }}"
+  args:
+    chdir: "/tmp/rofi-{{ rofi_version }}"
+  with_items:
+    - "make install"
+  sudo: yes
