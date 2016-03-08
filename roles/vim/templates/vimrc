@@ -525,3 +525,18 @@ noremap H gT
 noremap L gt
 noremap J :CtrlPBuffer<cr>
 
+let g:ctrlp_extensions = ['symbol']
+let g:symbol_patterns = {
+  \ 'javascript': [
+    \ 'var \zs\w\+\>\ze ='
+  \ ],
+  \ 'html': [
+    \ 'id="\zs.\+\ze"',
+    \ 'class="\zs.\+\ze"'
+  \ ]
+  \ }
+nmap <leader>fs :CtrlPSymbol<cr>
+imap <C-e> <Esc>dwi
+
+imap <C-f> <Esc>w i
+imap <C-b> <Esc>bi
