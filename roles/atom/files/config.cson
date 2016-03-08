@@ -1,17 +1,19 @@
 "*":
-  "exception-reporting":
-    userId: "637beacd-ee69-b640-10b9-d7eaba53daa6"
-  welcome:
-    showOnStartup: false
-  core: {}
+  core:
+    autoHideMenuBar: true
   editor:
+    fontSize: 21
     invisibles: {}
+    showIndentGuide: true
     showInvisibles: true
     tabLength: 4
-    fontSize: 20
-    showIndentGuide: true
+  "exception-reporting":
+    userId: "637beacd-ee69-b640-10b9-d7eaba53daa6"
+  "symbols-tree-view":
+    autoToggle: true
   "tree-view": {}
-
- '.slim.text':
-   whitespace:
-     removeTrailingWhitespace: true
+  welcome:
+    showOnStartup: false
+".slim.text":
+  whitespace:
+    removeTrailingWhitespace: true
