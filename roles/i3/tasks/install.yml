@@ -50,6 +50,7 @@
     - xfce4-notifyd
     - notify-osd
   when: ansible_distribution == 'Ubuntu'
+  ignore_errors: yes
 
 - name: Install python package for i3
   pip: name={{ item }}
