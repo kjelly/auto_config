@@ -14,7 +14,10 @@
     - apt: deb=/tmp/deb
       sudo: yes
 
-
+-name: install package
+ apt: {{ item }} state=present
+ with_items:
+   - silversearcher-ag
 
 - name: apm install
   shell: apm install {{ item }}
@@ -22,9 +25,13 @@
       - language-scala
       - autocomplete-plus
       - scala-format
-      - scala-worksheet
       - vim-mode
+      - "ex-mode"
+      - "atom-fuzzy-grep"
       - autocomplete
       - atom-beautify
+      - symbols-tree-view
+
 - copy: src="config.cson" dest="~/.atom/config.cson"
 - copy: src="keymap.cson" dest="~/.atom/keymap.cson"
+- copy: src="styles.less" dest="~/.atom/styles.less"

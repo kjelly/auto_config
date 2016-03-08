@@ -82,6 +82,7 @@
     - notify-osd
   ignore_errors: yes
   when: ansible_distribution == 'Ubuntu'
+  ignore_errors: yes
 
 - name: Install python package for i3
   pip: name={{ item }}
