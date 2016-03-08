@@ -1,6 +1,30 @@
 '.editor':
   'alt-/': 'autocomplete:toggle'
   'alt-space': 'autocomplete:toggle'
+  'alt-h': 'pane:show-previous-item'
+  'alt-l': 'pane:show-next-item'
+
+  'ctrl-h': 'pane:show-previous-item'
+  'ctrl-l': 'pane:show-next-item'
+
+  'ctrl-j': 'window:focus-pane-on-left'
+  'ctrl-k': 'window:focus-pane-on-right'
+
+  'ctrl-g': 'project-find:show'
+
 'body':
   'ctrl-tab': 'pane:show-next-item'
   'ctrl-shift-tab': 'pane:show-previous-item'
+
+'atom-text-editor.vim-mode:not(.insert-mode)':
+  ', g r r': 'project-find:show'
+  'L': 'pane:show-next-item'
+  'H': 'pane:show-previous-item'
+  'ctrl-n': 'tree-view:toggle'
+  'ctrl-s': 'symbols-tree-view:toggle'
+
+'atom-text-editor.vim-mode.insert-mode':
+  'ctrl-w': 'editor:delete-to-beginning-of-subword'
+  'ctrl-e': 'editor:delete-to-end-of-subword'
+  'ctrl-f': 'vim-mode:move-to-next-word'
+  'ctrl-b': 'vim-mode:move-to-previous-word'
