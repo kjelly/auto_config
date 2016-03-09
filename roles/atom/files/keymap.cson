@@ -22,9 +22,15 @@
   'H': 'pane:show-previous-item'
   'ctrl-n': 'tree-view:toggle'
   'ctrl-s': 'symbols-tree-view:toggle'
+  ', e': 'command-palette:toggle'
+  ', c c': 'editor:copy-select'
+  ', c p': 'core:paste'
 
 'atom-text-editor.vim-mode.insert-mode':
   'ctrl-w': 'editor:delete-to-beginning-of-subword'
   'ctrl-e': 'editor:delete-to-end-of-subword'
   'ctrl-f': 'vim-mode:move-to-next-word'
   'ctrl-b': 'vim-mode:move-to-previous-word'
+
+'atom-text-editor:not(.mini).vim-mode:not(.insert-mode):not(.jumpy-jump-mode)':
+    'f': 'jumpy:toggle'
