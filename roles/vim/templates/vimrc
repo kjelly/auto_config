@@ -540,3 +540,11 @@ imap <C-e> <Esc>dwi
 
 imap <C-f> <Esc>w i
 imap <C-b> <Esc>bi
+
+execute "set <M-h>=\eh"
+noremap <M-h> gT
+imap <M-h> <Esc>gT
+execute "set <M-l>=\el"
+noremap <M-l> gt
+imap <M-l> <Esc>gt
+
