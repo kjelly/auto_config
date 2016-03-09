@@ -14,10 +14,12 @@
     - apt: deb=/tmp/deb
       sudo: yes
 
--name: install package
- apt: {{ item }} state=present
- with_items:
-   - silversearcher-ag
+- name: install package
+  apt: name="{{ item }}" state=present
+  with_items:
+    - "silversearcher-ag"
+  when: ansible_distribution == 'Ubuntu'
+  sudo: yes
 
 - name: apm install
   shell: apm install {{ item }}
