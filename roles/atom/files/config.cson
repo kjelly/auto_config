@@ -9,6 +9,9 @@
     tabLength: 4
   "exception-reporting":
     userId: "637beacd-ee69-b640-10b9-d7eaba53daa6"
+  jumpy:
+    fontSize: 0.95
+    highContrast: true
   "symbols-tree-view":
     autoToggle: true
   "tree-view": {}
