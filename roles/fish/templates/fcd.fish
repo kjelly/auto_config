@@ -5,10 +5,15 @@ function fcd
         set base "."
     end
 
-    tree -if --noreport -d $base|fzf > ~/.fcd
+    tree -if --noreport $base|fzf > ~/.fcd
     set cd_path (cat ~/.fcd)
     if [ $cd_path ]
-        cd $cd_path
+        if [ -d $cd_path ]
+            cd $cd_path
+        else
+            cd (dirname $cd_path)
+        end
     end
 end
+
 
