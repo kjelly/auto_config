@@ -21,5 +21,6 @@
 - template: src=i3run.fish dest="~/.config/fish/functions/i3run.fish"
 - template: src=i3term.fish dest="~/.config/fish/functions/i3term.fish"
 - template: src=fcd.fish dest="~/.config/fish/functions/fcd.fish"
+- template: src=fe.fish dest="~/.config/fish/functions/fe.fish"
 - copy: src=get_color.py dest="~/.config/fish/get_color.py"
 - copy: src=get_host_color.py dest="~/.config/fish/get_host_color.py"
