@@ -33,6 +33,9 @@
       - autocomplete
       - atom-beautify
       - symbols-tree-view
+      - jumpy
+      - sort-lines
+
 
 - copy: src="config.cson" dest="~/.atom/config.cson"
 - copy: src="keymap.cson" dest="~/.atom/keymap.cson"
