@@ -1,0 +1,18 @@
+---
+
+- file: path="~/.config/LightTable/User"
+        state=directory recurse=yes
+
+- file: path="~/.config/LightTable/plugins"
+        state=directory recurse=yes
+
+- copy: src=user.keymap dest="~/.config/LightTable/User"
+- copy: src=user.behaviors dest="~/.config/LightTable/User"
+
+- git: repo=https://github.com/LightTable/Vim
+       dest="~/.config/LightTable/plugins/Vim"
+       depth=1
+
+- git: repo=https://github.com/JobJob/Word-Jumper-LT
+       dest="~/.config/LightTable/plugins/Word_Jumper"
+       depth=1
