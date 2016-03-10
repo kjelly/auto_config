@@ -1,15 +1,62 @@
 ---
+- block:
+  - name: get fish version
+    shell: "vim --version"
+  - set_fact:
+      need_install: false
+  rescue:
+  - set_fact:
+      need_install: true
+
+- name: clone vim
+  git: repo=https://github.com/vim/vim
+       dest="/tmp/vim" depth=1 force=yes
+  when: need_install
+
+- name: Install packages
+  apt: name={{ item }} state=present
+  with_items:
+   - libncurses5-dev
+   - libncursesw5-dev
+   - exuberant-ctags
+   - cmake # for YouCompleteMe
+   - python3-dev
+  sudo: yes
+  when: ansible_distribution == 'Ubuntu'
+
+- name: generate vim Makefile
+  command: "make distclean"
+  args:
+    chdir: "/tmp/vim"
+  when: need_install
+  ignore_errors: yes
+
+- name: generate vim Makefile
+  command: "./configure --enable-pythoninterp --enable-python3interp --enable-cscope"
+  args:
+    chdir: "/tmp/vim"
+  when: need_install
+
+- name: make vim
+  command: "make"
+  args:
+    chdir: "/tmp/vim"
+    creates: "/tmp/vim/src/vim"
+  when: need_install
+
+- name: make install vim
+  command: "make install"
+  args:
+    chdir: "/tmp/vim"
+  when: need_install
+  sudo: yes
 
 - name: Install vim package
   apt: name={{ item }} state=present
   with_items:
    - vim
-   - libncurses5-dev
-   - libncursesw5-dev
-   - exuberant-ctags
-   - cmake # for YouCompleteMe
   sudo: yes
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution == 'Ubuntu' and programming == false
 
 - name: Install vim package
   apt: name={{ item }} state=present
@@ -22,7 +69,7 @@
    - cmake # for YouCompleteMe
    - libsm-dev
   sudo: yes
-  when: ansible_distribution == 'Debian'
+  when: ansible_distribution == 'Debian' and programming == false
 
 - name: Install vim package
   dnf: name={{ item }} state=present
@@ -30,14 +77,55 @@
    - vim
    - ctags-etags
   sudo: yes
-  when: ansible_distribution == 'Fedora'
+  when: ansible_distribution == 'Fedora' and programming == false
 
 - name: Install vim package
   dnf: name={{ item }} state=present
   with_items:
    - vim-enhanced
   sudo: yes
-  when: ansible_distribution == 'Centos'
+  when: ansible_distribution == 'Centos' and programming == false
+
+- name: clone fzf
+  git: repo=https://github.com/junegunn/fzf dest=~/.fzf
+
+- name: install fzf
+  shell: ~/.fzf/install
+
+- name: Install vim package
+  apt: name={{ item }} state=present
+  with_items:
+   - vim
+  sudo: yes
+  when: ansible_distribution == 'Ubuntu' and programming == false
+
+- name: Install vim package
+  apt: name={{ item }} state=present
+  with_items:
+   - vim
+   - libncurses5-dev
+   - libncursesw5-dev
+   - gawk
+   - exuberant-ctags
+   - cmake # for YouCompleteMe
+   - libsm-dev
+  sudo: yes
+  when: ansible_distribution == 'Debian' and programming == false
+
+- name: Install vim package
+  dnf: name={{ item }} state=present
+  with_items:
+   - vim
+   - ctags-etags
+  sudo: yes
+  when: ansible_distribution == 'Fedora' and programming == false
+
+- name: Install vim package
+  dnf: name={{ item }} state=present
+  with_items:
+   - vim-enhanced
+  sudo: yes
+  when: ansible_distribution == 'Centos' and programming == false
 
 - name: clone fzf
   git: repo=https://github.com/junegunn/fzf dest=~/.fzf
