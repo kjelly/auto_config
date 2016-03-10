@@ -8,3 +8,5 @@ dmenu_version: 4.6
 dmenu_download_url: http://dl.suckless.org/tools/dmenu-{{ dmenu_version}}.tar.gz
 rofi_version: 0.15.12
 rofi_download_url: https://github.com/DaveDavenport/rofi/releases/download/{{ rofi_version }}/rofi-{{ rofi_version }}.tar.gz
+lighttable_version: 0.8.1
+lighttable_download_url: https://github.com/LightTable/LightTable/releases/download/{{ lighttable_version }}/lighttable-{{ lighttable_version }}-linux.tar.gz
