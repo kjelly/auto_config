@@ -1,0 +1,16 @@
+---
+
+- name: download lighttable
+  get_url: url="{{ lighttable_download_url }}"
+           dest=/tmp/lighttable.tar.gz
+
+           #- name: download lighttable
+           #  command: "wget -O /tmp/lighttable.tar.gz {{ lighttable_download_url }}"
+
+- name: untar lighttable
+  unarchive: src=/tmp/lighttable.tar.gz dest=/opt/
+  sudo: yes
+
+- file: src="/opt/lighttable-{{ lighttable_version }}-linux/light"
+        dest="/bin/lighttable" state=link
+  sudo: yes
