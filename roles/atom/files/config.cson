@@ -1,4 +1,6 @@
 "*":
+  "atom-fuzzyy-grep":
+    showFullPath: true
   core:
     autoHideMenuBar: true
   editor:
