@@ -17,7 +17,8 @@
   'ctrl-shift-tab': 'pane:show-previous-item'
 
 'atom-text-editor.vim-mode:not(.insert-mode)':
-  ', g r r': 'project-find:show'
+  ', g r f': 'project-find:show'
+  ', g r r': 'fuzzy-grep:toggle'
   'L': 'pane:show-next-item'
   'H': 'pane:show-previous-item'
   'ctrl-n': 'tree-view:toggle'
