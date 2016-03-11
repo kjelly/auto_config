@@ -484,6 +484,10 @@ nmap <leader>e :Unite
 nmap <C-e> :Unite
 nmap <C-s> :TlistToggle<cr>
 
+nmap B <Plug>BookmarkToggle
+nmap t <Plug>BookmarkNext
+nmap T <Plug>BookmarkPrev
+
 nmap <Leader>bt <Plug>BookmarkToggle
 nmap <Leader>bi <Plug>BookmarkAnnotate
 nmap <Leader>ba <Plug>BookmarkShowAll
