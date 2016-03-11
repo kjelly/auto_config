@@ -27,7 +27,7 @@
     - "libxinerama-dev"
 
   sudo: yes
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_os_family == 'Debian'
   ignore_errors: yes
 
 - name: Install i3 package
@@ -147,7 +147,6 @@
     - make
     - "make install"
   sudo: yes
-  when: ansible_distribution == 'Ubuntu'
 
 - name: download rofi source code
   get_url: url="{{ rofi_download_url }}" dest=/tmp/rofi.tar.gz mode=0440
