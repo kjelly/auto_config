@@ -26,6 +26,13 @@
   ', e': 'command-palette:toggle'
   ', c c': 'editor:copy-select'
   ', c p': 'core:paste'
+  ', b t': 'bookmarks:toggle-bookmark'
+  ', b a': 'bookmarks:view-all'
+  ', b n': 'bookmarks:jump-to-next-bookmark'
+  ', b p': 'bookmarks:jump-to-previous-bookmark'
+  'B': 'bookmarks:toggle-bookmark'
+  't': 'bookmarks:jump-to-next-bookmark'
+  'T': 'bookmarks:jump-to-previous-bookmark'
 
 'atom-text-editor.vim-mode.insert-mode':
   'ctrl-w': 'editor:delete-to-beginning-of-subword'
