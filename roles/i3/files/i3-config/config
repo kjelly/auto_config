@@ -52,6 +52,7 @@ bindsym $mod+Return exec python ~/.i3/open_term.py
 
 # kill focused window
 bindsym $mod+Shift+C kill
+bindsym $mod+Escape kill
 bindsym $mod+Shift+X kill
 
 # start dmenu (a program launcher)
