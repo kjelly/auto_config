@@ -55,6 +55,7 @@
       - zenity
       - toilet
       - whiptail
+      - xfce4-screenshooter
 
       - dunst
   sudo: yes
@@ -83,6 +84,7 @@
       - zenity
       - toilet
       - whiptail
+      - xfce4-screenshooter
 
       - dunst
       - pkg-config
