@@ -133,3 +133,7 @@
 
 - name: install fzf
   shell: ~/.fzf/install
+
+- name: install powerline
+  pip: name=git+git://github.com/powerline/powerline extra_args="--user"
+  ignore_errors: yes
