@@ -21,6 +21,7 @@
    - exuberant-ctags
    - cmake # for YouCompleteMe
    - python3-dev
+   - "silversearcher-ag"
   sudo: yes
   when: ansible_distribution == 'Ubuntu'
 
