@@ -379,8 +379,15 @@ Bundle 'ervandew/supertab'
 Bundle 'thinca/vim-quickrun'
 Bundle 'tpope/vim-fugitive'
 Bundle 'godlygeek/tabular'
-Bundle 'altercation/vim-colors-solarized'
 Bundle 'dag/vim-fish'
+
+syntax enable
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+colorscheme torte
 
 {% if programming %}
 
@@ -416,15 +423,6 @@ Bundle 'bling/vim-airline'
 {% endif %}
 
 let g:vim_markdown_folding_disabled=1
-
-syntax enable
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
-colorscheme solarized
-
 
 let g:winManagerWindowLayout='FileExplorer'
 nmap wm :WMToggle<cr>
