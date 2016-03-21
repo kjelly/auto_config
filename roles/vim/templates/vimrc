@@ -347,7 +347,6 @@ filetype off                  " required!
 
 set rtp+=~/.vim/bundle/vundle/
 set rtp+=~/.fzf/
-set rtp+=~/.powerline/powerline/bindings/vim
 call vundle#rc()
 
 if executable('ag')
@@ -376,7 +375,6 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'vim-scripts/grep.vim'
 Bundle 'VimExplorer'
 Bundle 'winmanager'
-"Bundle 'bling/vim-airline'
 Bundle 'taglist.vim'
 Bundle 'MattesGroeger/vim-bookmarks'
 Bundle 'Shougo/unite.vim'
@@ -412,6 +410,11 @@ Bundle 'mru.vim'
 Bundle 'Shougo/vimshell.vim'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'mbbill/undotree'
+
+set rtp+=~/.powerline/powerline/bindings/vim
+{% else %}
+
+Bundle 'bling/vim-airline'
 
 {% endif %}
 
