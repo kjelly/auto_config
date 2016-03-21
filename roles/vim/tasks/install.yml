@@ -22,6 +22,8 @@
    - cmake # for YouCompleteMe
    - python3-dev
    - "silversearcher-ag"
+   - ruby
+   - "ruby-dev"
   sudo: yes
   when: ansible_distribution == 'Ubuntu'
 
@@ -56,6 +58,10 @@
   apt: name={{ item }} state=present
   with_items:
    - vim
+   - gawk
+   - exuberant-ctags
+   - ruby
+   - "ruby-dev"
   sudo: yes
   when: ansible_distribution == 'Ubuntu' and programming == false
 
@@ -69,6 +75,8 @@
    - exuberant-ctags
    - cmake # for YouCompleteMe
    - libsm-dev
+   - ruby
+   - "ruby-dev"
   sudo: yes
   when: ansible_distribution == 'Debian' and programming == false
 
