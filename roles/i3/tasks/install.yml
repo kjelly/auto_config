@@ -56,6 +56,7 @@
       - toilet
       - whiptail
       - xfce4-screenshooter
+      - xfce4-terminal
 
       - dunst
   sudo: yes
