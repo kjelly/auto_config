@@ -16,12 +16,12 @@ if __name__ == '__main__':
         w = [i for i in i3.filter(nodes=[]) if i.get('focused')][0]
 
         if 'term' in instance and (' fish ' in title or ' zsh ' in title or ' bash ' in title):
-            cmd = 'lxterminal --working-directory=(pwd)'
+            cmd = 'xfce4-terminal --working-directory=(pwd)'
             os.system('''xdotool type --window %s  %s ''' % (wid, shellquote(cmd)))
             os.system('''xdotool key --window %s  Return ''' % wid)
         else:
-            os.system('''i3-msg "exec %s" ''' % 'lxterminal')
+            os.system('''i3-msg "exec %s" ''' % 'xfce4-terminal')
     except:
-        os.system('''i3-msg "exec %s" ''' % 'lxterminal')
+        os.system('''i3-msg "exec %s" ''' % 'xfce4-terminal')
 
 
