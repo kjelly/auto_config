@@ -98,9 +98,6 @@ set tm=500
 " Enable syntax highlighting
 syntax enable
 
-colorscheme desert
-set background=dark
-
 " Set extra options when running in GUI mode
 if has("gui_running")
     set guioptions-=T
@@ -347,7 +344,6 @@ filetype off                  " required!
 
 set rtp+=~/.vim/bundle/vundle/
 set rtp+=~/.fzf/
-set rtp+=~/.powerline/powerline/bindings/vim
 call vundle#rc()
 
 if executable('ag')
@@ -376,7 +372,6 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'vim-scripts/grep.vim'
 Bundle 'VimExplorer'
 Bundle 'winmanager'
-"Bundle 'bling/vim-airline'
 Bundle 'taglist.vim'
 Bundle 'MattesGroeger/vim-bookmarks'
 Bundle 'Shougo/unite.vim'
@@ -384,8 +379,15 @@ Bundle 'ervandew/supertab'
 Bundle 'thinca/vim-quickrun'
 Bundle 'tpope/vim-fugitive'
 Bundle 'godlygeek/tabular'
-
 Bundle 'dag/vim-fish'
+
+syntax enable
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+colorscheme torte
 
 {% if programming %}
 
@@ -413,10 +415,14 @@ Bundle 'Shougo/vimshell.vim'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'mbbill/undotree'
 
+set rtp+=~/.powerline/powerline/bindings/vim
+{% else %}
+
+Bundle 'bling/vim-airline'
+
 {% endif %}
 
 let g:vim_markdown_folding_disabled=1
-
 
 let g:winManagerWindowLayout='FileExplorer'
 nmap wm :WMToggle<cr>
