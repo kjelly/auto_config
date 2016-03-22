@@ -505,6 +505,10 @@ noremap <M-9> 9gt
 noremap H gT
 noremap L gt
 noremap J :CtrlPBuffer<cr>
+map <Esc>h <Nop>
+map <Esc>l <Nop>
+
+
 
 let g:ctrlp_extensions = ['symbol']
 let g:symbol_patterns = {
