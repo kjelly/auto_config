@@ -35,6 +35,7 @@
       - symbols-tree-view
       - jumpy
       - sort-lines
+      - "terminal-plus"
 
 
 - copy: src="config.cson" dest="~/.atom/config.cson"
