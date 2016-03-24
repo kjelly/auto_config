@@ -307,5 +307,3 @@ bindsym $mod+period exec ~/.i3/noteit.py
 exec --no-startup-id i3-msg 'workspace number 1;workspace 1:Web; exec sensible-browser'
 
 exec --no-startup-id dunst -print -fn "Ubuntu 40"
-
-for_window [class="vlc"] floating enable
