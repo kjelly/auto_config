@@ -16,6 +16,7 @@
   'ctrl-tab': 'pane:show-next-item'
   'ctrl-shift-tab': 'pane:show-previous-item'
   'f1': 'tree-view:toggle-focus'
+  'f2': 'terminal-plus:toggle'
 
 'atom-text-editor.vim-mode:not(.insert-mode)':
   ', g r f': 'project-find:show'
