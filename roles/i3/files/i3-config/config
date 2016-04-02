@@ -49,6 +49,7 @@ force_focus_wrapping yes
 
 # start a terminal
 bindsym $mod+Return exec python ~/.i3/open_term.py
+bindsym $mod+Shift+Return exec xfce4-terminal
 
 # kill focused window
 bindsym $mod+Shift+C kill
