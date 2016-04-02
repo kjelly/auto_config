@@ -180,9 +180,6 @@ mode "$mode_folating_window_move" {
 }
 bindsym $mod+Shift+f mode "$mode_folating_window_move"
 
-bindsym $mod+F4 kill
-
-
 # multimedia keys
 bindsym XF86AudioRaiseVolume exec "amixer Master '5%+'"
 bindsym XF86AudioLowerVolume exec "amixer set Master '5%-'"
