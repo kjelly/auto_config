@@ -181,7 +181,7 @@ mode "$mode_folating_window_move" {
 bindsym $mod+Shift+f mode "$mode_folating_window_move"
 
 # multimedia keys
-bindsym XF86AudioRaiseVolume exec "amixer Master '5%+'"
+bindsym XF86AudioRaiseVolume exec "amixer set Master '5%+'"
 bindsym XF86AudioLowerVolume exec "amixer set Master '5%-'"
 bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 
