@@ -47,8 +47,8 @@
       - lxpanel
       - xdotool
       - rofi
-      - cinnamon-control-center # for sount-applet
       - ibus-chewing
+      - volti
 
       - boxes
       - libnotify-bin
@@ -77,8 +77,8 @@
       - lxterminal
       - lxpanel
       - xdotool
-      - cinnamon-control-center # for sount-applet
       - ibus-chewing
+      - volti
 
       - boxes
       - libnotify-bin
