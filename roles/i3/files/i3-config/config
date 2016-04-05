@@ -273,8 +273,7 @@ exec feh --bg-scale ~/Pictures/background.jpg
 exec bash ~/.i3/run_lxpanel.sh
 
 exec --no-startup-id /usr/bin/nm-applet
-exec --no-startup-id /usr/bin/gnome-sound-applet
-exec --no-startup-id cinnamon-sound-applet
+exec --no-startup-id volti
 exec --no-startup-id bash ~/.i3/dual_screen.sh
 exec --no-startup-id workrave
 exec --no-startup-id xmodmap ~/.Xmodmap
