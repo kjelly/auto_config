@@ -4,8 +4,6 @@
 
 - file: path="~/.config/fish" state=directory mode=0755
 
-- file: path="~/.config/fish/functions" state=directory mode=0755
-
 - file: path="~/.config/omf" state=directory mode=0755
 
 - template: src=config.fish dest="~/.config/fish/config.fish"
@@ -14,16 +12,9 @@
 
 - template: src=theme dest="~/.config/omf/theme"
 
-- template: src=fish_prompt.fish dest="~/.config/fish/functions/fish_prompt.fish"
-#- template: src=fish_right_prompt.fish dest="~/.config/fish/functions/fish_right_prompt.fish"
-- template: src=fish_title.fish dest="~/.config/fish/functions/fish_title.fish"
-- template: src=fish_user_key_bindings.fish dest="~/.config/fish/functions/fish_user_key_bindings.fish"
-- template: src=i3run.fish dest="~/.config/fish/functions/i3run.fish"
-- template: src=i3term.fish dest="~/.config/fish/functions/i3term.fish"
-- template: src=fcd.fish dest="~/.config/fish/functions/fcd.fish"
-- template: src=fe.fish dest="~/.config/fish/functions/fe.fish"
-- template: src=fr.fish dest="~/.config/fish/functions/fr.fish"
-- template: src=fr.py dest="~/.config/fish/functions/fr.py"
+- copy: src=functions dest="~/.config/fish/"
 - copy: src=get_color.py dest="~/.config/fish/get_color.py"
 - copy: src=get_host_color.py dest="~/.config/fish/get_host_color.py"
 - copy: src=print_cwd.py dest="~/.config/fish/print_cwd.py"
+
+- file: path="~/.config/fish/functions" state=directory mode=0755
