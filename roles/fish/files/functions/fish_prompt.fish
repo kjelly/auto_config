@@ -66,12 +66,6 @@ function fish_prompt
     set -l cwd_color_bg (python ~/.config/fish/get_color.py $cwd 1)
     set -l cwd_color_fg (python ~/.config/fish/get_color.py $cwd)
 
-    # Show a yellow radioactive symbol for root privileges
-    if [ $uid -eq 0 ]
-        echo -n -s $bg_yellow $black " $__oceanfish_glyph_radioactive " $normal
-    end
-
-
     # Display virtualenv name if in a virtualenv
     if set -q VIRTUAL_ENV
         echo -n -s $bg_cyan $black " " (basename "$VIRTUAL_ENV") " " $normal
@@ -109,6 +103,10 @@ function fish_prompt
 
     # Terminate with a space
 	echo
-    echo -n -s $arrow ' ' $normal
+    if [ $uid -eq 0 ]
+        echo -n -s '# ' $normal
+    else
+        echo -n -s '$ ' $normal
+    end
 end
 
