@@ -52,7 +52,12 @@ bindsym $mod+Return exec python ~/.i3/open_term.py
 
 # kill focused window
 bindsym $mod+Shift+C kill
-bindsym $mod+Escape kill
+mode "kill_mode" {
+        bindsym y kill;mode "default"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+Escape mode "kill_mode"
 bindsym $mod+Shift+X kill
 
 # start dmenu (a program launcher)
@@ -178,9 +183,6 @@ mode "$mode_folating_window_move" {
     bindsym Escape mode "default"
 }
 bindsym $mod+Shift+f mode "$mode_folating_window_move"
-
-bindsym $mod+F4 kill
-
 
 # multimedia keys
 bindsym XF86AudioRaiseVolume exec "amixer Master '5%+'"
