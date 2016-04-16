@@ -49,6 +49,7 @@ force_focus_wrapping yes
 
 # start a terminal
 bindsym $mod+Return exec python ~/.i3/open_term.py
+bindsym $mod+Shift+Return exec xfce4-terminal
 
 # kill focused window
 bindsym $mod+Shift+C kill
@@ -185,7 +186,7 @@ mode "$mode_folating_window_move" {
 bindsym $mod+Shift+f mode "$mode_folating_window_move"
 
 # multimedia keys
-bindsym XF86AudioRaiseVolume exec "amixer Master '5%+'"
+bindsym XF86AudioRaiseVolume exec "amixer set Master '5%+'"
 bindsym XF86AudioLowerVolume exec "amixer set Master '5%-'"
 bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 
@@ -277,8 +278,7 @@ exec feh --bg-scale ~/Pictures/background.jpg
 exec bash ~/.i3/run_lxpanel.sh
 
 exec --no-startup-id /usr/bin/nm-applet
-exec --no-startup-id /usr/bin/gnome-sound-applet
-exec --no-startup-id cinnamon-sound-applet
+exec --no-startup-id volti
 exec --no-startup-id bash ~/.i3/dual_screen.sh
 exec --no-startup-id workrave
 exec --no-startup-id xmodmap ~/.Xmodmap
