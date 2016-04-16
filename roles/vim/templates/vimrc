@@ -264,13 +264,11 @@ map <leader>gp :cp<cr>
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+map <leader>spet :setlocal spell!<cr>
 
 " Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
+map <leader>spen ]s
+map <leader>spep [s
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -453,7 +451,8 @@ nmap <leader>gb :Bgrep<cr>
 nmap <leader>q :q<cr>
 nmap <leader>n :set nu!<cr>
 nmap <leader>w :set wrap!<cr>
-nmap <leader>sh :shell<cr>
+nmap <leader>spl :split<cr>
+nmap <leader>spv :vsplit<cr>
 nmap <leader>sh :shell<cr>
 nmap <leader>vsh :VimShell<cr>
 nmap <leader>ff :NERDTreeTabsFind<cr>
