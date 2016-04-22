@@ -1,4 +1,8 @@
 ---
+- name: remove vim from apt
+  apt: name=vim state=absent
+  when: ansible_os_family == "Debian" and and programming == false
+
 - block:
   - name: get fish version
     shell: "vim --version"
