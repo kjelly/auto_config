@@ -1,14 +1,18 @@
 ---
 - name: remove vim from apt
   apt: name=vim state=absent
-  when: ansible_os_family == "Debian" and programming == false
+  when: (ansible_distribution == "Debian" or ansible_distribution == 'Ubuntu') and programming == true
   ignore_errors: yes
 
 - stat: path=/usr/local/bin/vim
-  register: vim_installed
+  register: vim_exec
+
+- debug: var=vim_exec
 
 - set_fact:
-    need_install: vim_installed == false
+    need_install: "{{ not vim_exec.stat.exists }}"
+
+- debug: var=need_install
 
 - name: clone vim
   git: repo=https://github.com/vim/vim
