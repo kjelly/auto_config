@@ -4,9 +4,6 @@
   with_items:
       - build-essential
       - python-dev
-      - vim
-      - golang
-      - scala
       - python-pip
   sudo: yes
   when: ansible_distribution == 'Ubuntu'
@@ -19,9 +16,6 @@
       - gcc
       - kernel-devel
       - python-devel
-      - vim
-      - golang
-      - scala
       - python-pip
   sudo: yes
   when: ansible_distribution == 'Fedora'
