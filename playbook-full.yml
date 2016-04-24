@@ -21,3 +21,4 @@
       - xbindkeys
       - zsh
       - fish
+      - byobu
