@@ -5,6 +5,17 @@
 - set_fact:
     need_install: "{{ not fish_exec.stat.exists }}"
 
+- name: get fish version
+  shell: "fish --version|awk '{print $3}'"
+  register: current_fish_version
+  ignore_errors: yes
+
+- name: check fish version to decide fish need to be install or not
+  set_fact:
+    need_install: "{{ current_fish_version| version_compare('{{ fish_version }}', '<') }}"
+  when: not need_install
+  ignore_errors: yes
+
 - name: Install fish dependent package
   apt: name={{ item }} state=present
   with_items:
