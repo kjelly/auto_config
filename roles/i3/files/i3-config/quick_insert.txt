@@ -8,7 +8,7 @@ sudo apt-get install
 sudo apt-get update;
 sudo apt-get dist-upgrade;
 sudo apt-get autoremove;
-git clone
+git clone https://github.com/
 ifconfig |grep -A 10
 git commit
 cd /var/log/
