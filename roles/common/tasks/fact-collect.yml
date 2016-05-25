@@ -6,4 +6,10 @@
 - set_fact:
     HOME_PATH: "{{ HOME_PATH_RESULT.stdout }}"
 
+- shell: "lsb_release -c|awk '{print $2}'"
+  register: UBUNTU_VERSION_RESULT
+  when: ansible_distribution == 'Ubuntu'
 
+- set_fact:
+    UBUNTU_VERSION: "{{ UBUNTU_VERSION_RESULT.stdout }}"
+  when: ansible_distribution == 'Ubuntu'
