@@ -7,9 +7,12 @@
 - name: update sources.list for docker
   lineinfile: dest=/etc/apt/sources.list regexp="deb https://apt.dockerproject.org/repo"
               line="deb https://apt.dockerproject.org/repo ubuntu-{{ UBUNTU_VERSION }} main"
+  sudo: yes
+
 
 - name: install docker-engine
-  apt: update_cache=yes name="docker-engine" state=present
+  apt: update_cache=yes name="docker-engine" state=present force=yes
+  sudo: yes
 
 - name: add user to docker group
   user: append=yes name={{ ansible_ssh_user }} groups=docker
