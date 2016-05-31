@@ -3,3 +3,4 @@
 - name: make sure docker mount flags is shared
   lineinfile: dest="/lib/systemd/system/docker.service" regexp="MountFlags="
               line="MountFlags=shared"
+  sudo: yes
