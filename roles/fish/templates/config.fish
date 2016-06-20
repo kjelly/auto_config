@@ -13,7 +13,9 @@ alias cd3 "cd ../../.."
 alias cd4 "cd ../../../.."
 alias cd5 "cd ../../../../.."
 
-set -gx PATH "{{ HOME_PATH }}/gohome/bin"  "{{ HOME_PATH }}/bin"  "{{ HOME_PATH }}/mybin" $PATH
+set -gx GOROOT "{{ HOME_PATH }}/go"
+set -gx GOPATH "{{ HOME_PATH }}/gohome"
+set -gx PATH "$GOROOT/bin" "{{ HOME_PATH }}/gohome/bin" "{{ HOME_PATH }}/bin" "{{ HOME_PATH }}/mybin" $PATH
 
 eval (python -m virtualfish)
 
