@@ -36,6 +36,7 @@
       - jumpy
       - sort-lines
       - "terminal-plus"
+      - "go-plus"
 
 
 - copy: src="config.cson" dest="~/.atom/config.cson"
