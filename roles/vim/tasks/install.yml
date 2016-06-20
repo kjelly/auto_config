@@ -3,6 +3,7 @@
   apt: name=vim state=absent
   when: (ansible_distribution == "Debian" or ansible_distribution == 'Ubuntu') and programming == true
   ignore_errors: yes
+  sudo: yes
 
 - stat: path=/usr/local/bin/vim
   register: vim_exec
