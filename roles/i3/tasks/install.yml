@@ -1,4 +1,11 @@
 ---
+- name: Remove some useless package(i3 role)
+  apt: name={{ item }} state=absent
+  with_items:
+      - ibus
+      - ibus-chewing
+  when: ansible_os_family == 'Debian'
+  ignore_errors: yes
 - name: Install i3 dependence lib
   apt: name={{ item }} state=present
   with_items:
@@ -47,7 +54,6 @@
       - lxpanel
       - xdotool
       - rofi
-      - ibus-chewing
       - volti
 
       - boxes
@@ -59,6 +65,7 @@
       - xfce4-terminal
 
       - dunst
+      - hime-chewing
   sudo: yes
   when: ansible_distribution == 'Ubuntu'
 
@@ -77,7 +84,6 @@
       - lxterminal
       - lxpanel
       - xdotool
-      - ibus-chewing
       - volti
 
       - boxes
@@ -92,6 +98,8 @@
       - pkg-config
       - libgtk-3-dev
       - libstartup-notification0-dev
+
+      - hime-chewing
   sudo: yes
   when: ansible_distribution == 'Debian'
 
