@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+from __future__ import print_function
+import os
+import sys
+
+from neovim import attach
+
+args = sys.argv[1:]
+if not args:
+    print("Usage: {} <filename> ...".format(sys.argv[0]))
+    sys.exit(1)
+
+addr = os.environ.get("NVIM_LISTEN_ADDRESS", None)
+if not addr:
+    os.execvp('nvim', args)
+
+nvim = attach("socket", path=addr)
+
+
+chid = nvim.channel_id
+nvim.command('tabnew')
+nvim.command('augroup EDIT')
+nvim.command('au BufEnter <buffer> call rpcnotify({0}, "n")'.format(chid))
+nvim.command('au BufEnter <buffer> startinsert'.format(chid))
+nvim.command('augroup END')
+nvim.vars['files_to_edit'] = args
+for x in args:
+    nvim.command('exe "drop ".remove(g:files_to_edit, 0)')
