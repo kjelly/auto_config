@@ -333,9 +333,14 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
+{% if nvim %}
+{% else %}
+
 if &shell =~# 'fish$'
     set shell=sh
 endif
+
+{% endif %}
 
 set nocompatible              " be iMproved
 filetype off                  " required!
@@ -389,8 +394,12 @@ colorscheme torte
 
 {% if programming %}
 
-Bundle 'tpope/vim-surround'
+{% if nvim %}
+{% else %}
 Bundle 'Valloric/YouCompleteMe'
+{% endif %}
+
+Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/OmniCppComplete'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'honza/vim-snippets'
@@ -413,7 +422,12 @@ Bundle 'Shougo/vimshell.vim'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'mbbill/undotree'
 
+{% if nvim %}
+Bundle 'bling/vim-airline'
+{% else %}
 set rtp+=~/.powerline/powerline/bindings/vim
+{% endif %}
+
 {% else %}
 
 Bundle 'bling/vim-airline'
@@ -480,6 +494,22 @@ inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 nnoremap <C-u> :UndotreeToggle<cr>
 nnoremap <C-o> :FZF<cr>
 
+{% if nvim %}
+
+noremap <A-0> 0gt
+noremap <A-1> 1gt
+noremap <A-2> 2gt
+noremap <A-3> 3gt
+noremap <A-4> 4gt
+noremap <A-5> 5gt
+noremap <A-6> 6gt
+noremap <A-7> 7gt
+noremap <A-8> 8gt
+noremap <A-9> 9gt
+noremap <A-0> 0gt
+
+{% else %}
+
 execute "set <M-0>=\e0"
 noremap <M-0> 0gt
 execute "set <M-1>=\e1"
@@ -500,6 +530,8 @@ execute "set <M-8>=\e8"
 noremap <M-8> 8gt
 execute "set <M-9>=\e9"
 noremap <M-9> 9gt
+
+{% endif %}
 
 noremap H gT
 noremap L gt
@@ -524,3 +556,15 @@ imap <C-e> <Esc>dwi
 
 imap <C-f> <Esc>w i
 imap <C-b> <Esc>bi
+
+
+{% if nvim %}
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+{% endif %}

@@ -1,4 +1,11 @@
 ---
+- block:
+    - set_fact: nvim=true
+    - file: path="~/.config/nvim" state=directory
+    - template: src="vimrc" dest="~/.config/nvim/init.vim"
+  always:
+    - set_fact: nvim=false
+
 - git: repo=https://github.com/gmarik/vundle.git
        dest=~/.vim/bundle/vundle
        depth=1
