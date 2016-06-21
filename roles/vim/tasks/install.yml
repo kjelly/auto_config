@@ -152,3 +152,8 @@
 - name: install powerline
   pip: name=git+git://github.com/powerline/powerline extra_args="--user"
   ignore_errors: yes
+
+- name: install neovim-remote
+  shell: "python3 -m pip install neovim-remote"
+  sudo: yes
+  ignore_errors: yes/
