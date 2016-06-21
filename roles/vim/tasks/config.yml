@@ -6,6 +6,11 @@
   always:
     - set_fact: nvim=false
 
+- file: path="~/bin" state=directory mode=0755
+
+- template: src="myvi" dest="~/bin/myvi" mode=0755
+- template: src="vit" dest="~/bin/vit" mode=0755
+
 - git: repo=https://github.com/gmarik/vundle.git
        dest=~/.vim/bundle/vundle
        depth=1
