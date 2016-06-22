@@ -10,6 +10,12 @@ if not args:
     print("Usage: {} <filename> ...".format(sys.argv[0]))
     sys.exit(1)
 
+for i, v in enumerate(args):
+    try:
+        args[i] = os.path.abspath(args[i])
+    except Exception as e:
+        print(e)
+
 addr = os.environ.get("NVIM_LISTEN_ADDRESS", None)
 if not addr:
     os.execvp('nvim', args)
