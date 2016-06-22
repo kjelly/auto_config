@@ -394,11 +394,7 @@ colorscheme torte
 
 {% if programming %}
 
-{% if nvim %}
-{% else %}
 Bundle 'Valloric/YouCompleteMe'
-{% endif %}
-
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/OmniCppComplete'
 Bundle 'nathanaelkane/vim-indent-guides'
