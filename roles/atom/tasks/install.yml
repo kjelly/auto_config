@@ -36,9 +36,7 @@
       - jumpy
       - sort-lines
       - "terminal-plus"
-      - "terminal-panel"
       - "go-plus"
-      - "git-plus"
 
 
 - copy: src="config.cson" dest="~/.atom/config.cson"
