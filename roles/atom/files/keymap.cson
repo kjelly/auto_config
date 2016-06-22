@@ -12,19 +12,11 @@
 
   'ctrl-g': 'project-find:show'
 
-
 'body':
   'ctrl-tab': 'pane:show-next-item'
   'ctrl-shift-tab': 'pane:show-previous-item'
-
-
-  'F1': 'tree-view:toggle-focus'
-  'alt-enter': 'command-palette:toggle'
-
-  'alt-q': 'terminal-plus:toggle'
-
-'.terminal-plus':
-  'alt-q': 'terminal-plus:toggle'
+  'f1': 'tree-view:toggle-focus'
+  'f2': 'terminal-plus:toggle'
 
 'atom-text-editor.vim-mode:not(.insert-mode)':
   ', g r f': 'project-find:show'
@@ -43,8 +35,6 @@
   'B': 'bookmarks:toggle-bookmark'
   't': 'bookmarks:jump-to-next-bookmark'
   'T': 'bookmarks:jump-to-previous-bookmark'
-
-  ', t t': 'terminal-panel:toggle'
 
 'atom-text-editor.vim-mode.insert-mode':
   'ctrl-w': 'editor:delete-to-beginning-of-subword'
