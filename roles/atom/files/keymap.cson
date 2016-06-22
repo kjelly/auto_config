@@ -22,9 +22,14 @@
   'alt-enter': 'command-palette:toggle'
 
   'alt-q': 'terminal-plus:toggle'
+  'alt-;': 'terminal-plus:toggle'
 
 '.terminal-plus':
   'alt-q': 'terminal-plus:toggle'
+  'alt-h': 'terminal-plus:prev'
+  'alt-l': 'terminal-plus:next'
+  'alt-j': 'terminal-plus:new'
+  'alt-k': 'terminal-plus:close'
 
 'atom-text-editor.vim-mode:not(.insert-mode)':
   ', g r f': 'project-find:show'
