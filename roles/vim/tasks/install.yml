@@ -157,3 +157,19 @@
   shell: "python3 -m pip install neovim-remote"
   sudo: yes
   ignore_errors: yes/
+
+- git: repo=https://github.com/gmarik/vundle.git
+       dest=~/.vim/bundle/vundle
+       depth=1
+       force=yes
+
+- git: repo=https://github.com/powerline/powerline
+       dest=~/.powerline
+       depth=1
+
+- name: clone YouCompleteMe first
+  git: repo=https://github.com/Valloric/YouCompleteMe
+       dest=~/.vim/bundle/YouCompleteMe/
+       depth=1
+       force=yes
+  when: programming == true
