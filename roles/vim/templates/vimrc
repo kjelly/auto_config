@@ -34,7 +34,7 @@ let mapleader = ","
 let g:mapleader = ","
 
 " Fast saving
-nmap <leader>w :w!<cr>
+nmap <leader>sa :w!<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -419,6 +419,8 @@ Bundle 'mru.vim'
 Bundle 'Shougo/vimshell.vim'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'mbbill/undotree'
+Bundle 'HerringtonDarkholme/w3m.vim'
+Bundle "myusuf3/numbers.vim"
 
 {% if nvim %}
 Bundle 'bling/vim-airline'
@@ -462,8 +464,8 @@ nmap <leader>grr :Rgrep<cr>
 nmap <leader>ge :Egrep<cr>
 nmap <leader>gb :Bgrep<cr>
 nmap <leader>q :q<cr>
-nmap <leader>n :set nu!<cr>
-nmap <leader>w :set wrap!<cr>
+nmap <leader>cn :set nu!<cr>
+nmap <leader>cw :set wrap!<cr>
 nmap <leader>spl :split<cr>
 nmap <leader>spv :vsplit<cr>
 nmap <leader>sh :shell<cr>
@@ -492,6 +494,7 @@ inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 
 nnoremap <C-u> :UndotreeToggle<cr>
 nnoremap <C-o> :FZF<cr>
+nnoremap <leader>w :W3mTab google
 
 {% if nvim %}
 
@@ -558,6 +561,10 @@ imap <C-b> <Esc>bi
 imap <C-v> <Esc>pi
 imap <C-o> <Esc>o
 
+"Quickly move current line
+nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
+nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+
 
 {% if nvim %}
 Bundle 'mhinz/neovim-remote'
@@ -592,5 +599,25 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
+
+let g:term_buf = 0
+function! Term_toggle()
+  1wincmd w
+  if g:term_buf == bufnr("")
+    setlocal bufhidden=hide
+    close
+  else
+    topleft vnew
+    try
+      exec "buffer ".g:term_buf
+    catch
+      call termopen(&shell, {"detach": 0})
+      let g:term_buf = bufnr("")
+    endtry
+    startinsert!
+  endif
+endfunction
+nnoremap <A-;> :call Term_toggle()<cr>
+tnoremap <A-;> <C-\><C-n>:call Term_toggle()<cr>
 
 {% endif %}
