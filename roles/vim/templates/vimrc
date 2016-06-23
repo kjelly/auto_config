@@ -443,6 +443,7 @@ let g:nerdtree_tabs_focus_on_files=1
 
 "tab mappings
 nmap <C-t> :tabnew<CR>
+imap <C-t> <Esc>:tabnew<CR>
 nmap <C-c> :tabclose<CR>
 
 
@@ -552,10 +553,34 @@ imap <C-e> <Esc>dwi
 
 imap <C-f> <Esc>w i
 imap <C-b> <Esc>bi
+imap <C-v> <Esc>pi
+imap <C-o> <Esc>o
 
 
 {% if nvim %}
 Bundle 'mhinz/neovim-remote'
+tnoremap <A-1> <C-\><C-n>1gti
+tnoremap <A-2> <C-\><C-n>2gti
+tnoremap <A-3> <C-\><C-n>3gti
+tnoremap <A-4> <C-\><C-n>4gti
+tnoremap <A-5> <C-\><C-n>5gti
+tnoremap <A-6> <C-\><C-n>6gti
+tnoremap <A-7> <C-\><C-n>7gti
+tnoremap <A-8> <C-\><C-n>8gti
+tnoremap <A-9> <C-\><C-n>9gti
+tnoremap <A-0> <C-\><C-n>0gti
+
+imap <A-1> <Esc>1gti
+imap <A-2> <Esc>2gti
+imap <A-3> <Esc>3gti
+imap <A-4> <Esc>4gti
+imap <A-5> <Esc>5gti
+imap <A-6> <Esc>6gti
+imap <A-7> <Esc>7gti
+imap <A-8> <Esc>8gti
+imap <A-9> <Esc>9gti
+imap <A-0> <Esc>0gti
+
 tnoremap <A-q> <C-\><C-n>
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
@@ -565,4 +590,5 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
+
 {% endif %}
