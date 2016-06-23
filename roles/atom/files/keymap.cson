@@ -23,6 +23,7 @@
 
   'alt-q': 'terminal-plus:toggle'
   'alt-;': 'terminal-plus:toggle'
+  'alt-t': 'terminal-plus:toggle'
 
 '.terminal-plus':
   'alt-q': 'terminal-plus:toggle'
@@ -30,6 +31,7 @@
   'alt-l': 'terminal-plus:next'
   'alt-j': 'terminal-plus:new'
   'alt-k': 'terminal-plus:close'
+  'alt-t': 'terminal-plus:toggle'
 
 'atom-text-editor.vim-mode:not(.insert-mode)':
   ', g r f': 'project-find:show'

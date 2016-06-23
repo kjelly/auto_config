@@ -619,5 +619,7 @@ function! Term_toggle()
 endfunction
 nnoremap <A-;> :call Term_toggle()<cr>
 tnoremap <A-;> <C-\><C-n>:call Term_toggle()<cr>
+nnoremap <A-t> :call Term_toggle()<cr>
+tnoremap <A-t> <C-\><C-n>:call Term_toggle()<cr>
 
 {% endif %}
