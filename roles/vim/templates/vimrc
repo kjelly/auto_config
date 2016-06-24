@@ -338,7 +338,6 @@ function! Num_Toggle()
    exe "set number!"
 endfunction
 
-
 {% if nvim %}
 {% else %}
 
@@ -464,6 +463,10 @@ set keywordprg=sdcvh.sh
 "set whichwrap+=h,l
 set whichwrap+=<,>,[,],s,b
 autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePre * :%s/\s\+$//e
+autocmd InsertLeave,WinEnter * set cursorline
+autocmd InsertEnter,WinLeave * set nocursorline
+set cursorline
 
 
 nmap <leader>gro :Grep<cr>
