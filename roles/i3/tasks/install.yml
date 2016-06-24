@@ -4,6 +4,8 @@
   with_items:
       - ibus
       - ibus-chewing
+      - hime
+      - hime-chewing
   when: ansible_os_family == 'Debian'
   ignore_errors: yes
 - name: Install i3 dependence lib
@@ -65,7 +67,7 @@
       - xfce4-terminal
 
       - dunst
-      - hime-chewing
+      - fcitx-chewing
   sudo: yes
   when: ansible_distribution == 'Ubuntu'
 
@@ -99,7 +101,7 @@
       - libgtk-3-dev
       - libstartup-notification0-dev
 
-      - hime-chewing
+      - fcitx-chewing
   sudo: yes
   when: ansible_distribution == 'Debian'
 
