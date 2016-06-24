@@ -182,6 +182,7 @@ map <leader>tm :tabmove
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 map <leader>tt :tabnew<cr>:terminal<cr>
+map <leader>tb :split<cr><c-w>j:terminal<cr>
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -426,6 +427,8 @@ Bundle 'Shougo/vimproc.vim'
 Bundle 'mbbill/undotree'
 Bundle 'HerringtonDarkholme/w3m.vim'
 Bundle "myusuf3/numbers.vim"
+Bundle 'kshenoy/vim-signature'
+
 
 {% if nvim %}
 Bundle 'bling/vim-airline'
@@ -501,6 +504,8 @@ nnoremap <C-u> :UndotreeToggle<cr>
 nnoremap <C-o> :FZF<cr>
 nnoremap <leader>w :W3mTab google
 
+nnoremap mm  :marks<cr>
+
 command Nu execute "call Num_Toggle()"
 
 {% if nvim %}
@@ -573,14 +578,15 @@ nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
 nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-d>"
-let g:UltiSnipsJumpForwardTrigger="<c-c>"
-let g:UltiSnipsJumpBackwardTrigger="<c-x>"
+let g:UltiSnipsExpandTrigger="<c-/>"
+let g:UltiSnipsJumpForwardTrigger="<c-.>"
+let g:UltiSnipsJumpBackwardTrigger="<c-,>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
 {% if nvim %}
+
 Bundle 'mhinz/neovim-remote'
 tnoremap <A-1> <C-\><C-n>1gti
 tnoremap <A-2> <C-\><C-n>2gti
