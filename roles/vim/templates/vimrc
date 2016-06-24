@@ -278,8 +278,6 @@ map <leader>spep [s
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-" Toggle paste mode on and off
-map <leader>p :setlocal paste!<cr>
 
 
 
@@ -333,6 +331,12 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+
+function! Num_Toggle()
+   exe "NumbersToggle"
+   exe "set number!"
+endfunction
+
 
 {% if nvim %}
 {% else %}
@@ -464,8 +468,9 @@ nmap <leader>grr :Rgrep<cr>
 nmap <leader>ge :Egrep<cr>
 nmap <leader>gb :Bgrep<cr>
 nmap <leader>q :q<cr>
-nmap <leader>cn :set nu!<cr>
-nmap <leader>cw :set wrap!<cr>
+nmap <leader>,n :call Num_Toggle()<cr>
+nmap <leader>,w :set wrap!<cr>
+nmap <leader>,p :setlocal paste!<cr>
 nmap <leader>spl :split<cr>
 nmap <leader>spv :vsplit<cr>
 nmap <leader>sh :shell<cr>
@@ -495,6 +500,8 @@ inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 nnoremap <C-u> :UndotreeToggle<cr>
 nnoremap <C-o> :FZF<cr>
 nnoremap <leader>w :W3mTab google
+
+command Nu execute "call Num_Toggle()"
 
 {% if nvim %}
 
