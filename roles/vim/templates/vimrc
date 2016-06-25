@@ -389,6 +389,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'godlygeek/tabular'
 Bundle 'dag/vim-fish'
 Bundle 'mkitt/tabline.vim'
+Bundle 'DevWurm/autosession.vim'
 
 syntax enable
 if has('gui_running')
