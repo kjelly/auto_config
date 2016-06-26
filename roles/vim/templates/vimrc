@@ -445,7 +445,6 @@ Bundle 'bling/vim-airline'
 let g:vim_markdown_folding_disabled=1
 
 let g:winManagerWindowLayout='FileExplorer'
-nmap wm :WMToggle<cr>
 
 filetype plugin indent on     " required!
 
