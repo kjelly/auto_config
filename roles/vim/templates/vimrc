@@ -610,6 +610,7 @@ imap <A-9> <Esc>9gti
 imap <A-0> <Esc>0gti
 
 tnoremap <A-q> <C-\><C-n>
+tnoremap <Insert> <C-\><C-n>
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
 tnoremap <A-k> <C-\><C-n><C-w>k
