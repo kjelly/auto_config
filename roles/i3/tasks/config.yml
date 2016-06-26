@@ -4,11 +4,6 @@
   ignore_errors: True
 - command: "mv ~/i3-config ~/.i3"
 
-- copy: src="Xmodmap" dest="~/"
-- command: "rm -rf ~/.Xmodmap"
-  ignore_errors: True
-- command: "mv ~/Xmodmap ~/.Xmodmap"
-
 - file: path=~/.i3/{{ item }} mode=u+x
   with_items:
       - auto_config_resolution.py
