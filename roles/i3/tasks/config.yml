@@ -75,3 +75,7 @@
 - copy: src="ivi" dest="~/bin/ivi" mode=0755
 
 - copy: src="vim" dest="~/bin/vim" mode=0755
+
+- copy: src="vim" dest="~/bin/vim" mode=0755
+
+- copy: src="xinputrc" dest="~/.xinputrc"
