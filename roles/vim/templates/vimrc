@@ -415,6 +415,7 @@ Bundle 'mbbill/undotree'
 Bundle 'HerringtonDarkholme/w3m.vim'
 Bundle "myusuf3/numbers.vim"
 Bundle 'kshenoy/vim-signature'
+Bundle 'junegunn/fzf.vim'
 
 
 {% if nvim %}
@@ -465,6 +466,7 @@ nmap <leader>,n :call Num_Toggle()<cr>
 nmap <leader>,w :set wrap!<cr>
 nmap <leader>,p :setlocal paste!<cr>
 nmap <leader>sh :split<cr>
+nmap <leader>sp :split<cr>
 nmap <leader>sv :vsplit<cr>
 nmap <leader>ff :NERDTreeTabsFind<cr>
 nmap <leader>e :Unite
@@ -486,23 +488,7 @@ inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 
 nnoremap <C-u> :UndotreeToggle<cr>
 nnoremap <C-p> :FZF<cr>
-function! s:buflist()
-  redir => ls
-  silent ls
-  redir END
-  return split(ls, '\n')
-endfunction
-
-function! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-endfunction
-
-nnoremap <c-o> :call fzf#run({
-\   'source':  reverse(<sid>buflist()),
-\   'sink':    function('<sid>bufopen'),
-\   'options': '+m',
-\   'down':    len(<sid>buflist()) + 2
-\ })<CR>
+nnoremap <c-o> :Buffers<cr>
 
 
 nnoremap <leader>w :W3mTab google
@@ -631,5 +617,14 @@ nnoremap <A-;> :call Term_toggle()<cr>
 tnoremap <A-;> <C-\><C-n>:call Term_toggle()<cr>
 nnoremap <A-t> :call Term_toggle()<cr>
 tnoremap <A-t> <C-\><C-n>:call Term_toggle()<cr>
+nnoremap <A-o> :call Term_toggle()<cr>
+tnoremap <A-o> <C-\><C-n>:call Term_toggle()<cr>
 
+nnoremap <A-p> :FZF<cr>
+tnoremap <A-p> <C-\><C-n>:FZF<cr>i
+nnoremap <A-o> :Buffers<cr>
+tnoremap <A-o> <C-\><C-n>Buffers<cr>i
+
+
+map <leader>,tt :bd! term<c-a><cr>
 {% endif %}
