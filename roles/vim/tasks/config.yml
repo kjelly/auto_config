@@ -41,11 +41,3 @@
 - lineinfile: dest="~/.vimrc"
               regexp="set shell"
               line="set shell={{ default_shell.stdout }}"
-
-- name: make VimShell
-  shell: make
-  args:
-    chdir: ~/.vim/bundle/vimproc.vim
-    creates: ~/.vim/vimshell_installed
-  when: programming == true
-
