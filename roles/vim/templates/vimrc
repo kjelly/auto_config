@@ -631,4 +631,5 @@ tnoremap <A-p> <C-\><C-n>:FZF<cr>i
 nnoremap <A-o> :Buffers<cr>
 tnoremap <A-o> <C-\><C-n>Buffers<cr>i
 
+set mouse=""
 {% endif %}
