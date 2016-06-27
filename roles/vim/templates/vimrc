@@ -354,15 +354,6 @@ set rtp+=~/.vim/bundle/vundle/
 set rtp+=~/.fzf/
 call vundle#rc()
 
-if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
-  " Use ag in CtrlP for listing files.
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  " Ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-
 " Always show the status line
 set laststatus=2
 
@@ -376,7 +367,6 @@ let @/ = ""
 set nu
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'kien/ctrlp.vim'
 Bundle 'vim-scripts/grep.vim'
 Bundle 'VimExplorer'
 Bundle 'winmanager'
@@ -500,7 +490,26 @@ inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 
 nnoremap <C-u> :UndotreeToggle<cr>
-nnoremap <C-o> :FZF<cr>
+nnoremap <C-p> :FZF<cr>
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <c-o> :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
+
+
 nnoremap <leader>w :W3mTab google
 
 nnoremap mm  :marks<cr>
@@ -548,23 +557,9 @@ noremap <M-9> 9gt
 
 noremap H gT
 noremap L gt
-noremap J :CtrlPBuffer<cr>
 map <Esc>h <Nop>
 map <Esc>l <Nop>
 
-
-
-let g:ctrlp_extensions = ['symbol']
-let g:symbol_patterns = {
-  \ 'javascript': [
-    \ 'var \zs\w\+\>\ze ='
-  \ ],
-  \ 'html': [
-    \ 'id="\zs.\+\ze"',
-    \ 'class="\zs.\+\ze"'
-  \ ]
-  \ }
-nmap <leader>fs :CtrlPSymbol<cr>
 imap <C-e> <Esc>dwi
 
 imap <C-f> <Esc>w i
