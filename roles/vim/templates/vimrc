@@ -340,6 +340,12 @@ endif
 set nocompatible              " be iMproved
 filetype off                  " required!
 
+if bufwinnr(1)
+  map + <C-W>+
+  map - <C-W>-
+endif
+
+
 set rtp+=~/.vim/bundle/vundle/
 set rtp+=~/.fzf/
 call vundle#rc()
