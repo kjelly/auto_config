@@ -469,6 +469,8 @@ nmap <leader>sh :split<cr>
 nmap <leader>sp :split<cr>
 nmap <leader>sv :vsplit<cr>
 nmap <leader>ff :NERDTreeTabsFind<cr>
+nmap <leader>fb :BLine
+nmap <leader>fl :Line
 nmap <leader>e :Unite
 nmap <C-e> :Unite
 nmap <C-s> :TlistToggle<cr>
@@ -494,6 +496,9 @@ nnoremap <c-o> :Buffers<cr>
 nnoremap <leader>w :W3mTab google
 
 nnoremap mm  :marks<cr>
+
+nnoremap <a-/>  :Windows<cr>
+imap     <a-/>  :Windows<cr>
 
 command Nu execute "call Num_Toggle()"
 
