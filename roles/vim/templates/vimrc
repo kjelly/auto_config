@@ -256,7 +256,7 @@ map <leader>gp :cp<cr>
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
-map <leader>spet :setlocal spell!<cr>
+map <leader>spel :setlocal spell!<cr>
 
 " Shortcuts using <leader>
 map <leader>spen ]s
@@ -465,10 +465,8 @@ nmap <leader>q :q<cr>
 nmap <leader>,n :call Num_Toggle()<cr>
 nmap <leader>,w :set wrap!<cr>
 nmap <leader>,p :setlocal paste!<cr>
-nmap <leader>spl :split<cr>
-nmap <leader>spv :vsplit<cr>
-nmap <leader>sh :shell<cr>
-nmap <leader>vsh :VimShell<cr>
+nmap <leader>sh :split<cr>
+nmap <leader>sv :vsplit<cr>
 nmap <leader>ff :NERDTreeTabsFind<cr>
 nmap <leader>e :Unite
 nmap <C-e> :Unite
