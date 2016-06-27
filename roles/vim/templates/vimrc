@@ -502,6 +502,8 @@ nnoremap <a-/>  :Windows<cr>
 imap     <a-/>  :Windows<cr>
 
 command Nu execute "call Num_Toggle()"
+command Q execute "quit!"
+command Qa execute "quitall!"
 
 {% if nvim %}
 
