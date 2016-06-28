@@ -173,7 +173,7 @@ map <leader>bd :Bclose<cr>
 map <leader>ba :1,1000 bd!<cr>
 
 " Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
+map <leader>tn :tabnew %<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
@@ -181,7 +181,7 @@ map <leader>tm :tabmove
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-map <leader>tt :tabnew<cr>:terminal<cr>
+map <leader>tt :tabnew %<cr>:terminal<cr>
 map <leader>tb :split<cr><c-w>j:terminal<cr>
 
 " Switch CWD to the directory of the open buffer
@@ -248,7 +248,7 @@ vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 "
 
 map <leader>gcc :botright cope<cr>
-map <leader>gco ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+map <leader>gco ggVGy:tabnew %<cr>:set syntax=qf<cr>pgg
 map <leader>gn :cn<cr>
 map <leader>gp :cp<cr>
 
@@ -442,8 +442,8 @@ let NERDTreeMapOpenInTab='<TAB>'
 let g:nerdtree_tabs_focus_on_files=1
 
 "tab mappings
-nmap <C-t> :tabnew<CR>
-imap <C-t> <Esc>:tabnew<CR>
+nmap <C-t> :tabnew %<CR>
+imap <C-t> <Esc>:tabnew %<CR>
 
 
 nmap <C-a> gT
@@ -595,14 +595,18 @@ imap <A-0> <Esc>0gti
 
 tnoremap <A-q> <C-\><C-n>
 tnoremap <Insert> <C-\><C-n>
-inoremap <A-h> <C-\><C-n><C-w>h
-inoremap <A-j> <C-\><C-n><C-w>j
-inoremap <A-k> <C-\><C-n><C-w>k
-inoremap <A-l> <C-\><C-n><C-w>l
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
 nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
+imap <A-h> <C-w>h
+imap <A-j> <C-w>j
+imap <A-k> <C-w>k
+imap <A-l> <C-w>l
 
 let g:term_buf = 0
 function! Term_toggle()
