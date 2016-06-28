@@ -603,10 +603,10 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
-imap <A-h> <C-w>h
-imap <A-j> <C-w>j
-imap <A-k> <C-w>k
-imap <A-l> <C-w>l
+imap <A-h> <Esc><C-w>h
+imap <A-j> <Esc><C-w>j
+imap <A-k> <Esc><C-w>k
+imap <A-l> <Esc><C-w>l
 
 let g:term_buf = 0
 function! Term_toggle()
