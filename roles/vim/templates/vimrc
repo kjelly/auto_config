@@ -395,8 +395,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/OmniCppComplete'
 Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
+Bundle 'drmingdrmer/xptemplate'
 
 Bundle 'git://github.com/davidhalter/jedi-vim'
 Bundle 'fatih/vim-go'
@@ -568,14 +567,6 @@ vmap <Return> "+y
 "Quickly move current line
 nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
 nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
-
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-i>"
-let g:UltiSnipsJumpForwardTrigger="<c-.>"
-let g:UltiSnipsJumpBackwardTrigger="<c-,>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 
 {% if nvim %}
 
