@@ -375,7 +375,7 @@ Bundle 'thinca/vim-quickrun'
 Bundle 'tpope/vim-fugitive'
 Bundle 'godlygeek/tabular'
 Bundle 'dag/vim-fish'
-Bundle 'mkitt/tabline.vim'
+"Bundle 'mkitt/tabline.vim'
 Bundle 'DevWurm/autosession.vim'
 Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'gagoar/stripwhitespaces'
@@ -510,6 +510,14 @@ imap     <a-/>  :Windows<cr>
 command Nu execute "call Num_Toggle()"
 command Q execute "quit!"
 command Qa execute "quitall!"
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_nr_type = 2
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#show_tab_nr = 2
+let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#tabline#exclude_preview = 1
+let g:airline#extensions#tabline#show_buffers = 0
 
 {% if nvim %}
 
