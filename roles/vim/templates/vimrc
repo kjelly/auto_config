@@ -53,7 +53,7 @@ set wildignore=*.o,*~,*.pyc
 set ruler
 
 " Height of the command bar
-set cmdheight=2
+set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -342,8 +342,10 @@ set nocompatible              " be iMproved
 filetype off                  " required!
 
 if bufwinnr(1)
-  map + <C-W>+
+  map = <C-W>+
   map - <C-W>-
+  map + <C-W>>
+  map _ <C-W><
 endif
 
 
@@ -601,7 +603,7 @@ tnoremap <A-9> <C-\><C-n>9gti
 tnoremap <A-0> <C-\><C-n>0gti
 
 imap <A-1> <Esc>1gti
-imap <A-2> <Esc>2gti
+map <A-2> <Esc>2gti
 imap <A-3> <Esc>3gti
 imap <A-4> <Esc>4gti
 imap <A-5> <Esc>5gti
@@ -655,15 +657,21 @@ tnoremap <A-p> <C-\><C-n>:FZF<cr>i
 nnoremap <A-o> :Buffers<cr>
 tnoremap <A-o> <C-\><C-n>Buffers<cr>i
 
-nmap <A-q>  :resize +1000<cr>
-nmap <A-w>  <c-w><c-=>
-nmap <A-e>  :resize -1000<cr>
-imap <A-q>  <Esc>:resize +1000<cr>i
-imap <A-w>  <Esc><c-w><c-=>i
-imap <A-e>  <Esc>:resize -1000<cr>i
-tnoremap <A-q>  <C-\><C-n>:resize +1000<cr>i
-tnoremap <A-w>  <C-\><C-n><c-w><c-=>i
-tnoremap <A-e>  <C-\><C-n>:resize -1000<cr>i
+nmap <silent> <A-q>  :resize -1000<cr>
+nmap <silent> <A-w>  <c-w><c-=>
+nmap <silent> <A-e>  :resize +1000<cr>
+nmap <silent> <A-r>  :vertical resize -1000<cr>
+nmap <silent> <A-t>  :vertical resize +1000<cr>
+imap <silent> <A-q>  <Esc>:resize -1000<cr>i
+imap <silent> <A-w>  <Esc><c-w><c-=>i
+imap <silent> <A-e>  <Esc>:resize +1000<cr>i
+imap <silent> <A-r>  <Esc>:vertical resize -1000<cr>i
+imap <silent> <A-t>  <Esc>:vertical resize +1000<cr>i
+tnoremap <silent> <A-q>  <C-\><C-n>:resize -1000<cr>i
+tnoremap <silent> <A-w>  <C-\><C-n><c-w><c-=>i
+tnoremap <silent> <A-e>  <C-\><C-n>:resize +1000<cr>i
+tnoremap <silent> <A-r>  <C-\><C-n>:vertical resize -1000<cr>i
+tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize +1000<cr>i
 
 set mouse=""
 {% endif %}
