@@ -501,8 +501,9 @@ nnoremap <leader>w :W3mTab google
 
 nnoremap mm  :marks<cr>
 
-nnoremap S  :resize +1000<cr>
-nnoremap s  <c-w><c-=>
+nnoremap sa  :resize +1000<cr>
+nnoremap si  :resize -1000<cr>
+nnoremap sm  <c-w><c-=>
 
 nnoremap <a-/>  :Windows<cr>
 imap     <a-/>  :Windows<cr>
@@ -653,6 +654,16 @@ nnoremap <A-p> :FZF<cr>
 tnoremap <A-p> <C-\><C-n>:FZF<cr>i
 nnoremap <A-o> :Buffers<cr>
 tnoremap <A-o> <C-\><C-n>Buffers<cr>i
+
+nmap <A-q>  :resize +1000<cr>
+nmap <A-w>  <c-w><c-=>
+nmap <A-e>  :resize -1000<cr>
+imap <A-q>  <Esc>:resize +1000<cr>i
+imap <A-w>  <Esc><c-w><c-=>i
+imap <A-e>  <Esc>:resize -1000<cr>i
+tnoremap <A-q>  <C-\><C-n>:resize +1000<cr>i
+tnoremap <A-w>  <C-\><C-n><c-w><c-=>i
+tnoremap <A-e>  <C-\><C-n>:resize -1000<cr>i
 
 set mouse=""
 {% endif %}
