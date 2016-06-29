@@ -395,7 +395,8 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/OmniCppComplete'
 Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'drmingdrmer/xptemplate'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
 
 Bundle 'git://github.com/davidhalter/jedi-vim'
 Bundle 'fatih/vim-go'
@@ -567,6 +568,7 @@ vmap <Return> "+y
 "Quickly move current line
 nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
 nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+imap <C-c>     <Plug>(neosnippet_expand_or_jump)
 
 {% if nvim %}
 
