@@ -418,17 +418,10 @@ Bundle 'HerringtonDarkholme/w3m.vim'
 Bundle "myusuf3/numbers.vim"
 Bundle 'kshenoy/vim-signature'
 Bundle 'junegunn/fzf.vim'
-
-
-{% if nvim %}
 Bundle 'bling/vim-airline'
-{% else %}
-set rtp+=~/.powerline/powerline/bindings/vim
-{% endif %}
 
 {% else %}
 
-Bundle 'bling/vim-airline'
 
 {% endif %}
 
