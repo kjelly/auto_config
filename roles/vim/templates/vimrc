@@ -379,6 +379,9 @@ Bundle 'mkitt/tabline.vim'
 Bundle 'DevWurm/autosession.vim'
 Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'gagoar/stripwhitespaces'
+Bundle 'scrooloose/syntastic'
+Bundle 'mattn/emmet-vim'
+
 
 syntax enable
 if has('gui_running')
@@ -498,6 +501,9 @@ nnoremap <leader>w :W3mTab google
 
 nnoremap mm  :marks<cr>
 
+nnoremap S  :resize +1000<cr>
+nnoremap s  <c-w><c-=>
+
 nnoremap <a-/>  :Windows<cr>
 imap     <a-/>  :Windows<cr>
 
@@ -555,6 +561,9 @@ imap <C-f> <Esc>w i
 imap <C-b> <Esc>bi
 imap <C-v> <Esc>pi
 imap <C-o> <Esc>o
+
+vmap <c-c> "+y
+vmap <Return> "+y
 
 "Quickly move current line
 nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
