@@ -21,10 +21,6 @@
 " Sets how many lines of history VIM has to remember
 set history=700
 
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
 " Set to auto read when a file is changed from the outside
 set autoread
 
@@ -603,7 +599,7 @@ tnoremap <A-9> <C-\><C-n>9gti
 tnoremap <A-0> <C-\><C-n>0gti
 
 imap <A-1> <Esc>1gti
-map <A-2> <Esc>2gti
+imap <A-2> <Esc>2gti
 imap <A-3> <Esc>3gti
 imap <A-4> <Esc>4gti
 imap <A-5> <Esc>5gti
