@@ -381,6 +381,8 @@ Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'gagoar/stripwhitespaces'
 Bundle 'scrooloose/syntastic'
 Bundle 'mattn/emmet-vim'
+Bundle 'vim-expand-region'
+Bundle 'Raimondi/delimitMate'
 
 
 syntax enable
