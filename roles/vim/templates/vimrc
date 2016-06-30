@@ -199,6 +199,8 @@ autocmd BufReadPost *
 " Remember info about register, marks. And no highlight when started
 set viminfo=<800,'10,h
 
+" Show tab line if there are more than one tab
+set showtabline=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
