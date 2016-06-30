@@ -18,17 +18,17 @@ for i, v in enumerate(args):
 
 addr = os.environ.get("NVIM_LISTEN_ADDRESS", None)
 if not addr:
-    os.execvp('nvim', args)
+    print("S")
 
 nvim = attach("socket", path=addr)
 
 
 chid = nvim.channel_id
-nvim.command('tabnew')
-nvim.command('augroup EDIT')
-nvim.command('au BufEnter <buffer> call rpcnotify({0}, "n")'.format(chid))
-nvim.command('au BufEnter <buffer> startinsert'.format(chid))
-nvim.command('augroup END')
-nvim.vars['files_to_edit'] = args
 for x in args:
-    nvim.command('exe "drop ".remove(g:files_to_edit, 0)')
+    nvim.command('tabnew')
+    nvim.command('augroup EDIT')
+    nvim.command('au BufEnter <buffer> call rpcnotify({0}, "n")'.format(chid))
+    nvim.command('au BufEnter <buffer> startinsert'.format(chid))
+    nvim.command('augroup END')
+    nvim.vars['files_to_edit'] = args
+    nvim.command('edit %s' % x)
