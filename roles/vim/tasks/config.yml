@@ -13,10 +13,26 @@
 
 - template: src="vimrc" dest="~/.vimrc"
 
+- name: download vim-plug
+  get_url: url=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim dest=/tmp/plug.vim
+
+- file: path="~/.config/nvim/autoload/" state=directory recurse=yes
+
+- file: path="~/.vim/autoload/" state=directory recurse=yes
+
+- copy: src=/tmp/plug.vim dest={{ item }} remote_src=yes
+  with_items:
+    - "~/.vim/autoload/plug.vim"
+    - "~/.config/nvim/autoload/plug.vim"
+
 - block:
+    - git: repo=https://github.com/Valloric/YouCompleteMe
+           dest="~/.vim/plugged/YouCompleteMe/"
+           track_submodules=yes
+           recursive=yes
 
     - name: install YouCompleteMe
-      shell: ~/.vim/bundle/YouCompleteMe/install.py --clang-completer
+      shell: ~/.vim/plugged/YouCompleteMe/install.py --clang-completer
       args:
         creates: ~/.vim/ycm_installed
       register: command_result
@@ -29,11 +45,12 @@
     - name: remove YouCompleteMe plugin when failed to compile
       lineinfile: dest="~/.vimrc"
                   state=absent
-                  regexp="Bundle 'Valloric/YouCompleteMe'"
+                  regexp="Plug 'Valloric/YouCompleteMe'"
       when: programming == true
 
 
-- shell: "vim +PluginInstall +qall now"
+- name: install vim plugin
+  shell: "vim +PluginInstall +qall now"
 
 - shell: "getent passwd $LOGNAME | cut -d: -f7"
   register: default_shell
