@@ -325,6 +325,13 @@ function! Num_Toggle()
    exe "set number!"
 endfunction
 
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+colorscheme torte
+
 {% if nvim %}
 {% else %}
 
@@ -344,86 +351,87 @@ if bufwinnr(1)
   map _ <C-W><
 endif
 
+set laststatus=2
 
-set rtp+=~/.vim/bundle/vundle/
 set rtp+=~/.fzf/
-call vundle#rc()
 
 " Always show the status line
-set laststatus=2
 
 " let Vundle manage Vundle
 " required!
-Bundle 'gmarik/vundle'
+call plug#begin('~/.vim/plugged')
 
-let g:jedi#completions_command = "<C-n>"
-let popup_select_first = 0
-let @/ = ""
-set nu
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'vim-scripts/grep.vim'
-Bundle 'VimExplorer'
-Bundle 'winmanager'
-Bundle 'taglist.vim'
-Bundle 'MattesGroeger/vim-bookmarks'
-Bundle 'Shougo/unite.vim'
-Bundle 'ervandew/supertab'
-Bundle 'thinca/vim-quickrun'
-Bundle 'tpope/vim-fugitive'
-Bundle 'godlygeek/tabular'
-Bundle 'dag/vim-fish'
-"Bundle 'mkitt/tabline.vim'
-Bundle 'DevWurm/autosession.vim'
-Bundle 'ntpeters/vim-better-whitespace'
-Bundle 'gagoar/stripwhitespaces'
-Bundle 'scrooloose/syntastic'
-Bundle 'mattn/emmet-vim'
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'vim-scripts/grep.vim'
+Plug 'VimExplorer'
+Plug 'winmanager'
+Plug 'taglist.vim'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'Shougo/unite.vim'
+Plug 'ervandew/supertab'
+Plug 'thinca/vim-quickrun'
+Plug 'tpope/vim-fugitive'
+Plug 'godlygeek/tabular'
+Plug 'dag/vim-fish'
+"Plug 'mkitt/tabline.vim'
+Plug 'DevWurm/autosession.vim'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'gagoar/stripwhitespaces'
+Plug 'scrooloose/syntastic'
+Plug 'mattn/emmet-vim'
+Plug 'vim-expand-region'
+Plug 'Raimondi/delimitMate'
 
 
-syntax enable
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
-colorscheme torte
 
 {% if programming %}
 
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/OmniCppComplete'
-Bundle 'nathanaelkane/vim-indent-guides'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
+Plug 'Valloric/YouCompleteMe'
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/OmniCppComplete'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 
-Bundle 'git://github.com/davidhalter/jedi-vim'
-Bundle 'fatih/vim-go'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'JesseKPhillips/d.vim'
-Bundle 'pangloss/vim-javascript'
-"Bundle 'suan/vim-instant-markdown'
-Bundle 'vim-markdown-preview'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'adimit/prolog.vim'
-Bundle 'scrooloose/nerdcommenter'
+Plug 'davidhalter/jedi-vim'
+Plug 'fatih/vim-go'
+Plug 'derekwyatt/vim-scala'
+Plug 'JesseKPhillips/d.vim'
+Plug 'pangloss/vim-javascript'
+"Plug 'suan/vim-instant-markdown'
+Plug 'vim-markdown-preview'
+Plug 'plasticboy/vim-markdown'
+Plug 'adimit/prolog.vim'
+Plug 'scrooloose/nerdcommenter'
 
-Bundle 'pearofducks/ansible-vim'
-"Bundle 'mhinz/vim-startify'
-Bundle 'mru.vim'
-Bundle 'Shougo/vimproc.vim'
-Bundle 'mbbill/undotree'
-Bundle 'HerringtonDarkholme/w3m.vim'
-Bundle "myusuf3/numbers.vim"
-Bundle 'kshenoy/vim-signature'
-Bundle 'junegunn/fzf.vim'
-Bundle 'bling/vim-airline'
+Plug 'pearofducks/ansible-vim'
+"Plug 'mhinz/vim-startify'
+Plug 'mru.vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'mbbill/undotree'
+Plug 'HerringtonDarkholme/w3m.vim'
+Plug 'myusuf3/numbers.vim'
+Plug 'kshenoy/vim-signature'
+Plug 'junegunn/fzf.vim'
+Plug 'bling/vim-airline'
 
 {% else %}
 
 
 {% endif %}
+{% if nvim %}
+Plug 'mhinz/neovim-remote'
+{% endif %}
+
+call plug#end()
+
+syntax enable
+
+let g:jedi#completions_command = "<C-n>"
+let popup_select_first = 0
+let @/ = ""
+set nu
 
 let g:vim_markdown_folding_disabled=1
 
@@ -511,6 +519,9 @@ let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#exclude_preview = 1
 let g:airline#extensions#tabline#show_buffers = 0
 
+" Show tab line if there are more than one tab
+set showtabline=1
+
 {% if nvim %}
 
 noremap <A-0> 0gt
@@ -572,7 +583,6 @@ imap <C-c>     <Plug>(neosnippet_expand_or_jump)
 
 {% if nvim %}
 
-Bundle 'mhinz/neovim-remote'
 tnoremap <A-1> <C-\><C-n>1gti
 tnoremap <A-2> <C-\><C-n>2gti
 tnoremap <A-3> <C-\><C-n>3gti
