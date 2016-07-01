@@ -199,6 +199,8 @@ autocmd BufReadPost *
 " Remember info about register, marks. And no highlight when started
 set viminfo=<800,'10,h
 
+" Show tab line if there are more than one tab
+set showtabline=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
@@ -351,14 +353,11 @@ if bufwinnr(1)
   map _ <C-W><
 endif
 
+" Always show the status line
 set laststatus=2
 
 set rtp+=~/.fzf/
 
-" Always show the status line
-
-" let Vundle manage Vundle
-" required!
 call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
@@ -381,9 +380,6 @@ Plug 'gagoar/stripwhitespaces'
 Plug 'scrooloose/syntastic'
 Plug 'mattn/emmet-vim'
 Plug 'vim-expand-region'
-Plug 'Raimondi/delimitMate'
-
-
 
 {% if programming %}
 
