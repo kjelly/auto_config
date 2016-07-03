@@ -196,8 +196,8 @@ autocmd BufReadPost *
      \   exe "normal! g`\"" |
      \ endif
 
-" Remember info about register, marks. And no highlight when started
-set viminfo=<800,'10,h
+" Remember info about register. And no highlight when started
+set viminfo=<800,h
 
 " Show tab line if there are more than one tab
 set showtabline=1
