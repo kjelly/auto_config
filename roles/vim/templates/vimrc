@@ -503,7 +503,7 @@ nnoremap <c-o> :Buffers<cr>
 
 nnoremap <leader>w :W3mTab google
 
-nnoremap mm  :marks<cr>
+nnoremap mm  :Marks<cr>
 
 nnoremap sa  :resize +1000<cr>
 nnoremap si  :resize -1000<cr>
