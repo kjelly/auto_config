@@ -483,8 +483,8 @@ nmap <leader>sv :vsplit<cr>
 nmap <leader>ff :NERDTreeTabsFind<cr>
 nmap <leader>fb :BLine
 nmap <leader>fl :Line
-nmap <leader>e :Unite
-nmap <C-e> :Unite
+nmap <leader>e :Commands<cr>
+nmap <C-e> :Commands<cr>
 nmap <C-s> :TlistToggle<cr>
 
 nmap <Leader>bt <Plug>BookmarkToggle
