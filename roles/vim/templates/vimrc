@@ -512,6 +512,7 @@ nnoremap sm  <c-w><c-=>
 
 nnoremap <a-/>  :Windows<cr>
 imap     <a-/>  :Windows<cr>
+imap     <c-a>  <c-x><c-n>
 
 command Nu execute "call Num_Toggle()"
 command Q execute "quit!"
