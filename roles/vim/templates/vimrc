@@ -358,6 +358,9 @@ endif
 nnoremap / /\v
 vnoremap / /\v
 
+" Sudo to write
+cnoremap w!! w !sudo tee % >/dev/null
+
 " Always show the status line
 set laststatus=2
 
