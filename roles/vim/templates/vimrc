@@ -353,6 +353,11 @@ if bufwinnr(1)
   map _ <C-W><
 endif
 
+" Use normal regex
+" http://stevelosh.com/blog/2010/09/coming-home-to-vim
+nnoremap / /\v
+vnoremap / /\v
+
 " Always show the status line
 set laststatus=2
 
