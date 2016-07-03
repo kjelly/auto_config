@@ -371,8 +371,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'vim-scripts/grep.vim'
-Plug 'VimExplorer'
-Plug 'winmanager'
 Plug 'taglist.vim'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'ervandew/supertab'
