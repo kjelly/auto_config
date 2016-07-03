@@ -512,8 +512,6 @@ nnoremap sm  <c-w><c-=>
 nnoremap <a-/>  :Windows<cr>
 imap     <a-/>  :Windows<cr>
 
-inoremap jj <Esc>
-
 command Nu execute "call Num_Toggle()"
 command Q execute "quit!"
 command Qa execute "quitall!"
@@ -673,7 +671,6 @@ tnoremap <silent> <A-r>  <C-\><C-n>:vertical resize -1000<cr>i
 tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize +1000<cr>i
 
 tnoremap <A-v> <C-\><C-n>pi
-tnoremap jj <C-\><C-n>
 
 set mouse=""
 {% endif %}
