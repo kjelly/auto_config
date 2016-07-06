@@ -481,7 +481,8 @@ nmap <leader>gbl :BLines<cr>
 nmap <leader>gc :Commits<cr>
 nmap <leader>gbc :Commits<cr>
 nmap <leader>ga :Ag<cr>
-nmap <leader>q :q<cr>
+nmap <leader>qq :q<cr>
+nmap <leader>qb :Bclose<cr>
 nmap <leader>,n :call Num_Toggle()<cr>
 nmap <leader>,w :set wrap!<cr>
 nmap <leader>,p :setlocal paste!<cr>
