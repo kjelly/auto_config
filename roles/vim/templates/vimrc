@@ -327,6 +327,17 @@ function! Num_Toggle()
    exe "set number!"
 endfunction
 
+function! ToggleMouse()
+    " check if mouse is enabled
+    if &mouse == 'a'
+        " disable mouse
+        set mouse=
+    else
+        " enable mouse everywhere
+        set mouse=a
+    endif
+endfunc
+
 if has('gui_running')
     set background=light
 else
@@ -349,8 +360,8 @@ filetype off                  " required!
 if bufwinnr(1)
   map = <C-W>+
   map - <C-W>-
-  map + <C-W>>
-  map _ <C-W><
+  map } <C-W>>
+  map { <C-W><
 endif
 
 " Use normal regex
@@ -472,7 +483,8 @@ nmap <leader>gbl :BLines<cr>
 nmap <leader>gc :Commits<cr>
 nmap <leader>gbc :Commits<cr>
 nmap <leader>ga :Ag<cr>
-nmap <leader>q :q<cr>
+nmap <leader>qq :q<cr>
+nmap <leader>qb :Bclose<cr>
 nmap <leader>,n :call Num_Toggle()<cr>
 nmap <leader>,w :set wrap!<cr>
 nmap <leader>,p :setlocal paste!<cr>
@@ -495,6 +507,8 @@ nmap <Leader>bc <Plug>BookmarkClear
 nmap <Leader>bx <Plug>BookmarkClearAll
 nmap <Leader>bk <Plug>BookmarkMoveUp
 nmap <Leader>bj <Plug>BookmarkMoveDown
+
+nmap <leader>,m :call ToggleMouse()<cr>
 
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
