@@ -77,4 +77,4 @@
 
 - file: path="~/.config/fcitx/" state=directory mode=0755
 
-- copy: src="fcitx_config" dest="~/.config/fcitx/"
+- copy: src="fcitx_config" dest="~/.config/fcitx/config"
