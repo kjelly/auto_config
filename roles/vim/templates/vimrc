@@ -349,8 +349,8 @@ filetype off                  " required!
 if bufwinnr(1)
   map = <C-W>+
   map - <C-W>-
-  map + <C-W>>
-  map _ <C-W><
+  map } <C-W>>
+  map { <C-W><
 endif
 
 " Use normal regex
