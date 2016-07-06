@@ -327,6 +327,17 @@ function! Num_Toggle()
    exe "set number!"
 endfunction
 
+function! ToggleMouse()
+    " check if mouse is enabled
+    if &mouse == 'a'
+        " disable mouse
+        set mouse=
+    else
+        " enable mouse everywhere
+        set mouse=a
+    endif
+endfunc
+
 if has('gui_running')
     set background=light
 else
@@ -493,6 +504,8 @@ nmap <Leader>bc <Plug>BookmarkClear
 nmap <Leader>bx <Plug>BookmarkClearAll
 nmap <Leader>bk <Plug>BookmarkMoveUp
 nmap <Leader>bj <Plug>BookmarkMoveDown
+
+nmap <leader>,m :call ToggleMouse()<cr>
 
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
