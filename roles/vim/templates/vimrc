@@ -450,8 +450,6 @@ set nu
 
 let g:vim_markdown_folding_disabled=1
 
-let g:winManagerWindowLayout='FileExplorer'
-
 filetype plugin indent on     " required!
 
 map <C-n> :NERDTreeTabsToggle<CR>
