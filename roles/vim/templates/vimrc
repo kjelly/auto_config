@@ -438,6 +438,7 @@ Plug 'hiel92/vim-autoformat'
 {% endif %}
 {% if nvim %}
 Plug 'mhinz/neovim-remote'
+Plug 'kassio/neoterm', { 'commit': '9e33da0a' }
 {% endif %}
 
 call plug#end()
