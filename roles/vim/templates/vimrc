@@ -397,6 +397,7 @@ Plug 'scrooloose/syntastic'
 Plug 'mattn/emmet-vim'
 Plug 'vim-expand-region'
 Plug 'bling/vim-airline'
+Plug 'osyo-manga/vim-over'
 
 {% if programming %}
 
