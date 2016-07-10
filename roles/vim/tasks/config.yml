@@ -25,12 +25,10 @@
     - "~/.vim/autoload/plug.vim"
     - "~/.config/nvim/autoload/plug.vim"
 
-- block:
-    - git: repo=https://github.com/Valloric/YouCompleteMe
-           dest="~/.vim/plugged/YouCompleteMe/"
-           track_submodules=yes
-           recursive=yes
+- name: install vim plugin
+  shell: "vim +PluginInstall +qall now"
 
+- block:
     - name: install YouCompleteMe
       shell: ~/.vim/plugged/YouCompleteMe/install.py --clang-completer
       args:
@@ -47,10 +45,6 @@
                   state=absent
                   regexp="Plug 'Valloric/YouCompleteMe'"
       when: programming == true
-
-
-- name: install vim plugin
-  shell: "vim +PluginInstall +qall now"
 
 - shell: "getent passwd $LOGNAME | cut -d: -f7"
   register: default_shell
