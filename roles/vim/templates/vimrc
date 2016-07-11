@@ -397,6 +397,7 @@ Plug 'scrooloose/syntastic'
 Plug 'mattn/emmet-vim'
 Plug 'vim-expand-region'
 Plug 'bling/vim-airline'
+Plug 'osyo-manga/vim-over'
 
 {% if programming %}
 
@@ -437,6 +438,7 @@ Plug 'hiel92/vim-autoformat'
 {% endif %}
 {% if nvim %}
 Plug 'mhinz/neovim-remote'
+Plug 'kassio/neoterm', { 'commit': '9e33da0a' }
 {% endif %}
 
 call plug#end()

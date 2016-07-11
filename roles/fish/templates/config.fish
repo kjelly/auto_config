@@ -20,5 +20,5 @@ set -gx TERM xterm-256color
 
 eval (python -m virtualfish)
 
-set -g __fish_vi_mode 1
+#set -g __fish_vi_mode 1
 set -g fish_key_bindings fish_user_key_bindings
