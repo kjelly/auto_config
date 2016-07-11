@@ -29,9 +29,6 @@ set autoread
 let mapleader = ","
 let g:mapleader = ","
 
-" Fast saving
-nmap <leader>sa :w!<cr>
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -117,7 +114,6 @@ set nobackup
 set nowb
 set noswapfile
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -148,40 +144,6 @@ set wrap "Wrap lines
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
-
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-" Close the current buffer
-map <leader>bd :Bclose<cr>
-
-" Close all the buffers
-map <leader>ba :1,1000 bd!<cr>
-
-" Useful mappings for managing tabs
-map <leader>tn :tabnew %<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-map <leader>tt :tabnew %<cr>:terminal<cr>
-map <leader>tb :split<cr><c-w>j:terminal<cr>
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers
 try
@@ -428,37 +390,76 @@ Plug 'kassio/neoterm', { 'commit': '9e33da0a' }
 call plug#end()
 
 syntax enable
+filetype plugin indent on     " required!
+
+set nu
+set keywordprg=sdcvh.sh
+"set whichwrap+=h,l
+set whichwrap+=<,>,[,],s,b
+set cursorline
+
+" Show tab line if there are more than one tab
+set showtabline=1
 
 let g:jedi#completions_command = "<C-n>"
 let popup_select_first = 0
 let @/ = ""
-set nu
-
 let g:vim_markdown_folding_disabled=1
-
-filetype plugin indent on     " required!
-
-map <C-n> :NERDTreeTabsToggle<CR>
 let NERDTreeMapOpenInTab='<TAB>'
 let g:nerdtree_tabs_focus_on_files=1
 
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_nr_type = 2
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#show_tab_nr = 2
+let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#tabline#exclude_preview = 1
+let g:airline#extensions#tabline#show_buffers = 0
+
+" Fast saving
+nmap <leader>sa :w!<cr>
+
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>
+
+" Close all the buffers
+map <leader>ba :1,1000 bd!<cr>
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+map <C-n> :NERDTreeTabsToggle<CR>
+
 "tab mappings
+map <leader>tn :tabnew %<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
 nmap <C-t> :tabnew %<CR>
 imap <C-t> <Esc>:tabnew %<CR>
-
-
 nmap <C-a> gT
 nmap <C-d> gt
-set keywordprg=sdcvh.sh
-"set whichwrap+=h,l
-set whichwrap+=<,>,[,],s,b
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Autocmd
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
-set cursorline
 
-
+" Grep
 nmap <leader>gro :Grep<cr>
 nmap <leader>grr :Rgrep<cr>
 nmap <leader>ge :Egrep<cr>
@@ -467,22 +468,35 @@ nmap <leader>gbl :BLines<cr>
 nmap <leader>gc :Commits<cr>
 nmap <leader>gbc :Commits<cr>
 nmap <leader>ga :Ag<cr>
+
+" close buffer/window
 nmap <leader>qq :Bclose<cr>:q<cr>
 nmap <leader>qw :q<cr>
 nmap <leader>qb :Bclose<cr>
+
+" State
 nmap <leader>,n :call Num_Toggle()<cr>
 nmap <leader>,w :set wrap!<cr>
 nmap <leader>,p :setlocal paste!<cr>
+
+" Buffer split
 nmap <leader>sh :split<cr>
 nmap <leader>sp :split<cr>
 nmap <leader>sv :vsplit<cr>
+
 nmap <leader>ff :NERDTreeTabsFind<cr>
+
 nmap <leader>fb :BLine
 nmap <leader>fl :Line
+
+" Command
 nmap <leader>e :Commands<cr>
 nmap <C-e> :Commands<cr>
+
+" Tag list
 nmap <C-s> :TlistToggle<cr>
 
+" Bookmarks keybinding
 nmap <Leader>bt <Plug>BookmarkToggle
 nmap <Leader>bi <Plug>BookmarkAnnotate
 nmap <Leader>ba <Plug>BookmarkShowAll
@@ -519,16 +533,6 @@ command Nu execute "call Num_Toggle()"
 command Q execute "quit!"
 command Qa execute "quitall!"
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#tab_nr_type = 2
-let g:airline#extensions#tabline#show_tabs = 1
-let g:airline#extensions#tabline#show_tab_nr = 2
-let g:airline#extensions#tabline#tab_min_count = 2
-let g:airline#extensions#tabline#exclude_preview = 1
-let g:airline#extensions#tabline#show_buffers = 0
-
-" Show tab line if there are more than one tab
-set showtabline=1
 
 {% if nvim %}
 
@@ -590,6 +594,10 @@ nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 imap <C-c>     <Plug>(neosnippet_expand_or_jump)
 
 {% if nvim %}
+set mouse=""
+
+map <leader>tt :tabnew %<cr>:terminal<cr>
+map <leader>tb :split<cr><c-w>j:terminal<cr>
 
 tnoremap <A-1> <C-\><C-n>1gti
 tnoremap <A-2> <C-\><C-n>2gti
@@ -651,5 +659,4 @@ tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize +1000<cr>i
 
 tnoremap <A-v> <C-\><C-n>pi
 
-set mouse=""
 {% endif %}
