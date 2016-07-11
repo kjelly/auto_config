@@ -153,6 +153,13 @@
   pip: name=git+git://github.com/powerline/powerline extra_args="--user"
   ignore_errors: yes
 
+- name: pip install [autopep8, flake8]
+  pip: name={{ item }}
+  sudo: yes
+  with_items:
+    - autopep8
+    - flake8
+
 - name: install neovim-remote
   shell: "python3 -m pip install neovim-remote"
   sudo: yes
