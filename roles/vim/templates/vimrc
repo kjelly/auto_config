@@ -1,95 +1,6 @@
-" Sections:
-"    -> General
-"    -> VIM user interface
-"    -> Colors and Fonts
-"    -> Files and backups
-"    -> Text, tab and indent related
-"    -> Visual mode related
-"    -> Moving around, tabs and buffers
-"    -> Editing mappings
-"    -> vimgrep searching and cope displaying
-"    -> Spell checking
-"    -> Misc
-"    -> Helper functions
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Sets how many lines of history VIM has to remember
-set history=700
-
-" Set to auto read when a file is changed from the outside
-set autoread
-
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
-
-" Turn on the WiLd menu
-set wildmenu
-
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-
-"Always show current position
-set ruler
-
-" Height of the command bar
-set cmdheight=1
-
-" A buffer becomes hidden when it is abandoned
-set hid
-
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
-
-" Ignore case when searching
-set ignorecase
-
-" When searching try to be smart about cases
-set smartcase
-
-" Highlight search results
-set hlsearch
-
-" Makes search act like search in modern browsers
-set incsearch
-
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
-
-" For regular expressions turn magic on
-set magic
-
-" Show matching brackets when text indicator is over them
-set showmatch
-" How many tenths of a second to blink when matching brackets
-set mat=2
-
-" No annoying sound on errors
-set noerrorbells
-set novisualbell
-set t_vb=
-set tm=500
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
-syntax enable
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -99,51 +10,6 @@ if has("gui_running")
     set guitablabel=%M\ %t
 endif
 
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
-set nowb
-set noswapfile
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use spaces instead of tabs
-set expandtab
-
-" Be smart when using tabs ;)
-set smarttab
-
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
-
-" Linebreak on 500 characters
-set lbr
-set tw=500
-
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
-
-
-""""""""""""""""""""""""""""""
-" => Visual mode related
-""""""""""""""""""""""""""""""
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :call VisualSelection('f')<CR>
-vnoremap <silent> # :call VisualSelection('b')<CR>
-
 
 " Specify the behavior when switching between buffers
 try
@@ -152,32 +18,13 @@ try
 catch
 endtry
 
+
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
 
-" Remember info about register, marks. And no highlight when started
-set viminfo=<800,'10,h
-
-" Show tab line if there are more than one tab
-set showtabline=1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vimgrep searching and cope displaying
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" When you press gv you vimgrep after the selected text
-vnoremap <silent> gv :call VisualSelection('gv')<CR>
-
-" Open vimgrep and put the cursor in the right position
-map <leader>gv :vimgrep // **/* <left><left><left><left><left><left><left>
-
-" Vimgreps in the current file
-map <leader><space> :vimgrep // <Home><right><right><right><right><right><right><right><right><right>
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 
 " Do :help cope if you are unsure what cope is. It's super useful!
 "
@@ -189,32 +36,11 @@ vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 "
 " To go to the previous search results do:
 "   <leader>p
-"
 
 map <leader>gcc :botright cope<cr>
 map <leader>gco ggVGy:tabnew %<cr>:set syntax=qf<cr>pgg
 map <leader>gn :cn<cr>
 map <leader>gp :cp<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>spel :setlocal spell!<cr>
-
-" Shortcuts using <leader>
-map <leader>spen ]s
-map <leader>spep [s
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -289,7 +115,6 @@ if has('gui_running')
 else
     set background=dark
 endif
-colorscheme torte
 
 {% if nvim %}
 {% else %}
@@ -301,25 +126,8 @@ endif
 {% endif %}
 
 set nocompatible              " be iMproved
-filetype off                  " required!
+filetype off                  " required before plugins
 
-if bufwinnr(1)
-  map = <C-W>+
-  map - <C-W>-
-  map } <C-W>>
-  map { <C-W><
-endif
-
-" Use normal regex
-" http://stevelosh.com/blog/2010/09/coming-home-to-vim
-nnoremap / /\v
-vnoremap / /\v
-
-" Sudo to write
-cnoremap w!! w !sudo tee % >/dev/null
-
-" Always show the status line
-set laststatus=2
 
 set rtp+=~/.fzf/
 
@@ -392,6 +200,10 @@ call plug#end()
 syntax enable
 filetype plugin indent on     " required!
 
+
+colorscheme torte
+
+
 set nu
 set keywordprg=sdcvh.sh
 "set whichwrap+=h,l
@@ -400,6 +212,111 @@ set cursorline
 
 " Show tab line if there are more than one tab
 set showtabline=1
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+" Remember info about register, marks. And no highlight when started
+set viminfo=<800,'10,h
+
+" Show tab line if there are more than one tab
+set showtabline=1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+
+" Turn on the WiLd menu
+set wildmenu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+
+"Always show current position
+set ruler
+
+" Height of the command bar
+set cmdheight=1
+
+" A buffer becomes hidden when it is abandoned
+set hid
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Sets how many lines of history VIM has to remember
+set history=700
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+" Always show the status line
+set laststatus=2
+
 
 let g:jedi#completions_command = "<C-n>"
 let popup_select_first = 0
@@ -415,6 +332,55 @@ let g:airline#extensions#tabline#show_tab_nr = 2
 let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#exclude_preview = 1
 let g:airline#extensions#tabline#show_buffers = 0
+
+
+" Autocmd
+autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePre * :%s/\s\+$//e
+autocmd InsertLeave,WinEnter * set cursorline
+autocmd InsertEnter,WinLeave * set nocursorline
+
+
+" num toggle
+command Nu execute "call Num_Toggle()"
+
+"Quit
+command Q execute "quit!"
+command Qa execute "quitall!"
+
+
+" resize buffer
+if bufwinnr(1)
+  map = <C-W>+
+  map - <C-W>-
+  map } <C-W>>
+  map { <C-W><
+endif
+
+
+" Use normal regex
+" http://stevelosh.com/blog/2010/09/coming-home-to-vim
+nnoremap / /\v
+vnoremap / /\v
+
+
+" Sudo to write
+cnoremap w!! w !sudo tee % >/dev/null
+
+
+" When you press <leader>r you can search and replace the selected text
+vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
+
+
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :call VisualSelection('f')<CR>
+vnoremap <silent> # :call VisualSelection('b')<CR>
+
+
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
 
 " Fast saving
 nmap <leader>sa :w!<cr>
@@ -439,7 +405,7 @@ map <C-l> <C-W>l
 
 map <C-n> :NERDTreeTabsToggle<CR>
 
-"tab mappings
+" Tab mappings
 map <leader>tn :tabnew %<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
@@ -448,16 +414,25 @@ nmap <C-t> :tabnew %<CR>
 imap <C-t> <Esc>:tabnew %<CR>
 nmap <C-a> gT
 nmap <C-d> gt
+noremap H gT
+noremap L gt
+
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
-" Autocmd
-autocmd BufWritePre * :%s/\s\+$//e
-autocmd BufWritePre * :%s/\s\+$//e
-autocmd InsertLeave,WinEnter * set cursorline
-autocmd InsertEnter,WinLeave * set nocursorline
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Spell checking
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>spel :setlocal spell!<cr>
+
+" Shortcuts using <leader>
+map <leader>spen ]s
+map <leader>spep [s
+
 
 " Grep
 nmap <leader>gro :Grep<cr>
@@ -469,6 +444,16 @@ nmap <leader>gc :Commits<cr>
 nmap <leader>gbc :Commits<cr>
 nmap <leader>ga :Ag<cr>
 
+" When you press gv you vimgrep after the selected text
+vnoremap <silent> gv :call VisualSelection('gv')<CR>
+
+" Open vimgrep and put the cursor in the right position
+map <leader>gv :vimgrep // **/* <left><left><left><left><left><left><left>
+
+" Vimgreps in the current file
+map <leader><space> :vimgrep // <Home><right><right><right><right><right><right><right><right><right>
+
+
 " close buffer/window
 nmap <leader>qq :Bclose<cr>:q<cr>
 nmap <leader>qw :q<cr>
@@ -478,12 +463,14 @@ nmap <leader>qb :Bclose<cr>
 nmap <leader>,n :call Num_Toggle()<cr>
 nmap <leader>,w :set wrap!<cr>
 nmap <leader>,p :setlocal paste!<cr>
+nmap <leader>,m :call ToggleMouse()<cr>
 
 " Buffer split
 nmap <leader>sh :split<cr>
 nmap <leader>sp :split<cr>
 nmap <leader>sv :vsplit<cr>
 
+" Find file in NERDTree
 nmap <leader>ff :NERDTreeTabsFind<cr>
 
 nmap <leader>fb :BLine
@@ -507,35 +494,37 @@ nmap <Leader>bx <Plug>BookmarkClearAll
 nmap <Leader>bk <Plug>BookmarkMoveUp
 nmap <Leader>bj <Plug>BookmarkMoveDown
 
-nmap <leader>,m :call ToggleMouse()<cr>
-
+" Use down/up for <C-n>/<C-p>
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 
 nnoremap <C-u> :UndotreeToggle<cr>
+
+" Find file/buffer
 nnoremap <C-p> :FZF<cr>
 nnoremap <c-o> :Buffers<cr>
 
-
+" Marks
 nnoremap <leader>w :W3mTab google
 
 nnoremap mm  :Marks<cr>
 
+" Resize buffer
 nnoremap sa  :resize +1000<cr>
 nnoremap si  :resize -1000<cr>
 nnoremap sm  <c-w><c-=>
 
+" Find window
 nnoremap <a-/>  :Windows<cr>
 imap     <a-/>  :Windows<cr>
-imap     <c-a>  <c-x><c-n>
 
-command Nu execute "call Num_Toggle()"
-command Q execute "quit!"
-command Qa execute "quitall!"
+" Auto complete for all word
+imap     <c-a>  <c-x><c-n>
 
 
 {% if nvim %}
 
+" Alt-num to switch tab
 noremap <A-0> 0gt
 noremap <A-1> 1gt
 noremap <A-2> 2gt
@@ -550,6 +539,7 @@ noremap <A-0> 0gt
 
 {% else %}
 
+" Alt-num to switch tab
 execute "set <M-0>=\e0"
 noremap <M-0> 0gt
 execute "set <M-1>=\e1"
@@ -573,18 +563,23 @@ noremap <M-9> 9gt
 
 {% endif %}
 
-noremap H gT
-noremap L gt
 map <Esc>h <Nop>
 map <Esc>l <Nop>
 
+" Delete one word
 imap <C-e> <Esc>dwi
 
+" Forware/backware word
 imap <C-f> <Esc>w i
 imap <C-b> <Esc>bi
+
+" Paste text
 imap <C-v> <Esc>pi
+
+" insert new after the line
 imap <C-o> <Esc>o
 
+" Paste text from clipboard
 vmap <c-c> "+y
 vmap <Return> "+y
 
@@ -593,12 +588,17 @@ nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
 nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 imap <C-c>     <Plug>(neosnippet_expand_or_jump)
 
+
 {% if nvim %}
+
+" Disable mouse
 set mouse=""
 
+" open new terminal in new tab/buffer.
 map <leader>tt :tabnew %<cr>:terminal<cr>
 map <leader>tb :split<cr><c-w>j:terminal<cr>
 
+" Tab switch
 tnoremap <A-1> <C-\><C-n>1gti
 tnoremap <A-2> <C-\><C-n>2gti
 tnoremap <A-3> <C-\><C-n>3gti
@@ -610,6 +610,7 @@ tnoremap <A-8> <C-\><C-n>8gti
 tnoremap <A-9> <C-\><C-n>9gti
 tnoremap <A-0> <C-\><C-n>0gti
 
+" Tab switch
 imap <A-1> <Esc>1gti
 imap <A-2> <Esc>2gti
 imap <A-3> <Esc>3gti
@@ -621,6 +622,7 @@ imap <A-8> <Esc>8gti
 imap <A-9> <Esc>9gti
 imap <A-0> <Esc>0gti
 
+" Buffer navigation
 tnoremap <A-a> <C-\><C-n>
 tnoremap <Insert> <C-\><C-n>
 tnoremap <A-h> <C-\><C-n><C-w>h
@@ -636,11 +638,13 @@ imap <A-j> <Esc><C-w>j
 imap <A-k> <Esc><C-w>k
 imap <A-l> <Esc><C-w>l
 
+" Find files/buffers
 nnoremap <A-p> :FZF<cr>
 tnoremap <A-p> <C-\><C-n>:FZF<cr>i
 nnoremap <A-o> :Buffers<cr>
 tnoremap <A-o> <C-\><C-n>Buffers<cr>i
 
+" Resize buffer
 nmap <silent> <A-q>  :resize -1000<cr>
 nmap <silent> <A-w>  <c-w><c-=>
 nmap <silent> <A-e>  :resize +1000<cr>
@@ -657,6 +661,7 @@ tnoremap <silent> <A-e>  <C-\><C-n>:resize +1000<cr>i
 tnoremap <silent> <A-r>  <C-\><C-n>:vertical resize -1000<cr>i
 tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize +1000<cr>i
 
+" Paste text
 tnoremap <A-v> <C-\><C-n>pi
 
 {% endif %}
