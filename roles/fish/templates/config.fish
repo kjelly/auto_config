@@ -15,7 +15,7 @@ alias cd5 "cd ../../../../.."
 
 set -gx GOROOT "{{ HOME_PATH }}/go"
 set -gx GOPATH "{{ HOME_PATH }}/gohome"
-set -gx PATH "$GOROOT/bin" "{{ HOME_PATH }}/gohome/bin" "{{ HOME_PATH }}/bin" "{{ HOME_PATH }}/mybin" $PATH
+set -gx PATH "$GOROOT/bin" "{{ HOME_PATH }}/gohome/bin" "{{ HOME_PATH }}/bin" "{{ HOME_PATH }}/mybin" "{{ HOME_PATH }}/dart-sdk/bin" "{{ HOME_PATH }}/swift/usr/bin" $PATH
 set -gx TERM xterm-256color
 
 eval (python -m virtualfish)
