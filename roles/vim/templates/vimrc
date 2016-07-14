@@ -185,6 +185,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'neomake/neomake'
 Plug 'nvie/vim-flake8'
 Plug 'hiel92/vim-autoformat'
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'keith/swift.vim'
+Plug 'ya790206/vim-mecury-lang'
+Plug 'ya790206/vim-multiterm'
 
 {% else %}
 
