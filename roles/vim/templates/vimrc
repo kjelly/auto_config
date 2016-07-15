@@ -453,10 +453,10 @@ map <leader>spep [s
 nmap <leader>gro :Grep<cr>
 nmap <leader>grr :Rgrep<cr>
 nmap <leader>ge :Egrep<cr>
-nmap <leader>gl :Lines<cr>
+nmap <leader>gl :Lines<cr
 nmap <leader>gbl :BLines<cr>
 nmap <leader>gc :Commits<cr>
-nmap <leader>gbc :Commits<cr>
+nmap <leader>gbc :BCommits<cr>
 nmap <leader>ga :Ag<cr>
 
 " When you press gv you vimgrep after the selected text
