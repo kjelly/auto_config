@@ -447,6 +447,9 @@ map <leader>spep [s
 
 
 " Grep
+" B for current buffer
+" For example, Lines for Lines in loaded buffers.
+" BLines for Lines in the current buffer
 nmap <leader>gro :Grep<cr>
 nmap <leader>grr :Rgrep<cr>
 nmap <leader>ge :Egrep<cr>
@@ -486,7 +489,9 @@ nmap <leader>sv :vsplit<cr>
 " Find file in NERDTree
 nmap <leader>ff :NERDTreeTabsFind<cr>
 
+" Find  line in the current buffer
 nmap <leader>fb :BLine
+" Find  lines in loaded buffers
 nmap <leader>fl :Line
 
 " Command
