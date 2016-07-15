@@ -155,7 +155,6 @@ Plug 'osyo-manga/vim-over'
 
 {% if programming %}
 
-Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/OmniCppComplete'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -189,6 +188,18 @@ Plug 'dart-lang/dart-vim-plugin'
 Plug 'keith/swift.vim'
 Plug 'ya790206/vim-mecury-lang'
 Plug 'ya790206/vim-multiterm'
+
+Plug 'Shougo/vimshell.vim'
+
+{% if nvim %}
+Plug 'Shougo/deoplete.nvim'
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'zchee/deoplete-jedi'
+Plug 'Shougo/neco-vim'
+Plug 'Shougo/neco-syntax'
+{% else %}
+Plug 'Valloric/YouCompleteMe'
+{% endif %}
 
 {% else %}
 
@@ -336,6 +347,12 @@ let g:airline#extensions#tabline#show_tab_nr = 2
 let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#exclude_preview = 1
 let g:airline#extensions#tabline#show_buffers = 0
+
+let g:deoplete#enable_at_startup = 1
+
+let g:vimshell_prompt_expr =
+\ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
+let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
 
 
 " Autocmd
@@ -669,3 +686,5 @@ tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize +1000<cr>i
 tnoremap <A-v> <C-\><C-n>pi
 
 {% endif %}
+
+
