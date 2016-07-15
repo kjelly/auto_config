@@ -110,6 +110,14 @@ function! ToggleMouse()
     endif
 endfunc
 
+function! ToggleStatusLine()
+    if &laststatus==0
+        set laststatus=2
+    else
+        set laststatus=0
+    endif
+endfunc
+
 if has('gui_running')
     set background=light
 else
@@ -468,6 +476,7 @@ nmap <leader>,n :call Num_Toggle()<cr>
 nmap <leader>,w :set wrap!<cr>
 nmap <leader>,p :setlocal paste!<cr>
 nmap <leader>,m :call ToggleMouse()<cr>
+nmap <leader>,s :call ToggleStatusLine()<cr>
 
 " Buffer split
 nmap <leader>sh :split<cr>
