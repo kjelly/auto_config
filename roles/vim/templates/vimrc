@@ -186,6 +186,7 @@ Plug 'nvie/vim-flake8'
 Plug 'Chiel92/vim-autoformat'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'keith/swift.vim'
+Plug 'gre/play2vim'
 Plug 'ya790206/vim-mecury-lang'
 Plug 'ya790206/vim-multiterm'
 
