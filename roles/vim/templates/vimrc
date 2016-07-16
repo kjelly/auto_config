@@ -110,6 +110,14 @@ function! ToggleMouse()
     endif
 endfunc
 
+function! ToggleStatusLine()
+    if &laststatus==0
+        set laststatus=2
+    else
+        set laststatus=0
+    endif
+endfunc
+
 if has('gui_running')
     set background=light
 else
@@ -457,13 +465,16 @@ map <leader>spep [s
 
 
 " Grep
+" B for current buffer
+" For example, Lines for Lines in loaded buffers.
+" BLines for Lines in the current buffer
 nmap <leader>gro :Grep<cr>
 nmap <leader>grr :Rgrep<cr>
 nmap <leader>ge :Egrep<cr>
-nmap <leader>gl :Lines<cr>
+nmap <leader>gl :Lines<cr
 nmap <leader>gbl :BLines<cr>
 nmap <leader>gc :Commits<cr>
-nmap <leader>gbc :Commits<cr>
+nmap <leader>gbc :BCommits<cr>
 nmap <leader>ga :Ag<cr>
 
 " When you press gv you vimgrep after the selected text
@@ -486,6 +497,7 @@ nmap <leader>,n :call Num_Toggle()<cr>
 nmap <leader>,w :set wrap!<cr>
 nmap <leader>,p :setlocal paste!<cr>
 nmap <leader>,m :call ToggleMouse()<cr>
+nmap <leader>,s :call ToggleStatusLine()<cr>
 
 " Buffer split
 nmap <leader>sh :split<cr>
@@ -495,7 +507,9 @@ nmap <leader>sv :vsplit<cr>
 " Find file in NERDTree
 nmap <leader>ff :NERDTreeTabsFind<cr>
 
+" Find  line in the current buffer
 nmap <leader>fb :BLine
+" Find  lines in loaded buffers
 nmap <leader>fl :Line
 
 " Command

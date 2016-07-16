@@ -10,22 +10,22 @@ bind-key -n M-7 select-window -t 7
 bind-key -n M-8 select-window -t 8
 bind-key -n M-9 select-window -t 9
 
-bind-key -n M-c new-window
-bind-key -n M-x confirm-before -p "kill-pane #P? (y/n)" kill-pane
+bind-key c new-window
+bind-key x confirm-before -p "kill-pane #P? (y/n)" kill-pane
 
-bind-key -n M-[ copy-mode
-bind-key -n M-] paste-buffer
+bind-key [ copy-mode
+bind-key ] paste-buffer
 
-bind-key -n M-n next-window
-bind-key -n M-p previous-window
+bind-key n next-window
+bind-key p previous-window
 
-bind-key -n M-v split-window -v
-bind-key -n M-% split-window -h
+bind-key v split-window -v
+bind-key s split-window -h
 
-bind-key -n M-h  select-pane -L
-bind-key -n M-j  select-pane -D
-bind-key -n M-k  select-pane -U
-bind-key -n M-l  select-pane -R
+bind-key h  select-pane -L
+bind-key j  select-pane -D
+bind-key k  select-pane -U
+bind-key l  select-pane -R
 
 bind-key -n M-y run-shell "tmux show-buffer | xclip -sel clip -i" \; display-message "Copied tmux buffer to system clipboard"
 
