@@ -233,7 +233,7 @@ syntax enable
 filetype plugin indent on     " required!
 
 
-colorscheme torte
+colorscheme darkblue
 
 
 set nu
