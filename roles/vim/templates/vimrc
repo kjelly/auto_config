@@ -378,6 +378,9 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
 
+autocmd! bufwritepost .vimrc source %
+autocmd! bufwritepost init.vim source %
+
 
 " num toggle
 command Nu execute "call Num_Toggle()"
