@@ -156,6 +156,7 @@ Plug 'vim-expand-region'
 Plug 'bling/vim-airline'
 Plug 'osyo-manga/vim-over'
 Plug 'majutsushi/tagbar'
+Plug 'Shougo/unite.vim'
 
 Plug 'dag/vim-fish'
 
