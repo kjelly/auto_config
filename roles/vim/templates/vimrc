@@ -420,10 +420,6 @@ vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
 
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-
 " Fast saving
 nmap <leader>sa :w!<cr>
 
@@ -511,11 +507,6 @@ nmap <leader>,p :setlocal paste!<cr>
 nmap <leader>,m :call ToggleMouse()<cr>
 nmap <leader>,s :call ToggleStatusLine()<cr>
 
-" Buffer split
-nmap <leader>sh :split<cr>
-nmap <leader>sp :split<cr>
-nmap <leader>sv :vsplit<cr>
-
 " Find file in NERDTree
 nmap <leader>ff :NERDTreeTabsFind<cr>
 
@@ -552,9 +543,9 @@ nnoremap <C-u> :UndotreeToggle<cr>
 nnoremap <C-p> :FZF<cr>
 nnoremap <c-o> :Buffers<cr>
 
-" Marks
-nnoremap <leader>w :W3mTab google
+"nnoremap <leader>w :W3mTab google
 
+" Marks
 nnoremap mm  :Marks<cr>
 
 " Resize buffer
@@ -615,26 +606,27 @@ map <Esc>h <Nop>
 map <Esc>l <Nop>
 
 " Delete one word
-imap <C-e> <Esc>dwi
+inoremap <C-e> <Esc>dwi
 
 " Forware/backware word
-imap <C-f> <Esc>w i
-imap <C-b> <Esc>bi
+inoremap <C-f> <Esc>w i
+inoremap <C-b> <Esc>bi
 
 " Paste text
-imap <C-v> <Esc>pi
+inoremap <C-v> <Esc>pi
 
 " insert new after the line
-imap <C-o> <Esc>o
+inoremap <C-o> <Esc>o
 
 " Paste text from clipboard
-vmap <c-c> "+y
-vmap <Return> "+y
+vnoremap <c-c> "+y
+vnoremap <Return> "+y
 
 "Quickly move current line
 nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
 nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
-imap <C-c>     <Plug>(neosnippet_expand_or_jump)
+
+inoremap <C-c>     <Plug>(neosnippet_expand_or_jump)
 
 
 {% if nvim %}
