@@ -189,7 +189,6 @@ Plug 'Shougo/vimshell.vim'
 Plug 'Chiel92/vim-autoformat'
 
 " Lang
-Plug 'davidhalter/jedi-vim'
 Plug 'fatih/vim-go'
 Plug 'derekwyatt/vim-scala'
 Plug 'pangloss/vim-javascript'
@@ -218,6 +217,7 @@ Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 {% else %}
 Plug 'Valloric/YouCompleteMe'
+"Plug 'davidhalter/jedi-vim'
 {% endif %}
 
 {% else %}
