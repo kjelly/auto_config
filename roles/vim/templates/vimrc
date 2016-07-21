@@ -155,11 +155,11 @@ Plug 'mattn/emmet-vim'
 Plug 'vim-expand-region'
 Plug 'bling/vim-airline'
 Plug 'osyo-manga/vim-over'
+Plug 'majutsushi/tagbar'
 
 Plug 'dag/vim-fish'
 
 "Plug 'MattesGroeger/vim-bookmarks'
-"Plug 'taglist.vim'
 "Plug 'thinca/vim-quickrun'
 "Plug 'mkitt/tabline.vim'
 "Plug 'mru.vim'
@@ -529,7 +529,7 @@ nmap <leader>e :Commands<cr>
 nmap <C-e> :Commands<cr>
 
 " Tag list
-nmap <C-s> :TlistToggle<cr>
+nmap <C-s> :Tagbar<cr>
 
 " Bookmarks keybinding
 "nmap <Leader>bt <Plug>BookmarkToggle
