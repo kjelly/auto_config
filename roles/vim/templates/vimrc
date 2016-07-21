@@ -169,7 +169,6 @@ Plug 'dag/vim-fish'
 
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/OmniCppComplete'
 Plug 'junegunn/fzf.vim'
 
 Plug 'Shougo/neosnippet'
@@ -195,12 +194,12 @@ Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
 Plug 'pearofducks/ansible-vim'
 Plug 'nvie/vim-flake8'
-Plug 'dart-lang/dart-vim-plugin'
-Plug 'keith/swift.vim'
-Plug 'gre/play2vim'
+"Plug 'dart-lang/dart-vim-plugin'
+"Plug 'keith/swift.vim'
+"Plug 'gre/play2vim'
 Plug 'ya790206/vim-mecury-lang'
 
-
+"Plug 'vim-scripts/OmniCppComplete'
 "Plug 'neomake/neomake'
 "Plug 'adimit/prolog.vim'
 "Plug 'nathanaelkane/vim-indent-guides'
@@ -226,7 +225,7 @@ Plug 'Valloric/YouCompleteMe'
 {% endif %}
 {% if nvim %}
 Plug 'mhinz/neovim-remote'
-Plug 'kassio/neoterm', { 'commit': '9e33da0a' }
+"Plug 'kassio/neoterm', { 'commit': '9e33da0a' }
 {% endif %}
 
 call plug#end()
