@@ -19,7 +19,7 @@ func main() {
 	sum := h.Sum(nil)
 	if len(os.Args) > 1 {
 		for i, val := range sum {
-			sum[i] = val ^ 15
+			sum[i] = 255 - val
 		}
 	}
 	output := fmt.Sprintf("%x", sum[0:2])
