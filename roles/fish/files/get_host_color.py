@@ -51,7 +51,7 @@ def main():
         with open(host_color_path, 'w') as ftr:
             pickle.dump(data, ftr)
     if len(sys.argv) > 1:
-        data = [i^15 for i in data]
+        data = [15 - i for i in data]
     data = [hex(i)[2:].upper() for i in data]
     output = ''.join(data)
     print(output)
