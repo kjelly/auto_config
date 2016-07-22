@@ -733,5 +733,6 @@ tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize +1000<cr>i
 
 " Paste text
 tnoremap <A-v> <C-\><C-n>pi
+inoremap <A-v> <Esc>pi
 
 {% endif %}
