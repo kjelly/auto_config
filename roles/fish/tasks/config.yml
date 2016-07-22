@@ -32,8 +32,8 @@
      args:
        chdir: "~/.config/fish/"
   rescue:
-   - file: src="~/.config/fish/get_color.py" dest="~/.config/fish/get_color" state=link
-   - file: src="~/.config/fish/get_host_color.py" dest="~/.config/fish/get_host_color" state=link
-   - file: src="~/.config/fish/print_cwd.py" dest="~/.config/fish/print_cwd" state=link
+   - file: src="~/.config/fish/get_color.py" dest="~/.config/fish/get_color" state=link force=yes
+   - file: src="~/.config/fish/get_host_color.py" dest="~/.config/fish/get_host_color" state=link force=yes
+   - file: src="~/.config/fish/print_cwd.py" dest="~/.config/fish/print_cwd" state=link force=yes
 
 - file: path="~/.config/fish/functions" state=directory mode=0755
