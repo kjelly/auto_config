@@ -198,6 +198,7 @@ Plug 'nvie/vim-flake8'
 "Plug 'keith/swift.vim'
 "Plug 'gre/play2vim'
 Plug 'ya790206/vim-mecury-lang'
+Plug 'davidhalter/jedi-vim'
 
 "Plug 'vim-scripts/OmniCppComplete'
 "Plug 'neomake/neomake'
@@ -216,7 +217,6 @@ Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 {% else %}
 Plug 'Valloric/YouCompleteMe'
-"Plug 'davidhalter/jedi-vim'
 {% endif %}
 
 {% else %}
