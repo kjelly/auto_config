@@ -13,9 +13,6 @@
 
 - template: src="vimrc" dest="~/.vimrc"
 
-- name: download vim-plug
-  get_url: url=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim dest=/tmp/plug.vim
-
 - file: path="~/.config/nvim/autoload/" state=directory recurse=yes
 
 - file: path="~/.vim/autoload/" state=directory recurse=yes
