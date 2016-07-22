@@ -450,8 +450,6 @@ map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 nmap <C-t> :tabnew %<CR>
 imap <C-t> <Esc>:tabnew %<CR>
-nmap <C-a> gT
-nmap <C-d> gt
 noremap H gT
 noremap L gt
 
