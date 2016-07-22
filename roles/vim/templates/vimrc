@@ -628,6 +628,28 @@ nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 
 inoremap <C-c>     <Plug>(neosnippet_expand_or_jump)
 
+" keybinding about lang
+au FileType go nmap <leader>lr <Plug>(go-run)
+au FileType go nmap <leader>lb <Plug>(go-build)
+au FileType go nmap <leader>lt <Plug>(go-test)
+au FileType go nmap <leader>lc <Plug>(go-coverage)
+au FileType go nmap <Leader>lds <Plug>(go-def-split)
+au FileType go nmap <Leader>ldv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>ldt <Plug>(go-def-tab)
+au FileType go nmap <Leader>lgd <Plug>(go-doc)
+au FileType go nmap <Leader>lgv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>ls <Plug>(go-implements)
+au FileType go nmap <Leader>li <Plug>(go-info)
+au FileType go nmap <Leader>le <Plug>(go-rename)
+
+let g:jedi#goto_command = "<leader>lg"
+let g:jedi#goto_assignments_command = "<leader>la"
+let g:jedi#goto_definitions_command = "<leader>ld"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>lu"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>lr"
+
 
 {% if nvim %}
 
@@ -705,5 +727,3 @@ tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize +1000<cr>i
 tnoremap <A-v> <C-\><C-n>pi
 
 {% endif %}
-
-
