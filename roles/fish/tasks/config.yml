@@ -21,6 +21,8 @@
 - copy: src=get_host_color.go dest="~/.config/fish/get_host_color.go" mode=700
 - copy: src=print_cwd.go dest="~/.config/fish/print_cwd.go" mode=700
 
+- copy: src=build.sh dest="~/.config/fish/build.sh" mode=700
+
 - block:
    - shell: "go build get_color.go"
      args:
