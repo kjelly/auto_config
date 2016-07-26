@@ -31,6 +31,7 @@
    - "silversearcher-ag"
    - ruby
    - "ruby-dev"
+   - "python3-pip"
    - libtool-bin # for neovim
 
   sudo: yes
@@ -163,7 +164,7 @@
     - flake8
 
 - name: install neovim-remote
-  shell: "python3 -m pip install neovim-remote"
+  shell: "pip3 install neovim-remote"
   sudo: yes
   ignore_errors: yes
 
