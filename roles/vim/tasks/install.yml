@@ -18,7 +18,7 @@
 - name: clone vim
   git: repo=https://github.com/vim/vim
        dest="/tmp/vim" depth=1 force=yes
-  when: need_install
+  when: need_install and programming == true
 
 - name: Install packages
   apt: name={{ item }} state=present
