@@ -31,6 +31,8 @@
    - "silversearcher-ag"
    - ruby
    - "ruby-dev"
+   - libtool-bin # for neovim
+
   sudo: yes
   when: ansible_distribution == 'Ubuntu' and programming == true
 
