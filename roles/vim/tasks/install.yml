@@ -163,7 +163,7 @@
 - name: install neovim-remote
   shell: "python3 -m pip install neovim-remote"
   sudo: yes
-  ignore_errors: yes/
+  ignore_errors: yes
 
 - git: repo=https://github.com/gmarik/vundle.git
        dest=~/.vim/bundle/vundle
