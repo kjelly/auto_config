@@ -17,11 +17,6 @@
 
 - file: path="~/.vim/autoload/" state=directory recurse=yes
 
-- copy: src=/tmp/plug.vim dest={{ item }} remote_src=yes
-  with_items:
-    - "~/.vim/autoload/plug.vim"
-    - "~/.config/nvim/autoload/plug.vim"
-
 - name: install vim plugin
   shell: "vim +PluginInstall +qall now"
 
