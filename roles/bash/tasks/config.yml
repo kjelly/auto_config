@@ -1,11 +1,4 @@
 ---
-- git: repo=https://github.com/magicmonty/bash-git-prompt.git
-       dest=~/.bash-git-prompt
-       depth=1
-
-- git: repo=https://github.com/nojhan/liquidprompt
-       dest=~/.liquidprompt
-       depth=1
 
 - copy: src="bashrc" dest="~/.bashrc"
 
