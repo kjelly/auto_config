@@ -199,6 +199,8 @@ Plug 'nvie/vim-flake8'
 "Plug 'gre/play2vim'
 Plug 'ya790206/vim-mecury-lang'
 Plug 'davidhalter/jedi-vim'
+Plug 'justmao945/vim-clang'
+Plug 'rhysd/vim-clang-format'
 
 "Plug 'vim-scripts/OmniCppComplete'
 "Plug 'neomake/neomake'
@@ -352,6 +354,7 @@ set wrap "Wrap lines
 " Always show the status line
 set laststatus=2
 
+set completeopt="menu,preview,noinsert,noselect"
 
 let g:jedi#completions_command = "<C-n>"
 let popup_select_first = 0
@@ -374,6 +377,9 @@ let g:vimshell_prompt_expr =
 \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
 let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
 
+let g:clang_c_completeopt = "menu,preview,noinsert,noselect"
+let g:clang_cpp_completeopt = "menu,preview,noinsert,noselect"
+
 
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
@@ -381,6 +387,7 @@ autocmd! InsertEnter,WinLeave * set nocursorline
 
 autocmd! bufwritepost .vimrc source %
 autocmd! bufwritepost init.vim source %
+autocmd FileType c ClangFormatAutoEnable
 
 augroup Binary
   au!
