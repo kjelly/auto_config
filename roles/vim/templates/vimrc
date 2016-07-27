@@ -701,7 +701,6 @@ imap <A-8> <Esc>8gti
 imap <A-9> <Esc>9gti
 imap <A-0> <Esc>0gti
 
-tnoremap <C-[> <C-\><C-n>
 tnoremap <Insert> <C-\><C-n>
 tnoremap <A-a> <C-\><C-n>
 inoremap <A-a> <Esc>
