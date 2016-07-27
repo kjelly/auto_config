@@ -201,6 +201,9 @@ Plug 'ya790206/vim-mecury-lang'
 Plug 'davidhalter/jedi-vim'
 Plug 'justmao945/vim-clang'
 Plug 'rhysd/vim-clang-format'
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
+
 
 "Plug 'vim-scripts/OmniCppComplete'
 "Plug 'neomake/neomake'
@@ -666,6 +669,9 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>lu"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>lr"
+
+let g:racer_cmd = "{{ HOME_PATH }}/.cargo/bin/racer"
+let $RUST_SRC_PATH="{{ HOME_PATH }}/rust-src/src"
 
 
 {% if nvim %}
