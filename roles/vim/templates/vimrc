@@ -380,6 +380,8 @@ let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
 let g:clang_c_completeopt = "menu,preview,noinsert,noselect"
 let g:clang_cpp_completeopt = "menu,preview,noinsert,noselect"
 
+let g:syntastic_cpp_compiler_options="-std=gnu++14"
+
 
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
