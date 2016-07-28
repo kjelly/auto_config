@@ -37,10 +37,10 @@ autocmd! BufReadPost *
 " To go to the previous search results do:
 "   <leader>p
 
-map <leader>gcc :botright cope<cr>
-map <leader>gco ggVGy:tabnew %<cr>:set syntax=qf<cr>pgg
-map <leader>gn :cn<cr>
-map <leader>gp :cp<cr>
+nnoremap <leader>gcc :botright cope<cr>
+nnoremap <leader>gco ggVGy:tabnew %<cr>:set syntax=qf<cr>pgg
+nnoremap <leader>gn :cn<cr>
+nnoremap <leader>gp :cp<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -443,117 +443,117 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 
 
 " Fast saving
-nmap <leader>sa :w!<cr>
+nnoremap <leader>sa :w!<cr>
 
 " Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
+nnoremap <silent> <leader><cr> :noh<cr>
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>
+nnoremap <leader>bd :Bclose<cr>
 
 " Close all the buffers
-map <leader>ba :1,1000 bd!<cr>
+nnoremap <leader>ba :1,1000 bd!<cr>
 
 " Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
-map <C-n> :NERDTreeTabsToggle<CR>
+nnoremap <C-n> :NERDTreeTabsToggle<CR>
 
 " Tab mappings
-map <leader>tn :tabnew %<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-nmap <C-t> :tabnew %<CR>
-imap <C-t> <Esc>:tabnew %<CR>
+nnoremap <leader>tn :tabnew %<cr>
+nnoremap <leader>to :tabonly<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>tm :tabmove
+nnoremap <C-t> :tabnew %<CR>
+inoremap <C-t> <Esc>:tabnew %<CR>
 noremap H gT
 noremap L gt
 
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+nnoremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
-map <leader>spel :setlocal spell!<cr>
+nnoremap <leader>spel :setlocal spell!<cr>
 
 " Shortcuts using <leader>
-map <leader>spen ]s
-map <leader>spep [s
+nnoremap <leader>spen ]s
+nnoremap <leader>spep [s
 
 
 " Grep
 " B for current buffer
 " For example, Lines for Lines in loaded buffers.
 " BLines for Lines in the current buffer
-nmap <leader>gro :Grep<cr>
-nmap <leader>grr :Rgrep<cr>
-nmap <leader>ge :Egrep<cr>
-nmap <leader>gl :Lines<cr
-nmap <leader>gbl :BLines<cr>
-nmap <leader>gc :Commits<cr>
-nmap <leader>gbc :BCommits<cr>
-nmap <leader>ga :Ag<cr>
+nnoremap <leader>gro :Grep<cr>
+nnoremap <leader>grr :Rgrep<cr>
+nnoremap <leader>ge :Egrep<cr>
+nnoremap <leader>gl :Lines<cr
+nnoremap <leader>gbl :BLines<cr>
+nnoremap <leader>gc :Commits<cr>
+nnoremap <leader>gbc :BCommits<cr>
+nnoremap <leader>ga :Ag<cr>
 
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> gv :call VisualSelection('gv')<CR>
 
 " Open vimgrep and put the cursor in the right position
-map <leader>gv :vimgrep // **/* <left><left><left><left><left><left><left>
+nnoremap <leader>gv :vimgrep // **/* <left><left><left><left><left><left><left>
 
 " Vimgreps in the current file
-map <leader><space> :vimgrep // <Home><right><right><right><right><right><right><right><right><right>
+nnoremap <leader><space> :vimgrep // <Home><right><right><right><right><right><right><right><right><right>
 
 
 " close buffer/window
-nmap <leader>qq :Bclose<cr>:q<cr>
-nmap <leader>qw :q<cr>
-nmap <leader>qb :Bclose<cr>
+nnoremap <leader>qq :Bclose<cr>:q<cr>
+nnoremap <leader>qw :q<cr>
+nnoremap <leader>qb :Bclose<cr>
 
 " State
-nmap <leader>,n :call Num_Toggle()<cr>
-nmap <leader>,w :set wrap!<cr>
-nmap <leader>,p :setlocal paste!<cr>
-nmap <leader>,m :call ToggleMouse()<cr>
-nmap <leader>,s :call ToggleStatusLine()<cr>
+nnoremap <leader>,n :call Num_Toggle()<cr>
+nnoremap <leader>,w :set wrap!<cr>
+nnoremap <leader>,p :setlocal paste!<cr>
+nnoremap <leader>,m :call ToggleMouse()<cr>
+nnoremap <leader>,s :call ToggleStatusLine()<cr>
 
 " Find file in NERDTree
-nmap <leader>ff :NERDTreeTabsFind<cr>
+nnoremap <leader>ff :NERDTreeTabsFind<cr>
 
 " Find  line in the current buffer
-nmap <leader>fb :BLine
+nnoremap <leader>fb :BLine
 " Find  lines in loaded buffers
-nmap <leader>fl :Line
+nnoremap <leader>fl :Line
 
 " Command
-nmap <leader>e :Commands<cr>
-nmap <C-e> :Commands<cr>
+nnoremap <leader>e :Commands<cr>
+nnoremap <C-e> :Commands<cr>
 
 " Tag list
-nmap <C-s> :Tagbar<cr>
+nnoremap <C-s> :Tagbar<cr>
 
 inoremap <C-s> <Esc>:w<cr>a
 
 " Bookmarks keybinding
-"nmap <Leader>bt <Plug>BookmarkToggle
-"nmap <Leader>bi <Plug>BookmarkAnnotate
-"nmap <Leader>ba <Plug>BookmarkShowAll
-"nmap <Leader>bj <Plug>BookmarkNext
-"nmap <Leader>bk <Plug>BookmarkPrev
-"nmap <Leader>bc <Plug>BookmarkClear
-"nmap <Leader>bx <Plug>BookmarkClearAll
-"nmap <Leader>bk <Plug>BookmarkMoveUp
-"nmap <Leader>bj <Plug>BookmarkMoveDown
+"nnoremap <Leader>bt <Plug>BookmarkToggle
+"nnoremap <Leader>bi <Plug>BookmarkAnnotate
+"nnoremap <Leader>ba <Plug>BookmarkShowAll
+"nnoremap <Leader>bj <Plug>BookmarkNext
+"nnoremap <Leader>bk <Plug>BookmarkPrev
+"nnoremap <Leader>bc <Plug>BookmarkClear
+"nnoremap <Leader>bx <Plug>BookmarkClearAll
+"nnoremap <Leader>bk <Plug>BookmarkMoveUp
+"nnoremap <Leader>bj <Plug>BookmarkMoveDown
 
 " Use down/up for <C-n>/<C-p>
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
@@ -577,10 +577,10 @@ nnoremap sm  <c-w><c-=>
 
 " Find window
 nnoremap <a-/>  :Windows<cr>
-imap     <a-/>  :Windows<cr>
+inoremap     <a-/>  :Windows<cr>
 
 " Auto complete for all word
-imap     <c-a>  <c-x><c-n>
+inoremap     <c-a>  <c-x><c-n>
 
 
 {% if nvim %}
@@ -624,8 +624,8 @@ noremap <M-9> 9gt
 
 {% endif %}
 
-map <Esc>h <Nop>
-map <Esc>l <Nop>
+noremap <Esc>h <Nop>
+noremap <Esc>l <Nop>
 
 " Delete one word
 inoremap <C-e> <Esc>dwi
@@ -651,18 +651,18 @@ nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 inoremap <C-c>     <Plug>(neosnippet_expand_or_jump)
 
 " keybinding about lang
-au FileType go nmap <leader>lr <Plug>(go-run)
-au FileType go nmap <leader>lb <Plug>(go-build)
-au FileType go nmap <leader>lt <Plug>(go-test)
-au FileType go nmap <leader>lc <Plug>(go-coverage)
-au FileType go nmap <Leader>lds <Plug>(go-def-split)
-au FileType go nmap <Leader>ldv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>ldt <Plug>(go-def-tab)
-au FileType go nmap <Leader>lgd <Plug>(go-doc)
-au FileType go nmap <Leader>lgv <Plug>(go-doc-vertical)
-au FileType go nmap <Leader>ls <Plug>(go-implements)
-au FileType go nmap <Leader>li <Plug>(go-info)
-au FileType go nmap <Leader>le <Plug>(go-rename)
+au FileType go nnoremap <leader>lr <Plug>(go-run)
+au FileType go nnoremap <leader>lb <Plug>(go-build)
+au FileType go nnoremap <leader>lt <Plug>(go-test)
+au FileType go nnoremap <leader>lc <Plug>(go-coverage)
+au FileType go nnoremap <Leader>lds <Plug>(go-def-split)
+au FileType go nnoremap <Leader>ldv <Plug>(go-def-vertical)
+au FileType go nnoremap <Leader>ldt <Plug>(go-def-tab)
+au FileType go nnoremap <Leader>lgd <Plug>(go-doc)
+au FileType go nnoremap <Leader>lgv <Plug>(go-doc-vertical)
+au FileType go nnoremap <Leader>ls <Plug>(go-implements)
+au FileType go nnoremap <Leader>li <Plug>(go-info)
+au FileType go nnoremap <Leader>le <Plug>(go-rename)
 
 let g:jedi#goto_command = "<leader>lg"
 let g:jedi#goto_assignments_command = "<leader>la"
@@ -698,16 +698,16 @@ tnoremap <A-9> <C-\><C-n>9gti
 tnoremap <A-0> <C-\><C-n>0gti
 
 " Tab switch
-imap <A-1> <Esc>1gti
-imap <A-2> <Esc>2gti
-imap <A-3> <Esc>3gti
-imap <A-4> <Esc>4gti
-imap <A-5> <Esc>5gti
-imap <A-6> <Esc>6gti
-imap <A-7> <Esc>7gti
-imap <A-8> <Esc>8gti
-imap <A-9> <Esc>9gti
-imap <A-0> <Esc>0gti
+inoremap <A-1> <Esc>1gti
+inoremap <A-2> <Esc>2gti
+inoremap <A-3> <Esc>3gti
+inoremap <A-4> <Esc>4gti
+inoremap <A-5> <Esc>5gti
+inoremap <A-6> <Esc>6gti
+inoremap <A-7> <Esc>7gti
+inoremap <A-8> <Esc>8gti
+inoremap <A-9> <Esc>9gti
+inoremap <A-0> <Esc>0gti
 
 tnoremap <Insert> <C-\><C-n>
 tnoremap <A-a> <C-\><C-n>
@@ -724,10 +724,10 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
-imap <A-h> <Esc><C-w>h
-imap <A-j> <Esc><C-w>j
-imap <A-k> <Esc><C-w>k
-imap <A-l> <Esc><C-w>l
+inoremap <A-h> <Esc><C-w>h
+inoremap <A-j> <Esc><C-w>j
+inoremap <A-k> <Esc><C-w>k
+inoremap <A-l> <Esc><C-w>l
 
 " Find files/buffers
 nnoremap <A-p> :FZF<cr>
@@ -736,16 +736,16 @@ nnoremap <A-o> :Buffers<cr>
 tnoremap <A-o> <C-\><C-n>Buffers<cr>i
 
 " Resize buffer
-nmap <silent> <A-q>  :resize -1000<cr>
-nmap <silent> <A-w>  <c-w><c-=>
-nmap <silent> <A-e>  :resize +1000<cr>
-nmap <silent> <A-r>  :vertical resize -1000<cr>
-nmap <silent> <A-t>  :vertical resize +1000<cr>
-imap <silent> <A-q>  <Esc>:resize -1000<cr>i
-imap <silent> <A-w>  <Esc><c-w><c-=>i
-imap <silent> <A-e>  <Esc>:resize +1000<cr>i
-imap <silent> <A-r>  <Esc>:vertical resize -1000<cr>i
-imap <silent> <A-t>  <Esc>:vertical resize +1000<cr>i
+nnoremap <silent> <A-q>  :resize -1000<cr>
+nnoremap <silent> <A-w>  <c-w><c-=>
+nnoremap <silent> <A-e>  :resize +1000<cr>
+nnoremap <silent> <A-r>  :vertical resize -1000<cr>
+nnoremap <silent> <A-t>  :vertical resize +1000<cr>
+inoremap <silent> <A-q>  <Esc>:resize -1000<cr>i
+inoremap <silent> <A-w>  <Esc><c-w><c-=>i
+inoremap <silent> <A-e>  <Esc>:resize +1000<cr>i
+inoremap <silent> <A-r>  <Esc>:vertical resize -1000<cr>i
+inoremap <silent> <A-t>  <Esc>:vertical resize +1000<cr>i
 tnoremap <silent> <A-q>  <C-\><C-n>:resize -1000<cr>i
 tnoremap <silent> <A-w>  <C-\><C-n><c-w><c-=>i
 tnoremap <silent> <A-e>  <C-\><C-n>:resize +1000<cr>i
