@@ -734,9 +734,9 @@ inoremap <A-l> <Esc><C-w>l
 
 " Find files/buffers
 nnoremap <A-p> :FZF<cr>
-tnoremap <A-p> <C-\><C-n>:FZF<cr>i
+tnoremap <A-p> <C-\><C-n>:FZF<cr>a
 nnoremap <A-o> :Buffers<cr>
-tnoremap <A-o> <C-\><C-n>Buffers<cr>i
+tnoremap <A-o> <C-\><C-n>Buffers<cr>a
 
 " Resize buffer
 nnoremap <silent> <A-q>  :resize -1000<cr>
@@ -744,19 +744,21 @@ nnoremap <silent> <A-w>  <c-w><c-=>
 nnoremap <silent> <A-e>  :resize +1000<cr>
 nnoremap <silent> <A-r>  :vertical resize -1000<cr>
 nnoremap <silent> <A-t>  :vertical resize +1000<cr>
-inoremap <silent> <A-q>  <Esc>:resize -1000<cr>i
+inoremap <silent> <A-q>  <Esc>:resize -1000<cr>a
 inoremap <silent> <A-w>  <Esc><c-w><c-=>i
-inoremap <silent> <A-e>  <Esc>:resize +1000<cr>i
-inoremap <silent> <A-r>  <Esc>:vertical resize -1000<cr>i
-inoremap <silent> <A-t>  <Esc>:vertical resize +1000<cr>i
-tnoremap <silent> <A-q>  <C-\><C-n>:resize -1000<cr>i
+inoremap <silent> <A-e>  <Esc>:resize +1000<cr>a
+inoremap <silent> <A-r>  <Esc>:vertical resize -1000<cr>a
+inoremap <silent> <A-t>  <Esc>:vertical resize +1000<cr>a
+tnoremap <silent> <A-q>  <C-\><C-n>:resize -1000<cr>a
 tnoremap <silent> <A-w>  <C-\><C-n><c-w><c-=>i
-tnoremap <silent> <A-e>  <C-\><C-n>:resize +1000<cr>i
-tnoremap <silent> <A-r>  <C-\><C-n>:vertical resize -1000<cr>i
-tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize +1000<cr>i
+tnoremap <silent> <A-e>  <C-\><C-n>:resize +1000<cr>a
+tnoremap <silent> <A-r>  <C-\><C-n>:vertical resize -1000<cr>a
+tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize +1000<cr>a
 
 " Paste text
 tnoremap <A-v> <C-\><C-n>pi
 inoremap <A-v> <Esc>pi
+
+inoremap <A-r>r <Esc>:C ! <cr>a
 
 {% endif %}
