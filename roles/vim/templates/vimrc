@@ -542,6 +542,8 @@ nmap <C-e> :Commands<cr>
 " Tag list
 nmap <C-s> :Tagbar<cr>
 
+inoremap <C-s> <Esc>:w<cr>a
+
 " Bookmarks keybinding
 "nmap <Leader>bt <Plug>BookmarkToggle
 "nmap <Leader>bi <Plug>BookmarkAnnotate
