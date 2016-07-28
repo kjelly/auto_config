@@ -535,6 +535,9 @@ nnoremap <leader>fb :BLine
 " Find  lines in loaded buffers
 nnoremap <leader>fl :Line
 
+" format code
+noremap <leader>fc :Autoformat<CR>
+
 " Command
 nnoremap <leader>e :Commands<cr>
 nnoremap <C-e> :Commands<cr>
