@@ -18,7 +18,7 @@
 - name: clone vim
   git: repo=https://github.com/vim/vim
        dest="/tmp/vim" depth=1 force=yes
-  when: need_install
+  when: need_install and programming == true
 
 - name: Install packages
   apt: name={{ item }} state=present
@@ -31,6 +31,9 @@
    - "silversearcher-ag"
    - ruby
    - "ruby-dev"
+   - "python3-pip"
+   - libtool-bin # for neovim
+
   sudo: yes
   when: ansible_distribution == 'Ubuntu' and programming == true
 
@@ -161,9 +164,9 @@
     - flake8
 
 - name: install neovim-remote
-  shell: "python3 -m pip install neovim-remote"
+  shell: "pip3 install neovim-remote"
   sudo: yes
-  ignore_errors: yes/
+  ignore_errors: yes
 
 - git: repo=https://github.com/gmarik/vundle.git
        dest=~/.vim/bundle/vundle
