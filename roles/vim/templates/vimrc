@@ -20,7 +20,7 @@ endtry
 
 
 " Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
+autocmd! BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
@@ -37,10 +37,10 @@ autocmd BufReadPost *
 " To go to the previous search results do:
 "   <leader>p
 
-map <leader>gcc :botright cope<cr>
-map <leader>gco ggVGy:tabnew %<cr>:set syntax=qf<cr>pgg
-map <leader>gn :cn<cr>
-map <leader>gp :cp<cr>
+nnoremap <leader>gcc :botright cope<cr>
+nnoremap <leader>gco ggVGy:tabnew %<cr>:set syntax=qf<cr>pgg
+nnoremap <leader>gn :cn<cr>
+nnoremap <leader>gp :cp<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -199,6 +199,11 @@ Plug 'nvie/vim-flake8'
 "Plug 'gre/play2vim'
 Plug 'ya790206/vim-mecury-lang'
 Plug 'davidhalter/jedi-vim'
+Plug 'justmao945/vim-clang'
+Plug 'rhysd/vim-clang-format'
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
+
 
 "Plug 'vim-scripts/OmniCppComplete'
 "Plug 'neomake/neomake'
@@ -247,7 +252,9 @@ set cursorline
 set showtabline=1
 
 " Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
+if !has('nvim')
+    set encoding=utf8
+endif
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
@@ -350,6 +357,7 @@ set wrap "Wrap lines
 " Always show the status line
 set laststatus=2
 
+set completeopt="menu,preview,noinsert,noselect"
 
 let g:jedi#completions_command = "<C-n>"
 let popup_select_first = 0
@@ -372,23 +380,37 @@ let g:vimshell_prompt_expr =
 \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
 let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
 
+let g:clang_c_completeopt = "menu,preview,noinsert,noselect"
+let g:clang_cpp_completeopt = "menu,preview,noinsert,noselect"
+
+let g:syntastic_cpp_compiler_options="-std=gnu++14"
+
 
 " Autocmd
-autocmd BufWritePre * :%s/\s\+$//e
-autocmd BufWritePre * :%s/\s\+$//e
-autocmd InsertLeave,WinEnter * set cursorline
-autocmd InsertEnter,WinLeave * set nocursorline
+autocmd! InsertLeave,WinEnter * set cursorline
+autocmd! InsertEnter,WinLeave * set nocursorline
 
 autocmd! bufwritepost .vimrc source %
 autocmd! bufwritepost init.vim source %
+autocmd FileType c ClangFormatAutoEnable
 
+augroup Binary
+  au!
+  au! BufReadPre  *.bin let &bin=1
+  au! BufReadPost *.bin if &bin | %!xxd
+  au! BufReadPost *.bin set ft=xxd | endif
+  au! BufWritePre *.bin if &bin | %!xxd -r
+  au! BufWritePre *.bin endif
+  au! BufWritePost *.bin if &bin | %!xxd
+  au! BufWritePost *.bin set nomod | endif
+augroup END
 
 " num toggle
-command Nu execute "call Num_Toggle()"
+command! Nu execute "call Num_Toggle()"
 
 "Quit
-command Q execute "quit!"
-command Qa execute "quitall!"
+command! Q execute "quit!"
+command! Qa execute "quitall!"
 
 
 " resize buffer
@@ -421,115 +443,120 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 
 
 " Fast saving
-nmap <leader>sa :w!<cr>
+nnoremap <leader>sa :w!<cr>
 
 " Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
+nnoremap <silent> <leader><cr> :noh<cr>
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>
+nnoremap <leader>bd :Bclose<cr>
 
 " Close all the buffers
-map <leader>ba :1,1000 bd!<cr>
+nnoremap <leader>ba :1,1000 bd!<cr>
 
 " Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
-map <C-n> :NERDTreeTabsToggle<CR>
+nnoremap <C-n> :NERDTreeTabsToggle<CR>
 
 " Tab mappings
-map <leader>tn :tabnew %<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-nmap <C-t> :tabnew %<CR>
-imap <C-t> <Esc>:tabnew %<CR>
+nnoremap <leader>tn :tabnew %<cr>
+nnoremap <leader>to :tabonly<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>tm :tabmove
+nnoremap <C-t> :tabnew %<CR>
+inoremap <C-t> <Esc>:tabnew %<CR>
 noremap H gT
 noremap L gt
 
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+nnoremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
-map <leader>spel :setlocal spell!<cr>
+nnoremap <leader>spel :setlocal spell!<cr>
 
 " Shortcuts using <leader>
-map <leader>spen ]s
-map <leader>spep [s
+nnoremap <leader>spen ]s
+nnoremap <leader>spep [s
 
 
 " Grep
 " B for current buffer
 " For example, Lines for Lines in loaded buffers.
 " BLines for Lines in the current buffer
-nmap <leader>gro :Grep<cr>
-nmap <leader>grr :Rgrep<cr>
-nmap <leader>ge :Egrep<cr>
-nmap <leader>gl :Lines<cr
-nmap <leader>gbl :BLines<cr>
-nmap <leader>gc :Commits<cr>
-nmap <leader>gbc :BCommits<cr>
-nmap <leader>ga :Ag<cr>
+nnoremap <leader>gro :Grep<cr>
+nnoremap <leader>grr :Rgrep<cr>
+nnoremap <leader>ge :Egrep<cr>
+nnoremap <leader>gl :Lines<cr
+nnoremap <leader>gbl :BLines<cr>
+nnoremap <leader>gc :Commits<cr>
+nnoremap <leader>gbc :BCommits<cr>
+nnoremap <leader>ga :Ag<cr>
 
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> gv :call VisualSelection('gv')<CR>
 
 " Open vimgrep and put the cursor in the right position
-map <leader>gv :vimgrep // **/* <left><left><left><left><left><left><left>
+nnoremap <leader>gv :vimgrep // **/* <left><left><left><left><left><left><left>
 
 " Vimgreps in the current file
-map <leader><space> :vimgrep // <Home><right><right><right><right><right><right><right><right><right>
+nnoremap <leader><space> :vimgrep // <Home><right><right><right><right><right><right><right><right><right>
 
 
 " close buffer/window
-nmap <leader>qq :Bclose<cr>:q<cr>
-nmap <leader>qw :q<cr>
-nmap <leader>qb :Bclose<cr>
+nnoremap <leader>qq :Bclose<cr>:q<cr>
+nnoremap <leader>qw :q<cr>
+nnoremap <leader>qb :Bclose<cr>
 
 " State
-nmap <leader>,n :call Num_Toggle()<cr>
-nmap <leader>,w :set wrap!<cr>
-nmap <leader>,p :setlocal paste!<cr>
-nmap <leader>,m :call ToggleMouse()<cr>
-nmap <leader>,s :call ToggleStatusLine()<cr>
+nnoremap <leader>,n :call Num_Toggle()<cr>
+nnoremap <leader>,w :set wrap!<cr>
+nnoremap <leader>,p :setlocal paste!<cr>
+nnoremap <leader>,m :call ToggleMouse()<cr>
+nnoremap <leader>,s :call ToggleStatusLine()<cr>
 
 " Find file in NERDTree
-nmap <leader>ff :NERDTreeTabsFind<cr>
+nnoremap <leader>ff :NERDTreeTabsFind<cr>
 
 " Find  line in the current buffer
-nmap <leader>fb :BLine
+nnoremap <leader>fb :BLine
 " Find  lines in loaded buffers
-nmap <leader>fl :Line
+nnoremap <leader>fl :Line
+
+" format code
+noremap <leader>fc :Autoformat<CR>
 
 " Command
-nmap <leader>e :Commands<cr>
-nmap <C-e> :Commands<cr>
+nnoremap <leader>e :Commands<cr>
+nnoremap <C-e> :Commands<cr>
 
 " Tag list
-nmap <C-s> :Tagbar<cr>
+nnoremap <C-s> :Tagbar<cr>
+
+inoremap <C-s> <Esc>:w<cr>a
 
 " Bookmarks keybinding
-"nmap <Leader>bt <Plug>BookmarkToggle
-"nmap <Leader>bi <Plug>BookmarkAnnotate
-"nmap <Leader>ba <Plug>BookmarkShowAll
-"nmap <Leader>bj <Plug>BookmarkNext
-"nmap <Leader>bk <Plug>BookmarkPrev
-"nmap <Leader>bc <Plug>BookmarkClear
-"nmap <Leader>bx <Plug>BookmarkClearAll
-"nmap <Leader>bk <Plug>BookmarkMoveUp
-"nmap <Leader>bj <Plug>BookmarkMoveDown
+"nnoremap <Leader>bt <Plug>BookmarkToggle
+"nnoremap <Leader>bi <Plug>BookmarkAnnotate
+"nnoremap <Leader>ba <Plug>BookmarkShowAll
+"nnoremap <Leader>bj <Plug>BookmarkNext
+"nnoremap <Leader>bk <Plug>BookmarkPrev
+"nnoremap <Leader>bc <Plug>BookmarkClear
+"nnoremap <Leader>bx <Plug>BookmarkClearAll
+"nnoremap <Leader>bk <Plug>BookmarkMoveUp
+"nnoremap <Leader>bj <Plug>BookmarkMoveDown
 
 " Use down/up for <C-n>/<C-p>
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
@@ -553,10 +580,10 @@ nnoremap sm  <c-w><c-=>
 
 " Find window
 nnoremap <a-/>  :Windows<cr>
-imap     <a-/>  :Windows<cr>
+inoremap     <a-/>  :Windows<cr>
 
 " Auto complete for all word
-imap     <c-a>  <c-x><c-n>
+inoremap     <c-a>  <c-x><c-n>
 
 
 {% if nvim %}
@@ -600,8 +627,8 @@ noremap <M-9> 9gt
 
 {% endif %}
 
-map <Esc>h <Nop>
-map <Esc>l <Nop>
+noremap <Esc>h <Nop>
+noremap <Esc>l <Nop>
 
 " Delete one word
 inoremap <C-e> <Esc>dwi
@@ -627,18 +654,18 @@ nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 inoremap <C-c>     <Plug>(neosnippet_expand_or_jump)
 
 " keybinding about lang
-au FileType go nmap <leader>lr <Plug>(go-run)
-au FileType go nmap <leader>lb <Plug>(go-build)
-au FileType go nmap <leader>lt <Plug>(go-test)
-au FileType go nmap <leader>lc <Plug>(go-coverage)
-au FileType go nmap <Leader>lds <Plug>(go-def-split)
-au FileType go nmap <Leader>ldv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>ldt <Plug>(go-def-tab)
-au FileType go nmap <Leader>lgd <Plug>(go-doc)
-au FileType go nmap <Leader>lgv <Plug>(go-doc-vertical)
-au FileType go nmap <Leader>ls <Plug>(go-implements)
-au FileType go nmap <Leader>li <Plug>(go-info)
-au FileType go nmap <Leader>le <Plug>(go-rename)
+au FileType go nnoremap <leader>lr <Plug>(go-run)
+au FileType go nnoremap <leader>lb <Plug>(go-build)
+au FileType go nnoremap <leader>lt <Plug>(go-test)
+au FileType go nnoremap <leader>lc <Plug>(go-coverage)
+au FileType go nnoremap <Leader>lds <Plug>(go-def-split)
+au FileType go nnoremap <Leader>ldv <Plug>(go-def-vertical)
+au FileType go nnoremap <Leader>ldt <Plug>(go-def-tab)
+au FileType go nnoremap <Leader>lgd <Plug>(go-doc)
+au FileType go nnoremap <Leader>lgv <Plug>(go-doc-vertical)
+au FileType go nnoremap <Leader>ls <Plug>(go-implements)
+au FileType go nnoremap <Leader>li <Plug>(go-info)
+au FileType go nnoremap <Leader>le <Plug>(go-rename)
 
 let g:jedi#goto_command = "<leader>lg"
 let g:jedi#goto_assignments_command = "<leader>la"
@@ -647,6 +674,9 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>lu"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>lr"
+
+let g:racer_cmd = "{{ HOME_PATH }}/.cargo/bin/racer"
+let $RUST_SRC_PATH="{{ HOME_PATH }}/rust-src/src"
 
 
 {% if nvim %}
@@ -671,20 +701,24 @@ tnoremap <A-9> <C-\><C-n>9gti
 tnoremap <A-0> <C-\><C-n>0gti
 
 " Tab switch
-imap <A-1> <Esc>1gti
-imap <A-2> <Esc>2gti
-imap <A-3> <Esc>3gti
-imap <A-4> <Esc>4gti
-imap <A-5> <Esc>5gti
-imap <A-6> <Esc>6gti
-imap <A-7> <Esc>7gti
-imap <A-8> <Esc>8gti
-imap <A-9> <Esc>9gti
-imap <A-0> <Esc>0gti
+inoremap <A-1> <Esc>1gti
+inoremap <A-2> <Esc>2gti
+inoremap <A-3> <Esc>3gti
+inoremap <A-4> <Esc>4gti
+inoremap <A-5> <Esc>5gti
+inoremap <A-6> <Esc>6gti
+inoremap <A-7> <Esc>7gti
+inoremap <A-8> <Esc>8gti
+inoremap <A-9> <Esc>9gti
+inoremap <A-0> <Esc>0gti
+
+tnoremap <Insert> <C-\><C-n>
+tnoremap <A-a> <C-\><C-n>
+inoremap <A-a> <Esc>
+nnoremap <A-a> i
+vnoremap <A-a> <Esc>
 
 " Buffer navigation
-tnoremap <A-a> <C-\><C-n>
-tnoremap <Insert> <C-\><C-n>
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
 tnoremap <A-k> <C-\><C-n><C-w>k
@@ -693,35 +727,61 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
-imap <A-h> <Esc><C-w>h
-imap <A-j> <Esc><C-w>j
-imap <A-k> <Esc><C-w>k
-imap <A-l> <Esc><C-w>l
+inoremap <A-h> <Esc><C-w>h
+inoremap <A-j> <Esc><C-w>j
+inoremap <A-k> <Esc><C-w>k
+inoremap <A-l> <Esc><C-w>l
 
 " Find files/buffers
 nnoremap <A-p> :FZF<cr>
-tnoremap <A-p> <C-\><C-n>:FZF<cr>i
+tnoremap <A-p> <C-\><C-n>:FZF<cr>a
 nnoremap <A-o> :Buffers<cr>
-tnoremap <A-o> <C-\><C-n>Buffers<cr>i
+tnoremap <A-o> <C-\><C-n>Buffers<cr>a
 
 " Resize buffer
-nmap <silent> <A-q>  :resize -1000<cr>
-nmap <silent> <A-w>  <c-w><c-=>
-nmap <silent> <A-e>  :resize +1000<cr>
-nmap <silent> <A-r>  :vertical resize -1000<cr>
-nmap <silent> <A-t>  :vertical resize +1000<cr>
-imap <silent> <A-q>  <Esc>:resize -1000<cr>i
-imap <silent> <A-w>  <Esc><c-w><c-=>i
-imap <silent> <A-e>  <Esc>:resize +1000<cr>i
-imap <silent> <A-r>  <Esc>:vertical resize -1000<cr>i
-imap <silent> <A-t>  <Esc>:vertical resize +1000<cr>i
-tnoremap <silent> <A-q>  <C-\><C-n>:resize -1000<cr>i
+nnoremap <silent> <A-q>  :resize -1000<cr>
+nnoremap <silent> <A-w>  <c-w><c-=>
+nnoremap <silent> <A-e>  :resize +1000<cr>
+nnoremap <silent> <A-r>  :vertical resize -1000<cr>
+nnoremap <silent> <A-t>  :vertical resize +1000<cr>
+inoremap <silent> <A-q>  <Esc>:resize -1000<cr>a
+inoremap <silent> <A-w>  <Esc><c-w><c-=>i
+inoremap <silent> <A-e>  <Esc>:resize +1000<cr>a
+inoremap <silent> <A-r>  <Esc>:vertical resize -1000<cr>a
+inoremap <silent> <A-t>  <Esc>:vertical resize +1000<cr>a
+tnoremap <silent> <A-q>  <C-\><C-n>:resize -1000<cr>a
 tnoremap <silent> <A-w>  <C-\><C-n><c-w><c-=>i
-tnoremap <silent> <A-e>  <C-\><C-n>:resize +1000<cr>i
-tnoremap <silent> <A-r>  <C-\><C-n>:vertical resize -1000<cr>i
-tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize +1000<cr>i
+tnoremap <silent> <A-e>  <C-\><C-n>:resize +1000<cr>a
+tnoremap <silent> <A-r>  <C-\><C-n>:vertical resize -1000<cr>a
+tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize +1000<cr>a
 
 " Paste text
 tnoremap <A-v> <C-\><C-n>pi
+inoremap <A-v> <Esc>pi
+
+inoremap <A-r>r <Esc>:C ! <cr>a
+
+inoremap <A-r>1 <Esc>:C g1<cr>a
+inoremap <A-r>2 <Esc>:C g2<cr>a
+inoremap <A-r>3 <Esc>:C g3<cr>a
+inoremap <A-r>4 <Esc>:C g4<cr>a
+inoremap <A-r>5 <Esc>:C g5<cr>a
+inoremap <A-r>6 <Esc>:C g6<cr>a
+inoremap <A-r>7 <Esc>:C g7<cr>a
+inoremap <A-r>8 <Esc>:C g8<cr>a
+inoremap <A-r>9 <Esc>:C g9<cr>a
+inoremap <A-r>0 <Esc>:C g0<cr>a
+
+nnoremap <A-r>r <Esc>:C !<cr>
+nnoremap <A-r>1 <Esc>:C g1<cr>
+nnoremap <A-r>2 <Esc>:C g2<cr>
+nnoremap <A-r>3 <Esc>:C g3<cr>
+nnoremap <A-r>4 <Esc>:C g4<cr>
+nnoremap <A-r>5 <Esc>:C g5<cr>
+nnoremap <A-r>6 <Esc>:C g6<cr>
+nnoremap <A-r>7 <Esc>:C g7<cr>
+nnoremap <A-r>8 <Esc>:C g8<cr>
+nnoremap <A-r>9 <Esc>:C g9<cr>
+nnoremap <A-r>0 <Esc>:C g0<cr>
 
 {% endif %}
