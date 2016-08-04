@@ -41,12 +41,9 @@ def main():
         except Exception as e:
             pass
     if update:
-        raw_data = socket.gethostname()
-        raw_data += getpass.getuser()
-        raw_data += get_cpu_info()
-        raw_data += lspci()
-        raw_data += get_all_mac()
-        data = hashlib.sha256(raw_data).digest()[:3]
+        with open('/etc/machine-id', 'r') as ftr:
+            raw_data = ftr.read()
+        data = hashlib.md5(raw_data).digest()[:3]
         data = [ord(i) % 16 for i in data]
         with open(host_color_path, 'w') as ftr:
             pickle.dump(data, ftr)
