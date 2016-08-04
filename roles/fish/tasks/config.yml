@@ -2,7 +2,7 @@
 
 - file: path="~/.config" state=directory mode=0755
 
-- file: path="~/.config/fish" state=directory mode=0755
+#- file: path="~/.config/fish" state=directory mode=0755
 
 - file: path="~/.config/omf" state=directory mode=0755
 
@@ -12,16 +12,7 @@
 
 - template: src=theme dest="~/.config/omf/theme"
 
-- copy: src=functions dest="~/.config/fish/"
-- copy: src=get_color.py dest="~/.config/fish/get_color.py" mode=700
-- copy: src=get_host_color.py dest="~/.config/fish/get_host_color.py" mode=700
-- copy: src=print_cwd.py dest="~/.config/fish/print_cwd.py" mode=700
-
-- copy: src=get_color.go dest="~/.config/fish/get_color.go" mode=700
-- copy: src=get_host_color.go dest="~/.config/fish/get_host_color.go" mode=700
-- copy: src=print_cwd.go dest="~/.config/fish/print_cwd.go" mode=700
-
-- copy: src=build.sh dest="~/.config/fish/build.sh" mode=700
+- copy: src=fish dest="~/.config/"
 
 - block:
    - shell: "go build get_color.go"
@@ -37,5 +28,3 @@
    - file: src="~/.config/fish/get_color.py" dest="~/.config/fish/get_color" state=link force=yes
    - file: src="~/.config/fish/get_host_color.py" dest="~/.config/fish/get_host_color" state=link force=yes
    - file: src="~/.config/fish/print_cwd.py" dest="~/.config/fish/print_cwd" state=link force=yes
-
-- file: path="~/.config/fish/functions" state=directory mode=0755
