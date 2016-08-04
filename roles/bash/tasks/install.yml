@@ -12,3 +12,11 @@
    - bash-completion
   sudo: yes
   when: ansible_distribution == 'Fedora'
+
+- git: repo=https://github.com/magicmonty/bash-git-prompt.git
+       dest=~/.bash-git-prompt
+       depth=1
+
+- git: repo=https://github.com/nojhan/liquidprompt
+       dest=~/.liquidprompt
+       depth=1
