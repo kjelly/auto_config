@@ -4,7 +4,7 @@ import sys
 
 
 def main():
-    data = hashlib.sha256(sys.argv[1]).digest()[:3]
+    data = hashlib.md5(sys.argv[1]).digest()[:3]
     data = [ord(i) % 16 for i in data]
     if len(sys.argv) > 2:
         data = [ 15 - i for i in data]

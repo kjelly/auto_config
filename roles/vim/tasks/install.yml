@@ -191,4 +191,3 @@
   with_items:
     - "~/.vim/autoload/plug.vim"
     - "~/.config/nvim/autoload/plug.vim"
-
