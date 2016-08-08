@@ -177,7 +177,7 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'vim-markdown-preview'
 "
 Plug 'ya790206/vim-multiterm'
-Plug 'myusuf3/numbers.vim'
+"Plug 'myusuf3/numbers.vim'
 Plug 'mbbill/undotree'
 
 " Plugin to toggle, display and navigate marks
@@ -521,7 +521,7 @@ nnoremap <leader>qw :q<cr>
 nnoremap <leader>qb :Bclose<cr>
 
 " State
-nnoremap <leader>,n :call Num_Toggle()<cr>
+nnoremap <leader>,n :call set nu!<cr>
 nnoremap <leader>,w :set wrap!<cr>
 nnoremap <leader>,p :setlocal paste!<cr>
 nnoremap <leader>,m :call ToggleMouse()<cr>
