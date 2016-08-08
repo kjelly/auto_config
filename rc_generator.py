@@ -1,9 +1,12 @@
 import jinja2
 import argparse
+import os
 
 
 def init_parser():
     parser = argparse.ArgumentParser(prog='RC generator')
+    parser.add_argument('--output', type=str, required=True)
+
     subparsers = parser.add_subparsers(help='sub command')
 
     vim_parser = subparsers.add_parser('vim', help='vim help')
@@ -30,7 +33,8 @@ def generate_vimrc(args):
         'programming': args.programming,
         'nvim': args.nvim
     }
-    print(render(obj, vimrc_j2))
+    with open(os.path.join(args.output, 'init.vim'), 'w') as ftr:
+        ftr.write(render(obj, vimrc_j2))
 
 
 def main():
