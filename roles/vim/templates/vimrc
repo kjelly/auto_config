@@ -645,7 +645,7 @@ inoremap <C-b> <Esc>bi
 inoremap <C-v> <Esc>pi
 
 " insert new after the line
-inoremap <C-o> <Esc>o
+inoremap <C-o> <Esc>:Buffers<cr>
 
 " Paste text from clipboard
 vnoremap <c-c> "+y
@@ -790,5 +790,7 @@ nnoremap <A-r>7 <Esc>:C g7<cr>
 nnoremap <A-r>8 <Esc>:C g8<cr>
 nnoremap <A-r>9 <Esc>:C g9<cr>
 nnoremap <A-r>0 <Esc>:C g0<cr>
+
+inoremap <A-o> <Esc>:Buffers<cr>
 
 {% endif %}
