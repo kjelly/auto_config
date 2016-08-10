@@ -357,6 +357,10 @@ set wrap "Wrap lines
 " Always show the status line
 set laststatus=2
 
+" The time in milliseconds that is waited for
+" a mapped sequence to complete.
+set timeoutlen=2500
+
 set completeopt="menu,preview,noinsert,noselect"
 
 let g:jedi#completions_command = "<C-n>"
