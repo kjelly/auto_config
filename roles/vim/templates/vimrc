@@ -532,7 +532,7 @@ nnoremap <leader>,m :call ToggleMouse()<cr>
 nnoremap <leader>,s :call ToggleStatusLine()<cr>
 
 " Find file in NERDTree
-nnoremap <leader>ff :NERDTreeTabsFind<cr>
+nnoremap <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
 
 " Find  line in the current buffer
 nnoremap <leader>fb :BLine
