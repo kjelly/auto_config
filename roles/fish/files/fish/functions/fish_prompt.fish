@@ -5,7 +5,7 @@ set arrow \u21d2
 
 
 function _git_branch_name
-    echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
+    echo (__fish_git_prompt)
 end
 
 
@@ -93,9 +93,9 @@ function fish_prompt
     if [ (_git_branch_name) ]
         set -l git_branch (_git_branch_name)
         if [ (_is_git_dirty) ]
-            echo -n -s $bg_white $magenta " $git_branch " $red "$__oceanfish_glyph_flag " $normal
+            echo -n -s $bg_white $magenta "$git_branch " $red "$__oceanfish_glyph_flag " $normal
         else
-            echo -n -s $bg_white $magenta " $git_branch " $normal
+            echo -n -s $bg_white $magenta "$git_branch " $normal
         end
     end
 
