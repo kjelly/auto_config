@@ -37,6 +37,7 @@
    - automake # for neovim
    - luarocks # for neovim
    - m4 # for neovim
+   - python-virtualenv # for neovim
 
   sudo: yes
   when: ansible_distribution == 'Ubuntu' and programming == true
