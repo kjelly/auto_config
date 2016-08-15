@@ -32,7 +32,11 @@
    - ruby
    - "ruby-dev"
    - "python3-pip"
-   - libtool-bin # for neovim
+   - libtool # for neovim
+   - pkgconf # for neovim
+   - automake # for neovim
+   - luarocks # for neovim
+   - m4 # for neovim
 
   sudo: yes
   when: ansible_distribution == 'Ubuntu' and programming == true
