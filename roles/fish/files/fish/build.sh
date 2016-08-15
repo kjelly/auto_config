@@ -7,7 +7,7 @@ then
     go build get_color.go
     go build get_host_color.go
     go build print_cwd.go
-elif
+else
     ln -s get_color.py get_color
     ln -s get_host_color.py get_host_color
     ln -s print_cwd.py print_cwd
