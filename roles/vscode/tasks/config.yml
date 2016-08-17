@@ -1,0 +1,4 @@
+---
+- file: path="~/.config/Code/User" state="directory"
+- copy: src="keybindings.json" dest="~/.config/Code/User/keybindings.json"
+- copy: src="settings.json" dest="~/.config/Code/User/settings.json"
