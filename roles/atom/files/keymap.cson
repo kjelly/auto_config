@@ -19,17 +19,16 @@
 
 
   'F1': 'tree-view:toggle-focus'
-  'alt-enter': 'command-palette:toggle'
+  'alt-r': 'command-palette:toggle'
 
   'alt-;': 'terminal-plus:toggle'
 
 '.terminal-plus':
-  'alt-q': 'terminal-plus:toggle'
   'alt-h': 'terminal-plus:prev'
   'alt-l': 'terminal-plus:next'
   'alt-j': 'terminal-plus:new'
   'alt-k': 'terminal-plus:close'
-  'alt-t': 'terminal-plus:toggle'
+  'alt-;': 'terminal-plus:toggle'
 
 'atom-text-editor.vim-mode:not(.insert-mode)':
   ', g r f': 'project-find:show'
