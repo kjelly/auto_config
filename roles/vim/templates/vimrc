@@ -389,6 +389,9 @@ let g:clang_cpp_completeopt = "menu,preview,noinsert,noselect"
 
 let g:syntastic_cpp_compiler_options="-std=gnu++14"
 
+" neovim and virtualfish are installed here
+let $PYTHONPATH="{{ HOME_PATH }}/.vim/virtualenv/lib/python2.7/site-packages/"
+
 
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
@@ -573,9 +576,6 @@ nnoremap <C-p> :FZF<cr>
 nnoremap <c-o> :Buffers<cr>
 
 "nnoremap <leader>w :W3mTab google
-
-" Marks
-nnoremap mm  :Marks<cr>
 
 " Resize buffer
 nnoremap sa  :resize +1000<cr>
