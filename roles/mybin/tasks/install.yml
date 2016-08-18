@@ -54,5 +54,7 @@
 
 
 - lineinfile: dest=~/.zshrc line="export PATH=\"`pwd`/mybin/:$PATH\""
+  ignore_errors: yes
 
 - lineinfile: dest=~/.bashrc line="export PATH=\"`pwd`/mybin/:$PATH\""
+  ignore_errors: yes
