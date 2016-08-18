@@ -1,0 +1,4 @@
+[
+    { "key": "ctrl+4",                  "command": "workbench.action.terminal.focus"},
+    { "key": "ctrl+5",                  "command": "workbench.files.action.focusFilesExplorer"}
+]
