@@ -61,3 +61,9 @@
 
 'atom-text-editor:not(.mini).vim-mode:not(.insert-mode):not(.jumpy-jump-mode)':
     'f': 'jumpy:toggle'
+
+'atom-text-editor.vim-mode:not(.normal-mode)':
+  'alt-a': 'vim-mode:activate-normal-mode'
+
+'.tree-view':
+  'ctrl-n': 'tree-view:toggle'
