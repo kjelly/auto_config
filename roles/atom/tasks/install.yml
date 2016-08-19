@@ -39,6 +39,7 @@
       - "terminal-panel"
       - "go-plus"
       - "git-plus"
+      - "focus-pane-or-panel"
 
 
 - copy: src="config.cson" dest="~/.atom/config.cson"

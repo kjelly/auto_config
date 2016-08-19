@@ -11,6 +11,7 @@
   'ctrl-k': 'window:focus-pane-on-right'
 
   'ctrl-g': 'project-find:show'
+  'alt-f': 'tree-view:toggle-focus'
 
 
 'body':
@@ -21,14 +22,31 @@
   'F1': 'tree-view:toggle-focus'
   'alt-r': 'command-palette:toggle'
 
-  'alt-;': 'terminal-plus:toggle'
+  'alt-;': 'platformio-ide-terminal:toggle'
 
-'.terminal-plus':
-  'alt-h': 'terminal-plus:prev'
-  'alt-l': 'terminal-plus:next'
-  'alt-j': 'terminal-plus:new'
-  'alt-k': 'terminal-plus:close'
-  'alt-;': 'terminal-plus:toggle'
+  'alt-j': 'focus-pane-or-panel:focus-below'
+  'alt-k': 'focus-pane-or-panel:focus-above'
+  'alt-h': 'focus-pane-or-panel:focus-on-left'
+  'alt-l': 'focus-pane-or-panel:focus-on-right'
+
+'.editor':
+  'alt-j': 'focus-pane-or-panel:focus-below'
+  'alt-k': 'focus-pane-or-panel:focus-above'
+  'alt-h': 'focus-pane-or-panel:focus-on-left'
+  'alt-l': 'focus-pane-or-panel:focus-on-right'
+
+'.tool-panel':
+  'alt-j': 'focus-pane-or-panel:focus-below'
+  'alt-k': 'focus-pane-or-panel:focus-above'
+  'alt-h': 'focus-pane-or-panel:focus-on-left'
+  'alt-l': 'focus-pane-or-panel:focus-on-right'
+
+'.platformio-ide-terminal':
+  'alt-;': 'platformio-ide-terminal:toggle'
+  'alt-j': 'focus-pane-or-panel:focus-below'
+  'alt-k': 'focus-pane-or-panel:focus-above'
+  'alt-h': 'focus-pane-or-panel:focus-on-left'
+  'alt-l': 'focus-pane-or-panel:focus-on-right'
 
 'atom-text-editor.vim-mode:not(.insert-mode)':
   ', g r f': 'project-find:show'
@@ -64,3 +82,9 @@
 
 '.tree-view':
   'ctrl-n': 'tree-view:toggle'
+  'alt-f': 'tree-view:toggle-focus'
+
+  'alt-h': 'focus-pane-or-panel:focus-on-left'
+  'alt-l': 'focus-pane-or-panel:focus-on-right'
+  'alt-h': 'focus-pane-or-panel:focus-on-left'
+  'alt-l': 'focus-pane-or-panel:focus-on-right'
