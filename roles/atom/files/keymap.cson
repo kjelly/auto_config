@@ -21,9 +21,7 @@
   'F1': 'tree-view:toggle-focus'
   'alt-enter': 'command-palette:toggle'
 
-  'alt-q': 'terminal-plus:toggle'
   'alt-;': 'terminal-plus:toggle'
-  'alt-t': 'terminal-plus:toggle'
 
 '.terminal-plus':
   'alt-q': 'terminal-plus:toggle'
