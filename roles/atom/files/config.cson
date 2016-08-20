@@ -1,4 +1,26 @@
 "*":
+  "api-docs":
+    "angularjs~1":
+      "5": true
+    "angular~2":
+      "0_typescript": true
+    "bootstrap~4": true
+    c: true
+    cpp: true
+    "django~1":
+      "10": true
+    "docker~1":
+      "11": true
+    "gcc~5": true
+    go: true
+    "lua~5":
+      "3": true
+    "postgresql~9":
+      "5": true
+    "python~2":
+      "7": true
+    "python~3":
+      "5": true
   "atom-fuzzyy-grep":
     showFullPath: true
   core:
