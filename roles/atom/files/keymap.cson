@@ -14,6 +14,8 @@
   'alt-r': 'command-palette:toggle'
   'alt-;': 'platformio-ide-terminal:toggle'
 
+  'alt-k': 'api-docs:search-under-cursor'
+
   'alt-e': 'platformio-ide-terminal:insert-text'
   'ctrl-g': 'project-find:show'
 
