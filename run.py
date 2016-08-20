@@ -36,7 +36,6 @@ def main():
     else:
         data['group'] = 'remote'
         data['remote_host'] = args.host
-#sudo -E -P -u {user}
     cmd = ('''sudo -E -P -u {user} ansible-playbook -i "{inventory}" '''
            '''"{playbook}" -e ansible_user="{user}" -e group="{group}" '''
            '''-e remote_host="{remote_host}" -e action="{action}" '''
