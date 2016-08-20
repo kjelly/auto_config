@@ -203,6 +203,7 @@ Plug 'justmao945/vim-clang'
 Plug 'rhysd/vim-clang-format'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
+Plug 'rhysd/devdocs.vim'
 
 
 "Plug 'vim-scripts/OmniCppComplete'
@@ -792,5 +793,7 @@ nnoremap <A-r>9 <Esc>:C g9<cr>
 nnoremap <A-r>0 <Esc>:C g0<cr>
 
 inoremap <A-o> <Esc>:Buffers<cr>
+
+nnoremap <A-k> :DevDocsUnderCursor<cr>
 
 {% endif %}
