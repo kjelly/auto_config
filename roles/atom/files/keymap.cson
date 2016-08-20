@@ -59,6 +59,10 @@
   ', c c': 'editor:copy-select'
   ', c p': 'core:paste'
 
+  ', q q': 'core:close'
+  ', q w': 'core:close'
+  ', q b': 'core:close'
+
   ', b t': 'bookmarks:toggle-bookmark'
   ', b a': 'bookmarks:view-all'
   ', b n': 'bookmarks:jump-to-next-bookmark'
@@ -77,6 +81,9 @@
 
 'atom-text-editor:not(.mini).vim-mode:not(.insert-mode):not(.jumpy-jump-mode)':
     'f': 'jumpy:toggle'
+
+'atom-text-editor.vim-mode.normal-mode':
+    'ctrl-w': 'core:close'
 
 'atom-text-editor.vim-mode:not(.normal-mode)':
   'alt-a': 'vim-mode:activate-normal-mode'
