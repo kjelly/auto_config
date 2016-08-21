@@ -794,6 +794,6 @@ nnoremap <A-r>0 <Esc>:C g0<cr>
 
 inoremap <A-o> <Esc>:Buffers<cr>
 
-nnoremap <A-k> :DevDocsUnderCursor<cr>
+nnoremap <A-d> :DevDocsUnderCursor<cr>
 
 {% endif %}
