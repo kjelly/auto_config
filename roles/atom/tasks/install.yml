@@ -13,6 +13,7 @@
   always:
     - apt: deb=/tmp/deb
       sudo: yes
+      when: ansible_distribution == 'Ubuntu'
 
 - name: install package
   apt: name="{{ item }}" state=present
