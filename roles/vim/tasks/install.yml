@@ -182,13 +182,6 @@
        dest=~/.powerline
        depth=1
 
-- name: clone YouCompleteMe first
-  git: repo=https://github.com/Valloric/YouCompleteMe
-       dest=~/.vim/bundle/YouCompleteMe/
-       depth=1
-       force=yes
-  when: programming == true
-
 - name: download vim-plug
   get_url: url=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim dest=/tmp/plug.vim
 
