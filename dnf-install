@@ -1,6 +1,6 @@
 #! /bin/bash
 
-dnf install python-pip python-devel git vim python-dnfdaemon python-dnf-plugins-core redhat-rpm-config libselinux-python gcc-c++
-dnf groupinstall "Development Tools"
-dnf builddep ansible
+dnf -y install python-pip python-devel git vim python-dnfdaemon python-dnf-plugins-core redhat-rpm-config libselinux-python gcc-c++
+dnf -y groupinstall "Development Tools"
+dnf -y builddep ansible
 pip install ansible

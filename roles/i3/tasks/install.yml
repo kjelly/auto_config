@@ -42,14 +42,10 @@
 - name: Install i3 dependence lib for fedora
   dnf: name={{ item }} state=present
   with_items:
-    - "libxcb1-dev"
-    - "libxcb-keysyms1-dev"
-    - "libxcb-util0-dev"
-    - "libxcb-icccm4-dev"
-    - "libyajl-dev"
-    - "libstartup-notification0-dev"
-    - "libxcb-randr0-dev"
-    - "libev-dev"
+    - "spice-glib-devel"
+    - "pango-devel"
+    - "startup-notification-devel"
+
     - "libxcb-xinerama0-dev"
     - "libpango1.0-dev"
     - "libxcursor-dev"
@@ -99,6 +95,7 @@
 
       - dunst
       - fcitx-chewing
+      - fcitx-configtool
   sudo: yes
   when: ansible_distribution == 'Ubuntu'
 
@@ -135,6 +132,31 @@
       - fcitx-chewing
   sudo: yes
   when: ansible_distribution == 'Debian'
+
+- name: Install i3 package for fedora
+  dnf: name={{ item }} state=present
+  with_items:
+      - i3
+      - i3status
+      - terminator
+      - python-pip
+      - xfce4-panel
+      - xbacklight
+      - feh
+      - lxterminal
+      - lxpanel
+      - xdotool
+
+      - boxes
+      - zenity
+      - xfce4-screenshooter
+      - xfce4-terminal
+
+      - dunst
+
+      - fcitx-chewing
+  sudo: yes
+  when: ansible_distribution == 'Fedora'
 
 - name: Install zsh package
   dnf: name={{ item }} state=present
