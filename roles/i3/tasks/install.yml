@@ -39,6 +39,37 @@
   when: ansible_os_family == 'Debian'
   ignore_errors: yes
 
+- name: Install i3 dependence lib for fedora
+  dnf: name={{ item }} state=present
+  with_items:
+    - "libxcb1-dev"
+    - "libxcb-keysyms1-dev"
+    - "libxcb-util0-dev"
+    - "libxcb-icccm4-dev"
+    - "libyajl-dev"
+    - "libstartup-notification0-dev"
+    - "libxcb-randr0-dev"
+    - "libev-dev"
+    - "libxcb-xinerama0-dev"
+    - "libpango1.0-dev"
+    - "libxcursor-dev"
+    - "libxcb-xkb-dev"
+    - "libxcb-cursor-dev"
+    - "libxkbcommon-x11-dev"
+    - "libxkbcommon-dev"
+    - "build-essential"
+    - "freeglut3-dev"
+    - "libfreeimage-dev"
+    - "libgl1-mesa-dev"
+    - "libopenal-dev"
+    - "libsdl-ttf2.0-dev"
+    - "libsndfile-dev"
+    - "libxinerama-dev"
+
+  sudo: yes
+  when: ansible_distribution == 'Fedora'
+  ignore_errors: yes
+
 - name: Install i3 package
   apt: name={{ item }} state=present
   with_items:
