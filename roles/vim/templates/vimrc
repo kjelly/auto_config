@@ -390,10 +390,6 @@ let g:clang_cpp_completeopt = "menu,preview,noinsert,noselect"
 
 let g:syntastic_cpp_compiler_options="-std=gnu++14"
 
-" neovim and virtualfish are installed here
-let $PYTHONPATH="{{ HOME_PATH }}/.vim/virtualenv/lib/python2.7/site-packages/"
-
-
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
 autocmd! InsertEnter,WinLeave * set nocursorline
