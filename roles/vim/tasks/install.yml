@@ -203,11 +203,3 @@
   with_items:
     - "~/.vim/autoload/plug.vim"
     - "~/.config/nvim/autoload/plug.vim"
-
-- name: Install neovim and virtualfish in virtualenv
-  pip: virtualenv="~/.vim/virtualenv/"
-       virtualenv_python=python2.7
-       name="{{ item }}"
-  with_items:
-    - neovim
-    - virtualfish
