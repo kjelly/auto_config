@@ -166,10 +166,6 @@
 - name: install fzf
   shell: ~/.fzf/install
 
-- name: install powerline
-  pip: name=git+git://github.com/powerline/powerline extra_args="--user"
-  ignore_errors: yes
-
 - name: pip install [autopep8, flake8]
   pip: name={{ item }}
   sudo: yes
