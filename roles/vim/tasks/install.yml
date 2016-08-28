@@ -38,9 +38,10 @@
    - luarocks # for neovim
    - m4 # for neovim
    - python-virtualenv # for neovim
+   - ncurses-dev  # for neovim
 
   sudo: yes
-  when: ansible_distribution == 'Ubuntu' and programming == true
+  when: ansible_os_family == 'Debian' and programming == true
 
 - name: generate vim Makefile
   command: "make distclean"
