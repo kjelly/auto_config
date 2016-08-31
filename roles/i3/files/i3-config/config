@@ -244,7 +244,7 @@ mode "$mode_move_container_to_output " {
 }
 bindsym $mod+Shift+o mode "$mode_move_container_to_output "
 
-bindsym $mod+y exec ~/.i3/create_workspace.py
+#bindsym $mod+y exec ~/.i3/create_workspace.py
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -309,3 +309,4 @@ bindsym $mod+period exec ~/.i3/noteit.py
 exec --no-startup-id i3-msg 'workspace number 1;workspace 1:Web; exec sensible-browser'
 
 exec --no-startup-id dunst -print -fn "Ubuntu 40"
+exec --no-startup-id kupfer
