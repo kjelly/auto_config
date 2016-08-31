@@ -78,3 +78,7 @@
 - file: path="~/.config/fcitx/" state=directory mode=0755
 
 - copy: src="fcitx_config" dest="~/.config/fcitx/config"
+
+- file: path="~/.config/kupfer/" state=directory mode=0755
+
+- copy: src="kupfer.cfg" dest="~/.config/kupfer/kupfer.cfg"
