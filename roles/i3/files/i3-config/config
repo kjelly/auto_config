@@ -310,3 +310,4 @@ exec --no-startup-id i3-msg 'workspace number 1;workspace 1:Web; exec sensible-b
 
 exec --no-startup-id dunst -print -fn "Ubuntu 40"
 exec --no-startup-id kupfer
+exec xautolock -detectsleep -time 5 -locker 'i3lock -d -c 000000'
