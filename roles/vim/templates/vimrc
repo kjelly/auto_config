@@ -525,7 +525,7 @@ nnoremap <leader>qw :q<cr>
 nnoremap <leader>qb :Bclose<cr>
 
 " State
-nnoremap <leader>,n :call set nu!<cr>
+nnoremap <leader>,n :set nu!<cr>
 nnoremap <leader>,w :set wrap!<cr>
 nnoremap <leader>,p :setlocal paste!<cr>
 nnoremap <leader>,m :call ToggleMouse()<cr>
