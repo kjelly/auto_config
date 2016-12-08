@@ -1,48 +1,68 @@
 '.editor':
   'alt-/': 'autocomplete:toggle'
   'alt-space': 'autocomplete:toggle'
-  'alt-h': 'pane:show-previous-item'
-  'alt-l': 'pane:show-next-item'
 
   'ctrl-h': 'pane:show-previous-item'
   'ctrl-l': 'pane:show-next-item'
 
-  'ctrl-j': 'window:focus-pane-on-left'
-  'ctrl-k': 'window:focus-pane-on-right'
+  'alt-j': 'focus-pane-or-panel:focus-below'
+  'alt-k': 'focus-pane-or-panel:focus-above'
+  'alt-h': 'focus-pane-or-panel:focus-on-left'
+  'alt-l': 'focus-pane-or-panel:focus-on-right'
 
+  'alt-f': 'tree-view:toggle-focus'
+  'alt-r': 'command-palette:toggle'
+  'alt-;': 'platformio-ide-terminal:toggle'
+
+  'alt-d': 'api-docs:search-under-cursor'
+
+  'alt-e': 'platformio-ide-terminal:insert-text'
   'ctrl-g': 'project-find:show'
 
-
 'body':
-  'ctrl-tab': 'pane:show-next-item'
-  'ctrl-shift-tab': 'pane:show-previous-item'
+  'alt-j': 'focus-pane-or-panel:focus-below'
+  'alt-k': 'focus-pane-or-panel:focus-above'
+  'alt-h': 'focus-pane-or-panel:focus-on-left'
+  'alt-l': 'focus-pane-or-panel:focus-on-right'
 
+'.tool-panel':
+  'alt-j': 'focus-pane-or-panel:focus-below'
+  'alt-k': 'focus-pane-or-panel:focus-above'
+  'alt-h': 'focus-pane-or-panel:focus-on-left'
+  'alt-l': 'focus-pane-or-panel:focus-on-right'
 
-  'F1': 'tree-view:toggle-focus'
-  'alt-enter': 'command-palette:toggle'
+'.platformio-ide-terminal':
+  'alt-j': 'focus-pane-or-panel:focus-below'
+  'alt-k': 'focus-pane-or-panel:focus-above'
+  'alt-h': 'focus-pane-or-panel:focus-on-left'
+  'alt-l': 'focus-pane-or-panel:focus-on-right'
 
-  'alt-q': 'terminal-plus:toggle'
-  'alt-;': 'terminal-plus:toggle'
-  'alt-t': 'terminal-plus:toggle'
-
-'.terminal-plus':
-  'alt-q': 'terminal-plus:toggle'
-  'alt-h': 'terminal-plus:prev'
-  'alt-l': 'terminal-plus:next'
-  'alt-j': 'terminal-plus:new'
-  'alt-k': 'terminal-plus:close'
-  'alt-t': 'terminal-plus:toggle'
+  "alt-n": 'platformio-ide-terminal:next'
+  "alt-p": 'platformio-ide-terminal:prev'
+  "alt-t": 'platformio-ide-terminal:rename'
+  'alt-;': 'platformio-ide-terminal:toggle'
+  "alt-'": 'platformio-ide-terminal:fullscreen'
+  "alt-c": 'platformio-ide-terminal:new'
+  "alt-x": 'platformio-ide-terminal:close'
 
 'atom-text-editor.vim-mode:not(.insert-mode)':
   ', g r f': 'project-find:show'
   ', g r r': 'fuzzy-grep:toggle'
+
   'L': 'pane:show-next-item'
   'H': 'pane:show-previous-item'
+
   'ctrl-n': 'tree-view:toggle'
   'ctrl-s': 'symbols-tree-view:toggle'
   ', e': 'command-palette:toggle'
+
   ', c c': 'editor:copy-select'
   ', c p': 'core:paste'
+
+  ', q q': 'core:close'
+  ', q w': 'core:close'
+  ', q b': 'core:close'
+
   ', b t': 'bookmarks:toggle-bookmark'
   ', b a': 'bookmarks:view-all'
   ', b n': 'bookmarks:jump-to-next-bookmark'
@@ -61,3 +81,18 @@
 
 'atom-text-editor:not(.mini).vim-mode:not(.insert-mode):not(.jumpy-jump-mode)':
     'f': 'jumpy:toggle'
+
+'atom-text-editor.vim-mode.normal-mode':
+    'ctrl-w': 'core:close'
+
+'atom-text-editor.vim-mode:not(.normal-mode)':
+  'alt-a': 'vim-mode:activate-normal-mode'
+
+'.tree-view':
+  'ctrl-n': 'tree-view:toggle'
+  'alt-f': 'tree-view:toggle-focus'
+
+  'alt-h': 'focus-pane-or-panel:focus-on-left'
+  'alt-l': 'focus-pane-or-panel:focus-on-right'
+  'alt-h': 'focus-pane-or-panel:focus-on-left'
+  'alt-l': 'focus-pane-or-panel:focus-on-right'

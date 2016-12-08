@@ -7,13 +7,14 @@
       - qemu-kvm
       - qemu-system
       - qemu-utils
-
+  when: ansible_os_family == 'Debian'
   sudo: yes
 
 - apt: name={{ item }} state=present
   with_items:
       - qemu-common
   ignore_errors: true
+  when: ansible_os_family == 'Debian'
   sudo: yes
 
 - pip: name={{ item }}

@@ -13,6 +13,7 @@
   always:
     - apt: deb=/tmp/deb
       sudo: yes
+      when: ansible_distribution == 'Ubuntu'
 
 - name: install package
   apt: name="{{ item }}" state=present
@@ -23,23 +24,9 @@
 
 - name: apm install
   shell: apm install {{ item }}
-  with_items:
-      - language-scala
-      - autocomplete-plus
-      - scala-format
-      - vim-mode
-      - "ex-mode"
-      - "atom-fuzzy-grep"
-      - autocomplete
-      - atom-beautify
-      - symbols-tree-view
-      - jumpy
-      - sort-lines
-      - "terminal-plus"
-      - "terminal-panel"
-      - "go-plus"
-      - "git-plus"
-
+  with_lines:
+      - "cat roles/atom/files/base_package_list"
+      - "cat roles/atom/files/advanced_package_list" 
 
 - copy: src="config.cson" dest="~/.atom/config.cson"
 - copy: src="keymap.cson" dest="~/.atom/keymap.cson"
