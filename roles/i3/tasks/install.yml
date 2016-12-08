@@ -39,6 +39,33 @@
   when: ansible_os_family == 'Debian'
   ignore_errors: yes
 
+- name: Install i3 dependence lib for fedora
+  dnf: name={{ item }} state=present
+  with_items:
+    - "spice-glib-devel"
+    - "pango-devel"
+    - "startup-notification-devel"
+
+    - "libxcb-xinerama0-dev"
+    - "libpango1.0-dev"
+    - "libxcursor-dev"
+    - "libxcb-xkb-dev"
+    - "libxcb-cursor-dev"
+    - "libxkbcommon-x11-dev"
+    - "libxkbcommon-dev"
+    - "build-essential"
+    - "freeglut3-dev"
+    - "libfreeimage-dev"
+    - "libgl1-mesa-dev"
+    - "libopenal-dev"
+    - "libsdl-ttf2.0-dev"
+    - "libsndfile-dev"
+    - "libxinerama-dev"
+
+  sudo: yes
+  when: ansible_distribution == 'Fedora'
+  ignore_errors: yes
+
 - name: Install i3 package
   apt: name={{ item }} state=present
   with_items:
@@ -68,6 +95,13 @@
 
       - dunst
       - fcitx-chewing
+      - fcitx-configtool
+
+      - gnome-do # app launcher
+      - kupfer # app launcher
+
+
+
   sudo: yes
   when: ansible_distribution == 'Ubuntu'
 
@@ -104,6 +138,31 @@
       - fcitx-chewing
   sudo: yes
   when: ansible_distribution == 'Debian'
+
+- name: Install i3 package for fedora
+  dnf: name={{ item }} state=present
+  with_items:
+      - i3
+      - i3status
+      - terminator
+      - python-pip
+      - xfce4-panel
+      - xbacklight
+      - feh
+      - lxterminal
+      - lxpanel
+      - xdotool
+
+      - boxes
+      - zenity
+      - xfce4-screenshooter
+      - xfce4-terminal
+
+      - dunst
+
+      - fcitx-chewing
+  sudo: yes
+  when: ansible_distribution == 'Fedora'
 
 - name: Install zsh package
   dnf: name={{ item }} state=present

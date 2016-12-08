@@ -203,6 +203,7 @@ Plug 'justmao945/vim-clang'
 Plug 'rhysd/vim-clang-format'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
+Plug 'rhysd/devdocs.vim'
 
 
 "Plug 'vim-scripts/OmniCppComplete'
@@ -389,10 +390,6 @@ let g:clang_cpp_completeopt = "menu,preview,noinsert,noselect"
 
 let g:syntastic_cpp_compiler_options="-std=gnu++14"
 
-" neovim and virtualfish are installed here
-let $PYTHONPATH="{{ HOME_PATH }}/.vim/virtualenv/lib/python2.7/site-packages/"
-
-
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
 autocmd! InsertEnter,WinLeave * set nocursorline
@@ -528,7 +525,7 @@ nnoremap <leader>qw :q<cr>
 nnoremap <leader>qb :Bclose<cr>
 
 " State
-nnoremap <leader>,n :call set nu!<cr>
+nnoremap <leader>,n :set nu!<cr>
 nnoremap <leader>,w :set wrap!<cr>
 nnoremap <leader>,p :setlocal paste!<cr>
 nnoremap <leader>,m :call ToggleMouse()<cr>
@@ -576,9 +573,6 @@ nnoremap <C-p> :FZF<cr>
 nnoremap <c-o> :Buffers<cr>
 
 "nnoremap <leader>w :W3mTab google
-
-" Marks
-nnoremap mm  :Marks<cr>
 
 " Resize buffer
 nnoremap sa  :resize +1000<cr>
@@ -795,5 +789,7 @@ nnoremap <A-r>9 <Esc>:C g9<cr>
 nnoremap <A-r>0 <Esc>:C g0<cr>
 
 inoremap <A-o> <Esc>:Buffers<cr>
+
+nnoremap <A-d> :DevDocsUnderCursor<cr>
 
 {% endif %}
