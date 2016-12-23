@@ -14,7 +14,7 @@ def get_package_list():
 
 def copy_config():
     base = os.path.join(EXECUTE_PATH, '../roles/atom/files')
-    for name in ['config.cson']:
+    for name in ['config.cson', 'keymap.cson', 'styles.less']:
         shutil.copyfile(os.path.join(base, name),
                         os.path.join(HOME, '.atom', name))
 
