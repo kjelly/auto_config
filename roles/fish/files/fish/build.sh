@@ -2,6 +2,8 @@ rm get_color
 rm get_host_color
 rm print_cwd
 
+chmod +x get_color.py get_host_color.py print_cwd.py
+
 if [ $# -eq 0 ]
 then
     go build get_color.go
