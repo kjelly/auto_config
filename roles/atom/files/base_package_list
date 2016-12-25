@@ -1,6 +1,6 @@
 autocomplete-plus
-vim-mode
-"ex-mode"
+vim-mode-plus
+"vim-mode-plus-ex-mode"
 "atom-fuzzy-grep"
 autocomplete
 atom-beautify
