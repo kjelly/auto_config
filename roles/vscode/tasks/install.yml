@@ -1,2 +1,5 @@
 ---
-
+- name: code ext install
+  shell: code --install-extension {{ item }}
+  with_lines:
+      - "cat roles/vscode/files/ext_list"
