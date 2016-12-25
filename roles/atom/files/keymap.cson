@@ -96,3 +96,6 @@
   'alt-l': 'focus-pane-or-panel:focus-on-right'
   'alt-h': 'focus-pane-or-panel:focus-on-left'
   'alt-l': 'focus-pane-or-panel:focus-on-right'
+ 'atom-text-editor.vim-mode-plus.normal-mode':
+  ':': 'vim-mode-plus-ex-mode:open'
+  '!': 'vim-mode-plus-ex-mode:toggle-setting'
