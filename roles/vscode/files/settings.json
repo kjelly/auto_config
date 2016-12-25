@@ -1,7 +1,8 @@
 {
-    "editor.fontSize": 24,
+    "editor.fontSize": 14,
     "editor.renderWhitespace": true,
     "terminal.integrated.shell.windows": "C:\\Windows\\sysnative\\bash.exe",
-    "terminal.integrated.shellArgs.windows": ["-c", "fish"]
+    "terminal.integrated.shellArgs.windows": ["-c", "fish"],
+    "window.zoomLevel": 1.4
 
 }
