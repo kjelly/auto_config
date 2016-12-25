@@ -1,4 +1,5 @@
 [
-    { "key": "ctrl+4",                  "command": "workbench.action.terminal.focus"},
-    { "key": "ctrl+5",                  "command": "workbench.files.action.focusFilesExplorer"}
+    { "key": "ctrl+4", "command": "workbench.action.terminal.focus"},
+    { "key": "ctrl+5", "command": "workbench.files.action.focusFilesExplorer"},
+    { "key": "alt+e",  "command": "workbench.action.showCommands"},
 ]

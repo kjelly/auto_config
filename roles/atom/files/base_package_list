@@ -7,8 +7,6 @@ atom-beautify
 symbols-tree-view
 jumpy
 sort-lines
-"terminal-plus"
-"terminal-panel"
 "git-plus"
 "focus-pane-or-panel"
 "hyperclick"
