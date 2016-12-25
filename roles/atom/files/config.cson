@@ -44,3 +44,10 @@
 ".slim.text":
   whitespace:
     removeTrailingWhitespace: true
+  "platformio-ide-terminal":
+    core:
+      autoRunCommand: "fish"
+      shell: "C:\\mybin\\bash.exe"
+    customTexts: {}
+    style: {}
+    toggles: {}
