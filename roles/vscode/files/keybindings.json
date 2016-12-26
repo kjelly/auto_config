@@ -1,4 +1,10 @@
 [
-    { "key": "ctrl+4",                  "command": "workbench.action.terminal.focus"},
-    { "key": "ctrl+5",                  "command": "workbench.files.action.focusFilesExplorer"}
+    { "key": "alt+e",  "command": "workbench.action.showCommands"},
+    { "key": "ctrl+4", "command": "workbench.action.terminal.focus"},
+    { "key": "ctrl+5", "command": "workbench.view.explore"},
+    { "key": "ctrl+6", "command": "workbench.view.search"},
+    { "key": "ctrl+7", "command": "workbench.view.git"},
+    { "key": "ctrl+8", "command": "workbench.view.debug"},
+    { "key": ", q",              "command": "workbench.action.closeActiveEditor",
+                                   "when": "editorTextFocus && !inDebugRepl && vim.mode == 'Normal'" },
 ]
