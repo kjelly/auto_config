@@ -3,6 +3,9 @@
     "editor.renderWhitespace": true,
     "terminal.integrated.shell.windows": "C:\\Windows\\sysnative\\bash.exe",
     "terminal.integrated.shellArgs.windows": ["-c", "fish"],
-    "window.zoomLevel": 1.4
+    "window.zoomLevel": 1.4,
+    "editor.tabSize": 4,
+    "editor.renderWhitespace": "boundary",
+    "editor.insertSpaces": true,
 
 }
