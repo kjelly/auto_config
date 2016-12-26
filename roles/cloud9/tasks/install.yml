@@ -4,22 +4,22 @@
   git: repo="git://github.com/c9/core.git"
        dest="/opt/c9sdk"
   sudo: yes
-  
+
 - name: Install packages
   apt: name={{ item }} state=present
   with_items:
    - git
    - curl
-   - wget 
+   - wget
    - build-essential
    - python2.7
    - nodejs-legacy
 
   sudo: yes
   when: ansible_os_family == 'Debian' and programming == true
-  
-  
+
 - name: build sdk
   shell: "./scripts/install-sdk.sh"
   args:
     chdir: "/opt/c9sdk"
+  sudo: yes
