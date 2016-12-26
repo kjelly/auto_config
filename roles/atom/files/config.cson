@@ -43,6 +43,8 @@
     showOnStartup: false
   "line-ending-selector":
     defaultLineEnding: "LF"
+  "tabs-to-spaces":
+    onSave: "untabify"
   "platformio-ide-terminal":
     core:
       autoRunCommand: "fish"
