@@ -41,9 +41,8 @@
   "tree-view": {}
   welcome:
     showOnStartup: false
-".slim.text":
-  whitespace:
-    removeTrailingWhitespace: true
+  "line-ending-selector":
+    defaultLineEnding: "LF"
   "platformio-ide-terminal":
     core:
       autoRunCommand: "fish"
@@ -51,3 +50,6 @@
     customTexts: {}
     style: {}
     toggles: {}
+".slim.text":
+  whitespace:
+    removeTrailingWhitespace: true
