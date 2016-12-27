@@ -1,7 +1,7 @@
 ---
 
 - name: download sbt.zip
-  get_url: url=https://dl.bintray.com/sbt/native-packages/sbt/0.13.9/sbt-0.13.9.zip dest=/tmp/sbt.zip
+  get_url: url={{ sbt_url }} dest=/tmp/sbt.zip
 
 
 - name: unzip sbt.zip
