@@ -2,6 +2,7 @@ set __oceanfish_glyph_anchor \u2693
 set __oceanfish_glyph_flag \u2691
 set __oceanfish_glyph_radioactive \u2622
 set arrow \u21d2
+set enable_color false
 
 
 function _git_branch_name
@@ -60,11 +61,13 @@ function fish_prompt
     set -l uid (id -u $USER)
 
     set -l host_info (whoami)(hostname -s)
-    set -l host_info_color_bg (~/.config/fish/get_host_color 1)
-    set -l host_info_color_fg (~/.config/fish/get_host_color )
+    if eval $enable_color
+        set -l host_info_color_bg (~/.config/fish/get_host_color 1)
+        set -l host_info_color_fg (~/.config/fish/get_host_color )
 
-    set -l cwd_color_bg (~/.config/fish/get_color $cwd 1)
-    set -l cwd_color_fg (~/.config/fish/get_color $cwd)
+        set -l cwd_color_bg (~/.config/fish/get_color $cwd 1)
+        set -l cwd_color_fg (~/.config/fish/get_color $cwd)
+    end
 
     # Display virtualenv name if in a virtualenv
     if set -q VIRTUAL_ENV
@@ -79,13 +82,17 @@ function fish_prompt
         echo -n -s $bg_blue $white " $__oceanfish_glyph_anchor " $normal
     end
 
-    set_color $host_info_color_fg
-    set_color -b $host_info_color_bg
+    if eval $enable_color
+        set_color $host_info_color_fg
+        set_color -b $host_info_color_bg
+    end
     echo -n -s " " (whoami) "@" (hostname -s) " " $normal
 
     # Display current path
-    set_color $cwd_color_fg
-    set_color -b $cwd_color_bg
+    if eval $enable_color
+       set_color $cwd_color_fg
+       set_color -b $cwd_color_bg
+    end
     echo -n -s " $cwd " $normal
 
 

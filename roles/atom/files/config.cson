@@ -41,6 +41,17 @@
   "tree-view": {}
   welcome:
     showOnStartup: false
+  "line-ending-selector":
+    defaultLineEnding: "LF"
+  "tabs-to-spaces":
+    onSave: "untabify"
+  "platformio-ide-terminal":
+    core:
+      autoRunCommand: "fish"
+      shell: "C:\\mybin\\bash.exe"
+    customTexts: {}
+    style: {}
+    toggles: {}
 ".slim.text":
   whitespace:
     removeTrailingWhitespace: true
