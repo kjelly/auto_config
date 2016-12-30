@@ -394,6 +394,14 @@ let g:syntastic_cpp_compiler_options="-std=gnu++14"
 autocmd! InsertLeave,WinEnter * set cursorline
 autocmd! InsertEnter,WinLeave * set nocursorline
 
+{% if nvim %}
+
+autocmd! BufEnter * set laststatus=2
+autocmd! BufEnter *fish set laststatus=0
+autocmd! TermOpen *fish set laststatus=0
+
+{% endif %}
+
 autocmd! bufwritepost .vimrc source %
 autocmd! bufwritepost init.vim source %
 autocmd FileType c ClangFormatAutoEnable
