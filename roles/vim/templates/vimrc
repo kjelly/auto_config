@@ -742,6 +742,11 @@ inoremap <A-a> <Esc>
 nnoremap <A-a> i
 vnoremap <A-a> <Esc>
 
+tnoremap <C-]> <C-\><C-n>
+inoremap <C-]> <Esc>
+nnoremap <C-]> i
+vnoremap <C-]> <Esc>
+
 " Buffer navigation
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
