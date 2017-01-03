@@ -736,7 +736,7 @@ inoremap <A-9> <Esc>9gti
 inoremap <A-0> <Esc>0gti
 
 tnoremap <Insert> <C-\><C-n>
-tnoremap <C-[> <C-\><C-n>
+"tnoremap <C-[> <C-\><C-n> Don't enable this. Esc is useful when vim in vim
 tnoremap <A-a> <C-\><C-n>
 inoremap <A-a> <Esc>
 nnoremap <A-a> i
