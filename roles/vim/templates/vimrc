@@ -118,6 +118,14 @@ function! ToggleStatusLine()
     endif
 endfunc
 
+function! s:DiffWithSaved()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+
 if has('gui_running')
     set background=light
 else
@@ -424,6 +432,9 @@ command! Nu execute "call Num_Toggle()"
 command! Q execute "quit!"
 command! Qa execute "quitall!"
 
+" Diff between the curret buffer and the file.
+com! Diff call s:DiffWithSaved()
+
 
 " resize buffer
 if bufwinnr(1)
@@ -725,6 +736,7 @@ inoremap <A-9> <Esc>9gti
 inoremap <A-0> <Esc>0gti
 
 tnoremap <Insert> <C-\><C-n>
+tnoremap <C-[> <C-\><C-n>
 tnoremap <A-a> <C-\><C-n>
 inoremap <A-a> <Esc>
 nnoremap <A-a> i
