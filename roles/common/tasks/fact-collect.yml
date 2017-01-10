@@ -13,3 +13,8 @@
 - set_fact:
     UBUNTU_VERSION: "{{ UBUNTU_VERSION_RESULT.stdout }}"
   when: ansible_distribution == 'Ubuntu'
+
+- path_generator:
+  register: stdout
+
+- set_fact: EXTRA_PATH={{ stdout.ENV_PATH }}
