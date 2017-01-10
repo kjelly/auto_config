@@ -45,7 +45,7 @@
   "alt-c": 'platformio-ide-terminal:new'
   "alt-x": 'platformio-ide-terminal:close'
 
-'atom-text-editor.vim-mode:not(.insert-mode)':
+'atom-text-editor.vim-mode-plus:not(.insert-mode)':
   ', g r f': 'project-find:show'
   ', g r r': 'fuzzy-grep:toggle'
 
