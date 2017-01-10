@@ -1,0 +1,6 @@
+---
+- file: path=~/mybin state=directory
+- file: path=~/.c9 state=directory
+
+- copy: src="user.settings" dest="~/.c9/user.settings"
+- copy: src="c9.sh" dest="~/mybin/c9"

@@ -95,7 +95,6 @@
 
       - dunst
       - fcitx-chewing
-      - fcitx-configtool
 
       - gnome-do # app launcher
       - kupfer # app launcher

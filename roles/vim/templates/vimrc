@@ -118,6 +118,14 @@ function! ToggleStatusLine()
     endif
 endfunc
 
+function! s:DiffWithSaved()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+
 if has('gui_running')
     set background=light
 else
@@ -394,6 +402,14 @@ let g:syntastic_cpp_compiler_options="-std=gnu++14"
 autocmd! InsertLeave,WinEnter * set cursorline
 autocmd! InsertEnter,WinLeave * set nocursorline
 
+{% if nvim %}
+
+autocmd! BufEnter * set laststatus=2
+autocmd! BufEnter *fish set laststatus=0
+autocmd! TermOpen *fish set laststatus=0
+
+{% endif %}
+
 autocmd! bufwritepost .vimrc source %
 autocmd! bufwritepost init.vim source %
 autocmd FileType c ClangFormatAutoEnable
@@ -415,6 +431,9 @@ command! Nu execute "call Num_Toggle()"
 "Quit
 command! Q execute "quit!"
 command! Qa execute "quitall!"
+
+" Diff between the curret buffer and the file.
+com! Diff call s:DiffWithSaved()
 
 
 " resize buffer
@@ -717,10 +736,16 @@ inoremap <A-9> <Esc>9gti
 inoremap <A-0> <Esc>0gti
 
 tnoremap <Insert> <C-\><C-n>
+"tnoremap <C-[> <C-\><C-n> Don't enable this. Esc is useful when vim in vim
 tnoremap <A-a> <C-\><C-n>
 inoremap <A-a> <Esc>
 nnoremap <A-a> i
 vnoremap <A-a> <Esc>
+
+tnoremap <C-]> <C-\><C-n>
+inoremap <C-]> <Esc>
+nnoremap <C-]> i
+vnoremap <C-]> <Esc>
 
 " Buffer navigation
 tnoremap <A-h> <C-\><C-n><C-w>h
