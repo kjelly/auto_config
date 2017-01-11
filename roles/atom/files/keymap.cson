@@ -2,8 +2,10 @@
   'alt-/': 'autocomplete:toggle'
   'alt-space': 'autocomplete:toggle'
 
-  'ctrl-h': 'pane:show-previous-item'
-  'ctrl-l': 'pane:show-next-item'
+  'ctrl-j': 'focus-pane-or-panel:focus-below'
+  'ctrl-k': 'focus-pane-or-panel:focus-above'
+  'ctrl-h': 'focus-pane-or-panel:focus-on-left'
+  'ctrl-l': 'focus-pane-or-panel:focus-on-right'
 
   'alt-j': 'focus-pane-or-panel:focus-below'
   'alt-k': 'focus-pane-or-panel:focus-above'
@@ -25,6 +27,13 @@
   'alt-h': 'focus-pane-or-panel:focus-on-left'
   'alt-l': 'focus-pane-or-panel:focus-on-right'
 
+  'ctrl-j': 'focus-pane-or-panel:focus-below'
+  'ctrl-k': 'focus-pane-or-panel:focus-above'
+  'ctrl-h': 'focus-pane-or-panel:focus-on-left'
+  'ctrl-l': 'focus-pane-or-panel:focus-on-right'
+
+  'alt-,': 'pane:show-previous-item'
+  'alt-.': 'pane:show-next-item'
 '.tool-panel':
   'alt-j': 'focus-pane-or-panel:focus-below'
   'alt-k': 'focus-pane-or-panel:focus-above'
