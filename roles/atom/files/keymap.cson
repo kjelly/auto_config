@@ -74,6 +74,7 @@
   ', q q': 'core:close'
   ', q w': 'core:close'
   ', q b': 'core:close'
+  ', q o': 'pane:close-other-items'
 
   ', b t': 'bookmarks:toggle-bookmark'
   ', b a': 'bookmarks:view-all'
