@@ -19,17 +19,20 @@
   'alt-e': 'platformio-ide-terminal:insert-text'
   'ctrl-g': 'project-find:show'
 
+
 'body':
   'alt-j': 'focus-pane-or-panel:focus-below'
   'alt-k': 'focus-pane-or-panel:focus-above'
   'alt-h': 'focus-pane-or-panel:focus-on-left'
   'alt-l': 'focus-pane-or-panel:focus-on-right'
 
+
 '.tool-panel':
   'alt-j': 'focus-pane-or-panel:focus-below'
   'alt-k': 'focus-pane-or-panel:focus-above'
   'alt-h': 'focus-pane-or-panel:focus-on-left'
   'alt-l': 'focus-pane-or-panel:focus-on-right'
+
 
 '.platformio-ide-terminal':
   'alt-j': 'focus-pane-or-panel:focus-below'
@@ -44,6 +47,7 @@
   "alt-'": 'platformio-ide-terminal:fullscreen'
   "alt-c": 'platformio-ide-terminal:new'
   "alt-x": 'platformio-ide-terminal:close'
+
 
 'atom-text-editor.vim-mode:not(.insert-mode)':
   ', g r f': 'project-find:show'
@@ -73,20 +77,21 @@
 
   ', t t': 'terminal-panel:toggle'
 
+
 'atom-text-editor.vim-mode.insert-mode':
   'ctrl-w': 'editor:delete-to-beginning-of-subword'
   'ctrl-e': 'editor:delete-to-end-of-subword'
   'ctrl-f': 'vim-mode:move-to-next-word'
   'ctrl-b': 'vim-mode:move-to-previous-word'
 
-'atom-text-editor:not(.mini).vim-mode:not(.insert-mode):not(.jumpy-jump-mode)':
-    'f': 'jumpy:toggle'
 
-'atom-text-editor.vim-mode.normal-mode':
-    'ctrl-w': 'core:close'
+'atom-text-editor:not(.mini).vim-mode:not(.insert-mode):not(.jumpy-jump-mode)':
+  ', f': 'jumpy:toggle'
+
 
 'atom-text-editor.vim-mode:not(.normal-mode)':
   'alt-a': 'vim-mode:activate-normal-mode'
+
 
 '.tree-view':
   'ctrl-n': 'tree-view:toggle'
@@ -96,6 +101,10 @@
   'alt-l': 'focus-pane-or-panel:focus-on-right'
   'alt-h': 'focus-pane-or-panel:focus-on-left'
   'alt-l': 'focus-pane-or-panel:focus-on-right'
+
+
 'atom-text-editor.vim-mode-plus.normal-mode':
   ':': 'vim-mode-plus-ex-mode:open'
   '!': 'vim-mode-plus-ex-mode:toggle-setting'
+  'ctrl-w': 'core:close'
+  ', f f': 'tree-view:reveal-active-file'
