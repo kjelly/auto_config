@@ -46,9 +46,7 @@
   "tabs-to-spaces":
     onSave: "untabify"
   "platformio-ide-terminal":
-    core:
-      autoRunCommand: "fish"
-      shell: "C:\\mybin\\bash.exe"
+    core: {}
     customTexts: {}
     style: {}
     toggles: {}
