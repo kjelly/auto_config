@@ -26,7 +26,6 @@
   shell: apm install {{ item }}
   with_lines:
       - "cat roles/atom/files/base_package_list"
-      - "cat roles/atom/files/advanced_package_list" 
 
 - copy: src="config.cson" dest="~/.atom/config.cson"
 - copy: src="keymap.cson" dest="~/.atom/keymap.cson"
