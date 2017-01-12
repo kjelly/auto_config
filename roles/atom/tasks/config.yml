@@ -2,3 +2,4 @@
 - copy: src="config.cson" dest="~/.atom/config.cson"
 - copy: src="keymap.cson" dest="~/.atom/keymap.cson"
 - copy: src="styles.less" dest="~/.atom/styles.less"
+- copy: src="init.coffee" dest="~/.atom/init.coffee"
