@@ -10,6 +10,7 @@
       - scim
       - scim-chewing
       - workrave
+      - touchegg
       - xclip # for paste.sh
   sudo: yes
   ignore_errors: yes
