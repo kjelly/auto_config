@@ -42,6 +42,9 @@
 "xbindkeys_show"
   control+shift + q
 
+"wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz"
+  F6
+
 # set directly keycode (here control + f with my keyboard)
 # "xterm"
 #   c:41 + m:0x4

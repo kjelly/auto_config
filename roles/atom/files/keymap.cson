@@ -2,8 +2,10 @@
   'alt-/': 'autocomplete:toggle'
   'alt-space': 'autocomplete:toggle'
 
-  'ctrl-h': 'pane:show-previous-item'
-  'ctrl-l': 'pane:show-next-item'
+  'ctrl-j': 'focus-pane-or-panel:focus-below'
+  'ctrl-k': 'focus-pane-or-panel:focus-above'
+  'ctrl-h': 'focus-pane-or-panel:focus-on-left'
+  'ctrl-l': 'focus-pane-or-panel:focus-on-right'
 
   'alt-j': 'focus-pane-or-panel:focus-below'
   'alt-k': 'focus-pane-or-panel:focus-above'
@@ -19,12 +21,19 @@
   'alt-e': 'platformio-ide-terminal:insert-text'
   'ctrl-g': 'project-find:show'
 
-
 'body':
   'alt-j': 'focus-pane-or-panel:focus-below'
   'alt-k': 'focus-pane-or-panel:focus-above'
   'alt-h': 'focus-pane-or-panel:focus-on-left'
   'alt-l': 'focus-pane-or-panel:focus-on-right'
+
+  'ctrl-j': 'focus-pane-or-panel:focus-below'
+  'ctrl-k': 'focus-pane-or-panel:focus-above'
+  'ctrl-h': 'focus-pane-or-panel:focus-on-left'
+  'ctrl-l': 'focus-pane-or-panel:focus-on-right'
+
+  'alt-,': 'pane:show-previous-item'
+  'alt-.': 'pane:show-next-item'
 
 
 '.tool-panel':
@@ -48,8 +57,7 @@
   "alt-c": 'platformio-ide-terminal:new'
   "alt-x": 'platformio-ide-terminal:close'
 
-
-'atom-text-editor.vim-mode:not(.insert-mode)':
+'atom-text-editor.vim-mode-plus:not(.insert-mode)':
   ', g r f': 'project-find:show'
   ', g r r': 'fuzzy-grep:toggle'
 
@@ -78,19 +86,22 @@
   ', t t': 'terminal-panel:toggle'
 
 
-'atom-text-editor.vim-mode.insert-mode':
+'atom-text-editor.vim-mode-plus.insert-mode':
   'ctrl-w': 'editor:delete-to-beginning-of-subword'
   'ctrl-e': 'editor:delete-to-end-of-subword'
-  'ctrl-f': 'vim-mode:move-to-next-word'
-  'ctrl-b': 'vim-mode:move-to-previous-word'
+  'ctrl-f': 'vim-mode-plus:move-to-next-word'
+  'ctrl-b': 'vim-mode-plus:move-to-previous-word'
+
+'atom-text-editor:not(.mini).vim-mode-plus:not(.insert-mode):not(.jumpy-jump-mode)':
+    ', f': 'jumpy:toggle'
 
 
-'atom-text-editor:not(.mini).vim-mode:not(.insert-mode):not(.jumpy-jump-mode)':
-  ', f': 'jumpy:toggle'
+'atom-text-editor.vim-mode-plus.normal-mode':
+    'ctrl-w': 'core:close'
 
 
-'atom-text-editor.vim-mode:not(.normal-mode)':
-  'alt-a': 'vim-mode:activate-normal-mode'
+'atom-text-editor.vim-mode-plus:not(.normal-mode)':
+  'alt-a': 'vim-mode-plus:activate-normal-mode'
 
 
 '.tree-view':

@@ -4,3 +4,4 @@
 	user  = Kuo-tung Kao
 [core]
 	editor = vim
+	eol = lf
