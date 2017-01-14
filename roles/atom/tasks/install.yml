@@ -1,31 +1,13 @@
 ---
 
-- block:
-    - name: download atom package
-      get_url: url=https://atom.io/download/deb dest=/tmp/deb
-      when: ansible_distribution == 'Ubuntu'
-
-  rescue:
-    - shell: wget https://atom.io/download/deb
-      args:
-          chdir: /tmp
-      when: ansible_distribution == 'Ubuntu'
-  always:
-    - apt: deb=/tmp/deb
-      sudo: yes
-      when: ansible_distribution == 'Ubuntu'
-
-- name: install package
-  apt: name="{{ item }}" state=present
-  with_items:
-    - "silversearcher-ag"
+- include: "install_debian_family.yml"
   when: ansible_distribution == 'Ubuntu'
-  sudo: yes
 
 - name: apm install
   shell: apm install {{ item }}
   with_lines:
       - "cat roles/atom/files/base_package_list"
+      - "cat roles/atom/files/advanced_package_list"
 
 - copy: src="config.cson" dest="~/.atom/config.cson"
 - copy: src="keymap.cson" dest="~/.atom/keymap.cson"
