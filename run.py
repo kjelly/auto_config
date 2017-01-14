@@ -19,6 +19,7 @@ def main():
     parser.add_argument('-a', '--action', type=str,
                         default='config', choices=['config', 'deploy'])
     parser.add_argument('-u', '--user', type=str, default=getpass.getuser())
+    parser.add_argument('--sudo', type=bool)
 
     args, unknown = parser.parse_known_args()
     print(args)
@@ -30,13 +31,17 @@ def main():
         'playbook': args.playbook,
         'inventory': args.inventory
     }
+    sudo = ''
+
     if args.host == 'local':
         data['group'] = 'local'
         data['remote_host'] = None
     else:
         data['group'] = 'remote'
         data['remote_host'] = args.host
-    cmd = ('''sudo -E -P -u {user} ansible-playbook -i "{inventory}" '''
+    if args.sudo:
+        sudo = 'sudo -E -P -u {user} '
+    cmd = (sudo + '''ansible-playbook -i "{inventory}" '''
            '''"{playbook}" -e ansible_user="{user}" -e group="{group}" '''
            '''-e remote_host="{remote_host}" -e action="{action}" '''
            ''' -vvvv '''.format(
