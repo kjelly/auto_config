@@ -1,10 +1,10 @@
 ---
 
 - name: create ~/.xprofile
-  file: path: ~/.xprofile
+  file: path="{{ HOME_PATH}}/.xprofile" state=touch
 
 - name: add touchegg to xprofile
-  lineinfile: line="touchegg&"
+  lineinfile: line="touchegg&" dest="{{ HOME_PATH}}/.xprofile"
 
 - name: map caps_lock to ctrl
-  lineinfile: line="setxkbmap -layout us -option ctrl:nocaps"
+  lineinfile: line="setxkbmap -layout us -option ctrl:nocaps" dest="{{ HOME_PATH}}/.xprofile"
