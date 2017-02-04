@@ -41,13 +41,14 @@ def main():
         data['remote_host'] = args.host
     if args.sudo:
         sudo = 'sudo -E -P -u {user} '
-    cmd = (sudo + '''ansible-playbook -i "{inventory}" '''
-           '''"{playbook}" -e ansible_user="{user}" -e group="{group}" '''
-           '''-e remote_host="{remote_host}" -e action="{action}" '''
-           ''' -vvvv '''.format(
+    cmd = ((sudo + '''ansible-playbook -i "{inventory}" '''
+            '''"{playbook}" -e ansible_user="{user}" -e group="{group}" '''
+            '''-e remote_host="{remote_host}" -e action="{action}" '''
+            ''' -vvvv ''').format(
                **data) + ' '.join(unknown))
     print(cmd)
     os.system(cmd)
+
 
 if __name__ == '__main__':
     main()
