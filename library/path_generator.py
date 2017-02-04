@@ -18,7 +18,9 @@ def main():
     env_path = []
 
     path_list = ['~/gohome/bin', '~/bin', '~/mybin', '~/dark-sdk/bin',
-                 '~/swif/usr/bin', '/usr/local/mercury-14.01.1/bin']
+                 '~/swif/usr/bin', '/usr/local/mercury-14.01.1/bin',
+                 '/usr/lib/dart/bin/', '~/.cargo/bin/', '~/sbt/bin',
+                 '~/.pub-cache/bin']
 
     for path in path_list:
         real_path = os.path.abspath(os.path.expanduser(path))

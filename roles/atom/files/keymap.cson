@@ -1,6 +1,6 @@
-'.editor':
-  'alt-/': 'autocomplete:toggle'
-  'alt-space': 'autocomplete:toggle'
+'atom-text-editor':
+  'alt-space': 'autocomplete-plus:activate'
+  'alt-/': 'autocomplete-plus:activate'
 
   'ctrl-j': 'focus-pane-or-panel:focus-below'
   'ctrl-k': 'focus-pane-or-panel:focus-above'
@@ -75,6 +75,8 @@
   ', q w': 'core:close'
   ', q b': 'core:close'
   ', q o': 'pane:close-other-items'
+
+  'Z Z': 'custom:ZZ'
 
   ', b t': 'bookmarks:toggle-bookmark'
   ', b a': 'bookmarks:view-all'
