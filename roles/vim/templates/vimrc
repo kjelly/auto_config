@@ -671,7 +671,7 @@ vnoremap <Return> "+y
 nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
 nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 
-inoremap <C-c>     <Plug>(neosnippet_expand_or_jump)
+inoremap <C-d>     <Plug>(neosnippet_expand_or_jump)
 
 " keybinding about lang
 au FileType go nnoremap <leader>le :GoRun<cr>
