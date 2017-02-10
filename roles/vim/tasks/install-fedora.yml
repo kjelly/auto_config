@@ -1,0 +1,26 @@
+---
+- name: Install vim package
+  dnf: name={{ item }} state=present
+  with_items:
+   - vim
+   - ctags-etags
+  sudo: yes
+  when: programming == false
+
+
+- name: Install vim package
+  dnf: name={{ item }} state=present
+  with_items:
+   - ctags-etags
+   - libtool
+   - python3-devel
+   - cmake
+   - libtool # for neovim
+   - pkgconf # for neovim
+   - automake # for neovim
+   - luarocks # for neovim
+   - m4 # for neovim
+   - python-virtualenv # for neovim
+   - ncurses-dev  # for neovim
+  sudo: yes
+  when: programming == true
