@@ -20,6 +20,7 @@
 
   'alt-e': 'platformio-ide-terminal:insert-text'
   'ctrl-g': 'project-find:show'
+  'ctrl-o': 'fuzzy-finder:toggle-buffer-finder'
 
 'body':
   'alt-j': 'focus-pane-or-panel:focus-below'
@@ -76,8 +77,6 @@
   ', q b': 'core:close'
   ', q o': 'pane:close-other-items'
 
-  'Z Z': 'custom:ZZ'
-
   ', b t': 'bookmarks:toggle-bookmark'
   ', b a': 'bookmarks:view-all'
   ', b n': 'bookmarks:jump-to-next-bookmark'
@@ -96,7 +95,7 @@
   'ctrl-b': 'vim-mode-plus:move-to-previous-word'
 
 'atom-text-editor:not(.mini).vim-mode-plus:not(.insert-mode):not(.jumpy-jump-mode)':
-    ', f': 'jumpy:toggle'
+    'f': 'jumpy:toggle'
 
 
 'atom-text-editor.vim-mode-plus:not(.normal-mode)':
@@ -118,3 +117,5 @@
   '!': 'vim-mode-plus-ex-mode:toggle-setting'
   'ctrl-w': 'core:close'
   ', f f': 'tree-view:reveal-active-file'
+  ', f l': 'find-and-replace:show'
+  ', g a': 'fuzzy-grep:toggle'
