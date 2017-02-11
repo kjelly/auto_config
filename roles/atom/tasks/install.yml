@@ -3,6 +3,9 @@
 - include: "install_debian_family.yml"
   when: ansible_distribution == 'Ubuntu'
 
+- include: "install_debian_family.yml"
+  when: ansible_distribution == 'Fedora'
+
 - name: apm install
   shell: apm install {{ item }}
   with_lines:
