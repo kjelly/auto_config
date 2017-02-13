@@ -1,8 +1,25 @@
-@ui-font-size: 14px;
-@editor-font-size: 23px;
-html, body, .tree-view, .tab-bar .tab {
-  font-size: @ui-font-size;
+@tab-font-size: 15px;
+@tree-view-font-size: 16px;
+@editor-font-size: 24px;
+@tooltip-font-size: 20px;
+@palette-font-size: 18px;
+@results-view-font-size: 20px;
+
+.tab-bar .tab {
+  font-size: @tab-font-size;
+  max-width: 180px;
+}
+.tree-view {
 }
 .editor {
   font-size: @editor-font-size;
+}
+.tooltip {
+  font-size: @tooltip-font-size;
+}
+.select-list{
+  font-size: @palette-font-size;
+}
+.results-view {
+  font-size: @results-view-font-size;
 }

@@ -19,7 +19,8 @@ def main():
     parser.add_argument('-a', '--action', type=str,
                         default='config', choices=['config', 'deploy'])
     parser.add_argument('-u', '--user', type=str, default=getpass.getuser())
-    parser.add_argument('--sudo', type=bool)
+    parser.add_argument('--sudo', action='store_true', default=False)
+
 
     args, unknown = parser.parse_known_args()
     print(args)
