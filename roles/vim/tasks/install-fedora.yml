@@ -1,9 +1,16 @@
 ---
+- name: Install packages for vim
+  dnf: name={{ item }} state=present
+  with_items:
+   - the_silver_searcher
+   - ctags-etags
+  sudo: yes
+
+
 - name: Install vim package
   dnf: name={{ item }} state=present
   with_items:
    - vim
-   - ctags-etags
   sudo: yes
   when: programming == false
 
