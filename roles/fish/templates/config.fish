@@ -15,7 +15,7 @@ alias cd5 "cd ../../../../.."
 
 set -gx GOROOT "{{ HOME_PATH }}/go"
 set -gx GOPATH "{{ HOME_PATH }}/gohome"
-set -gx PATH {{ EXTRA_PATH }} $PATH
+set -gx PATH {{ FISH_EXTRA_PATH }} $PATH
 set -gx TERM xterm-256color
 
 eval (python -m virtualfish)
