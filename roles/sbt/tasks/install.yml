@@ -10,4 +10,4 @@
 - file: path=~/mybin/ state=directory
 
 - name: link sbt
-  file: src=~/sbt/bin/sbt dest=~/mybin/sbt state=link
+  file: src=~/sbt-launcher-packaging-{{ sbt_version }}/bin/sbt dest=~/mybin/sbt state=link
