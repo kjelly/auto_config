@@ -35,12 +35,69 @@
 
 #keystate_numlock = enable
 #keystate_capslock = enable
-#keystate_scrolllock= enable
+#keysate_scrolllock= enable
 
 # Examples of commands:
 
 "xbindkeys_show"
   control+shift + q
+
+"sleep 0.15;xdotool key  Left"
+  mod3+h
+
+"sleep 0.15;xdotool key  Down"
+  mod3+j
+
+"sleep 0.15;xdotool key  Up"
+  mod3+k
+
+"sleep 0.15;xdotool key  Right"
+  mod3+l
+
+"sleep 0.15;xdotool key  BackSpace"
+  mod3+semicolon
+
+"sleep 0.15;xdotool key  Delete"
+  mod3+apostrophe
+
+"sleep 0.15;xdotool key  Next"
+  mod3+f
+
+"sleep 0.15;xdotool key  Prior"
+  mod3+b
+
+"sleep 0.15;xdotool key  End"
+  mod3+g
+
+"sleep 0.15;xdotool key  Home"
+  mod3+v
+
+"sleep 0.15;xdotool type  '-'"
+  mod3+u
+
+"sleep 0.15;xdotool type  '_'"
+  mod3+i
+
+"sleep 0.15;xdotool type  '='"
+  mod3+o
+
+"sleep 0.15;xdotool type  '+'"
+  mod3+p
+
+"sleep 0.15;xdotool type  '~'"
+  mod3+slash
+
+"sleep 0.15;xdotool type  '`'"
+  mod3+q
+
+"sleep 0.15;xdotool type  '~'"
+  mod3+w
+
+"sleep 0.15;xdotool type  '\'"
+  mod3+e
+
+"sleep 0.15;xdotool type  '|'"
+  mod3+r
 
 "wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz"
   F6

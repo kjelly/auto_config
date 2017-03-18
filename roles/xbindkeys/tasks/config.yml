@@ -1,3 +1,6 @@
 ---
 - copy: src="xbindkeysrc"
         dest="~/.xbindkeysrc"
+
+- copy: src="Xmodmap"
+        dest="~/.Xmodmap"
