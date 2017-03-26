@@ -152,16 +152,13 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'vim-scripts/grep.vim'
-Plug 'ervandew/supertab'
-Plug 'tpope/vim-fugitive'
-Plug 'godlygeek/tabular'
+"Plug 'ervandew/supertab'
 "Plug 'DevWurm/autosession.vim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'gagoar/stripwhitespaces'
 Plug 'vim-expand-region'
 Plug 'bling/vim-airline'
 Plug 'osyo-manga/vim-over'
-Plug 'majutsushi/tagbar'
 Plug 'junegunn/fzf.vim'
 
 Plug 'dag/vim-fish'
@@ -173,6 +170,9 @@ Plug 'dag/vim-fish'
 
 {% if programming %}
 
+Plug 'tpope/vim-fugitive'
+Plug 'godlygeek/tabular'
+Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdcommenter'
