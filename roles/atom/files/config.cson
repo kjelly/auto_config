@@ -1,4 +1,8 @@
 "*":
+  _dartlang:
+    _errorsInitialized: true
+    _firstRun: true
+    _version: "0.6.45"
   "api-docs":
     "angularjs~1":
       "5": true
@@ -23,33 +27,47 @@
       "5": true
   "atom-fuzzyy-grep":
     showFullPath: true
+  "autocomplete-plus":
+    autoActivationDelay: 500
   core:
     autoHideMenuBar: true
+    disabledPackages: [
+      "emmet"
+      "sort-lines"
+      "symbols-tree-view"
+      "synced-sidebar"
+      "tab-switcher"
+      "hyperclick"
+      "jumpy"
+    ]
+    telemetryConsent: "no"
   editor:
+    atomicSoftTabs: false
     fontSize: 21
     invisibles: {}
     showIndentGuide: true
     showInvisibles: true
     tabLength: 4
-  "exception-reporting":
-    userId: "637beacd-ee69-b640-10b9-d7eaba53daa6"
   jumpy:
     fontSize: 0.95
     highContrast: true
-  "symbols-tree-view":
-    autoToggle: true
-  "tree-view": {}
-  welcome:
-    showOnStartup: false
   "line-ending-selector":
     defaultLineEnding: "LF"
-  "tabs-to-spaces":
-    onSave: "untabify"
+  linter:
+    displayLinterInfo: false
+    showErrorPanel: false
   "platformio-ide-terminal":
     core: {}
     customTexts: {}
     style: {}
     toggles: {}
+  "symbols-tree-view":
+    autoToggle: true
+  "tabs-to-spaces":
+    onSave: "untabify"
+  "tree-view": {}
+  welcome:
+    showOnStartup: false
 ".slim.text":
   whitespace:
     removeTrailingWhitespace: true
