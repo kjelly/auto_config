@@ -13,6 +13,9 @@ CapsLock & a::return
 CapsLock & c::return
 CapsLock & x::return
 
+CapsLock & -::return
+CapsLock & =::return
+
 CapsLock & h::Send, {Left}
 CapsLock & j::Send, {Down}
 CapsLock & k::Send, {Up}
@@ -69,6 +72,8 @@ CapsLock & Left::return
 CapsLock & Right::return
 CapsLock & PgDn::return
 CapsLock & PgUp::return
+CapsLock & Backspace::return
+CapsLock & Del::return
 
 ^CapsLock::return
 +CapsLock::return
