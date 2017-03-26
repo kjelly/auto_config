@@ -155,16 +155,14 @@ Plug 'vim-scripts/grep.vim'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-fugitive'
 Plug 'godlygeek/tabular'
-Plug 'DevWurm/autosession.vim'
+"Plug 'DevWurm/autosession.vim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'gagoar/stripwhitespaces'
-Plug 'scrooloose/syntastic'
-Plug 'mattn/emmet-vim'
 Plug 'vim-expand-region'
 Plug 'bling/vim-airline'
 Plug 'osyo-manga/vim-over'
 Plug 'majutsushi/tagbar'
-Plug 'Shougo/unite.vim'
+Plug 'junegunn/fzf.vim'
 
 Plug 'dag/vim-fish'
 
@@ -175,12 +173,14 @@ Plug 'dag/vim-fish'
 
 {% if programming %}
 
+Plug 'mattn/emmet-vim'
+Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
-Plug 'junegunn/fzf.vim'
+Plug 'Shougo/unite.vim'
 
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
+"Plug 'Shougo/neosnippet'
+"Plug 'Shougo/neosnippet-snippets'
 
 Plug 'vim-markdown-preview'
 "
@@ -191,8 +191,8 @@ Plug 'mbbill/undotree'
 " Plugin to toggle, display and navigate marks
 Plug 'kshenoy/vim-signature'
 
-Plug 'Shougo/vimproc.vim'
-Plug 'Shougo/vimshell.vim'
+"Plug 'Shougo/vimproc.vim'
+"Plug 'Shougo/vimshell.vim'
 Plug 'Chiel92/vim-autoformat'
 
 " Lang
