@@ -10,8 +10,6 @@ CapsLock & 9::return
 CapsLock & 0::return
 CapsLock & s::return
 CapsLock & a::return
-CapsLock & .::return
-CapsLock & ,::return
 CapsLock & c::return
 CapsLock & x::return
 
@@ -37,6 +35,10 @@ CapsLock & o::Send, =
 CapsLock & p::Send, {+}
 
 CapsLock & /::Send, ~
+CapsLock & .::Send #^{Right}
+CapsLock & ,::Send #^{Left}
+CapsLock & m::Send, {RWin}
+CapsLock & n::Send, |
 
 CapsLock & f::Send, {PgDn}
 CapsLock & b::Send, {PgUp}
@@ -48,12 +50,27 @@ CapsLock & [::Send, {Esc}
 CapsLock & ]::return
 CapsLock & \::return
 
-CapsLock & m::Send, {RWin}
-
 CapsLock::return
 
 CapsLock & d::return
 CapsLock & z::return
-CapsLock & n::return
 CapsLock & `::return
 
+CapsLock & Space::return
+CapsLock & Tab::return
+CapsLock & Esc::return
+CapsLock & Enter::return
+CapsLock & Shift::return
+CapsLock & Ctrl::return
+CapsLock & Alt::return
+CapsLock & Up::return
+CapsLock & Down::return
+CapsLock & Left::return
+CapsLock & Right::return
+CapsLock & PgDn::return
+CapsLock & PgUp::return
+
+^CapsLock::return
++CapsLock::return
+!CapsLock::return
+#CapsLock::return
