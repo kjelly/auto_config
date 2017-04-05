@@ -20,7 +20,7 @@ def main():
     path_list = ['~/gohome/bin', '~/bin', '~/mybin', '~/dark-sdk/bin',
                  '~/swif/usr/bin', '/usr/local/mercury-14.01.1/bin',
                  '/usr/lib/dart/bin/', '~/.cargo/bin/', '~/sbt/bin',
-                 '~/.pub-cache/bin', '~/dart-sdk/bin']
+                 '~/.pub-cache/bin', '~/dart-sdk/bin', '~/activator/bin/']
 
     for path in path_list:
         real_path = os.path.abspath(os.path.expanduser(path))
