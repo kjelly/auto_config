@@ -1,8 +1,6 @@
-autocomplete-plus
 vim-mode-plus
 "vim-mode-plus-ex-mode"
 "atom-fuzzy-grep"
-autocomplete
 atom-beautify
 symbols-tree-view
 jumpy
@@ -12,4 +10,3 @@ sort-lines
 "hyperclick"
 "api-docs"
 "tabs-to-spaces"
-"atom-html-preview"
