@@ -51,6 +51,8 @@
   jumpy:
     fontSize: 0.95
     highContrast: true
+  "line-ending-converter":
+    normalizeEolOnSave: "Unix (LF)"
   "line-ending-selector":
     defaultLineEnding: "LF"
   linter:
