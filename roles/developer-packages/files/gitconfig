@@ -5,3 +5,5 @@
 [core]
 	editor = vim
 	eol = lf
+    autocrlf = false
+
