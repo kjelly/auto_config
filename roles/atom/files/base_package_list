@@ -13,3 +13,4 @@ sort-lines
 "api-docs"
 "tabs-to-spaces"
 "atom-html-preview"
+line-ending-converter
