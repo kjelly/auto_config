@@ -30,5 +30,6 @@
     { "key": "alt+h", "command": "workbench.action.moveEditorToPreviousGroup" },
     { "key": "alt+j", "command": "workbench.action.focusFirstEditorGroup" },
     { "key": "alt+k", "command": "workbench.action.focusSecondEditorGroup" },
-    { "key": "alt+l", "command": "workbench.action.moveEditorToNextGroup" }
+    { "key": "alt+l", "command": "workbench.action.moveEditorToNextGroup" },
+    { "key": "ctrl+w", "command": "workbench.action.closeActiveEditor" }
 ]
