@@ -7,11 +7,18 @@
     { "key": "ctrl+8", "command": "workbench.view.debug"},
     { "key": "ctrl+n", "command": "workbench.action.toggleSidebarVisibility"},
     { "key": "alt+;", "command": "workbench.action.terminal.toggleTerminal"},
+    { "key": "alt+p", "command": "workbench.action.terminal.focusPrevious", "when": "terminalFocus"},
+    { "key": "alt+n", "command": "workbench.action.terminal.focusNext", "when": "terminalFocus"},
+    { "key": "alt+c", "command": "workbench.action.terminal.open", "when": "terminalFocus"},
+    { "key": "alt+k", "command": "workbench.action.terminal.kill", "when": "terminalFocus"},
+    { "key": "alt+b", "command": "workbench.action.terminal.scrollUp", "when": "terminalFocus"},
+    { "key": "alt+f", "command": "workbench.action.terminal.scrollDown", "when": "terminalFocus"},
     { "key": ", q",              "command": "workbench.action.closeActiveEditor",
                                    "when": "editorTextFocus && !inDebugRepl && vim.mode == 'Normal'" },
     { "key": "j", "command": "list.focusDown", "when": "filesExplorerFocus" }, 
     { "key": "k", "command": "list.focusUp", "when": "filesExplorerFocus" }, 
     { "key": "l", "command": "list.expand", "when": "filesExplorerFocus" }, 
     { "key": "h", "command": "list.collapse", "when": "filesExplorerFocus" }, 
-    { "key": "enter", "command": "list.select", "when": "filesExplorerFocus" }
+    { "key": "enter", "command": "list.select", "when": "filesExplorerFocus" },
+    { "command": "editor.action.selectAll", "key": "ctrl+a" }
 ]
