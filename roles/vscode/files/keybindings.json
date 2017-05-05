@@ -1,10 +1,15 @@
 [
     { "key": "alt+e",  "command": "workbench.action.showCommands"},
     { "key": "ctrl+4", "command": "workbench.action.terminal.focus"},
-    { "key": "ctrl+5", "command": "workbench.view.explore"},
+    { "key": "ctrl+5", "command": "workbench.view.explorer"},
     { "key": "ctrl+6", "command": "workbench.view.search"},
     { "key": "ctrl+7", "command": "workbench.view.git"},
     { "key": "ctrl+8", "command": "workbench.view.debug"},
     { "key": ", q",              "command": "workbench.action.closeActiveEditor",
                                    "when": "editorTextFocus && !inDebugRepl && vim.mode == 'Normal'" },
+    { "key": "j", "command": "list.focusDown", "when": "filesExplorerFocus" }, 
+    { "key": "k", "command": "list.focusUp", "when": "filesExplorerFocus" }, 
+    { "key": "l", "command": "list.expand", "when": "filesExplorerFocus" }, 
+    { "key": "h", "command": "list.collapse", "when": "filesExplorerFocus" }, 
+    { "key": "enter", "command": "list.select", "when": "filesExplorerFocus" }
 ]
