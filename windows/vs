@@ -1,0 +1,2 @@
+#!/bin/bash
+code "C:\\Users\\kjell\\AppData\\Local\\lxss\\"$(pwd)/$1
