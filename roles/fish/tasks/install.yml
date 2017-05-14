@@ -1,4 +1,16 @@
 ---
+- name: Install bc package(Debian family)
+  apt: name={{ item }} state=present
+  with_items:
+    - bc
+  when: ansible_os_family == "Debian"
+
+- name: Install bc package(RedHat family)
+  yum: name={{ item }} state=present
+  with_items:
+    - bc
+  when: ansible_os_family == "RedHat"
+
 - stat: path=/usr/local/bin/fish
   register: fish_exec
 
