@@ -7,5 +7,16 @@
     "editor.renderWhitespace": "boundary",
     "editor.insertSpaces": true,
     "window.menuBarVisibility": "toggle",
-    "files.eol": "\n"
+    "files.eol": "\n",
+    "explorer.autoReveal": false,
+    "workbench.welcome.enabled": false,
+    "sync.gist": "7a6994ea6902775d4e43bed806e9a00e",
+    "sync.lastUpload": "2017-05-08T04:03:33.524Z",
+    "sync.autoDownload": false,
+    "sync.autoUpload": false,
+    "sync.lastDownload": "",
+    "sync.forceDownload": false,
+    "sync.anonymousGist": false,
+    "sync.host": "",
+    "sync.pathPrefix": ""
 }
