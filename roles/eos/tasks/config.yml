@@ -1,0 +1,15 @@
+---
+
+- copy: src={{ item }} dest="/tmp/"
+  with_items:
+    - keybindings
+    - media-keys
+    - touchpad
+
+- debug: msg="{{item.split(":")[0]}}"
+  with_lines:
+    - "cat roles/eos/files/lists"
+
+- shell: /usr/bin/dconf load {{ item.split(":")[0] }} < /tmp/{{ item.split(":")[1] }}
+  with_lines:
+    - "cat roles/eos/files/lists"
