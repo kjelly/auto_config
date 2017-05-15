@@ -6,6 +6,8 @@
     - media-keys
     - touchpad
 
+- copy: src=libinput-gestures.conf dest="~/.config/"
+
 - debug: msg="{{item.split(":")[0]}}"
   with_lines:
     - "cat roles/eos/files/lists"
