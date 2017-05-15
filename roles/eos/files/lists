@@ -1,0 +1,3 @@
+/org/gnome/settings-daemon/plugins/media-keys/:media-keys
+/org/gnome/desktop/peripherals/touchpad/:touchpad
+/org/gnome/desktop/wm/keybindings/:keybindings
