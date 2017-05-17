@@ -12,5 +12,5 @@
           chdir: /tmp
   always:
     - name: instalal vscode from deb file
-      deb: name=/tmp/vscode.deb state=present
+      apt: deb=/tmp/vscode.deb state=present
       become: yes
