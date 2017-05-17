@@ -1,0 +1,9 @@
+---
+
+- atom_latest_version:
+  register: stdout
+
+- set_fact: ATOM_LATEST_VERSION={{ stdout.VERSION }}
+- dnf: name="https://github.com/atom/atom/releases/download/{{ ATOM_LATEST_VERSION }}/atom.x86_64.rpm"
+       state=present
+  sudo: yes
