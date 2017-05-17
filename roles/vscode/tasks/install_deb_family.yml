@@ -1,0 +1,16 @@
+---
+
+
+- block:
+    - name: download vscode package by get_url
+      get_url: url=https://go.microsoft.com/fwlink/?LinkID=760868 dest=/tmp/vscode.deb
+
+  rescue:
+    - name: download vscode by wget
+      shell: wget -O vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
+      args:
+          chdir: /tmp
+  always:
+    - name: instalal vscode from deb file
+      deb: name=/tmp/vscode.deb state=present
+      become: yes

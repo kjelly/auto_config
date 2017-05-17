@@ -1,0 +1,15 @@
+---
+
+- block:
+    - name: download vscode package by get_url
+      get_url: url=https://go.microsoft.com/fwlink/?LinkID=760867 dest=/tmp/vscode.rpm
+
+  rescue:
+    - name: download vscode by wget
+      shell: wget -O vscode.rpm https://go.microsoft.com/fwlink/?LinkID=760867
+      args:
+          chdir: /tmp
+  always:
+    - name: instalal vscode from rpm file
+      yum: name=/tmp/vscode.rpm state=present
+      become: yes
