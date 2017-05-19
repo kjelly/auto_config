@@ -26,6 +26,7 @@
     { "key": "h", "command": "list.collapse", "when": "filesExplorerFocus" },
     { "key": "enter", "command": "list.select", "when": "filesExplorerFocus" },
     { "key": "ctrl+a", "command": "editor.action.selectAll"},
+    { "key": "ctrl+c", "command": "editor.action.clipboardCopyAction", "when": "editorTextFocus" },
 
     { "key": "alt+h", "command": "workbench.action.moveEditorToPreviousGroup" },
     { "key": "alt+j", "command": "workbench.action.focusFirstEditorGroup" },
