@@ -160,6 +160,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'bling/vim-airline'
 Plug 'osyo-manga/vim-over'
 Plug 'junegunn/fzf.vim'
+Plug 'easymotion/vim-easymotion'
 
 " Lang
 Plug 'dag/vim-fish'
@@ -398,6 +399,10 @@ let g:clang_cpp_completeopt = "menu,preview,noinsert,noselect"
 
 let g:syntastic_cpp_compiler_options="-std=gnu++14"
 
+" Easymotion
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
 autocmd! InsertEnter,WinLeave * set nocursorline
@@ -605,6 +610,13 @@ inoremap     <a-/>  :Windows<cr>
 " Auto complete for all word
 inoremap     <c-a>  <c-x><c-n>
 
+" Easymotion
+nmap s <Plug>(easymotion-s)
+nmap f <Plug>(easymotion-overwin-w)
+map <Leader><leader>h <Plug>(easymotion-linebackward)
+map <Leader><Leader>j <Plug>(easymotion-j)
+map <Leader><Leader>k <Plug>(easymotion-k)
+map <Leader><leader>l <Plug>(easymotion-lineforward)
 
 {% if nvim %}
 
