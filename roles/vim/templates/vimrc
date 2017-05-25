@@ -756,6 +756,16 @@ inoremap <A-a> <Esc>
 nnoremap <A-a> i
 vnoremap <A-a> <Esc>
 
+tnoremap <C-q> <C-\><C-n>
+inoremap <C-q> <Esc>
+nnoremap <C-q> i
+vnoremap <C-q> <Esc>
+
+tnoremap <C-]> <C-\><C-n>
+inoremap <C-]> <Esc>
+nnoremap <C-]> i
+vnoremap <C-]> <Esc>
+
 tnoremap <C-]> <C-\><C-n>
 inoremap <C-]> <Esc>
 nnoremap <C-]> i
