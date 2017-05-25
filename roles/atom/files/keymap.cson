@@ -13,12 +13,11 @@
   'alt-l': 'focus-pane-or-panel:focus-on-right'
 
   'alt-f': 'tree-view:toggle-focus'
-  'alt-r': 'command-palette:toggle'
+  'alt-e': 'command-palette:toggle'
   'alt-;': 'platformio-ide-terminal:toggle'
 
   'alt-d': 'api-docs:search-under-cursor'
 
-  'alt-e': 'platformio-ide-terminal:insert-text'
   'ctrl-g': 'project-find:show'
   'ctrl-o': 'fuzzy-finder:toggle-buffer-finder'
 
