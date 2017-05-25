@@ -611,8 +611,8 @@ inoremap     <a-/>  :Windows<cr>
 inoremap     <c-a>  <c-x><c-n>
 
 " Easymotion
-nmap s <Plug>(easymotion-s)
-nmap f <Plug>(easymotion-overwin-w)
+nmap S <Plug>(easymotion-s)
+nmap F <Plug>(easymotion-overwin-w)
 map <Leader><leader>h <Plug>(easymotion-linebackward)
 map <Leader><Leader>j <Plug>(easymotion-j)
 map <Leader><Leader>k <Plug>(easymotion-k)
@@ -760,11 +760,6 @@ tnoremap <C-q> <C-\><C-n>
 inoremap <C-q> <Esc>
 nnoremap <C-q> i
 vnoremap <C-q> <Esc>
-
-tnoremap <C-]> <C-\><C-n>
-inoremap <C-]> <Esc>
-nnoremap <C-]> i
-vnoremap <C-]> <Esc>
 
 tnoremap <C-]> <C-\><C-n>
 inoremap <C-]> <Esc>
