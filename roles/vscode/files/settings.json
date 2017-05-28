@@ -18,5 +18,19 @@
     "sync.forceDownload": false,
     "sync.anonymousGist": false,
     "sync.host": "",
-    "sync.pathPrefix": ""
+    "sync.pathPrefix": "",
+    "vim.enableNeovim": false,
+    "vim.neovimPath": "/usr/local/bin/nvim",
+
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.leader": ",",
+    "vim.handleKeys":{
+        "<C-a>": false,
+        "<C-f>": false
+    }
+
 }
