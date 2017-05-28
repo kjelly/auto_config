@@ -612,7 +612,7 @@ inoremap     <c-a>  <c-x><c-n>
 
 " Easymotion
 nmap S <Plug>(easymotion-s)
-nmap F <Plug>(easymotion-overwin-w)
+nmap f <Plug>(easymotion-overwin-w)
 map <Leader><leader>h <Plug>(easymotion-linebackward)
 map <Leader><Leader>j <Plug>(easymotion-j)
 map <Leader><Leader>k <Plug>(easymotion-k)
