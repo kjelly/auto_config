@@ -11,7 +11,7 @@
     "explorer.autoReveal": false,
     "workbench.welcome.enabled": false,
     "sync.gist": "7a6994ea6902775d4e43bed806e9a00e",
-    "sync.lastUpload": "2017-05-08T04:03:33.524Z",
+    "sync.lastUpload": "",
     "sync.autoDownload": false,
     "sync.autoUpload": false,
     "sync.lastDownload": "",
@@ -31,6 +31,7 @@
     "vim.handleKeys":{
         "<C-a>": false,
         "<C-f>": false
-    }
-
+    },
+    "sync.quietSync": false,
+    "vim.disableAnnoyingNeovimMessage": true
 }
