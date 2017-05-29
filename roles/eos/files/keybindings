@@ -1,2 +1,7 @@
 [/]
+minimize=['']
+toggle-maximized=['<Super>k']
+toggle-above=['<Super>j']
+move-to-workspace-left=['<Alt><Super>Left']
+move-to-workspace-right=['<Alt><Super>Right']
 panel-main-menu=['<Super>r']
