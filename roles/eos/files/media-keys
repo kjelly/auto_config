@@ -1,2 +1,18 @@
 [/]
-terminal='<Super>Return'
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']
+terminal='<Super>t'
+
+[custom-keybindings/custom2]
+binding='<Super>semicolon'
+command='xdotool key super+shift+Left'
+name='xdotool key super+shift+Left'
+
+[custom-keybindings/custom1]
+binding='<Super>apostrophe'
+command='xdotool key super+shift+Right'
+name='xdotool key super+shift+Right'
+
+[custom-keybindings/custom0]
+binding='<Super>Return'
+command='gnome-terminal'
+name='gnome-terminal'
