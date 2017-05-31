@@ -29,6 +29,7 @@
         "@wrapToView": true,
         "custom-types": {
             "json()": {
+                "^searchresults": "c9search",
                 "settings": "javascript"
             }
         },
@@ -121,6 +122,14 @@
                 "keys": {
                     "win": [
                         "Alt-'"
+                    ]
+                }
+            },
+            {
+                "command": "searchinfiles",
+                "keys": {
+                    "win": [
+                        "Alt-F"
                     ]
                 }
             }
