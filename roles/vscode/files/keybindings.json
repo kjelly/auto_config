@@ -14,6 +14,7 @@
     { "key": "alt+k", "command": "workbench.action.terminal.kill", "when": "terminalFocus"},
     { "key": "alt+b", "command": "workbench.action.terminal.scrollUp", "when": "terminalFocus"},
     { "key": "alt+f", "command": "workbench.action.terminal.scrollDown", "when": "terminalFocus"},
+    { "key": "alt+f", "command": "workbench.action.findInFiles", "when": "!terminalFocus && !searchInputBoxFocus"},
     { "key": "alt+d", "command": "editor.action.showHover", "when": "editorTextFocus"},
     { "key": "alt+/", "command": "editor.action.triggerSuggest", "when": "editorHasCompletionItemProvider && editorTextFocus && !editorReadonly"},
     { "key": ", q",              "command": "workbench.action.closeActiveEditor",
