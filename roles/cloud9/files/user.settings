@@ -7,7 +7,7 @@
         "@displayIndentGuides": true,
         "@fadeFoldWidgets": true,
         "@fontFamily": "Monaco, Menlo, Ubuntu Mono, Consolas, source-code-pro, monospace",
-        "@fontSize": 17,
+        "@fontSize": 22,
         "@highlightActiveLine": true,
         "@highlightGutterLine": true,
         "@highlightSelectedWord": true,
@@ -44,6 +44,11 @@
     },
     "collab": {
         "@showbubbles": "true"
+    },
+    "config": {
+        "init.js": {
+            "json()": "require([\"plugins/c9.ide.ace.keymaps/vim/keymap\"], function(vim) {\n    vim.map(\"<C-p>\", \"c9:navigate\", \"normal\");\n    vim.map(\"<C-o>\", \"c9:navigate\", \"normal\");\n    vim.map(\",ff\", \"c9:revealtab\", \"normal\");\n    vim.map(\"jk\", \"<Esc>\", \"insert\");\n    // alt doesn't work now\n    vim.map(\"<A-f>\", \"c9:revealtab\", \"normal\");\n    vim.map(\"<A-a>\", \"<Esc>\", \"insert\");\n});"
+        }
     },
     "debug": {
         "@autoshow": true,
