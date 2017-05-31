@@ -15,6 +15,7 @@
   'alt-;': 'platformio-ide-terminal:toggle'
 
   'alt-d': 'api-docs:search-under-cursor'
+  'alt-f': 'project-find:show'
 
   'ctrl-g': 'project-find:show'
   'ctrl-o': 'fuzzy-finder:toggle-buffer-finder'
@@ -103,7 +104,7 @@
 
 '.tree-view':
   'ctrl-n': 'tree-view:toggle'
-  'alt-f': 'tree-view:toggle-focus'
+  'alt-t': 'tree-view:toggle-focus'
 
   'alt-h': 'focus-pane-or-panel:focus-on-left'
   'alt-l': 'focus-pane-or-panel:focus-on-right'

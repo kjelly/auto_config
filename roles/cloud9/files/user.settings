@@ -27,6 +27,11 @@
         "@useWrapMode": false,
         "@wrapBehavioursEnabled": false,
         "@wrapToView": true,
+        "custom-types": {
+            "json()": {
+                "settings": "javascript"
+            }
+        },
         "statusbar": {
             "@show": true
         }
@@ -95,6 +100,22 @@
                 "keys": {
                     "win": [
                         "Alt-W"
+                    ]
+                }
+            },
+            {
+                "command": "openterminal",
+                "keys": {
+                    "win": [
+                        "Alt-;"
+                    ]
+                }
+            },
+            {
+                "command": "switchterminal",
+                "keys": {
+                    "win": [
+                        "Alt-'"
                     ]
                 }
             }
