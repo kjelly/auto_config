@@ -97,7 +97,7 @@
                 "command": "closetab",
                 "keys": {
                     "win": [
-                        "Alt-W"
+                        "F4"
                     ]
                 }
             },

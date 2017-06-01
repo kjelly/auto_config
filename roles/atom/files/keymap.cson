@@ -35,6 +35,7 @@
 
   'alt-,': 'pane:show-previous-item'
   'alt-.': 'pane:show-next-item'
+  'f4': 'core:close'
 
 
 '.tool-panel':
