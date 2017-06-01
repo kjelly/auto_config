@@ -34,5 +34,8 @@
     { "key": "alt+k", "command": "workbench.action.focusSecondEditorGroup" },
     { "key": "alt+l", "command": "workbench.action.moveEditorToNextGroup" },
     { "key": "ctrl+w", "command": "workbench.action.closeActiveEditor" },
-    { "key": "alt+e", "command": "workbench.action.showCommands"}
+    { "key": "alt+e", "command": "workbench.action.showCommands"},
+    { "key": "f4", "command": "workbench.action.closeActiveEditor"},
+    { "key": "ctrl+f4", "command": "search.action.focusNextSearchResult" }
+
 ]
