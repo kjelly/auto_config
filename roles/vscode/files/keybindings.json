@@ -1,9 +1,9 @@
 [
     { "key": "alt+r",  "command": "workbench.action.showCommands"},
-    { "key": "ctrl+3", "command": "workbench.view.explorer"},
-    { "key": "ctrl+4", "command": "workbench.view.search"},
-    { "key": "ctrl+5", "command": "workbench.view.git"},
-    { "key": "ctrl+6", "command": "workbench.view.debug"},
+    { "key": "ctrl+4", "command": "workbench.view.explorer"},
+    { "key": "ctrl+5", "command": "workbench.view.search"},
+    { "key": "ctrl+6", "command": "workbench.view.git"},
+    { "key": "ctrl+7", "command": "workbench.view.debug"},
     { "key": "ctrl+n", "command": "workbench.action.toggleSidebarVisibility"},
     { "key": "alt+;", "command": "workbench.action.terminal.toggleTerminal"},
     { "key": "alt+'", "command": "workbench.action.terminal.focus", "when": "!terminalFocus"},
@@ -29,13 +29,23 @@
     { "key": "ctrl+a", "command": "editor.action.selectAll"},
     { "key": "ctrl+c", "command": "editor.action.clipboardCopyAction", "when": "editorTextFocus" },
 
-    { "key": "alt+h", "command": "workbench.action.moveEditorToPreviousGroup" },
-    { "key": "alt+j", "command": "workbench.action.focusFirstEditorGroup" },
-    { "key": "alt+k", "command": "workbench.action.focusSecondEditorGroup" },
-    { "key": "alt+l", "command": "workbench.action.moveEditorToNextGroup" },
+    { "key": "alt+h", "command": "workbench.action.navigateLeft" },
+    { "key": "alt+j", "command": "workbench.action.navigateDown" },
+    { "key": "alt+k", "command": "workbench.action.navigateUp" },
+    { "key": "alt+l", "command": "workbench.action.navigateRight" },
     { "key": "ctrl+w", "command": "workbench.action.closeActiveEditor" },
+    { "key": "alt+r", "command": "workbench.action.terminal.runActiveFile"},
     { "key": "alt+e", "command": "workbench.action.showCommands"},
     { "key": "f4", "command": "workbench.action.closeActiveEditor"},
-    { "key": "ctrl+f4", "command": "search.action.focusNextSearchResult" }
+    { "key": "ctrl+f4", "command": "search.action.focusNextSearchResult" },
 
+    { "key": "alt+1", "command": "workbench.action.terminal.focusAtIndex1", "when": "terminalFocus" },
+    { "key": "alt+2", "command": "workbench.action.terminal.focusAtIndex2", "when": "terminalFocus" },
+    { "key": "alt+3", "command": "workbench.action.terminal.focusAtIndex3", "when": "terminalFocus" },
+    { "key": "alt+4", "command": "workbench.action.terminal.focusAtIndex4", "when": "terminalFocus" },
+    { "key": "alt+5", "command": "workbench.action.terminal.focusAtIndex5", "when": "terminalFocus" },
+    { "key": "alt+6", "command": "workbench.action.terminal.focusAtIndex6", "when": "terminalFocus" },
+    { "key": "alt+7", "command": "workbench.action.terminal.focusAtIndex7", "when": "terminalFocus" },
+    { "key": "alt+8", "command": "workbench.action.terminal.focusAtIndex8", "when": "terminalFocus" },
+    { "key": "alt+9", "command": "workbench.action.terminal.focusAtIndex9", "when": "terminalFocus" }
 ]
