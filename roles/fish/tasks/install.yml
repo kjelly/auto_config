@@ -3,7 +3,7 @@
   apt: name={{ item }} state=present
   with_items:
     - bc
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian" or ansible_os_family == "\"elementary\""
 
 - name: Install bc package(RedHat family)
   yum: name={{ item }} state=present
@@ -37,7 +37,7 @@
     - gettext
     - autoconf
   sudo: yes
-  when: ansible_distribution == 'Ubuntu' and need_install
+  when: (ansible_distribution == 'Ubuntu' or ansible_os_family == "\"elementary\"") and need_install
 
 - name: Install fish dependent package
   apt: name={{ item }} state=present

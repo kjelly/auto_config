@@ -1,7 +1,7 @@
 ---
 
 - include: "install_debian_family.yml"
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution == 'Ubuntu' or ansible_os_family == "\"elementary\""
 
 - include: "install_debian_family.yml"
   when: ansible_distribution == 'Fedora'

@@ -13,7 +13,7 @@
   when: ansible_distribution == 'Debian'
 
 - include: "install-ubuntu.yml"
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution == 'Ubuntu' or ansible_os_family == "\"elementary\""
 
 - include: "install-fedora.yml"
   when: ansible_distribution == 'Fedora'
