@@ -33,5 +33,6 @@
         "<C-f>": false
     },
     "sync.quietSync": false,
+    "explorer.openEditors.visible": 0,
     "vim.disableAnnoyingNeovimMessage": true
 }
