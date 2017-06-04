@@ -723,8 +723,6 @@ set mouse=""
 map <leader>tt :tabnew %<cr>:terminal<cr>
 map <leader>tb :split<cr><c-w>j:terminal<cr>
 
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
 " Tab switch
 tnoremap <A-1> <C-\><C-n>1gti
 tnoremap <A-2> <C-\><C-n>2gti
