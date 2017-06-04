@@ -36,7 +36,7 @@
     - "libxinerama-dev"
 
   sudo: yes
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Debian' or ansible_os_family == "\"elementary\""
   ignore_errors: yes
 
 - name: Install i3 dependence lib for fedora
@@ -102,7 +102,7 @@
 
 
   sudo: yes
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution == 'Ubuntu' or ansible_os_family == "\"elementary\""
 
 - name: Install i3 package
   apt: name={{ item }} state=present

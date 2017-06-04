@@ -5,7 +5,7 @@
   with_items:
    - byobu
   sudo: yes
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution == 'Ubuntu' or ansible_os_family == "\"elementary\""
 
 - name: Install byobu package
   dnf: name={{ item }} state=present
