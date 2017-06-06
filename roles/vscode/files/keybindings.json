@@ -34,7 +34,7 @@
     { "key": "alt+k", "command": "workbench.action.navigateUp" },
     { "key": "alt+l", "command": "workbench.action.navigateRight" },
     { "key": "ctrl+w", "command": "workbench.action.closeActiveEditor" },
-    { "key": "alt+r", "command": "workbench.action.terminal.runActiveFile"},
+    { "key": "alt+r", "command": "workbench.action.tasks.runTask"},
     { "key": "alt+e", "command": "workbench.action.showCommands"},
     { "key": "f4", "command": "workbench.action.closeActiveEditor"},
     { "key": "ctrl+f4", "command": "search.action.focusNextSearchResult" },
@@ -49,3 +49,4 @@
     { "key": "alt+8", "command": "workbench.action.terminal.focusAtIndex8", "when": "terminalFocus" },
     { "key": "alt+9", "command": "workbench.action.terminal.focusAtIndex9", "when": "terminalFocus" }
 ]
+
