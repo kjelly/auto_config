@@ -39,6 +39,9 @@
     { "key": "f4", "command": "workbench.action.closeActiveEditor"},
     { "key": "ctrl+f4", "command": "search.action.focusNextSearchResult" },
 
+    { "key": "ctrl+q", "command": "extension.vim_ctrl+[", "when": "editorTextFocus && vim.active && vim.use<C-[> && !inDebugRepl" },
+    { "key": "alt+a", "command": "extension.vim_ctrl+[", "when": "editorTextFocus && vim.active && vim.use<C-[> && !inDebugRepl" },
+
     { "key": "alt+1", "command": "workbench.action.terminal.focusAtIndex1", "when": "terminalFocus" },
     { "key": "alt+2", "command": "workbench.action.terminal.focusAtIndex2", "when": "terminalFocus" },
     { "key": "alt+3", "command": "workbench.action.terminal.focusAtIndex3", "when": "terminalFocus" },
