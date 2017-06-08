@@ -20,8 +20,8 @@ def copy_config():
 
 
 def main():
-    for i in get_package_list():
-        os.system("code --install-extension %s" % i)
+#    for i in get_package_list():
+#        os.system("code --install-extension %s" % i)
     copy_config()
 
 if __name__ == '__main__':
