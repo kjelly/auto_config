@@ -1,5 +1,4 @@
 [
-    { "key": "alt+r",  "command": "workbench.action.showCommands"},
     { "key": "ctrl+4", "command": "workbench.view.explorer"},
     { "key": "ctrl+5", "command": "workbench.view.search"},
     { "key": "ctrl+6", "command": "workbench.view.git"},
