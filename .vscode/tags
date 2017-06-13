@@ -1,0 +1,402 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Cmd	../roles/mybin/files/cmd.py	/^class Cmd(object):$/;"	kind:class	line:55
+ConnectionError	../roles/i3/files/i3-config/i3.py	/^class ConnectionError(i3Exception):$/;"	kind:class	line:79
+CustomDockerCommand	../roles/mybin/files/dw.py	/^class CustomDockerCommand(object):$/;"	kind:class	line:16
+DockerShell	../roles/mybin/files/dw.py	/^class DockerShell(cmd.Cmd):$/;"	kind:class	line:65
+DockerShellMeta	../roles/mybin/files/dw.py	/^class DockerShellMeta(type):$/;"	kind:class	line:51
+EVENT_TYPES	../roles/i3/files/i3-config/i3.py	/^EVENT_TYPES = [$/;"	kind:variable	line:47
+EXECUTE_PATH	../windows/apm_install.py	/^EXECUTE_PATH = os.path.abspath(os.path.dirname(__file__))$/;"	kind:variable	line:6
+EXECUTE_PATH	../windows/vscode.py	/^EXECUTE_PATH = os.path.abspath(os.path.dirname(__file__))$/;"	kind:variable	line:7
+EventTypeError	../roles/i3/files/i3-config/i3.py	/^class EventTypeError(i3Exception):$/;"	kind:class	line:64
+HOME	../windows/apm_install.py	/^HOME = os.path.expanduser('~')$/;"	kind:variable	line:5
+HOME	../windows/vscode.py	/^HOME = os.path.expanduser('~')$/;"	kind:variable	line:5
+IDENTCHARS	../roles/mybin/files/cmd.py	/^IDENTCHARS = string.ascii_letters + string.digits + '_'$/;"	kind:variable	line:53
+INTERVAL	../roles/i3/files/i3-config/modules/take_break.py	/^    INTERVAL = 3$/;"	kind:variable	line:29
+MSG_TYPES	../roles/i3/files/i3-config/i3.py	/^MSG_TYPES = [$/;"	kind:variable	line:37
+MessageError	../roles/i3/files/i3-config/i3.py	/^class MessageError(i3Exception):$/;"	kind:class	line:72
+MessageTypeError	../roles/i3/files/i3-config/i3.py	/^class MessageTypeError(i3Exception):$/;"	kind:class	line:56
+ModuleType	../roles/i3/files/i3-config/i3.py	/^ModuleType = type(sys)$/;"	kind:variable	line:28
+PROMPT	../roles/mybin/files/cmd.py	/^PROMPT = '(Cmd) '$/;"	kind:variable	line:52
+Py3status	../roles/i3/files/i3-config/modules/cpu-temp.py	/^class Py3status:$/;"	kind:class	line:6
+Py3status	../roles/i3/files/i3-config/modules/mem-usage.py	/^class Py3status:$/;"	kind:class	line:21
+Py3status	../roles/i3/files/i3-config/modules/take_break.py	/^class Py3status:$/;"	kind:class	line:20
+Py3status	../roles/i3/files/i3-config/modules/title.py	/^class Py3status:$/;"	kind:class	line:61
+Py3status	../roles/i3/files/i3-config/modules/whoami.py	/^class Py3status:$/;"	kind:class	line:5
+Socket	../roles/i3/files/i3-config/i3.py	/^class Socket(object):$/;"	kind:class	line:123
+Subscription	../roles/i3/files/i3-config/i3.py	/^class Subscription(threading.Thread):$/;"	kind:class	line:280
+VS_CODE	../windows/vscode.py	/^VS_CODE = os.path.join(HOME,"AppData", "Roaming", "Code", "User")$/;"	kind:variable	line:6
+__all__	../roles/mybin/files/cmd.py	/^__all__ = ["Cmd"]$/;"	kind:variable	line:50
+__author__	../roles/i3/files/i3-config/i3.py	/^__author__ = 'Jure Ziberna'$/;"	kind:variable	line:31
+__call_cmd__	../roles/i3/files/i3-config/i3.py	/^def __call_cmd__(cmd):$/;"	kind:function	line:360
+__date__	../roles/i3/files/i3-config/i3.py	/^__date__ = '2012-06-20'$/;"	kind:variable	line:33
+__function__	../roles/i3/files/i3-config/i3.py	/^def __function__(type, message='', *args, **crit):$/;"	kind:function	line:396
+__getattr__	../roles/i3/files/i3-config/i3.py	/^    def __getattr__(self, name):$/;"	kind:member	line:540
+__init__	../roles/i3/files/i3-config/i3.py	/^    def __init__(self, callback, event_type, event=None, event_socket=None,$/;"	kind:member	line:297
+__init__	../roles/i3/files/i3-config/i3.py	/^    def __init__(self, module):$/;"	kind:member	line:536
+__init__	../roles/i3/files/i3-config/i3.py	/^    def __init__(self, path=None, timeout=None, chunk_size=None,$/;"	kind:member	line:138
+__init__	../roles/i3/files/i3-config/i3.py	/^    def __init__(self, socket_path):$/;"	kind:member	line:83
+__init__	../roles/i3/files/i3-config/i3.py	/^    def __init__(self, type):$/;"	kind:member	line:60
+__init__	../roles/i3/files/i3-config/i3.py	/^    def __init__(self, type):$/;"	kind:member	line:68
+__init__	../roles/mybin/files/cmd.py	/^    def __init__(self, completekey='tab', stdin=None, stdout=None):$/;"	kind:member	line:79
+__license__	../roles/i3/files/i3-config/i3.py	/^__license__ = 'GNU GPL 3'$/;"	kind:variable	line:34
+__metaclass__	../roles/mybin/files/dw.py	/^    __metaclass__ = DockerShellMeta$/;"	kind:variable	line:66
+__new__	../roles/mybin/files/dw.py	/^    def __new__(cls, cls_name, bases, attrs):$/;"	kind:member	line:52
+__socket__	../roles/i3/files/i3-config/i3.py	/^__socket__ = None$/;"	kind:variable	line:372
+__version__	../roles/i3/files/i3-config/go_to_window.py	/^__version__ = '2.2'$/;"	kind:variable	line:22
+__version__	../roles/i3/files/i3-config/i3.py	/^__version__ = '0.6.5'$/;"	kind:variable	line:32
+__version__	../roles/i3/files/i3-config/quick_switch.py	/^__version__ = '2.2'$/;"	kind:variable	line:22
+action_map	../roles/mybin/files/p.py	/^action_map = {'-s': set_key_value, '-l': list_key_value, '-d': delete_key,$/;"	kind:variable	line:53
+addr	../roles/vim/templates/myvi	/^addr = os.environ.get("NVIM_LISTEN_ADDRESS", None)$/;"	kind:variable	line:19
+answer	../roles/i3/files/i3-config/choose_window_in_scratchpad.py	/^    answer = dmenu(window_titles, dmenu_cmd('select window: '))$/;"	kind:variable	line:14
+answer	../roles/i3/files/i3-config/go_to_mark.py	/^    answer = dmenu(marks, dmenu_cmd('select mark: '))$/;"	kind:variable	line:10
+apm_install.py	../windows/apm_install.py	1;"	kind:file	line:1
+args	../roles/vim/templates/myvi	/^args = sys.argv[1:]$/;"	kind:variable	line:8
+ask_for_variable	../roles/i3/files/i3-config/quick_insert.py	/^def ask_for_variable(template_str):$/;"	kind:function	line:14
+atom_latest_version.py	../library/atom_latest_version.py	1;"	kind:file	line:1
+auto_config_mode	../roles/i3/files/i3-config/auto_config_resolution.py	/^def auto_config_mode():$/;"	kind:function	line:50
+auto_config_resolution.py	../roles/i3/files/i3-config/auto_config_resolution.py	1;"	kind:file	line:1
+breakCount	../roles/i3/files/i3-config/modules/take_break.py	/^    breakCount = 0$/;"	kind:variable	line:28
+buffer	../roles/i3/files/i3-config/i3.py	/^    buffer = b''  # byte string$/;"	kind:variable	line:136
+busy	../roles/i3/files/i3-config/modules/take_break.py	/^    def busy(self, i3status_output_json, i3status_config):$/;"	kind:member	line:34
+busyCount	../roles/i3/files/i3-config/modules/take_break.py	/^    busyCount = 0$/;"	kind:variable	line:27
+c	../roles/mybin/files/dw.py	/^c = docker.Client(base_url='unix:\/\/var\/run\/docker.sock',$/;"	kind:variable	line:11
+c9.py	../roles/cloud9/files/c9.py	1;"	kind:file	line:1
+callback	../roles/i3/files/i3-config/i3.py	/^        def callback(event, data, subscription):$/;"	kind:function	line:427
+check_dmenu	../roles/i3/files/i3-config/go_to_window.py	/^def check_dmenu():$/;"	kind:function	line:38
+check_dmenu	../roles/i3/files/i3-config/quick_switch.py	/^def check_dmenu():$/;"	kind:function	line:38
+chid	../roles/vim/templates/myvi	/^chid = nvim.channel_id$/;"	kind:variable	line:26
+choose_window_in_scratchpad.py	../roles/i3/files/i3-config/choose_window_in_scratchpad.py	1;"	kind:file	line:1
+chunk_size	../roles/i3/files/i3-config/i3.py	/^    chunk_size = 1024  # in bytes$/;"	kind:variable	line:134
+close	../roles/i3/files/i3-config/i3.py	/^    def close(self):$/;"	kind:member	line:273
+close	../roles/i3/files/i3-config/i3.py	/^    def close(self):$/;"	kind:member	line:349
+cmd.py	../roles/mybin/files/cmd.py	1;"	kind:file	line:1
+cmd_list	../roles/mybin/files/dw.py	/^cmd_list = ["attach", "build", "commit", "cp", "diff",$/;"	kind:variable	line:30
+cmdloop	../roles/mybin/files/cmd.py	/^    def cmdloop(self, intro=None):$/;"	kind:member	line:102
+codec	../roles/mybin/files/to_utf8.py	/^    codec = detect_codec(name)$/;"	kind:variable	line:18
+columnize	../roles/mybin/files/cmd.py	/^    def columnize(self, list, displaywidth=80):$/;"	kind:member	line:350
+complete	../roles/mybin/files/cmd.py	/^    def complete(self, text, state):$/;"	kind:member	line:255
+complete_cmd	../roles/mybin/files/dw.py	/^def complete_cmd(text, line, start_index, end_index, cmd):$/;"	kind:function	line:45
+complete_help	../roles/mybin/files/cmd.py	/^    def complete_help(self, *args):$/;"	kind:member	line:290
+completedefault	../roles/mybin/files/cmd.py	/^    def completedefault(self, *ignored):$/;"	kind:member	line:242
+completenames	../roles/mybin/files/cmd.py	/^    def completenames(self, text, *ignored):$/;"	kind:member	line:251
+config_path	../roles/i3/files/i3-config/name_workspace.py	/^config_path = os.path.join(os.path.expanduser("~"), '.i3_workspace_name_history')$/;"	kind:variable	line:10
+connect	../roles/i3/files/i3-config/i3.py	/^    def connect(self, path=None):$/;"	kind:member	line:163
+connected	../roles/i3/files/i3-config/i3.py	/^    def connected(self):$/;"	kind:member	line:263
+container	../roles/i3/files/i3-config/i3.py	/^def container(**criteria):$/;"	kind:function	line:472
+copy_action	../simple_ansible.py	/^def copy_action(args, meta):$/;"	kind:function	line:37
+copy_config	../windows/apm_install.py	/^def copy_config():$/;"	kind:function	line:15
+copy_config	../windows/vscode.py	/^def copy_config():$/;"	kind:function	line:15
+cpu-temp.py	../roles/i3/files/i3-config/modules/cpu-temp.py	1;"	kind:file	line:1
+cpu_temp	../roles/i3/files/i3-config/modules/cpu-temp.py	/^    def cpu_temp(self, i3status_output_json, i3status_config):$/;"	kind:member	line:13
+create_lookup_table	../roles/i3/files/i3-config/go_to_window.py	/^def create_lookup_table(windows):$/;"	kind:function	line:134
+create_lookup_table	../roles/i3/files/i3-config/quick_switch.py	/^def create_lookup_table(windows):$/;"	kind:function	line:134
+create_workspace.py	../roles/i3/files/i3-config/create_workspace.py	1;"	kind:file	line:1
+cycle_numbered_workspaces	../roles/i3/files/i3-config/go_to_window.py	/^def cycle_numbered_workspaces(backwards=False):$/;"	kind:function	line:199
+cycle_numbered_workspaces	../roles/i3/files/i3-config/quick_switch.py	/^def cycle_numbered_workspaces(backwards=False):$/;"	kind:function	line:199
+default	../roles/mybin/files/cmd.py	/^    def default(self, line):$/;"	kind:member	line:233
+default_socket	../roles/i3/files/i3-config/i3.py	/^def default_socket(socket=None):$/;"	kind:function	line:373
+degap	../roles/i3/files/i3-config/go_to_window.py	/^def degap():$/;"	kind:function	line:117
+degap	../roles/i3/files/i3-config/quick_switch.py	/^def degap():$/;"	kind:function	line:117
+delete_key	../roles/mybin/files/p.py	/^def delete_key(key):$/;"	kind:function	line:39
+detect_codec	../roles/mybin/files/to_utf8.py	/^def detect_codec(name):$/;"	kind:function	line:6
+dmenu	../roles/i3/files/i3-config/go_to_window.py	/^def dmenu(options, dmenu):$/;"	kind:function	line:47
+dmenu	../roles/i3/files/i3-config/lib.py	/^def dmenu(options, dmenu):$/;"	kind:function	line:10
+dmenu	../roles/i3/files/i3-config/quick_switch.py	/^def dmenu(options, dmenu):$/;"	kind:function	line:47
+dmenu_cmd	../roles/i3/files/i3-config/lib.py	/^def dmenu_cmd(prompt, lines=30, width=80, size=25, bg='#000000', fg='#505050', opacity=70, border=3):$/;"	kind:function	line:22
+do_help	../roles/mybin/files/cmd.py	/^    def do_help(self, arg):$/;"	kind:member	line:296
+do_quit	../roles/mybin/files/dw.py	/^    def do_quit(self, text):$/;"	kind:member	line:69
+doc_header	../roles/mybin/files/cmd.py	/^    doc_header = "Documented commands (type help <topic>):"$/;"	kind:variable	line:73
+doc_leader	../roles/mybin/files/cmd.py	/^    doc_leader = ""$/;"	kind:variable	line:72
+dw.py	../roles/mybin/files/dw.py	1;"	kind:file	line:1
+editit.py	../roles/vifm/files/editit.py	1;"	kind:file	line:1
+emptyline	../roles/mybin/files/cmd.py	/^    def emptyline(self):$/;"	kind:member	line:223
+file_action	../simple_ansible.py	/^def file_action(args):$/;"	kind:function	line:18
+filter	../roles/i3/files/i3-config/i3.py	/^def filter(tree=None, function=None, **conditions):$/;"	kind:function	line:497
+find_all_subprocess_cmdline	../roles/mybin/files/send_key.py	/^def find_all_subprocess_cmdline(pid):$/;"	kind:function	line:20
+find_all_subprocess_cmdline	../roles/xbindkeys/files/send_key.py	/^def find_all_subprocess_cmdline(pid):$/;"	kind:function	line:20
+find_base_dir	../run.py	/^def find_base_dir():$/;"	kind:function	line:8
+find_disconnected	../roles/i3/files/i3-config/auto_config_resolution.py	/^def find_disconnected(line):$/;"	kind:function	line:24
+find_one	../roles/mybin/files/dw.py	/^def find_one(pattern, lst):$/;"	kind:function	line:102
+find_screen	../roles/i3/files/i3-config/new_screen_in.py	/^def find_screen():$/;"	kind:function	line:5
+find_window_by_regex	../roles/i3/files/i3-config/go_to_window.py	/^def find_window_by_regex(regex, move=False):$/;"	kind:function	line:65
+find_window_by_regex	../roles/i3/files/i3-config/quick_switch.py	/^def find_window_by_regex(regex, move=False):$/;"	kind:function	line:65
+fish_path_generator.py	../library/fish_path_generator.py	1;"	kind:file	line:1
+focus	../roles/i3/files/i3-config/go_to_window.py	/^def focus(window):$/;"	kind:function	line:183
+focus	../roles/i3/files/i3-config/quick_switch.py	/^def focus(window):$/;"	kind:function	line:183
+focus_on_workspace	../roles/i3/files/i3-config/modules/title.py	/^focus_on_workspace = False$/;"	kind:variable	line:12
+focus_screen.py	../roles/i3/files/i3-config/focus_screen.py	1;"	kind:file	line:1
+focused	../roles/i3/files/i3-config/modules/title.py	/^focused = False$/;"	kind:variable	line:10
+focused_workspace	../roles/i3/files/i3-config/modules/title.py	/^focused_workspace = None$/;"	kind:variable	line:11
+fr.py	../roles/fish/files/fish/functions/fr.py	1;"	kind:file	line:1
+ftp	../roles/i3/files/i3-config/show_weather.py	/^ftp = FTP('ftpsv.cwb.gov.tw')$/;"	kind:variable	line:13
+function	../roles/i3/files/i3-config/i3.py	/^    def function(*args2, **crit2):$/;"	kind:function	line:403
+fuzzy_find	../roles/fish/files/fish/functions/fr.py	/^def fuzzy_find(path):$/;"	kind:function	line:9
+generate_vimrc	../rc_generator.py	/^def generate_vimrc(args):$/;"	kind:function	line:30
+get	../roles/i3/files/i3-config/i3.py	/^    def get(self, msg_type, payload=''):$/;"	kind:member	line:176
+get_active_output_name	../roles/i3/files/i3-config/new_quick_switch.py	/^def get_active_output_name(win):$/;"	kind:function	line:12
+get_active_window_id	../roles/mybin/files/send_key.py	/^def get_active_window_id():$/;"	kind:function	line:10
+get_active_window_id	../roles/xbindkeys/files/send_key.py	/^def get_active_window_id():$/;"	kind:function	line:10
+get_active_window_pid	../roles/mybin/files/send_key.py	/^def get_active_window_pid():$/;"	kind:function	line:16
+get_active_window_pid	../roles/xbindkeys/files/send_key.py	/^def get_active_window_pid():$/;"	kind:function	line:16
+get_active_window_title	../roles/mybin/files/send_key.py	/^def get_active_window_title():$/;"	kind:function	line:13
+get_active_window_title	../roles/xbindkeys/files/send_key.py	/^def get_active_window_title():$/;"	kind:function	line:13
+get_active_workspace	../roles/i3/files/i3-config/lib.py	/^def get_active_workspace():$/;"	kind:function	line:70
+get_all_id_or_name	../roles/mybin/files/dw.py	/^def get_all_id_or_name():$/;"	kind:function	line:113
+get_all_mac	../roles/fish/files/fish/get_host_color.py	/^def get_all_mac():$/;"	kind:function	line:25
+get_color.py	../roles/fish/files/fish/get_color.py	1;"	kind:file	line:1
+get_command_from_argv	../roles/mybin/files/p.py	/^def get_command_from_argv(argv):$/;"	kind:function	line:63
+get_cpu_info	../roles/fish/files/fish/get_host_color.py	/^def get_cpu_info():$/;"	kind:function	line:12
+get_current_workspace	../roles/i3/files/i3-config/go_to_window.py	/^def get_current_workspace():$/;"	kind:function	line:193
+get_current_workspace	../roles/i3/files/i3-config/quick_switch.py	/^def get_current_workspace():$/;"	kind:function	line:193
+get_custom_command_list	../roles/mybin/files/dw.py	/^    def get_custom_command_list(cls):$/;"	kind:member	line:25
+get_database_path	../roles/mybin/files/p.py	/^def get_database_path():$/;"	kind:function	line:8
+get_device	../roles/i3/files/i3-config/auto_config_resolution.py	/^def get_device(line):$/;"	kind:function	line:11
+get_element_from_list	../roles/mybin/files/p.py	/^def get_element_from_list(index, lst):$/;"	kind:function	line:57
+get_first_args	../roles/i3/files/i3-config/lib.py	/^def get_first_args():$/;"	kind:function	line:34
+get_go_root_bin	../library/fish_path_generator.py	/^def get_go_root_bin():$/;"	kind:function	line:7
+get_host_color.py	../roles/fish/files/fish/get_host_color.py	1;"	kind:file	line:1
+get_human_time	../roles/i3/files/i3-config/modules/take_break.py	/^def get_human_time(secs):$/;"	kind:function	line:14
+get_mode	../roles/i3/files/i3-config/auto_config_resolution.py	/^def get_mode(line):$/;"	kind:function	line:16
+get_names	../roles/mybin/files/cmd.py	/^    def get_names(self):$/;"	kind:member	line:285
+get_package_list	../windows/apm_install.py	/^def get_package_list():$/;"	kind:function	line:9
+get_package_list	../windows/vscode.py	/^def get_package_list():$/;"	kind:function	line:9
+get_real_path	../library/fish_path_generator.py	/^def get_real_path(path):$/;"	kind:function	line:16
+get_remote_url	../roles/mybin/files/use_ssh_for_github.py	/^def get_remote_url():$/;"	kind:function	line:6
+get_scratchpad	../roles/i3/files/i3-config/go_to_window.py	/^def get_scratchpad():$/;"	kind:function	line:77
+get_scratchpad	../roles/i3/files/i3-config/quick_switch.py	/^def get_scratchpad():$/;"	kind:function	line:77
+get_scratchpad_window	../roles/i3/files/i3-config/go_to_window.py	/^def get_scratchpad_window(window):$/;"	kind:function	line:167
+get_scratchpad_window	../roles/i3/files/i3-config/quick_switch.py	/^def get_scratchpad_window(window):$/;"	kind:function	line:167
+get_screen	../roles/i3/files/i3-config/lib.py	/^def get_screen():$/;"	kind:function	line:43
+get_socket_path	../roles/i3/files/i3-config/i3.py	/^def get_socket_path():$/;"	kind:function	line:443
+get_user_idle_time	../roles/i3/files/i3-config/modules/take_break.py	/^def get_user_idle_time():$/;"	kind:function	line:6
+get_username_and_repository_from_http_url	../roles/mybin/files/use_ssh_for_github.py	/^def get_username_and_repository_from_http_url(url):$/;"	kind:function	line:10
+get_windows	../roles/i3/files/i3-config/go_to_window.py	/^def get_windows():$/;"	kind:function	line:59
+get_windows	../roles/i3/files/i3-config/quick_switch.py	/^def get_windows():$/;"	kind:function	line:59
+get_workspace_info	../roles/i3/files/i3-config/lib.py	/^def get_workspace_info():$/;"	kind:function	line:65
+get_workspaces	../roles/i3/files/i3-config/go_to_window.py	/^def get_workspaces():$/;"	kind:function	line:85
+get_workspaces	../roles/i3/files/i3-config/quick_switch.py	/^def get_workspaces():$/;"	kind:function	line:85
+get_xrandr_result	../roles/i3/files/i3-config/auto_config_resolution.py	/^def get_xrandr_result():$/;"	kind:function	line:27
+git_info	../roles/mybin/files/use_ssh_for_github.py	/^git_info = get_username_and_repository_from_http_url(url)$/;"	kind:variable	line:21
+go_to_mark.py	../roles/i3/files/i3-config/go_to_mark.py	1;"	kind:file	line:1
+go_to_window.py	../roles/i3/files/i3-config/go_to_window.py	1;"	kind:file	line:1
+goto_workspace	../roles/i3/files/i3-config/go_to_window.py	/^def goto_workspace(name):$/;"	kind:function	line:188
+goto_workspace	../roles/i3/files/i3-config/quick_switch.py	/^def goto_workspace(name):$/;"	kind:function	line:188
+governor	../roles/mybin/files/set_cpu_governor.py	/^        governor = sys.argv[1]$/;"	kind:variable	line:31
+governor	../roles/mybin/files/set_cpu_governor.py	/^        governor = user_choose_governors()$/;"	kind:variable	line:29
+handle_output	../roles/i3/files/i3-config/modules/title.py	/^def handle_output(output):$/;"	kind:function	line:50
+handle_output	../roles/i3/files/i3-config/move_container_to_workspace.py	/^def handle_output(output):$/;"	kind:function	line:16
+handle_output	../roles/i3/files/i3-config/new_quick_switch.py	/^def handle_output(output):$/;"	kind:function	line:51
+handle_output	../roles/i3/files/i3-config/show_workspace_info.py	/^def handle_output(output):$/;"	kind:function	line:37
+handle_window	../roles/i3/files/i3-config/modules/title.py	/^def handle_window(window):$/;"	kind:function	line:15
+handle_window	../roles/i3/files/i3-config/new_quick_switch.py	/^def handle_window(window, workspace_name):$/;"	kind:function	line:23
+handle_window	../roles/i3/files/i3-config/show_workspace_info.py	/^def handle_window(window):$/;"	kind:function	line:9
+handle_workspace	../roles/i3/files/i3-config/modules/title.py	/^def handle_workspace(workspace):$/;"	kind:function	line:33
+handle_workspace	../roles/i3/files/i3-config/move_container_to_workspace.py	/^def handle_workspace(workspace):$/;"	kind:function	line:9
+handle_workspace	../roles/i3/files/i3-config/new_quick_switch.py	/^def handle_workspace(workspace):$/;"	kind:function	line:41
+handle_workspace	../roles/i3/files/i3-config/show_workspace_info.py	/^def handle_workspace(workspace):$/;"	kind:function	line:24
+has_child	../roles/i3/files/i3-config/i3.py	/^    def has_child(node):$/;"	kind:function	line:486
+i3	../roles/i3/files/i3-config/i3.py	/^class i3(ModuleType):$/;"	kind:class	line:532
+i3.py	../roles/i3/files/i3-config/i3.py	1;"	kind:file	line:1
+i3Exception	../roles/i3/files/i3-config/i3.py	/^class i3Exception(Exception):$/;"	kind:class	line:53
+i3_data_path	../roles/i3/files/i3-config/show_weather.py	/^i3_data_path = os.path.join(i3_user_config_path,'data')$/;"	kind:variable	line:7
+i3_user_config_path	../roles/i3/files/i3-config/show_weather.py	/^i3_user_config_path = os.path.join(os.path.expanduser('~'),  '.i3')$/;"	kind:variable	line:6
+identchars	../roles/mybin/files/cmd.py	/^    identchars = IDENTCHARS$/;"	kind:variable	line:68
+init_parser	../rc_generator.py	/^def init_parser():$/;"	kind:function	line:6
+init_parser	../simple_ansible.py	/^def init_parser():$/;"	kind:function	line:112
+init_sbt.py	../roles/mybin/files/init_sbt.py	1;"	kind:file	line:1
+initialize	../roles/i3/files/i3-config/i3.py	/^    def initialize(self):$/;"	kind:member	line:156
+insert_from_fish_history.py	../roles/i3/files/i3-config/insert_from_fish_history.py	1;"	kind:file	line:1
+intro	../roles/mybin/files/cmd.py	/^    intro = None$/;"	kind:variable	line:71
+lastcmd	../roles/mybin/files/cmd.py	/^    lastcmd = ''$/;"	kind:variable	line:70
+lib.py	../roles/i3/files/i3-config/lib.py	1;"	kind:file	line:1
+list_key_value	../roles/mybin/files/p.py	/^def list_key_value():$/;"	kind:function	line:33
+list_screen	../roles/i3/files/i3-config/lib.py	/^def list_screen():$/;"	kind:function	line:27
+listen	../roles/i3/files/i3-config/i3.py	/^    def listen(self):$/;"	kind:member	line:328
+lspci	../roles/fish/files/fish/get_host_color.py	/^def lspci():$/;"	kind:function	line:18
+magic_string	../roles/i3/files/i3-config/i3.py	/^    magic_string = 'i3-ipc'  # safety string for i3-ipc$/;"	kind:variable	line:133
+main	../library/atom_latest_version.py	/^def main():$/;"	kind:function	line:6
+main	../library/fish_path_generator.py	/^def main():$/;"	kind:function	line:28
+main	../rc_generator.py	/^def main():$/;"	kind:function	line:40
+main	../roles/cloud9/files/c9.py	/^def main():$/;"	kind:function	line:4
+main	../roles/fish/files/fish/functions/fr.py	/^def main():$/;"	kind:function	line:14
+main	../roles/fish/files/fish/get_color.py	/^def main():$/;"	kind:function	line:6
+main	../roles/fish/files/fish/get_host_color.py	/^def main():$/;"	kind:function	line:33
+main	../roles/fish/files/fish/print_cwd.py	/^def main():$/;"	kind:function	line:5
+main	../roles/i3/files/i3-config/create_workspace.py	/^def main():$/;"	kind:function	line:5
+main	../roles/i3/files/i3-config/go_to_window.py	/^def main():$/;"	kind:function	line:208
+main	../roles/i3/files/i3-config/insert_from_fish_history.py	/^def main():$/;"	kind:function	line:14
+main	../roles/i3/files/i3-config/modules/title.py	/^def main():$/;"	kind:function	line:119
+main	../roles/i3/files/i3-config/move_container_to_workspace.py	/^def main():$/;"	kind:function	line:27
+main	../roles/i3/files/i3-config/name_workspace.py	/^def main():$/;"	kind:function	line:26
+main	../roles/i3/files/i3-config/new_quick_switch.py	/^def main():$/;"	kind:function	line:62
+main	../roles/i3/files/i3-config/new_screen_in.py	/^def main():$/;"	kind:function	line:20
+main	../roles/i3/files/i3-config/noteit.py	/^def main():$/;"	kind:function	line:11
+main	../roles/i3/files/i3-config/quick_insert.py	/^def main():$/;"	kind:function	line:29
+main	../roles/i3/files/i3-config/quick_switch.py	/^def main():$/;"	kind:function	line:208
+main	../roles/i3/files/i3-config/show_workspace_info.py	/^def main():$/;"	kind:function	line:48
+main	../roles/mybin/files/dw.py	/^def main():$/;"	kind:function	line:144
+main	../roles/mybin/files/init_sbt.py	/^def main():$/;"	kind:function	line:7
+main	../roles/mybin/files/p.py	/^def main():$/;"	kind:function	line:73
+main	../roles/mybin/files/vagrant-init.py	/^def main():$/;"	kind:function	line:58
+main	../roles/vifm/files/editit.py	/^def main():$/;"	kind:function	line:16
+main	../run.py	/^def main():$/;"	kind:function	line:12
+main	../simple_ansible.py	/^def main():$/;"	kind:function	line:128
+main	../windows/apm_install.py	/^def main():$/;"	kind:function	line:22
+main	../windows/vscode.py	/^def main():$/;"	kind:function	line:22
+marks	../roles/i3/files/i3-config/go_to_mark.py	/^    marks = i3.get_marks()$/;"	kind:variable	line:9
+mem-usage.py	../roles/i3/files/i3-config/modules/mem-usage.py	1;"	kind:file	line:1
+mem_usage	../roles/i3/files/i3-config/modules/mem-usage.py	/^    def mem_usage(self, i3status_output_json, i3status_config):$/;"	kind:member	line:28
+mem_usage	../roles/i3/files/i3-config/modules/mem-usage.py	/^def mem_usage():$/;"	kind:function	line:5
+misc_header	../roles/mybin/files/cmd.py	/^    misc_header = "Miscellaneous help topics:"$/;"	kind:variable	line:74
+mode_pattern	../roles/i3/files/i3-config/auto_config_resolution.py	/^mode_pattern = re.compile('(?P<mode>\\d+x\\d+)\\s+\\d+\\.\\d+')$/;"	kind:variable	line:8
+move_all_workspaces_to.py	../roles/i3/files/move_all_workspaces_to.py	1;"	kind:file	line:1
+move_container.py	../roles/i3/files/i3-config/move_container.py	1;"	kind:file	line:1
+move_container_left.py	../roles/i3/files/i3-config/move_container_left.py	1;"	kind:file	line:1
+move_container_right.py	../roles/i3/files/i3-config/move_container_right.py	1;"	kind:file	line:1
+move_container_to_workspace.py	../roles/i3/files/i3-config/move_container_to_workspace.py	1;"	kind:file	line:1
+move_window_here	../roles/i3/files/i3-config/go_to_window.py	/^def move_window_here(window):$/;"	kind:function	line:172
+move_window_here	../roles/i3/files/i3-config/quick_switch.py	/^def move_window_here(window):$/;"	kind:function	line:172
+move_workspace_left.py	../roles/i3/files/i3-config/move_workspace_left.py	1;"	kind:file	line:1
+move_workspace_right.py	../roles/i3/files/i3-config/move_workspace_right.py	1;"	kind:file	line:1
+msg	../roles/i3/files/i3-config/i3.py	/^def msg(type, message=''):$/;"	kind:function	line:387
+myvi	../roles/vim/templates/myvi	1;"	kind:file	line:1
+name	../roles/mybin/files/to_utf8.py	/^    name = sys.argv[1]$/;"	kind:variable	line:17
+name_workspace.py	../roles/i3/files/i3-config/name_workspace.py	1;"	kind:file	line:1
+new_quick_switch.py	../roles/i3/files/i3-config/new_quick_switch.py	1;"	kind:file	line:1
+new_screen_in.py	../roles/i3/files/i3-config/new_screen_in.py	1;"	kind:file	line:1
+next_empty	../roles/i3/files/i3-config/go_to_window.py	/^def next_empty():$/;"	kind:function	line:99
+next_empty	../roles/i3/files/i3-config/quick_switch.py	/^def next_empty():$/;"	kind:function	line:99
+next_used	../roles/i3/files/i3-config/go_to_window.py	/^def next_used(number):$/;"	kind:function	line:109
+next_used	../roles/i3/files/i3-config/quick_switch.py	/^def next_used(number):$/;"	kind:function	line:109
+nodes	../roles/i3/files/i3-config/choose_window_in_scratchpad.py	/^    nodes = scratchpad["floating_nodes"]$/;"	kind:variable	line:11
+nohelp	../roles/mybin/files/cmd.py	/^    nohelp = "*** No help on %s"$/;"	kind:variable	line:76
+noteit.py	../roles/i3/files/i3-config/noteit.py	1;"	kind:file	line:1
+nvim	../roles/vim/templates/myvi	/^nvim = attach("socket", path=addr)$/;"	kind:variable	line:23
+on_click	../roles/i3/files/i3-config/modules/take_break.py	/^    def on_click(self, i3status_output_json, i3status_config, event):$/;"	kind:member	line:31
+onecmd	../roles/mybin/files/cmd.py	/^    def onecmd(self, line):$/;"	kind:member	line:196
+open_file	../roles/vifm/files/editit.py	/^def open_file(path):$/;"	kind:function	line:9
+open_term.py	../roles/i3/files/i3-config/open_term.py	1;"	kind:file	line:1
+original_workspace	../roles/i3/files/move_all_workspaces_to.py	/^original_workspace = outputs[output_target_index]['current_workspace']$/;"	kind:variable	line:12
+output_target	../roles/i3/files/move_all_workspaces_to.py	/^output_target = sys.argv[1]$/;"	kind:variable	line:5
+output_target_index	../roles/i3/files/move_all_workspaces_to.py	/^        output_target_index = index$/;"	kind:variable	line:10
+outputs	../roles/i3/files/i3-config/move_container_left.py	/^outputs = i3.get_outputs()$/;"	kind:variable	line:4
+outputs	../roles/i3/files/i3-config/move_container_right.py	/^outputs = i3.get_outputs()$/;"	kind:variable	line:4
+outputs	../roles/i3/files/i3-config/move_workspace_left.py	/^outputs = i3.get_outputs()$/;"	kind:variable	line:4
+outputs	../roles/i3/files/i3-config/move_workspace_right.py	/^outputs = i3.get_outputs()$/;"	kind:variable	line:4
+outputs	../roles/i3/files/i3-config/show_output_workspace.py	/^outputs = i3.get_outputs()$/;"	kind:variable	line:4
+outputs	../roles/i3/files/i3-config/swap.py	/^outputs = i3.get_outputs()$/;"	kind:variable	line:4
+outputs	../roles/i3/files/i3-config/switch.py	/^outputs = i3.get_outputs()$/;"	kind:variable	line:4
+outputs	../roles/i3/files/move_all_workspaces_to.py	/^outputs = i3.get_outputs()$/;"	kind:variable	line:7
+p.py	../roles/mybin/files/p.py	1;"	kind:file	line:1
+p_error	../simple_ansible.py	/^    def p_error(p):$/;"	kind:function	line:71
+p_input	../simple_ansible.py	/^    def p_input(p):$/;"	kind:function	line:83
+p_statement	../simple_ansible.py	/^    def p_statement(p):$/;"	kind:function	line:74
+pack	../roles/i3/files/i3-config/i3.py	/^    def pack(self, msg_type, payload):$/;"	kind:member	line:222
+parent	../roles/i3/files/i3-config/i3.py	/^def parent(con_id, tree=None):$/;"	kind:function	line:480
+parse	../simple_ansible.py	/^def parse(s):$/;"	kind:function	line:52
+parse_event_type	../roles/i3/files/i3-config/i3.py	/^def parse_event_type(event_type):$/;"	kind:function	line:105
+parse_key_value	../simple_ansible.py	/^def parse_key_value(collection):$/;"	kind:function	line:120
+parse_msg_type	../roles/i3/files/i3-config/i3.py	/^def parse_msg_type(msg_type):$/;"	kind:function	line:88
+parseline	../roles/mybin/files/cmd.py	/^    def parseline(self, line):$/;"	kind:member	line:176
+path	../windows/vs.py	/^path = os.path.abspath(sys.argv[1])$/;"	kind:variable	line:7
+path	../windows/vs.py	/^path = path.replace("\/mnt\/c\/", "c:\\\\").replace("\/", "\\\\")$/;"	kind:variable	line:9
+pid	../roles/mybin/files/send_key.py	/^        pid = get_active_window_pid()$/;"	kind:variable	line:39
+pid	../roles/xbindkeys/files/send_key.py	/^        pid = get_active_window_pid()$/;"	kind:variable	line:39
+postcmd	../roles/mybin/files/cmd.py	/^    def postcmd(self, stop, line):$/;"	kind:member	line:161
+postloop	../roles/mybin/files/cmd.py	/^    def postloop(self):$/;"	kind:member	line:169
+precmd	../roles/mybin/files/cmd.py	/^    def precmd(self, line):$/;"	kind:member	line:154
+preloop	../roles/mybin/files/cmd.py	/^    def preloop(self):$/;"	kind:member	line:165
+print_cwd.py	../roles/fish/files/fish/print_cwd.py	1;"	kind:file	line:1
+print_topics	../roles/mybin/files/cmd.py	/^    def print_topics(self, header, cmds, cmdlen, maxcol):$/;"	kind:member	line:342
+prompt	../roles/mybin/files/cmd.py	/^    prompt = PROMPT$/;"	kind:variable	line:67
+prompt	../roles/mybin/files/dw.py	/^    prompt = '(docker) : '$/;"	kind:variable	line:67
+quick_insert.py	../roles/i3/files/i3-config/quick_insert.py	1;"	kind:file	line:1
+quick_switch.py	../roles/i3/files/i3-config/quick_switch.py	1;"	kind:file	line:1
+rc_generator.py	../rc_generator.py	1;"	kind:file	line:1
+read_data	../roles/mybin/files/p.py	/^def read_data(path):$/;"	kind:function	line:12
+read_file	../rc_generator.py	/^def read_file(path):$/;"	kind:function	line:25
+read_history	../roles/i3/files/i3-config/name_workspace.py	/^def read_history():$/;"	kind:function	line:13
+read_yaml	../simple_ansible.py	/^def read_yaml(path, variable):$/;"	kind:function	line:10
+receive	../roles/i3/files/i3-config/i3.py	/^    def receive(self):$/;"	kind:member	line:205
+remove_all_container	../roles/mybin/files/dw.py	/^    def remove_all_container():$/;"	kind:member	line:19
+rename_nonunique	../roles/i3/files/i3-config/go_to_window.py	/^def rename_nonunique(windows):$/;"	kind:function	line:154
+rename_nonunique	../roles/i3/files/i3-config/quick_switch.py	/^def rename_nonunique(windows):$/;"	kind:function	line:154
+rename_workspace	../roles/i3/files/i3-config/go_to_window.py	/^def rename_workspace(old, new):$/;"	kind:function	line:178
+rename_workspace	../roles/i3/files/i3-config/lib.py	/^def rename_workspace(a, b):$/;"	kind:function	line:50
+rename_workspace	../roles/i3/files/i3-config/quick_switch.py	/^def rename_workspace(old, new):$/;"	kind:function	line:178
+render	../rc_generator.py	/^def render(obj, template):$/;"	kind:function	line:20
+render	../simple_ansible.py	/^def render(template_str, variable):$/;"	kind:function	line:32
+run	../roles/i3/files/i3-config/i3.py	/^    def run(self):$/;"	kind:member	line:318
+run.py	../run.py	1;"	kind:file	line:1
+run_cmd	../roles/mybin/files/dw.py	/^def run_cmd(text, cmd):$/;"	kind:function	line:38
+run_task	../simple_ansible.py	/^def run_task(lst, meta):$/;"	kind:function	line:94
+scratchpad	../roles/i3/files/i3-config/choose_window_in_scratchpad.py	/^    scratchpad = i3.filter(name="__i3_scratch")[0]$/;"	kind:variable	line:10
+send	../roles/i3/files/i3-config/i3.py	/^    def send(self, msg_type, payload=''):$/;"	kind:member	line:196
+send_key.py	../roles/mybin/files/send_key.py	1;"	kind:file	line:1
+send_key.py	../roles/xbindkeys/files/send_key.py	1;"	kind:file	line:1
+send_key_or_not	../roles/mybin/files/send_key.py	/^def send_key_or_not(pattern, pid):$/;"	kind:function	line:27
+send_key_or_not	../roles/xbindkeys/files/send_key.py	/^def send_key_or_not(pattern, pid):$/;"	kind:function	line:27
+set_cpu_governor.py	../roles/mybin/files/set_cpu_governor.py	1;"	kind:file	line:1
+set_cpu_governors	../roles/mybin/files/set_cpu_governor.py	/^def set_cpu_governors(policy):$/;"	kind:function	line:6
+set_key_value	../roles/mybin/files/p.py	/^def set_key_value(key, value, comment=''):$/;"	kind:function	line:46
+shellquote	../roles/i3/files/i3-config/insert_from_fish_history.py	/^def shellquote(s):$/;"	kind:function	line:10
+shellquote	../roles/i3/files/i3-config/open_term.py	/^def shellquote(s):$/;"	kind:function	line:9
+shellquote	../roles/i3/files/i3-config/quick_insert.py	/^def shellquote(s):$/;"	kind:function	line:10
+show	../roles/mybin/files/p.py	/^def show(key):$/;"	kind:function	line:27
+show_output_workspace.py	../roles/i3/files/i3-config/show_output_workspace.py	1;"	kind:file	line:1
+show_tiling_window_from_scratchpad.py	../roles/i3/files/i3-config/show_tiling_window_from_scratchpad.py	1;"	kind:file	line:1
+show_weather.py	../roles/i3/files/i3-config/show_weather.py	1;"	kind:file	line:1
+show_workspace_info.py	../roles/i3/files/i3-config/show_workspace_info.py	1;"	kind:file	line:1
+simple_ansible.py	../simple_ansible.py	1;"	kind:file	line:1
+split_port	../roles/mybin/files/dw.py	/^def split_port(port):$/;"	kind:function	line:73
+start	../roles/mybin/files/dw.py	/^def start(id, port=None):$/;"	kind:function	line:128
+start_wrapper	../roles/mybin/files/dw.py	/^def start_wrapper(argv):$/;"	kind:function	line:80
+subscribe	../roles/i3/files/i3-config/i3.py	/^    def subscribe(self, event_type, event=None):$/;"	kind:member	line:184
+subscribe	../roles/i3/files/i3-config/i3.py	/^def subscribe(event_type, event=None, callback=None):$/;"	kind:function	line:420
+subscribed	../roles/i3/files/i3-config/i3.py	/^    subscribed = False$/;"	kind:variable	line:291
+success	../roles/i3/files/i3-config/i3.py	/^def success(response):$/;"	kind:function	line:452
+swap.py	../roles/i3/files/i3-config/swap.py	1;"	kind:file	line:1
+swap_workspace	../roles/i3/files/i3-config/lib.py	/^def swap_workspace(a, b):$/;"	kind:function	line:56
+swap_workspace_with_current.py	../roles/i3/files/i3-config/swap_workspace_with_current.py	1;"	kind:file	line:1
+switch.py	../roles/i3/files/i3-config/switch.py	1;"	kind:file	line:1
+t_WORD	../simple_ansible.py	/^    def t_WORD(t):$/;"	kind:function	line:59
+t_error	../simple_ansible.py	/^    def t_error(t):$/;"	kind:function	line:63
+take_break.py	../roles/i3/files/i3-config/modules/take_break.py	1;"	kind:file	line:1
+template_action	../simple_ansible.py	/^def template_action(args, meta):$/;"	kind:function	line:25
+timeout	../roles/i3/files/i3-config/i3.py	/^    timeout = 0.5  # in seconds$/;"	kind:variable	line:135
+timeout	../roles/mybin/files/dw.py	/^                  timeout=10)$/;"	kind:variable	line:13
+title	../roles/i3/files/i3-config/modules/title.py	/^    def title(self, i3status_output_json, i3status_config):$/;"	kind:member	line:68
+title	../roles/mybin/files/send_key.py	/^        title = get_active_window_title()$/;"	kind:variable	line:38
+title	../roles/xbindkeys/files/send_key.py	/^        title = get_active_window_title()$/;"	kind:variable	line:38
+title.py	../roles/i3/files/i3-config/modules/title.py	1;"	kind:file	line:1
+to_utf8	../roles/mybin/files/to_utf8.py	/^def to_utf8(name, source_codec):$/;"	kind:function	line:11
+to_utf8.py	../roles/mybin/files/to_utf8.py	1;"	kind:file	line:1
+type_translation	../roles/i3/files/i3-config/i3.py	/^    type_translation = {$/;"	kind:variable	line:292
+undoc_header	../roles/mybin/files/cmd.py	/^    undoc_header = "Undocumented commands:"$/;"	kind:variable	line:75
+unpack	../roles/i3/files/i3-config/i3.py	/^    def unpack(self, data):$/;"	kind:member	line:238
+unpack_header	../roles/i3/files/i3-config/i3.py	/^    def unpack_header(self, data):$/;"	kind:member	line:256
+url	../roles/mybin/files/use_ssh_for_github.py	/^url = get_remote_url()$/;"	kind:variable	line:20
+use_rawinput	../roles/mybin/files/cmd.py	/^    use_rawinput = 1$/;"	kind:variable	line:77
+use_ssh_for_github.py	../roles/mybin/files/use_ssh_for_github.py	1;"	kind:file	line:1
+user_choose_governors	../roles/mybin/files/set_cpu_governor.py	/^def user_choose_governors():$/;"	kind:function	line:12
+vagrant-init.py	../roles/mybin/files/vagrant-init.py	1;"	kind:file	line:1
+version	../roles/mybin/files/dw.py	/^                  version='1.6',$/;"	kind:variable	line:12
+vs.py	../windows/vs.py	1;"	kind:file	line:1
+vscode.py	../windows/vscode.py	1;"	kind:file	line:1
+weather_data_path	../roles/i3/files/i3-config/show_weather.py	/^weather_data_path = os.path.join(i3_data_path,  'W002.txt')$/;"	kind:variable	line:11
+whoami	../roles/i3/files/i3-config/modules/whoami.py	/^    def whoami(self, i3status_output_json, i3status_config):$/;"	kind:member	line:12
+whoami.py	../roles/i3/files/i3-config/modules/whoami.py	1;"	kind:file	line:1
+window_titles	../roles/i3/files/i3-config/choose_window_in_scratchpad.py	/^    window_titles = ['%s #%s' % (i.get('name'), i.get('window')) for i in windows]$/;"	kind:variable	line:13
+windows	../roles/i3/files/i3-config/choose_window_in_scratchpad.py	/^    windows = [i for i in i3.filter(tree=nodes, nodes=[])]$/;"	kind:variable	line:12
+workspace	../roles/i3/files/i3-config/move_container_left.py	/^workspace = outputs[1]['current_workspace']$/;"	kind:variable	line:7
+workspace	../roles/i3/files/i3-config/move_container_right.py	/^workspace = outputs[0]['current_workspace']$/;"	kind:variable	line:7
+workspace	../roles/i3/files/i3-config/swap_workspace_with_current.py	/^workspace = get_active_workspace()$/;"	kind:variable	line:6
+workspace_number	../roles/i3/files/i3-config/show_output_workspace.py	/^        workspace_number = outputs[i]['current_workspace']$/;"	kind:variable	line:8
+workspaces	../roles/i3/files/move_all_workspaces_to.py	/^workspaces = i3.get_workspaces()$/;"	kind:variable	line:14
+write_data	../roles/mybin/files/p.py	/^def write_data(path, data):$/;"	kind:function	line:19
+write_history	../roles/i3/files/i3-config/name_workspace.py	/^def write_history(name):$/;"	kind:function	line:21
