@@ -53,9 +53,12 @@
     { "key": "alt+e", "command": "workbench.action.showCommands"},
 
     { "key": "ctrl+c", "command": "editor.action.clipboardCopyAction", "when": "editorTextFocus" },
+    { "key": "ctrl+shift+v", "command": "editor.action.clipboardPasteAction", "when": "editorTextFocus && !editorReadonly" },
     { "key": "ctrl+w", "command": "workbench.action.closeActiveEditor" },
 
     { "key": "f4", "command": "workbench.action.closeActiveEditor"},
     { "key": "ctrl+f4", "command": "search.action.focusNextSearchResult" }
 
 ]
+
+
