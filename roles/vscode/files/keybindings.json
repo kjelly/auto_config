@@ -55,10 +55,11 @@
     { "key": "ctrl+c", "command": "editor.action.clipboardCopyAction", "when": "editorTextFocus" },
     { "key": "ctrl+shift+v", "command": "editor.action.clipboardPasteAction", "when": "editorTextFocus && !editorReadonly" },
     { "key": "ctrl+w", "command": "workbench.action.closeActiveEditor" },
+    { "key": "ctrl+w", "command": "workbench.action.closeActiveEditor", "when": "vim.mode != 'Insert'"},
+    { "key": "ctrl+w", "command": "deleteWordLeft", "when": "vim.mode == 'Insert'"},
+
 
     { "key": "f4", "command": "workbench.action.closeActiveEditor"},
     { "key": "ctrl+f4", "command": "search.action.focusNextSearchResult" }
 
 ]
-
-
