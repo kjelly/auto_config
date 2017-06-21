@@ -415,6 +415,7 @@ autocmd! InsertEnter,WinLeave * set nocursorline
 autocmd! BufEnter * set laststatus=2
 autocmd! BufEnter *fish set laststatus=0
 autocmd! TermOpen *fish set laststatus=0
+autocmd! TermOpen *fish set nonu
 
 {% endif %}
 
