@@ -114,9 +114,8 @@
 
 
 'atom-text-editor.vim-mode-plus.normal-mode':
-  ':': 'vim-mode-plus-ex-mode:open'
-  '!': 'vim-mode-plus-ex-mode:toggle-setting'
   'ctrl-w': 'core:close'
+  'ctrl-s': 'core:save'
   ', f f': 'tree-view:reveal-active-file'
   ', f l': 'find-and-replace:show'
   ', g a': 'fuzzy-grep:toggle'
