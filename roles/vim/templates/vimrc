@@ -176,6 +176,9 @@ Plug 'dag/vim-fish'
 {% if not programming %}"{% endif %}Plug 'rhysd/vim-clang-format'
 {% if not programming %}"{% endif %}Plug 'rust-lang/rust.vim'
 {% if not programming %}"{% endif %}Plug 'racer-rust/vim-racer'
+{% if not programming %}"{% endif %}Plug 'leafgarland/typescript-vim'
+{% if not programming %}"{% endif %}Plug 'Quramy/tsuquyomi'
+{% if not programming %}"{% endif %}Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 "Plug 'dart-lang/dart-vim-plugin'
 "Plug 'keith/swift.vim'
 "Plug 'gre/play2vim'
@@ -209,7 +212,6 @@ Plug 'Shougo/unite.vim'
 "Plug 'Shougo/neosnippet'
 "Plug 'Shougo/neosnippet-snippets'
 
-Plug 'JamshedVesuna/vim-markdown-preview'
 "
 Plug 'ya790206/vim-multiterm'
 "Plug 'myusuf3/numbers.vim'
@@ -412,6 +414,7 @@ autocmd! InsertEnter,WinLeave * set nocursorline
 autocmd! BufEnter * set laststatus=2
 autocmd! BufEnter *fish set laststatus=0
 autocmd! TermOpen *fish set laststatus=0
+autocmd! TermOpen *fish set nonu
 
 {% endif %}
 
@@ -612,7 +615,7 @@ inoremap     <c-a>  <c-x><c-n>
 
 " Easymotion
 nmap S <Plug>(easymotion-s)
-nmap F <Plug>(easymotion-overwin-w)
+nmap f <Plug>(easymotion-overwin-w)
 map <Leader><leader>h <Plug>(easymotion-linebackward)
 map <Leader><Leader>j <Plug>(easymotion-j)
 map <Leader><Leader>k <Plug>(easymotion-k)
@@ -722,8 +725,6 @@ set mouse=""
 " open new terminal in new tab/buffer.
 map <leader>tt :tabnew %<cr>:terminal<cr>
 map <leader>tb :split<cr><c-w>j:terminal<cr>
-
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 " Tab switch
 tnoremap <A-1> <C-\><C-n>1gti
@@ -844,4 +845,8 @@ inoremap <A-,> <ESC>gTi
 inoremap <A-.> <ESC>gti
 tnoremap <A-,> <C-\><C-n>gTi
 tnoremap <A-.> <C-\><C-n>gti
+
+
+nnoremap <A-f> :Ag<cr>
+inoremap <Esc><A-f> :Ag<cr>
 {% endif %}

@@ -3,7 +3,7 @@
   when: ansible_os_family == 'RedHat'
 
 - include: "install_deb_family.yml"
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Debian' or ansible_os_family == "\"elementary\""
 
 - name: code ext install
   shell: code --install-extension {{ item }}
