@@ -6,6 +6,6 @@
   yum: name={{ item }} state=present
   with_items:
     - yum-utils
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Centos'
 

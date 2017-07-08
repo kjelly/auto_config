@@ -4,12 +4,12 @@
   with_items:
    - xbindkeys
    - xvkbd
-  sudo: yes
+  become: true
 
 - pip: name={{ item }}
   with_items:
       - psutil
-  sudo: yes
+  become: true
 
 - copy: src="send_key.py"
         dest="~/send_key.py"

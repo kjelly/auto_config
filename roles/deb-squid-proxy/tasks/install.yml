@@ -4,5 +4,5 @@
   with_items:
    - squid3
    - squidclient
-  sudo: yes
+  become: true
   when: ansible_os_family == "Debian"

@@ -12,5 +12,5 @@
       - workrave
       - touchegg
       - xclip # for paste.sh
-  sudo: yes
+  become: true
   ignore_errors: yes

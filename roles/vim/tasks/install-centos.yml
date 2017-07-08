@@ -3,5 +3,5 @@
   dnf: name={{ item }} state=present
   with_items:
    - vim-enhanced
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Centos' and programming == false

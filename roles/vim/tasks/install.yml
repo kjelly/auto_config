@@ -51,7 +51,7 @@
   args:
     chdir: "/tmp/vim"
   when: need_install and programming == true
-  sudo: yes
+  become: true
 
 - name: clone fzf
   git: repo=https://github.com/junegunn/fzf dest=~/.fzf
@@ -67,14 +67,14 @@
 
 - name: pip install [autopep8, flake8]
   pip: name={{ item }}
-  sudo: yes
+  become: true
   with_items:
     - autopep8
     - flake8
 
 - name: install neovim-remote
   shell: "pip3 install neovim-remote"
-  sudo: yes
+  become: true
   ignore_errors: yes
 
 - git: repo=https://github.com/gmarik/vundle.git

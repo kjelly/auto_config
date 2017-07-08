@@ -35,7 +35,7 @@
     - "libsndfile-dev"
     - "libxinerama-dev"
 
-  sudo: yes
+  become: true
   when: ansible_os_family == 'Debian' or ansible_os_family == "\"elementary\""
   ignore_errors: yes
 
@@ -62,7 +62,7 @@
     - "libsndfile-dev"
     - "libxinerama-dev"
 
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Fedora'
   ignore_errors: yes
 
@@ -101,7 +101,7 @@
 
 
 
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Ubuntu' or ansible_os_family == "\"elementary\""
 
 - name: Install i3 package
@@ -135,7 +135,7 @@
       - libstartup-notification0-dev
 
       - fcitx-chewing
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Debian'
 
 - name: Install i3 package for fedora
@@ -160,7 +160,7 @@
       - dunst
 
       - fcitx-chewing
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Fedora'
 
 - name: Install zsh package
@@ -175,7 +175,7 @@
    - lxterminal
    - i3status
    - conky
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Fedora'
 
 - name: remove useless package for i3
@@ -193,7 +193,7 @@
       - i3-py
       - quickswitch-i3
       - py3status
-  sudo: yes
+  become: true
 
 - name: download dmenu  source code
   get_url: url="{{ dmenu_download_url }}" dest=/tmp/dmenu.tar.gz mode=0440
@@ -218,7 +218,7 @@
   with_items:
     - make
     - "make install"
-  sudo: yes
+  become: true
 
 - name: download rofi source code
   get_url: url="{{ rofi_download_url }}" dest=/tmp/rofi.tar.gz mode=0440
@@ -240,4 +240,4 @@
     chdir: "/tmp/rofi-{{ rofi_version }}"
   with_items:
     - "make install"
-  sudo: yes
+  become: true

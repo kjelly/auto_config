@@ -5,7 +5,7 @@
   with_items:
    - zsh
    - git
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Ubuntu'
 
 - name: Install zsh package
@@ -13,7 +13,7 @@
   with_items:
    - zsh
    - git
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Fedora'
 
 - name: Install zsh package
@@ -21,7 +21,7 @@
   with_items:
    - zsh
    - git
-  sudo: yes
+  become: true
   when: ansible_distribution == 'CentOS'
 
 

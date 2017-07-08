@@ -1,4 +1,4 @@
 ---
 - name: config
   template: src=squid.conf.j2 dest=/etc/squid/squid.conf mode=0644
-  sudo: yes
+  become: true
