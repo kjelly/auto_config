@@ -3,7 +3,7 @@
   apt: name=vim state=absent
   when: (ansible_distribution == "Debian" or ansible_distribution == 'Ubuntu') and programming == true
   ignore_errors: yes
-  sudo: yes
+  become: true
 
 - name: Install packages
   apt: name={{ item }} state=present
@@ -25,7 +25,7 @@
    - python-virtualenv # for neovim
    - ncurses-dev  # for neovim
 
-  sudo: yes
+  become: true
   when: programming == true
 
 - name: Install vim package
@@ -41,5 +41,5 @@
    - ruby
    - "ruby-dev"
    - libsm-dev
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Debian' and programming == false

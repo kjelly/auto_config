@@ -5,7 +5,7 @@
       - build-essential
       - python-dev
       - python-pip
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Ubuntu'
 
 - name: Install package
@@ -17,7 +17,7 @@
       - kernel-devel
       - python-devel
       - python-pip
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Fedora'
 
 
@@ -25,4 +25,4 @@
   pip: name={{ item }}
   with_items:
       - virtualenvwrapper
-  sudo: yes
+  become: true

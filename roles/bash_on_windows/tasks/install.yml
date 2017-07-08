@@ -3,10 +3,10 @@
   apt: name={{ item }} state=absent
   with_items:
     - openssh-server
-  sudo: yes
+  become: true
 
 - name: Install openssh-server
   apt: name={{ item }} state=present
   with_items:
     - openssh-server
-  sudo: yes
+  become: true

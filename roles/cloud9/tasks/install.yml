@@ -3,7 +3,7 @@
 - name: clone c9sdk
   git: repo="git://github.com/c9/core.git"
        dest="/opt/c9sdk"
-  sudo: yes
+  become: true
 
 - name: Install packages
   apt: name={{ item }} state=present
@@ -15,11 +15,11 @@
    - python2.7
    - nodejs-legacy
 
-  sudo: yes
+  become: true
   when: ansible_os_family == 'Debian' and programming == true
 
 - name: build sdk
   shell: "./scripts/install-sdk.sh"
   args:
     chdir: "/opt/c9sdk"
-  sudo: yes
+  become: true

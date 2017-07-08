@@ -36,7 +36,7 @@
     - libncurses5-dev
     - gettext
     - autoconf
-  sudo: yes
+  become: true
   when: (ansible_distribution == 'Ubuntu' or ansible_os_family == "\"elementary\"") and need_install
 
 - name: Install fish dependent package
@@ -47,14 +47,14 @@
     - libncurses5-dev
     - gettext
     - autoconf
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Debian' and need_install
 
 - name: Install fish dependent package
   yum: name={{ item }} state=present
   with_items:
     - ncurses-devel
-  sudo: yes
+  become: true
   when: ansible_distribution == 'CentOS' and need_install
 
 - name: Install fish dependent package
@@ -62,7 +62,7 @@
   with_items:
     - ncurses-devel
     - gcc-c++
-  sudo: yes
+  become: true
   when: ansible_distribution == 'Fedora' and need_install
 
 - name: download fish source code
@@ -105,7 +105,7 @@
     chdir: "/tmp/fish-{{ fish_version }}"
   with_items:
     - "make install"
-  sudo: yes
+  become: true
   when: need_install
 
 - name: install oh-my-fish
@@ -114,7 +114,7 @@
 
 - name: install virtualenv helper for fish
   pip: name=virtualfish
-  sudo: yes
+  become: true
 
 - name: clone fzf
   git: repo=https://github.com/junegunn/fzf dest=~/.fzf

@@ -9,8 +9,8 @@
 
 - name: untar lighttable
   unarchive: src=/tmp/lighttable.tar.gz dest=/opt/
-  sudo: yes
+  become: true
 
 - file: src="/opt/lighttable-{{ lighttable_version }}-linux/light"
         dest="/bin/lighttable" state=link
-  sudo: yes
+  become: true

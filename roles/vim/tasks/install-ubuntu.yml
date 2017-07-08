@@ -19,7 +19,7 @@
    - python-virtualenv # for neovim
    - ncurses-dev  # for neovim
 
-  sudo: yes
+  become: true
   when: programming == true
 
 - name: Install vim package
@@ -30,5 +30,5 @@
    - exuberant-ctags
    - ruby
    - "ruby-dev"
-  sudo: yes
+  become: true
   when: programming == false
