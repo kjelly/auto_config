@@ -7,3 +7,10 @@
 - dnf: name="https://github.com/atom/atom/releases/download/{{ ATOM_LATEST_VERSION }}/atom.x86_64.rpm"
        state=present
   sudo: yes
+  when: ansible_os_family == 'RedHat'
+
+- apt: deb="https://github.com/atom/atom/releases/download/{{ ATOM_LATEST_VERSION }}/atom-amd64.deb"
+       state=present
+  sudo: yes
+  when: ANSIBLE_OS_FAMILY=="Debian"
+  when: ansible_os_family == 'Debian' or ansible_os_family == "\"elementary\""

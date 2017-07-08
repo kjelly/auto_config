@@ -1,0 +1,19 @@
+{
+    "version": "0.1.0",
+    "isShellCommand": true,
+    "showOutput": "always",
+    "echoCommand": true,
+    "suppressTaskName": true,
+    "tasks": [
+        {
+            "taskName": "deploy",
+            "command": "./run.py",
+            "args": ["-p", "test.yml", "-a", "deploy"]
+        },
+        {
+            "taskName": "config",
+            "command": "./run.py",
+            "args": ["-p", "test.yml"]
+        }
+    ]
+}
