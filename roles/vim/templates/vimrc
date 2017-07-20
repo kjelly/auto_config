@@ -389,7 +389,7 @@ let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#exclude_preview = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#ale#enabled = 1
-let g:ale_python_pylint_options="--disable=C"
+let g:ale_python_pylint_options="--disable=C0111,C0103,C1801"
 
 let g:deoplete#enable_at_startup = 1
 
