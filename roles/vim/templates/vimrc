@@ -171,7 +171,6 @@ Plug 'dag/vim-fish'
 {% if not programming %}"{% endif %}Plug 'pearofducks/ansible-vim'
 {% if not programming %}"{% endif %}Plug 'nvie/vim-flake8'
 {% if not programming %}"{% endif %}Plug 'ya790206/vim-mecury-lang'
-{% if not programming %}"{% endif %}Plug 'davidhalter/jedi-vim'
 {% if not programming %}"{% endif %}Plug 'justmao945/vim-clang'
 {% if not programming %}"{% endif %}Plug 'rhysd/vim-clang-format'
 {% if not programming %}"{% endif %}Plug 'rust-lang/rust.vim'
@@ -233,6 +232,7 @@ Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 {% else %}
+Plug 'davidhalter/jedi-vim'
 Plug 'Valloric/YouCompleteMe'
 {% endif %}
 
