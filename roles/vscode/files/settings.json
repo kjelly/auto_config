@@ -81,5 +81,7 @@
         "workbench.action.navigateDown",
         "workbench.action.navigateUp",
         "workbench.action.navigateRight"
-    ]
+    ],
+    "emmet.useNewEmmet": true
+
 }
