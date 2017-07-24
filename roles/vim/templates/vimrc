@@ -231,8 +231,8 @@ Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 {% else %}
-Plug 'davidhalter/jedi-vim'
 Plug 'Valloric/YouCompleteMe'
+"Plug 'maralla/completor.vim' "for vim8
 {% endif %}
 
 {% else %}
