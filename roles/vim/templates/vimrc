@@ -145,8 +145,6 @@ set nocompatible              " be iMproved
 filetype off                  " required before plugins
 
 
-set rtp+=~/.fzf/
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
@@ -159,6 +157,7 @@ Plug 'gagoar/stripwhitespaces'
 Plug 'terryma/vim-expand-region'
 Plug 'bling/vim-airline'
 Plug 'osyo-manga/vim-over'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 
