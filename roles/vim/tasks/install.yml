@@ -53,18 +53,6 @@
   when: need_install and programming == true
   become: true
 
-- name: clone fzf
-  git: repo=https://github.com/junegunn/fzf dest=~/.fzf
-
-- name: install fzf
-  shell: ~/.fzf/install
-
-- name: clone fzf
-  git: repo=https://github.com/junegunn/fzf dest=~/.fzf
-
-- name: install fzf
-  shell: ~/.fzf/install
-
 - name: pip install [autopep8, flake8]
   pip: name={{ item }}
   become: true
