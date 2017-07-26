@@ -17,10 +17,9 @@ def main():
     parser.add_argument('-p', '--playbook', type=str, required=True)
     parser.add_argument('--host', type=str, default='local')
     parser.add_argument('-a', '--action', type=str,
-                        default='config', choices=['config', 'deploy'])
+                        default='config')
     parser.add_argument('-u', '--user', type=str, default=getpass.getuser())
     parser.add_argument('--sudo', action='store_true', default=False)
-
 
     args, unknown = parser.parse_known_args()
     print(args)
@@ -45,8 +44,7 @@ def main():
     cmd = ((sudo + '''ansible-playbook -i "{inventory}" '''
             '''"{playbook}" -e ansible_user="{user}" -e group="{group}" '''
             '''-e remote_host="{remote_host}" -e action="{action}" '''
-            ''' -vvvv ''').format(
-               **data) + ' '.join(unknown))
+            ''' -vvvv ''').format(**data) + ' '.join(unknown))
     print(cmd)
     os.system(cmd)
 
