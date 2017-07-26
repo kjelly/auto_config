@@ -219,6 +219,8 @@ bindsym $mod+d focus child
 
 bindsym $mod+n workspace next_on_output
 bindsym $mod+p workspace prev_on_output
+bindsym Mod1+Tab workspace next_on_output
+bindsym Mod1+Shift+Tab workspace prev_on_output
 
 bindsym $mod+Shift+N workspace next
 bindsym $mod+Shift+P workspace prev
