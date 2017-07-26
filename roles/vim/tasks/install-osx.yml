@@ -1,0 +1,8 @@
+---
+
+- name: install packages for building neovim
+  homebrew: name={{ item }}
+  with_items:
+    - aclocal
+    - libtool
+    - cmake
