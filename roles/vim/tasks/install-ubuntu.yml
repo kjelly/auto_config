@@ -2,6 +2,7 @@
 - name: Install packages
   apt: name={{ item }} state=present
   with_items:
+   - vim
    - libncurses5-dev
    - libncursesw5-dev
    - exuberant-ctags
@@ -25,7 +26,6 @@
 - name: Install vim package
   apt: name={{ item }} state=present
   with_items:
-   - vim
    - gawk
    - exuberant-ctags
    - ruby
