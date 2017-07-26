@@ -1,13 +1,9 @@
 ---
-- name: remove vim from apt
-  apt: name=vim state=absent
-  when: (ansible_distribution == "Debian" or ansible_distribution == 'Ubuntu') and programming == true
-  ignore_errors: yes
-  become: true
 
 - name: Install packages
   apt: name={{ item }} state=present
   with_items:
+   - vim
    - libncurses5-dev
    - libncursesw5-dev
    - exuberant-ctags
