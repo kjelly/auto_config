@@ -21,6 +21,9 @@
 - include: "install-centos.yml"
   when: ansible_distribution == 'Centos'
 
+- include: "install-osx.yml"
+  when: ansible_distribution == 'MacOSX'
+
 - name: clone vim
   git: repo=https://github.com/vim/vim
        dest="/tmp/vim" depth=1 force=yes
