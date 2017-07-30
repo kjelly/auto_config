@@ -36,26 +36,6 @@
   when: need_install and programming == true
   ignore_errors: yes
 
-- name: generate vim Makefile
-  command: "./configure --enable-pythoninterp --enable-python3interp --enable-cscope"
-  args:
-    chdir: "/tmp/vim"
-  when: need_install and programming == true
-
-- name: make vim
-  command: "make"
-  args:
-    chdir: "/tmp/vim"
-    creates: "/tmp/vim/src/vim"
-  when: need_install and programming == true
-
-- name: make install vim
-  command: "make install"
-  args:
-    chdir: "/tmp/vim"
-  when: need_install and programming == true
-  become: true
-
 - name: pip install [autopep8, flake8]
   pip: name={{ item }}
   become: true
