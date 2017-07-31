@@ -160,6 +160,8 @@ Plug 'osyo-manga/vim-over'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
+Plug 'itchyny/calendar.vim'
+Plug 'vimwiki/vimwiki'
 
 " Lang
 Plug 'dag/vim-fish'
@@ -208,8 +210,10 @@ Plug 'Shougo/unite.vim'
 
 "Plug 'Shougo/neosnippet'
 "Plug 'Shougo/neosnippet-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
-"
+
 "Plug 'ya790206/vim-multiterm'
 "Plug 'myusuf3/numbers.vim'
 Plug 'mbbill/undotree'
@@ -407,6 +411,9 @@ let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 
 " Let fzf ignore the files which is ignored by gitignore or hgignore
 let $FZF_DEFAULT_COMMAND='ag -g ""'
+
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                     \ 'syntax': 'markdown', 'ext': '.md'}]
 
 
 " Autocmd
@@ -890,3 +897,11 @@ nnoremap ƒ :Ag<cr>
 inoremap <Esc><A-f> :Ag<cr>
 inoremap ƒ :Ag<cr>
 {% endif %}
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
