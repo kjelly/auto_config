@@ -811,10 +811,16 @@ inoremap ˚ <Esc><C-w>k
 inoremap ¬ <Esc><C-w>l
 
 " Find files/buffers
-nnoremap <A-p> :FZF<cr>
-tnoremap <A-p> <C-\><C-n>:FZF<cr>a
 nnoremap <A-o> :Buffers<cr>
 tnoremap <A-o> <C-\><C-n>Buffers<cr>a
+
+" Quickfix
+nnoremap <A-p> :lprevious<cr>
+inoremap <A-p> <Esc>:lprevious<cr>
+nnoremap <A-n> :lnext<cr>
+inoremap <A-n> <Esc>:lnextnext<cr>
+nnoremap <A-s> :lopen<cr>
+inoremap <A-s> <Esc>:lopen<cr>
 
 " Resize buffer
 nnoremap <silent> <A-q>  :resize +1000<cr>
