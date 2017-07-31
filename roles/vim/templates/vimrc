@@ -412,7 +412,7 @@ let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 " Let fzf ignore the files which is ignored by gitignore or hgignore
 let $FZF_DEFAULT_COMMAND='ag -g ""'
 
-let g:vimwiki_list = [{'path': '~/vimwiki/',
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
 
