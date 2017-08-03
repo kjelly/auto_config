@@ -46,3 +46,7 @@
 - lineinfile: dest="~/.vimrc"
               regexp="set shell"
               line="set shell={{ default_shell.stdout }}"
+
+- file: path="~/.config/nvim/ftplugin" state=directory recurse=yes
+
+- copy: src="vimwiki.vim" dest="~/.config/nvim/ftplugin"
