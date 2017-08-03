@@ -13,6 +13,7 @@ alias cd3 "cd ../../.."
 alias cd4 "cd ../../../.."
 alias cd5 "cd ../../../../.."
 alias c "vim +Calendar"
+alias wiki "vim +VimwikiIndex"
 
 set -gx GOROOT "{{ HOME_PATH }}/go"
 set -gx GOPATH "{{ HOME_PATH }}/gohome"
