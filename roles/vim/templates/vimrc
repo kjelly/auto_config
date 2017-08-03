@@ -162,6 +162,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/calendar.vim'
 Plug 'vimwiki/vimwiki'
+Plug 'justinmk/vim-gtfo'
 
 " Lang
 Plug 'dag/vim-fish'
