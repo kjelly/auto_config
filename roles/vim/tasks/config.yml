@@ -17,6 +17,8 @@
 
 - file: path="~/.vim/autoload/" state=directory recurse=yes
 
+- file: path="~/.vim_custom.vim" state=touch
+
 #- name: install vim plugin
 #  shell: "vim +PluginInstall +qall now"
 

@@ -413,8 +413,12 @@ let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 " Let fzf ignore the files which is ignored by gitignore or hgignore
 let $FZF_DEFAULT_COMMAND='ag -g ""'
 
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-                     \ 'syntax': 'markdown', 'ext': '.md'}]
+let base_wiki = {}
+let base_wiki.path = '~/Dropbox/vimwiki'
+let base_wiki.syntax = 'markdown'
+let base_wiki.ext = '.md'
+let base_wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'typescript': 'typescript', 'javascript': 'js', 'scala': 'scala', 'vim': 'vim'}
+let g:vimwiki_list = [base_wiki]
 
 
 " Autocmd
@@ -912,3 +916,5 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+source ~/.vim_custom.vim
