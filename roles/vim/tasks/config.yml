@@ -3,6 +3,8 @@
     - set_fact: nvim=true
     - file: path="~/.config/nvim" state=directory
     - template: src="vimrc" dest="~/.config/nvim/init.vim"
+    - file: path="~/.SpaceVim.d/" state=directory mode=0755
+    - template: src="keybindings.vim" dest="~/.SpaceVim.d/keybindings.vim" mode=0755
   always:
     - set_fact: nvim=false
 
@@ -51,3 +53,5 @@
 - file: path="~/.config/nvim/ftplugin" state=directory recurse=yes
 
 - copy: src="vimwiki.vim" dest="~/.config/nvim/ftplugin"
+
+- lineinfile: dest="~/.SpaceVim.d/init.vim" line="source ~/.SpaceVim.d/keybindings.vim"
