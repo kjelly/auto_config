@@ -163,6 +163,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/calendar.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'justinmk/vim-gtfo'
+Plug 'Yggdroot/indentLine'
 
 " Lang
 Plug 'dag/vim-fish'
