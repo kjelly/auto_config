@@ -1,2 +1,2 @@
 #!/bin/sh
-nvim -u ~/SpaceVim/init.vim
+nvim -u ~/SpaceVim/init.vim $@
