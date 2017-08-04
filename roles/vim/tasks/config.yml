@@ -58,3 +58,4 @@
 - lineinfile: dest="~/.SpaceVim.d/init.vim" line="source ~/.SpaceVim.d/keybindings.vim"
   ignore_errors: yes
 - lineinfile: dest="~/.SpaceVim.d/init.vim" line="source ~/.SpaceVim.d/spacevim_custom.vim"
+  ignore_errors: yes
