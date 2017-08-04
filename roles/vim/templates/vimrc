@@ -393,7 +393,7 @@ let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#exclude_preview = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#ale#enabled = 1
-let g:ale_python_pylint_options="--disable=C0111,C0103,C1801"
+let g:ale_python_pylint_options="--disable=C0111,C0103,C1801,C0325"
 
 let g:deoplete#enable_at_startup = 1
 
@@ -420,6 +420,13 @@ let base_wiki.ext = '.md'
 let base_wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'typescript': 'typescript', 'javascript': 'js', 'scala': 'scala', 'vim': 'vim'}
 let g:vimwiki_list = [base_wiki]
 
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
@@ -902,19 +909,10 @@ inoremap <A-.> <ESC>gti
 tnoremap <A-,> <C-\><C-n>gTi
 tnoremap <A-.> <C-\><C-n>gti
 
-
 nnoremap <A-f> :Ag<cr>
 nnoremap ƒ :Ag<cr>
 inoremap <Esc><A-f> :Ag<cr>
 inoremap ƒ :Ag<cr>
 {% endif %}
-
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 
 source ~/.vim_custom.vim
