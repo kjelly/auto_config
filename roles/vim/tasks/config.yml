@@ -3,6 +3,9 @@
     - set_fact: nvim=true
     - file: path="~/.config/nvim" state=directory
     - template: src="vimrc" dest="~/.config/nvim/init.vim"
+    - file: path="~/.SpaceVim.d/" state=directory mode=0755
+    - template: src="keybindings.vim" dest="~/.SpaceVim.d/keybindings.vim" mode=0755
+    - template: src="spacevim_custom.vim" dest="~/.SpaceVim.d/spacevim_custom.vim" mode=0755
   always:
     - set_fact: nvim=false
 
@@ -10,6 +13,7 @@
 
 - template: src="myvi" dest="~/bin/myvi" mode=0755
 - template: src="vit" dest="~/bin/vit" mode=0755
+- copy: src="spacevim" dest="~/bin/spacevim" mode=0755
 
 - template: src="vimrc" dest="~/.vimrc"
 
@@ -50,3 +54,8 @@
 - file: path="~/.config/nvim/ftplugin" state=directory recurse=yes
 
 - copy: src="vimwiki.vim" dest="~/.config/nvim/ftplugin"
+
+- lineinfile: dest="~/.SpaceVim.d/init.vim" line="source ~/.SpaceVim.d/keybindings.vim"
+  ignore_errors: yes
+- lineinfile: dest="~/.SpaceVim.d/init.vim" line="source ~/.SpaceVim.d/spacevim_custom.vim"
+  ignore_errors: yes
