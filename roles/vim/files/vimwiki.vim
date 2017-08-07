@@ -1,1 +1,1 @@
- nnoremap <C-s> :VWS //<Left>
+ nnoremap <C-g> :VWS //<Left>
