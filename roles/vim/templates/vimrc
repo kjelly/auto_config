@@ -177,9 +177,8 @@ Plug 'dag/vim-fish'
 {% if not programming %}"{% endif %}Plug 'rhysd/vim-clang-format'
 {% if not programming %}"{% endif %}Plug 'rust-lang/rust.vim'
 {% if not programming %}"{% endif %}Plug 'racer-rust/vim-racer'
-{% if not programming %}"{% endif %}Plug 'leafgarland/typescript-vim'
-{% if not programming %}"{% endif %}Plug 'Quramy/tsuquyomi'
 {% if not programming %}"{% endif %}Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+{% if not programming %}"{% endif %}Plug 'HerringtonDarkholme/yats.vim' " typescript
 "Plug 'dart-lang/dart-vim-plugin'
 "Plug 'keith/swift.vim'
 "Plug 'gre/play2vim'
@@ -233,6 +232,7 @@ Plug 'rhysd/devdocs.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'zchee/deoplete-jedi'
+Plug 'mhartington/nvim-typescript'
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 {% else %}
