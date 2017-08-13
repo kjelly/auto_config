@@ -233,6 +233,10 @@ Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'zchee/deoplete-jedi'
 Plug 'mhartington/nvim-typescript'
+Plug 'ternjs/tern_for_vim'
+Plug 'carlitux/deoplete-ternjs'
+Plug 'pangloss/vim-javascript'
+Plug 'udalov/kotlin-vim'
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 {% else %}
