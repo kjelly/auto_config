@@ -200,7 +200,8 @@ Plug 'dag/vim-fish'
 
 {% if programming %}
 
-Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-fugitive'
+Plug 'lambdalisue/gina.vim'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
