@@ -207,7 +207,7 @@ Plug 'mattn/emmet-vim'
 Plug 'w0rp/ale'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
-Plug 'Shougo/unite.vim'
+Plug 'Shougo/denite.nvim'
 
 "Plug 'Shougo/neosnippet'
 "Plug 'Shougo/neosnippet-snippets'
@@ -227,14 +227,17 @@ Plug 'kshenoy/vim-signature'
 Plug 'Chiel92/vim-autoformat'
 Plug 'rhysd/devdocs.vim'
 
-
 {% if nvim %}
-Plug 'Shougo/deoplete.nvim'
-Plug 'zchee/deoplete-go', { 'do': 'make'}
-Plug 'zchee/deoplete-jedi'
-Plug 'mhartington/nvim-typescript'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'roxma/nvim-completion-manager'
+
+"Plug 'zchee/deoplete-go', { 'do': 'make'}
+"Plug 'zchee/deoplete-jedi'
+"Plug 'mhartington/nvim-typescript'
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
+
 {% else %}
 Plug 'Valloric/YouCompleteMe'
 "Plug 'maralla/completor.vim' "for vim8
@@ -446,6 +449,13 @@ let g:tagbar_type_vimwiki = {
         \ 'i:Heading_L2',
         \ 'k:Heading_L3'
     \ ]
+    \ }
+
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'python': ['pyls'],
+    \ 'javascript': ['/opt/javascript-typescript-langserver/lib/language-server-stdio.js'],
     \ }
 
 " Autocmd
