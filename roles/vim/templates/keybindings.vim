@@ -270,6 +270,17 @@ let g:jedi#rename_command = "<leader>lrn"
 let g:racer_cmd = "{{ HOME_PATH }}/.cargo/bin/racer"
 let $RUST_SRC_PATH="{{ HOME_PATH }}/rust-src/src"
 
+" Gina
+nnoremap <leader>vs :Gina status<cr>
+nnoremap <leader>vpull :Gina pull<cr>
+nnoremap <leader>vpush :Gina push<cr>
+nnoremap <leader>vf :Gina fetch<cr>
+nnoremap <leader>vd :Gina diff<cr>
+nnoremap <leader>vl :Gina log<cr>
+nnoremap <leader>vc :Gina commit<cr>
+nnoremap <leader>va :Gina add
+nnoremap <leader>vt :Gina tag<cr>
+nnoremap <leader>vb :Gina branch<cr>
 
 {% if nvim %}
 
@@ -445,7 +456,6 @@ nnoremap ƒ :Ag<cr>
 inoremap <Esc><A-f> :Ag<cr>
 inoremap ƒ :Ag<cr>
 {% endif %}
-
 
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>

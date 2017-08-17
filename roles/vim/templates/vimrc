@@ -163,7 +163,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/calendar.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'justinmk/vim-gtfo'
-Plug 'Yggdroot/indentLine'
+"Plug 'Yggdroot/indentLine'
 
 " Lang
 Plug 'dag/vim-fish'
@@ -200,7 +200,8 @@ Plug 'dag/vim-fish'
 
 {% if programming %}
 
-Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-fugitive'
+Plug 'lambdalisue/gina.vim'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
@@ -235,6 +236,11 @@ Plug 'roxma/nvim-completion-manager'
 "Plug 'zchee/deoplete-go', { 'do': 'make'}
 "Plug 'zchee/deoplete-jedi'
 "Plug 'mhartington/nvim-typescript'
+
+Plug 'ternjs/tern_for_vim'
+Plug 'carlitux/deoplete-ternjs'
+Plug 'pangloss/vim-javascript'
+Plug 'udalov/kotlin-vim'
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 
