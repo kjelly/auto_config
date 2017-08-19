@@ -231,7 +231,8 @@ Plug 'rhysd/devdocs.vim'
 {% if nvim %}
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-Plug 'roxma/nvim-completion-manager'
+
+"Plug 'roxma/nvim-completion-manager' this is like deoplete
 
 "Plug 'zchee/deoplete-go', { 'do': 'make'}
 "Plug 'zchee/deoplete-jedi'
