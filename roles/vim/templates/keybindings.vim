@@ -459,4 +459,9 @@ inoremap ƒ :Ag<cr>
 
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+nnoremap <silent> <leader>lsf :call LanguageClient_textDocument_documentSymbol()<CR>
+nnoremap <silent> <leader>lsw :call LanguageClient_workspace_symbol()<CR>
+nnoremap <silent> <leader>lrf :call LanguageClient_textDocument_references()<CR>
+nnoremap <silent> <leader>lrn :call LanguageClient_textDocument_rename()<CR>
+nnoremap <silent> <leader>lf :call LanguageClient_textDocument_formatting()<CR>
