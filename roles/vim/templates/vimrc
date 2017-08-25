@@ -171,12 +171,14 @@ Plug 'dag/vim-fish'
 {% if not programming %}"{% endif %}Plug 'fatih/vim-go'
 {% if not programming %}"{% endif %}Plug 'derekwyatt/vim-scala'
 {% if not programming %}"{% endif %}Plug 'pangloss/vim-javascript'
+{% if not programming %}"{% endif %}Plug 'mxw/vim-jsx'
 {% if not programming %}"{% endif %}Plug 'plasticboy/vim-markdown'
 {% if not programming %}"{% endif %}Plug 'pearofducks/ansible-vim'
 {% if not programming %}"{% endif %}Plug 'ya790206/vim-mecury-lang'
 {% if not programming %}"{% endif %}Plug 'rust-lang/rust.vim'
 {% if not programming %}"{% endif %}Plug 'racer-rust/vim-racer'
 {% if not programming %}"{% endif %}Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+{% if not programming %}"{% endif %}Plug 'udalov/kotlin-vim'
 {% if not programming %}"{% endif %}Plug 'HerringtonDarkholme/yats.vim' " typescript
 "Plug 'dart-lang/dart-vim-plugin'
 "Plug 'keith/swift.vim'
@@ -242,8 +244,6 @@ Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'ternjs/tern_for_vim'
 "Plug 'carlitux/deoplete-ternjs'
 
-Plug 'pangloss/vim-javascript'
-Plug 'udalov/kotlin-vim'
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 
@@ -463,6 +463,7 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
     \ 'python': ['pyls'],
     \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'typescript': ['javascript-typescript-stdio'],
     \ }
 
