@@ -49,6 +49,7 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
 nnoremap <C-n> :NERDTreeTabsToggle<CR>
+nnoremap <C-x> :Explore<CR>
 
 " Tab mappings
 nnoremap <leader>tn :tabnew %<cr>
