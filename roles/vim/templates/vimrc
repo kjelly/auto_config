@@ -266,7 +266,7 @@ call plug#end()
 syntax enable
 filetype plugin indent on     " required!
 
-colorscheme gruvbox
+silent! colorscheme gruvbox
 
 set nu
 set keywordprg=sdcvh.sh
