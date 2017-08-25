@@ -146,6 +146,7 @@ filetype off                  " required before plugins
 
 
 call plug#begin('~/.vim/plugged')
+Plug 'morhetz/gruvbox'
 
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
@@ -265,9 +266,7 @@ call plug#end()
 syntax enable
 filetype plugin indent on     " required!
 
-
-colorscheme desert
-
+colorscheme gruvbox
 
 set nu
 set keywordprg=sdcvh.sh
