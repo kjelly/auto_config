@@ -273,15 +273,16 @@ let $RUST_SRC_PATH="{{ HOME_PATH }}/rust-src/src"
 
 " Gina
 nnoremap <leader>vs :Gina status<cr>
-nnoremap <leader>vpull :Gina pull<cr>
-nnoremap <leader>vpush :Gina push<cr>
+nnoremap <leader>vpl :Gina pull<cr>
+nnoremap <leader>vph :Gina push<cr>
 nnoremap <leader>vf :Gina fetch<cr>
 nnoremap <leader>vd :Gina diff<cr>
 nnoremap <leader>vl :Gina log<cr>
 nnoremap <leader>vc :Gina commit<cr>
-nnoremap <leader>va :Gina add
+nnoremap <leader>va :Gina add<space>
 nnoremap <leader>vt :Gina tag<cr>
 nnoremap <leader>vb :Gina branch<cr>
+nnoremap <leader>vv :Gina<space>
 
 {% if nvim %}
 
