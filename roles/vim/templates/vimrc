@@ -273,6 +273,7 @@ set keywordprg=sdcvh.sh
 "set whichwrap+=h,l
 set whichwrap+=<,>,[,],s,b
 set cursorline
+set showcmd
 
 " Show tab line if there are more than one tab
 set showtabline=1
