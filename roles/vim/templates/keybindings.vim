@@ -85,7 +85,7 @@ nnoremap <leader>spep [s
 nnoremap <leader>gro :Grep<cr>
 nnoremap <leader>grr :Rgrep<cr>
 nnoremap <leader>ge :Egrep<cr>
-nnoremap <leader>gl :Lines<cr
+nnoremap <leader>gl :Lines<cr>
 nnoremap <leader>gbl :BLines<cr>
 nnoremap <leader>gc :Commits<cr>
 nnoremap <leader>gbc :BCommits<cr>
