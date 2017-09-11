@@ -285,8 +285,6 @@ nnoremap <leader>vb :Gina branch<cr>
 nnoremap <leader>vv :Gina<space>
 
 autocmd FileType vimwiki nmap <localleader><space> <Plug>VimwikiToggleListItem
-autocmd FileType vimwiki map << <Plug>VimwikiDecreaseLvlSingleItem
-autocmd FileType vimwiki map >> <Plug>VimwikiDecreaseLvlWholeItem
 
 nnoremap <leader>wf :call fzf#vim#ag('', {'dir': '~/Dropbox/vimwiki/', 'down': '40%'})<cr>
 {% if nvim %}
