@@ -35,6 +35,7 @@
     "sync.quietSync": false,
     "explorer.openEditors.visible": 0,
     "vim.disableAnnoyingNeovimMessage": true,
-    "emmet.useNewEmmet": true
+    "emmet.useNewEmmet": true,
+    "editor.renderIndentGuides": false
 
 }
