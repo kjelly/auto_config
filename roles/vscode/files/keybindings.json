@@ -64,6 +64,11 @@
     { "key": "m n", "command": "bookmarks.jumpToNext", "when": "vim.mode == 'Normal' && editorTextFocus"},
     { "key": "m c", "command": "bookmarks.clear", "when": "vim.mode == 'Normal' && editorTextFocus"},
 
+    { "key": "z c", "command": "editor.fold", "when": "vim.mode == 'Normal' && editorTextFocus"},
+    { "key": "z o", "command": "editor.unfold", "when": "vim.mode == 'Normal' && editorTextFocus"},
+    { "key": "z M", "command": "editor.foldAll", "when": "vim.mode == 'Normal' && editorTextFocus"},
+    { "key": "z R", "command": "editor.unfoldAll", "when": "vim.mode == 'Normal' && editorTextFocus"},
+
     { "key": "f4", "command": "workbench.action.closeActiveEditor"},
     { "key": "ctrl+f4", "command": "search.action.focusNextSearchResult" }
 
