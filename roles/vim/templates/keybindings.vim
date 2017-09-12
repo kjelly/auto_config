@@ -152,7 +152,6 @@ nnoremap <C-u> :UndotreeToggle<cr>
 
 " Find file/buffer
 nnoremap <C-p> :FZF<cr>
-nnoremap <c-o> :Buffers<cr>
 
 "nnoremap <leader>w :W3mTab google
 
@@ -229,9 +228,6 @@ inoremap <C-b> <Esc>bi
 
 " Paste text
 inoremap <C-v> <Esc>pi
-
-" insert new after the line
-inoremap <C-o> <Esc>:Buffers<cr>
 
 " Paste text from clipboard
 vnoremap <c-c> "+y
