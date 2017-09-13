@@ -168,12 +168,12 @@ inoremap     <a-/>  :Windows<cr>
 inoremap     <c-a>  <c-x><c-n>
 
 " Easymotion
-nmap S <Plug>(easymotion-s)
-nmap f <Plug>(easymotion-overwin-w)
-map <Leader><leader>h <Plug>(easymotion-linebackward)
-map <Leader><Leader>j <Plug>(easymotion-j)
-map <Leader><Leader>k <Plug>(easymotion-k)
-map <Leader><leader>l <Plug>(easymotion-lineforward)
+nmap <leader><leader>s <Plug>(easymotion-s)
+nmap <leader><leader>f <Plug>(easymotion-overwin-w)
+nmap <Leader><leader>h <Plug>(easymotion-linebackward)
+nmap <Leader><Leader>j <Plug>(easymotion-j)
+nmap <Leader><Leader>k <Plug>(easymotion-k)
+nmap <Leader><leader>l <Plug>(easymotion-lineforward)
 
 {% if nvim %}
 
