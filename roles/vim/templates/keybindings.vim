@@ -175,6 +175,12 @@ nmap <Leader><Leader>j <Plug>(easymotion-j)
 nmap <Leader><Leader>k <Plug>(easymotion-k)
 nmap <Leader><leader>l <Plug>(easymotion-lineforward)
 
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
 {% if nvim %}
 
 " Alt-num to switch tab
