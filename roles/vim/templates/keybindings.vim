@@ -465,6 +465,9 @@ nnoremap <A-f> :Ag<cr>
 nnoremap ƒ :Ag<cr>
 inoremap <Esc><A-f> :Ag<cr>
 inoremap ƒ :Ag<cr>
+
+
+nmap <A-g> <Plug>(easymotion-overwin-w)
 {% endif %}
 
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
