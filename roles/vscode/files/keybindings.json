@@ -47,7 +47,7 @@
 
     { "key": "alt+;", "command": "workbench.action.terminal.toggleTerminal"},
     { "key": "alt+f", "command": "workbench.action.findInFiles", "when": "!terminalFocus && !searchInputBoxFocus"},
-    { "key": "alt+d", "command": "editor.action.showHover", "when": "editorTextFocus"},
+    { "key": "shift+K", "command": "editor.action.showHover", "when": "editorTextFocus"},
     { "key": "alt+/", "command": "editor.action.triggerSuggest", "when": "editorHasCompletionItemProvider && editorTextFocus && !editorReadonly"},
     { "key": "alt+r", "command": "workbench.action.tasks.runTask"},
     { "key": "alt+e", "command": "workbench.action.showCommands"},
@@ -66,8 +66,8 @@
 
     { "key": "z c", "command": "editor.fold", "when": "vim.mode == 'Normal' && editorTextFocus"},
     { "key": "z o", "command": "editor.unfold", "when": "vim.mode == 'Normal' && editorTextFocus"},
-    { "key": "z M", "command": "editor.foldAll", "when": "vim.mode == 'Normal' && editorTextFocus"},
-    { "key": "z R", "command": "editor.unfoldAll", "when": "vim.mode == 'Normal' && editorTextFocus"},
+    { "key": "z shift+M", "command": "editor.foldAll", "when": "vim.mode == 'Normal' && editorTextFocus"},
+    { "key": "z shift+R", "command": "editor.unfoldAll", "when": "vim.mode == 'Normal' && editorTextFocus"},
 
     { "key": "f4", "command": "workbench.action.closeActiveEditor"},
     { "key": "ctrl+f4", "command": "search.action.focusNextSearchResult" }
