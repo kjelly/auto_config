@@ -1,7 +1,7 @@
 {
     "editor.fontSize": 18,
     "terminal.integrated.shell.windows": "C:\\Windows\\sysnative\\bash.exe",
-    "terminal.integrated.shellArgs.windows": [],
+    "terminal.integrated.shellArgs.windows": ["-c", "zsh"],
     "window.zoomLevel": 1.0,
     "editor.tabSize": 2,
     "editor.renderWhitespace": "boundary",
