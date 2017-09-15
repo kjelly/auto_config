@@ -15,6 +15,7 @@ alias cd5 "cd ../../../../.."
 alias c "vim +Calendar"
 alias wiki "bash -c 'cd ~/Dropbox/vimwiki/;vim +VimwikiIndex'"
 alias g "vim +Ag"
+alias search "ag .|fzf"
 
 set -gx GOROOT "{{ HOME_PATH }}/go"
 set -gx GOPATH "{{ HOME_PATH }}/gohome"
