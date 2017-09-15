@@ -489,6 +489,7 @@ autocmd! TermOpen *fish set nonu
 autocmd! bufwritepost .vimrc source %
 autocmd! bufwritepost init.vim source %
 autocmd FileType c ClangFormatAutoEnable
+autocmd CursorHold * checktime
 
 augroup Binary
   au!
