@@ -478,3 +478,9 @@ nnoremap <silent> <leader>lsw :call LanguageClient_workspace_symbol()<CR>
 nnoremap <silent> <leader>lrf :call LanguageClient_textDocument_references()<CR>
 nnoremap <silent> <leader>lrn :call LanguageClient_textDocument_rename()<CR>
 nnoremap <silent> <leader>lf :call LanguageClient_textDocument_formatting()<CR>
+
+inoremap <silent><expr> <A-/>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ deoplete#mappings#manual_complete()
+
