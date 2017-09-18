@@ -160,10 +160,6 @@ nnoremap sa  :resize +1000<cr>
 nnoremap si  :resize -1000<cr>
 nnoremap sm  <c-w><c-=>
 
-" Find window
-nnoremap <a-/>  :Windows<cr>
-inoremap     <a-/>  :Windows<cr>
-
 " Auto complete for all word
 inoremap     <c-a>  <c-x><c-n>
 
