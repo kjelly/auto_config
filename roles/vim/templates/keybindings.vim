@@ -481,6 +481,5 @@ nnoremap <silent> <leader>lf :call LanguageClient_textDocument_formatting()<CR>
 
 inoremap <silent><expr> <A-/>
   \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
   \ deoplete#mappings#manual_complete()
 
