@@ -372,13 +372,11 @@ inoremap ¬ <Esc><C-w>l
 
 " Find files/buffers
 nnoremap <A-o> :Buffers<cr>
-tnoremap <A-o> <C-\><C-n>Buffers<cr>a
+tnoremap <A-o> <C-\><C-n>:Buffers<cr>a
+nnoremap <A-p> :Files<cr>
+tnoremap <A-p> <C-\><C-n>:Files<cr>a
 
 " Quickfix
-nnoremap <A-p> :lprevious<cr>
-inoremap <A-p> <Esc>:lprevious<cr>
-nnoremap <A-n> :lnext<cr>
-inoremap <A-n> <Esc>:lnextnext<cr>
 nnoremap <A-s> :lopen<cr>
 inoremap <A-s> <Esc>:lopen<cr>
 
