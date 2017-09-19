@@ -264,7 +264,11 @@ Plug 'Valloric/YouCompleteMe'
 {% if nvim %}
 Plug 'mhinz/neovim-remote'
 "Plug 'kassio/neoterm', { 'commit': '9e33da0a' }
+
+" For neovim-qt or go-nvim
+Plug 'equalsraf/neovim-gui-shim'
 {% endif %}
+
 
 call plug#end()
 
