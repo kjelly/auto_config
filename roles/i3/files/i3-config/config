@@ -52,7 +52,6 @@ bindsym $mod+Return exec python ~/.i3/open_term.py
 bindsym $mod+Shift+Return exec xfce4-terminal
 
 # kill focused window
-bindsym $mod+Shift+C kill
 mode "kill_mode" {
         bindsym y kill;mode "default"
         bindsym Return mode "default"
@@ -82,17 +81,7 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
-#bindsym $mod+b split h
-
-# split in vertical orientation
-#bindsym $mod+v split v
-
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen
-
 # change container layout (stacked, tabbed, default)
-# bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout splith
 bindsym $mod+q layout splitv
@@ -160,18 +149,8 @@ mode "resize" {
 
 bindsym $mod+Shift+s mode "resize"
 
-# scratchpad
-bindsym $mod+m move scratchpad
-bindsym $mod+Shift+m exec "~/.i3/show_tiling_window_from_scratchpad.py"
-bindsym $mod+comma exec "python ~/.i3/choose_window_in_scratchpad.py"
-#for floating
-bindsym $mod+Shift+less exec "python ~/.i3/choose_window_in_scratchpad.py 1"
-
 # toggle tiling / floating
 bindsym $mod+Shift+A floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+a focus mode_toggle
 
 set $mode_folating_window_move move container position
 mode "$mode_folating_window_move" {
@@ -212,11 +191,6 @@ bindsym $mod+apostrophe move workspace to output right
 bindsym $mod+Shift+colon exec ~/.i3/move_container_left.py
 bindsym $mod+Shift+quotedbl exec ~/.i3/move_container_right.py
 
-
-# container navigation
-bindsym $mod+u focus parent
-bindsym $mod+d focus child
-
 bindsym $mod+n workspace next_on_output
 bindsym $mod+p workspace prev_on_output
 bindsym Mod1+Tab workspace next_on_output
@@ -246,8 +220,6 @@ mode "$mode_move_container_to_output " {
 }
 bindsym $mod+Shift+o mode "$mode_move_container_to_output "
 
-#bindsym $mod+y exec ~/.i3/create_workspace.py
-
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id ~/.i3/i3exit lock, mode "default"
@@ -263,11 +235,7 @@ mode "$mode_system" {
 }
 bindsym Pause mode "$mode_system"
 
-#bindsym $mod+space layout toggle all
-#bindsym $mod+Shift+space layout toggle all
-
 bindsym Print exec xfce4-screenshooter
-bindsym $mod+g exec ~/.i3/new_quick_switch.py
 
 bindsym $mod+Left exec xbacklight -5
 bindsym $mod+Right exec xbacklight +5
@@ -275,6 +243,20 @@ bindsym $mod+Up exec amixer -q sset Master 2%+
 bindsym $mod+Down exec amixer -q sset Master 2%-
 
 bindsym mod4+XF86TouchpadToggle exec unity-control-center
+
+# switch to workspace
+bindsym $mod+a workspace number 1
+bindsym $mod+s workspace number 2
+bindsym $mod+d workspace number 3
+bindsym $mod+f workspace number 4
+bindsym $mod+g workspace number 5
+bindsym $mod+z workspace number 6
+bindsym $mod+x workspace number 7
+bindsym $mod+c workspace number 8
+bindsym $mod+v workspace number 9
+bindsym $mod+b workspace number 10
+bindsym $mod+y fullscreen
+bindsym $mod+m exec ~/.i3/new_quick_switch.py
 
 exec sleep 5 & feh --bg-scale ~/Pictures/background.jpg
 exec bash ~/.i3/run_lxpanel.sh
