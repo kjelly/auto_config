@@ -288,6 +288,11 @@ nnoremap <leader>wf :call fzf#vim#ag('', {'dir': '~/Dropbox/vimwiki/', 'down': '
 nnoremap <leader>u :UndotreeToggle<cr>
 
 nnoremap zz za
+
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
 {% if nvim %}
 
 " Disable mouse
