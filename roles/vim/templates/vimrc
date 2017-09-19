@@ -540,6 +540,14 @@ function! OpenChangedFiles()
 endfunction
 command! OpenChangedFiles :call OpenChangedFiles()
 
+" It doesn't work in terminal (neo)vim
+hi VimwikiHeader1 guifg=Gray
+hi VimwikiHeader2 guifg=Magenta
+hi VimwikiHeader3 guifg=#30F30F
+hi VimwikiHeader4 guifg=#B266FF
+hi VimwikiHeader5 guifg=#00CC66
+hi VimwikiHeader6 guifg=#FFFF00
+
 {% include './templates/keybindings.vim' %}
 
 source ~/.vim_custom.vim
