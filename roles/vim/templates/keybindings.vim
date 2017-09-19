@@ -151,7 +151,7 @@ inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 nnoremap <C-u> :UndotreeToggle<cr>
 
 " Find file/buffer
-nnoremap <C-p> :call fzf#vim#gitfiles('', fzf#vim#with_preview('right'))<cr>
+nnoremap <C-p> :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
 
 "nnoremap <leader>w :W3mTab google
 
@@ -373,8 +373,8 @@ inoremap ¬ <Esc><C-w>l
 " Find files/buffers
 nnoremap <A-o> :Buffers<cr>
 tnoremap <A-o> <C-\><C-n>:Buffers<cr>a
-nnoremap <A-p> :call fzf#vim#gitfiles('', fzf#vim#with_preview('right'))<cr>
-tnoremap <A-p> <C-\><C-n>:call fzf#vim#gitfiles('', fzf#vim#with_preview('right'))<cr>a
+nnoremap <A-p> :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
+tnoremap <A-p> <C-\><C-n>:call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>a
 
 " Quickfix
 nnoremap <A-s> :lopen<cr>
