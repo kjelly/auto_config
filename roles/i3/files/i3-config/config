@@ -276,7 +276,6 @@ bindsym $mod+i exec python ~/.i3/quick_insert.py
 bindsym $mod+Shift+i exec python ~/.i3/insert_from_fish_history.py
 
 #mark
-bindsym $mod+b mode "mark"
 mode "mark" {
     bindsym u exec --no-startup-id i3-msg "unmark" , mode "default"
     bindsym m exec --no-startup-id i3-input -F "mark %s" , mode "default"
@@ -287,7 +286,6 @@ mode "mark" {
 }
 
 
-bindsym $mod+z exec i3-input
 bindsym $mod+t exec ~/.i3/name_workspace.py
 bindsym $mod+period exec ~/.i3/noteit.py
 exec --no-startup-id i3-msg 'workspace number 1;workspace 1:Web; exec sensible-browser'
