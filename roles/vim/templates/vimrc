@@ -251,6 +251,9 @@ Plug 'zchee/deoplete-go', { 'do': 'make'}
 
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
+Plug 'eugen0329/vim-esearch'
+Plug 'iCyMind/NeoSolarized'
+Plug 'joshdick/onedark.vim'
 
 {% else %}
 Plug 'Valloric/YouCompleteMe'
@@ -275,7 +278,6 @@ call plug#end()
 syntax enable
 filetype plugin indent on     " required!
 
-silent! colorscheme gruvbox
 
 set nu
 set keywordprg=sdcvh.sh
@@ -483,6 +485,8 @@ let vim_markdown_preview_hotkey='<A-m>'
 let vim_markdown_preview_github=1
 let vim_markdown_preview_use_xdg_open=1
 
+let g:airline_theme='onedark'
+
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
 autocmd! InsertEnter,WinLeave * set nocursorline
@@ -555,3 +559,4 @@ hi VimwikiHeader6 guifg=#FFFF00
 {% include './templates/keybindings.vim' %}
 
 source ~/.vim_custom.vim
+silent! colorscheme onedark
