@@ -165,6 +165,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/calendar.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'justinmk/vim-gtfo'
+Plug 'haya14busa/incsearch.vim'
 Plug 'Shougo/unite.vim'
 Plug 'JamshedVesuna/vim-markdown-preview' " sudo pip install grip
 "Plug 'Yggdroot/indentLine'
