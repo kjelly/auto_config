@@ -36,6 +36,7 @@
     "explorer.openEditors.visible": 0,
     "vim.disableAnnoyingNeovimMessage": true,
     "emmet.useNewEmmet": true,
-    "editor.renderIndentGuides": false
+    "editor.renderIndentGuides": false,
+    "editor.fontFamily": "'Source Code Pro','Inconsolata' ,'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback'"
 
 }
