@@ -23,6 +23,10 @@
 
 - file: path="~/.vim_custom.vim" state=touch
 
+- file: path="~/.config/nyaovim/" state=directory recurse=yes
+
+- template: src="nyaovimrc.html" dest="~/.config/nyaovim/nyaovimrc.html"
+
 #- name: install vim plugin
 #  shell: "vim +PluginInstall +qall now"
 
