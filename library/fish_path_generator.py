@@ -1,7 +1,7 @@
 #!/usr/bin/python
-from ansible.module_utils.basic import *
-import os
 import glob
+import os
+from ansible.module_utils.basic import *
 
 
 def get_go_root_bin():
@@ -21,8 +21,7 @@ def get_real_path(path):
     path_list = glob.glob(path)
     if len(path_list) == 0:
         return ''
-    else:
-        return os.path.realpath(path_list[0])
+    return os.path.realpath(path_list[0])
 
 
 def main():
@@ -55,4 +54,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

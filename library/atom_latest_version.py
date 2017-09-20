@@ -1,7 +1,7 @@
 #!/usr/bin/python
 from ansible.module_utils.basic import *
-import os
 from pyquery import PyQuery as pq
+
 
 def main():
     module = AnsibleModule(argument_spec={})
@@ -12,4 +12,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
