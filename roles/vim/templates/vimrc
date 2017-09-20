@@ -151,7 +151,7 @@ Plug 'morhetz/gruvbox'
 
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'vim-scripts/grep.vim'
+"Plug 'vim-scripts/grep.vim'
 "Plug 'ervandew/supertab'
 "Plug 'DevWurm/autosession.vim'
 Plug 'ntpeters/vim-better-whitespace'
@@ -166,25 +166,26 @@ Plug 'itchyny/calendar.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'justinmk/vim-gtfo'
 Plug 'haya14busa/incsearch.vim'
-Plug 'Shougo/unite.vim'
-Plug 'JamshedVesuna/vim-markdown-preview' " sudo pip install grip
+"Plug 'Shougo/unite.vim'
+"Plug 'JamshedVesuna/vim-markdown-preview' " sudo pip install grip
 "Plug 'Yggdroot/indentLine'
 
 " Lang
 Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
 {% if not programming %}"{% endif %}Plug 'fatih/vim-go'
-{% if not programming %}"{% endif %}Plug 'derekwyatt/vim-scala'
 {% if not programming %}"{% endif %}Plug 'pangloss/vim-javascript'
-{% if not programming %}"{% endif %}Plug 'mxw/vim-jsx'
 {% if not programming %}"{% endif %}Plug 'plasticboy/vim-markdown'
 {% if not programming %}"{% endif %}Plug 'pearofducks/ansible-vim'
-{% if not programming %}"{% endif %}Plug 'ya790206/vim-mecury-lang'
-{% if not programming %}"{% endif %}Plug 'rust-lang/rust.vim'
-{% if not programming %}"{% endif %}Plug 'racer-rust/vim-racer'
 {% if not programming %}"{% endif %}Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-{% if not programming %}"{% endif %}Plug 'udalov/kotlin-vim'
 {% if not programming %}"{% endif %}Plug 'HerringtonDarkholme/yats.vim' " typescript
+
+"Plug 'derekwyatt/vim-scala'
+"Plug 'mxw/vim-jsx'
+"Plug 'ya790206/vim-mecury-lang'
+"Plug 'rust-lang/rust.vim'
+"Plug 'racer-rust/vim-racer'
+"Plug 'udalov/kotlin-vim'
 "Plug 'dart-lang/dart-vim-plugin'
 "Plug 'keith/swift.vim'
 "Plug 'gre/play2vim'
