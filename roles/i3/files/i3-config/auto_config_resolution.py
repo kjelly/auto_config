@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 from subprocess import check_output
 import re
 from collections import defaultdict
@@ -13,6 +13,7 @@ def get_device(line):
         return line.split(' ')[0]
     return None
 
+
 def get_mode(line):
     result = mode_pattern.search(line)
     # pdb.set_trace()
@@ -24,9 +25,10 @@ def get_mode(line):
 def find_disconnected(line):
     return line.find(' disconnected') >= 0
 
+
 def get_xrandr_result():
     output = check_output('xrandr')
-    output = output.split('\n')
+    output = output.decode('utf-8').split('\n')
 
     result = defaultdict(lambda: [])
     device = None
@@ -47,16 +49,28 @@ def get_xrandr_result():
     return result
 
 
+def get_left_or_right():
+    home_dir = os.path.expanduser('~')
+    config_path = os.path.join(home_dir, '.xrandr_config')
+    try:
+        with open(config_path, 'r') as ftr:
+            return ftr.readline().strip()
+    except FileNotFoundError:
+        return 'right'
+
+
 def auto_config_mode():
     device_list = get_xrandr_result()
     for i in device_list:
         mode = device_list[i][0]
         os.system("xrandr --output %s --mode %s" % (i, mode))
-    device_keys = device_list.keys()
-    for index, device in enumerate(device_keys[1:]):
+    device_keys = list(device_list.keys())
+    for index, _ in enumerate(device_keys[1:]):
         left_device = device_keys[index - 1]
         right_device = device_keys[index]
-        os.system("xrandr --output %s --left-of %s" % (left_device, right_device))
+        direction = get_left_or_right()
+        os.system("xrandr --output %s --%s-of %s" % (left_device,
+                                                     direction, right_device))
 
 
 if __name__ == '__main__':
