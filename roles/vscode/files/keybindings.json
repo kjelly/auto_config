@@ -70,6 +70,11 @@
     { "key": "z shift+R", "command": "editor.unfoldAll", "when": "vim.mode == 'Normal' && editorTextFocus"},
 
     { "key": "f4", "command": "workbench.action.closeActiveEditor"},
-    { "key": "ctrl+f4", "command": "search.action.focusNextSearchResult" }
+    { "key": "ctrl+f4", "command": "search.action.focusNextSearchResult" },
+
+    { "key": "escape", "command": "-leaveSnippet", "when": "editorTextFocus && inSnippetMode"},
+    { "key": "ctrl+f", "command": "jumpToNextSnippetPlaceholder", "when": "editorTextFocus && hasNextTabstop && inSnippetMode" },
+    { "key": "ctrl+b", "command": "jumpToPrevSnippetPlaceholder", "when": "editorTextFocus && hasPrevTabstop && inSnippetMode" }
+
 
 ]
