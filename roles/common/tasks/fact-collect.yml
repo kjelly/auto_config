@@ -14,7 +14,12 @@
     UBUNTU_VERSION: "{{ UBUNTU_VERSION_RESULT.stdout }}"
   when: ansible_distribution == 'Ubuntu'
 
-- fish_path_generator:
+- path_generator: shell='fish'
   register: stdout
 
 - set_fact: FISH_EXTRA_PATH={{ stdout.ENV_PATH }}
+
+- path_generator: shell='zsh'
+  register: stdout
+
+- set_fact: ZSH_EXTRA_PATH={{ stdout.ENV_PATH }}
