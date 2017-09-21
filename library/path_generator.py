@@ -25,7 +25,10 @@ def get_real_path(path):
 
 
 def main():
-    module = AnsibleModule(argument_spec={})
+    module_args = dict(
+        shell=dict(type='str', required=True),
+    )
+    module = AnsibleModule(argument_spec=module_args)
 
     env_path = []
 
@@ -49,7 +52,10 @@ def main():
     if node_bin:
         env_path.append(node_bin)
 
-    module.exit_json(changed=False, ENV_PATH=' '.join(env_path))
+    if module.params['shell'] == 'fish':
+        module.exit_json(changed=False, ENV_PATH=' '.join(env_path))
+    else:
+        module.exit_json(changed=False, ENV_PATH=':'.join(env_path))
 
 
 if __name__ == '__main__':
