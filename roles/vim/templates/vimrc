@@ -560,5 +560,5 @@ hi VimwikiHeader6 guifg=#FFFF00
 {% include './templates/keybindings.vim' %}
 
 source ~/.vim_custom.vim
-"silentx colorscheme desert
+"silent colorscheme desert
 silent! colorscheme onedark
