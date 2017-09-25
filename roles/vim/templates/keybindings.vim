@@ -469,8 +469,32 @@ inoremap ƒ :Ag<cr>
 nmap <A-g> <Plug>(easymotion-overwin-w)
 {% endif %}
 
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+function! ShowDoc()
+  let l:my_filetype = &filetype
+  echo l:my_filetype
+  if l:my_filetype == 'scala'
+    execute "EnDocBrowse"
+  elseif l:my_filetype == 'java'
+    execute "EnDocBrowse"
+  else
+    call LanguageClient_textDocument_hover()
+  endif
+endfunction
+
+function! ShowDef()
+  let l:my_filetype = &filetype
+  echo l:my_filetype
+  if l:my_filetype == 'scala'
+    execute "EnDeclaration"
+  elseif l:my_filetype == 'java'
+    execute "EnDeclaration"
+  else
+    call LanguageClient_textDocument_definition()
+  endif
+endfunction
+
+nnoremap <silent> K :call ShowDoc()<CR>
+nnoremap <silent> gd :call ShowDef()<CR>
 
 nnoremap <silent> <leader>lsf :call LanguageClient_textDocument_documentSymbol()<CR>
 nnoremap <silent> <leader>lsw :call LanguageClient_workspace_symbol()<CR>
@@ -481,4 +505,3 @@ nnoremap <silent> <leader>lf :call LanguageClient_textDocument_formatting()<CR>
 inoremap <silent><expr> <A-/>
   \ pumvisible() ? "\<C-n>" :
   \ deoplete#mappings#manual_complete()
-
