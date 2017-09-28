@@ -376,8 +376,14 @@ inoremap ˚ <Esc><C-w>k
 inoremap ¬ <Esc><C-w>l
 
 " Find files/buffers
-nnoremap <A-o> :Buffers<cr>
-tnoremap <A-o> <C-\><C-n>:Buffers<cr>a
+function! OpenBuffer()
+  bufdo if &buftype ==# 'terminal' | silent! execute 'file' b:term_title | endif
+  execute "Buffers"
+endfunction
+
+inoremap <A-o> <Esc>:call OpenBuffer()<cr>
+nnoremap <A-o> :call OpenBuffer()<cr>
+tnoremap <A-o> <C-\><C-n>:call OpenBuffer()<cr>a
 nnoremap <A-p> :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
 tnoremap <A-p> <C-\><C-n>:call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>a
 
@@ -447,7 +453,6 @@ nnoremap <A-r>8 <Esc>:C g8<cr>
 nnoremap <A-r>9 <Esc>:C g9<cr>
 nnoremap <A-r>0 <Esc>:C g0<cr>
 
-inoremap <A-o> <Esc>:Buffers<cr>
 
 nnoremap <A-d> :DevDocsUnderCursor<cr>
 nnoremap ∂ :DevDocsUnderCursor<cr>
