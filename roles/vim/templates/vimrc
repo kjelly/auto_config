@@ -172,6 +172,8 @@ Plug 'haya14busa/incsearch.vim'
 " Lang
 Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
+Plug 'ensime/ensime-vim'
+{% if not programming %}"{% endif %}Plug 'artur-shaik/vim-javacomplete2'
 {% if not programming %}"{% endif %}Plug 'fatih/vim-go'
 {% if not programming %}"{% endif %}Plug 'pangloss/vim-javascript'
 {% if not programming %}"{% endif %}Plug 'plasticboy/vim-markdown'
