@@ -55,19 +55,21 @@ noremap L gt
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-nnoremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+nnoremap <leader>te :terminal<cr>
 
 " Grep
 " B for current buffer
 " For example, Lines for Lines in loaded buffers.
 " BLines for Lines in the current buffer
-nnoremap <leader>gro :Grep<cr>
-nnoremap <leader>grr :Rgrep<cr>
 nnoremap <leader>gl :Lines<cr>
 nnoremap <leader>gbl :BLines<cr>
 nnoremap <leader>gc :Commits<cr>
 nnoremap <leader>gbc :BCommits<cr>
+nnoremap <leader>gh :History<cr>
+nnoremap <leader>gm :Marks<cr>
 nnoremap <leader>ga :Ag<cr>
+nnoremap <leader>gp :Files<cr>
+nnoremap <leader>go :Buffers<cr>
 
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> gv :call VisualSelection('gv')<CR>
@@ -93,6 +95,7 @@ nnoremap <leader>ss :call ToggleStatusLine()<cr>
 
 " Find file in NERDTree
 nnoremap <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
+nnoremap <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
 
 " Command
 nnoremap <C-e> :Commands<cr>
