@@ -405,7 +405,7 @@ set laststatus=2
 
 " The time in milliseconds that is waited for
 " a mapped sequence to complete.
-set timeoutlen=2500
+set timeoutlen=500
 
 set completeopt="menu,preview,noinsert,noselect"
 
