@@ -38,10 +38,10 @@ autocmd! BufReadPost *
 " To go to the previous search results do:
 "   <leader>p
 
-nnoremap <leader>gcc :botright cope<cr>
-nnoremap <leader>gco ggVGy:tabnew %<cr>:set syntax=qf<cr>pgg
-nnoremap <leader>gn :cn<cr>
-nnoremap <leader>gp :cp<cr>
+"nnoremap <leader>gcc :botright cope<cr>
+"nnoremap <leader>gco ggVGy:tabnew %<cr>:set syntax=qf<cr>pgg
+"nnoremap <leader>gn :cn<cr>
+"nnoremap <leader>gp :cp<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
