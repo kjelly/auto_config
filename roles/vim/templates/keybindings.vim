@@ -265,9 +265,6 @@ map g/ <Plug>(incsearch-stay)
 
 {% if nvim %}
 
-" Disable mouse
-set mouse=""
-
 " open new terminal in new tab/buffer.
 map <leader>tt :tabnew %<cr>:terminal<cr>
 map <leader>tb :split<cr><c-w>j:terminal<cr>
