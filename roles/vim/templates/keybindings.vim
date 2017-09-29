@@ -26,18 +26,8 @@ vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
-
-" Fast saving
-nnoremap <leader>sa :w!<cr>
-
-" Disable highlight when <leader><cr> is pressed
-nnoremap <silent> <leader><cr> :noh<cr>
-
-" Close the current buffer
-nnoremap <leader>bd :Bclose<cr>
-
-" Close all the buffers
-nnoremap <leader>ba :1,1000 bd!<cr>
+" Disable highlight
+nnoremap <silent> <leader>g<cr> :noh<cr>
 
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -49,7 +39,8 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
 nnoremap <C-n> :NERDTreeTabsToggle<CR>
-nnoremap <leader>x :Explore<CR>
+nnoremap <leader>fx :Explore<space>
+nnoremap <leader>fr :Explore scp://
 
 " Tab mappings
 nnoremap <leader>tn :tabnew %<cr>
@@ -66,25 +57,12 @@ noremap L gt
 " Super useful when editing files in the same directory
 nnoremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
-nnoremap <leader>spel :setlocal spell!<cr>
-
-" Shortcuts using <leader>
-nnoremap <leader>spen ]s
-nnoremap <leader>spep [s
-
-
 " Grep
 " B for current buffer
 " For example, Lines for Lines in loaded buffers.
 " BLines for Lines in the current buffer
 nnoremap <leader>gro :Grep<cr>
 nnoremap <leader>grr :Rgrep<cr>
-nnoremap <leader>ge :Egrep<cr>
 nnoremap <leader>gl :Lines<cr>
 nnoremap <leader>gbl :BLines<cr>
 nnoremap <leader>gc :Commits<cr>
@@ -95,10 +73,10 @@ nnoremap <leader>ga :Ag<cr>
 vnoremap <silent> gv :call VisualSelection('gv')<CR>
 
 " Open vimgrep and put the cursor in the right position
-nnoremap <leader>gv :vimgrep // **/* <left><left><left><left><left><left><left>
+"nnoremap <leader>gv :vimgrep // **/* <left><left><left><left><left><left><left>
 
 " Vimgreps in the current file
-nnoremap <leader><space> :vimgrep // <Home><right><right><right><right><right><right><right><right><right>
+"nnoremap <leader><space> :vimgrep // <Home><right><right><right><right><right><right><right><right><right>
 
 
 " close buffer/window
@@ -107,25 +85,16 @@ nnoremap <leader>qw :q<cr>
 nnoremap <leader>qb :Bclose<cr>
 
 " State
-nnoremap <leader>,n :set nu!<cr>
-nnoremap <leader>,w :set wrap!<cr>
-nnoremap <leader>,p :setlocal paste!<cr>
-nnoremap <leader>,m :call ToggleMouse()<cr>
-nnoremap <leader>,s :call ToggleStatusLine()<cr>
+nnoremap <leader>sn :set nu!<cr>
+nnoremap <leader>sw :set wrap!<cr>
+nnoremap <leader>sp :setlocal paste!<cr>
+nnoremap <leader>sm :call ToggleMouse()<cr>
+nnoremap <leader>ss :call ToggleStatusLine()<cr>
 
 " Find file in NERDTree
 nnoremap <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
 
-" Find  line in the current buffer
-nnoremap <leader>fb :BLine
-" Find  lines in loaded buffers
-nnoremap <leader>fl :Line
-
-" format code
-noremap <leader>fc :Autoformat<CR>
-
 " Command
-nnoremap <leader>e :Commands<cr>
 nnoremap <C-e> :Commands<cr>
 
 " Tag list
@@ -148,8 +117,6 @@ inoremap <C-s> <Esc>:w<cr>a
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 
-nnoremap <C-u> :UndotreeToggle<cr>
-
 " Find file/buffer
 nnoremap <C-p> :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
 
@@ -164,12 +131,12 @@ nnoremap sm  <c-w><c-=>
 inoremap     <c-a>  <c-x><c-n>
 
 " Easymotion
-nmap <leader><leader>s <Plug>(easymotion-s)
-nmap <leader><leader>f <Plug>(easymotion-overwin-w)
-nmap <Leader><leader>h <Plug>(easymotion-linebackward)
-nmap <Leader><Leader>j <Plug>(easymotion-j)
-nmap <Leader><Leader>k <Plug>(easymotion-k)
-nmap <Leader><leader>l <Plug>(easymotion-lineforward)
+nmap <leader>ms <Plug>(easymotion-s)
+nmap <leader>mf <Plug>(easymotion-overwin-w)
+nmap <Leader>mh <Plug>(easymotion-linebackward)
+nmap <Leader>mj <Plug>(easymotion-j)
+nmap <Leader>mk <Plug>(easymotion-k)
+nmap <Leader>ml <Plug>(easymotion-lineforward)
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
