@@ -253,7 +253,9 @@ nnoremap <leader>vv :Gina<space>
 autocmd FileType vimwiki nmap <localleader><space> <Plug>VimwikiToggleListItem
 
 nnoremap <leader>wf :call fzf#vim#ag('', {'dir': '~/Dropbox/vimwiki/', 'down': '40%'})<cr>
-nnoremap <leader>u :UndotreeToggle<cr>
+
+nnoremap <leader>eu :UndotreeToggle<cr>
+nnoremap <leader>es :e $MYVIMRC<cr>
 
 nnoremap zz za
 
