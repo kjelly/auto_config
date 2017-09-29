@@ -147,6 +147,7 @@ filetype off                  " required before plugins
 
 
 call plug#begin('~/.vim/plugged')
+Plug 'hecal3/vim-leader-guide'
 
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
@@ -436,7 +437,7 @@ let g:clang_cpp_completeopt = "menu,preview,noinsert,noselect"
 let g:syntastic_cpp_compiler_options="-std=gnu++14"
 
 " Easymotion
-let g:EasyMotion_smartcase = 1
+let g:asyMotion_smartcase = 1
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 
 " Let fzf ignore the files which is ignored by gitignore or hgignore
@@ -564,3 +565,21 @@ hi VimwikiHeader6 guifg=#FFFF00
 source ~/.vim_custom.vim
 "silent colorscheme desert
 silent! colorscheme onedark
+
+let g:lmap =  {}
+let g:llmap =  {}
+let g:lmap.v = { 'name' : 'Version Controll' }
+let g:lmap.g = { 'name' : 'Grep/Find' }
+let g:lmap.t = { 'name' : 'Tab/Buffer' }
+let g:lmap.c = { 'name' : 'Comment/cd' }
+let g:lmap.q = { 'name' : 'Quit' }
+let g:lmap.l = { 'name' : 'Language' }
+let g:lmap.f = { 'name' : 'File/esearch' }
+let g:lmap.s = { 'name' : 'Status' }
+let g:lmap.m = { 'name' : 'Moves' }
+let g:lmap.w = { 'name' : 'Wiki' }
+
+call leaderGuide#register_prefix_descriptions(",", "g:lmap")
+call leaderGuide#register_prefix_descriptions("<Space>", "g:llmap")
+nnoremap <silent> <leader> :<c-u>LeaderGuide ','<CR>
+nnoremap <silent> <localleader> :<c-u>LeaderGuide '<Space>'<CR>
