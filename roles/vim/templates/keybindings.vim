@@ -262,9 +262,9 @@ nnoremap <leader>es :e $MYVIMRC<cr>
 
 nnoremap zz za
 
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
+map /  <Plug>(incsearch-forward)\v
+map ?  <Plug>(incsearch-backward)\v
+map g/ <Plug>(incsearch-stay)\v
 
 {% if nvim %}
 
