@@ -13,10 +13,6 @@ nnoremap / /\v
 vnoremap / /\v
 
 
-" Sudo to write
-cnoremap w!! w !sudo tee % >/dev/null
-
-
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 
