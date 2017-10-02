@@ -13,10 +13,6 @@ nnoremap / /\v
 vnoremap / /\v
 
 
-" Sudo to write
-cnoremap w!! w !sudo tee % >/dev/null
-
-
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 
@@ -126,11 +122,6 @@ nnoremap <C-p> :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
 
 "nnoremap <leader>w :W3mTab google
 
-" Resize buffer
-nnoremap sa  :resize +1000<cr>
-nnoremap si  :resize -1000<cr>
-nnoremap sm  <c-w><c-=>
-
 " Auto complete for all word
 inoremap     <c-a>  <c-x><c-n>
 
@@ -148,7 +139,11 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-nnoremap E :Explore scp://
+cnoremap <c-r> Explore scp://
+cnoremap <c-h> <Left>
+cnoremap <c-j> <Down>
+cnoremap <c-k> <Up>
+cnoremap <c-l> <Right>
 {% if nvim %}
 
 " Alt-num to switch tab
