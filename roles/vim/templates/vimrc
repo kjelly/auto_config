@@ -174,7 +174,8 @@ Plug 'tpope/vim-vinegar'
 " Lang
 Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'ensime/ensime-vim'
+Plug 'joshdick/onedark.vim'
+{% if not programming %}"{% endif %}Plug 'ensime/ensime-vim'
 {% if not programming %}"{% endif %}Plug 'artur-shaik/vim-javacomplete2'
 {% if not programming %}"{% endif %}Plug 'fatih/vim-go'
 {% if not programming %}"{% endif %}Plug 'pangloss/vim-javascript'
@@ -261,7 +262,6 @@ Plug 'eugen0329/vim-esearch'
 " colorscheme
 "Plug 'morhetz/gruvbox'
 "Plug 'iCyMind/NeoSolarized'
-Plug 'joshdick/onedark.vim'
 
 {% else %}
 Plug 'Valloric/YouCompleteMe'
@@ -529,6 +529,9 @@ command! Nu execute "call Num_Toggle()"
 command! Q execute "quit!"
 command! Qa execute "quitall!"
 
+" Sudo to write
+command! W :w !sudo tee % >/dev/null
+
 " Diff between the curret buffer and the file.
 com! Diff call s:DiffWithSaved()
 
@@ -585,7 +588,7 @@ let g:lmap.l.s = { 'name' : 'Doc/Worspace Symbol' }
 let g:lmap.l.r = { 'name' : 'Rename/Reference' }
 
 
-call leaderGuide#register_prefix_descriptions(",", "g:lmap")
-call leaderGuide#register_prefix_descriptions("<Space>", "g:llmap")
+silent! call leaderGuide#register_prefix_descriptions(",", "g:lmap")
+silent! call leaderGuide#register_prefix_descriptions("<Space>", "g:llmap")
 nnoremap <silent> <leader> :<c-u>LeaderGuide ','<CR>
 nnoremap <silent> <localleader> :<c-u>LeaderGuide '<Space>'<CR>
