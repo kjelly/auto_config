@@ -42,6 +42,8 @@
   with_items:
     - autopep8
     - flake8
+    - websocket-client
+    - sexpdata
 
 - name: install neovim-remote
   shell: "pip3 install neovim-remote"
@@ -72,3 +74,7 @@
   with_items:
     - "~/.vim/autoload/plug.vim"
     - "~/.config/nvim/autoload/plug.vim"
+
+- name: clone spacevim
+  git: repo=https://github.com/SpaceVim/SpaceVim
+       dest="~/.SpaceVim.d" depth=1 force=yes
