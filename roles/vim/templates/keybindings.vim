@@ -37,6 +37,7 @@ nnoremap <C-l> <C-W>l
 nnoremap <C-n> :NERDTreeTabsToggle<CR>
 nnoremap <leader>fx :Explore<space>
 nnoremap <leader>fr :Explore scp://
+nnoremap <leader>fb :Rexplore<CR>
 
 " Tab mappings
 nnoremap <leader>tn :tabnew %<cr>
