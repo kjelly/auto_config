@@ -42,6 +42,8 @@
   with_items:
     - autopep8
     - flake8
+    - websocket-client
+    - sexpdata
 
 - name: install neovim-remote
   shell: "pip3 install neovim-remote"
