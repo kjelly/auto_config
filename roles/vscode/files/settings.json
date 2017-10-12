@@ -37,6 +37,6 @@
     "vim.disableAnnoyingNeovimMessage": true,
     "emmet.useNewEmmet": true,
     "editor.renderIndentGuides": false,
-    "editor.fontFamily": "'Source Code Pro','Inconsolata' ,'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback'"
-
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "'Fira Code','Source Code Pro','Inconsolata' ,'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback'"
 }
