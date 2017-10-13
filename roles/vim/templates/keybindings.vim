@@ -93,6 +93,7 @@ nnoremap <leader>ss :call ToggleStatusLine()<cr>
 " Find file in NERDTree
 nnoremap <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
 nnoremap <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
+nnoremap <leader>fi :NerdTreeFind<cr>
 
 " Command
 nnoremap <C-e> :Commands<cr>
