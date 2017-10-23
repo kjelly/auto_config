@@ -45,6 +45,8 @@
 
 - copy: src="lxterminal.conf" dest="~/.config/lxterminal/"
 
+- copy: src="imwheelrc" dest="~/.imwheelrc"
+
 - file: path="~/.config" state=directory mode=0755
 
 - file: path="~/.config/lxpanel" state=directory mode=0755
