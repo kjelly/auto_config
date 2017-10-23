@@ -34,6 +34,7 @@
     - "libsdl-ttf2.0-dev"
     - "libsndfile-dev"
     - "libxinerama-dev"
+    - "imwheel"
 
   become: true
   when: ansible_os_family == 'Debian' or ansible_os_family == "\"elementary\""
