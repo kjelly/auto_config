@@ -9,6 +9,7 @@
   yum: name={{ item }} state=present
   with_items:
     - bc
+  become: yes
   when: ansible_os_family == "RedHat"
 
 - stat: path=/usr/local/bin/fish
