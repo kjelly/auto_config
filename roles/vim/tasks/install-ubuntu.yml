@@ -1,4 +1,8 @@
 ---
+- apt_repository:
+    repo: 'ppa:jonathonf/vim'
+    state: present
+
 - name: Install packages
   apt: name={{ item }} state=present
   with_items:
