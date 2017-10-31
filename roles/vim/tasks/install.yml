@@ -24,18 +24,6 @@
 - include: "install-osx.yml"
   when: ansible_distribution == 'MacOSX'
 
-- name: clone vim
-  git: repo=https://github.com/vim/vim
-       dest="/tmp/vim" depth=1 force=yes
-  when: need_install and programming == true
-
-- name: generate vim Makefile
-  command: "make distclean"
-  args:
-    chdir: "/tmp/vim"
-  when: need_install and programming == true
-  ignore_errors: yes
-
 - name: pip install [autopep8, flake8]
   pip: name={{ item }}
   become: true
