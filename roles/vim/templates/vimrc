@@ -175,6 +175,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'joshdick/onedark.vim'
+Plug 'hashivim/vim-vagrant'
 {% if not programming %}"{% endif %}Plug 'ensime/ensime-vim'
 {% if not programming %}"{% endif %}Plug 'artur-shaik/vim-javacomplete2'
 {% if not programming %}"{% endif %}Plug 'fatih/vim-go'
@@ -486,7 +487,6 @@ let g:LanguageClient_serverCommands = {
     \ 'typescript': ['javascript-typescript-stdio'],
     \ }
 
-let g:vimwiki_folding='list'
 let vim_markdown_preview_hotkey='<A-m>'
 let vim_markdown_preview_github=1
 let vim_markdown_preview_use_xdg_open=1
