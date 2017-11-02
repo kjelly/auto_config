@@ -30,5 +30,6 @@
    - m4 # for neovim
    - python-virtualenv # for neovim
    - ncurses-dev  # for neovim
+   - cmake # for neovim
   sudo: yes
   when: programming == true
