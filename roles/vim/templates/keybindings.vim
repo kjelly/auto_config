@@ -444,7 +444,7 @@ inoremap <Esc><A-f> :Ag<cr>
 inoremap ƒ :Ag<cr>
 
 
-nmap <A-g> <Plug>(easymotion-overwin-w)
+nnoremap <silent> f :<C-u>call EasyMotion#overwin#w()<CR>
 {% endif %}
 
 function! ShowDoc()
