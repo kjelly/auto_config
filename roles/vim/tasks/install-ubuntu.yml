@@ -3,10 +3,15 @@
     repo: 'ppa:jonathonf/vim'
     state: present
 
+- apt_repository:
+    repo: 'ppa:neovim-ppa/stable'
+    state: present
+
 - name: Install packages
   apt: name={{ item }} state=present
   with_items:
    - vim
+   - neovim
    - libncurses5-dev
    - libncursesw5-dev
    - exuberant-ctags
@@ -30,6 +35,7 @@
 - name: Install vim package
   apt: name={{ item }} state=present
   with_items:
+   - neovim
    - gawk
    - exuberant-ctags
    - ruby
