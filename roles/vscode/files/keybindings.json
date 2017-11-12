@@ -74,7 +74,8 @@
 
     { "key": "escape", "command": "-leaveSnippet", "when": "editorTextFocus && inSnippetMode"},
     { "key": "ctrl+f", "command": "jumpToNextSnippetPlaceholder", "when": "editorTextFocus && hasNextTabstop && inSnippetMode" },
-    { "key": "ctrl+b", "command": "jumpToPrevSnippetPlaceholder", "when": "editorTextFocus && hasPrevTabstop && inSnippetMode" }
+    { "key": "ctrl+b", "command": "jumpToPrevSnippetPlaceholder", "when": "editorTextFocus && hasPrevTabstop && inSnippetMode" },
+    { "key": "ctrl+p", "command": "workbench.action.quickOpenPreviousEditor"}
 
 
 ]
