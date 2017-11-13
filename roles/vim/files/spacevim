@@ -1,2 +1,2 @@
 #!/bin/sh
-nvim -u ~/SpaceVim/init.vim $@
+NVIM_RPLUGIN_MANIFEST=~/.SpaceVim.d/rplugin.vim nvim -u ~/SpaceVim/init.vim $@
