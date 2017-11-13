@@ -1,0 +1,2 @@
+#!/bin/sh
+NVIM_RPLUGIN_MANIFEST=~/.evervim.d/rplugin.vim nvim -u ~/.evervim.d/init.vim $@

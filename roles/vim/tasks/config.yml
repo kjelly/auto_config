@@ -6,6 +6,10 @@
     - file: path="~/.SpaceVim.d/" state=directory mode=0755
     - template: src="keybindings.vim" dest="~/.SpaceVim.d/keybindings.vim" mode=0755
     - template: src="spacevim_custom.vim" dest="~/.SpaceVim.d/spacevim_custom.vim" mode=0755
+    - file: path="~/.EverVim" state=directory recurse=yes
+    - file: path="~/.EverVim/bundle" state=directory recurse=yes
+    - template: src=evervim_init.vim dest=~/.EverVim/init.vim
+
   always:
     - set_fact: nvim=false
 
