@@ -12,21 +12,10 @@ endif
 nnoremap / /\v
 vnoremap / /\v
 
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
-
-
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
-
-" Disable highlight
-nnoremap <silent> <leader>g<cr> :noh<cr>
-
-" Switch CWD to the directory of the open buffer
-nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Smart way to move between windows
 nnoremap <C-j> <C-W>j
@@ -35,65 +24,10 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
 nnoremap <C-n> :NERDTreeTabsToggle<CR>
-nnoremap <leader>fx :Explore<space>
-nnoremap <leader>fr :Explore scp://
-nnoremap <leader>fb :Rexplore<CR>
-
-" Tab mappings
-nnoremap <leader>tn :tabnew %<cr>
-nnoremap <leader>to :tabonly<cr>
-nnoremap <leader>tc :tabclose<cr>
-nnoremap <leader>tm :tabmove
 nnoremap <C-t> :tabnew %<CR>
 inoremap <C-t> <Esc>:tabnew %<CR>
 noremap H gT
 noremap L gt
-
-
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-nnoremap <leader>te :terminal<cr>
-
-" Grep
-" B for current buffer
-" For example, Lines for Lines in loaded buffers.
-" BLines for Lines in the current buffer
-nnoremap <leader>gl :Lines<cr>
-nnoremap <leader>gbl :BLines<cr>
-nnoremap <leader>gc :Commits<cr>
-nnoremap <leader>gbc :BCommits<cr>
-nnoremap <leader>gh :History<cr>
-nnoremap <leader>gm :Marks<cr>
-nnoremap <leader>ga :Ag<cr>
-nnoremap <leader>gp :Files<cr>
-nnoremap <leader>go :Buffers<cr>
-
-" When you press gv you vimgrep after the selected text
-vnoremap <silent> gv :call VisualSelection('gv')<CR>
-
-" Open vimgrep and put the cursor in the right position
-"nnoremap <leader>gv :vimgrep // **/* <left><left><left><left><left><left><left>
-
-" Vimgreps in the current file
-"nnoremap <leader><space> :vimgrep // <Home><right><right><right><right><right><right><right><right><right>
-
-
-" close buffer/window
-nnoremap <leader>qq :Bclose<cr>:q<cr>
-nnoremap <leader>qw :q<cr>
-nnoremap <leader>qb :Bclose<cr>
-
-" State
-nnoremap <leader>sn :set nu!<cr>
-nnoremap <leader>sw :set wrap!<cr>
-nnoremap <leader>sp :setlocal paste!<cr>
-nnoremap <leader>sm :call ToggleMouse()<cr>
-nnoremap <leader>ss :call ToggleStatusLine()<cr>
-
-" Find file in NERDTree
-nnoremap <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
-nnoremap <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
-nnoremap <leader>fi :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
 
 " Command
 nnoremap <C-e> :Commands<cr>
@@ -103,36 +37,14 @@ nnoremap <C-s> :Tagbar<cr>
 
 inoremap <C-s> <Esc>:w<cr>a
 
-" Bookmarks keybinding
-"nnoremap <Leader>bt <Plug>BookmarkToggle
-"nnoremap <Leader>bi <Plug>BookmarkAnnotate
-"nnoremap <Leader>ba <Plug>BookmarkShowAll
-"nnoremap <Leader>bj <Plug>BookmarkNext
-"nnoremap <Leader>bk <Plug>BookmarkPrev
-"nnoremap <Leader>bc <Plug>BookmarkClear
-"nnoremap <Leader>bx <Plug>BookmarkClearAll
-"nnoremap <Leader>bk <Plug>BookmarkMoveUp
-"nnoremap <Leader>bj <Plug>BookmarkMoveDown
-
-" Use down/up for <C-n>/<C-p>
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 
 " Find file/buffer
 nnoremap <C-p> :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
 
-"nnoremap <leader>w :W3mTab google
-
 " Auto complete for all word
 inoremap     <c-a>  <c-x><c-n>
-
-" Easymotion
-nmap <leader>ms <Plug>(easymotion-s)
-nmap <leader>mf <Plug>(easymotion-overwin-w)
-nmap <Leader>mh <Plug>(easymotion-linebackward)
-nmap <Leader>mj <Plug>(easymotion-j)
-nmap <Leader>mk <Plug>(easymotion-k)
-nmap <Leader>ml <Plug>(easymotion-lineforward)
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -211,53 +123,8 @@ nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 
 inoremap <C-d>     <Plug>(neosnippet_expand_or_jump)
 
-" keybinding about lang
-au FileType go nnoremap <leader>le :GoRun<cr>
-au FileType go nnoremap <leader>lb :GoBuild<cr>
-au FileType go nnoremap <leader>lt :GoTest<cr>
-au FileType go nnoremap <leader>lc <Plug>(go-coverage)
-au FileType go nnoremap <leader>lde :<C-u>call go#def#Jump('')<CR>
-au FileType go nnoremap <leader>lds :<C-u>call go#def#Jump("split")<CR>
-au FileType go nnoremap <leader>ldv :<C-u>call go#def#Jump("vsplit")<CR>
-au FileType go nnoremap <leader>ldt :<C-u>call go#def#Jump("tab")<CR>
-au FileType go nnoremap <leader>lk :GoDoc<cr>
-au FileType go nnoremap <leader>ls :GoImplements<cr>
-au FileType go nnoremap <leader>li :GoInfo<cr>
-au FileType go nnoremap <leader>lrn :GoRename<cr>
-au FileType go nnoremap <leader>lrf :GoReferrers<cr>
-au FileType go nnoremap <leader>lce :GoCallees<cr>
-au FileType go nnoremap <leader>lcr :GoCallers<cr>
-
-let g:jedi#goto_command = "<leader>lde"
-let g:jedi#goto_assignments_command = "<leader>lga"
-let g:jedi#goto_definitions_command = "<leader>lde"
-let g:jedi#documentation_command = "<leader>k"
-let g:jedi#usages_command = "<leader>li"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>lrn"
-
 let g:racer_cmd = "{{ HOME_PATH }}/.cargo/bin/racer"
 let $RUST_SRC_PATH="{{ HOME_PATH }}/rust-src/src"
-
-" Gina
-nnoremap <leader>vs :Gina status<cr>
-nnoremap <leader>vpl :Gina pull<cr>
-nnoremap <leader>vph :Gina push<cr>
-nnoremap <leader>vf :Gina fetch<cr>
-nnoremap <leader>vd :Gina diff<cr>
-nnoremap <leader>vl :Gina log<cr>
-nnoremap <leader>vc :Gina commit<cr>
-nnoremap <leader>va :Gina add<space>
-nnoremap <leader>vt :Gina tag<cr>
-nnoremap <leader>vb :Gina branch<cr>
-nnoremap <leader>vv :Gina<space>
-
-autocmd FileType vimwiki nmap <localleader><space> <Plug>VimwikiToggleListItem
-
-nnoremap <leader>wf :call fzf#vim#ag('', {'dir': '~/Dropbox/vimwiki/', 'down': '40%'})<cr>
-
-nnoremap <leader>eu :UndotreeToggle<cr>
-nnoremap <leader>es :e $MYVIMRC<cr>
 
 nnoremap zz za
 
@@ -266,10 +133,6 @@ map ?  <Plug>(incsearch-backward)\v
 map g/ <Plug>(incsearch-stay)\v
 
 {% if nvim %}
-
-" open new terminal in new tab/buffer.
-map <leader>tt :tabnew %<cr>:terminal<cr>
-map <leader>tb :split<cr><c-w>j:terminal<cr>
 
 " Tab switch
 tnoremap <A-1> <C-\><C-n>1gti
@@ -475,12 +338,6 @@ endfunction
 
 nnoremap <silent> K :call ShowDoc()<CR>
 nnoremap <silent> gd :call ShowDef()<CR>
-
-nnoremap <silent> <leader>lsf :call LanguageClient_textDocument_documentSymbol()<CR>
-nnoremap <silent> <leader>lsw :call LanguageClient_workspace_symbol()<CR>
-nnoremap <silent> <leader>lrf :call LanguageClient_textDocument_references()<CR>
-nnoremap <silent> <leader>lrn :call LanguageClient_textDocument_rename()<CR>
-nnoremap <silent> <leader>lf :call LanguageClient_textDocument_formatting()<CR>
 
 inoremap <silent><expr> <A-/>
   \ pumvisible() ? "\<C-n>" :

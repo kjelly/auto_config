@@ -567,6 +567,7 @@ hi VimwikiHeader5 guifg=#00CC66
 hi VimwikiHeader6 guifg=#FFFF00
 
 {% include './templates/keybindings.vim' %}
+{% include './templates/keybindings_leader.vim' %}
 
 source ~/.vim_custom.vim
 "silent colorscheme desert
