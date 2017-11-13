@@ -145,6 +145,8 @@ cnoremap <c-h> <Left>
 cnoremap <c-j> <Down>
 cnoremap <c-k> <Up>
 cnoremap <c-l> <Right>
+
+nnoremap ; :
 {% if nvim %}
 
 " Alt-num to switch tab
