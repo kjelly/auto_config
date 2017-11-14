@@ -1,3 +1,17 @@
+" Grep
+" B for current buffer
+" For example, Lines for Lines in loaded buffers.
+" BLines for Lines in the current buffer
+nnoremap <leader>gl :Lines<cr>
+nnoremap <leader>gbl :BLines<cr>
+nnoremap <leader>gc :Commits<cr>
+nnoremap <leader>gbc :BCommits<cr>
+nnoremap <leader>gh :History<cr>
+nnoremap <leader>gm :Marks<cr>
+nnoremap <leader>ga :Ag<cr>
+nnoremap <leader>gp :Files<cr>
+nnoremap <leader>go :Buffers<cr><Paste>
+
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 
