@@ -48,6 +48,7 @@ nnoremap <leader>ss :call ToggleStatusLine()<cr>
 " Find file in NERDTree
 nnoremap <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
 nnoremap <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
+nnoremap <leader>ed :Explore <c-r>=expand("%:p:h")<cr><cr>
 nnoremap <leader>fi :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
 
 " Bookmarks keybinding
@@ -123,6 +124,8 @@ nnoremap <leader>es :e $MYVIMRC<cr>
 " open new terminal in new tab/buffer.
 map <leader>tt :tabnew %<cr>:terminal<cr>
 map <leader>tb :split<cr><c-w>j:terminal<cr>
+
+nnoremap <leader>bp :b#<cr>
 
 {% endif %}
 
