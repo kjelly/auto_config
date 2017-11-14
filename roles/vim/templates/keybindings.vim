@@ -226,8 +226,9 @@ nnoremap <A-i> :Windows<cr>
 tnoremap <A-i> <C-\><C-n>:Windows<cr>a
 
 " Quickfix
-nnoremap <A-s> :lopen<cr>
-inoremap <A-s> <Esc>:lopen<cr>
+nnoremap <A-s> :b#<cr>
+inoremap <A-s> <Esc>:b#<cr>
+tnoremap <A-i> <C-\><C-n>:b#<cr>a
 
 " Resize buffer
 nnoremap <silent> <A-q>  :resize +1000<cr>
