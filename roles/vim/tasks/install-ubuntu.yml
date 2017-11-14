@@ -2,10 +2,12 @@
 - apt_repository:
     repo: 'ppa:jonathonf/vim'
     state: present
+  become: yes
 
 - apt_repository:
     repo: 'ppa:neovim-ppa/stable'
     state: present
+  become: yes
 
 - name: Install packages
   apt: name={{ item }} state=present
