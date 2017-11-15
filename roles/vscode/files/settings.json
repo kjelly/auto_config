@@ -9,7 +9,6 @@
     "window.menuBarVisibility": "toggle",
     "files.eol": "\n",
     "explorer.autoReveal": false,
-    "workbench.welcome.enabled": false,
     "sync.gist": "7a6994ea6902775d4e43bed806e9a00e",
     "sync.lastUpload": "",
     "sync.autoDownload": false,
@@ -34,9 +33,8 @@
     },
     "sync.quietSync": false,
     "explorer.openEditors.visible": 0,
-    "vim.disableAnnoyingNeovimMessage": true,
-    "emmet.useNewEmmet": true,
     "editor.renderIndentGuides": false,
     "editor.fontLigatures": true,
-    "editor.fontFamily": "'Fira Code','Source Code Pro','Inconsolata' ,'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback'"
-}
+    "editor.fontFamily": "'Fira Code','Source Code Pro','Inconsolata' ,'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback'",
+    "python.linting.pylintArgs": ["--disable=C0111,C0103,C1801,C0325"]
+ }
