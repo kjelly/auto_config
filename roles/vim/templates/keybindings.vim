@@ -132,6 +132,8 @@ map /  <Plug>(incsearch-forward)\v
 map ?  <Plug>(incsearch-backward)\v
 map g/ <Plug>(incsearch-stay)\v
 
+nnoremap <F5> :C ./debug.sh<cr>
+
 {% if nvim %}
 
 " Tab switch
