@@ -227,10 +227,17 @@ inoremap <A-i> <Esc>:Windows<cr>
 nnoremap <A-i> :Windows<cr>
 tnoremap <A-i> <C-\><C-n>:Windows<cr>a
 
-" Quickfix
-nnoremap <A-s> :b#<cr>
-inoremap <A-s> <Esc>:b#<cr>
-tnoremap <A-i> <C-\><C-n>:b#<cr>a
+" buufer switch
+nnoremap <A-b> :b#<cr>
+inoremap <A-b> <Esc>:b#<cr>
+tnoremap <A-b> <C-\><C-n>:b#<cr>a
+
+inoremap <A-f> <Esc><C-w>ja
+tnoremap <A-f> <C-\><C-n><C-w>ka
+
+" Save
+inoremap <A-s> <Esc>:w<cr>a
+nnoremap <A-s> :w<cr>
 
 " Resize buffer
 nnoremap <silent> <A-q>  :resize +1000<cr>
@@ -305,12 +312,6 @@ inoremap <A-,> <ESC>gTi
 inoremap <A-.> <ESC>gti
 tnoremap <A-,> <C-\><C-n>gTi
 tnoremap <A-.> <C-\><C-n>gti
-
-nnoremap <A-f> :Ag<cr>
-nnoremap ƒ :Ag<cr>
-inoremap <Esc><A-f> :Ag<cr>
-inoremap ƒ :Ag<cr>
-
 
 nnoremap <silent> f :<C-u>call EasyMotion#overwin#w()<CR>
 {% endif %}
