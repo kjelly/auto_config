@@ -233,6 +233,7 @@ inoremap <A-b> <Esc>:b#<cr>
 tnoremap <A-b> <C-\><C-n>:b#<cr>a
 
 inoremap <A-f> <Esc><C-w>ja
+nnoremap <A-f> a
 tnoremap <A-f> <C-\><C-n><C-w>ka
 
 " Save
