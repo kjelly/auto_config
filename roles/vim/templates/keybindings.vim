@@ -100,9 +100,6 @@ noremap <M-9> 9gt
 
 {% endif %}
 
-noremap <Esc>h <Nop>
-noremap <Esc>l <Nop>
-
 " Delete one word
 inoremap <C-e> <Esc>dwi
 
