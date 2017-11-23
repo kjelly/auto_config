@@ -2,11 +2,13 @@
 - apt_repository:
     repo: 'ppa:jonathonf/vim'
     state: present
+    validate_certs: no
   become: yes
 
 - apt_repository:
     repo: 'ppa:neovim-ppa/stable'
     state: present
+    validate_certs: no
   become: yes
 
 - name: Install packages
