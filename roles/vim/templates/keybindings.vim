@@ -163,6 +163,7 @@ tnoremap <A-a> <C-\><C-n>
 inoremap <A-a> <Esc>
 nnoremap <A-a> i
 vnoremap <A-a> <Esc>
+cnoremap <A-a> <Esc>
 
 tnoremap å <C-\><C-n>
 inoremap å <Esc>
