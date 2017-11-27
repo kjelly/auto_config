@@ -482,6 +482,7 @@ let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
     \ 'python': ['pyls'],
+    \ 'ruby': ['language_server-ruby'],
     \ 'go': ['go-langserver', '-trace', '-logfile', expand('~/Desktop/langserver-go.log')],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
