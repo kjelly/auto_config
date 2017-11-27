@@ -230,9 +230,9 @@ nnoremap <A-b> :b#<cr>
 inoremap <A-b> <Esc>:b#<cr>
 tnoremap <A-b> <C-\><C-n>:b#<cr>a
 
-inoremap <A-f> <Esc><C-w>ja
-nnoremap <A-f> a
-tnoremap <A-f> <C-\><C-n><C-w>ka
+inoremap <A-;> <Esc><C-w>ja
+nnoremap <A-;> a
+tnoremap <A-;> <C-\><C-n><C-w>ka
 
 " Save
 inoremap <A-s> <Esc>:w<cr>a
