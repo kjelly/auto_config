@@ -130,6 +130,7 @@ map ?  <Plug>(incsearch-backward)\v
 map g/ <Plug>(incsearch-stay)\v
 
 nnoremap <F5> :C ./debug.sh<cr>
+inoremap <F5> <Esc>:C ./debug.sh<cr>a
 
 {% if nvim %}
 
