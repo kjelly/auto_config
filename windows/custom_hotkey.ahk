@@ -40,8 +40,8 @@ CapsLock & p::Send, {+}
 CapsLock & /::Send, ~
 CapsLock & .::Send #^{Right}
 CapsLock & ,::Send #^{Left}
-CapsLock & m::Send, ``
-CapsLock & n::Send, |
+CapsLock & m::Send, |
+CapsLock & n::Send, ``
 
 CapsLock & f::Send, {PgDn}
 CapsLock & b::Send, {PgUp}
