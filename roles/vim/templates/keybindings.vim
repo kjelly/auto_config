@@ -61,6 +61,11 @@ cnoremap <c-l> <Right>
 nnoremap ; :
 {% if nvim %}
 
+cnoremap <A-h> <Left>
+cnoremap <A-j> <Down>
+cnoremap <A-k> <Up>
+cnoremap <A-l> <Right>
+
 " Alt-num to switch tab
 noremap <A-0> 0gt
 noremap <A-1> 1gt
