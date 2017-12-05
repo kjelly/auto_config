@@ -2,15 +2,31 @@
 " B for current buffer
 " For example, Lines for Lines in loaded buffers.
 " BLines for Lines in the current buffer
-nnoremap <leader>gl :Lines<cr>
-nnoremap <leader>gbl :BLines<cr>
-nnoremap <leader>gc :Commits<cr>
-nnoremap <leader>gbc :BCommits<cr>
-nnoremap <leader>gh :History<cr>
-nnoremap <leader>gm :Marks<cr>
+nnoremap <leader>zl :Lines<cr>
+nnoremap <leader>zbl :BLines<cr>
+nnoremap <leader>zc :Commits<cr>
+nnoremap <leader>zbc :BCommits<cr>
+nnoremap <leader>zh :History<cr>
+nnoremap <leader>zm :Marks<cr>
+nnoremap <leader>za :Ag<cr>
+nnoremap <leader>zp :Files<cr>
+nnoremap <leader>zo :Buffers<cr>
 nnoremap <leader>ga :Ag<cr>
-nnoremap <leader>gp :Files<cr>
-nnoremap <leader>go :Buffers<cr><Paste>
+
+
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
+nnoremap <silent> <leader>gr :Gread<CR>
+nnoremap <silent> <leader>gw :Gwrite<CR>
+nnoremap <silent> <leader>ge :Gedit<CR>
+nnoremap <silent> <leader>gi :Git add -p %<CR>
+nnoremap <silent> <leader>gg :SignifyToggle<CR>
+nnoremap <silent> <leader>gu :Gpull --rebase<CR>
+
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
