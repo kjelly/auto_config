@@ -217,6 +217,7 @@ Plug 'hashivim/vim-vagrant'
 {% if programming %}
 
 Plug 'tpope/vim-fugitive'
+Plug 'cohama/agit.vim'
 "Plug 'lambdalisue/gina.vim'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
