@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo {{ NODE_BIN_PATH }}/node {{ NODE_BIN_PATH }}/npm $@

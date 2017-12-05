@@ -26,7 +26,8 @@ def get_real_path(path):
 
 def main():
     module_args = dict(
-        shell=dict(type='str', required=True),
+        shell=dict(type='str', required=False),
+        bin=dict(type='str', required=False),
     )
     module = AnsibleModule(argument_spec=module_args)
 
@@ -51,6 +52,9 @@ def main():
     node_bin = get_real_path("~/node*/bin")
     if node_bin:
         env_path.append(node_bin)
+
+    if module.params['bin'] == 'node':
+        module.exit_json(changed=False, PATH=node_bin)
 
     if module.params['shell'] == 'fish':
         module.exit_json(changed=False, ENV_PATH=' '.join(env_path))
