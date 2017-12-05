@@ -412,7 +412,7 @@ set laststatus=2
 set timeoutlen=500
 
 set completeopt="menu,preview,noinsert,noselect"
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set listchars=tab:>-,trail:~,extends:>,precedes:<
 set list
 
 let g:jedi#completions_command = "<C-n>"
