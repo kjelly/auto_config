@@ -11,7 +11,6 @@ nnoremap <leader>zm :Marks<cr>
 nnoremap <leader>za :Ag<cr>
 nnoremap <leader>zp :Files<cr>
 nnoremap <leader>zo :Buffers<cr>
-nnoremap <leader>ga :Ag<cr>
 
 
 nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -26,6 +25,7 @@ nnoremap <silent> <leader>ge :Gedit<CR>
 nnoremap <silent> <leader>gi :Git add -p %<CR>
 nnoremap <silent> <leader>gg :SignifyToggle<CR>
 nnoremap <silent> <leader>gu :Gpull --rebase<CR>
+nnoremap <Leader>ga :Agit<CR>
 
 
 " When you press <leader>r you can search and replace the selected text
