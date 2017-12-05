@@ -216,7 +216,7 @@ Plug 'hashivim/vim-vagrant'
 
 {% if programming %}
 
-"Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 Plug 'lambdalisue/gina.vim'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
@@ -578,7 +578,8 @@ silent! colorscheme onedark
 let g:lmap =  {}
 let g:llmap =  {}
 let g:lmap.v = { 'name' : 'Version Controll' }
-let g:lmap.g = { 'name' : 'Grep/Find' }
+let g:lmap.g = { 'name' : 'Git' }
+let g:lmap.z = { 'name' : 'Grep/Find/FZF' }
 let g:lmap.t = { 'name' : 'Tab' }
 let g:lmap.b = { 'name' : 'Buffer/Bookmark' }
 let g:lmap.c = { 'name' : 'Comment/cd' }
