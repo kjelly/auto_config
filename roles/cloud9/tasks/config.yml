@@ -3,4 +3,4 @@
 - file: path=~/.c9 state=directory
 
 - copy: src="user.settings" dest="~/.c9/user.settings"
-- copy: src="c9.sh" dest="~/mybin/c9"
+- copy: src="c9.sh" dest="~/mybin/c9" mode=755
