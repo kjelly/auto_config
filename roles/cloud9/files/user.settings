@@ -110,18 +110,10 @@
                 }
             },
             {
-                "command": "openterminal",
-                "keys": {
-                    "win": [
-                        "Alt-;"
-                    ]
-                }
-            },
-            {
                 "command": "switchterminal",
                 "keys": {
                     "win": [
-                        "Alt-'"
+                        "Alt-;"
                     ]
                 }
             },
