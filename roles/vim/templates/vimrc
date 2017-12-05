@@ -600,3 +600,16 @@ silent! call leaderGuide#register_prefix_descriptions(",", "g:lmap")
 silent! call leaderGuide#register_prefix_descriptions("<Space>", "g:llmap")
 nnoremap <silent> <leader> :<c-u>LeaderGuide ','<CR>
 nnoremap <silent> <localleader> :<c-u>LeaderGuide '<Space>'<CR>
+
+{% if nvim %}
+" Workspace Setup
+" ----------------
+function! DefaultWorkspace()
+   sp
+   wincmd j
+   resize 8
+   terminal
+   wincmd k
+endfunction
+command! -register DefaultWorkspace call DefaultWorkspace()
+{% endif %}
