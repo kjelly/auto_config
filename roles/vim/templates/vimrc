@@ -505,9 +505,10 @@ autocmd! InsertEnter,WinLeave * set nocursorline
 {% if nvim %}
 
 autocmd! BufEnter * set laststatus=2
-autocmd! BufEnter *fish set laststatus=0
+autocmd! BufEnter * if &buftype == 'terminal' | :set laststatus=0 | endif
 autocmd! TermOpen *fish set laststatus=0
 autocmd! TermOpen *fish set nonu
+autocmd! BufEnter * if &buftype == 'terminal' | :startinsert | endif
 
 {% endif %}
 
