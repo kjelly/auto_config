@@ -18,7 +18,8 @@
 - template: src="myvi" dest="~/bin/myvi" mode=0755
 - template: src="vit" dest="~/bin/vit" mode=0755
 - copy: src="spacevim" dest="~/bin/spacevim" mode=0755
-- copy: src="evervim" dest="~/bin/spacevim" mode=0755
+- copy: src="evervim" dest="~/bin/evervim" mode=0755
+- template: src="vim" dest="~/bin/vim" mode=0755
 
 - template: src="vimrc" dest="~/.vimrc"
 
