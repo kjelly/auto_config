@@ -8,19 +8,20 @@
       - qemu-system
       - qemu-utils
   when: ansible_os_family == 'Debian'
-  sudo: yes
+  become: yes
 
 - apt: name={{ item }} state=present
   with_items:
       - qemu-common
   ignore_errors: true
   when: ansible_os_family == 'Debian'
+  become: yes
   sudo: yes
 
 - pip: name={{ item }}
   with_items:
       - docker-py
-  sudo: yes
+  become: yes
 
 - file: path=~/mybin state=directory
 
