@@ -59,6 +59,9 @@ cnoremap <c-k> <Up>
 cnoremap <c-l> <Right>
 
 nnoremap ; :
+
+tnoremap jj <C-\><C-n>
+inoremap jj <Esc>
 {% if nvim %}
 
 cnoremap <A-h> <Left>
