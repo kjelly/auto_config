@@ -9,9 +9,10 @@ nnoremap <leader>zbc :BCommits<cr>
 nnoremap <leader>zh :History<cr>
 nnoremap <leader>zm :Marks<cr>
 nnoremap <leader>za :Ag<cr>
+nnoremap <leader>zf :Files<cr>
 nnoremap <leader>zp :Files<cr>
 nnoremap <leader>zo :Buffers<cr>
-
+nnoremap <leader>zg :GitFiles<cr>
 
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
@@ -25,8 +26,7 @@ nnoremap <silent> <leader>ge :Gedit<CR>
 nnoremap <silent> <leader>gi :Git add -p %<CR>
 nnoremap <silent> <leader>gg :SignifyToggle<CR>
 nnoremap <silent> <leader>gu :Gpull --rebase<CR>
-nnoremap <Leader>ga :Agit<CR>
-
+nnoremap <silent> <leader>ga :Agit<CR>
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
@@ -43,9 +43,10 @@ nnoremap <silent> <leader>g<cr> :noh<cr>
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-nnoremap <leader>fx :Explore<space>
-nnoremap <leader>fr :Explore scp://
-nnoremap <leader>fb :Rexplore<CR>
+nnoremap <silent> <leader>fx :Explore<space>
+nnoremap <silent> <leader>fr :Explore scp://
+nnoremap <silent> <leader>fb :Rexplore<CR>
+nnoremap <silent> <leader>ft :NERDTreeToggle<CR>
 
 " Tab mappings
 nnoremap <leader>tn :tabnew %<cr>
