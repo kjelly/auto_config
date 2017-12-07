@@ -14,6 +14,7 @@ endif
 " Core Config
 source $evervim_root/core/core.vim
 set timeoutlen=500
+let g:ale_open_list = 0
 tnoremap <Esc> <Esc>
 
 {% include './templates/keybindings.vim' %}
