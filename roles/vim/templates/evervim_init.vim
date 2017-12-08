@@ -15,6 +15,7 @@ endif
 source $evervim_root/core/core.vim
 set timeoutlen=500
 set noswapfile
+let g:ale_open_list = 0
 tnoremap <Esc> <Esc>
 
 

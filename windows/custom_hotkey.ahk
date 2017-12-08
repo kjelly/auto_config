@@ -40,7 +40,7 @@ CapsLock & p::Send, {+}
 CapsLock & /::Send, ~
 CapsLock & .::Send #^{Right}
 CapsLock & ,::Send #^{Left}
-CapsLock & m::Send, |
+CapsLock & m::Send, {RWin}
 CapsLock & n::Send, ``
 
 CapsLock & f::Send, {PgDn}
@@ -50,17 +50,17 @@ CapsLock & g::Send, {End}
 CapsLock & v::Send, {Home}
 
 CapsLock & [::Send, {Esc}
-CapsLock & ]::return
+CapsLock & ]::Send, {Esc}
 CapsLock & \::return
 
 CapsLock::return
 
 CapsLock & d::return
 CapsLock & z::return
-CapsLock & `::return
 
 CapsLock & Space::return
 CapsLock & Tab::return
+CapsLock & Esc::return
 CapsLock & Enter::return
 CapsLock & Shift::return
 CapsLock & Ctrl::return
