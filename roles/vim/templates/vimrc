@@ -1,7 +1,5 @@
-let mapleader = ","
-let g:mapleader = ","
-let maplocalleader = " "
-let g:maplocalleader = " "
+let mapleader = " "
+let maplocalleader = "_"
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -604,10 +602,10 @@ let g:lmap.l.s = { 'name' : 'Doc/Worspace Symbol' }
 let g:lmap.l.r = { 'name' : 'Rename/Reference' }
 
 
-silent! call leaderGuide#register_prefix_descriptions(",", "g:lmap")
-silent! call leaderGuide#register_prefix_descriptions("<Space>", "g:llmap")
-nnoremap <silent> <leader> :<c-u>LeaderGuide ','<CR>
-nnoremap <silent> <localleader> :<c-u>LeaderGuide '<Space>'<CR>
+silent! call leaderGuide#register_prefix_descriptions(mapleader, "g:lmap")
+silent! call leaderGuide#register_prefix_descriptions(maplocalleader, "g:llmap")
+nnoremap <silent> <leader> :<c-u>LeaderGuide '<space>'<CR>
+nnoremap <silent> <localleader> :<c-u>LeaderGuide '_'<CR>
 
 {% if nvim %}
 " Workspace Setup
