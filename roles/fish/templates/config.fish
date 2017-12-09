@@ -13,7 +13,6 @@ alias cd3 "cd ../../.."
 alias cd4 "cd ../../../.."
 alias cd5 "cd ../../../../.."
 alias c "vim +Calendar"
-alias wiki "bash -c 'cd ~/Dropbox/vimwiki/;vim +VimwikiIndex'"
 alias g "vim +Ag"
 alias search "ag .|fzf"
 
