@@ -7,4 +7,4 @@ set -g default-terminal "tmux"
 set -g default-terminal "screen-256color"
 set -g default-shell /usr/local/bin/fish
 set -g default-command /usr/local/bin/fish
-
+set -g mouse on
