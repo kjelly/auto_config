@@ -413,6 +413,7 @@ set timeoutlen=500
 set completeopt="menu,preview,noinsert,noselect"
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 set list
+set guicursor=
 
 if !empty(glob("/usr/local/bin/fish"))
   set shell=/usr/local/bin/fish
