@@ -1,7 +1,5 @@
 let mapleader = ","
-let g:mapleader = ","
-let maplocalleader = " "
-let g:maplocalleader = " "
+let maplocalleader = "_"
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -166,6 +164,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'fidian/hexmode'
+Plug 'vim-scripts/fcitx.vim'
 "Plug 'osyo-manga/vim-over'
 "Plug 'justinmk/vim-gtfo'
 "Plug 'Shougo/unite.vim'
@@ -414,6 +413,7 @@ set timeoutlen=500
 set completeopt="menu,preview,noinsert,noselect"
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 set list
+set guicursor=
 
 if !empty(glob("/usr/local/bin/fish"))
   set shell=/usr/local/bin/fish
@@ -604,10 +604,10 @@ let g:lmap.l.s = { 'name' : 'Doc/Worspace Symbol' }
 let g:lmap.l.r = { 'name' : 'Rename/Reference' }
 
 
-silent! call leaderGuide#register_prefix_descriptions(",", "g:lmap")
-silent! call leaderGuide#register_prefix_descriptions("<Space>", "g:llmap")
+silent! call leaderGuide#register_prefix_descriptions(mapleader, "g:lmap")
+silent! call leaderGuide#register_prefix_descriptions(maplocalleader, "g:llmap")
 nnoremap <silent> <leader> :<c-u>LeaderGuide ','<CR>
-nnoremap <silent> <localleader> :<c-u>LeaderGuide '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>LeaderGuide '_'<CR>
 
 {% if nvim %}
 " Workspace Setup

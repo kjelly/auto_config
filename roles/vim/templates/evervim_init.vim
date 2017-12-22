@@ -14,5 +14,25 @@ endif
 " Core Config
 source $evervim_root/core/core.vim
 set timeoutlen=500
+set noswapfile
+let g:ale_open_list = 0
+tnoremap <Esc> <Esc>
+
+
+" All of them, for testing purpose
+let g:evervim_bundle_groups=[
+            \ 'general',
+            \ 'appearance',
+            \ 'writing',
+            \ 'youcompleteme',
+            \ 'programming',
+            \ 'misc',
+            \ 'python',
+            \ 'javascript',
+            \ 'typescript',
+            \ 'html',
+            \ 'css',
+            \ 'go',
+            \ ]
 
 {% include './templates/keybindings.vim' %}

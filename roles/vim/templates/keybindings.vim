@@ -59,6 +59,9 @@ cnoremap <c-k> <Up>
 cnoremap <c-l> <Right>
 
 nnoremap ; :
+
+tnoremap jj <C-\><C-n>
+inoremap jj <Esc>
 {% if nvim %}
 
 cnoremap <A-h> <Left>
@@ -319,6 +322,10 @@ tnoremap <A-,> <C-\><C-n>gTi
 tnoremap <A-.> <C-\><C-n>gti
 
 nnoremap <silent> f :<C-u>call EasyMotion#overwin#w()<CR>
+
+nnoremap <A-n> :NERDTreeTabsToggle<CR>
+inoremap <A-n> <Esc>:NERDTreeTabsToggle<CR>
+tnoremap <A-n> <C-\><C-n>:NERDTreeTabsToggle<CR>
 {% endif %}
 
 function! ShowDoc()
