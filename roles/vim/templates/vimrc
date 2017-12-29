@@ -494,7 +494,7 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
     \ 'python': ['pyls'],
     \ 'ruby': ['language_server-ruby'],
-    \ 'go': ['go-langserver', '-trace', '-logfile', expand('~/Desktop/langserver-go.log')],
+    \ 'go': ['go-langserver', '-trace', '-logfile', expand('~/langserver-go.log')],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'typescript': ['javascript-typescript-stdio'],
