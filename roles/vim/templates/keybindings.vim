@@ -58,11 +58,23 @@ cnoremap <c-j> <Down>
 cnoremap <c-k> <Up>
 cnoremap <c-l> <Right>
 
+
+{% if nvim %}tnoremap <C-q> <C-\><C-n> {% endif %}
+inoremap <C-q> <Esc>
+nnoremap <C-q> i
+vnoremap <C-q> <Esc>
+
+{% if nvim %}tnoremap <C-]> <C-\><C-n> {% endif %}
+inoremap <C-]> <Esc>
+nnoremap <C-]> i
+vnoremap <C-]> <Esc>
+
 nnoremap ; :
 
 inoremap ;; <Esc>
+{% if nvim %}tnoremap ;; <C-\><C-n> {% endif %}
+
 {% if nvim %}
-tnoremap ;; <C-\><C-n>
 
 cnoremap <A-h> <Left>
 cnoremap <A-j> <Down>
@@ -179,18 +191,6 @@ inoremap å <Esc>
 nnoremap å i
 vnoremap å <Esc>
 
-tnoremap <C-q> <C-\><C-n>
-inoremap <C-q> <Esc>
-nnoremap <C-q> i
-vnoremap <C-q> <Esc>
-
-tnoremap <C-]> <C-\><C-n>
-inoremap <C-]> <Esc>
-nnoremap <C-]> i
-vnoremap <C-]> <Esc>
-
-" Buffer navigation
-tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
 tnoremap <A-k> <C-\><C-n><C-w>k
 tnoremap <A-l> <C-\><C-n><C-w>l
