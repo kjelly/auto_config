@@ -16,7 +16,16 @@ source $evervim_root/core/core.vim
 set timeoutlen=500
 set noswapfile
 let g:ale_open_list = 0
-tnoremap <Esc> <Esc>
+set shell=bash
+if !empty(glob("/usr/local/bin/fish"))
+  set shell=/usr/local/bin/fish
+endif
+
+if !empty(glob("/usr/bin/fish"))
+  set shell=/usr/bin/fish
+endif
+tunmap <Esc>
+
 
 
 " All of them, for testing purpose
