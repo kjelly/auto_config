@@ -221,7 +221,7 @@ Plug 'cohama/agit.vim'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
-"Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 "Plug 'Shougo/denite.nvim'
@@ -505,6 +505,7 @@ let vim_markdown_preview_github=1
 let vim_markdown_preview_use_xdg_open=1
 
 let g:airline_theme='onedark'
+let g:LanguageClient_diagnosticsEnable=0
 
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
