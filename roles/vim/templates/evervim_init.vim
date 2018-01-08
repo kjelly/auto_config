@@ -16,6 +16,7 @@ source $evervim_root/core/core.vim
 set timeoutlen=500
 set noswapfile
 let g:ale_open_list = 0
+let g:pymode_lint_ignore = ["E501", "W",]
 set shell=bash
 if !empty(glob("/usr/local/bin/fish"))
   set shell=/usr/local/bin/fish
