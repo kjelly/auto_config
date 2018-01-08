@@ -251,7 +251,7 @@ Plug 'autozimu/LanguageClient-neovim', { 'do': 'install.sh', 'branch': 'next' }
 Plug 'roxma/nvim-completion-manager' "this is like deoplete
 
 " it's needed because lsp doesn't work for go
-Plug 'zchee/deoplete-go', { 'do': 'make'}
+"Plug 'zchee/deoplete-go', { 'do': 'make'}
 "Plug 'zchee/deoplete-jedi'
 "Plug 'mhartington/nvim-typescript'
 "Plug 'ternjs/tern_for_vim'
