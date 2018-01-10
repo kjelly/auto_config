@@ -152,6 +152,10 @@ map g/ <Plug>(incsearch-stay)\v
 nnoremap <F5> :C ./debug.sh<cr>
 inoremap <F5> <Esc>:C ./debug.sh<cr>a
 
+nnoremap <Tab> :Files<cr>
+{% if nvim %} nnoremap <S-Tab> :call OpenBuffer()<cr>
+{% else %} nnoremap <S-Tab> :Buffers<cr> {% endif %}
+
 {% if nvim %}
 
 " Tab switch
