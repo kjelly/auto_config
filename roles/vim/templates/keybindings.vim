@@ -330,6 +330,10 @@ nnoremap <silent> f :<C-u>call EasyMotion#overwin#w()<CR>
 nnoremap <A-n> :NERDTreeTabsToggle<CR>
 inoremap <A-n> <Esc>:NERDTreeTabsToggle<CR>
 tnoremap <A-n> <C-\><C-n>:NERDTreeTabsToggle<CR>
+
+inoremap <A-g> <C-o>:register<cr>
+nnoremap <A-g> :register<cr>
+
 {% endif %}
 
 function! ShowDoc()
