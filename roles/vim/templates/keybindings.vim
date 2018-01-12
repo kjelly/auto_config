@@ -234,9 +234,9 @@ tnoremap <A-o> <C-\><C-n>:call OpenBuffer()<cr>a
 inoremap <A-p> <Esc>:call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
 nnoremap <A-p> :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
 tnoremap <A-p> <C-\><C-n>:call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>a
-inoremap <A-i> <Esc>:Windows<cr>
-nnoremap <A-i> :Windows<cr>
-tnoremap <A-i> <C-\><C-n>:Windows<cr>a
+inoremap <A-i> <Esc>:Ag<cr>
+nnoremap <A-i> :Ag<cr>
+tnoremap <A-i> <C-\><C-n>:Ag<cr>a
 
 " buufer switch
 nnoremap <A-b> :b#<cr>
