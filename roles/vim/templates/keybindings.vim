@@ -52,7 +52,7 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-cnoremap <c-r> Explore scp://
+cnoremap <c-s> Explore scp://
 cnoremap <c-h> <Left>
 cnoremap <c-j> <Down>
 cnoremap <c-k> <Up>
