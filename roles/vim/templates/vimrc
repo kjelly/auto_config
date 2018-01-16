@@ -146,6 +146,7 @@ filetype off                  " required before plugins
 
 call plug#begin('~/.vim/plugged')
 Plug 'hecal3/vim-leader-guide'
+Plug 'fcpg/vim-shore'
 
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
@@ -165,6 +166,7 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'fidian/hexmode'
 Plug 'vim-scripts/fcitx.vim'
+Plug 'joshdick/onedark.vim'
 "Plug 'osyo-manga/vim-over'
 "Plug 'justinmk/vim-gtfo'
 "Plug 'Shougo/unite.vim'
@@ -174,16 +176,15 @@ Plug 'vim-scripts/fcitx.vim'
 " Lang
 Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'joshdick/onedark.vim'
 Plug 'hashivim/vim-vagrant'
 "Plug 'ensime/ensime-vim'
-{% if not programming %}"{% endif %}Plug 'artur-shaik/vim-javacomplete2'
-{% if not programming %}"{% endif %}Plug 'fatih/vim-go'
-{% if not programming %}"{% endif %}Plug 'pangloss/vim-javascript'
-{% if not programming %}"{% endif %}Plug 'plasticboy/vim-markdown'
-{% if not programming %}"{% endif %}Plug 'pearofducks/ansible-vim'
+{% if not programming %}"{% endif %}Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
+{% if not programming %}"{% endif %}Plug 'fatih/vim-go', { 'for': 'go' }
+{% if not programming %}"{% endif %}Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+{% if not programming %}"{% endif %}Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+{% if not programming %}"{% endif %}Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 {% if not programming %}"{% endif %}Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-{% if not programming %}"{% endif %}Plug 'HerringtonDarkholme/yats.vim' " typescript
+{% if not programming %}"{% endif %}Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' } " typescript
 
 "Plug 'derekwyatt/vim-scala'
 "Plug 'mxw/vim-jsx'
@@ -245,11 +246,11 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'rhysd/devdocs.vim'
 
 {% if nvim %}
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'autozimu/LanguageClient-neovim', { 'do': 'install.sh', 'branch': 'next' }
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins', 'commit': 'db1a3cfca09dbfd4350fe04c10084194d77cca1c' }
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', { 'do': 'install.sh', 'branch': 'next' }
+"Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins', 'commit': '2760b3f340dad4b373658d00153511e0adce6b9b' }
 
-"Plug 'roxma/nvim-completion-manager' "this is like deoplete
+Plug 'roxma/nvim-completion-manager' "this is like deoplete
 
 " it's needed because lsp doesn't work for go
 "Plug 'zchee/deoplete-go', { 'do': 'make'}

@@ -104,31 +104,6 @@ nmap <Leader>mj <Plug>(easymotion-j)
 nmap <Leader>mk <Plug>(easymotion-k)
 nmap <Leader>ml <Plug>(easymotion-lineforward)
 
-" keybinding about lang
-au FileType go nnoremap <leader>le :GoRun<cr>
-au FileType go nnoremap <leader>lb :GoBuild<cr>
-au FileType go nnoremap <leader>lt :GoTest<cr>
-au FileType go nnoremap <leader>lc <Plug>(go-coverage)
-au FileType go nnoremap <leader>lde :<C-u>call go#def#Jump('')<CR>
-au FileType go nnoremap <leader>lds :<C-u>call go#def#Jump("split")<CR>
-au FileType go nnoremap <leader>ldv :<C-u>call go#def#Jump("vsplit")<CR>
-au FileType go nnoremap <leader>ldt :<C-u>call go#def#Jump("tab")<CR>
-au FileType go nnoremap <leader>lk :GoDoc<cr>
-au FileType go nnoremap <leader>ls :GoImplements<cr>
-au FileType go nnoremap <leader>li :GoInfo<cr>
-au FileType go nnoremap <leader>lrn :GoRename<cr>
-au FileType go nnoremap <leader>lrf :GoReferrers<cr>
-au FileType go nnoremap <leader>lce :GoCallees<cr>
-au FileType go nnoremap <leader>lcr :GoCallers<cr>
-
-let g:jedi#goto_command = "<leader>lde"
-let g:jedi#goto_assignments_command = "<leader>lga"
-let g:jedi#goto_definitions_command = "<leader>lde"
-let g:jedi#documentation_command = "<leader>k"
-let g:jedi#usages_command = "<leader>li"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>lrn"
-
 " Gina
 "nnoremap <leader>vs :Gina status<cr>
 "nnoremap <leader>vpl :Gina pull<cr>
@@ -148,6 +123,7 @@ nnoremap <leader>wf :call fzf#vim#ag('', {'dir': '~/Dropbox/vimwiki/', 'down': '
 
 nnoremap <leader>eu :UndotreeToggle<cr>
 nnoremap <leader>es :e $MYVIMRC<cr>
+nnoremap <leader>er :registers<cr>
 
 
 {% if nvim %}

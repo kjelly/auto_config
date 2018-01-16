@@ -52,7 +52,7 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-cnoremap <c-r> Explore scp://
+cnoremap <c-s> Explore scp://
 cnoremap <c-h> <Left>
 cnoremap <c-j> <Down>
 cnoremap <c-k> <Up>
@@ -154,6 +154,10 @@ map g/ <Plug>(incsearch-stay)\v
 nnoremap <F5> :C ./debug.sh<cr>
 inoremap <F5> <Esc>:C ./debug.sh<cr>a
 
+nnoremap <Tab> :Files<cr>
+{% if nvim %} nnoremap <S-Tab> :call OpenBuffer()<cr>
+{% else %} nnoremap <S-Tab> :Buffers<cr> {% endif %}
+
 {% if nvim %}
 
 " Tab switch
@@ -232,9 +236,9 @@ tnoremap <A-o> <C-\><C-n>:call OpenBuffer()<cr>a
 inoremap <A-p> <Esc>:call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
 nnoremap <A-p> :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
 tnoremap <A-p> <C-\><C-n>:call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>a
-inoremap <A-i> <Esc>:Windows<cr>
-nnoremap <A-i> :Windows<cr>
-tnoremap <A-i> <C-\><C-n>:Windows<cr>a
+inoremap <A-i> <Esc>:Ag<cr>
+nnoremap <A-i> :Ag<cr>
+tnoremap <A-i> <C-\><C-n>:Ag<cr>a
 
 " buufer switch
 nnoremap <A-b> :b#<cr>
@@ -328,6 +332,10 @@ nnoremap <silent> f :<C-u>call EasyMotion#overwin#w()<CR>
 nnoremap <A-n> :NERDTreeTabsToggle<CR>
 inoremap <A-n> <Esc>:NERDTreeTabsToggle<CR>
 tnoremap <A-n> <C-\><C-n>:NERDTreeTabsToggle<CR>
+
+inoremap <A-g> <C-o>:register<cr>
+nnoremap <A-g> :register<cr>
+
 {% endif %}
 
 function! ShowDoc()
