@@ -59,12 +59,14 @@ cnoremap <c-k> <Up>
 cnoremap <c-l> <Right>
 
 
-{% if nvim %}tnoremap <C-q> <C-\><C-n> {% endif %}
+{% if nvim %}tnoremap <C-q> <C-\><C-n>
+{% endif %}
 inoremap <C-q> <Esc>
 nnoremap <C-q> i
 vnoremap <C-q> <Esc>
 
-{% if nvim %}tnoremap <C-]> <C-\><C-n> {% endif %}
+{% if nvim %}tnoremap <C-]> <C-\><C-n>
+{% endif %}
 inoremap <C-]> <Esc>
 nnoremap <C-]> i
 vnoremap <C-]> <Esc>
