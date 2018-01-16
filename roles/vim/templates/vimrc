@@ -251,6 +251,10 @@ Plug 'autozimu/LanguageClient-neovim', { 'do': 'install.sh', 'branch': 'next' }
 "Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins', 'commit': '2760b3f340dad4b373658d00153511e0adce6b9b' }
 
 Plug 'roxma/nvim-completion-manager' "this is like deoplete
+Plug 'roxma/nvim-cm-tern' "javascript
+Plug 'fgrsnau/ncm-otherbuf' "Word from other buffers
+Plug 'calebeby/ncm-css'
+
 
 " it's needed because lsp doesn't work for go
 "Plug 'zchee/deoplete-go', { 'do': 'make'}
