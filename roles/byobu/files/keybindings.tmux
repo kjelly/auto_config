@@ -29,7 +29,8 @@ bind-key l  select-pane -R
 
 bind-key -n M-y run-shell "tmux show-buffer | xclip -sel clip -i" \; display-message "Copied tmux buffer to system clipboard"
 
+unbind-key -n C-a
 unbind-key -n C-b
-set -g prefix C-b
-set -g prefix2 C-b
-bind C-b send-prefix
+set -g prefix ^B
+set -g prefix2 ^B
+bind b send-prefix
