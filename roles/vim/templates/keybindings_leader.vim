@@ -125,6 +125,11 @@ nnoremap <leader>eu :UndotreeToggle<cr>
 nnoremap <leader>es :e $MYVIMRC<cr>
 nnoremap <leader>er :registers<cr>
 
+nnoremap <leader>ecr :let @a=@%<cr>
+nnoremap <leader>ecn :let @a=expand("%:t")<cr>
+nnoremap <leader>ecf :let @a=expand("%:p")<cr>
+nnoremap <leader>ecd :let @a=expand("%:p:h")<cr>
+
 
 {% if nvim %}
 

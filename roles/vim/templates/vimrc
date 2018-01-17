@@ -607,6 +607,7 @@ let g:lmap.s = { 'name' : 'Status' }
 let g:lmap.m = { 'name' : 'Moves' }
 let g:lmap.w = { 'name' : 'Wiki' }
 let g:lmap.e = { 'name' : 'Edit' }
+let g:lmap.e.c = { 'name' : 'Copy file path' }
 let g:lmap.l.s = { 'name' : 'Doc/Worspace Symbol' }
 let g:lmap.l.r = { 'name' : 'Rename/Reference' }
 
