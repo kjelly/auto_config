@@ -124,6 +124,14 @@
                         "Alt-F"
                     ]
                 }
+            },
+            {
+                "command": "focusTree",
+                "keys": {
+                    "win": [
+                        "Alt-N"
+                    ]
+                }
             }
         ]
     },
