@@ -231,15 +231,22 @@ function! OpenBuffer()
   execute "Buffers"
 endfunction
 
-inoremap <A-o> <Esc>:call OpenBuffer()<cr>
-nnoremap <A-o> :call OpenBuffer()<cr>
-tnoremap <A-o> <C-\><C-n>:call OpenBuffer()<cr>a
 inoremap <A-p> <Esc>:call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
 nnoremap <A-p> :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
 tnoremap <A-p> <C-\><C-n>:call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>a
+
+inoremap <A-o> <Esc>:call OpenBuffer()<cr>
+nnoremap <A-o> :call OpenBuffer()<cr>
+tnoremap <A-o> <C-\><C-n>:call OpenBuffer()<cr>a
+
 inoremap <A-i> <Esc>:Ag<cr>
 nnoremap <A-i> :Ag<cr>
 tnoremap <A-i> <C-\><C-n>:Ag<cr>a
+
+inoremap <A-u> <Esc>:Buffers<cr>
+nnoremap <A-u> :Buffers<cr>
+tnoremap <A-u> <C-\><C-n>:Buffers<cr>a
+
 
 " buufer switch
 nnoremap <A-b> :b#<cr>
