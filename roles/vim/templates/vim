@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ -f /usr/local/bin/nvim ]; then
+if [ -f `which nvim` ]; then
     /usr/local/bin/nvim $@
 else
     /usr/local/bin/vim $@
