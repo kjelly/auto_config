@@ -8,7 +8,7 @@ How to use
 ----------
 
 ```
-$ git clone https://github.com/ya790206/auto_config
+$ git clone https://github.com/kjelly/auto_config
 $ cd auto_config
 $ ./install-deb-dependency.sh # for ubuntu 16.04. It's needed only once.
 $ cp playbook-full.yml pc.yml
