@@ -1,5 +1,5 @@
 ---
 
-- copy: src="bashrc" dest="~/.bashrc"
+- template: src="bashrc" dest="~/.bashrc"
 
 - shell: "touch ~/.local_bashrc"
