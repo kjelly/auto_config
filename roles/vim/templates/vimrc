@@ -166,12 +166,14 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'fidian/hexmode'
 Plug 'vim-scripts/fcitx.vim'
-Plug 'joshdick/onedark.vim'
 "Plug 'osyo-manga/vim-over'
 "Plug 'justinmk/vim-gtfo'
 "Plug 'Shougo/unite.vim'
 "Plug 'JamshedVesuna/vim-markdown-preview' " sudo pip install grip
 "Plug 'Yggdroot/indentLine'
+
+" Color
+Plug 'joshdick/onedark.vim'
 
 " Lang
 Plug 'dag/vim-fish'
@@ -268,7 +270,7 @@ Plug 'Shougo/neco-syntax'
 Plug 'eugen0329/vim-esearch'
 
 " colorscheme
-"Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 "Plug 'iCyMind/NeoSolarized'
 
 {% else %}
@@ -510,7 +512,7 @@ let vim_markdown_preview_hotkey='<A-m>'
 let vim_markdown_preview_github=1
 let vim_markdown_preview_use_xdg_open=1
 
-let g:airline_theme='onedark'
+"let g:airline_theme='onedark'
 let g:LanguageClient_diagnosticsEnable=0
 
 " Autocmd
@@ -590,7 +592,9 @@ hi VimwikiHeader6 guifg=#FFFF00
 
 source ~/.vim_custom.vim
 "silent colorscheme desert
-silent! colorscheme onedark
+set t_Co=256
+silent! colorscheme gruvbox
+highlight Normal ctermbg=None
 
 let g:lmap =  {}
 let g:llmap =  {}
