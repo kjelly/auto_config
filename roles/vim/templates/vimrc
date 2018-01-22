@@ -227,11 +227,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 "Plug 'Shougo/denite.nvim'
 
-"Plug 'Shougo/neosnippet'
-"Plug 'Shougo/neosnippet-snippets'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
 
 Plug 'kjelly/vim-multiterm'
 "Plug 'myusuf3/numbers.vim'
@@ -246,6 +241,11 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'rhysd/devdocs.vim'
 
 {% if nvim %}
+"Plug 'Shougo/neosnippet'
+"Plug 'Shougo/neosnippet-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'autozimu/LanguageClient-neovim', { 'do': 'install.sh', 'branch': 'next' }
 "Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins', 'commit': '2760b3f340dad4b373658d00153511e0adce6b9b' }
