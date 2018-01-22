@@ -166,12 +166,14 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'fidian/hexmode'
 Plug 'vim-scripts/fcitx.vim'
-Plug 'joshdick/onedark.vim'
 "Plug 'osyo-manga/vim-over'
 "Plug 'justinmk/vim-gtfo'
 "Plug 'Shougo/unite.vim'
 "Plug 'JamshedVesuna/vim-markdown-preview' " sudo pip install grip
 "Plug 'Yggdroot/indentLine'
+
+" Color
+Plug 'joshdick/onedark.vim'
 
 " Lang
 Plug 'dag/vim-fish'
@@ -227,11 +229,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 "Plug 'Shougo/denite.nvim'
 
-"Plug 'Shougo/neosnippet'
-"Plug 'Shougo/neosnippet-snippets'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
 
 Plug 'kjelly/vim-multiterm'
 "Plug 'myusuf3/numbers.vim'
@@ -246,8 +243,13 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'rhysd/devdocs.vim'
 
 {% if nvim %}
+"Plug 'Shougo/neosnippet'
+"Plug 'Shougo/neosnippet-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'autozimu/LanguageClient-neovim', { 'do': 'install.sh', 'branch': 'next' }
+Plug 'autozimu/LanguageClient-neovim', { 'do': './install.sh', 'branch': 'next' }
 "Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins', 'commit': '2760b3f340dad4b373658d00153511e0adce6b9b' }
 
 Plug 'roxma/nvim-completion-manager' "this is like deoplete
@@ -269,7 +271,7 @@ Plug 'Shougo/neco-syntax'
 Plug 'eugen0329/vim-esearch'
 
 " colorscheme
-"Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 "Plug 'iCyMind/NeoSolarized'
 
 {% else %}
@@ -511,7 +513,7 @@ let vim_markdown_preview_hotkey='<A-m>'
 let vim_markdown_preview_github=1
 let vim_markdown_preview_use_xdg_open=1
 
-let g:airline_theme='onedark'
+"let g:airline_theme='onedark'
 let g:LanguageClient_diagnosticsEnable=0
 
 " Autocmd
@@ -591,7 +593,9 @@ hi VimwikiHeader6 guifg=#FFFF00
 
 source ~/.vim_custom.vim
 "silent colorscheme desert
-silent! colorscheme onedark
+set t_Co=256
+silent! colorscheme gruvbox
+highlight Normal ctermbg=None
 
 let g:lmap =  {}
 let g:llmap =  {}

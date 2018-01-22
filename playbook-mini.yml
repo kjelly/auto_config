@@ -7,9 +7,8 @@
       programming: false
 
   roles:
-      - bash-it
+      - bash
       - vim
       - fish
       - zsh
       - byobu
-      - fish
