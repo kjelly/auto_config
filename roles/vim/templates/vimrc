@@ -254,6 +254,7 @@ Plug 'roxma/nvim-completion-manager' "this is like deoplete
 Plug 'roxma/nvim-cm-tern' "javascript
 Plug 'fgrsnau/ncm-otherbuf' "Word from other buffers
 Plug 'calebeby/ncm-css'
+Plug 'mhartington/nvim-typescript'
 
 
 " it's needed because lsp doesn't work for go
