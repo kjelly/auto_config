@@ -58,7 +58,6 @@ cnoremap <c-j> <Down>
 cnoremap <c-k> <Up>
 cnoremap <c-l> <Right>
 
-
 {% if nvim %}tnoremap <C-q> <C-\><C-n>
 {% endif %}
 inoremap <C-q> <Esc>
@@ -75,6 +74,8 @@ nnoremap ; :
 
 inoremap ;; <Esc>
 {% if nvim %}tnoremap ;; <C-\><C-n> {% endif %}
+
+nnoremap <Space> i_<Esc>r
 
 {% if nvim %}
 

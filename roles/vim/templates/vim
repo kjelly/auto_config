@@ -1,6 +1,10 @@
 #!/bin/bash
 if [ -f `which nvim` ]; then
-    /usr/local/bin/nvim $@
-else
+    nvim $@
+elif [ -f /usr/local/bin/vim ]; then
     /usr/local/bin/vim $@
+elif [ -f /usr/bin/vim ]; then
+    /usr/bin/vim $@
+else
+  echo "No vim found"
 fi

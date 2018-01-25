@@ -63,10 +63,6 @@
     - "~/.vim/autoload/plug.vim"
     - "~/.config/nvim/autoload/plug.vim"
 
-- name: clone spacevim
-  git: repo=https://github.com/SpaceVim/SpaceVim
-       dest="~/.SpaceVim.d" depth=1 force=yes
-
 - name: clone evervim
   git: repo=https://github.com/LER0ever/EverVim
-       dest="~/.EverVim" depth=1 force=yes
+       dest="~/EverVim" depth=1 force=yes
