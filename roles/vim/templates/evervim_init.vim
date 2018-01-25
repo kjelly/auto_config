@@ -8,7 +8,7 @@
 
 " EverVim Configuration Root Directory
 if empty($evervim_root)
-    let $evervim_root = "~/.EverVim"
+    let $evervim_root = "~/EverVim"
 endif
 
 " Core Config
