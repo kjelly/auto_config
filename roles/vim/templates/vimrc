@@ -503,9 +503,9 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'ruby': ['language_server-ruby'],
     \ 'go': ['go-langserver', '-trace', '-logfile', expand('~/langserver-go.log')],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
-    \ 'typescript': ['javascript-typescript-stdio'],
+    \ 'javascript': ['typescript-language-server', '--stdio'],
+    \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
+    \ 'typescript': ['typescript-language-server', '--stdio'],
     \ }
 
 let vim_markdown_preview_hotkey='<A-m>'
