@@ -137,7 +137,11 @@ nnoremap <leader>ecd :let @a=expand("%:p:h")<cr>
 map <leader>tt :tabnew %<cr>:terminal<cr>
 map <leader>tb :split<cr><c-w>j:terminal<cr>
 
-nnoremap <leader>bp :b#<cr>
+nnoremap <leader>bb :b#<cr>
+nnoremap <leader>bl :Marks<cr>
+nnoremap <leader>bn ]`
+nnoremap <leader>bp [`
+nnoremap <leader>bc `.
 
 {% endif %}
 

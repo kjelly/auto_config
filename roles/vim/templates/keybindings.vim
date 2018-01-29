@@ -345,6 +345,9 @@ tnoremap <A-n> <C-\><C-n>:NERDTreeTabsToggle<CR>
 inoremap <A-g> <C-o>:register<cr>
 nnoremap <A-g> :register<cr>
 
+inoremap <A-m> <Esc>:Marks<cr>
+nnoremap <A-m> :Marks<cr>
+
 {% endif %}
 
 function! ShowDoc()
