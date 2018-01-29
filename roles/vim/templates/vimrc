@@ -614,7 +614,8 @@ let g:lmap.e = { 'name' : 'Edit' }
 let g:lmap.e.c = { 'name' : 'Copy file path' }
 let g:lmap.l.s = { 'name' : 'Doc/Worspace Symbol' }
 let g:lmap.l.r = { 'name' : 'Rename/Reference' }
-let g:lmap.b.c = [ 'normal! `.', 'Last change']
+let g:lmap.b.c = { 'name' : 'Clear marks' }
+let g:lmap.b.l = [ 'normal! `.', 'Last change']
 let g:lmap.b.p = [ 'normal! [`', 'Previous mark']
 let g:lmap.b.n = [ 'normal! ]`', 'Next mark']
 

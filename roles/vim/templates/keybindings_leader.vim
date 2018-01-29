@@ -141,7 +141,8 @@ nnoremap <leader>bb :b#<cr>
 nnoremap <leader>bl :Marks<cr>
 nnoremap <leader>bn ]`
 nnoremap <leader>bp [`
-nnoremap <leader>bc `.
+nnoremap <leader>bc :delmarks!<cr>
+nnoremap <leader>bl `.
 
 {% endif %}
 
