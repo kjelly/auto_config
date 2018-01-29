@@ -1,7 +1,37 @@
+---
 
-- name: Install vim package
+- name: Install (neo)vim releated package
+  dnf: name={{ item }} state=present
+  with_items:
+   - the_silver_searcher
+  become: true
+  when: ansible_distribution == 'Centos'
+
+- name: Install vim releated package
   dnf: name={{ item }} state=present
   with_items:
    - vim-enhanced
   become: true
   when: ansible_distribution == 'Centos' and programming == false
+
+- name: Install package for building neovim
+  dnf: name={{ item }} state=present
+  with_items:
+   - cmake
+  become: true
+  when: ansible_distribution == 'Centos' and programming == true
+
+- name: Install package for appImage
+  dnf: name={{ item }} state=present
+  with_items:
+    - fuse-sshfs
+  become: true
+  when: ansible_distribution == 'Centos' and programming == true
+
+- name: download nvim.appImage
+  get_url:
+    url: https://github.com/neovim/neovim/releases/download/{nvim_version}/nvim.appimage
+    dest: /usr/local/bin/nvim
+    mode: 0551
+  become: true
+  when: ansible_distribution == 'Centos' and programming == true
