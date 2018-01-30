@@ -83,6 +83,7 @@ nnoremap <leader>ed :Explore <c-r>=expand("%:p:h")<cr><cr>
 nnoremap <leader>fi :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
 
 " Bookmarks keybinding
+nnoremap mm :BookmarkToggle<cr>
 nnoremap <Leader>bb :BookmarkToggle<cr>
 nnoremap <Leader>bt :BookmarkToggle<cr>
 nnoremap <Leader>bi :BookmarkAnnotate<cr>
