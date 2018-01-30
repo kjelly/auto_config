@@ -83,16 +83,16 @@ nnoremap <leader>ed :Explore <c-r>=expand("%:p:h")<cr><cr>
 nnoremap <leader>fi :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
 
 " Bookmarks keybinding
-"nnoremap <Leader>bt <Plug>BookmarkToggle
-"nnoremap <Leader>bi <Plug>BookmarkAnnotate
-"nnoremap <Leader>ba <Plug>BookmarkShowAll
-"nnoremap <Leader>bj <Plug>BookmarkNext
-"nnoremap <Leader>bk <Plug>BookmarkPrev
-"nnoremap <Leader>bc <Plug>BookmarkClear
-"nnoremap <Leader>bx <Plug>BookmarkClearAll
-"nnoremap <Leader>bk <Plug>BookmarkMoveUp
-"nnoremap <Leader>bj <Plug>BookmarkMoveDown
+nnoremap <Leader>bb :BookmarkToggle<cr>
+nnoremap <Leader>bt :BookmarkToggle<cr>
+nnoremap <Leader>bi :BookmarkAnnotate<cr>
+nnoremap <Leader>bl :BookmarkShowAll<cr>
+nnoremap <Leader>bj :BookmarkNext<cr>
+nnoremap <Leader>bk :BookmarkPrev<cr>
+nnoremap <Leader>bc :BookmarkClear<cr>
+nnoremap <Leader>bx :BookmarkClearAll<cr>
 
+nnoremap <leader>bs :b#<cr>
 
 "nnoremap <leader>w :W3mTab google
 
@@ -104,6 +104,11 @@ nmap <Leader>mj <Plug>(easymotion-j)
 nmap <Leader>mk <Plug>(easymotion-k)
 nmap <Leader>ml <Plug>(easymotion-lineforward)
 
+nnoremap <leader>mm :Marks<cr>
+nnoremap <leader>mn ]`
+nnoremap <leader>mp [`
+nnoremap <leader>mc :delmarks!<cr>
+nnoremap <leader>mg `.
 " Gina
 "nnoremap <leader>vs :Gina status<cr>
 "nnoremap <leader>vpl :Gina pull<cr>
@@ -137,12 +142,6 @@ nnoremap <leader>ecd :let @a=expand("%:p:h")<cr>
 map <leader>tt :tabnew %<cr>:terminal<cr>
 map <leader>tb :split<cr><c-w>j:terminal<cr>
 
-nnoremap <leader>bb :b#<cr>
-nnoremap <leader>bl :Marks<cr>
-nnoremap <leader>bn ]`
-nnoremap <leader>bp [`
-nnoremap <leader>bc :delmarks!<cr>
-nnoremap <leader>bl `.
 
 {% endif %}
 

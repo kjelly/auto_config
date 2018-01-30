@@ -211,7 +211,7 @@ Plug 'hashivim/vim-vagrant'
 "Plug 'mhinz/vim-startify'
 "Plug 'suan/vim-instant-markdown'
 
-"Plug 'MattesGroeger/vim-bookmarks'
+Plug 'MattesGroeger/vim-bookmarks'
 "Plug 'thinca/vim-quickrun'
 "Plug 'mkitt/tabline.vim'
 "Plug 'mru.vim'
@@ -515,6 +515,8 @@ let vim_markdown_preview_use_xdg_open=1
 "let g:airline_theme='onedark'
 let g:LanguageClient_diagnosticsEnable=0
 
+let g:bookmark_no_default_key_mappings = 1
+
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
 autocmd! InsertEnter,WinLeave * set nocursorline
@@ -614,10 +616,8 @@ let g:lmap.e = { 'name' : 'Edit' }
 let g:lmap.e.c = { 'name' : 'Copy file path' }
 let g:lmap.l.s = { 'name' : 'Doc/Worspace Symbol' }
 let g:lmap.l.r = { 'name' : 'Rename/Reference' }
-let g:lmap.b.c = { 'name' : 'Clear marks' }
-let g:lmap.b.l = [ 'normal! `.', 'Last change']
-let g:lmap.b.p = [ 'normal! [`', 'Previous mark']
-let g:lmap.b.n = [ 'normal! ]`', 'Next mark']
+let g:lmap.m.p = [ 'normal! [`', 'Previous mark']
+let g:lmap.m.n = [ 'normal! ]`', 'Next mark']
 
 silent! call leaderGuide#register_prefix_descriptions(mapleader, "g:lmap")
 silent! call leaderGuide#register_prefix_descriptions(maplocalleader, "g:llmap")
