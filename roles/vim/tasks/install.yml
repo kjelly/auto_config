@@ -19,7 +19,7 @@
   when: ansible_distribution == 'Fedora'
 
 - include: "install-centos.yml"
-  when: ansible_distribution == 'Centos'
+  when: ansible_distribution == 'CentOS'
 
 - include: "install-osx.yml"
   when: ansible_distribution == 'MacOSX'
