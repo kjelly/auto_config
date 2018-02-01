@@ -5,7 +5,7 @@ import os
 
 def main():
     dropbox_path = os.path.expanduser("~/Dropbox")
-    wiki_command = "bash -c 'cd ~/Dropbox/vimwiki/;vim +VimwikiIndex'"
+    wiki_command = "bash -c 'cd ~/Dropbox/vimwiki/;vim +Wiki'"
     dropbox_command = "dropbox start"
     if os.path.islink(dropbox_path):
         os.system(wiki_command)

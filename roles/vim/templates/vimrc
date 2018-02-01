@@ -636,3 +636,12 @@ function! DefaultWorkspace()
 endfunction
 command! -register DefaultWorkspace call DefaultWorkspace()
 {% endif %}
+
+" Wiki
+" ----------------
+function! Wiki()
+  set autoread
+  set autowrite
+  VimwikiIndex
+endfunction
+command! -register Wiki call Wiki()
