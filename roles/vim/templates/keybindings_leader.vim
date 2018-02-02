@@ -72,7 +72,7 @@ nnoremap <leader>qb :Bclose<cr>
 " State
 nnoremap <leader>sn :set nu!<cr>
 nnoremap <leader>sw :set wrap!<cr>
-nnoremap <leader>sp :setlocal paste!<cr>
+nnoremap <leader>sp :set paste!<cr>
 nnoremap <leader>sm :call ToggleMouse()<cr>
 nnoremap <leader>ss :call ToggleStatusLine()<cr>
 
