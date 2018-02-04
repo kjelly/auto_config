@@ -3,7 +3,7 @@
 - file: path=~/mybin state=directory
 
 - copy: src="{{ item }}"
-        dest="~/mybin/{{ item }}"
+        dest="~/mybin/{{ (item|splitext)[0] }}"
         mode=0755
   with_items:
       - asyn
