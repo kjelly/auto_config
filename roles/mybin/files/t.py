@@ -30,7 +30,9 @@ def main():
             os.system("tmux")
         else:
             os.system("tmux attach #")
-    if argv1 in session_list:
+    elif argv1 == 'kill':
+        os.system("tmux kill-session -t %s" % sys.argv[2])
+    elif argv1 in session_list:
         os.system("tmux attach -t %s" % argv1)
     else:
         os.system("tmux new -s %s" % argv1)
