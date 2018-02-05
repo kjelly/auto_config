@@ -69,11 +69,13 @@ vnoremap <C-q> <Esc>
 inoremap <C-]> <Esc>
 nnoremap <C-]> i
 vnoremap <C-]> <Esc>
+cnoremap <C-]> <Esc>
 
 nnoremap ; :
 
 inoremap ;; <Esc>
 cnoremap ;; <Esc>
+vnoremap ;; <Esc>
 {% if nvim %}tnoremap ;; <C-\><C-n> {% endif %}
 
 nnoremap <Space> i_<Esc>r
