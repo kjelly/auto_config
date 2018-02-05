@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
+import argparse
 import os
-import sys
 import subprocess
 
 
@@ -20,22 +20,25 @@ def list_all_sessions():
 
 
 def main():
+    parser = argparse.ArgumentParser(description='Tmux wrapper')
+    parser.add_argument('name', type=str, nargs="?")
+    parser.add_argument('--list', action='store_true')
+    parser.add_argument('--kill', '-k')
+    args = parser.parse_args()
     session_list = list_all_sessions()
-    if len(sys.argv) == 1:
+    if args.list:
         print(session_list)
         return
-    argv1 = sys.argv[1]
-    if argv1 == '#':
-        if len(session_list) == 0:
-            os.system("tmux")
-        else:
-            os.system("tmux attach #")
-    elif argv1 == 'kill':
-        os.system("tmux kill-session -t %s" % sys.argv[2])
-    elif argv1 in session_list:
-        os.system("tmux attach -t %s" % argv1)
+    elif args.kill is not None:
+        os.system("tmux kill-session -t %s" % args.kill)
+    elif args.name is None:
+        os.system("tmux attach #")
     else:
-        os.system("tmux new -s %s" % argv1)
+        name = args.name
+        if name in session_list:
+            os.system("tmux attach -t %s" % name)
+        else:
+            os.system("tmux new -s %s" % name)
 
 
 if __name__ == "__main__":
