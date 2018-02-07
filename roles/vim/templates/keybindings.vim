@@ -58,6 +58,10 @@ cnoremap <c-j> <Down>
 cnoremap <c-k> <Up>
 cnoremap <c-l> <Right>
 
+" Use Enter to expand snippet
+imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
+imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<Tab>":"\<CR>")
+
 {% if nvim %}tnoremap <C-q> <C-\><C-n>
 {% endif %}
 inoremap <C-q> <Esc>
