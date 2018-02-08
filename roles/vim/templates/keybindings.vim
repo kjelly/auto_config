@@ -1,12 +1,3 @@
-" resize buffer
-if bufwinnr(1)
-  map = <C-W>+
-  map - <C-W>-
-  map } <C-W>>
-  map { <C-W><
-endif
-
-
 " Use normal regex
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
@@ -83,6 +74,9 @@ vnoremap ;; <Esc>
 {% if nvim %}tnoremap ;; <C-\><C-n> {% endif %}
 
 nnoremap <Space> i_<Esc>r
+
+vnoremap > >gv
+vnoremap < <gv
 
 {% if nvim %}
 
