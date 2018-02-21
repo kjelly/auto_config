@@ -78,6 +78,9 @@ nnoremap <Space> i_<Esc>r
 vnoremap > >gv
 vnoremap < <gv
 
+" go to the alternative buffer(buffer swap)
+nnoremap <bs> <c-^>
+
 {% if nvim %}
 
 cnoremap <A-h> <Left>
