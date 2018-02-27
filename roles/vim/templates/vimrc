@@ -165,6 +165,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'fidian/hexmode'
+Plug 'blueyed/vim-diminactive' " use different background color for inactive window
 Plug 'vim-scripts/fcitx.vim'
 "Plug 'osyo-manga/vim-over'
 "Plug 'justinmk/vim-gtfo'
