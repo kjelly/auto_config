@@ -9,7 +9,7 @@
     "window.menuBarVisibility": "toggle",
     "files.eol": "\n",
     "explorer.autoReveal": false,
-    "sync.gist": "7a6994ea6902775d4e43bed806e9a00e",
+    "sync.gist": "c9fcfe04ac54654521f38f1aecdf0eba",
     "sync.lastUpload": "",
     "sync.autoDownload": false,
     "sync.autoUpload": false,
@@ -37,5 +37,6 @@
     "editor.fontLigatures": true,
     "editor.fontFamily": "'Fira Code','Source Code Pro','Inconsolata' ,'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback'",
     "python.linting.pylintArgs": ["--disable=C0111,C0103,C1801,C0325"],
-    "files.hotExit": "off"
- }
+    "files.hotExit": "off",
+    "sync.askGistName": false
+}
