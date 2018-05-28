@@ -84,6 +84,13 @@
                         "Ctrl-P"
                     ]
                 }
+            },{
+                "command": "navigate",
+                "keys": {
+                    "win": [
+                        "Alt-P"
+                    ]
+                }
             },
             {
                 "command": "commands",

@@ -1,6 +1,6 @@
 #! /bin/bash
 export LC_ALL=C
-sudo apt-get dist-upgrade
+sudo apt-get dist-upgrade -y
 sudo apt-get install -y python-dev git python-setuptools libffi-dev libssl-dev
 sudo apt-get build-dep -y ansible python-cryptography
 sudo easy_install pip

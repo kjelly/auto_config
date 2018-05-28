@@ -81,6 +81,8 @@ vnoremap < <gv
 " go to the alternative buffer(buffer swap)
 nnoremap <bs> <c-^>
 
+nnoremap ! :!
+
 {% if nvim %}
 
 cnoremap <A-h> <Left>
@@ -378,8 +380,8 @@ function! ShowDef()
   endif
 endfunction
 
-nnoremap <silent> K :call ShowDoc()<CR>
-nnoremap <silent> gd :call ShowDef()<CR>
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 
 inoremap <silent><expr> <A-/>
   \ pumvisible() ? "\<C-n>" :
