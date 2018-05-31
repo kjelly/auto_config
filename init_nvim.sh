@@ -1,6 +1,8 @@
 #!/bin/bash
 
-sudo curl https://github.com/neovim/neovim/releases/download/v0.2.2/nvim.appimage -o /usr/bin/nvim
+sudo curl -fL https://github.com/neovim/neovim/releases/download/v0.2.2/nvim.appimage -o /usr/bin/nvim
+
+sudo chmod +x /usr/bin/nvim
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
