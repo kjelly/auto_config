@@ -78,5 +78,10 @@
     { "key": "ctrl+p", "command": "workbench.action.quickOpenPreviousEditor"},
     { "key": "alt+p", "command": "workbench.action.quickOpenPreviousEditor"},
     { "key": "alt+s", "command": "workbench.action.files.save"},
-    { "key": "escape", "command": "extension.vim_escape", "when": "editorTextFocus && vim.active && !inDebugRepl" }
+    { "key": "escape", "command": "extension.vim_escape", "when": "editorTextFocus && vim.active && !inDebugRepl" },
+    {
+        "key": ";",
+        "command": "extension.showCmdLine",
+        "when": "editorTextFocus && vim.active && !inDebugRepl"
+    }
 ]
