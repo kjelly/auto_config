@@ -11,7 +11,7 @@ mkdir -p ~/.config/nvim/autoload/
 
 cp ~/.vim/autoload/plug.vim ~/.config/nvim/autoload/plug.vim
 
-curl https://myvimrc-205113.appspot.com/?programming=0 -o ~/.config/nvim/init.vim
+curl https://myvimrc-205113.appspot.com/?programming=1 -o ~/.config/nvim/init.vim
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 
