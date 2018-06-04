@@ -191,6 +191,7 @@ Plug 'hashivim/vim-vagrant'
 {% if not programming %}"{% endif %}Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 {% if not programming %}"{% endif %}Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 {% if not programming %}"{% endif %}Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' } " typescript
+{% if not programming %}"{% endif %}Plug 'Glench/Vim-Jinja2-Syntax'
 
 "Plug 'derekwyatt/vim-scala'
 "Plug 'mxw/vim-jsx'
