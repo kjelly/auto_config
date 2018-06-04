@@ -83,6 +83,10 @@ nnoremap <bs> <c-^>
 
 nnoremap ! :!
 
+" Copy to clipboard (this is for wsl)
+vnoremap <C-c> y:new ~/.vimbuffer<CR>VGp:x<CR> \| :!cat ~/.vimbuffer \| clip.exe <CR><CR>
+
+
 {% if nvim %}
 
 cnoremap <A-h> <Left>
