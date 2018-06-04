@@ -130,6 +130,7 @@ nnoremap <leader>wf :call fzf#vim#ag('', {'dir': '~/Dropbox/vimwiki/', 'down': '
 nnoremap <leader>eu :UndotreeToggle<cr>
 nnoremap <leader>es :e $MYVIMRC<cr>
 nnoremap <leader>er :registers<cr>
+nnoremap <leader>ef :set filetype=
 
 nnoremap <leader>ecr :let @a=@%<cr>
 nnoremap <leader>ecn :let @a=expand("%:t")<cr>
