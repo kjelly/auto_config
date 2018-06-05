@@ -433,7 +433,6 @@ if !empty(glob("/usr/bin/fish"))
   set shell=/usr/bin/fish
 endif
 
-let g:jedi#completions_command = "<C-n>"
 let popup_select_first = 0
 let @/ = ""
 let g:vim_markdown_folding_disabled=1
@@ -456,13 +455,8 @@ let g:vimshell_prompt_expr =
 \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
 let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
 
-let g:clang_c_completeopt = "menu,preview,noinsert,noselect"
-let g:clang_cpp_completeopt = "menu,preview,noinsert,noselect"
-
-let g:syntastic_cpp_compiler_options="-std=gnu++14"
-
 " Easymotion
-let g:asyMotion_smartcase = 1
+let g:EasyMotion_smartcase = 1
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 
 " Let fzf ignore the files which is ignored by gitignore or hgignore
@@ -510,9 +504,6 @@ let g:LanguageClient_serverCommands = {
     \ 'typescript': ['typescript-language-server', '--stdio'],
     \ }
 
-let vim_markdown_preview_hotkey='<A-m>'
-let vim_markdown_preview_github=1
-let vim_markdown_preview_use_xdg_open=1
 
 "let g:airline_theme='onedark'
 let g:LanguageClient_diagnosticsEnable=0
