@@ -191,6 +191,7 @@ Plug 'hashivim/vim-vagrant'
 {% if not programming %}"{% endif %}Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 {% if not programming %}"{% endif %}Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 {% if not programming %}"{% endif %}Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' } " typescript
+{% if not programming %}"{% endif %}Plug 'Glench/Vim-Jinja2-Syntax'
 
 "Plug 'derekwyatt/vim-scala'
 "Plug 'mxw/vim-jsx'
@@ -252,9 +253,9 @@ Plug 'rhysd/devdocs.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'autozimu/LanguageClient-neovim', { 'do': './install.sh', 'branch': 'next' }
+Plug 'autozimu/LanguageClient-neovim', { 'do': 'bash ./install.sh', 'branch': 'next' }
 "Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins', 'commit': '2760b3f340dad4b373658d00153511e0adce6b9b' }
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'roxma/nvim-completion-manager' "this is like deoplete
 Plug 'roxma/nvim-cm-tern' "javascript
@@ -560,6 +561,11 @@ command! Qa execute "quitall!"
 " Sudo to write
 command! W :w !sudo tee % >/dev/null
 
+command! Cd1 :cd ..
+command! Cd2 :cd ../..
+command! Cd3 :cd ../../..
+command! E :Explore
+
 " Diff between the curret buffer and the file.
 com! Diff call s:DiffWithSaved()
 
@@ -596,7 +602,7 @@ hi VimwikiHeader6 guifg=#FFFF00
 {% include './templates/keybindings.vim' %}
 {% include './templates/keybindings_leader.vim' %}
 
-source ~/.vim_custom.vim
+silent! source ~/.vim_custom.vim
 "silent colorscheme desert
 set t_Co=256
 silent! colorscheme gruvbox

@@ -83,6 +83,10 @@ nnoremap <bs> <c-^>
 
 nnoremap ! :!
 
+" Copy to clipboard (this is for wsl)
+vnoremap <C-c> y:new ~/.vimbuffer<CR>VGp:x<CR> \| :!cat ~/.vimbuffer \| clip.exe <CR><CR>
+
+
 {% if nvim %}
 
 cnoremap <A-h> <Left>
@@ -199,11 +203,6 @@ nnoremap <A-a> i
 vnoremap <A-a> <Esc>
 cnoremap <A-a> <Esc>
 
-tnoremap å <C-\><C-n>
-inoremap å <Esc>
-nnoremap å i
-vnoremap å <Esc>
-
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
 tnoremap <A-k> <C-\><C-n><C-w>k
@@ -216,19 +215,6 @@ inoremap <A-h> <Esc><C-w>h
 inoremap <A-j> <Esc><C-w>j
 inoremap <A-k> <Esc><C-w>k
 inoremap <A-l> <Esc><C-w>l
-
-tnoremap ˙ <C-\><C-n><C-w>h
-tnoremap ∆ <C-\><C-n><C-w>j
-tnoremap ˚ <C-\><C-n><C-w>k
-tnoremap ¬ <C-\><C-n><C-w>l
-nnoremap ˙ <C-w>h
-nnoremap ∆ <C-w>j
-nnoremap ˚ <C-w>k
-nnoremap ¬ <C-w>l
-inoremap ˙ <Esc><C-w>h
-inoremap ∆ <Esc><C-w>j
-inoremap ˚ <Esc><C-w>k
-inoremap ¬ <Esc><C-w>l
 
 " Find files/buffers
 function! OpenBuffer()
@@ -285,22 +271,6 @@ tnoremap <silent> <A-e>  <C-\><C-n>:resize -1000<cr>a
 tnoremap <silent> <A-r>  <C-\><C-n>:vertical resize +1000<cr>a
 tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize -1000<cr>a
 
-nnoremap <silent> œ :resize +1000<cr>
-nnoremap <silent> ∑ <c-w><c-=>
-nnoremap <silent> ´ :resize -1000<cr>
-nnoremap <silent> ® :vertical resize +1000<cr>
-nnoremap <silent> † :vertical resize -1000<cr>
-inoremap <silent> œ <Esc>:resize +1000<cr>a
-inoremap <silent> ∑ <Esc><c-w><c-=>i
-inoremap <silent> ´ <Esc>:resize -1000<cr>a
-inoremap <silent> ® <Esc>:vertical resize +1000<cr>a
-inoremap <silent> † <Esc>:vertical resize -1000<cr>a
-tnoremap <silent> œ <C-\><C-n>:resize +1000<cr>a
-tnoremap <silent> ∑ <C-\><C-n><c-w><c-=>i
-tnoremap <silent> ´ <C-\><C-n>:resize -1000<cr>a
-tnoremap <silent> ® <C-\><C-n>:vertical resize +1000<cr>a
-tnoremap <silent> † <C-\><C-n>:vertical resize -1000<cr>a
-
 " Paste text
 tnoremap <A-v> <C-\><C-n>pi
 inoremap <A-v> <Esc>pi
@@ -332,7 +302,6 @@ nnoremap <A-r>0 <Esc>:C g0<cr>
 
 
 nnoremap <A-d> :DevDocsUnderCursor<cr>
-nnoremap ∂ :DevDocsUnderCursor<cr>
 
 " Tab navigate
 nnoremap <A-,> gT
