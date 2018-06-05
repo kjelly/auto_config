@@ -142,8 +142,9 @@ nnoremap <leader>ecd :let @a=expand("%:p:h")<cr>
 {% if nvim %}
 
 " open new terminal in new tab/buffer.
-map <leader>tt :tabnew %<cr>:terminal<cr>
-map <leader>tb :split<cr><c-w>j:terminal<cr>
+nnoremap <leader>tt :tabnew %<cr>:terminal<cr>
+nnoremap <leader>tb :split<cr><c-w>j:terminal<cr>
+nnoremap <leader>tv :vsplit<cr><c-w>l:terminal<cr>
 
 
 {% endif %}

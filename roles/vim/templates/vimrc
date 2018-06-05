@@ -411,7 +411,7 @@ set tw=500
 
 set ai "Auto indent
 set si "Smart indent
-set wrap "Wrap lines
+set nowrap "Wrap lines
 
 " Always show the status line
 set laststatus=2
