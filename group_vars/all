@@ -2,7 +2,7 @@
 # Variables listed here are applicable to all host groups
 
 httpd_port: 80
-fish_version: 2.7.0
+fish_version: 2.7.1
 fish_download_url: https://github.com/fish-shell/fish-shell/releases/download/{{ fish_version }}/fish-{{ fish_version }}.tar.gz
 dmenu_version: 4.6
 dmenu_download_url: http://dl.suckless.org/tools/dmenu-{{ dmenu_version}}.tar.gz
