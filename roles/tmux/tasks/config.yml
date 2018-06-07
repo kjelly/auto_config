@@ -1,3 +1,11 @@
 ---
 - copy: src="tmux.conf"
         dest="~/.tmux.conf"
+
+- file: path=~/bin state=directory
+
+- copy: src="{{ item }}"
+        dest="~/bin/{{ (item|splitext)[0] }}"
+        mode=0755
+  with_items:
+      - t.py

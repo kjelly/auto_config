@@ -1,12 +1,3 @@
-" resize buffer
-if bufwinnr(1)
-  map = <C-W>+
-  map - <C-W>-
-  map } <C-W>>
-  map { <C-W><
-endif
-
-
 " Use normal regex
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
@@ -52,16 +43,50 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-cnoremap <c-r> Explore scp://
+cnoremap <c-s> Explore scp://
 cnoremap <c-h> <Left>
 cnoremap <c-j> <Down>
 cnoremap <c-k> <Up>
 cnoremap <c-l> <Right>
 
+" Use Enter to expand snippet
+imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
+imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<Tab>":"\<CR>")
+
+{% if nvim %}tnoremap <C-q> <C-\><C-n>
+{% endif %}
+inoremap <C-q> <Esc>
+nnoremap <C-q> i
+vnoremap <C-q> <Esc>
+
+{% if nvim %}tnoremap <C-]> <C-\><C-n>
+{% endif %}
+inoremap <C-]> <Esc>
+nnoremap <C-]> i
+vnoremap <C-]> <Esc>
+cnoremap <C-]> <Esc>
+
 nnoremap ; :
 
-tnoremap jj <C-\><C-n>
-inoremap jj <Esc>
+inoremap ;; <Esc>
+cnoremap ;; <Esc>
+vnoremap ;; <Esc>
+{% if nvim %}tnoremap ;; <C-\><C-n> {% endif %}
+
+nnoremap <Space> i_<Esc>r
+
+vnoremap > >gv
+vnoremap < <gv
+
+" go to the alternative buffer(buffer swap)
+nnoremap <bs> <c-^>
+
+nnoremap ! :!
+
+" Copy to clipboard (this is for wsl)
+vnoremap <C-c> y:new ~/.vimbuffer<CR>VGp:x<CR> \| :!cat ~/.vimbuffer \| clip.exe <CR><CR>
+
+
 {% if nvim %}
 
 cnoremap <A-h> <Left>
@@ -140,6 +165,10 @@ map g/ <Plug>(incsearch-stay)\v
 nnoremap <F5> :C ./debug.sh<cr>
 inoremap <F5> <Esc>:C ./debug.sh<cr>a
 
+nnoremap <Tab> :Files<cr>
+{% if nvim %} nnoremap <S-Tab> :call OpenBuffer()<cr>
+{% else %} nnoremap <S-Tab> :Buffers<cr> {% endif %}
+
 {% if nvim %}
 
 " Tab switch
@@ -174,22 +203,6 @@ nnoremap <A-a> i
 vnoremap <A-a> <Esc>
 cnoremap <A-a> <Esc>
 
-tnoremap å <C-\><C-n>
-inoremap å <Esc>
-nnoremap å i
-vnoremap å <Esc>
-
-tnoremap <C-q> <C-\><C-n>
-inoremap <C-q> <Esc>
-nnoremap <C-q> i
-vnoremap <C-q> <Esc>
-
-tnoremap <C-]> <C-\><C-n>
-inoremap <C-]> <Esc>
-nnoremap <C-]> i
-vnoremap <C-]> <Esc>
-
-" Buffer navigation
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
 tnoremap <A-k> <C-\><C-n><C-w>k
@@ -203,19 +216,6 @@ inoremap <A-j> <Esc><C-w>j
 inoremap <A-k> <Esc><C-w>k
 inoremap <A-l> <Esc><C-w>l
 
-tnoremap ˙ <C-\><C-n><C-w>h
-tnoremap ∆ <C-\><C-n><C-w>j
-tnoremap ˚ <C-\><C-n><C-w>k
-tnoremap ¬ <C-\><C-n><C-w>l
-nnoremap ˙ <C-w>h
-nnoremap ∆ <C-w>j
-nnoremap ˚ <C-w>k
-nnoremap ¬ <C-w>l
-inoremap ˙ <Esc><C-w>h
-inoremap ∆ <Esc><C-w>j
-inoremap ˚ <Esc><C-w>k
-inoremap ¬ <Esc><C-w>l
-
 " Find files/buffers
 function! OpenBuffer()
   let buf=bufnr('%')
@@ -224,15 +224,22 @@ function! OpenBuffer()
   execute "Buffers"
 endfunction
 
-inoremap <A-o> <Esc>:call OpenBuffer()<cr>
-nnoremap <A-o> :call OpenBuffer()<cr>
-tnoremap <A-o> <C-\><C-n>:call OpenBuffer()<cr>a
 inoremap <A-p> <Esc>:call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
 nnoremap <A-p> :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
 tnoremap <A-p> <C-\><C-n>:call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>a
-inoremap <A-i> <Esc>:Windows<cr>
-nnoremap <A-i> :Windows<cr>
-tnoremap <A-i> <C-\><C-n>:Windows<cr>a
+
+inoremap <A-o> <Esc>:call OpenBuffer()<cr>
+nnoremap <A-o> :call OpenBuffer()<cr>
+tnoremap <A-o> <C-\><C-n>:call OpenBuffer()<cr>a
+
+inoremap <A-i> <Esc>:Ag<cr>
+nnoremap <A-i> :Ag<cr>
+tnoremap <A-i> <C-\><C-n>:Ag<cr>a
+
+inoremap <A-u> <Esc>:Buffers<cr>
+nnoremap <A-u> :Buffers<cr>
+tnoremap <A-u> <C-\><C-n>:Buffers<cr>a
+
 
 " buufer switch
 nnoremap <A-b> :b#<cr>
@@ -263,22 +270,6 @@ tnoremap <silent> <A-w>  <C-\><C-n><c-w><c-=>i
 tnoremap <silent> <A-e>  <C-\><C-n>:resize -1000<cr>a
 tnoremap <silent> <A-r>  <C-\><C-n>:vertical resize +1000<cr>a
 tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize -1000<cr>a
-
-nnoremap <silent> œ :resize +1000<cr>
-nnoremap <silent> ∑ <c-w><c-=>
-nnoremap <silent> ´ :resize -1000<cr>
-nnoremap <silent> ® :vertical resize +1000<cr>
-nnoremap <silent> † :vertical resize -1000<cr>
-inoremap <silent> œ <Esc>:resize +1000<cr>a
-inoremap <silent> ∑ <Esc><c-w><c-=>i
-inoremap <silent> ´ <Esc>:resize -1000<cr>a
-inoremap <silent> ® <Esc>:vertical resize +1000<cr>a
-inoremap <silent> † <Esc>:vertical resize -1000<cr>a
-tnoremap <silent> œ <C-\><C-n>:resize +1000<cr>a
-tnoremap <silent> ∑ <C-\><C-n><c-w><c-=>i
-tnoremap <silent> ´ <C-\><C-n>:resize -1000<cr>a
-tnoremap <silent> ® <C-\><C-n>:vertical resize +1000<cr>a
-tnoremap <silent> † <C-\><C-n>:vertical resize -1000<cr>a
 
 " Paste text
 tnoremap <A-v> <C-\><C-n>pi
@@ -311,7 +302,6 @@ nnoremap <A-r>0 <Esc>:C g0<cr>
 
 
 nnoremap <A-d> :DevDocsUnderCursor<cr>
-nnoremap ∂ :DevDocsUnderCursor<cr>
 
 " Tab navigate
 nnoremap <A-,> gT
@@ -326,6 +316,13 @@ nnoremap <silent> f :<C-u>call EasyMotion#overwin#w()<CR>
 nnoremap <A-n> :NERDTreeTabsToggle<CR>
 inoremap <A-n> <Esc>:NERDTreeTabsToggle<CR>
 tnoremap <A-n> <C-\><C-n>:NERDTreeTabsToggle<CR>
+
+inoremap <A-g> <C-o>:register<cr>
+nnoremap <A-g> :register<cr>
+
+inoremap <A-m> <Esc>:Marks<cr>
+nnoremap <A-m> :Marks<cr>
+
 {% endif %}
 
 function! ShowDoc()
@@ -352,8 +349,8 @@ function! ShowDef()
   endif
 endfunction
 
-nnoremap <silent> K :call ShowDoc()<CR>
-nnoremap <silent> gd :call ShowDef()<CR>
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 
 inoremap <silent><expr> <A-/>
   \ pumvisible() ? "\<C-n>" :

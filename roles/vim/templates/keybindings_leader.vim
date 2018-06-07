@@ -72,7 +72,7 @@ nnoremap <leader>qb :Bclose<cr>
 " State
 nnoremap <leader>sn :set nu!<cr>
 nnoremap <leader>sw :set wrap!<cr>
-nnoremap <leader>sp :setlocal paste!<cr>
+nnoremap <leader>sp :set paste!<cr>
 nnoremap <leader>sm :call ToggleMouse()<cr>
 nnoremap <leader>ss :call ToggleStatusLine()<cr>
 
@@ -83,16 +83,17 @@ nnoremap <leader>ed :Explore <c-r>=expand("%:p:h")<cr><cr>
 nnoremap <leader>fi :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
 
 " Bookmarks keybinding
-"nnoremap <Leader>bt <Plug>BookmarkToggle
-"nnoremap <Leader>bi <Plug>BookmarkAnnotate
-"nnoremap <Leader>ba <Plug>BookmarkShowAll
-"nnoremap <Leader>bj <Plug>BookmarkNext
-"nnoremap <Leader>bk <Plug>BookmarkPrev
-"nnoremap <Leader>bc <Plug>BookmarkClear
-"nnoremap <Leader>bx <Plug>BookmarkClearAll
-"nnoremap <Leader>bk <Plug>BookmarkMoveUp
-"nnoremap <Leader>bj <Plug>BookmarkMoveDown
+nnoremap mm :BookmarkToggle<cr>
+nnoremap <Leader>bb :BookmarkToggle<cr>
+nnoremap <Leader>bt :BookmarkToggle<cr>
+nnoremap <Leader>bi :BookmarkAnnotate<cr>
+nnoremap <Leader>bl :BookmarkShowAll<cr>
+nnoremap <Leader>bj :BookmarkNext<cr>
+nnoremap <Leader>bk :BookmarkPrev<cr>
+nnoremap <Leader>bc :BookmarkClear<cr>
+nnoremap <Leader>bx :BookmarkClearAll<cr>
 
+nnoremap <leader>bs :b#<cr>
 
 "nnoremap <leader>w :W3mTab google
 
@@ -104,31 +105,11 @@ nmap <Leader>mj <Plug>(easymotion-j)
 nmap <Leader>mk <Plug>(easymotion-k)
 nmap <Leader>ml <Plug>(easymotion-lineforward)
 
-" keybinding about lang
-au FileType go nnoremap <leader>le :GoRun<cr>
-au FileType go nnoremap <leader>lb :GoBuild<cr>
-au FileType go nnoremap <leader>lt :GoTest<cr>
-au FileType go nnoremap <leader>lc <Plug>(go-coverage)
-au FileType go nnoremap <leader>lde :<C-u>call go#def#Jump('')<CR>
-au FileType go nnoremap <leader>lds :<C-u>call go#def#Jump("split")<CR>
-au FileType go nnoremap <leader>ldv :<C-u>call go#def#Jump("vsplit")<CR>
-au FileType go nnoremap <leader>ldt :<C-u>call go#def#Jump("tab")<CR>
-au FileType go nnoremap <leader>lk :GoDoc<cr>
-au FileType go nnoremap <leader>ls :GoImplements<cr>
-au FileType go nnoremap <leader>li :GoInfo<cr>
-au FileType go nnoremap <leader>lrn :GoRename<cr>
-au FileType go nnoremap <leader>lrf :GoReferrers<cr>
-au FileType go nnoremap <leader>lce :GoCallees<cr>
-au FileType go nnoremap <leader>lcr :GoCallers<cr>
-
-let g:jedi#goto_command = "<leader>lde"
-let g:jedi#goto_assignments_command = "<leader>lga"
-let g:jedi#goto_definitions_command = "<leader>lde"
-let g:jedi#documentation_command = "<leader>k"
-let g:jedi#usages_command = "<leader>li"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>lrn"
-
+nnoremap <leader>mm :Marks<cr>
+nnoremap <leader>mn ]`
+nnoremap <leader>mp [`
+nnoremap <leader>mc :delmarks!<cr>
+nnoremap <leader>mg `.
 " Gina
 "nnoremap <leader>vs :Gina status<cr>
 "nnoremap <leader>vpl :Gina pull<cr>
@@ -148,15 +129,23 @@ nnoremap <leader>wf :call fzf#vim#ag('', {'dir': '~/Dropbox/vimwiki/', 'down': '
 
 nnoremap <leader>eu :UndotreeToggle<cr>
 nnoremap <leader>es :e $MYVIMRC<cr>
+nnoremap <leader>er :registers<cr>
+nnoremap <leader>ef :set filetype=
 
+nnoremap <leader>en :echo getcwd()<cr>
+nnoremap <leader>em :cd <c-r>=expand("%:p:h")<cr><cr>
+nnoremap <leader>ecr :let @a=@%<cr>
+nnoremap <leader>ecn :let @a=expand("%:t")<cr>
+nnoremap <leader>ecf :let @a=expand("%:p")<cr>
+nnoremap <leader>ecd :let @a=expand("%:p:h")<cr>
 
 {% if nvim %}
 
 " open new terminal in new tab/buffer.
-map <leader>tt :tabnew %<cr>:terminal<cr>
-map <leader>tb :split<cr><c-w>j:terminal<cr>
+nnoremap <leader>tt :tabnew %<cr>:terminal<cr>
+nnoremap <leader>tb :split<cr><c-w>j:terminal<cr>
+nnoremap <leader>tv :vsplit<cr><c-w>l:terminal<cr>
 
-nnoremap <leader>bp :b#<cr>
 
 {% endif %}
 

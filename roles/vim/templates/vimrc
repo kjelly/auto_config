@@ -146,6 +146,7 @@ filetype off                  " required before plugins
 
 call plug#begin('~/.vim/plugged')
 Plug 'hecal3/vim-leader-guide'
+Plug 'fcpg/vim-shore'
 
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
@@ -164,6 +165,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'fidian/hexmode'
+Plug 'blueyed/vim-diminactive' " use different background color for inactive window
 Plug 'vim-scripts/fcitx.vim'
 "Plug 'osyo-manga/vim-over'
 "Plug 'justinmk/vim-gtfo'
@@ -171,19 +173,25 @@ Plug 'vim-scripts/fcitx.vim'
 "Plug 'JamshedVesuna/vim-markdown-preview' " sudo pip install grip
 "Plug 'Yggdroot/indentLine'
 
+" colorscheme
+Plug 'morhetz/gruvbox'
+"Plug 'joshdick/onedark.vim'
+"Plug 'iCyMind/NeoSolarized'
+
+
 " Lang
 Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'joshdick/onedark.vim'
 Plug 'hashivim/vim-vagrant'
 "Plug 'ensime/ensime-vim'
-{% if not programming %}"{% endif %}Plug 'artur-shaik/vim-javacomplete2'
-{% if not programming %}"{% endif %}Plug 'fatih/vim-go'
-{% if not programming %}"{% endif %}Plug 'pangloss/vim-javascript'
-{% if not programming %}"{% endif %}Plug 'plasticboy/vim-markdown'
-{% if not programming %}"{% endif %}Plug 'pearofducks/ansible-vim'
+{% if not programming %}"{% endif %}Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
+{% if not programming %}"{% endif %}Plug 'fatih/vim-go', { 'for': 'go' }
+{% if not programming %}"{% endif %}Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+{% if not programming %}"{% endif %}Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+{% if not programming %}"{% endif %}Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 {% if not programming %}"{% endif %}Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-{% if not programming %}"{% endif %}Plug 'HerringtonDarkholme/yats.vim' " typescript
+{% if not programming %}"{% endif %}Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' } " typescript
+{% if not programming %}"{% endif %}Plug 'Glench/Vim-Jinja2-Syntax'
 
 "Plug 'derekwyatt/vim-scala'
 "Plug 'mxw/vim-jsx'
@@ -205,7 +213,7 @@ Plug 'hashivim/vim-vagrant'
 "Plug 'mhinz/vim-startify'
 "Plug 'suan/vim-instant-markdown'
 
-"Plug 'MattesGroeger/vim-bookmarks'
+Plug 'MattesGroeger/vim-bookmarks'
 "Plug 'thinca/vim-quickrun'
 "Plug 'mkitt/tabline.vim'
 "Plug 'mru.vim'
@@ -226,11 +234,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 "Plug 'Shougo/denite.nvim'
 
-"Plug 'Shougo/neosnippet'
-"Plug 'Shougo/neosnippet-snippets'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
 
 Plug 'kjelly/vim-multiterm'
 "Plug 'myusuf3/numbers.vim'
@@ -245,13 +248,24 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'rhysd/devdocs.vim'
 
 {% if nvim %}
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/neosnippet'
+"Plug 'Shougo/neosnippet-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
-"Plug 'roxma/nvim-completion-manager' this is like deoplete
+Plug 'autozimu/LanguageClient-neovim', { 'do': 'bash ./install.sh', 'branch': 'next' }
+"Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins', 'commit': '2760b3f340dad4b373658d00153511e0adce6b9b' }
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+Plug 'roxma/nvim-completion-manager' "this is like deoplete
+Plug 'roxma/nvim-cm-tern' "javascript
+Plug 'fgrsnau/ncm-otherbuf' "Word from other buffers
+Plug 'calebeby/ncm-css'
+Plug 'mhartington/nvim-typescript'
+
 
 " it's needed because lsp doesn't work for go
-Plug 'zchee/deoplete-go', { 'do': 'make'}
+"Plug 'zchee/deoplete-go', { 'do': 'make'}
 "Plug 'zchee/deoplete-jedi'
 "Plug 'mhartington/nvim-typescript'
 "Plug 'ternjs/tern_for_vim'
@@ -260,10 +274,6 @@ Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 Plug 'eugen0329/vim-esearch'
-
-" colorscheme
-"Plug 'morhetz/gruvbox'
-"Plug 'iCyMind/NeoSolarized'
 
 {% else %}
 Plug 'Valloric/YouCompleteMe'
@@ -401,7 +411,7 @@ set tw=500
 
 set ai "Auto indent
 set si "Smart indent
-set wrap "Wrap lines
+set nowrap "Wrap lines
 
 " Always show the status line
 set laststatus=2
@@ -423,7 +433,6 @@ if !empty(glob("/usr/bin/fish"))
   set shell=/usr/bin/fish
 endif
 
-let g:jedi#completions_command = "<C-n>"
 let popup_select_first = 0
 let @/ = ""
 let g:vim_markdown_folding_disabled=1
@@ -446,13 +455,8 @@ let g:vimshell_prompt_expr =
 \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
 let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
 
-let g:clang_c_completeopt = "menu,preview,noinsert,noselect"
-let g:clang_cpp_completeopt = "menu,preview,noinsert,noselect"
-
-let g:syntastic_cpp_compiler_options="-std=gnu++14"
-
 " Easymotion
-let g:asyMotion_smartcase = 1
+let g:EasyMotion_smartcase = 1
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 
 " Let fzf ignore the files which is ignored by gitignore or hgignore
@@ -469,6 +473,7 @@ let g:vimwiki_list = [base_wiki]
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-f>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
 
 " Markdown tag bar
 let g:tagbar_type_markdown = {
@@ -494,17 +499,20 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
     \ 'python': ['pyls'],
     \ 'ruby': ['language_server-ruby'],
-    \ 'go': ['go-langserver', '-trace', '-logfile', expand('~/Desktop/langserver-go.log')],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
-    \ 'typescript': ['javascript-typescript-stdio'],
+    \ 'go': ['go-langserver', '-trace', '-logfile', expand('~/langserver-go.log')],
+    \ 'javascript': ['typescript-language-server', '--stdio'],
+    \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
+    \ 'typescript': ['typescript-language-server', '--stdio'],
     \ }
 
-let vim_markdown_preview_hotkey='<A-m>'
-let vim_markdown_preview_github=1
-let vim_markdown_preview_use_xdg_open=1
 
-let g:airline_theme='onedark'
+"let g:airline_theme='onedark'
+let g:LanguageClient_diagnosticsEnable=0
+
+let g:bookmark_no_default_key_mappings = 1
+
+"Fuzzy matching for nvim-complete-manager
+let g:cm_matcher={'module': 'cm_matchers.fuzzy_matcher', 'case': 'smartcase'}
 
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
@@ -545,6 +553,11 @@ command! Qa execute "quitall!"
 " Sudo to write
 command! W :w !sudo tee % >/dev/null
 
+command! Cd1 :cd ..
+command! Cd2 :cd ../..
+command! Cd3 :cd ../../..
+command! E :Explore
+
 " Diff between the curret buffer and the file.
 com! Diff call s:DiffWithSaved()
 
@@ -581,9 +594,11 @@ hi VimwikiHeader6 guifg=#FFFF00
 {% include './templates/keybindings.vim' %}
 {% include './templates/keybindings_leader.vim' %}
 
-source ~/.vim_custom.vim
+silent! source ~/.vim_custom.vim
 "silent colorscheme desert
-silent! colorscheme onedark
+set t_Co=256
+silent! colorscheme gruvbox
+highlight Normal ctermbg=None
 
 let g:lmap =  {}
 let g:llmap =  {}
@@ -600,9 +615,11 @@ let g:lmap.s = { 'name' : 'Status' }
 let g:lmap.m = { 'name' : 'Moves' }
 let g:lmap.w = { 'name' : 'Wiki' }
 let g:lmap.e = { 'name' : 'Edit' }
+let g:lmap.e.c = { 'name' : 'Copy file path' }
 let g:lmap.l.s = { 'name' : 'Doc/Worspace Symbol' }
 let g:lmap.l.r = { 'name' : 'Rename/Reference' }
-
+let g:lmap.m.p = [ 'normal! [`', 'Previous mark']
+let g:lmap.m.n = [ 'normal! ]`', 'Next mark']
 
 silent! call leaderGuide#register_prefix_descriptions(mapleader, "g:lmap")
 silent! call leaderGuide#register_prefix_descriptions(maplocalleader, "g:llmap")
@@ -621,3 +638,12 @@ function! DefaultWorkspace()
 endfunction
 command! -register DefaultWorkspace call DefaultWorkspace()
 {% endif %}
+
+" Wiki
+" ----------------
+function! Wiki()
+  set autoread
+  set autowrite
+  VimwikiIndex
+endfunction
+command! -register Wiki call Wiki()

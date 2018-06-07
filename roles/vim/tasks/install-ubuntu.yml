@@ -44,5 +44,6 @@
    - exuberant-ctags
    - ruby
    - "ruby-dev"
+   - "silversearcher-ag"
   become: true
   when: programming == false

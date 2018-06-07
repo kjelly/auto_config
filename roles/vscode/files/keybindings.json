@@ -47,7 +47,7 @@
 
     { "key": "alt+;", "command": "workbench.action.terminal.toggleTerminal"},
     { "key": "alt+f", "command": "workbench.action.findInFiles", "when": "!terminalFocus && !searchInputBoxFocus"},
-    { "key": "shift+K", "command": "editor.action.showHover", "when": "editorTextFocus"},
+    { "key": "shift+K", "command": "editor.action.showHover", "when": "vim.mode == 'Normal' && editorTextFocus"},
     { "key": "alt+/", "command": "editor.action.triggerSuggest", "when": "editorHasCompletionItemProvider && editorTextFocus && !editorReadonly"},
     { "key": "alt+r", "command": "workbench.action.tasks.runTask"},
     { "key": "alt+e", "command": "workbench.action.showCommands"},
@@ -78,5 +78,10 @@
     { "key": "ctrl+p", "command": "workbench.action.quickOpenPreviousEditor"},
     { "key": "alt+p", "command": "workbench.action.quickOpenPreviousEditor"},
     { "key": "alt+s", "command": "workbench.action.files.save"},
-    { "key": "escape", "command": "extension.vim_escape", "when": "editorTextFocus && vim.active && !inDebugRepl" }
+    { "key": "escape", "command": "extension.vim_escape", "when": "editorTextFocus && vim.active && !inDebugRepl" },
+    {
+        "key": ";",
+        "command": "extension.showCmdLine",
+        "when": "editorTextFocus && vim.active && !inDebugRepl"
+    }
 ]

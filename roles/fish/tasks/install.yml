@@ -30,6 +30,13 @@
   when: not need_install
   ignore_errors: yes
 
+- name: Install fish shell
+  apt: name={{ item }} state=present
+  with_items:
+    - fish
+  become: true
+  when: (ansible_distribution == 'Ubuntu' or ansible_os_family == "\"elementary\"") and programming == false
+
 - name: Install fish dependent package
   apt: name={{ item }} state=present
   with_items:
@@ -69,11 +76,11 @@
 
 - name: download fish source code
   get_url: url="{{ fish_download_url }}" dest=/tmp/fish.tar.gz mode=0440
-  when: need_install
+  when: need_install and programming
 
 - unarchive: src=/tmp/fish.tar.gz
              dest=/tmp/
-  when: need_install
+  when: need_install and programming
 
 - name: generate fish configure
   command: "{{ item }}"
@@ -82,7 +89,7 @@
     creates: "/tmp/fish-{{ fish_version }}/configure"
   with_items:
     - autoconf
-  when: need_install
+  when: need_install and programming
 
 - name: generate fish Makefile
   command: "{{ item }}"
@@ -91,7 +98,7 @@
     creates: "/tmp/fish-{{ fish_version }}/Makefile"
   with_items:
     - "./configure"
-  when: need_install
+  when: need_install and programming
 
 - name: build fish
   command: "{{ item }}"
@@ -99,7 +106,7 @@
     chdir: "/tmp/fish-{{ fish_version }}"
   with_items:
     - make
-  when: need_install
+  when: need_install and programming
 
 - name: install fish
   command: "{{ item }}"
@@ -108,7 +115,7 @@
   with_items:
     - "make install"
   become: true
-  when: need_install
+  when: need_install and programming
 
 - name: install oh-my-fish
   git: repo=https://github.com/oh-my-fish/oh-my-fish

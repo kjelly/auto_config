@@ -1,6 +1,7 @@
 import jinja2
 import argparse
 import os
+from jinja2 import Environment, FileSystemLoader
 
 
 def init_parser():
@@ -18,7 +19,8 @@ def init_parser():
 
 
 def render(obj, template):
-    template = jinja2.Template(template)
+    template = Environment(
+        loader=FileSystemLoader('roles/vim/')).from_string(template)
     return template.render(**obj)
 
 
@@ -29,11 +31,13 @@ def read_file(path):
 
 def generate_vimrc(args):
     vimrc_j2 = read_file('roles/vim/templates/vimrc')
-    obj = {
-        'programming': args.programming,
-        'nvim': args.nvim
-    }
-    with open(os.path.join(args.output, 'init.vim'), 'w') as ftr:
+    obj = {'programming': args.programming, 'nvim': args.nvim}
+    if args.nvim:
+        filename = 'init.vim'
+    else:
+        filename = '.vimrc'
+    print(obj)
+    with open(os.path.join(args.output, filename), 'w') as ftr:
         ftr.write(render(obj, vimrc_j2))
 
 
