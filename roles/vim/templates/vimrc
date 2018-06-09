@@ -327,10 +327,11 @@ set showtabline=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
-set nowb
-set noswapfile
+set dir=~/.vim_cache/swapfiles
+set backup
+set backupdir=~/.vim_cache
+set undofile
+set undodir=~/.vim_cache
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
