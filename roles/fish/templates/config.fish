@@ -20,7 +20,6 @@ set -gx GOROOT "{{ HOME_PATH }}/go"
 set -gx GOPATH "{{ HOME_PATH }}/gohome"
 set -gx GOBIN $GOPATH/bin
 set -gx PATH {{ FISH_EXTRA_PATH }} $PATH
-set -gx TERM screen-256color
 
 eval (python -m virtualfish)
 
