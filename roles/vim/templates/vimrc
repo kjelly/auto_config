@@ -255,13 +255,13 @@ Plug 'honza/vim-snippets'
 
 Plug 'autozimu/LanguageClient-neovim', { 'do': 'bash ./install.sh', 'branch': 'next' }
 "Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins', 'commit': '2760b3f340dad4b373658d00153511e0adce6b9b' }
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-Plug 'roxma/nvim-completion-manager' "this is like deoplete
-Plug 'roxma/nvim-cm-tern' "javascript
-Plug 'fgrsnau/ncm-otherbuf' "Word from other buffers
-Plug 'calebeby/ncm-css'
-Plug 'mhartington/nvim-typescript'
+"Plug 'roxma/nvim-completion-manager' "this is like deoplete
+"Plug 'roxma/nvim-cm-tern' "javascript
+"Plug 'fgrsnau/ncm-otherbuf' "Word from other buffers
+"Plug 'calebeby/ncm-css'
+"Plug 'mhartington/nvim-typescript'
 
 
 " it's needed because lsp doesn't work for go
@@ -424,7 +424,6 @@ set timeoutlen=500
 set completeopt="menu,preview,noinsert,noselect"
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 set list
-set guicursor=
 
 if !empty(glob("/usr/local/bin/fish"))
   set shell=/usr/local/bin/fish
@@ -461,7 +460,9 @@ let g:EasyMotion_smartcase = 1
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 
 " Let fzf ignore the files which is ignored by gitignore or hgignore
-let $FZF_DEFAULT_COMMAND='ag -g ""'
+if executable("ag") == 1
+  let $FZF_DEFAULT_COMMAND='ag -g ""'
+endif
 
 let base_wiki = {}
 let base_wiki.path = '~/Dropbox/vimwiki'
@@ -512,8 +513,9 @@ let g:LanguageClient_diagnosticsEnable=0
 
 let g:bookmark_no_default_key_mappings = 1
 
-"Fuzzy matching for nvim-complete-manager
-let g:cm_matcher={'module': 'cm_matchers.fuzzy_matcher', 'case': 'smartcase'}
+"Fuzzy matching for complete
+"let g:cm_matcher={'module': 'cm_matchers.fuzzy_matcher', 'case': 'smartcase'}
+call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
