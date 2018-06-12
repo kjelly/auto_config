@@ -459,7 +459,9 @@ let g:EasyMotion_smartcase = 1
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 
 " Let fzf ignore the files which is ignored by gitignore or hgignore
-let $FZF_DEFAULT_COMMAND='ag -g ""'
+if executable("ag") == 1
+  let $FZF_DEFAULT_COMMAND='ag -g ""'
+endif
 
 let base_wiki = {}
 let base_wiki.path = '~/Dropbox/vimwiki'
