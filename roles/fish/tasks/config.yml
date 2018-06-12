@@ -1,5 +1,10 @@
 ---
 
+- check_file_content: path=/proc/version pattern="Microsoft"
+  register: is_wsl
+
+- debug: var=is_wsl
+
 - file: path="~/.config" state=directory mode=0755
 
 - file: path="~/.config/fish" state=directory mode=0755
