@@ -66,12 +66,18 @@ nnoremap <C-]> i
 vnoremap <C-]> <Esc>
 cnoremap <C-]> <Esc>
 
-nnoremap ; :
+nnoremap ;; :
 
 inoremap ;; <Esc>
 cnoremap ;; <Esc>
 vnoremap ;; <Esc>
 {% if nvim %}tnoremap ;; <C-\><C-n> {% endif %}
+
+nnoremap ;' :Buffers<cr>
+inoremap ;' <Esc>:Buffers<cr>
+cnoremap ;' <Esc>:Buffers<cr>
+vnoremap ;' <Esc>:Buffers<cr>
+{% if nvim %}tnoremap ;; <C-\><C-n>:Buffers<cr> {% endif %}
 
 nnoremap <Space> i_<Esc>r
 
