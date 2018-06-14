@@ -10,6 +10,8 @@ cd /usr/local/bin
 sudo find /opt/neovim/ -type d -exec chmod o+x {} \;
 sudo ln -s /opt/neovim/AppRun nvim
 
+mv ~/.config/nvim/init.vim ~/.config/nvim/init.vim.`date +%F_%R`
+
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
