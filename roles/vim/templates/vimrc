@@ -166,7 +166,6 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'fidian/hexmode'
 Plug 'blueyed/vim-diminactive' " use different background color for inactive window
-Plug 'vim-scripts/fcitx.vim'
 "Plug 'osyo-manga/vim-over'
 "Plug 'justinmk/vim-gtfo'
 "Plug 'Shougo/unite.vim'
@@ -220,6 +219,10 @@ Plug 'MattesGroeger/vim-bookmarks'
 "Plug 'rhysd/vim-clang-format'
 "Plug 'justmao945/vim-clang' "for autocomplete
 
+
+if executable("fcitx") == 1
+  Plug 'vim-scripts/fcitx.vim'
+endif
 
 {% if programming %}
 
