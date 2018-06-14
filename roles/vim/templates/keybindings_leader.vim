@@ -154,3 +154,7 @@ nnoremap <silent> <leader>lsw :call LanguageClient_workspace_symbol()<CR>
 nnoremap <silent> <leader>lrf :call LanguageClient_textDocument_references()<CR>
 nnoremap <silent> <leader>lrn :call LanguageClient_textDocument_rename()<CR>
 nnoremap <silent> <leader>lf :call LanguageClient_textDocument_formatting()<CR>
+nnoremap <silent> <leader>ltf :TestFile<cr>
+nnoremap <silent> <leader>ltn :TestNearest<cr>
+nnoremap <silent> <leader>lts :TestSuite<cr>
+nnoremap <silent> <leader>ltv :TestVisit<cr>
