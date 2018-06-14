@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo curl -fL https://github.com/neovim/neovim/releases/download/v0.2.2/nvim.appimage -o /usr/bin/nvim
+sudo curl -fL https://github.com/neovim/neovim/releases/download/v0.3.0/nvim.appimage -o /usr/bin/nvim
 
 sudo chmod +x /usr/bin/nvim
 
