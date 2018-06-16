@@ -157,6 +157,7 @@ let g:racer_cmd = "{{ HOME_PATH }}/.cargo/bin/racer"
 let $RUST_SRC_PATH="{{ HOME_PATH }}/rust-src/src"
 
 nnoremap zz za
+nnoremap Q <nop>
 
 map /  <Plug>(incsearch-forward)\v
 map ?  <Plug>(incsearch-backward)\v
