@@ -433,7 +433,6 @@ if executable("fish") == 1
   set shell=fish
 endif
 
-let popup_select_first = 0
 let @/ = ""
 let g:vim_markdown_folding_disabled=1
 let NERDTreeMapOpenInTab='<TAB>'
@@ -451,9 +450,9 @@ let g:ale_python_pylint_options="--disable=C0111,C0103,C1801,C0325"
 
 let g:deoplete#enable_at_startup = 1
 
-let g:vimshell_prompt_expr =
-\ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
-let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
+"let g:vimshell_prompt_expr =
+"\ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
+"let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
 
 " Easymotion
 let g:EasyMotion_smartcase = 1
