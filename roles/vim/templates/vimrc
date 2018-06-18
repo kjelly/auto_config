@@ -429,12 +429,8 @@ set completeopt="menu,preview,noinsert,noselect"
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 set list
 
-if !empty(glob("/usr/local/bin/fish"))
-  set shell=/usr/local/bin/fish
-endif
-
-if !empty(glob("/usr/bin/fish"))
-  set shell=/usr/bin/fish
+if executable("fish") == 1
+  set shell=fish
 endif
 
 let popup_select_first = 0
