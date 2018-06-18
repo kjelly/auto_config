@@ -516,7 +516,9 @@ let g:bookmark_no_default_key_mappings = 1
 
 "Fuzzy matching for complete
 "let g:cm_matcher={'module': 'cm_matchers.fuzzy_matcher', 'case': 'smartcase'}
-call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+if exists("deoplete#custom#source")
+  call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+endif
 
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
