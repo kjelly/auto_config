@@ -448,7 +448,7 @@ let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#ale#enabled = 1
 let g:ale_python_pylint_options="--disable=C0111,C0103,C1801,C0325"
 
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
 
 "let g:vimshell_prompt_expr =
 "\ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
@@ -535,6 +535,7 @@ autocmd! TermOpen *fish set nonu
 autocmd! bufwritepost .vimrc source %
 autocmd! bufwritepost init.vim source %
 autocmd CursorHold * checktime
+autocmd InsertEnter * call deoplete#enable()
 
 augroup Binary
   au!
