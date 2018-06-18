@@ -16,6 +16,7 @@ alias c "vim +Calendar"
 alias g "vim +Ag"
 alias search "ag .|fzf"
 
+set fish_color_search_match --background=blue
 set -gx GOROOT "{{ HOME_PATH }}/go"
 set -gx GOPATH "{{ HOME_PATH }}/gohome"
 set -gx GOBIN $GOPATH/bin

@@ -30,46 +30,36 @@ function fish_prompt
     set -l cwd (python ~/.config/fish/print_cwd.py $PWD)
     set -l uid (id -u $USER)
 
-    set -l host_info_color_bg "4A2"
-    set -l host_info_color_fg "FFF"
+    set -l host_info_color_bg "143"
+    set -l host_info_color_fg "A3C"
 
     set -l cwd_color_bg "148"
-    set -l cwd_color_fg "FFF"
+    set -l cwd_color_fg "9AD"
 
     # Display virtualenv name if in a virtualenv
     if set -q VIRTUAL_ENV
         echo -n -s $bg_cyan $black " " (basename "$VIRTUAL_ENV") " " $normal
     end
 
-
-    # Show a nice anchor (turns red if previous command failed)
-    if test $last_status -ne 0
-        echo -n -s $bg_red $white " $__oceanfish_glyph_anchor "  $normal
-    else
-        echo -n -s $bg_blue $white " $__oceanfish_glyph_anchor " $normal
-    end
-
     set_color $host_info_color_fg
-    set_color -b $host_info_color_bg
-    echo -n -s " " (whoami) "@" (hostname -s) " " $normal
+    echo -n -s (whoami) "@" (hostname -s) " "
 
     # Display current path
     set_color $cwd_color_fg
-    set_color -b $cwd_color_bg
-    echo -n -s " $cwd " $normal
+    echo -n -s "$cwd"
 
 
     # Show git branch and dirty state
     if [ (_git_branch_name) ]
         set -l git_branch (_git_branch_name)
         if [ (_is_git_dirty) ]
-            echo -n -s $bg_white $magenta "$git_branch " $red "$__oceanfish_glyph_flag " $normal
+            echo -n -s $magenta "$git_branch " $red "$__oceanfish_glyph_flag " $normal
         else
-            echo -n -s $bg_white $magenta "$git_branch " $normal
+            echo -n -s $magenta "$git_branch " $normal
         end
     end
 
-    echo -n -s ' [' $last_status '] '
+    echo -n -s '[' $last_status ']'
 
     # Terminate with a space
 	echo
@@ -79,4 +69,5 @@ function fish_prompt
         echo -n -s '$ ' $normal
     end
 end
+
 
