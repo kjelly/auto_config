@@ -53,16 +53,22 @@ function fish_prompt
     if [ (_git_branch_name) ]
         set -l git_branch (_git_branch_name)
         if [ (_is_git_dirty) ]
-            echo -n -s $magenta "$git_branch " $red "$__oceanfish_glyph_flag " $normal
+            echo -n -s $magenta "$git_branch " $red "$__oceanfish_glyph_flag "
         else
-            echo -n -s $magenta "$git_branch " $normal
+            echo -n -s $magenta "$git_branch "
         end
     end
 
-    echo -n -s '[' $last_status ']'
+    if test $last_status -ne 0
+      set last_status_color $red
+    else
+      set last_status_color $normal
+    end
+    echo -n -s $last_status_color ' [' $last_status ']' $normal
+
 
     # Terminate with a space
-	echo
+    echo
     if [ $uid -eq 0 ]
         echo -n -s '# ' $normal
     else
