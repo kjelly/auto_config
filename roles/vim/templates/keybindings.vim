@@ -163,6 +163,17 @@ map /  <Plug>(incsearch-forward)\v
 map ?  <Plug>(incsearch-backward)\v
 map g/ <Plug>(incsearch-stay)\v
 
+function! SwitchBuffer()
+  if &buftype == 'terminal'
+    wincmd j
+  else
+    wincmd k
+  endif
+endfunction
+
+nnoremap <silent> <F4> :call SwitchBuffer()<cr>
+inoremap <silent> <F4> <Esc>:call SwitchBuffer()<cr>
+tnoremap <silent> <F4> <C-\><C-n>:call SwitchBuffer()<cr>
 nnoremap <F5> :C ./debug.sh<cr>
 inoremap <F5> <Esc>:C ./debug.sh<cr>a
 nnoremap <F6> :TestNearest<cr>
