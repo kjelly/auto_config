@@ -149,6 +149,7 @@ Plug 'hecal3/vim-leader-guide'
 Plug 'fcpg/vim-shore'
 
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'jistr/vim-nerdtree-tabs'
 "Plug 'vim-scripts/grep.vim'
 "Plug 'ervandew/supertab'
@@ -513,6 +514,18 @@ let g:LanguageClient_diagnosticsEnable=1
 let g:bookmark_no_default_key_mappings = 1
 let g:UltiSnipsNoPythonWarning = 1
 
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "改",
+    \ "Staged"    : "准",
+    \ "Untracked" : "未",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "刪",
+    \ "Dirty"     : "髒",
+    \ "Clean"     : "淨",
+    \ 'Ignored'   : '略',
+    \ "Unknown"   : "?"
+    \ }
 
 {% if nvim %}let test#strategy = "neovim" {% endif %}
 
