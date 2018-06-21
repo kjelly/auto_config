@@ -526,7 +526,6 @@ let g:NERDTreeIndicatorMapCustom = {
     \ 'Ignored'   : '略',
     \ "Unknown"   : "?"
     \ }
-let g:go_list_type = "quickfix"
 
 {% if nvim %}let test#strategy = "neovim" {% endif %}
 
