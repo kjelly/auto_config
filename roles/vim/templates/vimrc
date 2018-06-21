@@ -148,9 +148,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'hecal3/vim-leader-guide'
 Plug 'fcpg/vim-shore'
 
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
-Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle'] }
+Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle'] }
 "Plug 'vim-scripts/grep.vim'
 "Plug 'ervandew/supertab'
 "Plug 'DevWurm/autosession.vim'
@@ -231,7 +231,7 @@ endif
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
 "Plug 'lambdalisue/gina.vim'
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'majutsushi/tagbar', { 'on':  ['Tagbar'] }
 Plug 'mattn/emmet-vim'
 Plug 'w0rp/ale', { 'for': 'go'}
