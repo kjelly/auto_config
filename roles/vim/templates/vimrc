@@ -270,7 +270,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 
 " it's needed because lsp doesn't work for go
-Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'}
+"Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'}
 "Plug 'zchee/deoplete-jedi'
 "Plug 'mhartington/nvim-typescript'
 "Plug 'ternjs/tern_for_vim'
@@ -501,7 +501,7 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
     \ 'python': ['pyls'],
     \ 'ruby': ['language_server-ruby'],
-    \ 'go': ['go-langserver', '-trace', '-logfile', expand('~/langserver-go.log')],
+    \ 'go': ['go-langserver', '-gocodecompletion', '-func-snippet-enabled=false', '-trace', '-logfile', expand('~/langserver-go.log')],
     \ 'javascript': ['typescript-language-server', '--stdio'],
     \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
     \ 'typescript': ['typescript-language-server', '--stdio'],
