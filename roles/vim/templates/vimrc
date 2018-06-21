@@ -498,13 +498,17 @@ let g:tagbar_type_vimwiki = {
 
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'rust': ['rls'],
     \ 'python': ['pyls'],
     \ 'ruby': ['language_server-ruby'],
     \ 'go': ['go-langserver', '-gocodecompletion', '-func-snippet-enabled=false', '-trace', '-logfile', expand('~/langserver-go.log')],
     \ 'javascript': ['typescript-language-server', '--stdio'],
     \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
     \ 'typescript': ['typescript-language-server', '--stdio'],
+    \ 'dart': ['dart_language_server'],
+    \ 'css': ['css-languageserver', '--stdio'],
+    \ 'sass': ['css-languageserver', '--stdio'],
+    \ 'dockfile': ['docker-langserver', '--stdio'],
     \ }
 
 
