@@ -260,10 +260,6 @@ nnoremap <A-b> :b#<cr>
 inoremap <A-b> <Esc>:b#<cr>
 tnoremap <A-b> <C-\><C-n>:b#<cr>a
 
-inoremap <A-;> <Esc><C-w>ja
-nnoremap <A-;> a
-tnoremap <A-;> <C-\><C-n><C-w>ka
-
 " Save
 inoremap <A-s> <Esc>:w<cr>a
 nnoremap <A-s> :w<cr>
@@ -336,6 +332,16 @@ nnoremap <A-g> :register<cr>
 
 inoremap <A-m> <Esc>:Marks<cr>
 nnoremap <A-m> :Marks<cr>
+
+" Quickfix
+
+inoremap <A-;> <Esc>:cp<cr>
+nnoremap <A-;> :cp<cr>
+tnoremap <A-;> <C-\><C-n><C-w>:cp<cr>
+inoremap <A-'> <Esc>:cn<cr>
+nnoremap <A-'> :cn<cr>
+tnoremap <A-'> <C-\><C-n><C-w>:cn<cr>
+
 
 {% endif %}
 
