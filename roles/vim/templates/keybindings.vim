@@ -165,9 +165,9 @@ map g/ <Plug>(incsearch-stay)\v
 
 function! SwitchBuffer()
   if &buftype == 'terminal'
-    wincmd j
-  else
     wincmd k
+  else
+    wincmd j
   endif
 endfunction
 
