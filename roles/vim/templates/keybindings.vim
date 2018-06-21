@@ -342,6 +342,14 @@ inoremap <A-'> <Esc>:cn<cr>
 nnoremap <A-'> :cn<cr>
 tnoremap <A-'> <C-\><C-n><C-w>:cn<cr>
 
+" Location list
+inoremap <A-[> <Esc>:lp<cr>
+nnoremap <A-[> :lp<cr>
+tnoremap <A-[> <C-\><C-n><C-w>:lp<cr>
+inoremap <A-]> <Esc>:lne<cr>
+nnoremap <A-]> :lne<cr>
+tnoremap <A-]> <C-\><C-n><C-w>:lne<cr>
+
 
 {% endif %}
 
