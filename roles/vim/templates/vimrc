@@ -233,7 +233,7 @@ Plug 'cohama/agit.vim'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 "Plug 'Shougo/denite.nvim'
@@ -508,7 +508,7 @@ let g:LanguageClient_serverCommands = {
 
 
 "let g:airline_theme='onedark'
-let g:LanguageClient_diagnosticsEnable=0
+let g:LanguageClient_diagnosticsEnable=1
 
 let g:bookmark_no_default_key_mappings = 1
 let g:UltiSnipsNoPythonWarning = 1
