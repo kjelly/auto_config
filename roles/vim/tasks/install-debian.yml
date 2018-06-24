@@ -39,3 +39,5 @@
    - libsm-dev
   become: true
   when: ansible_distribution == 'Debian' and programming == false
+
+- include: "install-nvim-appimage.yml"

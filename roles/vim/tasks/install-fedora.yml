@@ -33,3 +33,5 @@
    - cmake # for neovim
   sudo: yes
   when: programming == true
+
+- include: "install-nvim-appimage.yml"

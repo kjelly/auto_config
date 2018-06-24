@@ -28,10 +28,4 @@
   become: true
   when: ansible_distribution == 'CentOS' and programming == true
 
-- name: download nvim.appImage
-  get_url:
-    url: https://github.com/neovim/neovim/releases/download/{{ nvim_version }}/nvim.appimage
-    dest: /usr/local/bin/nvim
-    mode: 0551
-  become: true
-  when: ansible_distribution == 'CentOS' and programming == true
+- include: "install-nvim-appimage.yml"

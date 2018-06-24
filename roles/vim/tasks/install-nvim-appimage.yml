@@ -1,0 +1,33 @@
+---
+- name: Download appimage
+  get_url:
+    url=https://github.com/neovim/neovim/releases/download/{{ nvim_version }}/nvim.appimage
+    dest=/opt/nvim.appimage
+    mode=0755
+  become: yes
+
+- name: extract appimage
+  command: /opt/nvim.appimage --appimage-extract
+  args:
+    chdir: /opt/
+  become: yes
+
+- name: rm /opt/neovim
+  file: path=/opt/neovim state=absent
+  become: yes
+
+- name: mv squashfs-root neovim
+  command: mv squashfs-root neovim
+  args:
+    chdir: /opt/
+  become: yes
+
+- name: change the permission of files
+  command: find /opt/neovim/ -type d -exec chmod go+rx {} \;
+  args:
+    chdir: /opt/neovim
+  become: yes
+
+- name: link nvim
+  file: path=/usr/local/bin/nvim src=/opt/neovim/AppRun state=link
+  become: yes
