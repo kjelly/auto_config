@@ -544,18 +544,6 @@ let g:LanguageClient_diagnosticsEnable=1
 let g:bookmark_no_default_key_mappings = 1
 let g:UltiSnipsNoPythonWarning = 1
 
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "改",
-    \ "Staged"    : "准",
-    \ "Untracked" : "未",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "刪",
-    \ "Dirty"     : "髒",
-    \ "Clean"     : "淨",
-    \ 'Ignored'   : '略',
-    \ "Unknown"   : "?"
-    \ }
 let g:go_list_type = "quickfix"
 
 {% if nvim %}let test#strategy = "neovim" {% endif %}
