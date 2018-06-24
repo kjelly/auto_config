@@ -178,6 +178,8 @@ Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite
 Plug 'morhetz/gruvbox'
 "Plug 'joshdick/onedark.vim'
 "Plug 'iCyMind/NeoSolarized'
+"Plug 'liuchengxu/space-vim-dark' " Good
+"Plug 'lifepillar/vim-solarized8'
 
 
 " Lang
