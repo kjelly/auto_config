@@ -168,6 +168,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'fidian/hexmode'
 Plug 'blueyed/vim-diminactive' " use different background color for inactive window
 Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite','TestVisit']}
+Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 "Plug 'osyo-manga/vim-over'
 "Plug 'justinmk/vim-gtfo'
 "Plug 'Shougo/unite.vim'
