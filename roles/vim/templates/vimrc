@@ -168,6 +168,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'fidian/hexmode'
 Plug 'blueyed/vim-diminactive' " use different background color for inactive window
 Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite','TestVisit']}
+Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 "Plug 'osyo-manga/vim-over'
 "Plug 'justinmk/vim-gtfo'
 "Plug 'Shougo/unite.vim'
@@ -289,7 +290,38 @@ Plug 'Valloric/YouCompleteMe'
 {% endif %}
 
 {% else %}
+" If not programming, use pure vimL plugins for vim and neovim.
+Plug 'prabirshrestha/asyncomplete.vim' "this is like deoplete
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'wellle/tmux-complete.vim'
 
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'whitelist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
+
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'blacklist': ['go'],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ }))
+
+let g:tmuxcomplete#asyncomplete_source_options = {
+            \ 'name':      'tmuxcomplete',
+            \ 'whitelist': ['*'],
+            \ 'config': {
+            \     'splitmode':      'words',
+            \     'filter_prefix':   1,
+            \     'show_incomplete': 1,
+            \     'sort_candidates': 0,
+            \     'scrollback':      0,
+            \     'truncate':        0
+            \     }
+            \ }
 
 {% endif %}
 {% if nvim %}
@@ -573,8 +605,8 @@ autocmd! TermOpen *fish set nonu
 
 autocmd! bufwritepost .vimrc source %
 autocmd! bufwritepost init.vim source %
-autocmd CursorHold * checktime
-autocmd InsertEnter * call deoplete#enable()
+autocmd! CursorHold * checktime
+autocmd! InsertEnter * call deoplete#enable()
 
 augroup Binary
   au!
