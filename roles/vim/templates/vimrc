@@ -169,6 +169,8 @@ Plug 'fidian/hexmode'
 Plug 'blueyed/vim-diminactive' " use different background color for inactive window
 Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite','TestVisit']}
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
+Plug 'simeji/winresizer'
+Plug 'lambdalisue/lista.nvim', { 'on': ['Lista', 'ListaResume', 'ListaCursorWord'], 'do': ':UpdateRemotePlugins'}
 "Plug 'osyo-manga/vim-over'
 "Plug 'justinmk/vim-gtfo'
 "Plug 'Shougo/unite.vim'
@@ -283,6 +285,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 Plug 'eugen0329/vim-esearch'
+Plug 'vim-vdebug/vdebug'
+
 
 {% else %}
 Plug 'Valloric/YouCompleteMe'

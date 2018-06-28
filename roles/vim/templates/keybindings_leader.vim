@@ -140,6 +140,9 @@ nnoremap <leader>ecn :let @a=expand("%:t")<cr>
 nnoremap <leader>ecf :let @a=expand("%:p")<cr>
 nnoremap <leader>ecd :let @a=expand("%:p:h")<cr>
 
+nnoremap <leader>pp :put<cr>
+nnoremap <leader>pr :put<cr>G$a<cr>
+
 {% if nvim %}
 
 " open new terminal in new tab/buffer.
