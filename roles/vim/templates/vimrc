@@ -605,8 +605,8 @@ autocmd! TermOpen *fish set nonu
 
 autocmd! bufwritepost .vimrc source %
 autocmd! bufwritepost init.vim source %
-autocmd CursorHold * checktime
-autocmd InsertEnter * call deoplete#enable()
+autocmd! CursorHold * checktime
+autocmd! InsertEnter * call deoplete#enable()
 
 augroup Binary
   au!
