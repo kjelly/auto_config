@@ -321,7 +321,9 @@ inoremap <A-.> <ESC>gti
 tnoremap <A-,> <C-\><C-n>gTi
 tnoremap <A-.> <C-\><C-n>gti
 
-nnoremap <silent> f :<C-u>call EasyMotion#overwin#w()<CR>
+nnoremap <silent> f :<C-u>call EasyMotion#LineAnywhere(0, 0)<CR>
+nnoremap <silent> F :<C-u>call EasyMotion#LineAnywhere(0, 1)<CR>
+nnoremap <silent> w :<C-u>call EasyMotion#overwin#w()<CR>
 
 nnoremap <A-n> :NERDTreeTabsToggle<CR>
 inoremap <A-n> <Esc>:NERDTreeTabsToggle<CR>
