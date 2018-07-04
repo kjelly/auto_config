@@ -1,4 +1,10 @@
 ---
+- get_executable_path: name=python2
+  register: python2_exec
+
+- get_executable_path: name=python3
+  register: python3_exec
+
 - block:
     - set_fact: nvim=true
     - file: path="~/.config/nvim" state=directory
