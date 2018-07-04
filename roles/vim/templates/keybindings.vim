@@ -34,9 +34,6 @@ inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 " Find file/buffer
 nnoremap <C-p> :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
 
-" Auto complete for all word
-inoremap     <c-a>  <c-x><c-n>
-
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -86,8 +83,21 @@ nnoremap ! :!
 " Copy to clipboard (this is for wsl)
 vnoremap <C-c> y:new ~/.vimbuffer<CR>VGp:x<CR> \| :!cat ~/.vimbuffer \| clip.exe <CR><CR>
 
+" Bash-like movement
+inoremap <c-a> <Home>
+tnoremap <c-a> <Home>
+inoremap <c-e> <End>
+tnoremap <c-e> <End>
+inoremap <c-d> <Delete>
+tnoremap <c-d> <Delete>
 
 {% if nvim %}
+" Bash-like movement.
+" The reason why not use ctrl is it conflict with tmux
+inoremap <a-f> <Right>
+tnoremap <a-f> <Right>
+inoremap <a-b> <Left>
+tnoremap <a-b> <Left>
 
 cnoremap <A-h> <Left>
 cnoremap <A-j> <Down>
@@ -133,13 +143,6 @@ noremap <M-9> 9gt
 
 {% endif %}
 
-" Delete one word
-inoremap <C-e> <Esc>dwi
-
-" Forware/backware word
-inoremap <C-f> <Esc>w i
-inoremap <C-b> <Esc>bi
-
 " Paste text
 inoremap <C-v> <Esc>pi
 
@@ -151,7 +154,7 @@ vnoremap <Return> "+y
 nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
 nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 
-inoremap <C-d>     <Plug>(neosnippet_expand_or_jump)
+"inoremap <C-d>     <Plug>(neosnippet_expand_or_jump)
 
 let g:racer_cmd = "{{ HOME_PATH }}/.cargo/bin/racer"
 let $RUST_SRC_PATH="{{ HOME_PATH }}/rust-src/src"
@@ -256,13 +259,9 @@ tnoremap <A-u> <C-\><C-n>:Buffers<cr>a
 
 
 " buufer switch
-nnoremap <A-b> :b#<cr>
-inoremap <A-b> <Esc>:b#<cr>
-tnoremap <A-b> <C-\><C-n>:b#<cr>a
-
-" Save
-inoremap <A-s> <Esc>:w<cr>a
-nnoremap <A-s> :w<cr>
+nnoremap <A-s> :b#<cr>
+inoremap <A-s> <Esc>:b#<cr>
+tnoremap <A-s> <C-\><C-n>:b#<cr>a
 
 " Resize buffer
 nnoremap <silent> <A-q>  :resize +1000<cr>
