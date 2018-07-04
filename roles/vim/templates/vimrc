@@ -578,6 +578,13 @@ let g:UltiSnipsNoPythonWarning = 1
 
 let g:go_list_type = "quickfix"
 
+{% if python2_exec.exist %}
+let g:python_host_prog='{{ python2_exec.path }}'
+{% endif %}
+{% if python3_exec.exist %}
+let g:python3_host_prog='{{ python3_exec.path }}'
+{% endif %}
+
 {% if nvim %}let test#strategy = "neovim" {% endif %}
 
 "Fuzzy matching for complete
@@ -726,3 +733,5 @@ function! Wiki()
   VimwikiIndex
 endfunction
 command! -register Wiki call Wiki()
+
+
