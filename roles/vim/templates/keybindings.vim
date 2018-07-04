@@ -174,14 +174,6 @@ function! SwitchBuffer()
   endif
 endfunction
 
-nnoremap <silent> <F4> :call SwitchBuffer()<cr>
-inoremap <silent> <F4> <Esc>:call SwitchBuffer()<cr>
-tnoremap <silent> <F4> <C-\><C-n>:call SwitchBuffer()<cr>
-nnoremap <F5> :C ./debug.sh<cr>
-inoremap <F5> <Esc>:C ./debug.sh<cr>a
-nnoremap <F6> :TestNearest<cr>
-inoremap <F6> <Esc>:TestNearest<cr>a
-
 nnoremap <Tab> :Files<cr>
 {% if nvim %} nnoremap <S-Tab> :call OpenBuffer()<cr>
 {% else %} nnoremap <S-Tab> :Buffers<cr> {% endif %}
