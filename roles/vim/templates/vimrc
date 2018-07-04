@@ -179,11 +179,13 @@ Plug 'lambdalisue/lista.nvim', { 'on': ['Lista', 'ListaResume', 'ListaCursorWord
 
 " colorscheme
 Plug 'morhetz/gruvbox'
-"Plug 'joshdick/onedark.vim'
-"Plug 'iCyMind/NeoSolarized'
-"Plug 'liuchengxu/space-vim-dark' " Good
-"Plug 'lifepillar/vim-solarized8'
+Plug 'joshdick/onedark.vim'
+Plug 'iCyMind/NeoSolarized'
+Plug 'liuchengxu/space-vim-dark' " Good
+Plug 'lifepillar/vim-solarized8'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'tomasiser/vim-code-dark'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 
 " Lang
