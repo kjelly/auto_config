@@ -126,6 +126,9 @@ nnoremap <leader>mg `.
 autocmd FileType vimwiki nmap <leader><space> <Plug>VimwikiToggleListItem
 
 nnoremap <leader>wf :call fzf#vim#ag('', {'dir': '~/Dropbox/vimwiki/', 'down': '40%'})<cr>
+nnoremap <leader>wr :WinResizerStartResize<cr>
+nnoremap <leader>wm :WinResizerStartMove<cr>
+nnoremap <leader>wf :WinResizerStartFocus<cr>
 
 nnoremap <leader>eu :UndotreeToggle<cr>
 nnoremap <leader>es :e $MYVIMRC<cr>
