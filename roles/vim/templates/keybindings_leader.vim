@@ -143,6 +143,12 @@ nnoremap <leader>ecd :let @a=expand("%:p:h")<cr>
 nnoremap <leader>pp :put<cr>
 nnoremap <leader>pr :put<cr>G$a<cr>
 
+" Run/Test
+nnoremap <leader>rt :TestNearest<cr>
+nnoremap <leader>rs :TestSuite<cr>
+nnoremap <leader>rf :TestFile<cr>
+nnoremap <leader>rd :C ./debug.sh<cr>
+
 {% if nvim %}
 
 " open new terminal in new tab/buffer.

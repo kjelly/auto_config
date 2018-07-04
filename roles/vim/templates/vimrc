@@ -691,6 +691,7 @@ let g:lmap.f = { 'name' : 'File/esearch' }
 let g:lmap.s = { 'name' : 'Status' }
 let g:lmap.m = { 'name' : 'Moves' }
 let g:lmap.w = { 'name' : 'Wiki' }
+let g:lmap.r = { 'name' : 'Run/Test' }
 let g:lmap.e = { 'name' : 'Edit' }
 let g:lmap.e.c = { 'name' : 'Copy file path' }
 let g:lmap.l.s = { 'name' : 'Doc/Worspace Symbol' }
