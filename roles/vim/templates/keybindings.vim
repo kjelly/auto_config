@@ -163,7 +163,6 @@ nnoremap <silent> f :<C-u>call EasyMotion#LineAnywhere(0, 0)<CR>
 nnoremap <silent> F :<C-u>call EasyMotion#LineAnywhere(0, 1)<CR>
 nnoremap <silent> w :<C-u>call EasyMotion#overwin#w()<CR>
 
-
 nnoremap zz za
 nnoremap Q <nop>
 
@@ -264,25 +263,25 @@ tnoremap <A-s> <C-\><C-n>:b#<cr>a
 nnoremap <silent> <A-q>  :resize +1000<cr>
 nnoremap <silent> <A-w>  <c-w><c-=>
 nnoremap <silent> <A-e>  :resize -1000<cr>
-nnoremap <silent> <A-r>  :vertical resize +1000<cr>
-nnoremap <silent> <A-t>  :vertical resize -1000<cr>
+"nnoremap <silent> <A-r>  :vertical resize +1000<cr>
+"nnoremap <silent> <A-t>  :vertical resize -1000<cr>
 inoremap <silent> <A-q>  <Esc>:resize +1000<cr>a
 inoremap <silent> <A-w>  <Esc><c-w><c-=>i
 inoremap <silent> <A-e>  <Esc>:resize -1000<cr>a
-inoremap <silent> <A-r>  <Esc>:vertical resize +1000<cr>a
-inoremap <silent> <A-t>  <Esc>:vertical resize -1000<cr>a
+"inoremap <silent> <A-r>  <Esc>:vertical resize +1000<cr>a
+"inoremap <silent> <A-t>  <Esc>:vertical resize -1000<cr>a
 tnoremap <silent> <A-q>  <C-\><C-n>:resize +1000<cr>a
 tnoremap <silent> <A-w>  <C-\><C-n><c-w><c-=>i
 tnoremap <silent> <A-e>  <C-\><C-n>:resize -1000<cr>a
-tnoremap <silent> <A-r>  <C-\><C-n>:vertical resize +1000<cr>a
-tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize -1000<cr>a
+"tnoremap <silent> <A-r>  <C-\><C-n>:vertical resize +1000<cr>a
+"tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize -1000<cr>a
 
 " Paste text
 tnoremap <A-v> <C-\><C-n>pi
 inoremap <A-v> <Esc>pi
 
+inoremap <A-r><A-r> <Esc>:C ./debug.sh <cr>a
 inoremap <A-r>r <Esc>:C ! <cr>a
-
 inoremap <A-r>1 <Esc>:C g1<cr>a
 inoremap <A-r>2 <Esc>:C g2<cr>a
 inoremap <A-r>3 <Esc>:C g3<cr>a
@@ -294,6 +293,8 @@ inoremap <A-r>8 <Esc>:C g8<cr>a
 inoremap <A-r>9 <Esc>:C g9<cr>a
 inoremap <A-r>0 <Esc>:C g0<cr>a
 
+nnoremap <A-r><A-r> :C ./debug.sh <cr>
+nnoremap <A-r>r <Esc>:C ! <cr>a
 nnoremap <A-r>r <Esc>:C !<cr>
 nnoremap <A-r>1 <Esc>:C g1<cr>
 nnoremap <A-r>2 <Esc>:C g2<cr>
@@ -305,7 +306,6 @@ nnoremap <A-r>7 <Esc>:C g7<cr>
 nnoremap <A-r>8 <Esc>:C g8<cr>
 nnoremap <A-r>9 <Esc>:C g9<cr>
 nnoremap <A-r>0 <Esc>:C g0<cr>
-
 
 nnoremap <A-d> :DevDocsUnderCursor<cr>
 
