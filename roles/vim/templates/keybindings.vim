@@ -159,6 +159,11 @@ nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 let g:racer_cmd = "{{ HOME_PATH }}/.cargo/bin/racer"
 let $RUST_SRC_PATH="{{ HOME_PATH }}/rust-src/src"
 
+nnoremap <silent> f :<C-u>call EasyMotion#LineAnywhere(0, 0)<CR>
+nnoremap <silent> F :<C-u>call EasyMotion#LineAnywhere(0, 1)<CR>
+nnoremap <silent> w :<C-u>call EasyMotion#overwin#w()<CR>
+
+
 nnoremap zz za
 nnoremap Q <nop>
 
@@ -311,10 +316,6 @@ inoremap <A-,> <ESC>gTi
 inoremap <A-.> <ESC>gti
 tnoremap <A-,> <C-\><C-n>gTi
 tnoremap <A-.> <C-\><C-n>gti
-
-nnoremap <silent> f :<C-u>call EasyMotion#LineAnywhere(0, 0)<CR>
-nnoremap <silent> F :<C-u>call EasyMotion#LineAnywhere(0, 1)<CR>
-nnoremap <silent> w :<C-u>call EasyMotion#overwin#w()<CR>
 
 nnoremap <A-n> :NERDTreeTabsToggle<CR>
 inoremap <A-n> <Esc>:NERDTreeTabsToggle<CR>
