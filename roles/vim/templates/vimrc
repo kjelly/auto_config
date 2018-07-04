@@ -246,7 +246,7 @@ Plug 'tpope/vim-surround'
 "Plug 'Shougo/denite.nvim'
 
 
-Plug 'kjelly/vim-multiterm', { 'on': ['C']}
+Plug 'kjelly/nvim-multiterm', { 'do': ':UpdateRemotePlugins', 'on': ['C']}
 "Plug 'myusuf3/numbers.vim'
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle']}
 
