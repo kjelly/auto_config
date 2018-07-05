@@ -580,10 +580,10 @@ let g:UltiSnipsNoPythonWarning = 1
 
 let g:go_list_type = "quickfix"
 
-{% if python2_exec.exist %}
+{% if python2_exec is defined and python3_exec.exist %}
 let g:python_host_prog='{{ python2_exec.path }}'
 {% endif %}
-{% if python3_exec.exist %}
+{% if python3_exec is defined and python3_exec.exist %}
 let g:python3_host_prog='{{ python3_exec.path }}'
 {% endif %}
 
