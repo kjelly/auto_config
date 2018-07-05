@@ -171,6 +171,7 @@ Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'simeji/winresizer'
 Plug 'lambdalisue/lista.nvim', { 'on': ['Lista', 'ListaResume', 'ListaCursorWord'], 'do': ':UpdateRemotePlugins'}
+Plug 'pseewald/vim-anyfold'
 "Plug 'osyo-manga/vim-over'
 "Plug 'justinmk/vim-gtfo'
 "Plug 'Shougo/unite.vim'
@@ -463,12 +464,15 @@ set timeoutlen=500
 set completeopt="menu,preview,noinsert,noselect"
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 set list
+set foldlevel=9
 
 if executable("fish") == 1
   set shell=fish
 endif
 
 let @/ = ""
+let anyfold_activate=1
+let anyfold_fold_comments=1
 let g:vim_markdown_folding_disabled=1
 let NERDTreeMapOpenInTab='<TAB>'
 let g:nerdtree_tabs_focus_on_files=1
@@ -701,6 +705,7 @@ let g:lmap.s = { 'name' : 'Status' }
 let g:lmap.m = { 'name' : 'Moves' }
 let g:lmap.w = { 'name' : 'Wiki/Window' }
 let g:lmap.r = { 'name' : 'Run/Test' }
+let g:lmap.o = { 'name' : 'Fold' }
 let g:lmap.e = { 'name' : 'Edit' }
 let g:lmap.e.c = { 'name' : 'Copy file path' }
 let g:lmap.l.s = { 'name' : 'Doc/Worspace Symbol' }

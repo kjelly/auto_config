@@ -152,6 +152,20 @@ nnoremap <leader>rs :TestSuite<cr>
 nnoremap <leader>rf :TestFile<cr>
 nnoremap <leader>rd :C ./debug.sh<cr>
 
+nnoremap <leader>o0 :set foldlevel=0<CR>
+nnoremap <leader>o1 :set foldlevel=1<CR>
+nnoremap <leader>o2 :set foldlevel=2<CR>
+nnoremap <leader>o3 :set foldlevel=3<CR>
+nnoremap <leader>o4 :set foldlevel=4<CR>
+nnoremap <leader>o5 :set foldlevel=5<CR>
+nnoremap <leader>o6 :set foldlevel=6<CR>
+nnoremap <leader>o7 :set foldlevel=7<CR>
+nnoremap <leader>o8 :set foldlevel=8<CR>
+nnoremap <leader>o9 :set foldlevel=9<CR>
+nnoremap <leader>oo zR<CR>
+nnoremap <leader>oc zM<CR>
+
+
 {% if nvim %}
 
 " open new terminal in new tab/buffer.
