@@ -1,0 +1,11 @@
+---
+- get_executable_path: name=python2
+  register: python2_exec
+
+- get_executable_path: name=python3
+  register: python3_exec
+
+- set_fact: nvim=true
+
+- template: src="vimrc" dest="~/.config/nvim/init.vim"
+
