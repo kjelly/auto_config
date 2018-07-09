@@ -91,6 +91,7 @@ tnoremap <c-e> <End>
 inoremap <c-d> <Delete>
 tnoremap <c-d> <Delete>
 
+nmap  -  <Plug>(choosewin)
 {% if nvim %}
 " Bash-like movement.
 " The reason why not use ctrl is it conflict with tmux

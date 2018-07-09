@@ -172,6 +172,8 @@ Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'simeji/winresizer'
 Plug 'lambdalisue/lista.nvim', { 'on': ['Lista', 'ListaResume', 'ListaCursorWord'], 'do': ':UpdateRemotePlugins'}
 Plug 'pseewald/vim-anyfold'
+Plug 'google/vim-searchindex'
+Plug 't9md/vim-choosewin'
 "Plug 'osyo-manga/vim-over'
 "Plug 'justinmk/vim-gtfo'
 "Plug 'Shougo/unite.vim'
