@@ -321,8 +321,9 @@ nnoremap <A-n> :NERDTreeTabsToggle<CR>
 inoremap <A-n> <Esc>:NERDTreeTabsToggle<CR>
 tnoremap <A-n> <C-\><C-n>:NERDTreeTabsToggle<CR>
 
-inoremap <A-g> <C-o>:register<cr>
-nnoremap <A-g> :register<cr>
+imap <A-g> <Esc><Plug>(choosewin)
+nmap <A-g> <Plug>(choosewin)
+tmap <A-g> <C-\><C-n><Plug>(choosewin)
 
 inoremap <A-m> <Esc>:Marks<cr>
 nnoremap <A-m> :Marks<cr>
