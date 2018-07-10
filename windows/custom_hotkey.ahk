@@ -78,3 +78,5 @@ CapsLock & Del::return
 +CapsLock::return
 !CapsLock::return
 #CapsLock::return
+
+XButton2::Send, #{Tab}
