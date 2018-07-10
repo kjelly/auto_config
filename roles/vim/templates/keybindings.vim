@@ -89,7 +89,6 @@ tnoremap <c-a> <Home>
 inoremap <c-e> <End>
 tnoremap <c-e> <End>
 inoremap <c-d> <Delete>
-tnoremap <c-d> <Delete>
 
 nmap  -  <Plug>(choosewin)
 nnoremap <leader>et :tabnew<cr>:read !grep # -P -e<space>
