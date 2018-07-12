@@ -549,7 +549,12 @@ let g:LanguageClient_serverCommands = {
     \ 'css': ['css-languageserver', '--stdio'],
     \ 'sass': ['css-languageserver', '--stdio'],
     \ 'dockfile': ['docker-langserver', '--stdio'],
+    \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
+    \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
     \ }
+
+let g:LanguageClient_loadSettings = 1
+let g:LanguageClient_settingsPath = '~/.config/nvim/settings.json'
 
 let g:LanguageClient_diagnosticsDisplay={
 \       1: {
