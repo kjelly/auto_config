@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import glob
 import os
-from ansible.module_utils.basic import *
+from ansible.module_utils.basic import AnsibleModule
 
 
 def get_go_root_bin():
