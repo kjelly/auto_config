@@ -616,13 +616,15 @@ autocmd! BufEnter * if &buftype == 'terminal' | :set laststatus=0 | endif
 autocmd! TermOpen *fish set laststatus=0
 autocmd! TermOpen *fish set nonu
 "autocmd! BufEnter * if &buftype == 'terminal' | :startinsert | endif
+{% if programming %}
+autocmd! InsertEnter * call deoplete#enable()
+{% endif %}
 
 {% endif %}
 
 autocmd! bufwritepost .vimrc source %
 autocmd! bufwritepost init.vim source %
 autocmd! CursorHold * checktime
-autocmd! InsertEnter * call deoplete#enable()
 
 augroup Binary
   au!
