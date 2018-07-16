@@ -25,7 +25,8 @@
   yum: name={{ item }} state=present
   with_items:
     - fuse-sshfs
+    - gvfs-fuse
   become: true
-  when: ansible_distribution == 'CentOS' and programming == true
+  when: ansible_distribution == 'CentOS'
 
 - include: "install-nvim-appimage.yml"

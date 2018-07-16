@@ -1,6 +1,5 @@
 #!/usr/bin/python
-from ansible.module_utils.basic import *
-import re
+from ansible.module_utils.basic import AnsibleModule
 import subprocess
 
 
@@ -12,6 +11,8 @@ def main():
         output = subprocess.check_output(['which', module.params['name']]).strip()
     except Exception as e:
         module.exit_json(changed=False, path='', exist=False, err=e)
+    except:
+        module.exit_json(changed=False, path='', exist=False, err="Exception happened")
     module.exit_json(changed=False, path=output, exist=True)
 
 

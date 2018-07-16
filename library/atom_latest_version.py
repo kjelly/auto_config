@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from ansible.module_utils.basic import *
+from ansible.module_utils.basic import AnsibleModule
 from pyquery import PyQuery as pq
 
 
