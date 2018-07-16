@@ -686,7 +686,7 @@ hi VimwikiHeader6 guifg=#FFFF00
 {% include './templates/keybindings.vim' %}
 {% include './templates/keybindings_leader.vim' %}
 
-set termguicolors
+{% if nvim %}set termguicolors{% endif %}
 "silent colorscheme desert
 if filereadable(expand("~/.vim_custom.vim")) && match(readfile(expand("~/.vim_custom.vim")),"colorscheme")==-1
   silent! colorscheme gruvbox
