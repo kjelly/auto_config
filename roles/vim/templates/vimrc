@@ -148,9 +148,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'hecal3/vim-leader-guide'
 Plug 'fcpg/vim-shore'
 
-Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle'] }
-Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle'] }
+Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
+Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
 "Plug 'vim-scripts/grep.vim'
 "Plug 'ervandew/supertab'
 "Plug 'DevWurm/autosession.vim'
@@ -621,13 +621,15 @@ autocmd! BufEnter * if &buftype == 'terminal' | :set laststatus=0 | endif
 autocmd! TermOpen *fish set laststatus=0
 autocmd! TermOpen *fish set nonu
 "autocmd! BufEnter * if &buftype == 'terminal' | :startinsert | endif
+{% if programming %}
+autocmd! InsertEnter * call deoplete#enable()
+{% endif %}
 
 {% endif %}
 
 autocmd! bufwritepost .vimrc source %
 autocmd! bufwritepost init.vim source %
 autocmd! CursorHold * checktime
-autocmd! InsertEnter * call deoplete#enable()
 
 augroup Binary
   au!
@@ -691,11 +693,12 @@ hi VimwikiHeader6 guifg=#FFFF00
 {% include './templates/keybindings.vim' %}
 {% include './templates/keybindings_leader.vim' %}
 
-silent! source ~/.vim_custom.vim
+{% if nvim %}set termguicolors{% endif %}
+
 "silent colorscheme desert
-set t_Co=256
-silent! colorscheme gruvbox
-highlight Normal ctermbg=None
+if filereadable(expand("~/.vim_custom.vim")) && match(readfile(expand("~/.vim_custom.vim")),"colorscheme")==-1
+  silent! colorscheme gruvbox
+endif
 
 let g:lmap =  {}
 let g:llmap =  {}
@@ -748,4 +751,5 @@ function! Wiki()
 endfunction
 command! -register Wiki call Wiki()
 
+silent! source ~/.vim_custom.vim
 
