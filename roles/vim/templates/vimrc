@@ -148,9 +148,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'hecal3/vim-leader-guide'
 Plug 'fcpg/vim-shore'
 
-Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle'] }
-Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle'] }
+Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
+Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
 "Plug 'vim-scripts/grep.vim'
 "Plug 'ervandew/supertab'
 "Plug 'DevWurm/autosession.vim'
