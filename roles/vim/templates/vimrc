@@ -688,7 +688,9 @@ hi VimwikiHeader6 guifg=#FFFF00
 
 set termguicolors
 "silent colorscheme desert
-silent! colorscheme gruvbox
+if filereadable(expand("~/.vim_custom.vim")) && match(readfile(expand("~/.vim_custom.vim")),"colorscheme")==-1
+  silent! colorscheme gruvbox
+endif
 
 let g:lmap =  {}
 let g:llmap =  {}
