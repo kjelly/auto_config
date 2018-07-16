@@ -686,7 +686,6 @@ hi VimwikiHeader6 guifg=#FFFF00
 {% include './templates/keybindings.vim' %}
 {% include './templates/keybindings_leader.vim' %}
 
-silent! source ~/.vim_custom.vim
 set termguicolors
 "silent colorscheme desert
 silent! colorscheme gruvbox
@@ -742,4 +741,5 @@ function! Wiki()
 endfunction
 command! -register Wiki call Wiki()
 
+silent! source ~/.vim_custom.vim
 
