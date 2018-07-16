@@ -687,10 +687,9 @@ hi VimwikiHeader6 guifg=#FFFF00
 {% include './templates/keybindings_leader.vim' %}
 
 silent! source ~/.vim_custom.vim
+set termguicolors
 "silent colorscheme desert
-set t_Co=256
 silent! colorscheme gruvbox
-highlight Normal ctermbg=None
 
 let g:lmap =  {}
 let g:llmap =  {}
