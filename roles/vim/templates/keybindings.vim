@@ -63,6 +63,13 @@ nnoremap <C-]> i
 vnoremap <C-]> <Esc>
 cnoremap <C-]> <Esc>
 
+{% if nvim %}tnoremap <C-l> <C-\><C-n>
+{% endif %}
+inoremap <C-l> <Esc>
+vnoremap <C-l> <Esc>
+cnoremap <C-l> <Esc>
+
+
 nnoremap ; :
 
 inoremap ;; <Esc>
