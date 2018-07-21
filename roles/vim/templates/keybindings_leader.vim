@@ -130,6 +130,7 @@ nnoremap <leader>wf :call fzf#vim#ag('', {'dir': '~/Dropbox/vimwiki/', 'down': '
 nnoremap <leader>wr :WinResizerStartResize<cr>
 nnoremap <leader>wm :WinResizerStartMove<cr>
 nnoremap <leader>wf :WinResizerStartFocus<cr>
+nnoremap <leader>ww :w<cr>
 
 nnoremap <leader>eu :UndotreeToggle<cr>
 nnoremap <leader>es :e $MYVIMRC<cr>

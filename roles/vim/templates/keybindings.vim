@@ -262,9 +262,15 @@ tnoremap <A-u> <C-\><C-n>:Buffers<cr>a
 
 
 " buufer switch
-nnoremap <A-s> :b#<cr>
-inoremap <A-s> <Esc>:b#<cr>
-tnoremap <A-s> <C-\><C-n>:b#<cr>a
+nnoremap <A-d> :b#<cr>
+inoremap <A-d> <Esc>:b#<cr>
+tnoremap <A-d> <C-\><C-n>:b#<cr>a
+
+" save
+nnoremap <A-s> :w<cr>
+inoremap <A-s> <Esc>:w<cr>
+tnoremap <A-s> <C-\><C-n>:w<cr>a
+
 
 " Resize buffer
 nnoremap <silent> <A-q>  :resize +1000<cr>
@@ -313,8 +319,6 @@ nnoremap <A-r>7 <Esc>:C g7<cr>
 nnoremap <A-r>8 <Esc>:C g8<cr>
 nnoremap <A-r>9 <Esc>:C g9<cr>
 nnoremap <A-r>0 <Esc>:C g0<cr>
-
-nnoremap <A-d> :DevDocsUnderCursor<cr>
 
 " Tab navigate
 nnoremap <A-,> gT
