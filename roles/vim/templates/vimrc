@@ -190,6 +190,8 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tomasiser/vim-code-dark'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'tyrannicaltoucan/vim-deep-space'
+Plug 'connorholyday/vim-snazzy'
 
 
 " Lang
