@@ -186,3 +186,4 @@ nnoremap <silent> <leader>ltf :TestFile<cr>
 nnoremap <silent> <leader>ltn :TestNearest<cr>
 nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
+nnoremap <leader>ld :C curl cht.sh/<c-r>=&filetype<cr>/
