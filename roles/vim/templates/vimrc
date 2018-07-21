@@ -156,6 +156,7 @@ Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle'
 "Plug 'DevWurm/autosession.vim'
 "Plug 'ntpeters/vim-better-whitespace'
 Plug 'gagoar/stripwhitespaces'
+" + for expand, _ for shrink
 Plug 'terryma/vim-expand-region'
 Plug 'bling/vim-airline'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -164,16 +165,19 @@ Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
 Plug 'haya14busa/incsearch.vim'
-Plug 'tpope/vim-vinegar'
+" Helper for netrw. I use vaffle. It will useless
+"Plug 'tpope/vim-vinegar'
 Plug 'fidian/hexmode'
 Plug 'blueyed/vim-diminactive' " use different background color for inactive window
 Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite','TestVisit']}
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'simeji/winresizer'
+" Buffer filtering
 Plug 'lambdalisue/lista.nvim', { 'on': ['Lista', 'ListaResume', 'ListaCursorWord'], 'do': ':UpdateRemotePlugins'}
 Plug 'pseewald/vim-anyfold'
 Plug 'google/vim-searchindex'
 Plug 't9md/vim-choosewin'
+" File manager
 Plug 'cocopon/vaffle.vim'
 "Plug 'osyo-manga/vim-over'
 "Plug 'justinmk/vim-gtfo'
@@ -247,9 +251,11 @@ Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
 "Plug 'lambdalisue/gina.vim'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'majutsushi/tagbar', { 'on':  ['Tagbar'] }
+" emmet `<c-y>,` for expand `div>a` to `<div><a></a></div>
 Plug 'mattn/emmet-vim'
 Plug 'w0rp/ale', { 'for': 'go'}
 Plug 'scrooloose/nerdcommenter'
+" Useful for handling tag
 Plug 'tpope/vim-surround'
 "Plug 'Shougo/denite.nvim'
 
@@ -292,6 +298,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
+" project-wide async search and replace
+" `,ff` for esearch.
 Plug 'eugen0329/vim-esearch'
 Plug 'vim-vdebug/vdebug'
 
