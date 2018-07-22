@@ -173,7 +173,7 @@ Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'simeji/winresizer'
 " Buffer filtering
-Plug 'lambdalisue/lista.nvim', { 'on': ['Lista', 'ListaResume', 'ListaCursorWord'], 'do': ':UpdateRemotePlugins'}
+Plug 'lambdalisue/lista.nvim', { 'do': ':UpdateRemotePlugins'}
 Plug 'pseewald/vim-anyfold'
 Plug 'google/vim-searchindex'
 Plug 't9md/vim-choosewin'
