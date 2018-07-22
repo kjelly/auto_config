@@ -100,12 +100,12 @@ inoremap <c-d> <Delete>
 nmap  -  <Plug>(choosewin)
 nnoremap <leader>et :tabnew<cr>:read !grep # -P -e<space>
 {% if nvim %}
-" Bash-like movement.
-" The reason why not use ctrl is it conflict with tmux
-inoremap <a-f> <Right>
-tnoremap <a-f> <Right>
-inoremap <a-b> <Left>
-tnoremap <a-b> <Left>
+
+nnoremap <a-f> :C w3m -no-cookie 'https://duckduckgo.com/?q=<c-r>=&filetype<cr> '<left>
+inoremap <a-f> <Esc>:C w3m -no-cookie 'https://duckduckgo.com/?q=<c-r>=&filetype<cr> '<left>
+tnoremap <a-f> <C-\><C-n>:C w3m -no-cookie 'https://duckduckgo.com/?q=<c-r>=&filetype<cr> '<left>
+
+nnoremap <leader>lg :C w3m -no-cookie 'https://duckduckgo.com/?q=<c-r>=&filetype<cr> '<left>
 
 cnoremap <A-h> <Left>
 cnoremap <A-j> <Down>
