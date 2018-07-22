@@ -609,6 +609,8 @@ let g:python_host_prog='{{ python2_exec.path }}'
 let g:python3_host_prog='{{ python3_exec.path }}'
 {% endif %}
 
+let $BROWSER='w3m'
+
 {% if nvim %}let test#strategy = "neovim" {% endif %}
 
 "Fuzzy matching for complete
