@@ -188,4 +188,4 @@ nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
 nnoremap <leader>lc :C curl cht.sh/<c-r>=&filetype<cr>/
 nnoremap <leader>ld :C ddgr <c-r>=&filetype<cr><space>
-nnoremap <leader>lg :C w3m -no-cookie 'https://duckduckgo.com/?q=<c-r>=&filetype<cr> '<left>
+nnoremap <leader>lg :C w 'https://duckduckgo.com/?q=<c-r>=&filetype<cr> '<left>
