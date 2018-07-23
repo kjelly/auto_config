@@ -159,6 +159,8 @@ Plug 'gagoar/stripwhitespaces'
 " + for expand, _ for shrink
 Plug 'terryma/vim-expand-region'
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'enricobacis/vim-airline-clock'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
@@ -191,7 +193,6 @@ Plug 'joshdick/onedark.vim'
 Plug 'iCyMind/NeoSolarized'
 Plug 'liuchengxu/space-vim-dark' " Good
 Plug 'lifepillar/vim-solarized8'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'tomasiser/vim-code-dark'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'tyrannicaltoucan/vim-deep-space'
