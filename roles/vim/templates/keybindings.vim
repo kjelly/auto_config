@@ -82,9 +82,6 @@ nnoremap <Space> i_<Esc>r
 vnoremap > >gv
 vnoremap < <gv
 
-" go to the alternative buffer(buffer swap)
-nnoremap <bs> <c-^>
-
 nnoremap ! :!
 
 " Copy to clipboard (this is for wsl)
@@ -185,10 +182,6 @@ function! SwitchBuffer()
   endif
 endfunction
 
-nnoremap <Tab> :Files<cr>
-{% if nvim %} nnoremap <S-Tab> :call OpenBuffer()<cr>
-{% else %} nnoremap <S-Tab> :Buffers<cr> {% endif %}
-
 {% if nvim %}
 
 " Tab switch
@@ -262,9 +255,9 @@ tnoremap <A-u> <C-\><C-n>:Buffers<cr>a
 
 
 " buufer switch
-nnoremap <A-d> :b#<cr>
-inoremap <A-d> <Esc>:b#<cr>
-tnoremap <A-d> <C-\><C-n>:b#<cr>a
+nnoremap <A-d> <c-^>
+inoremap <A-d> <Esc><c-^>a
+tnoremap <A-d> <C-\><C-n><c-^>a
 
 " save
 nnoremap <A-s> :w<cr>
