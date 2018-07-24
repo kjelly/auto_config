@@ -197,6 +197,9 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'connorholyday/vim-snazzy'
+Plug 'bluz71/vim-moonfly-colors'
+Plug 'hzchirs/vim-material'
+Plug 'kaicataldo/material.vim'
 
 
 " Lang
