@@ -146,6 +146,7 @@ filetype off                  " required before plugins
 
 call plug#begin('~/.vim/plugged')
 Plug 'hecal3/vim-leader-guide'
+"Autojump to 1st non-blank when j/k into leading spaces.
 Plug 'fcpg/vim-shore'
 
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
