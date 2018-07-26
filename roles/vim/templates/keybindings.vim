@@ -244,9 +244,13 @@ nnoremap <A-i> :Ag<cr>
 tnoremap <A-i> <C-\><C-n>:Ag<cr>
 
 " buufer switch
-nnoremap <A-d> <c-^>
-inoremap <A-d> <Esc><c-^>a
-tnoremap <A-d> <C-\><C-n><c-^>a
+nnoremap <A-b> <c-^>
+inoremap <A-b> <Esc><c-^>a
+tnoremap <A-b> <C-\><C-n><c-^>a
+
+nnoremap <A-d> :Denite devdocs<cr>
+inoremap <A-d> <Esc>:Denite devdocs<cr>
+tnoremap <A-d> <C-\><C-n>:Denite devdocs<cr>
 
 " save
 nnoremap <A-s> :w<cr>

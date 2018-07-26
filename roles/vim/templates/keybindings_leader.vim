@@ -189,3 +189,4 @@ nnoremap <silent> <leader>ltv :TestVisit<cr>
 nnoremap <leader>lc :C curl cht.sh/<c-r>=&filetype<cr>/
 nnoremap <leader>ld :C ddgr <c-r>=&filetype<cr><space>
 nnoremap <leader>lg :C w 'https://duckduckgo.com/?q=<c-r>=&filetype<cr> '<left>
+nnoremap <leader>lh :C how2 -l <c-r>=&filetype<cr><space>
