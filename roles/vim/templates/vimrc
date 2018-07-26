@@ -251,6 +251,7 @@ endif
 
 {% if programming %}
 
+Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
 "Plug 'lambdalisue/gina.vim'
@@ -615,6 +616,7 @@ let g:python3_host_prog='{{ python3_exec.path }}'
 {% endif %}
 
 let $BROWSER='w3m'
+let g:AutoPairsFlyMode = 1
 
 {% if nvim %}let test#strategy = "neovim" {% endif %}
 
