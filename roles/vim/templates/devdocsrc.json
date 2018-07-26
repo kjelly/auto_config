@@ -1,0 +1,16 @@
+{
+    "enableDocs": [
+        "react",
+        "react_native",
+        "css",
+        "javascript",
+        "immutable",
+        "python~3.7",
+        "ansible~2.6",
+        "html",
+        "sqlite",
+        "go",
+        "node"
+    ],
+    "database": "~/.devdocs/database.sqlite"
+}
