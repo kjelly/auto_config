@@ -616,6 +616,7 @@ let g:python3_host_prog='{{ python3_exec.path }}'
 {% endif %}
 
 let $BROWSER='w3m'
+let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsFlyMode = 1
 
 {% if nvim %}let test#strategy = "neovim" {% endif %}
