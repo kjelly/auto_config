@@ -188,6 +188,16 @@ Plug 'cocopon/vaffle.vim'
 "Plug 'JamshedVesuna/vim-markdown-preview' " sudo pip install grip
 "Plug 'Yggdroot/indentLine'
 
+" set filetype=rest
+" <c-j> for send request
+" http://localhost:9200
+" POST /testindex/testtype
+" {
+"   "key": "new key",
+"   "value": "new value"|
+" }
+Plug 'diepm/vim-rest-console'
+
 " colorscheme
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'

@@ -135,6 +135,7 @@ nnoremap <leader>eu :UndotreeToggle<cr>
 nnoremap <leader>es :e $MYVIMRC<cr>
 nnoremap <leader>er :registers<cr>
 nnoremap <leader>ef :set filetype=
+nnoremap <leader>ee :set filetype=rest<cr>
 nnoremap <leader>eg :Grepper<cr>
 
 nnoremap <leader>en :echo getcwd()<cr>
