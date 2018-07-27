@@ -161,7 +161,9 @@ Plug 'gagoar/stripwhitespaces'
 Plug 'terryma/vim-expand-region'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'enricobacis/vim-airline-clock'
+" vim-airline-clock and gitgutter will make neovim memory leak
+" https://github.com/neovim/neovim/issues/7871
+"Plug 'enricobacis/vim-airline-clock'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
