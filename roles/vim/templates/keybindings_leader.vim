@@ -170,20 +170,18 @@ nnoremap <leader>oc zM<CR>
 
 {% if nvim %}
 function! DefaultTerminal()
+  let buf=bufnr('%')
   terminal
   C n w3m
   terminal
   :C n how2
-  terminal
-  C n two
-  terminal
-  C n one
+  execute 'b' buf
 endfunction
 command! -register OpenDefaultTerm call DefaultTerminal()
 
 " open new terminal in new tab/buffer.
 nnoremap <leader>tt :tabnew %<cr>:terminal<cr>
-nnoremap <leader>td :split<cr><c-w>j:OpenDefaultTerm<cr>
+nnoremap <leader>td :OpenDefaultTerm<cr>
 nnoremap <leader>tb :split<cr><c-w>j:terminal<cr>
 nnoremap <leader>tv :vsplit<cr><c-w>l:terminal<cr>
 
