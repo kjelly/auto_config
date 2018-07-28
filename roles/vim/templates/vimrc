@@ -638,7 +638,7 @@ let g:AutoPairsShortcutFastWrap = ''
 let g:AutoPairsShortcutJump = ''
 let g:AutoPairsMapCh = ''
 let g:AutoPairsMapSpace = ''
-let g:AutoPairsShortcutBackInsert =''
+let g:AutoPairsShortcutBackInsert ='<M-\>'
 
 
 {% if nvim %}let test#strategy = "neovim" {% endif %}
