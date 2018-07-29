@@ -18,8 +18,8 @@
     "sync.anonymousGist": false,
     "sync.host": "",
     "sync.pathPrefix": "",
-    "vim.enableNeovim": false,
-    "vim.neovimPath": "/usr/local/bin/nvim",
+    "vim.enableNeovim": true,
+    "vim.neovimPath": "nvim",
 
     "vim.easymotion": true,
     "vim.incsearch": true,
@@ -38,5 +38,6 @@
     "editor.fontFamily": "'Fira Code','Source Code Pro','Inconsolata' ,'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback'",
     "python.linting.pylintArgs": ["--disable=C0111,C0103,C1801,C0325"],
     "files.hotExit": "off",
+    "window.titleBarStyle": "custom",
     "sync.askGistName": false
 }
