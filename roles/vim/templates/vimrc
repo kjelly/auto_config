@@ -297,9 +297,18 @@ Plug 'rhysd/devdocs.vim', { 'on': 'DevDocsUnderCursor'}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-tmux'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-syntax' | Plug 'Shougo/neco-syntax'
+Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
+Plug 'ncm2/ncm2-ultisnips'
+
+
 Plug 'autozimu/LanguageClient-neovim', { 'do': 'bash ./install.sh', 'branch': 'next' }
-"Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins', 'commit': '2760b3f340dad4b373658d00153511e0adce6b9b' }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 "Plug 'roxma/nvim-completion-manager' "this is like deoplete
 "Plug 'roxma/nvim-cm-tern' "javascript
@@ -647,11 +656,11 @@ let g:AutoPairsShortcutBackInsert ='<M-\>'
 "let g:cm_matcher={'module': 'cm_matchers.fuzzy_matcher', 'case': 'smartcase'}
 "
 "fuzzy matching
-silent! call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+"silent! call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 
 " Disable the truncate feature.
-silent! call deoplete#custom#source('_', 'max_abbr_width', 0)
-silent! call deoplete#custom#source('_', 'max_menu_width', 0)
+"silent! call deoplete#custom#source('_', 'max_abbr_width', 0)
+"silent! call deoplete#custom#source('_', 'max_menu_width', 0)
 
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
@@ -665,7 +674,9 @@ autocmd! BufEnter * set laststatus=2
 autocmd! TermOpen *fish set nonu
 "autocmd! BufEnter * if &buftype == 'terminal' | :startinsert | endif
 {% if programming %}
-autocmd! InsertEnter * call deoplete#enable()
+autocmd! InsertEnter * silent! call deoplete#enable()
+autocmd! BufEnter * silent! call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
 {% endif %}
 
 {% endif %}
