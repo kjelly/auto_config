@@ -169,9 +169,19 @@ nnoremap <leader>oc zM<CR>
 
 
 {% if nvim %}
+function! DefaultTerminal()
+  let buf=bufnr('%')
+  terminal
+  C n w3m
+  terminal
+  :C n how2
+  execute 'b' buf
+endfunction
+command! -register OpenDefaultTerm call DefaultTerminal()
 
 " open new terminal in new tab/buffer.
 nnoremap <leader>tt :tabnew %<cr>:terminal<cr>
+nnoremap <leader>td :OpenDefaultTerm<cr>
 nnoremap <leader>tb :split<cr><c-w>j:terminal<cr>
 nnoremap <leader>tv :vsplit<cr><c-w>l:terminal<cr>
 
@@ -189,5 +199,6 @@ nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
 nnoremap <leader>lc :C curl cht.sh/<c-r>=&filetype<cr>/
 nnoremap <leader>ld :C ddgr <c-r>=&filetype<cr><space>
-nnoremap <leader>lg :C w 'https://duckduckgo.com/?q=<c-r>=&filetype<cr> '<left>
-nnoremap <leader>lh :C how2 -l <c-r>=&filetype<cr><space>
+nnoremap <leader>lg :C w 'https://www.google.com/search?q=<c-r>=&filetype<cr> '<left>
+nnoremap <leader>lh :C k how2, how2 -l <c-r>=&filetype<cr><space>
+nnoremap <leader>lb :C brow<cr>

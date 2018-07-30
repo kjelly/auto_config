@@ -161,7 +161,9 @@ Plug 'gagoar/stripwhitespaces'
 Plug 'terryma/vim-expand-region'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'enricobacis/vim-airline-clock'
+" vim-airline-clock and gitgutter will make neovim memory leak
+" https://github.com/neovim/neovim/issues/7871
+"Plug 'enricobacis/vim-airline-clock'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
@@ -630,8 +632,14 @@ let g:python3_host_prog='{{ python3_exec.path }}'
 {% endif %}
 
 let $BROWSER='w3m'
-let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsFlyMode = 1
+let g:AutoPairsShortcutToggle = ''
+let g:AutoPairsShortcutFastWrap = ''
+let g:AutoPairsShortcutJump = ''
+let g:AutoPairsMapCh = ''
+let g:AutoPairsMapSpace = ''
+let g:AutoPairsShortcutBackInsert ='<M-\>'
+
 
 {% if nvim %}let test#strategy = "neovim" {% endif %}
 
@@ -652,8 +660,8 @@ autocmd! InsertEnter,WinLeave * set nocursorline
 {% if nvim %}
 
 autocmd! BufEnter * set laststatus=2
-autocmd! BufEnter * if &buftype == 'terminal' | :set laststatus=0 | endif
-autocmd! TermOpen *fish set laststatus=0
+"autocmd! BufEnter * if &buftype == 'terminal' | :set laststatus=0 | endif
+"autocmd! TermOpen *fish set laststatus=0
 autocmd! TermOpen *fish set nonu
 "autocmd! BufEnter * if &buftype == 'terminal' | :startinsert | endif
 {% if programming %}
