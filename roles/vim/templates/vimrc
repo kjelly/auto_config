@@ -164,8 +164,6 @@ Plug 'vim-airline/vim-airline-themes'
 " vim-airline-clock and gitgutter will make neovim memory leak
 " https://github.com/neovim/neovim/issues/7871
 "Plug 'enricobacis/vim-airline-clock'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
@@ -199,6 +197,15 @@ Plug 'cocopon/vaffle.vim'
 "   "value": "new value"|
 " }
 Plug 'diepm/vim-rest-console'
+
+{% if programming %}
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+{% else %}
+Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"Plug 'junegunn/fzf.vim'
+{% endif %}
 
 " colorscheme
 Plug 'morhetz/gruvbox'
