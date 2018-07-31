@@ -143,8 +143,11 @@ endif
 set nocompatible              " be iMproved
 filetype off                  " required before plugins
 
-
+{% if nvim %}
+call plug#begin('~/.config/nvim/plugged')
+{% else %}
 call plug#begin('~/.vim/plugged')
+{% endif %}
 Plug 'hecal3/vim-leader-guide'
 "Autojump to 1st non-blank when j/k into leading spaces.
 Plug 'fcpg/vim-shore'
