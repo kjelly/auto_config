@@ -307,18 +307,18 @@ Plug 'rhysd/devdocs.vim', { 'on': 'DevDocsUnderCursor'}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-tmux'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-syntax' | Plug 'Shougo/neco-syntax'
-Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
-Plug 'ncm2/ncm2-ultisnips'
+"Plug 'ncm2/ncm2'
+"Plug 'roxma/nvim-yarp'
+"Plug 'ncm2/ncm2-bufword'
+"Plug 'ncm2/ncm2-tmux'
+"Plug 'ncm2/ncm2-path'
+"Plug 'ncm2/ncm2-syntax' | Plug 'Shougo/neco-syntax'
+"Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
+"Plug 'ncm2/ncm2-ultisnips'
 
 
 Plug 'autozimu/LanguageClient-neovim', { 'do': 'bash ./install.sh', 'branch': 'next' }
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 "Plug 'roxma/nvim-completion-manager' "this is like deoplete
 "Plug 'roxma/nvim-cm-tern' "javascript
@@ -685,8 +685,8 @@ autocmd! TermOpen *fish set nonu
 "autocmd! BufEnter * if &buftype == 'terminal' | :startinsert | endif
 {% if programming %}
 autocmd! InsertEnter * silent! call deoplete#enable()
-autocmd! BufEnter * silent! call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect
+"autocmd! BufEnter * silent! call ncm2#enable_for_buffer()
+"set completeopt=noinsert,menuone,noselect
 {% endif %}
 
 {% endif %}
