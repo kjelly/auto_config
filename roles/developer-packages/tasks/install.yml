@@ -13,3 +13,15 @@
       - git
   become: true
   when: ansible_distribution == 'Fedora'
+
+- name: download nodejs
+  get_url: url="{{ nodejs_download_url }}" dest="~/nodejs.tar.xz"
+
+- name: unarchive nodejs
+  unarchive: src="~/nodejs.tar.xz" dest="~"
+
+- name: download golang
+  get_url: url="{{ golang_download_url }}" dest="~/golang.tar.gz"
+
+- name: unarchive golang
+  unarchive: src="~/golang.tar.gz" dest="~"
