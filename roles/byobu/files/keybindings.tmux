@@ -18,9 +18,9 @@ bind-key ] paste-buffer
 
 bind-key n next-window
 bind-key p previous-window
-
 bind-key v split-window -v
 bind-key s split-window -h
+bind-key g choose-window
 
 bind-key h  select-pane -L
 bind-key j  select-pane -D
