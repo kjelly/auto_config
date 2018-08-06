@@ -273,7 +273,7 @@ endif
 
 {% if programming %}
 
-Plug 'jiangmiao/auto-pairs'
+Plug 'kjelly/auto-pairs'
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
 "Plug 'lambdalisue/gina.vim'
