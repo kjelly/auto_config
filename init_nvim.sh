@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo curl -fL https://github.com/neovim/neovim/releases/download/v0.3.0/nvim.appimage -o /opt/nvim.appimage
+sudo curl -fL https://github.com/neovim/neovim/releases/download/v0.3.1/nvim.appimage -o /opt/nvim.appimage
 sudo chmod +x /opt/nvim.appimage
 
 if grep -q Microsoft /proc/version; then
