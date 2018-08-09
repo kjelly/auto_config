@@ -96,12 +96,6 @@ nmap  -  <Plug>(choosewin)
 nnoremap <leader>et :tabnew<cr>:read !grep # -P -e<space>
 {% if nvim %}
 
-nnoremap <a-f> :C w3m -no-cookie 'https://duckduckgo.com/?q=<c-r>=&filetype<cr> '<left>
-inoremap <a-f> <Esc>:C w3m -no-cookie 'https://duckduckgo.com/?q=<c-r>=&filetype<cr> '<left>
-tnoremap <a-f> <C-\><C-n>:C w3m -no-cookie 'https://duckduckgo.com/?q=<c-r>=&filetype<cr> '<left>
-
-nnoremap <leader>lg :C w3m -no-cookie 'https://duckduckgo.com/?q=<c-r>=&filetype<cr> '<left>
-
 cnoremap <A-h> <Left>
 cnoremap <A-j> <Down>
 cnoremap <A-k> <Up>
