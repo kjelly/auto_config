@@ -137,6 +137,7 @@ nnoremap <leader>er :registers<cr>
 nnoremap <leader>ef :set filetype=
 nnoremap <leader>ee :set filetype=rest<cr>
 nnoremap <leader>eg :Grepper<cr>
+nnoremap <leader>el :e ~/.vim_custom.vim<cr>
 
 nnoremap <leader>en :echo getcwd()<cr>
 nnoremap <leader>em :cd <c-r>=expand("%:p:h")<cr><cr>
