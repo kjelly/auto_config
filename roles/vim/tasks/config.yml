@@ -76,6 +76,12 @@
 
 - copy: src="ctags" dest="~/.ctags"
 
+- stat: path=~/.devdocsrc
+  register: devdocsrc
+
+- template: src=devdocsrc.json dest=~/.devdocsrc
+  when: not devdocsrc.stat.exists
+
 - lineinfile: dest="~/.SpaceVim.d/init.vim" line="source ~/.SpaceVim.d/keybindings.vim"
   ignore_errors: yes
 - lineinfile: dest="~/.SpaceVim.d/init.vim" line="source ~/.SpaceVim.d/spacevim_custom.vim"
