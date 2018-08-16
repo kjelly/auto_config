@@ -659,6 +659,11 @@ let g:AutoPairsMapCh = ''
 let g:AutoPairsMapSpace = ''
 let g:AutoPairsShortcutBackInsert ='<M-\>'
 
+let g:vrc_curl_opts = {
+  \ '-sS': '',
+  \ '--connect-timeout': 10,
+  \}
+
 
 {% if nvim %}let test#strategy = "neovim" {% endif %}
 
@@ -694,6 +699,10 @@ autocmd! InsertEnter * silent! call deoplete#enable()
 autocmd! bufwritepost .vimrc source %
 autocmd! bufwritepost init.vim source %
 autocmd! CursorHold * checktime
+
+autocmd! BufCreate __REST_response__ vertical resize 20
+autocmd! BufCreate __REST_response__ set nonu
+autocmd! BufEnter __REST_response__ set modifiable
 
 augroup Binary
   au!
