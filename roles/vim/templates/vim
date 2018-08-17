@@ -1,5 +1,7 @@
 #!/bin/bash
-if [ -f `which nvim` ]; then
+if [ -f `which nvr` ] && [ $# -ne 0 ] && [ -f /tmp/nvimsocket  ]; then
+  nvr $@
+elif [ -f `which nvim` ]; then
     nvim $@
 elif [ -f /usr/local/bin/vim ]; then
     /usr/local/bin/vim $@
