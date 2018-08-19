@@ -171,8 +171,6 @@ Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
 Plug 'haya14busa/incsearch.vim'
-" Helper for netrw. I use vaffle. It will useless
-"Plug 'tpope/vim-vinegar'
 Plug 'fidian/hexmode'
 Plug 'blueyed/vim-diminactive' " use different background color for inactive window
 Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite','TestVisit']}
@@ -183,8 +181,15 @@ Plug 'lambdalisue/lista.nvim', { 'do': ':UpdateRemotePlugins'}
 Plug 'pseewald/vim-anyfold'
 Plug 'google/vim-searchindex'
 Plug 't9md/vim-choosewin'
+
 " File manager
 Plug 'cocopon/vaffle.vim'
+" Helper for netrw. I use vaffle. It will useless
+"Plug 'tpope/vim-vinegar'
+" This support rclone.
+"Plug 'ipod825/vim-netranger'
+
+"Plug 'vim-multiple-cursors'
 "Plug 'osyo-manga/vim-over'
 "Plug 'justinmk/vim-gtfo'
 "Plug 'Shougo/unite.vim'
