@@ -664,6 +664,7 @@ let g:AutoPairsMapCh = ''
 let g:AutoPairsMapSpace = ''
 let g:AutoPairsShortcutBackInsert ='<M-\>'
 
+let g:vrc_keepalt = 1
 let g:vrc_curl_opts = {
   \ '-sS': '',
   \ '--connect-timeout': 10,
