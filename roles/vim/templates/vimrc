@@ -206,14 +206,9 @@ Plug 'cocopon/vaffle.vim'
 " }
 Plug 'diepm/vim-rest-console'
 
-{% if programming %}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-{% else %}
-Plug 'ctrlpvim/ctrlp.vim'
-"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-"Plug 'junegunn/fzf.vim'
-{% endif %}
+"Plug 'ctrlpvim/ctrlp.vim'
 
 " colorscheme
 Plug 'morhetz/gruvbox'
