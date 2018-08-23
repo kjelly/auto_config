@@ -815,6 +815,8 @@ let g:lmap.l.t = { 'name' : 'Test' }
 let g:lmap.m.p = [ 'normal! [`', 'Previous mark']
 let g:lmap.m.n = [ 'normal! ]`', 'Next mark']
 
+let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/bin'
+
 silent! call leaderGuide#register_prefix_descriptions(mapleader, "g:lmap")
 silent! call leaderGuide#register_prefix_descriptions(maplocalleader, "g:llmap")
 nnoremap <silent> <leader> :<c-u>LeaderGuide ','<CR>
