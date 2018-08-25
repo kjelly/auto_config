@@ -1,0 +1,8 @@
+---
+- apt:
+    name: flatpak
+    update_cache: yes
+  become: yes
+
+- shell: "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
+  become: yes
