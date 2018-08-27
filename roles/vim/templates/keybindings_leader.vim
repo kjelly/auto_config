@@ -57,7 +57,7 @@ nnoremap <leader>tm :tabmove
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-nnoremap <leader>te :terminal<cr>
+nnoremap <leader>te :tabedit %<cr>
 
 " Open vimgrep and put the cursor in the right position
 "nnoremap <leader>gv :vimgrep // **/* <left><left><left><left><left><left><left>
