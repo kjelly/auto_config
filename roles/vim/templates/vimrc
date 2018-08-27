@@ -635,7 +635,6 @@ let g:LanguageClient_diagnosticsDisplay={
 \       },
 \   }
 
-let g:airline_theme='onedark'
 let g:LanguageClient_diagnosticsEnable=1
 
 let g:bookmark_no_default_key_mappings = 1
