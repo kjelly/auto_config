@@ -144,9 +144,9 @@ set nocompatible              " be iMproved
 filetype off                  " required before plugins
 
 {% if nvim %}
-call plug#begin('~/.config/nvim/plugged')
+silent! call plug#begin('~/.config/nvim/plugged')
 {% else %}
-call plug#begin('~/.vim/plugged')
+silent! call plug#begin('~/.vim/plugged')
 {% endif %}
 Plug 'hecal3/vim-leader-guide'
 "Autojump to 1st non-blank when j/k into leading spaces.
@@ -178,7 +178,7 @@ Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'simeji/winresizer'
 " Buffer filtering
 Plug 'lambdalisue/lista.nvim', { 'do': ':UpdateRemotePlugins'}
-Plug 'pseewald/vim-anyfold'
+"Plug 'pseewald/vim-anyfold'
 Plug 'google/vim-searchindex'
 Plug 't9md/vim-choosewin'
 
@@ -635,7 +635,6 @@ let g:LanguageClient_diagnosticsDisplay={
 \       },
 \   }
 
-let g:airline_theme='onedark'
 let g:LanguageClient_diagnosticsEnable=1
 
 let g:bookmark_no_default_key_mappings = 1
