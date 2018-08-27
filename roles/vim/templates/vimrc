@@ -178,7 +178,7 @@ Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'simeji/winresizer'
 " Buffer filtering
 Plug 'lambdalisue/lista.nvim', { 'do': ':UpdateRemotePlugins'}
-Plug 'pseewald/vim-anyfold'
+"Plug 'pseewald/vim-anyfold'
 Plug 'google/vim-searchindex'
 Plug 't9md/vim-choosewin'
 
