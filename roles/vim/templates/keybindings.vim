@@ -83,9 +83,9 @@ vnoremap <C-c> y:new ~/.vimbuffer<CR>VGp:x<CR> \| :!cat ~/.vimbuffer \| clip.exe
 
 " Bash-like movement
 inoremap <c-a> <Home>
-tnoremap <c-a> <Home>
+{% if nvim %}tnoremap <c-a> <Home>{% endif %}
 inoremap <c-e> <End>
-tnoremap <c-e> <End>
+{% if nvim %}tnoremap <c-e> <End>{% endif %}
 inoremap <c-d> <Delete>
 
 nmap  -  <Plug>(choosewin)
