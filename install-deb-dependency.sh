@@ -1,4 +1,4 @@
-#! /binsymotion-prefix)/bash
+#! /bin/bash
 export LC_ALL=C
 sudo apt-get dist-upgrade -y
 sudo apt-get install -y python-dev git python-setuptools libffi-dev libssl-dev python3-setuptools
