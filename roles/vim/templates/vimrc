@@ -669,14 +669,14 @@ let g:NERDTreeWinSize=20
 {% if nvim %}let test#strategy = "neovim" {% endif %}
 
 "Fuzzy matching for complete
-"let g:cm_matcher={'module': 'cm_matchers.fuzzy_matcher', 'case': 'smartcase'}
+let g:cm_matcher={'module': 'cm_matchers.fuzzy_matcher', 'case': 'smartcase'}
 "
 "fuzzy matching
-"silent! call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+silent! call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 
 " Disable the truncate feature.
-"silent! call deoplete#custom#source('_', 'max_abbr_width', 0)
-"silent! call deoplete#custom#source('_', 'max_menu_width', 0)
+silent! call deoplete#custom#source('_', 'max_abbr_width', 0)
+silent! call deoplete#custom#source('_', 'max_menu_width', 0)
 
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
