@@ -678,6 +678,9 @@ silent! call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 silent! call deoplete#custom#source('_', 'max_abbr_width', 0)
 silent! call deoplete#custom#source('_', 'max_menu_width', 0)
 
+let g:deoplete#omni#input_patterns={}
+let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*'
+
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
 autocmd! InsertEnter,WinLeave * set nocursorline
