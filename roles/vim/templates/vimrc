@@ -229,7 +229,7 @@ Plug 'kaicataldo/material.vim'
 Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'hashivim/vim-vagrant'
-"Plug 'ensime/ensime-vim'
+"Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
 {% if not programming %}"{% endif %}Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 {% if not programming %}"{% endif %}Plug 'fatih/vim-go', { 'for': 'go' }
 {% if not programming %}"{% endif %}Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
