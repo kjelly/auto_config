@@ -131,6 +131,11 @@ nnoremap <leader>wr :WinResizerStartResize<cr>
 nnoremap <leader>wm :WinResizerStartMove<cr>
 nnoremap <leader>wf :WinResizerStartFocus<cr>
 
+nnoremap <leader>wh :wincmd h<cr>
+nnoremap <leader>wj :wincmd j<cr>
+nnoremap <leader>wk :wincmd k<cr>
+nnoremap <leader>wl :wincmd l<cr>
+
 nnoremap <leader>eu :UndotreeToggle<cr>
 nnoremap <leader>es :e $MYVIMRC<cr>
 nnoremap <leader>er :registers<cr>
