@@ -6,7 +6,9 @@ nnoremap <leader>zl :Lines<cr>
 nnoremap <leader>zbl :BLines<cr>
 nnoremap <leader>zc :Commits<cr>
 nnoremap <leader>zbc :BCommits<cr>
-nnoremap <leader>zh :History<cr>
+nnoremap <leader>zhf :History<cr>
+nnoremap <leader>zhc :History:<cr>
+nnoremap <leader>zhs :History/<cr>
 nnoremap <leader>zm :Marks<cr>
 nnoremap <leader>za :Ag<cr>
 nnoremap <leader>zf :Files<cr>
@@ -48,6 +50,7 @@ nnoremap <silent> <leader>fr :Explore scp://
 nnoremap <silent> <leader>fb :Rexplore<CR>
 nnoremap <silent> <leader>ft :NERDTreeToggle<CR>
 nnoremap <silent> <leader>fv :Vaffle<CR>
+nnoremap <silent> <leader>fs :w<CR>
 
 " Tab mappings
 nnoremap <leader>tn :tabnew %<cr>
@@ -131,11 +134,16 @@ nnoremap <leader>wr :WinResizerStartResize<cr>
 nnoremap <leader>wm :WinResizerStartMove<cr>
 nnoremap <leader>wf :WinResizerStartFocus<cr>
 
+nnoremap <leader>wh :wincmd h<cr>
+nnoremap <leader>wj :wincmd j<cr>
+nnoremap <leader>wk :wincmd k<cr>
+nnoremap <leader>wl :wincmd l<cr>
+
 nnoremap <leader>eu :UndotreeToggle<cr>
 nnoremap <leader>es :e $MYVIMRC<cr>
 nnoremap <leader>er :registers<cr>
 nnoremap <leader>ef :set filetype=
-nnoremap <leader>ee :set filetype=rest<cr>
+nnoremap <leader>ee :terminal<space>
 nnoremap <leader>eg :Grepper<cr>
 nnoremap <leader>el :e ~/.vim_custom.vim<cr>
 nnoremap <leader>ej ::%!jq '.'<cr>
@@ -202,8 +210,9 @@ nnoremap <silent> <leader>ltf :TestFile<cr>
 nnoremap <silent> <leader>ltn :TestNearest<cr>
 nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
-nnoremap <leader>lc :C curl cht.sh/<c-r>=&filetype<cr>/
-nnoremap <leader>ld :C ddgr <c-r>=&filetype<cr><space>
-nnoremap <leader>lg :C w 'https://www.google.com/search?q=<c-r>=&filetype<cr> '<left>
-nnoremap <leader>lh :C k how2, how2 -l <c-r>=&filetype<cr><space>
+nnoremap <leader>lc :terminal curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
+nnoremap <leader>ld :terminal ddgr <c-r>=&filetype<cr><space>
+nnoremap <leader>lg :terminal w3m 'https://www.google.com/search?q=<c-r>=&filetype<cr> '<left>
+nnoremap <leader>lh :terminal how2 -l <c-r>=&filetype<cr><space>
 nnoremap <leader>lb :C brow<cr>
+
