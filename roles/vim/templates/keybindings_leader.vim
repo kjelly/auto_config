@@ -6,7 +6,9 @@ nnoremap <leader>zl :Lines<cr>
 nnoremap <leader>zbl :BLines<cr>
 nnoremap <leader>zc :Commits<cr>
 nnoremap <leader>zbc :BCommits<cr>
-nnoremap <leader>zh :History<cr>
+nnoremap <leader>zhf :History<cr>
+nnoremap <leader>zhc :History:<cr>
+nnoremap <leader>zhs :History/<cr>
 nnoremap <leader>zm :Marks<cr>
 nnoremap <leader>za :Ag<cr>
 nnoremap <leader>zf :Files<cr>
