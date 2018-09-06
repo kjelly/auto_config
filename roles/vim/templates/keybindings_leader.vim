@@ -48,6 +48,7 @@ nnoremap <silent> <leader>fr :Explore scp://
 nnoremap <silent> <leader>fb :Rexplore<CR>
 nnoremap <silent> <leader>ft :NERDTreeToggle<CR>
 nnoremap <silent> <leader>fv :Vaffle<CR>
+nnoremap <silent> <leader>fs :w<CR>
 
 " Tab mappings
 nnoremap <leader>tn :tabnew %<cr>
