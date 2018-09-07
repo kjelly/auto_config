@@ -143,10 +143,11 @@ nnoremap <leader>eu :UndotreeToggle<cr>
 nnoremap <leader>es :e $MYVIMRC<cr>
 nnoremap <leader>er :registers<cr>
 nnoremap <leader>ef :set filetype=
-nnoremap <leader>ee :terminal<space>
 nnoremap <leader>eg :Grepper<cr>
 nnoremap <leader>el :e ~/.vim_custom.vim<cr>
 nnoremap <leader>ej ::%!jq '.'<cr>
+nnoremap <leader>ee :terminal<space>
+cnoremap <c-e> <Esc>:History:<cr>
 
 nnoremap <leader>en :echo getcwd()<cr>
 nnoremap <leader>em :cd <c-r>=expand("%:p:h")<cr><cr>
@@ -162,6 +163,7 @@ nnoremap <leader>pr :put<cr>G$a<cr>
 nnoremap <leader>rt :TestNearest<cr>
 nnoremap <leader>rs :TestSuite<cr>
 nnoremap <leader>rf :TestFile<cr>
+nnoremap <leader>rr :History:<cr>
 nnoremap <leader>rd :C ./debug.sh<cr>
 
 nnoremap <leader>o0 :set foldlevel=0<CR>
