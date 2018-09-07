@@ -77,4 +77,6 @@
 
 - file: path="~/.config/nvim/bin" state="directory"
 
+- copy: src='dict.sh' dest='~/.config/nvim/bin' mode=0755
+
 - copy: src="/tmp/ripgrep-0.9.0-x86_64-unknown-linux-musl/rg" dest="~/.config/nvim/bin" mode=0555
