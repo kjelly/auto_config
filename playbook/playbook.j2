@@ -1,0 +1,12 @@
+---
+
+- name: install
+  remote_user: "{{ user }}"
+  hosts: "{{ group }}"
+  vars:
+    programming: {{ programming }}
+
+  roles:
+   {% for i in roles %}
+    - {{ i }}
+   {% endfor %}
