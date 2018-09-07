@@ -210,9 +210,13 @@ nnoremap <silent> <leader>ltf :TestFile<cr>
 nnoremap <silent> <leader>ltn :TestNearest<cr>
 nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
-nnoremap <leader>lc :terminal curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
-nnoremap <leader>ld :terminal ddgr <c-r>=&filetype<cr><space>
-nnoremap <leader>lg :terminal w3m 'https://www.google.com/search?q=<c-r>=&filetype<cr> '<left>
-nnoremap <leader>lh :terminal how2 -l <c-r>=&filetype<cr><space>
+nnoremap <leader>lc :C curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
+nnoremap <leader>ld :C ddgr <c-r>=&filetype<cr><space>
+nnoremap <leader>lg :C w w3m, w3m -no-cookie 'https://www.google.com/search?q=<c-r>=&filetype<cr> '<left>
+nnoremap <leader>ld :C k dict, dict.sh<space>
+nnoremap <leader>lh :C k how2, how2 -l <c-r>=&filetype<cr><space>
 nnoremap <leader>lb :C brow<cr>
+
+
+
 
