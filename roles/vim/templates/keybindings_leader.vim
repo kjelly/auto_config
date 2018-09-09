@@ -79,6 +79,8 @@ nnoremap <leader>sw :set wrap!<cr>
 nnoremap <leader>sp :set paste!<cr>
 nnoremap <leader>sm :call ToggleMouse()<cr>
 nnoremap <leader>ss :call ToggleStatusLine()<cr>
+nnoremap <leader>si :source Session.vim<cr>
+nnoremap <leader>se :mksession!<cr>
 
 " Find file in NERDTree
 nnoremap <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
@@ -215,7 +217,7 @@ nnoremap <silent> <leader>ltv :TestVisit<cr>
 nnoremap <leader>lc :C curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
 nnoremap <leader>ld :C ddgr <c-r>=&filetype<cr><space>
 nnoremap <leader>lg :C w w3m, w3m -no-cookie 'https://www.google.com/search?q=<c-r>=&filetype<cr> '<left>
-nnoremap <leader>ld :C k dict, dict.sh<space>
+nnoremap <leader>ld :C k dict, dict.sh ''<left>
 nnoremap <leader>lh :C k how2, how2 -l <c-r>=&filetype<cr><space>
 nnoremap <leader>lb :C brow<cr>
 
