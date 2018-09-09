@@ -690,7 +690,7 @@ autocmd! InsertEnter,WinLeave * set nocursorline
 autocmd! BufEnter * set laststatus=2
 "autocmd! BufEnter * if &buftype == 'terminal' | :set laststatus=0 | endif
 "autocmd! TermOpen *sh set laststatus=0
-autocmd! TermOpen *sh set nonu
+autocmd! TermOpen *sh* set nonu
 "autocmd! BufEnter * if &buftype == 'terminal' | :startinsert | endif
 {% if programming %}
 autocmd! InsertEnter * silent! call deoplete#enable()
