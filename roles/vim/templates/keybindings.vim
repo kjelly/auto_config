@@ -275,30 +275,30 @@ inoremap <A-v> <Esc>pi
 
 inoremap <A-r><A-r> <Esc>:C ./debug.sh <cr>a
 inoremap <A-r>r <Esc>:C ! <cr>a
-inoremap <A-r>1 <Esc>:C g1<cr>a
-inoremap <A-r>2 <Esc>:C g2<cr>a
-inoremap <A-r>3 <Esc>:C g3<cr>a
-inoremap <A-r>4 <Esc>:C g4<cr>a
-inoremap <A-r>5 <Esc>:C g5<cr>a
-inoremap <A-r>6 <Esc>:C g6<cr>a
-inoremap <A-r>7 <Esc>:C g7<cr>a
-inoremap <A-r>8 <Esc>:C g8<cr>a
-inoremap <A-r>9 <Esc>:C g9<cr>a
-inoremap <A-r>0 <Esc>:C g0<cr>a
+inoremap <A-r>1 <Esc>:C r1<cr>a
+inoremap <A-r>2 <Esc>:C r2<cr>a
+inoremap <A-r>3 <Esc>:C r3<cr>a
+inoremap <A-r>4 <Esc>:C r4<cr>a
+inoremap <A-r>5 <Esc>:C r5<cr>a
+inoremap <A-r>6 <Esc>:C r6<cr>a
+inoremap <A-r>7 <Esc>:C r7<cr>a
+inoremap <A-r>8 <Esc>:C r8<cr>a
+inoremap <A-r>9 <Esc>:C r9<cr>a
+inoremap <A-r>0 <Esc>:C r0<cr>a
 
 nnoremap <A-r><A-r> :C ./debug.sh <cr>
 nnoremap <A-r>r <Esc>:C ! <cr>a
 nnoremap <A-r>r <Esc>:C !<cr>
-nnoremap <A-r>1 <Esc>:C g1<cr>
-nnoremap <A-r>2 <Esc>:C g2<cr>
-nnoremap <A-r>3 <Esc>:C g3<cr>
-nnoremap <A-r>4 <Esc>:C g4<cr>
-nnoremap <A-r>5 <Esc>:C g5<cr>
-nnoremap <A-r>6 <Esc>:C g6<cr>
-nnoremap <A-r>7 <Esc>:C g7<cr>
-nnoremap <A-r>8 <Esc>:C g8<cr>
-nnoremap <A-r>9 <Esc>:C g9<cr>
-nnoremap <A-r>0 <Esc>:C g0<cr>
+nnoremap <A-r>1 <Esc>:C r1<cr>
+nnoremap <A-r>2 <Esc>:C r2<cr>
+nnoremap <A-r>3 <Esc>:C r3<cr>
+nnoremap <A-r>4 <Esc>:C r4<cr>
+nnoremap <A-r>5 <Esc>:C r5<cr>
+nnoremap <A-r>6 <Esc>:C r6<cr>
+nnoremap <A-r>7 <Esc>:C r7<cr>
+nnoremap <A-r>8 <Esc>:C r8<cr>
+nnoremap <A-r>9 <Esc>:C r9<cr>
+nnoremap <A-r>0 <Esc>:C r0<cr>
 
 " Tab navigate
 nnoremap <A-,> gT
