@@ -520,6 +520,7 @@ set completeopt="menu,preview,noinsert,noselect"
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 set list
 set foldlevel=9
+set sessionoptions+=globals
 
 if executable("fish") == 1
   set shell=fish
