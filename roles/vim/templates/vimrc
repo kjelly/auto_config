@@ -181,6 +181,7 @@ Plug 'lambdalisue/lista.nvim', { 'do': ':UpdateRemotePlugins'}
 "Plug 'pseewald/vim-anyfold'
 Plug 'google/vim-searchindex'
 Plug 't9md/vim-choosewin'
+Plug 'john-nanney/pushd.vim'
 
 " File manager
 Plug 'cocopon/vaffle.vim'

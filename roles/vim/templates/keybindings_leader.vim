@@ -43,7 +43,7 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 nnoremap <silent> <leader>g<cr> :noh<cr>
 
 " Switch CWD to the directory of the open buffer
-nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+nnoremap <leader>cd :Pushd %:p:h<cr>:pwd<cr>
 
 nnoremap <silent> <leader>fx :Explore<space>
 nnoremap <silent> <leader>fr :Explore scp://
@@ -152,7 +152,7 @@ nnoremap <leader>ee :terminal<space>
 cnoremap <c-e> <Esc>:History:<cr>
 
 nnoremap <leader>en :echo getcwd()<cr>
-nnoremap <leader>em :cd <c-r>=expand("%:p:h")<cr><cr>
+nnoremap <leader>em :Pushd <c-r>=expand("%:p:h")<cr><cr>
 nnoremap <leader>ecr :let @a=@%<cr>
 nnoremap <leader>ecn :let @a=expand("%:t")<cr>
 nnoremap <leader>ecf :let @a=expand("%:p")<cr>
