@@ -22,7 +22,7 @@ def list_all_sessions():
 def main():
     parser = argparse.ArgumentParser(description='Tmux wrapper')
     parser.add_argument('name', type=str, nargs="?")
-    parser.add_argument('--list', action='store_true')
+    parser.add_argument('--list', '-l', action='store_true')
     parser.add_argument('--kill', '-k')
     args = parser.parse_args()
     session_list = list_all_sessions()
