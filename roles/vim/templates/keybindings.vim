@@ -166,6 +166,10 @@ function! SwitchBuffer()
   endif
 endfunction
 
+inoremap <c-g> <Esc>:Buffers<cr>
+nnoremap <c-g> :Buffers<cr>
+tnoremap <c-g> <Esc>:Buffers<cr>
+
 {% if nvim %}
 
 " Tab switch
