@@ -53,10 +53,19 @@ nnoremap <silent> <leader>fv :Vaffle<CR>
 nnoremap <silent> <leader>fs :w<CR>
 
 " Tab mappings
-nnoremap <leader>tn :tabnew %<cr>
 nnoremap <leader>to :tabonly<cr>
 nnoremap <leader>tc :tabclose<cr>
 nnoremap <leader>tm :tabmove
+
+" Tab mappings
+function! NameTerminalBuffer(name)
+  let l:path = expand("%:p")
+  let l:parts = split(l:path, "#")
+  let l:newPath = substitute(l:parts[0], '^\s*\(.\{-}\)\s*$', '\1', '')
+  execute "keepalt file" l:newPath '\#'.a:name
+endfunction
+nnoremap <leader>tn :call NameTerminalBuffer('')<left><left>
+
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
