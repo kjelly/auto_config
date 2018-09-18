@@ -176,8 +176,6 @@ Plug 'blueyed/vim-diminactive' " use different background color for inactive win
 Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite','TestVisit']}
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'simeji/winresizer'
-" Buffer filtering
-Plug 'lambdalisue/lista.nvim', { 'do': ':UpdateRemotePlugins'}
 "Plug 'pseewald/vim-anyfold'
 Plug 'google/vim-searchindex'
 Plug 't9md/vim-choosewin'
@@ -289,8 +287,6 @@ Plug 'tpope/vim-surround'
 Plug 'Shougo/denite.nvim'
 Plug 'iamcco/devdocs.nvim', { 'do': 'npm install' }
 
-
-Plug 'kjelly/nvim-multiterm', { 'do': ':UpdateRemotePlugins'}
 "Plug 'myusuf3/numbers.vim'
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle']}
 
@@ -303,6 +299,14 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'rhysd/devdocs.vim', { 'on': 'DevDocsUnderCursor'}
 
 {% if nvim %}
+
+if has('python3')
+  " Buffer filtering
+  Plug 'lambdalisue/lista.nvim', { 'do': ':UpdateRemotePlugins'}
+  Plug 'kjelly/nvim-multiterm', { 'do': ':UpdateRemotePlugins'}
+  Plug 'vim-vdebug/vdebug'
+endif
+
 "Plug 'Shougo/neosnippet'
 "Plug 'Shougo/neosnippet-snippets'
 Plug 'SirVer/ultisnips'
@@ -317,30 +321,57 @@ Plug 'honza/vim-snippets'
 "Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
 "Plug 'ncm2/ncm2-ultisnips'
 
+if has('python3')
+  Plug 'autozimu/LanguageClient-neovim', { 'do': 'bash ./install.sh', 'branch': 'next' }
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-Plug 'autozimu/LanguageClient-neovim', { 'do': 'bash ./install.sh', 'branch': 'next' }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-"Plug 'roxma/nvim-completion-manager' "this is like deoplete
-"Plug 'roxma/nvim-cm-tern' "javascript
-"Plug 'fgrsnau/ncm-otherbuf' "Word from other buffers
-"Plug 'calebeby/ncm-css'
-"Plug 'mhartington/nvim-typescript'
+  "Plug 'roxma/nvim-completion-manager' "this is like deoplete
+  "Plug 'roxma/nvim-cm-tern' "javascript
+  "Plug 'fgrsnau/ncm-otherbuf' "Word from other buffers
+  "Plug 'calebeby/ncm-css'
+  "Plug 'mhartington/nvim-typescript'
 
 
-" it's needed because lsp doesn't work for go
-"Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'}
-"Plug 'zchee/deoplete-jedi'
-"Plug 'mhartington/nvim-typescript'
-"Plug 'ternjs/tern_for_vim'
-"Plug 'carlitux/deoplete-ternjs'
+  " it's needed because lsp doesn't work for go
+  "Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'}
+  "Plug 'zchee/deoplete-jedi'
+  "Plug 'mhartington/nvim-typescript'
+  "Plug 'ternjs/tern_for_vim'
+  "Plug 'carlitux/deoplete-ternjs'
+else
+  " If not programming, use pure vimL plugins for vim and neovim.
+  Plug 'prabirshrestha/asyncomplete.vim' "this is like deoplete
+  Plug 'prabirshrestha/asyncomplete-buffer.vim'
+  Plug 'prabirshrestha/asyncomplete-file.vim'
+  Plug 'wellle/tmux-complete.vim'
+
+  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+      \ 'name': 'file',
+      \ 'whitelist': ['*'],
+      \ 'priority': 10,
+      \ 'completor': function('asyncomplete#sources#file#completor')
+      \ }))
+
+  let g:tmuxcomplete#asyncomplete_source_options = {
+              \ 'name':      'tmuxcomplete',
+              \ 'whitelist': ['*'],
+              \ 'config': {
+              \     'splitmode':      'words',
+              \     'filter_prefix':   1,
+              \     'show_incomplete': 1,
+              \     'sort_candidates': 0,
+              \     'scrollback':      0,
+              \     'truncate':        0
+              \     }
+              \ }
+
+endif
 
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 " project-wide async search and replace
 " `,ff` for esearch.
 Plug 'eugen0329/vim-esearch'
-Plug 'vim-vdebug/vdebug'
 
 
 {% else %}
@@ -349,31 +380,6 @@ Plug 'Valloric/YouCompleteMe'
 {% endif %}
 
 {% else %}
-" If not programming, use pure vimL plugins for vim and neovim.
-Plug 'prabirshrestha/asyncomplete.vim' "this is like deoplete
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'prabirshrestha/asyncomplete-file.vim'
-Plug 'wellle/tmux-complete.vim'
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-    \ 'name': 'file',
-    \ 'whitelist': ['*'],
-    \ 'priority': 10,
-    \ 'completor': function('asyncomplete#sources#file#completor')
-    \ }))
-
-let g:tmuxcomplete#asyncomplete_source_options = {
-            \ 'name':      'tmuxcomplete',
-            \ 'whitelist': ['*'],
-            \ 'config': {
-            \     'splitmode':      'words',
-            \     'filter_prefix':   1,
-            \     'show_incomplete': 1,
-            \     'sort_candidates': 0,
-            \     'scrollback':      0,
-            \     'truncate':        0
-            \     }
-            \ }
 
 {% endif %}
 {% if nvim %}
