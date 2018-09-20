@@ -25,6 +25,9 @@
   when: ansible_distribution == 'MacOSX'
 
 - name: create virtualenv 3
+  shell: mkdir ~/.config/nvim/
+
+- name: create virtualenv 3
   shell: python3 -m virtualenv neovim-python3
   args:
     chdir: ~/.config/nvim/
@@ -41,7 +44,6 @@
   pip: name={{ item }} virtualenv=~/.config/nvim/neovim-python3  virtualenv_command='python3 -m virtualenv'
   with_items:
     - neovim
-    - neovim-remote
 
 - name: pip2 install [neovim]
   pip: name={{ item }} virtualenv=~/.config/nvim/neovim-python2  virtualenv_command='python2 -m virtualenv'
