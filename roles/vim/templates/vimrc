@@ -651,11 +651,10 @@ let g:UltiSnipsNoPythonWarning = 1
 let g:go_list_type = "quickfix"
 
 {% if python2_exec is defined and python3_exec.exist %}
-"let g:python_host_prog='{{ python2_exec.path }}'
-let g:python2_host_prog=fnamemodify(expand('$MYVIMRC'), ':h') . '/neovim-python2/bin/python2'
+let g:python_host_prog='{{ python2_exec.path }}'
 {% endif %}
 {% if python3_exec is defined and python3_exec.exist %}
-let g:python3_host_prog=fnamemodify(expand('$MYVIMRC'), ':h') . '/neovim-python3/bin/python3'
+let g:python3_host_prog='{{ python3_exec.path }}'
 {% endif %}
 
 let $BROWSER='w3m'
@@ -823,7 +822,6 @@ let g:lmap.m.p = [ 'normal! [`', 'Previous mark']
 let g:lmap.m.n = [ 'normal! ]`', 'Next mark']
 
 let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/bin'
-let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/neovim-python3/bin'
 
 let g:indentLine_fileTypeExclude = ['vimwiki', 'md', 'calendar']
 let g:indentLine_bufTypeExclude = ['help', 'terminal']

@@ -24,30 +24,6 @@
 - include: "install-osx.yml"
   when: ansible_distribution == 'MacOSX'
 
-- name: create virtualenv 3
-  shell: python3 -m virtualenv neovim-python3
-  args:
-    chdir: ~/.config/nvim/
-    creates: ~/.config/nvim/neovim-python3/bin/python
-
-- name: create virtualenv 2
-  shell: python2 -m virtualenv neovim-python2
-  args:
-    chdir: ~/.config/nvim/
-    creates: ~/.config/nvim/neovim-python2/bin/python
-
-
-- name: pip3 install [neovim nvr]
-  pip: name={{ item }} virtualenv=~/.config/nvim/neovim-python3  virtualenv_command='python3 -m virtualenv'
-  with_items:
-    - neovim
-    - neovim-remote
-
-- name: pip2 install [neovim]
-  pip: name={{ item }} virtualenv=~/.config/nvim/neovim-python2  virtualenv_command='python2 -m virtualenv'
-  with_items:
-    - neovim
-
 - name: pip install [autopep8, flake8]
   pip: name={{ item }}
   become: true
@@ -56,6 +32,11 @@
     - flake8
     - websocket-client
     - sexpdata
+
+- name: install neovim-remote
+  shell: "pip3 install neovim-remote"
+  become: true
+  ignore_errors: yes
 
 - git: repo=https://github.com/gmarik/vundle.git
        dest=~/.vim/bundle/vundle
