@@ -200,7 +200,7 @@ tnoremap <Insert> <C-\><C-n>
 "tnoremap <C-[> <C-\><C-n> Don't enable this. Esc is useful when vim in vim
 tnoremap <A-a> <C-\><C-n>
 inoremap <A-a> <Esc>
-nnoremap <A-a> i
+nnoremap <A-a> <Esc>
 vnoremap <A-a> <Esc>
 cnoremap <A-a> <Esc>
 
