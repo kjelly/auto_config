@@ -253,7 +253,7 @@ tnoremap <A-d> <C-\><C-n>:Denite devdocs<cr>
 " save
 nnoremap <A-s> :w<cr>
 inoremap <A-s> <Esc>:w<cr>
-tnoremap <A-s> <C-\><C-n>:w<cr>a
+tnoremap <A-s> <C-\><C-n>
 
 
 " Resize buffer
