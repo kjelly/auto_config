@@ -168,7 +168,8 @@ endfunction
 
 inoremap <c-g> <Esc>:Buffers<cr>
 nnoremap <c-g> :Buffers<cr>
-tnoremap <c-g> <C-\><c-n>:Buffers<cr>
+
+{% if nvim %}tnoremap <c-g> <C-\><c-n>:Buffers<cr>{% endif %}
 
 {% if nvim %}
 
