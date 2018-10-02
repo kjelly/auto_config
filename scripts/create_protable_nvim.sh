@@ -10,6 +10,7 @@ go get -u github.com/xo/usql
 go get github.com/miolini/jsonf
 go get github.com/htcat/htcat/cmd/htcat
 go get github.com/mlimaloureiro/golog
+go get github.com/kjelly/jscli
 go install github.com/cristianoliveira/ergo
 
 cp `which jq` ~/.config/nvim/bin
@@ -19,6 +20,7 @@ cp `which jsof` ~/.config/nvim/bin
 cp `which htcat` ~/.config/nvim/bin
 cp `which golog` ~/.config/nvim/bin
 cp `which ergo` ~/.config/nvim/bin
+cp `which jscli` ~/.config/nvim/bin
 
 tar zcvf ~/nvim.tar.gz .config/nvim .fzf nvim
 
