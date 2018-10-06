@@ -10,7 +10,7 @@ CapsLock & 9::return
 CapsLock & 0::return
 CapsLock & s::return
 CapsLock & a::return
-CapsLock & c::return
+CapsLock & c::Send, {Esc}
 CapsLock & x::return
 
 CapsLock & -::return
