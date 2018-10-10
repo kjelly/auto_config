@@ -823,7 +823,7 @@ let g:lmap.m.n = [ 'normal! ]`', 'Next mark']
 
 let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/bin'
 
-let g:indentLine_fileTypeExclude = ['vimwiki', 'md', 'calendar', 'json']
+let g:indentLine_fileTypeExclude = ['vimwiki', 'markdown', 'calendar', 'json']
 let g:indentLine_bufTypeExclude = ['help', 'terminal']
 let g:indentLine_bufNameExclude= ['*.md']
 
