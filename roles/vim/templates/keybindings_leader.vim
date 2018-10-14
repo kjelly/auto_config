@@ -230,6 +230,11 @@ nnoremap <leader>ld :C k dict, dict.sh ''<left>
 nnoremap <leader>lh :C k how2, how2 -l <c-r>=&filetype<cr><space>
 nnoremap <leader>lb :C brow<cr>
 
+nnoremap <localleader>o :Buffers<cr>
+nnoremap <localleader>p :Files<cr>
+nnoremap <localleader>b :b#<cr>
+nnoremap <localleader>q :q!<cr>
+nnoremap <localleader>s :w<cr>
 
 
 

@@ -1,5 +1,5 @@
 let mapleader = ","
-let maplocalleader = "_"
+let maplocalleader = "\<space>"
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -830,7 +830,7 @@ let g:indentLine_bufNameExclude= ['*.md']
 silent! call leaderGuide#register_prefix_descriptions(mapleader, "g:lmap")
 silent! call leaderGuide#register_prefix_descriptions(maplocalleader, "g:llmap")
 nnoremap <silent> <leader> :<c-u>LeaderGuide ','<CR>
-nnoremap <silent> <localleader> :<c-u>LeaderGuide '_'<CR>
+nnoremap <silent> <localleader> :<c-u>LeaderGuide '<space>'<CR>
 
 {% if nvim %}
 " Workspace Setup
