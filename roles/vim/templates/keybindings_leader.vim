@@ -88,6 +88,7 @@ nnoremap <leader>sw :set wrap!<cr>
 nnoremap <leader>sp :set paste!<cr>
 nnoremap <leader>sm :call ToggleMouse()<cr>
 nnoremap <leader>ss :call ToggleStatusLine()<cr>
+nnoremap <leader>sl :IndentLinesToggle<cr>
 nnoremap <leader>si :source Session.vim<cr>
 nnoremap <leader>se :mksession!<cr>
 
@@ -230,6 +231,16 @@ nnoremap <leader>ld :C k dict, dict.sh ''<left>
 nnoremap <leader>lh :C k how2, how2 -l <c-r>=&filetype<cr><space>
 nnoremap <leader>lb :C brow<cr>
 
-
+nnoremap <localleader>o :Buffers<cr>
+nnoremap <localleader>p :Files<cr>
+nnoremap <localleader>b :b#<cr>
+nnoremap <localleader>q :q!<cr>
+nnoremap <localleader>s :w<cr>
+nnoremap <localleader>a :Ag<cr>
+nnoremap <localleader>n :NERDTreeToggle<cr>
+nnoremap <localleader>h :wincmd h<cr>
+nnoremap <localleader>j :wincmd j<cr>
+nnoremap <localleader>k :wincmd k<cr>
+nnoremap <localleader>l :wincmd l<cr>
 
 
