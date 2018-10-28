@@ -152,7 +152,7 @@ nnoremap <silent> s :<C-u>call EasyMotion#overwin#w()<CR>
 nnoremap <silent> S :<C-u>call EasyMotion#LineAnywhere(0, 2)<CR>
 
 nnoremap zz za
-nnoremap Q <nop>
+nnoremap Q :qa<cr>
 
 map /  <Plug>(incsearch-forward)\v
 map ?  <Plug>(incsearch-backward)\v
