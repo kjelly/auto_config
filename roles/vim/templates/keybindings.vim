@@ -71,6 +71,8 @@ cnoremap ;; <Esc>
 vnoremap ;; <Esc>
 {% if nvim %}tnoremap ;; <C-\><C-n> {% endif %}
 
+{% if nvim %}tnoremap <Esc><Esc> <C-\><C-n> {% endif %}
+
 nnoremap <Space> i_<Esc>r
 
 vnoremap > >gv
@@ -340,7 +342,6 @@ tnoremap <A-[> <C-\><C-n><C-w>:lp<cr>
 inoremap <A-]> <Esc>:lne<cr>
 nnoremap <A-]> :lne<cr>
 tnoremap <A-]> <C-\><C-n><C-w>:lne<cr>
-
 
 {% endif %}
 
