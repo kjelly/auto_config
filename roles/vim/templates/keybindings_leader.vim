@@ -237,6 +237,7 @@ nnoremap <localleader>b :b#<cr>
 nnoremap <localleader>q :q!<cr>
 nnoremap <localleader>s :w<cr>
 nnoremap <localleader>a :Ag<cr>
+nnoremap <localleader>c :C<space>
 nnoremap <localleader>n :NERDTreeToggle<cr>
 nnoremap <localleader>h :wincmd h<cr>
 nnoremap <localleader>j :wincmd j<cr>
