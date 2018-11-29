@@ -180,6 +180,7 @@ Plug 'simeji/winresizer'
 Plug 'google/vim-searchindex'
 Plug 't9md/vim-choosewin'
 Plug 'john-nanney/pushd.vim'
+Plug 'metakirby5/codi.vim'
 
 " File manager
 Plug 'cocopon/vaffle.vim'
@@ -208,6 +209,11 @@ Plug 'diepm/vim-rest-console'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 "Plug 'ctrlpvim/ctrlp.vim'
+
+" For sudo
+" :w suda://%
+Plug 'lambdalisue/suda.vim'
+
 
 " colorscheme
 Plug 'morhetz/gruvbox'
