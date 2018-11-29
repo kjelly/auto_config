@@ -522,7 +522,8 @@ set laststatus=2
 " a mapped sequence to complete.
 set timeoutlen=500
 
-set completeopt="menu,preview,noinsert,noselect"
+set completeopt+=noinsert
+set completeopt-=preview
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 set list
 set foldlevel=9
@@ -546,6 +547,7 @@ let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_tab_nr = 2
 let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#exclude_preview = 1
+let g:airline_exclude_preview = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#ale#enabled = 1
 let g:ale_python_pylint_options="--disable=C0111,C0103,C1801,C0325"
