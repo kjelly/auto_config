@@ -15,6 +15,7 @@ nnoremap <leader>zf :Files<cr>
 nnoremap <leader>zp :Files<cr>
 nnoremap <leader>zo :Buffers<cr>
 nnoremap <leader>zg :GitFiles<cr>
+nnoremap <leader>zr :Rg<cr>
 
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
