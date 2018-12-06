@@ -15,6 +15,8 @@
     - file: path="~/.EverVim" state=directory recurse=yes
     - file: path="~/.EverVim/bundle" state=directory recurse=yes
     - template: src=evervim_init.vim dest=~/.EverVim/init.vim
+    - template: src=hterm-copy.vim dest=~/.config/nvim/hterm-copy.vim
+    - template: src=hterm-copy.vim dest=~/.vim/hterm-copy.vim
 
   always:
     - set_fact: nvim=false

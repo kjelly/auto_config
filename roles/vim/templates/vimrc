@@ -830,6 +830,7 @@ let g:lmap.l.t = { 'name' : 'Test' }
 let g:lmap.m.p = [ 'normal! [`', 'Previous mark']
 let g:lmap.m.n = [ 'normal! ]`', 'Next mark']
 
+let g:MYVIMRC_DIR = fnamemodify(expand('$MYVIMRC'), ':h')
 let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/bin'
 
 let g:indentLine_fileTypeExclude = ['vimwiki', 'markdown', 'calendar', 'json']
@@ -863,5 +864,4 @@ function! Wiki()
 endfunction
 command! -register Wiki call Wiki()
 
-silent! source ~/.vim_custom.vim
-
+silent! exec 'source' g:MYVIMRC_DIR . '/hterm-copy.vim'
