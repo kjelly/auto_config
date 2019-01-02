@@ -26,19 +26,20 @@ def main():
     parser.add_argument('--kill', '-k')
     args = parser.parse_args()
     session_list = list_all_sessions()
+    tmux = 'tmux'
     if args.list:
         print(session_list)
         return
     elif args.kill is not None:
-        os.system("tmux kill-session -t %s" % args.kill)
+        os.system("%s kill-session -t %s" % (tmux, args.kill))
     elif args.name is None:
-        os.system("tmux attach #")
+        os.system("%s attach #" % (tmux))
     else:
         name = args.name
         if name in session_list:
-            os.system("tmux attach -t %s" % name)
+            os.system("%s attach -t %s" % (tmux, name))
         else:
-            os.system("tmux new -s %s" % name)
+            os.system("%s new -s %s" % (tmux, name))
 
 
 if __name__ == "__main__":
