@@ -181,6 +181,11 @@ vmap <C-c> y:call SendViaOSC52(getreg('"'))<cr>
 
 {% if nvim %}
 
+" Since I use hterm in tab, I need another key for <c-w>
+imap <a-bs> <c-w>
+nmap <a-bs> <c-w>
+tmap <a-bs> <c-w>
+
 " Tab switch
 tnoremap <A-1> <C-\><C-n>1gti
 tnoremap <A-2> <C-\><C-n>2gti
