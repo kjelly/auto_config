@@ -840,6 +840,9 @@ let g:indentLine_fileTypeExclude = ['vimwiki', 'markdown', 'calendar', 'json']
 let g:indentLine_bufTypeExclude = ['help', 'terminal']
 let g:indentLine_bufNameExclude= ['*.md']
 
+let NERDTreeDirArrowExpandable = ">"
+let NERDTreeDirArrowCollapsible = "v"
+
 silent! call leaderGuide#register_prefix_descriptions(mapleader, "g:lmap")
 silent! call leaderGuide#register_prefix_descriptions(maplocalleader, "g:llmap")
 nnoremap <silent> <leader> :<c-u>LeaderGuide ','<CR>
