@@ -1,5 +1,4 @@
 ---
-
 - check_file_content: path=/proc/version pattern="Microsoft"
   register: is_wsl
 
@@ -40,3 +39,12 @@
 - set_fact: NODE_BIN_PATH={{ stdout.PATH }}
 
 - template: src="sudonpm" dest="~/bin/" mode=755
+
+- lineinfile:
+    path: "~/.config/fish/functions/fzf_key_bindings.fish"
+    state: "present"
+    regexp: "bind \\et fzf-file-widget"
+    insertafter: "bind \\\\ct fzf-file-widget\n"
+    line: "  bind \\et fzf-file-widget"
+
+
