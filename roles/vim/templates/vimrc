@@ -153,7 +153,7 @@ Plug 'hecal3/vim-leader-guide'
 Plug 'fcpg/vim-shore'
 
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
+"Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
 Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
 "Plug 'vim-scripts/grep.vim'
 "Plug 'ervandew/supertab'
