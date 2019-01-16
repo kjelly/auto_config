@@ -233,9 +233,14 @@ function! OpenBuffer()
   execute "Buffers"
 endfunction
 
-inoremap <A-p> <Esc>:call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
-nnoremap <A-p> :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
-tnoremap <A-p> <C-\><C-n>:call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>a
+imap <A-p> <c-p>
+nmap <A-p> <c-p>
+tmap <A-p> <c-p>
+cmap <A-p> <c-p>
+nmap <A-n> <c-n>
+imap <A-n> <c-n>
+tmap <A-n> <c-n>
+cmap <A-n> <c-n>
 
 inoremap <A-o> <Esc>:Buffers<cr>
 nnoremap <A-o> :Buffers<cr>
@@ -322,10 +327,6 @@ inoremap <A-,> <ESC>gTi
 inoremap <A-.> <ESC>gti
 tnoremap <A-,> <C-\><C-n>gTi
 tnoremap <A-.> <C-\><C-n>gti
-
-nnoremap <A-n> :NERDTreeTabsToggle<CR>
-inoremap <A-n> <Esc>:NERDTreeTabsToggle<CR>
-tnoremap <A-n> <C-\><C-n>:NERDTreeTabsToggle<CR>
 
 imap <A-g> <Esc><Plug>(choosewin)
 nmap <A-g> <Plug>(choosewin)
