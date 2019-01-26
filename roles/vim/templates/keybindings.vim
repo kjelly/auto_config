@@ -9,10 +9,20 @@ vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
 " Smart way to move between windows
+nnoremap <C-h> <C-W>h
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
+
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+
+cnoremap <c-h> <Left>
+cnoremap <c-j> <Down>
+cnoremap <c-k> <Up>
+cnoremap <c-l> <Right>
 
 nnoremap <C-n> :NERDTreeTabsToggle<CR>
 nnoremap <C-t> :tabnew %<CR>
@@ -45,10 +55,6 @@ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 cnoremap <c-s> Explore scp://
-cnoremap <c-h> <Left>
-cnoremap <c-j> <Down>
-cnoremap <c-k> <Up>
-cnoremap <c-l> <Right>
 
 " Use Enter to expand snippet. This is for nvim-completion-manager.
 "imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
@@ -60,13 +66,6 @@ inoremap <C-]> <Esc>
 nnoremap <C-]> i
 vnoremap <C-]> <Esc>
 cnoremap <C-]> <Esc>
-
-{% if nvim %}tnoremap <C-l> <C-\><C-n>
-{% endif %}
-inoremap <C-l> <Esc>
-vnoremap <C-l> <Esc>
-cnoremap <C-l> <Esc>
-
 
 nnoremap ; :
 
