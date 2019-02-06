@@ -142,4 +142,5 @@ fi
 alias tclsh='rlwrap -c tclsh8.6'
 export GOROOT=$HOME/go
 export PATH="{{ ZSH_EXTRA_PATH }}:$PATH"
-TOXENV=py27,pep8
+export VIM_CONFIG="{{ HOME_PATH }}/.config/nvim/init.vim"
+export TOXENV=py27,pep8

@@ -98,3 +98,4 @@ setopt append_history no_inc_append_history no_share_history
 export PATH="{{ ZSH_EXTRA_PATH }}:$PATH"
 source ~/.local_zshrc
 export GOPATH=~/GOPATH
+export VIM_CONFIG="{{ HOME_PATH }}/.config/nvim/init.vim"
