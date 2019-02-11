@@ -1,0 +1,11 @@
+---
+
+- name: Deploy nvim
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - copy:
+        src: ~/nvim.tar.gz
+        dest: ~/nvim.tar.gz
+    - shell: tar zxvf ~/nvim.tar.gz -C ~
