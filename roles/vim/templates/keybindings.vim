@@ -76,8 +76,6 @@ vnoremap ;; <Esc>
 
 {% if nvim %}tnoremap <Esc><Esc> <C-\><C-n> {% endif %}
 
-nnoremap <Space> i_<Esc>r
-
 vnoremap > >gv
 vnoremap < <gv
 
