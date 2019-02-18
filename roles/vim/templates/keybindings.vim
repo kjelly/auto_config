@@ -46,7 +46,7 @@ inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDow
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 " Find file/buffer
-nnoremap <C-p> :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
+nnoremap <C-p> :Files<cr>
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
