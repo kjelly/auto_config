@@ -181,6 +181,7 @@ Plug 'google/vim-searchindex'
 Plug 't9md/vim-choosewin'
 Plug 'john-nanney/pushd.vim'
 Plug 'metakirby5/codi.vim'
+Plug 'chrisbra/Colorizer', { 'on': ['ColorToggle'] }
 
 " File manager
 Plug 'cocopon/vaffle.vim'

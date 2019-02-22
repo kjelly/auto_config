@@ -92,6 +92,7 @@ nnoremap <leader>ss :call ToggleStatusLine()<cr>
 nnoremap <leader>sl :IndentLinesToggle<cr>
 nnoremap <leader>si :source Session.vim<cr>
 nnoremap <leader>se :mksession!<cr>
+nnoremap <leader>sc :ColorToggle<cr>
 
 " Find file in NERDTree
 nnoremap <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
