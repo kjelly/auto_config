@@ -679,6 +679,7 @@ let g:python3_host_prog='{{ python3_exec.path }}'
 {% endif %}
 
 let $BROWSER='w3m'
+let $IN_VIM=1
 let g:AutoPairsFlyMode = 1
 let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsShortcutFastWrap = ''

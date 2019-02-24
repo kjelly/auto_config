@@ -2,7 +2,11 @@
 if [ -f `which nvr` ] && [ $# -ne 0 ] && [ -f /tmp/nvimsocket  ]; then
   nvr $@
 elif [ -f `which nvim` ]; then
-    nvim $@
+    if [ -z ${IN_VIM+x} ]; then
+      nvim $@
+    else
+      myvi $@
+    fi
 elif [ -f /usr/local/bin/vim ]; then
     /usr/local/bin/vim $@
 elif [ -f /usr/bin/vim ]; then
