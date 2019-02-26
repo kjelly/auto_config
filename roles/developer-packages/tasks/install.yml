@@ -20,6 +20,18 @@
 - name: unarchive nodejs
   unarchive: src="~/nodejs.tar.xz" dest="~"
 
+- name: Remove node symlink
+  file:
+   path: "~/node"
+   state: absent
+  ignore_errors: yes
+
+- name: create node symlink
+  file:
+   state: link
+   src: "~/node-{{ nodejs_version }}-linux-x64"
+   dest: "~/node"
+
 - name: download golang
   get_url: url="{{ golang_download_url }}" dest="~/golang.tar.gz"
 
