@@ -15,7 +15,7 @@ activator_url: https://downloads.typesafe.com/typesafe-activator/{{ activator_ve
 sbt_version: 1.2.1
 sbt_url: https://piccolo.link/sbt-{{ sbt_version }}.zip
 nvim_version: v0.3.1
-nodejs_version: v8.11.3
+nodejs_version: v10.15.1
 nodejs_download_url: https://nodejs.org/dist/{{ nodejs_version }}/node-{{ nodejs_version }}-linux-x64.tar.xz
 golang_version: 1.10.3
 golang_download_url: https://dl.google.com/go/go{{ golang_version }}.linux-amd64.tar.gz
