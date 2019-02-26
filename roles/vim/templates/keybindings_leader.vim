@@ -57,6 +57,7 @@ nnoremap <silent> <leader>fs :w<CR>
 nnoremap <leader>to :tabonly<cr>
 nnoremap <leader>tc :tabclose<cr>
 nnoremap <leader>tm :tabmove
+nnoremap <leader>tp :tcd <c-r>=expand("%:p:h")<cr><cr>
 
 " Tab mappings
 function! NameTerminalBuffer(name)
