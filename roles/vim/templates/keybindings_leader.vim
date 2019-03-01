@@ -113,6 +113,7 @@ nnoremap <Leader>bc :BookmarkClear<cr>
 nnoremap <Leader>bx :BookmarkClearAll<cr>
 
 nnoremap <leader>bs :b#<cr>
+nnoremap <leader>br :redraw<cr>
 
 "nnoremap <leader>w :W3mTab google
 
