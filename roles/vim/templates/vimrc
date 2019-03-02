@@ -328,12 +328,18 @@ Plug 'honza/vim-snippets'
 "Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
 "Plug 'ncm2/ncm2-ultisnips'
 
-if has('python3')
-  "Plug 'autozimu/LanguageClient-neovim', { 'do': 'bash ./install.sh', 'branch': 'next' }
+if has('node')
   Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
+
+else if has('python3')
+  Plug 'autozimu/LanguageClient-neovim', { 'do': 'bash ./install.sh', 'branch': 'next' }
+  Plug 'ncm2/ncm2'
+  Plug 'roxma/nvim-yarp'
   "Plug 'mhartington/nvim-typescript'
 
+  autocmd! BufEnter * silent! call ncm2#enable_for_buffer()
+  set completeopt=noinsert,menuone,noselect
 
   " it's needed because lsp doesn't work for go
 else
@@ -699,10 +705,6 @@ autocmd! BufEnter * set laststatus=2
 "autocmd! TermOpen *sh set laststatus=0
 autocmd! TermOpen *sh* set nonu
 "autocmd! BufEnter * if &buftype == 'terminal' | :startinsert | endif
-{% if programming %}
-"autocmd! BufEnter * silent! call ncm2#enable_for_buffer()
-"set completeopt=noinsert,menuone,noselect
-{% endif %}
 
 {% endif %}
 
