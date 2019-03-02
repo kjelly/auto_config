@@ -17,6 +17,7 @@
     - template: src=evervim_init.vim dest=~/.EverVim/init.vim
     - template: src=hterm-copy.vim dest=~/.config/nvim/hterm-copy.vim
     - template: src=hterm-copy.vim dest=~/.vim/hterm-copy.vim
+    - template: src=coc-settings.json dest=~/.config/nvim/coc-settings.json
 
   always:
     - set_fact: nvim=false
