@@ -329,7 +329,8 @@ Plug 'honza/vim-snippets'
 "Plug 'ncm2/ncm2-ultisnips'
 
 if has('python3')
-  Plug 'autozimu/LanguageClient-neovim', { 'do': 'bash ./install.sh', 'branch': 'next' }
+  "Plug 'autozimu/LanguageClient-neovim', { 'do': 'bash ./install.sh', 'branch': 'next' }
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
   "Plug 'mhartington/nvim-typescript'
 
