@@ -149,6 +149,8 @@ silent! call plug#begin('~/.config/nvim/plugged')
 silent! call plug#begin('~/.vim/plugged')
 {% endif %}
 Plug 'hecal3/vim-leader-guide'
+" Show register content when pressing " or <c-r>
+Plug 'junegunn/vim-peekaboo'
 "Autojump to 1st non-blank when j/k into leading spaces.
 Plug 'fcpg/vim-shore'
 
