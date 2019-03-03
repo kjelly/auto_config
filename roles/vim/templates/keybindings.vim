@@ -375,9 +375,6 @@ function! ShowDef()
   endif
 endfunction
 
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-
 "imap <a-/> <Plug>(ncm2_manual_trigger)
 "au TextChangedI * call ncm2#auto_trigger()
 "let g:ncm2#complete_length=[[1,3],[7,4]]

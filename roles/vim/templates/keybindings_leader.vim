@@ -216,22 +216,44 @@ nnoremap <leader>tv :vsplit<cr><c-w>l:terminal<cr>
 
 {% endif %}
 
-nnoremap <silent> <leader>lsf :call LanguageClient_textDocument_documentSymbol()<CR>
-nnoremap <silent> <leader>lsw :call LanguageClient_workspace_symbol()<CR>
-nnoremap <silent> <leader>lrf :call LanguageClient_textDocument_references()<CR>
-nnoremap <silent> <leader>lrn :call LanguageClient_textDocument_rename()<CR>
-nnoremap <silent> <leader>lf :call LanguageClient_textDocument_formatting()<CR>
-nnoremap <silent> <leader>li :call LanguageClient_textDocument_implementation()<CR>
+" Remap for format selected region
+vmap <leader>f  <Plug>(coc-format-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+nmap <silent> gd <Plug>(coc-definition)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <leader>ldd :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>lde :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader>ldc :<C-u>CocList commands<cr>
+nnoremap <silent> <leader>ldo :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>lsf :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader>lrf <Plug>(coc-references)
+nnoremap <silent> <leader>lrn <Plug>(coc-rename)
+nnoremap <silent> <leader>lf :call CocAction('format')
+nnoremap <silent> <leader>li <Plug>(coc-implementation)
 nnoremap <silent> <leader>la :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> <leader>ltd :call LanguageClient_textDocument_typeDefinition()<cr>
+nnoremap <silent> <leader>ltd <Plug>(coc-type-definition)
 nnoremap <silent> <leader>ltf :TestFile<cr>
 nnoremap <silent> <leader>ltn :TestNearest<cr>
 nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
 nnoremap <leader>lc :C curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
-nnoremap <leader>ld :C ddgr <c-r>=&filetype<cr><space>
+nnoremap <leader>ldg :C ddgr <c-r>=&filetype<cr><space>
 nnoremap <leader>lg :C w w3m, w3m -no-cookie 'https://www.google.com/search?q=<c-r>=&filetype<cr> '<left>
-nnoremap <leader>ld :C k dict, dict.sh ''<left>
+nnoremap <leader>ldd :C k dict, dict.sh ''<left>
 nnoremap <leader>lh :C k how2, how2 -l <c-r>=&filetype<cr><space>
 nnoremap <leader>lb :C brow<cr>
 
