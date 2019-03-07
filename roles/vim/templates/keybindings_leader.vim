@@ -242,9 +242,9 @@ nnoremap <silent> <leader>ldo :<C-u>CocList outline<cr>
 nnoremap <silent> <leader>lsf :<C-u>CocList -I symbols<cr>
 nnoremap <silent> <leader>lrf <Plug>(coc-references)
 nnoremap <silent> <leader>lrn <Plug>(coc-rename)
-nnoremap <silent> <leader>lf :call CocAction('format')
+nnoremap <silent> <leader>lf :call CocAction('format')<cr>
 nnoremap <silent> <leader>li <Plug>(coc-implementation)
-nnoremap <silent> <leader>la :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> <leader>la :call LanguageClient_contextMenu()<cr>
 nnoremap <silent> <leader>ltd <Plug>(coc-type-definition)
 nnoremap <silent> <leader>ltf :TestFile<cr>
 nnoremap <silent> <leader>ltn :TestNearest<cr>
