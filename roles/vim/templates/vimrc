@@ -802,29 +802,28 @@ if !filereadable(expand("~/.vim_custom.vim"))
   silent! colorscheme gruvbox
 endif
 
-let g:lmap =  {}
-let g:llmap =  {}
-"let g:lmap.v = { 'name' : 'Version Controll' }
-let g:lmap.g = { 'name' : 'Git' }
-let g:lmap.z = { 'name' : 'Grep/Find/FZF' }
-let g:lmap.t = { 'name' : 'Tab' }
-let g:lmap.b = { 'name' : 'Buffer/Bookmark' }
-let g:lmap.c = { 'name' : 'Comment/cd' }
-let g:lmap.q = { 'name' : 'Quit' }
-let g:lmap.l = { 'name' : 'Language' }
-let g:lmap.f = { 'name' : 'File/esearch' }
-let g:lmap.s = { 'name' : 'Status' }
-let g:lmap.m = { 'name' : 'Moves' }
-let g:lmap.w = { 'name' : 'Wiki/Window' }
-let g:lmap.r = { 'name' : 'Run/Test' }
-let g:lmap.o = { 'name' : 'Fold' }
-let g:lmap.e = { 'name' : 'Edit' }
-let g:lmap.e.c = { 'name' : 'Copy file path' }
-let g:lmap.l.s = { 'name' : 'Doc/Worspace Symbol' }
-let g:lmap.l.r = { 'name' : 'Rename/Reference' }
-let g:lmap.l.t = { 'name' : 'Test' }
-let g:lmap.m.p = [ 'normal! [`', 'Previous mark']
-let g:lmap.m.n = [ 'normal! ]`', 'Next mark']
+let g:which_key_map =  {}
+let g:which_key_map.g = { 'name' : 'Git' }
+let g:which_key_map.z = { 'name' : 'Grep/Find/FZF' }
+let g:which_key_map.t = { 'name' : 'Tab' }
+let g:which_key_map.b = { 'name' : 'Buffer/Bookmark' }
+let g:which_key_map.c = { 'name' : 'Comment/cd' }
+let g:which_key_map.q = { 'name' : 'Quit' }
+let g:which_key_map.l = { 'name' : 'Language' }
+let g:which_key_map.f = { 'name' : 'File/esearch' }
+let g:which_key_map.s = { 'name' : 'Status' }
+let g:which_key_map.m = { 'name' : 'Moves' }
+let g:which_key_map.w = { 'name' : 'Wiki/Window' }
+let g:which_key_map.r = { 'name' : 'Run/Test' }
+let g:which_key_map.o = { 'name' : 'Fold' }
+let g:which_key_map.e = { 'name' : 'Edit' }
+let g:which_key_map.e.c = { 'name' : 'Copy file path' }
+let g:which_key_map.l.s = { 'name' : 'Doc/Worspace Symbol' }
+let g:which_key_map.l.r = { 'name' : 'Rename/Reference' }
+let g:which_key_map.l.t = { 'name' : 'Test' }
+let g:which_key_map.m.p = [ 'normal! [`', 'Previous mark']
+let g:which_key_map.m.n = [ 'normal! ]`', 'Next mark']
+call which_key#register(',', "g:which_key_map")
 
 let g:MYVIMRC_DIR = fnamemodify(expand('$MYVIMRC'), ':h')
 let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/bin'
@@ -836,10 +835,8 @@ let g:indentLine_bufNameExclude= ['*.md']
 let NERDTreeDirArrowExpandable = "+"
 let NERDTreeDirArrowCollapsible = "-"
 
-silent! call leaderGuide#register_prefix_descriptions(mapleader, "g:lmap")
-silent! call leaderGuide#register_prefix_descriptions(maplocalleader, "g:llmap")
-nnoremap <silent> <leader> :<c-u>LeaderGuide ','<CR>
-nnoremap <silent> <localleader> :<c-u>LeaderGuide '<space>'<CR>
+nnoremap <silent> <leader> :<c-u>WhichKey  ','<CR>
+nnoremap <silent> <localleader>      :<c-u>WhichKey '<Space>'<CR>
 
 {% if nvim %}
 " Workspace Setup
