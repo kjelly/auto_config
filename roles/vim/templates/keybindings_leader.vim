@@ -240,12 +240,12 @@ nnoremap <silent> <leader>lde :<C-u>CocList extensions<cr>
 nnoremap <silent> <leader>ldc :<C-u>CocList commands<cr>
 nnoremap <silent> <leader>ldo :<C-u>CocList outline<cr>
 nnoremap <silent> <leader>lsf :<C-u>CocList -I symbols<cr>
-nnoremap <silent> <leader>lrf <Plug>(coc-references)
-nnoremap <silent> <leader>lrn <Plug>(coc-rename)
+nmap <silent> <leader>lrf <Plug>(coc-references)
+nmap <silent> <leader>lrn <Plug>(coc-rename)
 nnoremap <silent> <leader>lf :call CocAction('format')<cr>
-nnoremap <silent> <leader>li <Plug>(coc-implementation)
+nmap <silent> <leader>li <Plug>(coc-implementation)
 nnoremap <silent> <leader>la :call LanguageClient_contextMenu()<cr>
-nnoremap <silent> <leader>ltd <Plug>(coc-type-definition)
+nmap <silent> <leader>ltd <Plug>(coc-type-definition)
 nnoremap <silent> <leader>ltf :TestFile<cr>
 nnoremap <silent> <leader>ltn :TestNearest<cr>
 nnoremap <silent> <leader>lts :TestSuite<cr>
