@@ -43,7 +43,7 @@
 - lineinfile:
     path: "~/.config/fish/functions/fzf_key_bindings.fish"
     state: "present"
-    regexp: "bind \\et fzf-file-widget"
+    regexp: "bind \\\\et fzf-file-widget"
     insertafter: "bind \\\\ct fzf-file-widget\n"
     line: "  bind \\et fzf-file-widget"
 
