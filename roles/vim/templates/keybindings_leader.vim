@@ -2,20 +2,20 @@
 " B for current buffer
 " For example, Lines for Lines in loaded buffers.
 " BLines for Lines in the current buffer
-nnoremap <leader>zl :Lines<cr>
-nnoremap <leader>zbl :BLines<cr>
-nnoremap <leader>zc :Commits<cr>
-nnoremap <leader>zbc :BCommits<cr>
-nnoremap <leader>zhf :History<cr>
-nnoremap <leader>zhc :History:<cr>
-nnoremap <leader>zhs :History/<cr>
-nnoremap <leader>zm :Marks<cr>
-nnoremap <leader>za :Ag<cr>
-nnoremap <leader>zf :Files<cr>
-nnoremap <leader>zp :Files<cr>
-nnoremap <leader>zo :Buffers<cr>
-nnoremap <leader>zg :GitFiles<cr>
-nnoremap <leader>zr :Rg<cr>
+nnoremap <silent> <leader>zl :Lines<cr>
+nnoremap <silent> <leader>zbl :BLines<cr>
+nnoremap <silent> <leader>zc :Commits<cr>
+nnoremap <silent> <leader>zbc :BCommits<cr>
+nnoremap <silent> <leader>zhf :History<cr>
+nnoremap <silent> <leader>zhc :History:<cr>
+nnoremap <silent> <leader>zhs :History/<cr>
+nnoremap <silent> <leader>zm :Marks<cr>
+nnoremap <silent> <leader>za :Ag<cr>
+nnoremap <silent> <leader>zf :Files<cr>
+nnoremap <silent> <leader>zp :Files<cr>
+nnoremap <silent> <leader>zo :Buffers<cr>
+nnoremap <silent> <leader>zg :GitFiles<cr>
+nnoremap <silent> <leader>zr :Rg<cr>
 
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
@@ -54,10 +54,10 @@ nnoremap <silent> <leader>fv :Vaffle<CR>
 nnoremap <silent> <leader>fs :w<CR>
 
 " Tab mappings
-nnoremap <leader>to :tabonly<cr>
-nnoremap <leader>tc :tabclose<cr>
-nnoremap <leader>tm :tabmove
-nnoremap <leader>tp :tcd <c-r>=expand("%:p:h")<cr><cr>
+nnoremap <silent> <leader>to :tabonly<cr>
+nnoremap <silent> <leader>tc :tabclose<cr>
+nnoremap <silent> <leader>tm :tabmove
+nnoremap <silent> <leader>tp :tcd <c-r>=expand("%:p:h")<cr><cr>
 
 " Tab mappings
 function! NameTerminalBuffer(name)
@@ -71,7 +71,7 @@ nnoremap <leader>tn :call NameTerminalBuffer('')<left><left>
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-nnoremap <leader>te :tabedit %<cr>
+nnoremap <silent> <leader>te :tabedit %<cr>
 
 " Open vimgrep and put the cursor in the right position
 "nnoremap <leader>gv :vimgrep // **/* <left><left><left><left><left><left><left>
@@ -80,40 +80,40 @@ nnoremap <leader>te :tabedit %<cr>
 "nnoremap <leader><space> :vimgrep // <Home><right><right><right><right><right><right><right><right><right>
 
 " close buffer/window
-nnoremap <leader>qq :Bclose<cr>:q<cr>
-nnoremap <leader>qw :q<cr>
-nnoremap <leader>qb :Bclose<cr>
+nnoremap <silent> <leader>qq :Bclose<cr>:q<cr>
+nnoremap <silent> <leader>qw :q<cr>
+nnoremap <silent> <leader>qb :Bclose<cr>
 
 " State
-nnoremap <leader>sn :set nu!<cr>
-nnoremap <leader>sw :set wrap!<cr>
-nnoremap <leader>sp :set paste!<cr>
-nnoremap <leader>sm :call ToggleMouse()<cr>
-nnoremap <leader>ss :call ToggleStatusLine()<cr>
-nnoremap <leader>sl :IndentLinesToggle<cr>
-nnoremap <leader>si :source Session.vim<cr>
-nnoremap <leader>se :mksession!<cr>
-nnoremap <leader>sc :ColorToggle<cr>
+nnoremap <silent> <leader>sn :set nu!<cr>
+nnoremap <silent> <leader>sw :set wrap!<cr>
+nnoremap <silent> <leader>sp :set paste!<cr>
+nnoremap <silent> <leader>sm :call ToggleMouse()<cr>
+nnoremap <silent> <leader>ss :call ToggleStatusLine()<cr>
+nnoremap <silent> <leader>sl :IndentLinesToggle<cr>
+nnoremap <silent> <leader>si :source Session.vim<cr>
+nnoremap <silent> <leader>se :mksession!<cr>
+nnoremap <silent> <leader>sc :ColorToggle<cr>
 
 " Find file in NERDTree
-nnoremap <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
-nnoremap <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
-nnoremap <leader>ed :Explore <c-r>=expand("%:p:h")<cr><cr>
-nnoremap <leader>fi :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
+nnoremap <silent> <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
+nnoremap <silent> <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
+nnoremap <silent> <leader>ed :Explore <c-r>=expand("%:p:h")<cr><cr>
+nnoremap <silent> <leader>fi :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
 
 " Bookmarks keybinding
-nnoremap mm :BookmarkToggle<cr>
-nnoremap <Leader>bb :BookmarkToggle<cr>
-nnoremap <Leader>bt :BookmarkToggle<cr>
-nnoremap <Leader>bi :BookmarkAnnotate<cr>
-nnoremap <Leader>bl :BookmarkShowAll<cr>
-nnoremap <Leader>bj :BookmarkNext<cr>
-nnoremap <Leader>bk :BookmarkPrev<cr>
-nnoremap <Leader>bc :BookmarkClear<cr>
-nnoremap <Leader>bx :BookmarkClearAll<cr>
+nnoremap <silent> mm :BookmarkToggle<cr>
+nnoremap <silent> <Leader>bb :BookmarkToggle<cr>
+nnoremap <silent> <Leader>bt :BookmarkToggle<cr>
+nnoremap <silent> <Leader>bi :BookmarkAnnotate<cr>
+nnoremap <silent> <Leader>bl :BookmarkShowAll<cr>
+nnoremap <silent> <Leader>bj :BookmarkNext<cr>
+nnoremap <silent> <Leader>bk :BookmarkPrev<cr>
+nnoremap <silent> <Leader>bc :BookmarkClear<cr>
+nnoremap <silent> <Leader>bx :BookmarkClearAll<cr>
 
-nnoremap <leader>bs :b#<cr>
-nnoremap <leader>br :redraw<cr>
+nnoremap <silent> <leader>bs :b#<cr>
+nnoremap <silent> <leader>br :redraw<cr>
 
 "nnoremap <leader>w :W3mTab google
 
@@ -125,11 +125,11 @@ nmap <Leader>mj <Plug>(easymotion-j)
 nmap <Leader>mk <Plug>(easymotion-k)
 nmap <Leader>ml <Plug>(easymotion-lineforward)
 
-nnoremap <leader>mm :Marks<cr>
-nnoremap <leader>mn ]`
-nnoremap <leader>mp [`
-nnoremap <leader>mc :delmarks!<cr>
-nnoremap <leader>mg `.
+nnoremap <silent> <leader>mm :Marks<cr>
+nnoremap <silent> <leader>mn ]`
+nnoremap <silent> <leader>mp [`
+nnoremap <silent> <leader>mc :delmarks!<cr>
+nnoremap <silent> <leader>mg `.
 " Gina
 "nnoremap <leader>vs :Gina status<cr>
 "nnoremap <leader>vpl :Gina pull<cr>
@@ -145,55 +145,55 @@ nnoremap <leader>mg `.
 
 autocmd FileType vimwiki nmap <leader><space> <Plug>VimwikiToggleListItem
 
-nnoremap <leader>wf :call fzf#vim#ag('', {'dir': '~/Dropbox/vimwiki/', 'down': '40%'})<cr>
-nnoremap <leader>wr :WinResizerStartResize<cr>
-nnoremap <leader>wm :WinResizerStartMove<cr>
-nnoremap <leader>wf :WinResizerStartFocus<cr>
+nnoremap <silent> <leader>wf :call fzf#vim#ag('', {'dir': '~/Dropbox/vimwiki/', 'down': '40%'})<cr>
+nnoremap <silent> <leader>wr :WinResizerStartResize<cr>
+nnoremap <silent> <leader>wm :WinResizerStartMove<cr>
+nnoremap <silent> <leader>wf :WinResizerStartFocus<cr>
 
-nnoremap <leader>wh :wincmd h<cr>
-nnoremap <leader>wj :wincmd j<cr>
-nnoremap <leader>wk :wincmd k<cr>
-nnoremap <leader>wl :wincmd l<cr>
+nnoremap <silent> <leader>wh :wincmd h<cr>
+nnoremap <silent> <leader>wj :wincmd j<cr>
+nnoremap <silent> <leader>wk :wincmd k<cr>
+nnoremap <silent> <leader>wl :wincmd l<cr>
 
-nnoremap <leader>eu :UndotreeToggle<cr>
-nnoremap <leader>es :e $MYVIMRC<cr>
-nnoremap <leader>er :registers<cr>
-nnoremap <leader>ef :set filetype=
-nnoremap <leader>eg :Grepper<cr>
-nnoremap <leader>el :e ~/.vim_custom.vim<cr>
-nnoremap <leader>ej ::%!jq '.'<cr>
-nnoremap <leader>ee :terminal<space>
-cnoremap <c-e> <Esc>:History:<cr>
+nnoremap <silent> <leader>eu :UndotreeToggle<cr>
+nnoremap <silent> <leader>es :e $MYVIMRC<cr>
+nnoremap <silent> <leader>er :registers<cr>
+nnoremap <silent> <leader>ef :set filetype=
+nnoremap <silent> <leader>eg :Grepper<cr>
+nnoremap <silent> <leader>el :e ~/.vim_custom.vim<cr>
+nnoremap <silent> <leader>ej ::%!jq '.'<cr>
+nnoremap <silent> <leader>ee :terminal<space>
+cnoremap <silent> <c-e> <Esc>:History:<cr>
 
-nnoremap <leader>en :echo getcwd()<cr>
-nnoremap <leader>em :Pushd <c-r>=expand("%:p:h")<cr><cr>
-nnoremap <leader>ecr :let @a=@%<cr>
-nnoremap <leader>ecn :let @a=expand("%:t")<cr>
-nnoremap <leader>ecf :let @a=expand("%:p")<cr>
-nnoremap <leader>ecd :let @a=expand("%:p:h")<cr>
+nnoremap <silent> <leader>en :echo getcwd()<cr>
+nnoremap <silent> <leader>em :Pushd <c-r>=expand("%:p:h")<cr><cr>
+nnoremap <silent> <leader>ecr :let @a=@%<cr>
+nnoremap <silent> <leader>ecn :let @a=expand("%:t")<cr>
+nnoremap <silent> <leader>ecf :let @a=expand("%:p")<cr>
+nnoremap <silent> <leader>ecd :let @a=expand("%:p:h")<cr>
 
-nnoremap <leader>pp :put<cr>
-nnoremap <leader>pr :put<cr>G$a<cr>
+nnoremap <silent> <leader>pp :put<cr>
+nnoremap <silent> <leader>pr :put<cr>G$a<cr>
 
 " Run/Test
-nnoremap <leader>rt :TestNearest<cr>
-nnoremap <leader>rs :TestSuite<cr>
-nnoremap <leader>rf :TestFile<cr>
-nnoremap <leader>rr :History:<cr>
-nnoremap <leader>rd :C ./debug.sh<cr>
+nnoremap <silent> <leader>rt :TestNearest<cr>
+nnoremap <silent> <leader>rs :TestSuite<cr>
+nnoremap <silent> <leader>rf :TestFile<cr>
+nnoremap <silent> <leader>rr :History:<cr>
+nnoremap <silent> <leader>rd :C ./debug.sh<cr>
 
-nnoremap <leader>o0 :set foldlevel=0<CR>
-nnoremap <leader>o1 :set foldlevel=1<CR>
-nnoremap <leader>o2 :set foldlevel=2<CR>
-nnoremap <leader>o3 :set foldlevel=3<CR>
-nnoremap <leader>o4 :set foldlevel=4<CR>
-nnoremap <leader>o5 :set foldlevel=5<CR>
-nnoremap <leader>o6 :set foldlevel=6<CR>
-nnoremap <leader>o7 :set foldlevel=7<CR>
-nnoremap <leader>o8 :set foldlevel=8<CR>
-nnoremap <leader>o9 :set foldlevel=9<CR>
-nnoremap <leader>oo zR<CR>
-nnoremap <leader>oc zM<CR>
+nnoremap <silent> <leader>o0 :set foldlevel=0<CR>
+nnoremap <silent> <leader>o1 :set foldlevel=1<CR>
+nnoremap <silent> <leader>o2 :set foldlevel=2<CR>
+nnoremap <silent> <leader>o3 :set foldlevel=3<CR>
+nnoremap <silent> <leader>o4 :set foldlevel=4<CR>
+nnoremap <silent> <leader>o5 :set foldlevel=5<CR>
+nnoremap <silent> <leader>o6 :set foldlevel=6<CR>
+nnoremap <silent> <leader>o7 :set foldlevel=7<CR>
+nnoremap <silent> <leader>o8 :set foldlevel=8<CR>
+nnoremap <silent> <leader>o9 :set foldlevel=9<CR>
+nnoremap <silent> <leader>oo zR<CR>
+nnoremap <silent> <leader>oc zM<CR>
 
 
 {% if nvim %}
@@ -208,10 +208,10 @@ endfunction
 command! -register OpenDefaultTerm call DefaultTerminal()
 
 " open new terminal in new tab/buffer.
-nnoremap <leader>tt :tabnew %<cr>:terminal<cr>
-nnoremap <leader>td :OpenDefaultTerm<cr>
-nnoremap <leader>tb :split<cr><c-w>j:terminal<cr>
-nnoremap <leader>tv :vsplit<cr><c-w>l:terminal<cr>
+nnoremap <silent> <leader>tt :tabnew %<cr>:terminal<cr>
+nnoremap <silent> <leader>td :OpenDefaultTerm<cr>
+nnoremap <silent> <leader>tb :split<cr><c-w>j:terminal<cr>
+nnoremap <silent> <leader>tv :vsplit<cr><c-w>l:terminal<cr>
 
 
 {% endif %}
@@ -250,24 +250,24 @@ nnoremap <silent> <leader>ltf :TestFile<cr>
 nnoremap <silent> <leader>ltn :TestNearest<cr>
 nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
-nnoremap <leader>lc :C curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
-nnoremap <leader>ldg :C ddgr <c-r>=&filetype<cr><space>
-nnoremap <leader>lg :C w w3m, w3m -no-cookie 'https://www.google.com/search?q=<c-r>=&filetype<cr> '<left>
-nnoremap <leader>lh :C k how2, how2 -l <c-r>=&filetype<cr><space>
-nnoremap <leader>lb :C brow<cr>
+nnoremap <silent> <leader>lc :C curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
+nnoremap <silent> <leader>ldg :C ddgr <c-r>=&filetype<cr><space>
+nnoremap <silent> <leader>lg :C w w3m, w3m -no-cookie 'https://www.google.com/search?q=<c-r>=&filetype<cr> '<left>
+nnoremap <silent> <leader>lh :C k how2, how2 -l <c-r>=&filetype<cr><space>
+nnoremap <silent> <leader>lb :C brow<cr>
 
-nnoremap <localleader>o :Buffers<cr>
-nnoremap <localleader>p :Files<cr>
-nnoremap <localleader>b :b#<cr>
-nnoremap <localleader>q :q!<cr>
-nnoremap <localleader>s :w<cr>
-nnoremap <localleader>a :Ag<cr>
-nnoremap <localleader>c :C<space>
-nnoremap <localleader>g :ChooseWin<cr>
-nnoremap <localleader>n :NERDTreeToggle<cr>
-nnoremap <localleader>h :wincmd h<cr>
-nnoremap <localleader>j :wincmd j<cr>
-nnoremap <localleader>k :wincmd k<cr>
-nnoremap <localleader>l :wincmd l<cr>
+nnoremap <silent> <localleader>o :Buffers<cr>
+nnoremap <silent> <localleader>p :Files<cr>
+nnoremap <silent> <localleader>b :b#<cr>
+nnoremap <silent> <localleader>q :q!<cr>
+nnoremap <silent> <localleader>s :w<cr>
+nnoremap <silent> <localleader>a :Ag<cr>
+nnoremap <silent> <localleader>c :C<space>
+nnoremap <silent> <localleader>g :ChooseWin<cr>
+nnoremap <silent> <localleader>n :NERDTreeToggle<cr>
+nnoremap <silent> <localleader>h :wincmd h<cr>
+nnoremap <silent> <localleader>j :wincmd j<cr>
+nnoremap <silent> <localleader>k :wincmd k<cr>
+nnoremap <silent> <localleader>l :wincmd l<cr>
 
 
