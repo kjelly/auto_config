@@ -217,6 +217,9 @@ Plug 'junegunn/fzf.vim'
 " :w suda://%
 Plug 'lambdalisue/suda.vim'
 
+" sudo pip3 install requests beautifulsoup4
+Plug 'iandingx/leetcode.vim'
+
 
 " colorscheme
 Plug 'morhetz/gruvbox'
@@ -698,6 +701,8 @@ let g:vrc_curl_opts = {
 let g:NERDTreeWinSize=20
 
 {% if nvim %}let test#strategy = "neovim" {% endif %}
+
+let g:leetcode_solution_filetype='python'
 
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline

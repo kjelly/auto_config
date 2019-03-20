@@ -256,6 +256,11 @@ nnoremap <silent> <leader>lg :C w w3m, w3m -no-cookie 'https://www.google.com/se
 nnoremap <silent> <leader>lh :C k how2, how2 -l <c-r>=&filetype<cr><space>
 nnoremap <silent> <leader>lb :C brow<cr>
 
+nnoremap <silent> <leader>lel :LeetCodeList<cr>
+nnoremap <silent> <leader>les :LeetCodeSubmit<cr>
+nnoremap <silent> <leader>let :LeetCodeTest<cr>
+
+
 nnoremap <silent> <localleader>o :Buffers<cr>
 nnoremap <silent> <localleader>p :Files<cr>
 nnoremap <silent> <localleader>b :b#<cr>

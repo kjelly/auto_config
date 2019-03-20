@@ -89,3 +89,8 @@
   ignore_errors: yes
 - lineinfile: dest="~/.SpaceVim.d/init.vim" line="source ~/.SpaceVim.d/spacevim_custom.vim"
   ignore_errors: yes
+
+- lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_username" line="let g:leetcode_username=''"
+  ignore_errors: yes
+- lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_password" line="let g:leetcode_password=''"
+  ignore_errors: yes
