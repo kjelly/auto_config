@@ -41,7 +41,7 @@ vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
 " Disable highlight
-nnoremap <silent> <leader>sh<cr> :noh<cr>
+nnoremap <silent> <leader>sh :noh<cr>
 
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :Pushd %:p:h<cr>:pwd<cr>
