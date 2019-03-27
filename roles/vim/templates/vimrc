@@ -839,8 +839,8 @@ let g:indentLine_bufNameExclude= ['*.md']
 let NERDTreeDirArrowExpandable = "+"
 let NERDTreeDirArrowCollapsible = "-"
 
+silent! call which_key#register(',', "g:which_key_map")
 if exists('*which_key#register')
-  call which_key#register(',', "g:which_key_map")
   nnoremap <silent> <leader> :<c-u>WhichKey  ','<CR>
   nnoremap <silent> <localleader>      :<c-u>WhichKey '<Space>'<CR>
 endif
