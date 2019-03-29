@@ -1,0 +1,4 @@
+---
+
+- set_fact: NODE_BIN_PATH={{ stdout.PATH }}
+- template: src=config.fish dest="~/.config/fish/config.fish"
