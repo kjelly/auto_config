@@ -171,11 +171,6 @@ function! SwitchBuffer()
   endif
 endfunction
 
-inoremap <c-g> <Esc>:Buffers<cr>
-nnoremap <c-g> :Buffers<cr>
-
-{% if nvim %}tnoremap <c-g> <C-\><c-n>:Buffers<cr>{% endif %}
-
 vmap <C-c> y:call SendViaOSC52(getreg('"'))<cr>
 
 {% if nvim %}
