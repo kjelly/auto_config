@@ -785,6 +785,8 @@ function! OpenChangedFiles()
   endfor
 endfunction
 command! OpenChangedFiles :call OpenChangedFiles()
+command! Enc execute '%!openssl enc -aes-256-cbc -a -salt -pass file:$HOME/.ssh/passwd.txt'
+command! Dec execute '%!openssl enc -d -aes-256-cbc -a -salt -pass file:$HOME/.ssh/passwd.txt'
 
 " It doesn't work in terminal (neo)vim
 hi VimwikiHeader1 guifg=Gray

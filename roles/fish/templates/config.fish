@@ -15,6 +15,8 @@ alias cd5 "cd ../../../../.."
 alias c "vim +Calendar"
 alias g "vim +Ag"
 alias search "ag .|fzf"
+alias enc "openssl enc -aes-256-cbc -a -salt -pass file:$HOME/.ssh/passwd.txt"
+alias dec "openssl enc -d -aes-256-cbc -a -salt -pass file:$HOME/.ssh/passwd.txt"
 
 set fish_color_search_match --background=blue
 set -gx GOROOT "{{ HOME_PATH }}/go"
