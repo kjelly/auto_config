@@ -17,7 +17,7 @@ sbt_url: https://piccolo.link/sbt-{{ sbt_version }}.zip
 nvim_version: v0.3.4
 nodejs_version: v10.15.1
 nodejs_download_url: https://nodejs.org/dist/{{ nodejs_version }}/node-{{ nodejs_version }}-linux-x64.tar.xz
-golang_version: 1.10.3
+golang_version: 1.12.1
 golang_download_url: https://dl.google.com/go/go{{ golang_version }}.linux-amd64.tar.gz
 ripgrep_version: 0.9.0
 ripgrep_url: https://github.com/BurntSushi/ripgrep/releases/download/{{ ripgrep_version }}/ripgrep-{{ ripgrep_version }}-x86_64-unknown-linux-musl.tar.gz
