@@ -146,7 +146,7 @@ nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 let g:racer_cmd = "{{ HOME_PATH }}/.cargo/bin/racer"
 let $RUST_SRC_PATH="{{ HOME_PATH }}/rust-src/src"
 
-nnoremap <silent> s :<C-u>call EasyMotion#overwin#w()<CR>
+nmap <silent> s <Plug>(easymotion-bd-w)
 nnoremap <silent> S :<C-u>call EasyMotion#LineAnywhere(0, 2)<CR>
 
 nnoremap zz za
