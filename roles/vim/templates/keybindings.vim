@@ -14,11 +14,6 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 
-inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-l> <Right>
-
 cnoremap <c-h> <Left>
 cnoremap <c-j> <Down>
 cnoremap <c-k> <Up>
