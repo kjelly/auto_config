@@ -164,11 +164,7 @@ Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle'
 Plug 'gagoar/stripwhitespaces'
 " + for expand, _ for shrink
 Plug 'terryma/vim-expand-region'
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-" vim-airline-clock and gitgutter will make neovim memory leak
-" https://github.com/neovim/neovim/issues/7871
-"Plug 'enricobacis/vim-airline-clock'
+Plug 'itchyny/lightline.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
@@ -563,18 +559,7 @@ let anyfold_fold_comments=1
 let g:vim_markdown_folding_disabled=1
 let NERDTreeMapOpenInTab='<TAB>'
 let g:nerdtree_tabs_focus_on_files=1
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#tab_nr_type = 2
-let g:airline#extensions#tabline#show_tabs = 1
-let g:airline#extensions#tabline#show_tab_nr = 2
-let g:airline#extensions#tabline#tab_min_count = 2
-let g:airline#extensions#tabline#exclude_preview = 1
-let g:airline_exclude_preview = 1
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#ale#enabled = 1
 let g:ale_python_pylint_options="--disable=C0111,C0103,C1801,C0325"
-
 
 "let g:vimshell_prompt_expr =
 "\ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
