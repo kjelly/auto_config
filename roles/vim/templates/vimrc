@@ -547,7 +547,10 @@ set sessionoptions+=globals
 set noshowmode
 " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
 " found' messages
+" or don't give |ins-completion-menu| messages.
 set shortmess+=c
+" always show signcolumns
+set signcolumn=yes
 
 if executable("fish") == 1
   set shell=fish
