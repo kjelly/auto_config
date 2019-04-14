@@ -58,7 +58,6 @@ cnoremap <c-s> Explore scp://
 {% if nvim %}tnoremap <C-]> <C-\><C-n>
 {% endif %}
 inoremap <C-]> <Esc>
-nnoremap <C-]> i
 vnoremap <C-]> <Esc>
 cnoremap <C-]> <Esc>
 
