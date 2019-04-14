@@ -69,7 +69,13 @@ cnoremap ;; <Esc>
 vnoremap ;; <Esc>
 {% if nvim %}tnoremap ;; <C-\><C-n> {% endif %}
 
-{% if nvim %}tnoremap <Esc><Esc> <C-\><C-n> {% endif %}
+{% if nvim %}
+" If we need Esc in terminal buffer,
+" just unmap it.
+tnoremap <Esc> <C-\><C-n>
+"tunmap <Esc> <C-\><C-n>
+
+{% endif %}
 
 vnoremap > >gv
 vnoremap < <gv
