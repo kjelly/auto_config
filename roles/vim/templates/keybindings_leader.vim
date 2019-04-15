@@ -83,6 +83,7 @@ nnoremap <silent> <leader>te :tabedit %<cr>
 nnoremap <silent> <leader>qq :Bclose<cr>:q<cr>
 nnoremap <silent> <leader>qw :q<cr>
 nnoremap <silent> <leader>qb :Bclose<cr>
+nnoremap <silent> <leader>qa :qa!<cr>
 
 " State
 nnoremap <silent> <leader>sn :set nu!<cr>
