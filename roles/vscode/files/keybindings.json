@@ -79,6 +79,8 @@
     { "key": "alt+p", "command": "workbench.action.quickOpenPreviousEditor"},
     { "key": "alt+s", "command": "workbench.action.files.save"},
     { "key": "alt+a", "command": "extension.vim_escape", "when": "editorTextFocus && vim.active && !inDebugRepl" },
+
+    { "key": "alt+backspace", "command": "deleteWordLeft" },
     {
         "key": ";",
         "command": "extension.showCmdLine",
