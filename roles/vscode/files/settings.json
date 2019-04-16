@@ -39,5 +39,10 @@
     "python.linting.pylintArgs": ["--disable=C0111,C0103,C1801,C0325"],
     "files.hotExit": "off",
     "window.titleBarStyle": "custom",
-    "sync.askGistName": false
+    "sync.askGistName": false,
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/node_modules/*/**": true
+    }
 }
