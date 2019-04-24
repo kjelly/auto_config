@@ -199,10 +199,6 @@ nnoremap <silent> <leader>oc zM<CR>
 
 " Exit vim quickly
 nnoremap <Esc><Esc> :qa!
-inoremap <Esc><Esc> <Esc>:qa
-{% if nvim %}
-tnoremap <Esc><Esc> <c-\><c-n>:qa!
-{% endif %}
 
 {% if nvim %}
 function! DefaultTerminal()
