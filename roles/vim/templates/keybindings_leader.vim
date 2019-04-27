@@ -94,7 +94,7 @@ nnoremap <silent> <leader>ss :call ToggleStatusLine()<cr>
 nnoremap <silent> <leader>sl :IndentLinesToggle<cr>
 nnoremap <silent> <leader>si :source Session.vim<cr>
 nnoremap <silent> <leader>se :mksession!<cr>
-nnoremap <silent> <leader>sc :ColorToggle<cr>
+nnoremap <silent> <leader>sc :call ToggleForCopy()<cr>
 
 " Find file in NERDTree
 nnoremap <silent> <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>

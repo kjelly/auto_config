@@ -117,6 +117,18 @@ function! ToggleStatusLine()
     endif
 endfunc
 
+function! ToggleForCopy()
+    if &nu==0
+        set nu!
+        set signcolumn=yes
+        exec 'IndentLinesEnable'
+    else
+        set nu!
+        set signcolumn=no
+        exec 'IndentLinesDisable'
+    endif
+endfunc
+
 function! s:DiffWithSaved()
   let filetype=&ft
   diffthis
