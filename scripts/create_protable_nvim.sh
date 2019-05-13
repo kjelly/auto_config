@@ -21,6 +21,8 @@ cp `which htcat` ~/.config/nvim/bin
 cp `which golog` ~/.config/nvim/bin
 cp `which ergo` ~/.config/nvim/bin
 cp `which jscli` ~/.config/nvim/bin
+cp ~/auto_config/roles/mybin/files/hterm-copy.sh ~/.config/nvim/bin
+cp ~/auto_config/roles/mybin/files/hterm-notify.sh ~/.config/nvim/bin
 
 tar zcvf ~/nvim.tar.gz .config/nvim .fzf nvim
 
