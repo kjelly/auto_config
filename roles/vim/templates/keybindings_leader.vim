@@ -83,6 +83,7 @@ nnoremap <silent> <leader>te :tabedit %<cr>
 nnoremap <silent> <leader>qq :Bclose<cr>:q<cr>
 nnoremap <silent> <leader>qw :q<cr>
 nnoremap <silent> <leader>qb :Bclose<cr>
+nnoremap <silent> <leader>qt :tabclose<cr>
 nnoremap <silent> <leader>qa :qa!<cr>
 
 " State
@@ -144,7 +145,7 @@ nnoremap <silent> <leader>mg `.
 "nnoremap <leader>vb :Gina branch<cr>
 "nnoremap <leader>vv :Gina<space>
 
-autocmd FileType vimwiki nmap <leader><space> <Plug>VimwikiToggleListItem
+autocmd FileType vimwiki nmap <space><space> <Plug>VimwikiToggleListItem
 
 nnoremap <silent> <leader>wf :call fzf#vim#ag('', {'dir': '~/Dropbox/vimwiki/', 'down': '40%'})<cr>
 nnoremap <silent> <leader>wr :WinResizerStartResize<cr>
@@ -274,6 +275,7 @@ nnoremap <silent> <localleader>a :Ag<cr>
 nnoremap <silent> <localleader>c :C<space>
 nnoremap <silent> <localleader>g :ChooseWin<cr>
 nnoremap <silent> <localleader>n :NERDTreeToggle<cr>
+nnoremap <silent> <localleader>f :tabnew %<cr>
 nnoremap <silent> <localleader>h :wincmd h<cr>
 nnoremap <silent> <localleader>j :wincmd j<cr>
 nnoremap <silent> <localleader>k :wincmd k<cr>

@@ -893,6 +893,7 @@ if exists('*nvim_open_win')
 
     call nvim_open_win(buf, v:true, opts)
   endfunction
+  set wildoptions=pum
 endif
 
 silent! source ~/.vim_custom.vim
