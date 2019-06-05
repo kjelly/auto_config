@@ -1,0 +1,4 @@
+{
+    "mtu": 1450,
+    "insecure-registries": ["registry:5000", "registry:4000"]
+}
