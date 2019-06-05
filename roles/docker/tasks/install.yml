@@ -4,15 +4,18 @@
   apt: name=curl state=present
   become: true
 
+- name: add gpg key
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
 - name: update sources.list for docker
   lineinfile: dest=/etc/apt/sources.list regexp="deb https://apt.dockerproject.org/repo"
-              line="deb https://apt.dockerproject.org/repo ubuntu-{{ UBUNTU_VERSION }} main"
+              line="deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ UBUNTU_VERSION }} stable"
   become: true
 
-
-- name: install docker-engine
-  apt: update_cache=yes name="docker-engine" state=present force=yes
+- name: install docker-ce
+  apt: update_cache=yes name="docker-ce" state=present force=yes
   become: true
+
 
 - name: add user to docker group
   user: append=yes name={{ ansible_ssh_user }} groups=docker
