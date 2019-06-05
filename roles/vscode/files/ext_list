@@ -10,6 +10,7 @@ blzjns.vscode-raml
 christian-kohler.path-intellisense
 dkundel.vscode-new-file
 dragos.scala-lsp
+eamodio.gitlens
 eg2.tslint
 formulahendry.auto-close-tag
 formulahendry.auto-rename-tag
@@ -17,9 +18,9 @@ formulahendry.code-runner
 haaaad.ansible
 ionutvmi.path-autocomplete
 itryapitsin.Scala
-ms-vscode.Go
 magicstack.MagicPython
 ms-python.python
+ms-vscode.Go
 octref.vetur
 pranaygp.vscode-css-peek
 rafaelmaiolla.remote-vscode
