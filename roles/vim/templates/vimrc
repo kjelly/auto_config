@@ -898,3 +898,23 @@ endif
 
 silent! source ~/.vim_custom.vim
 silent! exec 'source' g:MYVIMRC_DIR . '/hterm-copy.vim'
+
+let g:clipboard = {
+      \ 'name': 'myClipboard',
+      \     'copy': {
+      \         '+': 'clipboard-provider copy',
+      \         '*': 'env COPY_PROVIDERS=tmux clipboard-provider copy',
+      \     },
+      \     'paste': {
+      \         '+': 'clipboard-provider paste',
+      \         '*': 'env COPY_PROVIDERS=tmux clipboard-provider paste',
+      \     },
+      \ }
+
+" Yank to tmux normally
+set clipboard=unnamed
+
+" Yank to system clipboard with Y
+nmap YY "+yy
+nmap Y "+y
+vmap Y "+y
