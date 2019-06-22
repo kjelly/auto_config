@@ -195,6 +195,8 @@ Plug 'chrisbra/Colorizer', { 'on': ['ColorToggle'] }
 
 " File manager
 Plug 'cocopon/vaffle.vim'
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+
 " Helper for netrw. I use vaffle. It will useless
 "Plug 'tpope/vim-vinegar'
 " This support rclone.
@@ -911,6 +913,52 @@ let g:clipboard = {
       \     },
       \ }
 
+" Define defxs mappings
+autocmd FileType defx do WinEnter | call s:defx_my_settings()
+function! s:defx_my_settings() abort
+    nnoremap <silent><buffer><expr> <CR>  defx#do_action('drop')
+    nnoremap <silent><buffer><expr> l     defx#do_action('drop')
+    nnoremap <silent><buffer><expr> s     defx#do_action('open', 'botright vsplit')
+    nnoremap <silent><buffer><expr> i     defx#do_action('open', 'topleft split')
+    nnoremap <silent><buffer><expr> st    defx#do_action('multi', [['drop', 'tabnew'], 'quit'])
+    nnoremap <silent><buffer><expr> sg    defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
+    nnoremap <silent><buffer><expr> sv    defx#do_action('multi', [['drop', 'split'], 'quit'])
+    nnoremap <silent><buffer><expr> P     defx#do_action('open', 'pedit')
+    nnoremap <silent><buffer><expr> K     defx#do_action('new_directory')
+    nnoremap <silent><buffer><expr> N     defx#do_action('new_multiple_files')
+    nnoremap <silent><buffer><expr> dd    defx#do_action('remove')
+    nnoremap <silent><buffer><expr> r     defx#do_action('rename')
+    nnoremap <silent><buffer><expr> x     defx#do_action('execute_system')
+    nnoremap <silent><buffer><expr> .     defx#do_action('toggle_ignored_files')
+    nnoremap <silent><buffer><expr> yy    defx#do_action('yank_path')
+    nnoremap <silent><buffer><expr> h     defx#do_action('cd', ['..'])
+    nnoremap <silent><buffer><expr> ~     defx#async_action('cd')
+    nnoremap <silent><buffer><expr> q     defx#do_action('quit')
+
+    nnoremap <silent><buffer><expr><nowait> \  defx#do_action('cd', getcwd())
+    nnoremap <silent><buffer><expr><nowait> c  defx#do_action('copy')
+    nnoremap <silent><buffer><expr><nowait> m  defx#do_action('move')
+    nnoremap <silent><buffer><expr><nowait> p  defx#do_action('paste')
+
+    nnoremap <silent><buffer><expr> '      defx#do_action('toggle_select') . 'j'
+    nnoremap <silent><buffer><expr> *      defx#do_action('toggle_select_all')
+    nnoremap <silent><buffer><expr> <C-r>  defx#do_action('redraw')
+    nnoremap <silent><buffer><expr> <C-g>  defx#do_action('print')
+
+    nnoremap <silent><buffer><expr> S  defx#do_action('toggle_sort', 'Time')
+    nnoremap <silent><buffer><expr> C
+      \ defx#do_action('toggle_columns', 'indent:mark:filename:type:size:time')
+
+    " Plugins
+    nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
+      \ ':<C-u>wincmd w<CR>' :
+      \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
+
+    nnoremap <silent><buffer><expr>gl  defx#do_action('call', 'DefxTmuxExplorer')
+    nnoremap <silent><buffer><expr>gp  defx#do_action('call', 'DefxDeniteGrep')
+    nnoremap <silent><buffer><expr>gf  defx#do_action('call', 'DefxDeniteFile')
+    nnoremap <silent><buffer><expr>w   defx#do_action('call', 'DefxToggleWidth')
+endfunction
 " Yank to tmux normally
 set clipboard=unnamed
 
