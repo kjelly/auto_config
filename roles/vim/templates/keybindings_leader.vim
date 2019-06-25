@@ -275,6 +275,7 @@ nnoremap <silent> <localleader>a :Ag<cr>
 nnoremap <silent> <localleader>c :C<space>
 nnoremap <silent> <localleader>g :ChooseWin<cr>
 nnoremap <silent> <localleader>n :NERDTreeToggle<cr>
+nnoremap <silent> <localleader>r :C !<cr>
 nnoremap <silent> <localleader>f :tabnew %<cr>
 nnoremap <silent> <localleader>h :wincmd h<cr>
 nnoremap <silent> <localleader>j :wincmd j<cr>
