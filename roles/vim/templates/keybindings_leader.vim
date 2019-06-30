@@ -68,6 +68,8 @@ function! NameTerminalBuffer(name)
 endfunction
 nnoremap <leader>tn :call NameTerminalBuffer('')<left><left>
 
+nmap <Leader>tr <Plug>(coc-translator-p)
+
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
