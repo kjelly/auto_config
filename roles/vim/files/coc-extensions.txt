@@ -1,0 +1,11 @@
+coc-calc
+coc-dictionary
+coc-emmet
+coc-json
+coc-lists
+coc-marketplace
+coc-post
+coc-pyls
+coc-snippets
+coc-translator
+coc-tsserver
