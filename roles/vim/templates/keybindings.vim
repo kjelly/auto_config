@@ -157,6 +157,10 @@ nnoremap <silent> S :<C-u>call EasyMotion#LineAnywhere(0, 2)<CR>
 nnoremap zz za
 nnoremap Q :qa<cr>
 
+" Exit vim quickly
+nnoremap <Esc><Esc> :qa!
+nnoremap <c-c> :qa!
+
 if exists('g:incsearch#_go_config')
   map /  <Plug>(incsearch-forward)\v
   map ?  <Plug>(incsearch-backward)\v
