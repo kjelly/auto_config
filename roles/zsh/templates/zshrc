@@ -86,6 +86,7 @@ setopt append_history no_inc_append_history no_share_history
 source ~/.local_zshrc
 export VIM_CONFIG="{{ HOME_PATH }}/.config/nvim/init.vim"
 setopt PROMPT_SUBST
+export CDPATH=.:~:~/nfs
 alias cd1='cd ..'
 alias cd2='cd ../..'
 alias cd3='cd ../../..'
