@@ -19,6 +19,10 @@ cnoremap <c-j> <Down>
 cnoremap <c-k> <Up>
 cnoremap <c-l> <Right>
 
+" For hterm in tab
+inoremap <c-j> <c-n>
+inoremap <c-k> <c-p>
+
 nnoremap <C-n> :NERDTreeTabsToggle<CR>
 nnoremap <C-t> :tabnew %<CR>
 inoremap <C-t> <Esc>:tabnew %<CR>
