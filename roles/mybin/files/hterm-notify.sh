@@ -4,6 +4,10 @@
 # found in the LICENSE file.
 # Write an error message and exit.
 # Usage: <message>
+if [ -z $HTERM_TTY ]
+then
+  HTERM_TTY=$(tty)
+fi
 die() {
   echo "ERROR: $*"
   exit 1
@@ -11,12 +15,12 @@ die() {
 # Send a DCS sequence through tmux.
 # Usage: <sequence>
 tmux_dcs() {
-  printf '\033Ptmux;\033%s\033\\' "$1"
+  printf '\033Ptmux;\033%s\033\\' "$1" > $HTERM_TTY
 }
 # Send a DCS sequence through screen.
 # Usage: <sequence>
 screen_dcs() {
-  printf '\033P\033%s\033\\' "$1"
+  printf '\033P\033%s\033\\' "$1" > $HTERM_TTY
 }
 # Send an escape sequence to hterm.
 # Usage: <sequence>
@@ -29,14 +33,21 @@ print_seq() {
     if [ -n "${TMUX-}" ]; then
       tmux_dcs "${seq}"
     else
-      screen_dcs "${seq}"
+      tmux_dcs "${seq}" > $HTERM_TTY
+      #screen_dcs "${seq}"
     fi
     ;;
   tmux*)
     tmux_dcs "${seq}"
     ;;
   *)
-    echo "${seq}"
+    if [ -z $HTERM_TTY ]
+    then
+      echo "${seq}"
+    else
+      tmux_dcs "${seq}"
+    fi
+
     ;;
   esac
 }

@@ -686,6 +686,7 @@ let g:python3_host_prog='{{ python3_exec.path }}'
 
 let $BROWSER='w3m'
 let $IN_VIM=1
+let $HTERM_TTY=substitute(system("tty < /proc/$PPID/fd/0"), '\n$', '', '')
 let g:AutoPairsFlyMode = 1
 let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsShortcutFastWrap = ''
