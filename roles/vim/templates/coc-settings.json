@@ -14,6 +14,11 @@
         "diagnosticsEnabled": true,
         "lintTool": "golint"
       }
+    },
+    "metals": {
+      "command": "metals-vim",
+      "rootPatterns": ["build.sbt"],
+      "filetypes": ["scala", "sbt"]
     }
   }
 }
