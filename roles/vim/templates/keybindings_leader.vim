@@ -275,13 +275,14 @@ nnoremap <silent> <localleader>a :Ag<cr>
 nnoremap <silent> <localleader>c :C<space>
 nnoremap <silent> <localleader>g :ChooseWin<cr>
 nnoremap <silent> <localleader>n :NERDTreeToggle<cr>
-nnoremap <silent> <localleader>f :tabnew %<cr>
+nnoremap <silent> <localleader>f :call CreateFloating()<cr>
+nnoremap <silent> <localleader>t :tabnew %<cr>
 nnoremap <silent> <localleader>h :wincmd h<cr>
 nnoremap <silent> <localleader>j :wincmd j<cr>
 nnoremap <silent> <localleader>k :wincmd k<cr>
 nnoremap <silent> <localleader>l :wincmd l<cr>
 nnoremap <silent> <localleader>rr :C !!<cr>
-nnoremap <silent> <localleader>rd :C !<cr>
+nnoremap <silent> <localleader>rd :C ./debug.sh<cr>
 nnoremap <silent> <localleader>rl :C !<cr>
 
 
