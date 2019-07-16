@@ -47,7 +47,7 @@ nnoremap <silent> <leader>sh :noh<cr>
 nnoremap <leader>cd :Pushd %:p:h<cr>:pwd<cr>
 
 nnoremap <silent> <leader>fx :Explore<space>
-nnoremap <silent> <leader>fr :Explore scp://
+nnoremap <leader>fr :Explore scp://
 nnoremap <silent> <leader>fb :Rexplore<CR>
 nnoremap <silent> <leader>ft :NERDTreeToggle<CR>
 nnoremap <silent> <leader>fv :Vaffle<CR>
