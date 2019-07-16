@@ -202,9 +202,10 @@ Plug 'metakirby5/codi.vim'
 Plug 'chrisbra/Colorizer', { 'on': ['ColorToggle'] }
 
 " File manager
-Plug 'cocopon/vaffle.vim'
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 
+" Disable vaffle.newrw support remote edit but vaffle not.
+"Plug 'cocopon/vaffle.vim'
 " Helper for netrw. I use vaffle. It will useless
 "Plug 'tpope/vim-vinegar'
 " This support rclone.
