@@ -257,9 +257,9 @@ nnoremap <A-u> :C g w3m<cr>
 tnoremap <A-u> <C-\><C-n>:C g w3m<cr>
 
 " buufer switch
-nnoremap <A-b> <c-^>
-inoremap <A-b> <Esc><c-^>a
-tnoremap <A-b> <C-\><C-n><c-^>a
+nnoremap <A-c> <c-^>
+inoremap <A-c> <Esc><c-^>a
+tnoremap <A-c> <C-\><C-n><c-^>a
 
 " save
 nnoremap <A-s> :w<cr>
