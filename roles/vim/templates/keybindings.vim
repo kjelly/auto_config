@@ -261,10 +261,6 @@ nnoremap <A-b> <c-^>
 inoremap <A-b> <Esc><c-^>a
 tnoremap <A-b> <C-\><C-n><c-^>a
 
-nnoremap <A-d> :Denite devdocs<cr>
-inoremap <A-d> <Esc>:Denite devdocs<cr>
-tnoremap <A-d> <C-\><C-n>:Denite devdocs<cr>
-
 " save
 nnoremap <A-s> :w<cr>
 inoremap <A-s> <Esc>:w<cr>

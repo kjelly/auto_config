@@ -316,7 +316,6 @@ Plug 'scrooloose/nerdcommenter'
 " Useful for handling tag
 Plug 'tpope/vim-surround'
 Plug 'Shougo/denite.nvim'
-"Plug 'iamcco/devdocs.nvim', { 'do': 'npm install' }
 
 "Plug 'myusuf3/numbers.vim'
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle']}
@@ -327,7 +326,9 @@ Plug 'kshenoy/vim-signature'
 "Plug 'Shougo/vimproc.vim'
 "Plug 'Shougo/vimshell.vim'
 Plug 'Chiel92/vim-autoformat'
-Plug 'rhysd/devdocs.vim', { 'on': 'DevDocsUnderCursor'}
+
+"Plug 'iamcco/devdocs.nvim', { 'do': 'npm install' }
+"Plug 'rhysd/devdocs.vim', { 'on': 'DevDocsUnderCursor'}
 
 {% if nvim %}
 
