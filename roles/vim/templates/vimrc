@@ -137,6 +137,14 @@ function! s:DiffWithSaved()
   exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
 
+function! Ssh(cmd, hosts)
+  for i in a:hosts
+    execute "enew"
+    execute "read !ssh " . i . ' ' . a:cmd
+    execute 'file ssh-' . i . '-' . a:cmd
+  endfor
+endfunction
+
 if has('gui_running')
     set background=light
 else

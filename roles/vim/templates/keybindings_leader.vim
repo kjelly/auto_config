@@ -186,6 +186,7 @@ nnoremap <silent> <leader>rf :TestFile<cr>
 nnoremap <silent> <leader>rr :History:<cr>
 nnoremap <silent> <leader>rd :C ./debug.sh<cr>
 nnoremap <silent> <leader>rl :C !l<cr>
+nnoremap <leader>rh :call Ssh('',[])<left><left><left><left><left>
 
 nnoremap <silent> <leader>o0 :set foldlevel=0<CR>
 nnoremap <silent> <leader>o1 :set foldlevel=1<CR>
