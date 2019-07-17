@@ -9,10 +9,10 @@ vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
 " Smart way to move between windows
-nnoremap <C-h> <C-W>h
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-l> <C-W>l
+"nnoremap <C-h> <C-W>h
+"nnoremap <C-j> <C-W>j
+"nnoremap <C-k> <C-W>k
+"nnoremap <C-l> <C-W>l
 
 cnoremap <c-h> <Left>
 cnoremap <c-j> <Down>
@@ -20,8 +20,14 @@ cnoremap <c-k> <Up>
 cnoremap <c-l> <Right>
 
 " For hterm in tab
-inoremap <c-j> <c-n>
-inoremap <c-k> <c-p>
+inoremap <c-h> <Left>
+inoremap <c-j> <Down>
+inoremap <c-k> <Up>
+inoremap <c-l> <Right>
+tnoremap <c-h> <Left>
+tnoremap <c-j> <Down>
+tnoremap <c-k> <Up>
+tnoremap <c-l> <Right>
 
 nnoremap <C-n> :NERDTreeTabsToggle<CR>
 nnoremap <C-t> :tabnew %<CR>
