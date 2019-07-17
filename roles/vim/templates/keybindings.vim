@@ -8,11 +8,10 @@ vnoremap / /\v
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
-" Smart way to move between windows
-"nnoremap <C-h> <C-W>h
-"nnoremap <C-j> <C-W>j
-"nnoremap <C-k> <C-W>k
-"nnoremap <C-l> <C-W>l
+nnoremap <C-h> <Home>
+nnoremap <C-j> <PageDown>
+nnoremap <C-k> <PageUp>
+nnoremap <C-l> <End>
 
 cnoremap <c-h> <Left>
 cnoremap <c-j> <Down>
