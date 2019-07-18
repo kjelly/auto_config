@@ -100,6 +100,10 @@ nmap  -  <Plug>(choosewin)
 nnoremap <leader>et :tabnew<cr>:read !grep # -P -e<space>
 {% if nvim %}
 
+inoremap <a-;> <backspace>
+cnoremap <a-;> <backspace>
+tnoremap <a-;> <backspace>
+
 cnoremap <A-h> <Left>
 cnoremap <A-j> <Down>
 cnoremap <A-k> <Up>
