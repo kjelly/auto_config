@@ -46,7 +46,7 @@ nnoremap <silent> <leader>sh :noh<cr>
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :Pushd %:p:h<cr>:pwd<cr>
 
-nnoremap <silent> <leader>fx :Explore<space>
+nnoremap <leader>fx :Explore<space>
 nnoremap <leader>fr :Explore scp://
 nnoremap <silent> <leader>fb :Rexplore<CR>
 nnoremap <silent> <leader>ft :NERDTreeToggle<CR>
@@ -101,7 +101,7 @@ nnoremap <silent> <leader>sc :call ToggleForCopy()<cr>
 
 " Find file in NERDTree
 nnoremap <silent> <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
-nnoremap <silent> <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
+nnoremap <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
 nnoremap <silent> <leader>ed :Explore <c-r>=expand("%:p:h")<cr><cr>
 nnoremap <silent> <leader>fi :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
 
@@ -162,11 +162,11 @@ nnoremap <silent> <leader>wl :wincmd l<cr>
 nnoremap <silent> <leader>eu :UndotreeToggle<cr>
 nnoremap <silent> <leader>es :e $MYVIMRC<cr>
 nnoremap <silent> <leader>er :registers<cr>
-nnoremap <silent> <leader>ef :set filetype=
+nnoremap <leader>ef :set filetype=
 nnoremap <silent> <leader>eg :Grepper<cr>
 nnoremap <silent> <leader>el :e ~/.vim_custom.vim<cr>
 nnoremap <silent> <leader>ej ::%!jq '.'<cr>
-nnoremap <silent> <leader>ee :terminal<space>
+nnoremap <leader>ee :terminal<space>
 cnoremap <silent> <c-e> <Esc>:History:<cr>
 
 nnoremap <silent> <leader>en :echo getcwd()<cr>
@@ -256,10 +256,10 @@ nnoremap <silent> <leader>ltf :TestFile<cr>
 nnoremap <silent> <leader>ltn :TestNearest<cr>
 nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
-nnoremap <silent> <leader>lc :C curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
-nnoremap <silent> <leader>ldg :C ddgr <c-r>=&filetype<cr><space>
-nnoremap <silent> <leader>lg :C w w3m, w3m -no-cookie 'https://www.google.com/search?q=<c-r>=&filetype<cr> '<left>
-nnoremap <silent> <leader>lh :C k how2, how2 -l <c-r>=&filetype<cr><space>
+nnoremap <leader>lc :C curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
+nnoremap <leader>ldg :C ddgr <c-r>=&filetype<cr><space>
+nnoremap <leader>lg :C w w3m, w3m -no-cookie 'https://www.google.com/search?q=<c-r>=&filetype<cr> '<left>
+nnoremap <leader>lh :C k how2, how2 -l <c-r>=&filetype<cr><space>
 nnoremap <silent> <leader>lb :C brow<cr>
 
 nnoremap <silent> <leader>lel :LeetCodeList<cr>
@@ -273,7 +273,7 @@ nnoremap <silent> <localleader>b :b#<cr>
 nnoremap <silent> <localleader>q :q!<cr>
 nnoremap <silent> <localleader>s :w<cr>
 nnoremap <silent> <localleader>a :Ag<cr>
-nnoremap <silent> <localleader>c :C<space>
+nnoremap <localleader>c :C<space>
 nnoremap <silent> <localleader>g :ChooseWin<cr>
 nnoremap <silent> <localleader>n :NERDTreeToggle<cr>
 nnoremap <silent> <localleader>f :call CreateFloating()<cr>
@@ -285,5 +285,4 @@ nnoremap <silent> <localleader>l :wincmd l<cr>
 nnoremap <silent> <localleader>rr :C !!<cr>
 nnoremap <silent> <localleader>rd :C ./debug.sh<cr>
 nnoremap <silent> <localleader>rl :C !<cr>
-
 
