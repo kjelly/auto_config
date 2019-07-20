@@ -88,8 +88,6 @@ tnoremap <Esc> <C-\><C-n>
 vnoremap > >gv
 vnoremap < <gv
 
-nnoremap ! :!
-
 " Copy to clipboard (this is for wsl)
 vnoremap <C-c> y:new ~/.vimbuffer<CR>VGp:x<CR> \| :!cat ~/.vimbuffer \| clip.exe <CR><CR>
 
