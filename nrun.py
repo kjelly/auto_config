@@ -72,7 +72,8 @@ def main():
     data['playbook'] = f.name
 
     cmd = ((sudo + '''ansible-playbook -i "{inventory}" '''
-            '''"{playbook}" -e action="{action}" '''
+            '''"{playbook}" -e ansible_user="{user}" -e group="{group}" '''
+            '''-e remote_host="{remote_host}" -e action="{action}" '''
             ''' -vvvv ''').format(**data) + ' '.join(unknown))
     print(cmd)
     os.system(cmd)
