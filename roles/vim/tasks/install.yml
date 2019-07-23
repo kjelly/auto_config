@@ -47,10 +47,6 @@
        dest=~/.powerline
        depth=1
 
-- git: repo=https://github.com/SpaceVim/SpaceVim
-       dest=~/SpaceVim
-  when: programming == true
-
 - name: download vim-plug
   get_url: url=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim dest=/tmp/plug.vim
 
@@ -64,11 +60,6 @@
     - "~/.vim/autoload/plug.vim"
     - "~/.config/nvim/autoload/plug.vim"
 
-- name: clone evervim
-  git: repo=https://github.com/LER0ever/EverVim
-       dest="~/EverVim" depth=1 force=yes
-  when: programming == true
-
 - name: download ripgrep.tar.gz
   get_url: url={{ ripgrep_url }} dest=/tmp/ripgrep.tar.gz
 
@@ -79,4 +70,4 @@
 
 - copy: src='dict.sh' dest='~/.config/nvim/bin' mode=0755
 
-- copy: src="/tmp/ripgrep-0.9.0-x86_64-unknown-linux-musl/rg" dest="~/.config/nvim/bin" mode=0555
+- shell: cp /tmp/ripgrep-*/rg ~/.config/nvim/bin

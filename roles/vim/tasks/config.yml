@@ -9,12 +9,6 @@
     - set_fact: nvim=true
     - file: path="~/.config/nvim" state=directory
     - template: src="vimrc" dest="~/.config/nvim/init.vim"
-    - file: path="~/.SpaceVim.d/" state=directory mode=0755
-    - template: src="keybindings.vim" dest="~/.SpaceVim.d/keybindings.vim" mode=0755
-    - template: src="spacevim_custom.vim" dest="~/.SpaceVim.d/spacevim_custom.vim" mode=0755
-    - file: path="~/.EverVim" state=directory recurse=yes
-    - file: path="~/.EverVim/bundle" state=directory recurse=yes
-    - template: src=evervim_init.vim dest=~/.EverVim/init.vim
     - template: src=hterm-copy.vim dest=~/.config/nvim/hterm-copy.vim
     - template: src=hterm-copy.vim dest=~/.vim/hterm-copy.vim
     - template: src=coc-settings.json dest=~/.config/nvim/coc-settings.json
@@ -26,8 +20,6 @@
 
 - template: src="myvi" dest="~/bin/myvi" mode=0755
 - template: src="vit" dest="~/bin/vit" mode=0755
-- copy: src="spacevim" dest="~/bin/spacevim" mode=0755
-- copy: src="evervim" dest="~/bin/evervim" mode=0755
 - copy: src="navim" dest="~/bin/navim" mode=0755
 - template: src="vim" dest="~/bin/vim" mode=0755
 - template: src="vimt" dest="~/bin/vimt" mode=0755
@@ -86,11 +78,6 @@
 
 - template: src=devdocsrc.json dest=~/.devdocsrc
   when: not devdocsrc.stat.exists
-
-- lineinfile: dest="~/.SpaceVim.d/init.vim" line="source ~/.SpaceVim.d/keybindings.vim"
-  ignore_errors: yes
-- lineinfile: dest="~/.SpaceVim.d/init.vim" line="source ~/.SpaceVim.d/spacevim_custom.vim"
-  ignore_errors: yes
 
 - lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_username" line="let g:leetcode_username=''"
   ignore_errors: yes
