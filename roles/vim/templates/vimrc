@@ -312,7 +312,7 @@ Plug 'majutsushi/tagbar', { 'on':  ['Tagbar'] }
 " emmet `<c-y>,` for expand `div>a` to `<div><a></a></div>
 Plug 'mattn/emmet-vim'
 Plug 'w0rp/ale', { 'for': 'go'}
-Plug 'scrooloose/nerdcommenter'
+Plug 'tomtom/tcomment_vim'
 " Useful for handling tag
 Plug 'tpope/vim-surround'
 Plug 'Shougo/denite.nvim'
