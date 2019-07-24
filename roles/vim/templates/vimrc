@@ -859,7 +859,9 @@ let NERDTreeDirArrowCollapsible = "-"
 silent! call which_key#register(',', "g:which_key_map")
 if exists('*which_key#register')
   nnoremap <silent> <leader> :<c-u>WhichKey  ','<CR>
+  vnoremap <silent> <leader> :<c-u>WhichKey  ','<CR>
   nnoremap <silent> <localleader>      :<c-u>WhichKey '<Space>'<CR>
+  vnoremap <silent> <localleader>      :<c-u>WhichKey '<Space>'<CR>
 endif
 
 {% if nvim %}
