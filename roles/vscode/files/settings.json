@@ -19,7 +19,7 @@
     "sync.host": "",
     "sync.pathPrefix": "",
     "vim.enableNeovim": true,
-    "vim.neovimPath": "nvim",
+    "vim.neovimPath": "/usr/bin/nvim",
 
     "vim.easymotion": true,
     "vim.incsearch": true,
