@@ -49,8 +49,9 @@ inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
-" Find file/buffer
+" Find file
 nnoremap <C-p> :Files<cr>
+vnoremap <c-p> "ry:<c-u>Rg <c-r>r<cr>
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)

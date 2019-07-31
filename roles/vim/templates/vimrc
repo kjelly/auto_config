@@ -601,6 +601,9 @@ let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 if executable("ag") == 1
   let $FZF_DEFAULT_COMMAND='ag -g ""'
 endif
+if executable('rg')
+    let &grepprg = "rg --vimgrep"
+endif
 
 let base_wiki = {}
 let base_wiki.path = '~/Dropbox/vimwiki'
