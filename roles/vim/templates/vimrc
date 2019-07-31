@@ -186,6 +186,7 @@ Plug 'gagoar/stripwhitespaces'
 Plug 'terryma/vim-expand-region'
 Plug 'itchyny/lightline.vim'
 Plug 'easymotion/vim-easymotion'
+Plug 'unblevable/quick-scope'
 Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
 Plug 'haya14busa/incsearch.vim'
