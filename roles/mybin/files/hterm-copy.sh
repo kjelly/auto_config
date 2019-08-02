@@ -7,10 +7,6 @@
 OSC_52_MAX_SEQUENCE="100000"
 # Write an error message and exit.
 # Usage: <message>
-if [ -z $HTERM_TTY ]
-then
-  HTERM_TTY=$(tty)
-fi
 die() {
   echo "ERROR: $*"
   exit 1
@@ -18,7 +14,12 @@ die() {
 # Send a DCS sequence through tmux.
 # Usage: <sequence>
 tmux_dcs() {
-  printf '\033Ptmux;\033%s\033\\' "$1" > $HTERM_TTY
+  if [ -z "$HTERM_TTY" ]
+  then
+    printf '\033Ptmux;\033%s\033\\' "$1"
+  else
+    printf '\033Ptmux;\033%s\033\\' "$1" > $HTERM_TTY
+  fi
 }
 # Send a DCS sequence through screen.
 # Usage: <sequence>
@@ -75,7 +76,13 @@ copy() {
   fi
   local len=${#str}
   if [ ${len} -lt ${OSC_52_MAX_SEQUENCE} ]; then
-    print_seq "$(printf '\033]52;c;%s\a' "${str}")" > $HTERM_TTY
+
+    if [ -z "$HTERM_TTY" ];then
+      print_seq "$(printf '\033]52;c;%s\a' "${str}")"
+    else
+      print_seq "$(printf '\033]52;c;%s\a' "${str}")" > $HTERM_TTY
+    fi
+
   else
     die "selection too long to send to terminal:" \
       "${OSC_52_MAX_SEQUENCE} limit, ${len} attempted"
