@@ -201,6 +201,7 @@ Plug 't9md/vim-choosewin'
 Plug 'john-nanney/pushd.vim'
 Plug 'metakirby5/codi.vim'
 Plug 'chrisbra/Colorizer', { 'on': ['ColorToggle'] }
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 " File manager
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -257,28 +258,27 @@ Plug 'kaicataldo/material.vim'
 
 
 " Lang
-Plug 'dag/vim-fish'
-Plug 'ekalinin/Dockerfile.vim'
-Plug 'hashivim/vim-vagrant'
+"Plug 'dag/vim-fish'
+"Plug 'ekalinin/Dockerfile.vim'
 "Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
-{% if not programming %}"{% endif %}Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
-{% if not programming %}"{% endif %}Plug 'fatih/vim-go', { 'for': 'go' }
-{% if not programming %}"{% endif %}Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-{% if not programming %}"{% endif %}Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-{% if not programming %}"{% endif %}Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
-{% if not programming %}"{% endif %}Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-{% if not programming %}"{% endif %}Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' } " typescript
-{% if not programming %}"{% endif %}Plug 'Glench/Vim-Jinja2-Syntax'
-
+"Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
+"Plug 'fatih/vim-go', { 'for': 'go' }
+"Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+"Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+"Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' } " typescript
+"Plug 'Glench/Vim-Jinja2-Syntax'
 "Plug 'derekwyatt/vim-scala'
 "Plug 'mxw/vim-jsx'
-"Plug 'ya790206/vim-mecury-lang'
+"Plug 'kjelly/vim-mecury-lang'
 "Plug 'rust-lang/rust.vim'
 "Plug 'racer-rust/vim-racer'
 "Plug 'udalov/kotlin-vim'
 "Plug 'dart-lang/dart-vim-plugin'
 "Plug 'keith/swift.vim'
 "Plug 'gre/play2vim'
+Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
+Plug 'hashivim/vim-vagrant'
+Plug 'sheerun/vim-polyglot'
 
 
 "Plug 'vim-scripts/OmniCppComplete'
@@ -859,6 +859,7 @@ let g:indentLine_bufNameExclude= ['*.md']
 
 let NERDTreeDirArrowExpandable = "+"
 let NERDTreeDirArrowCollapsible = "-"
+let g:polyglot_disabled = ['ansible']
 
 silent! call which_key#register(',', "g:which_key_map")
 if exists('*which_key#register')
