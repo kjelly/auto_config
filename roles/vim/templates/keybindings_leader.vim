@@ -88,7 +88,7 @@ nnoremap <silent> <leader>qb :Bclose<cr>
 nnoremap <silent> <leader>qt :tabclose<cr>
 nnoremap <silent> <leader>qa :qa!<cr>
 
-" State
+" State / Switch
 nnoremap <silent> <leader>sn :set nu!<cr>
 nnoremap <silent> <leader>sw :set wrap!<cr>
 nnoremap <silent> <leader>sp :set paste!<cr>
@@ -98,6 +98,7 @@ nnoremap <silent> <leader>sl :IndentLinesToggle<cr>
 nnoremap <silent> <leader>si :source Session.vim<cr>
 nnoremap <silent> <leader>se :mksession!<cr>
 nnoremap <silent> <leader>sc :call ToggleForCopy()<cr>
+nnoremap <silent> <leader>st :Switch<cr>
 
 " Find file in NERDTree
 nnoremap <silent> <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>

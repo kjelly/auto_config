@@ -173,6 +173,7 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'junegunn/vim-peekaboo'
 "Autojump to 1st non-blank when j/k into leading spaces.
 Plug 'fcpg/vim-shore'
+Plug 'AndrewRadev/switch.vim'
 
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
 "Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
@@ -860,6 +861,21 @@ let g:indentLine_bufNameExclude= ['*.md']
 let NERDTreeDirArrowExpandable = "+"
 let NERDTreeDirArrowCollapsible = "-"
 let g:polyglot_disabled = ['ansible']
+
+let g:switch_mapping = ""
+let g:switch_custom_definitions =
+    \ [
+    \   ['yes', 'no'],
+    \   ['Yes', 'No'],
+    \   ['YES', 'NO'],
+    \   ['True', 'False'],
+    \   ['TRUE', 'FALSE'],
+    \   ['on', 'off'],
+    \   ['On', 'Off'],
+    \   ['ON', 'OFF'],
+    \   ['[ ]', '[x]'],
+    \   ['TODO', 'WORKING','DONE'],
+    \ ]
 
 silent! call which_key#register(',', "g:which_key_map")
 if exists('*which_key#register')
