@@ -203,6 +203,7 @@ Plug 'john-nanney/pushd.vim'
 Plug 'metakirby5/codi.vim'
 Plug 'chrisbra/Colorizer', { 'on': ['ColorToggle'] }
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'thaerkh/vim-workspace'
 
 " File manager
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -876,6 +877,8 @@ let g:switch_custom_definitions =
     \   ['[ ]', '[x]'],
     \   ['TODO', 'WORKING','DONE'],
     \ ]
+
+let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 
 silent! call which_key#register(',', "g:which_key_map")
 if exists('*which_key#register')
