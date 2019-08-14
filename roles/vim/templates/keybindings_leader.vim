@@ -151,6 +151,7 @@ nnoremap <silent> <leader>mg `.
 autocmd FileType vimwiki nmap <space><space> <Plug>VimwikiToggleListItem
 
 nnoremap <silent> <leader>wf :call fzf#vim#ag('', {'dir': '~/Dropbox/vimwiki/', 'down': '40%'})<cr>
+nnoremap <silent> <leader>wt :ToggleWorkspace<CR>
 nnoremap <silent> <leader>wr :WinResizerStartResize<cr>
 nnoremap <silent> <leader>wm :WinResizerStartMove<cr>
 nnoremap <silent> <leader>wf :WinResizerStartFocus<cr>
