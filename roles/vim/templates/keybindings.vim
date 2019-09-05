@@ -3,6 +3,10 @@
 nnoremap / /\v
 vnoremap / /\v
 
+inoremap <S-Tab> <Esc><<i
+nnoremap <S-Tab> <<
+nnoremap <Tab> >>
+
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :call VisualSelection('f')<CR>
