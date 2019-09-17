@@ -260,8 +260,7 @@ nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
 nnoremap <leader>lc :C curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
 nnoremap <leader>ldg :C ddgr <c-r>=&filetype<cr><space>
-nnoremap <leader>lg :C w w3m, w3m -no-cookie 'https://www.google.com/search?q=<c-r>=&filetype<cr> '<left>
-nnoremap <leader>lh :C k how2, how2 -l <c-r>=&filetype<cr><space>
+nnoremap <leader>lg :C w w3m, w3m -no-cookie 'https://www.startpage.com/search?q=<c-r>=&filetype<cr> '<left>
 nnoremap <silent> <leader>lb :C brow<cr>
 
 nnoremap <silent> <leader>lel :LeetCodeList<cr>
