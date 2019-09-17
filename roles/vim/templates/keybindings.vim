@@ -303,8 +303,14 @@ tnoremap <silent> <A-e>  <C-\><C-n>:resize -1000<cr>a
 tnoremap <A-v> <C-\><C-n>pi
 inoremap <A-v> <Esc>pi
 
-inoremap <A-r><A-r> <Esc>:C ./debug.sh <cr>a
-inoremap <A-r>r <Esc>:C ! <cr>a
+nnoremap <A-r>r :<up><cr>
+inoremap <A-r>r <Esc>:<up><cr>r
+tnoremap <A-r>r <c-\><c-r>:<up><cr>i
+
+nnoremap <A-r><A-r> :C ./debug.sh <cr>
+inoremap <A-r><A-r> <Esc>:C ./debug.sh <cr>
+tnoremap <A-r><A-r> <c-\><c-n>:C ./debug.sh <cr>i
+
 inoremap <A-r>1 <Esc>:C r1<cr>a
 inoremap <A-r>2 <Esc>:C r2<cr>a
 inoremap <A-r>3 <Esc>:C r3<cr>a
