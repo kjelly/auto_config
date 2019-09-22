@@ -303,38 +303,9 @@ tnoremap <silent> <A-e>  <C-\><C-n>:resize -1000<cr>a
 tnoremap <A-v> <C-\><C-n>pi
 inoremap <A-v> <Esc>pi
 
-nnoremap <A-r>r :<up><cr>
-inoremap <A-r>r <Esc>:<up><cr>r
-tnoremap <A-r>r <c-\><c-r>:<up><cr>i
-
-nnoremap <A-r><A-r> :C ./debug.sh <cr>
-inoremap <A-r><A-r> <Esc>:C ./debug.sh <cr>
-tnoremap <A-r><A-r> <c-\><c-n>:C ./debug.sh <cr>i
-
-inoremap <A-r>1 <Esc>:C r1<cr>a
-inoremap <A-r>2 <Esc>:C r2<cr>a
-inoremap <A-r>3 <Esc>:C r3<cr>a
-inoremap <A-r>4 <Esc>:C r4<cr>a
-inoremap <A-r>5 <Esc>:C r5<cr>a
-inoremap <A-r>6 <Esc>:C r6<cr>a
-inoremap <A-r>7 <Esc>:C r7<cr>a
-inoremap <A-r>8 <Esc>:C r8<cr>a
-inoremap <A-r>9 <Esc>:C r9<cr>a
-inoremap <A-r>0 <Esc>:C r0<cr>a
-
-nnoremap <A-r><A-r> :C ./debug.sh <cr>
-nnoremap <A-r>r <Esc>:C ! <cr>a
-nnoremap <A-r>r <Esc>:C !<cr>
-nnoremap <A-r>1 <Esc>:C r1<cr>
-nnoremap <A-r>2 <Esc>:C r2<cr>
-nnoremap <A-r>3 <Esc>:C r3<cr>
-nnoremap <A-r>4 <Esc>:C r4<cr>
-nnoremap <A-r>5 <Esc>:C r5<cr>
-nnoremap <A-r>6 <Esc>:C r6<cr>
-nnoremap <A-r>7 <Esc>:C r7<cr>
-nnoremap <A-r>8 <Esc>:C r8<cr>
-nnoremap <A-r>9 <Esc>:C r9<cr>
-nnoremap <A-r>0 <Esc>:C r0<cr>
+nnoremap <A-r> :C ./debug.sh <cr>
+inoremap <A-r> <Esc>:C ./debug.sh <cr>
+tnoremap <A-r> <c-\><c-n>:C ./debug.sh <cr>i
 
 " Tab navigate
 nnoremap <A-,> gT
