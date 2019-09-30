@@ -1,3 +1,12 @@
+"bash like keybinding
+" <c-a> for <home>, <c-e> for <end>
+" <c-d> for <delete>,
+" <c-h> will be overrided for <left>
+inoremap <c-a> <home>
+inoremap <c-e> <end>
+inoremap <c-d> <delete>
+inoremap <c-;> <delete>
+
 " Use normal regex
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
