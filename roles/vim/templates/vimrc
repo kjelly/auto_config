@@ -243,7 +243,6 @@ Plug 'lambdalisue/suda.vim'
 " sudo pip3 install requests beautifulsoup4
 Plug 'iandingx/leetcode.vim'
 
-
 " colorscheme
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
@@ -404,9 +403,10 @@ else
       \ 'whitelist': ['*'],
       \ 'blacklist': ['go'],
       \ 'completor': function('asyncomplete#sources#buffer#completor'),
+      \ 'config': {
+      \    'max_buffer_size': 1000000,
+      \  },
       \ }))
-
-
 endif
 
 Plug 'Shougo/neco-vim'
