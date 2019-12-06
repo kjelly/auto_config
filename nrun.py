@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 import argparse
 import getpass
 import json
@@ -59,7 +59,7 @@ def main():
     if select.select([sys.stdin, ], [], [], 0.0)[0]:
         stdin_data = json.loads(sys.stdin.read())
     else:
-        stdin_data = ''
+        stdin_data = {}
     data.update(stdin_data)
 
     template = get_template()
@@ -74,7 +74,7 @@ def main():
     cmd = ((sudo + '''ansible-playbook -i "{inventory}" '''
             '''"{playbook}" -e ansible_user="{user}" -e group="{group}" '''
             '''-e remote_host="{remote_host}" -e action="{action}" '''
-            ''' -vvvv ''').format(**data) + ' '.join(unknown))
+            ''' ''').format(**data) + ' '.join(unknown))
     print(cmd)
     os.system(cmd)
     os.system('rm -f %s' % f.name)
