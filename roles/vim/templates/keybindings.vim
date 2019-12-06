@@ -273,9 +273,9 @@ inoremap <A-i> <Esc>:Ag<cr>
 nnoremap <A-i> :Ag<cr>
 tnoremap <A-i> <C-\><C-n>:Ag<cr>
 
-inoremap <A-u> <Esc>:C g w3m<cr>
-nnoremap <A-u> :C g w3m<cr>
-tnoremap <A-u> <C-\><C-n>:C g w3m<cr>
+inoremap <A-u> <Esc>:History:<cr>
+nnoremap <A-u> :History:<cr>
+tnoremap <A-u> <C-\><C-n>:History:<cr>
 
 " buufer switch
 nnoremap <A-d> <c-^>
