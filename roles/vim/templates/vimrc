@@ -969,6 +969,10 @@ let g:clipboard = {
       \     },
       \ }
 
+let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-json',
+      \  'coc-post', 'coc-marketplace', 'coc-post','coc-pyls','coc-snippets',
+      \  'coc-translator','coc-tsserver','coc-tabnine','coc-rls','coc-todolist','coc-explorer' ]
+
 " Define defxs mappings
 autocmd FileType defx do WinEnter | call s:defx_my_settings()
 function! s:defx_my_settings() abort
