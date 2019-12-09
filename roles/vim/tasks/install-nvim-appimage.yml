@@ -1,7 +1,7 @@
 ---
 - name: Download appimage
   get_url:
-    url=https://github.com/neovim/neovim/releases/download/{{ nvim_version }}/nvim.appimage
+    url=https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
     dest=/opt/nvim.appimage
     mode=0755
   become: yes
@@ -29,5 +29,5 @@
   become: yes
 
 - name: link nvim
-  file: path=/usr/local/bin/nvim src=/opt/neovim/AppRun state=link
+  file: path=/usr/bin/nvim src=/opt/neovim/AppRun state=link
   become: yes

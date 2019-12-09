@@ -5,17 +5,10 @@
     validate_certs: no
   become: yes
 
-- apt_repository:
-    repo: 'ppa:neovim-ppa/stable'
-    state: present
-    validate_certs: no
-  become: yes
-
 - name: Install packages
   apt: name={{ item }} state=present
   with_items:
    - vim
-   - neovim
    - libncurses5-dev
    - libncursesw5-dev
    - exuberant-ctags
@@ -39,7 +32,6 @@
 - name: Install vim package
   apt: name={{ item }} state=present
   with_items:
-   - neovim
    - gawk
    - exuberant-ctags
    - ruby
@@ -47,3 +39,5 @@
    - "silversearcher-ag"
   become: true
   when: programming == false
+
+- include: "install-nvim-appimage.yml"
