@@ -92,6 +92,7 @@
 
 - name: clone fzf
   git: repo=https://github.com/junegunn/fzf dest=~/.fzf
+  ignore_errors: yes
 
 - name: install fzf
   shell: ~/.fzf/install --all
