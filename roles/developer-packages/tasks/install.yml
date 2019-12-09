@@ -37,3 +37,9 @@
 
 - name: unarchive golang
   unarchive: src="~/golang.tar.gz" dest="~"
+
+- name: download flutter
+  get_url: url="{{ flutter_download_url }}" dest="~/flutter.tar.xz"
+
+- name: unarchive flutter
+  unarchive: src="~/flutter.tar.xz" dest="~"
