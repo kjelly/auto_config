@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM dorowu/ubuntu-desktop-lxde-vnc:bionic
 
 RUN apt-get update && \
     apt-get install -y apt-transport-https wget gnupg && \
@@ -9,22 +9,17 @@ RUN apt-get update && \
 
 RUN apt-get update &&  \
     apt-get install -y git python3-dev libyaml-dev python3-pip unzip vim curl wget sudo && \
-    apt-get install -y silversearcher-ag && \
+    apt-get install -y silversearcher-ag fish tmux gnome-terminal tzdata&& \
     pip3 install ansible fish
 
-RUN git clone https://github.com/kjelly/auto_config ~/a
 
 
-RUN apt install -y python-dev python-pip ;pip2 install ansible pynvim
-
-RUN cd ~/a ; \
-    echo '{}'|./nrun.py -r developer-packages -a deploy; \
-    echo '{}'|./nrun.py -r fish bash -a deploy; \
-    ls
-
+RUN apt install -y python-dev python-pip terminator;pip2 install ansible pynvim
 RUN curl https://raw.githubusercontent.com/kjelly/auto_config/master/scripts/init_nvimrc.sh | bash ; \
-    curl https://raw.githubusercontent.com/kjelly/auto_config/master/scripts/init_nvim_nightly.sh | bash ; \
-    curl https://raw.githubusercontent.com/kjelly/auto_config/master/scripts/init_nvim.sh | bash ; \
-    nvim +PlugInstall +qall!; pip3 install pynvim;ls
+    curl https://raw.githubusercontent.com/kjelly/auto_config/master/scripts/init_nvim_nightly.sh | bash ;
 
-CMD sleep infinity
+RUN echo "ubuntu ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/ubuntu && \
+    chmod 0440 /etc/sudoers.d/ubuntu
+
+
+ENTRYPOINT ["/startup.sh"]
