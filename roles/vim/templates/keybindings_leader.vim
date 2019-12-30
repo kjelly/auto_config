@@ -251,18 +251,21 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
 nmap <silent> gd <Plug>(coc-definition)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-nnoremap <silent> <leader>ldd :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <leader>lde :<C-u>CocList extensions<cr>
-nnoremap <silent> <leader>ldc :<C-u>CocList commands<cr>
-nnoremap <silent> <leader>ldo :<C-u>CocList outline<cr>
-nnoremap <silent> <leader>lsf :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader>lld :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>lle :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader>llc :<C-u>CocList commands<cr>
+nnoremap <silent> <leader>llo :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>lls :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>ls :CocSearch<space>
 nmap <silent> <leader>lrf <Plug>(coc-references)
 nmap <silent> <leader>lrn <Plug>(coc-rename)
 nnoremap <silent> <leader>lf :call CocAction('format')<cr>
 nmap <silent> <leader>li <Plug>(coc-implementation)
-nnoremap <silent> <leader>la :call LanguageClient_contextMenu()<cr>
+nnoremap <silent> <leader>la :CocAction<cr>
+nnoremap <silent> <leader>lll :CocList<cr>
 nmap <silent> <leader>ltd <Plug>(coc-type-definition)
 nnoremap <silent> <leader>ltf :TestFile<cr>
 nnoremap <silent> <leader>ltn :TestNearest<cr>
