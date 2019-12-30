@@ -38,7 +38,7 @@ def main():
                  '/usr/lib/dart/bin/', '~/.cargo/bin/', '~/sbt/bin',
                  '~/.pub-cache/bin', '~/dart-sdk/bin', '~/activator/bin/',
                  '~/google-cloud-sdk/bin/', '~/kotlinc/bin/', '~/.rvm/bin',
-                 '/snap/bin/', '~/flutter/bin/']
+                 '/snap/bin/', '~/flutter/bin/', '~/.local/bin']
 
     for path in path_list:
         real_path = os.path.abspath(os.path.expanduser(path))
