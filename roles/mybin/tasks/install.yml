@@ -16,12 +16,6 @@
   ignore_errors: true
   when: ansible_os_family == 'Debian'
   become: yes
-  sudo: yes
-
-- pip: name={{ item }}
-  with_items:
-      - docker-py
-  become: yes
 
 - file: path=~/mybin state=directory
 

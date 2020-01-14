@@ -32,7 +32,7 @@
       - vagrant-init.py
       - hterm-copy.sh
       - hterm-notify.sh
-      - port-foreward
+      - port-forward
 
 
 - lineinfile: dest=~/.zshrc line="export PATH=\"`pwd`/mybin/:$PATH\""
