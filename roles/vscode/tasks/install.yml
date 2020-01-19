@@ -5,8 +5,10 @@
 - include: "install_deb_family.yml"
   when: ansible_os_family == 'Debian' or ansible_os_family == "\"elementary\""
 
+- copy: src=ext_list dest='/tmp/ext_list'
+
 - name: code ext install
   shell: code --install-extension {{ item }}
   ignore_errors: yes
   with_lines:
-      - "cat roles/vscode/files/ext_list"
+      - "cat /tmp/ext_list"
