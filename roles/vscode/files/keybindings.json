@@ -83,7 +83,8 @@
     { "key": "alt+backspace", "command": "deleteWordLeft" },
     {
         "key": ";",
-        "command": "extension.showCmdLine",
+        "command": "vim.showQuickpickCmdLine",
         "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal' "
     }
 ]
+
