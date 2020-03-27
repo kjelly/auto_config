@@ -341,6 +341,7 @@ if has('python3')
   Plug 'vim-vdebug/vdebug', { 'on': 'VdebugStart'}
 endif
 
+Plug 'pechorin/any-jump.nvim'
 "Plug 'Shougo/neosnippet'
 "Plug 'Shougo/neosnippet-snippets'
 Plug 'SirVer/ultisnips'
@@ -884,6 +885,11 @@ let g:switch_custom_definitions =
     \ ]
 
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
+let g:any_jump_disable_default_keybindings = 1
+let g:any_jump_preview_lines_count = 5
+let g:any_jump_window_width_ratio  = 0.8
+let g:any_jump_window_height_ratio = 0.8
+
 
 silent! call which_key#register(',', "g:which_key_map")
 if exists('*which_key#register')

@@ -6,7 +6,7 @@
     "editor.tabSize": 2,
     "editor.renderWhitespace": "boundary",
     "editor.insertSpaces": true,
-    "window.menuBarVisibility": "toggle",
+    "window.menuBarVisibility": "default",
     "files.eol": "\n",
     "explorer.autoReveal": false,
     "sync.gist": "c9fcfe04ac54654521f38f1aecdf0eba",
@@ -35,7 +35,7 @@
     "explorer.openEditors.visible": 0,
     "editor.renderIndentGuides": false,
     "editor.fontLigatures": true,
-    "editor.fontFamily": "'Fira Code','Source Code Pro','Inconsolata' ,'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback'",
+    "editor.fontFamily": "'Knack Regular Nerd Font Complete Mono','Fira Code','Source Code Pro','Inconsolata' ,'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback'",
     "python.linting.pylintArgs": ["--disable=C0111,C0103,C1801,C0325"],
     "files.hotExit": "off",
     "window.titleBarStyle": "custom",
@@ -44,5 +44,7 @@
       "**/.git/objects/**": true,
       "**/.git/subtree-cache/**": true,
       "**/node_modules/*/**": true
-    }
+    },
+    "editor.renderControlCharacters": true
 }
+
