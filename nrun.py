@@ -56,10 +56,12 @@ def main():
     if args.sudo:
         sudo = 'sudo -E -P -u {user} '
 
-    if select.select([sys.stdin, ], [], [], 0.0)[0]:
-        stdin_data = json.loads(sys.stdin.read())
-    else:
-        stdin_data = {}
+    stdin_data = {}
+    try:
+        if select.select([sys.stdin, ], [], [], 0.0)[0]:
+            stdin_data = json.loads(sys.stdin.read())
+    except json.JSONDecodeError:
+        pass
     data.update(stdin_data)
 
     template = get_template()
