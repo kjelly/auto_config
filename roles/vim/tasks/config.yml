@@ -71,7 +71,7 @@
 
 - copy: src="ctags" dest="~/.ctags"
 
-- copy: src=clipboard-provider dest="~/.config/nvim/bin/"
+- copy: src=clipboard-provider dest="~/.config/nvim/bin/" mode=0755
 
 - stat: path=~/.devdocsrc
   register: devdocsrc
