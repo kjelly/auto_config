@@ -204,6 +204,7 @@ Plug 'metakirby5/codi.vim'
 Plug 'chrisbra/Colorizer', { 'on': ['ColorToggle'] }
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'thaerkh/vim-workspace'
+Plug 'tpope/vim-speeddating'
 
 " File manager
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -609,11 +610,17 @@ if executable('rg')
 endif
 
 let base_wiki = {}
-let base_wiki.path = '~/Dropbox/vimwiki'
+let base_wiki.path = '~/webdav/vimwiki'
 let base_wiki.syntax = 'markdown'
 let base_wiki.ext = '.md'
 let base_wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'typescript': 'typescript', 'javascript': 'js', 'scala': 'scala', 'vim': 'vim'}
-let g:vimwiki_list = [base_wiki]
+let daily = {}
+let daily.path = '~/secret/notes/'
+let daily.syntax = 'markdown'
+let daily.ext = '.md'
+let daily.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'typescript': 'typescript', 'javascript': 'js', 'scala': 'scala', 'vim': 'vim'}
+let g:vimwiki_list = [base_wiki, daily]
+
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
