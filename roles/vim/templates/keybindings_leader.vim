@@ -31,6 +31,9 @@ nnoremap <silent> <leader>gg :SignifyToggle<CR>
 nnoremap <silent> <leader>gu :Gpull --rebase<CR>
 nnoremap <silent> <leader>ga :Agit<CR>
 
+nnoremap <silent> <leader>id :put =strftime('%Y-%m-%d')<cr>
+nnoremap <silent> <leader>it :put =strftime('%H:%M:%S')<cr>
+
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 
@@ -103,7 +106,7 @@ nnoremap <silent> <leader>st :Switch<cr>
 " Find file in NERDTree
 nnoremap <silent> <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
 nnoremap <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
-nnoremap <silent> <leader>ed :Explore <c-r>=expand("%:p:h")<cr><cr>
+nnoremap <silent> <leader>ed :e <c-r>=expand("%:p:h")<cr>/<cr>
 nnoremap <silent> <leader>fi :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
 
 " Bookmarks keybinding
@@ -289,14 +292,10 @@ nnoremap <silent> <localleader>o :Buffers<cr>
 nnoremap <silent> <localleader>p :Files<cr>
 nnoremap <silent> <localleader>b :b#<cr>
 nnoremap <silent> <localleader>q :q!<cr>
-nnoremap <silent> <localleader>s :w<cr>
 nnoremap <silent> <localleader>a :Ag<cr>
-nnoremap <localleader>c :C<space>
 nnoremap <silent> <localleader>g :ChooseWin<cr>
 nnoremap <silent> <localleader>n :NERDTreeToggle<cr>
-nnoremap <silent> <localleader>f :call CreateFloating()<cr>
 nnoremap <silent> <localleader>t :tabnew %<cr>
-nnoremap <silent> <localleader>h :wincmd h<cr>
 nnoremap <silent> <localleader>j :wincmd j<cr>
 nnoremap <silent> <localleader>k :wincmd k<cr>
 nnoremap <silent> <localleader>l :wincmd l<cr>
