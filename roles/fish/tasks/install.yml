@@ -86,10 +86,6 @@
   git: repo=https://github.com/oh-my-fish/oh-my-fish
        dest="~/.local/share/omf"
 
-- name: install virtualenv helper for fish
-  pip: name=virtualfish
-  become: true
-
 - name: clone fzf
   git: repo=https://github.com/junegunn/fzf dest=~/.fzf
   ignore_errors: yes
