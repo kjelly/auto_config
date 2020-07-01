@@ -287,17 +287,14 @@ nnoremap <silent> <leader>lel :LeetCodeList<cr>
 nnoremap <silent> <leader>les :LeetCodeSubmit<cr>
 nnoremap <silent> <leader>let :LeetCodeTest<cr>
 
-
-nnoremap <silent> <localleader>o :Buffers<cr>
-nnoremap <silent> <localleader>p :Files<cr>
-nnoremap <silent> <localleader>b :b#<cr>
-nnoremap <silent> <localleader>q :q!<cr>
 nnoremap <silent> <localleader>a :Ag<cr>
+nnoremap <silent> <localleader>b :b#<cr>
 nnoremap <silent> <localleader>g :ChooseWin<cr>
-nnoremap <silent> <localleader>n :NERDTreeToggle<cr>
-nnoremap <silent> <localleader>t :tabnew %<cr>
 nnoremap <silent> <localleader>j :wincmd j<cr>
 nnoremap <silent> <localleader>k :wincmd k<cr>
 nnoremap <silent> <localleader>l :wincmd l<cr>
+nnoremap <silent> <localleader>n :NERDTreeToggle<cr>
+nnoremap <silent> <localleader>o :Buffers<cr>
+nnoremap <silent> <localleader>q :q!<cr>
 nnoremap <silent> <localleader>r :C <up><cr>
-
+nnoremap <silent> <localleader>t :tabnew %<cr>

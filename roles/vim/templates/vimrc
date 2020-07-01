@@ -190,6 +190,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'unblevable/quick-scope'
 Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
+Plug 'jceb/vim-orgmode'
 Plug 'haya14busa/incsearch.vim'
 Plug 'fidian/hexmode'
 Plug 'blueyed/vim-diminactive' " use different background color for inactive window
@@ -257,6 +258,8 @@ Plug 'connorholyday/vim-snazzy'
 Plug 'bluz71/vim-moonfly-colors'
 Plug 'hzchirs/vim-material'
 Plug 'kaicataldo/material.vim'
+Plug 'sainnhe/gruvbox-material'
+Plug 'Sammyalhashe/random_colorscheme.vim'
 
 
 " Lang
@@ -610,7 +613,7 @@ if executable('rg')
 endif
 
 let base_wiki = {}
-let base_wiki.path = '~/webdav/vimwiki'
+let base_wiki.path = '~/vimwiki'
 let base_wiki.syntax = 'markdown'
 let base_wiki.ext = '.md'
 let base_wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'typescript': 'typescript', 'javascript': 'js', 'scala': 'scala', 'vim': 'vim'}
@@ -990,6 +993,9 @@ let g:clipboard = {
 let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-json',
       \  'coc-post', 'coc-marketplace', 'coc-post','coc-pyls','coc-snippets',
       \  'coc-translator','coc-tsserver','coc-tabnine','coc-rls','coc-todolist','coc-explorer' ]
+
+let g:random_scheme=1
+let g:available_colorschemes=['gruvbox', 'onedark', 'dracula', 'gruvbox-material', 'space-vim-dark', 'codedark', 'solarized8']
 
 " Define defxs mappings
 autocmd FileType defx do WinEnter | call s:defx_my_settings()
