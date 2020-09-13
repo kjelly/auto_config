@@ -361,7 +361,7 @@ Plug 'honza/vim-snippets'
 "Plug 'ncm2/ncm2-ultisnips'
 
 if executable('node')
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
 
