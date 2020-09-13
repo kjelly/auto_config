@@ -20,9 +20,9 @@ endtry
 
 " Return to last edit position when opening files (You want this!)
 autocmd! BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
 
 
 " Do :help cope if you are unsure what cope is. It's super useful!
@@ -75,27 +75,27 @@ endfunction
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
+  let l:currentBufNum = bufnr("%")
+  let l:alternateBufNum = bufnr("#")
 
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
+  if buflisted(l:alternateBufNum)
+    buffer #
+  else
+    bnext
+  endif
 
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
+  if bufnr("%") == l:currentBufNum
+    new
+  endif
 
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
+  if buflisted(l:currentBufNum)
+    execute("bdelete! ".l:currentBufNum)
+  endif
 endfunction
 
 function! Num_Toggle()
-   exe "NumbersToggle"
-   exe "set number!"
+  exe "NumbersToggle"
+  exe "set number!"
 endfunction
 
 function! ToggleMouse()
@@ -155,12 +155,12 @@ endif
 {% else %}
 
 if &shell =~# 'fish$'
-    set shell=sh
+  set shell=sh
 endif
 
 {% endif %}
 
-set nocompatible              " be iMproved
+set nocompatible              " be improved
 filetype off                  " required before plugins
 
 {% if nvim %}
@@ -580,6 +580,7 @@ set noshowmode
 set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
+set inccommand=nosplit
 
 if executable("fish") == 1
   set shell=fish
