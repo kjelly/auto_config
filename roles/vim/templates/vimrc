@@ -237,6 +237,9 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 "Plug 'ctrlpvim/ctrlp.vim'
 
+"Jump to any definition and references IDE madness without overhead
+Plug 'pechorin/any-jump.nvim'
+
 " For sudo
 " :w suda://%
 Plug 'lambdalisue/suda.vim'
