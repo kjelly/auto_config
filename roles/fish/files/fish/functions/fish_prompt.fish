@@ -27,7 +27,7 @@ function fish_prompt
     set -l bg_red (set_color -b red)
     set -l bg_yellow (set_color -b yellow)
     set -l normal (set_color normal)
-    set -l cwd (python ~/.config/fish/print_cwd.py $PWD)
+    set -l cwd (python3 ~/.config/fish/print_cwd.py $PWD)
     set -l uid (id -u $USER)
 
     set -l host_info_color_bg "143"
