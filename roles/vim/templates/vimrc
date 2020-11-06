@@ -160,6 +160,8 @@ endif
 
 {% endif %}
 
+let g:polyglot_disabled = ['ansible']
+
 set nocompatible              " be improved
 filetype off                  " required before plugins
 
