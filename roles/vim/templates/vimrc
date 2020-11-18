@@ -346,10 +346,10 @@ Plug 'Chiel92/vim-autoformat'
 if has('python3')
   " Buffer filtering
   Plug 'lambdalisue/lista.nvim', { 'do': ':UpdateRemotePlugins'}
-  Plug 'kjelly/nvim-multiterm', { 'do': ':UpdateRemotePlugins'}
   Plug 'vim-vdebug/vdebug', { 'on': 'VdebugStart'}
 endif
 
+Plug 'kjelly/nvim-multiterm2'
 Plug 'pechorin/any-jump.nvim'
 "Plug 'Shougo/neosnippet'
 "Plug 'Shougo/neosnippet-snippets'
@@ -763,7 +763,8 @@ autocmd! BufCreate __REST_response__ set nonu
 autocmd! BufEnter __REST_response__ set modifiable
 autocmd! FileType tagbar vertical resize 20
 autocmd! TermLeave * if &filetype=='fzf' | wincmd q
-
+autocmd! TermOpen * :lua onTermOpen()
+autocmd! TermEnter * :lua updateLastTerminalID()
 
 augroup Binary
   au!
@@ -1056,3 +1057,6 @@ set clipboard=unnamed
 nmap YY "+yy
 nmap Y "+y
 vmap Y "+y
+
+
+

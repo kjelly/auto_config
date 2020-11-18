@@ -189,18 +189,8 @@ nnoremap <silent> <leader>rt :TestNearest<cr>
 nnoremap <silent> <leader>rs :TestSuite<cr>
 nnoremap <silent> <leader>rf :TestFile<cr>
 nnoremap <silent> <leader>rr :History:<cr>
-nnoremap <silent> <leader>rd :C ./debug.sh<cr>
-nnoremap <silent> <leader>rl :C !l<cr>
-nnoremap <silent> <leader>ru :C <up><cr>
-nnoremap <silent> <leader>r1 :C r1<cr>
-nnoremap <silent> <leader>r2 :C r2<cr>
-nnoremap <silent> <leader>r3 :C r3<cr>
-nnoremap <silent> <leader>r4 :C r4<cr>
-nnoremap <silent> <leader>r5 :C r5<cr>
-nnoremap <silent> <leader>r6 :C r6<cr>
-nnoremap <silent> <leader>r7 :C r7<cr>
-nnoremap <silent> <leader>r8 :C r8<cr>
-nnoremap <silent> <leader>r9 :C r9<cr>
+nnoremap <leader>rc :lua multiTermRunCurrentLine()<cr>
+nnoremap <leader>ru :lua multiTermRun('')<left><left>
 nnoremap <leader>rh :call Ssh('',[])<left><left><left><left><left>
 
 nnoremap <silent> <leader>o0 :set foldlevel=0<CR>

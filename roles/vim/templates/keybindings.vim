@@ -348,6 +348,11 @@ inoremap <A-]> <Esc>:lne<cr>
 nnoremap <A-]> :lne<cr>
 tnoremap <A-]> <C-\><C-n><C-w>:lne<cr>
 
+inoremap <A-c> <Esc>:lua multiTermRunCurrentLine()<cr>i
+nnoremap <A-c> <Esc>:lua multiTermRunCurrentLine()<cr>
+nnoremap <A-x> <Esc>:lua multiTermRunCurrentSelectedLines()<cr>
+vnoremap <A-x> :lua multiTermRunCurrentSelectedLines()<cr>
+
 {% endif %}
 
 function! ShowDoc()
