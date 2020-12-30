@@ -1,10 +1,10 @@
-#! /usr/bin/python
+#! /usr/bin/python3
 from subprocess import check_output
 import os
 import re
 
 def get_remote_url():
-    output = check_output("git remote -v|grep push", shell=True)
+    output = check_output("git remote -v|grep push", shell=True).decode('utf-8')
     return output
 
 def get_username_and_repository_from_http_url(url):
