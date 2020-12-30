@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import argparse
 import os
@@ -8,7 +8,7 @@ import subprocess
 def list_all_sessions():
     ret = []
     try:
-        output = subprocess.check_output(["tmux", "ls"])
+        output = subprocess.check_output(["tmux", "ls"]).decode('utf-8')
         lines = output.strip().split('\n')
         for i in lines:
             session_name = i.split(':')[0]
