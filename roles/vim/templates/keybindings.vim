@@ -112,10 +112,6 @@ nmap  -  <Plug>(choosewin)
 nnoremap <leader>et :tabnew<cr>:read !grep # -P -e<space>
 {% if nvim %}
 
-inoremap <a-;> <backspace>
-cnoremap <a-;> <backspace>
-tnoremap <a-;> <backspace>
-
 cnoremap <A-h> <Left>
 cnoremap <A-j> <Down>
 cnoremap <A-k> <Up>
@@ -331,14 +327,28 @@ tmap <A-g> <C-\><C-n><Plug>(choosewin)
 inoremap <A-m> <Esc>:Marks<cr>
 nnoremap <A-m> :Marks<cr>
 
-" Quickfix
+" Floaterm
 
-inoremap <A-;> <Esc>:cp<cr>
-nnoremap <A-;> :cp<cr>
-tnoremap <A-;> <C-\><C-n><C-w>:cp<cr>
-inoremap <A-'> <Esc>:cn<cr>
-nnoremap <A-'> :cn<cr>
-tnoremap <A-'> <C-\><C-n><C-w>:cn<cr>
+inoremap <a-;> <Esc>:FloatermToggle<cr>
+nnoremap <a-;> :FloatermToggle<cr>
+tnoremap <a-;> <c-\><c-n>:FloatermToggle<cr>
+
+inoremap <a-:> <Esc>:FloatermNew<cr>
+nnoremap <a-:> :FloatermNew<cr>
+tnoremap <a-:> <c-\><c-n>:FloatermNew<cr>
+
+inoremap <a-'> <Esc>:FloatermNext<cr>
+nnoremap <a-'> :FloatermNext<cr>
+tnoremap <a-'> <c-\><c-n>:FloatermNext<cr>
+
+inoremap <a-"> <Esc>:FloatermPrev<cr>
+nnoremap <a-"> :FloatermPrev<cr>
+tnoremap <a-"> <c-\><c-n>:FloatermPrev<cr>
+
+inoremap <a-Enter> <Esc>:FloatermSend<cr>
+nnoremap <a-Enter> :FloatermSend<cr>
+tnoremap <a-Enter> <c-\><c-n>:FloatermSend<cr>
+vnoremap <a-Enter> :FloatermSend<cr>
 
 " Location list
 inoremap <A-[> <Esc>:lp<cr>
