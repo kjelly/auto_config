@@ -78,11 +78,15 @@ cnoremap <c-s> Explore scp://
 "imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
 "imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<Tab>":"\<CR>")
 
-{% if nvim %}tnoremap <C-]> <C-\><C-n>
+{% if nvim %}
+tnoremap <C-]> <C-\><C-n>:FloatermToggle<cr>
+
 {% endif %}
-inoremap <C-]> <Esc>
-vnoremap <C-]> <Esc>
-cnoremap <C-]> <Esc>
+inoremap <C-]> <Esc>:FloatermToggle<cr>
+vnoremap <C-]> <Esc>:FloatermToggle<cr>
+cnoremap <C-]> <Esc>:FloatermToggle<cr>
+nnoremap <C-]> :FloatermToggle<cr>
+
 
 nnoremap ; :
 
