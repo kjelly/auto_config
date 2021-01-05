@@ -170,6 +170,7 @@ silent! call plug#begin('~/.config/nvim/plugged')
 {% else %}
 silent! call plug#begin('~/.vim/plugged')
 {% endif %}
+Plug 'voldikss/vim-floaterm'
 Plug 'liuchengxu/vim-which-key'
 " Show register content when pressing " or <c-r>
 Plug 'junegunn/vim-peekaboo'
@@ -739,6 +740,8 @@ let g:NERDTreeWinSize=20
 {% if nvim %}let test#strategy = "neovim" {% endif %}
 
 let g:leetcode_solution_filetype='python'
+let g:floaterm_width=0.9
+let g:floaterm_height=0.9
 
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
@@ -763,8 +766,6 @@ autocmd! BufCreate __REST_response__ set nonu
 autocmd! BufEnter __REST_response__ set modifiable
 autocmd! FileType tagbar vertical resize 20
 autocmd! TermLeave * if &filetype=='fzf' | wincmd q
-autocmd! TermOpen * :lua onTermOpen()
-autocmd! TermEnter * :lua updateLastTerminalID()
 
 augroup Binary
   au!
@@ -829,6 +830,10 @@ command! Enc execute '%!openssl enc -aes-256-cbc -a -salt -pass file:$HOME/.ssh/
 command! Enc1 execute '%!openssl enc -pbkdf2 -a -salt -pass file:$HOME/.ssh/passwd.txt'
 command! Dec execute '%!openssl enc -d -aes-256-cbc -a -salt -pass file:$HOME/.ssh/passwd.txt'
 command! Dec1 execute '%!openssl enc -d -pbkdf2 -a -salt -pass file:$HOME/.ssh/passwd.txt'
+
+command! Vifm FloatermNew vifm
+command! NNN FloatermNew nnn
+command! FFF FloatermNew fff
 
 " It doesn't work in terminal (neo)vim
 hi VimwikiHeader1 guifg=Gray

@@ -189,8 +189,7 @@ nnoremap <silent> <leader>rt :TestNearest<cr>
 nnoremap <silent> <leader>rs :TestSuite<cr>
 nnoremap <silent> <leader>rf :TestFile<cr>
 nnoremap <silent> <leader>rr :History:<cr>
-nnoremap <leader>rc :lua multiTermRunCurrentLine()<cr>
-nnoremap <leader>ru :lua multiTermRun('')<left><left>
+nnoremap <leader>rc ::%FloatermSend<cr>
 nnoremap <leader>rh :call Ssh('',[])<left><left><left><left><left>
 
 nnoremap <silent> <leader>o0 :set foldlevel=0<CR>
