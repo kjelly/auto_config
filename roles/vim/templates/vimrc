@@ -831,7 +831,7 @@ command! Enc1 execute '%!openssl enc -pbkdf2 -a -salt -pass file:$HOME/.ssh/pass
 command! Dec execute '%!openssl enc -d -aes-256-cbc -a -salt -pass file:$HOME/.ssh/passwd.txt'
 command! Dec1 execute '%!openssl enc -d -pbkdf2 -a -salt -pass file:$HOME/.ssh/passwd.txt'
 
-command! Vifm FloatermNew vifm
+command! Vifm FloatermNew vifm -c only
 command! NNN FloatermNew nnn
 command! FFF FloatermNew fff
 

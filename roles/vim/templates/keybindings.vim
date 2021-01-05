@@ -41,7 +41,7 @@ tnoremap <c-j> <Down>
 tnoremap <c-k> <Up>
 tnoremap <c-l> <Right>
 
-nnoremap <C-n> :NERDTreeTabsToggle<CR>
+nnoremap <expr> <C-n> executable('vifm') ? ":Vifm<cr>" : ":NERDTreeToggle<cr>"
 nnoremap <C-t> :tabnew %<CR>
 inoremap <C-t> <Esc>:tabnew %<CR>
 noremap H gT
@@ -179,7 +179,6 @@ nnoremap zz za
 nnoremap Q :qa<cr>
 
 " Exit vim quickly
-nnoremap <Esc><Esc> :qa!
 nnoremap <c-c> :qa!
 
 if exists('g:incsearch#_go_config')
@@ -329,26 +328,36 @@ nnoremap <A-m> :Marks<cr>
 
 " Floaterm
 
-inoremap <a-;> <Esc>:FloatermToggle<cr>
-nnoremap <a-;> :FloatermToggle<cr>
-tnoremap <a-;> <c-\><c-n>:FloatermToggle<cr>
+tnoremap <silent> <expr> <Esc><Esc> &filetype=="floaterm" ? "<c-\><c-n>:FloatermHide<cr>" : ""
+nnoremap <silent> <expr> <Esc><Esc> &filetype=="floaterm" ? ":FloatermHide<cr>" : ""
 
-inoremap <a-:> <Esc>:FloatermNew<cr>
-nnoremap <a-:> :FloatermNew<cr>
-tnoremap <a-:> <c-\><c-n>:FloatermNew<cr>
+inoremap <silent> <a-;> <Esc>:FloatermToggle<cr>
+nnoremap <silent> <a-;> :FloatermToggle<cr>
+tnoremap <silent> <a-;> <c-\><c-n>:FloatermToggle<cr>
 
-inoremap <a-'> <Esc>:FloatermNext<cr>
-nnoremap <a-'> :FloatermNext<cr>
-tnoremap <a-'> <c-\><c-n>:FloatermNext<cr>
+inoremap <silent> <a-:> <Esc>:FloatermNew<cr>
+nnoremap <silent> <a-:> :FloatermNew<cr>
+tnoremap <silent> <a-:> <c-\><c-n>:FloatermNew<cr>
 
-inoremap <a-"> <Esc>:FloatermPrev<cr>
-nnoremap <a-"> :FloatermPrev<cr>
-tnoremap <a-"> <c-\><c-n>:FloatermPrev<cr>
+inoremap <silent> <a-'> <Esc>:FloatermNext<cr>
+nnoremap <silent> <a-'> :FloatermNext<cr>
+tnoremap <silent> <a-'> <c-\><c-n>:FloatermNext<cr>
 
-inoremap <a-Enter> <Esc>:FloatermSend<cr>
-nnoremap <a-Enter> :FloatermSend<cr>
-tnoremap <a-Enter> <c-\><c-n>:FloatermSend<cr>
-vnoremap <a-Enter> :FloatermSend<cr>
+inoremap <silent> <a-"> <Esc>:FloatermPrev<cr>
+nnoremap <silent> <a-"> :FloatermPrev<cr>
+tnoremap <silent> <a-"> <c-\><c-n>:FloatermPrev<cr>
+
+inoremap <silent> <a-Enter> <Esc>:FloatermSend<cr>
+nnoremap <silent> <a-Enter> :FloatermSend<cr>
+tnoremap <silent> <a-Enter> <c-\><c-n>:FloatermSend<cr>
+vnoremap <silent> <a-Enter> :FloatermSend<cr>
+
+inoremap <silent> <s-a-enter> <Esc>:%FloatermSend<cr>
+nnoremap <silent> <s-a-enter> :%FloatermSend<cr>
+
+inoremap <a-c> <Esc>:FloatermSend<space>
+nnoremap <a-c> :FloatermSend<space>
+tnoremap <a-c> <c-\><c-n>:FloatermSend<space>
 
 " Location list
 inoremap <A-[> <Esc>:lp<cr>
