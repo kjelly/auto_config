@@ -41,7 +41,7 @@ tnoremap <c-j> <Down>
 tnoremap <c-k> <Up>
 tnoremap <c-l> <Right>
 
-nnoremap <expr> <C-n> executable('vifm') ? ":Vifm<cr>" : ":NERDTreeToggle<cr>"
+nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-t> :tabnew %<CR>
 inoremap <C-t> <Esc>:tabnew %<CR>
 noremap H gT
