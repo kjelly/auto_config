@@ -330,6 +330,7 @@ nnoremap <A-m> :Marks<cr>
 
 tnoremap <silent> <expr> <Esc><Esc> &filetype=="floaterm" ? "<c-\><c-n>:FloatermHide<cr>" : ""
 nnoremap <silent> <expr> <Esc><Esc> &filetype=="floaterm" ? ":FloatermHide<cr>" : ""
+nnoremap <silent> <expr> <Esc> &filetype=="floaterm" ? ":FloatermHide<cr>" : ""
 
 inoremap <silent> <a-;> <Esc>:FloatermToggle<cr>
 nnoremap <silent> <a-;> :FloatermToggle<cr>

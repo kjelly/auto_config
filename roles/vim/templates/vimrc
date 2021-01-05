@@ -766,6 +766,7 @@ autocmd! BufCreate __REST_response__ set nonu
 autocmd! BufEnter __REST_response__ set modifiable
 autocmd! FileType tagbar vertical resize 20
 autocmd! TermLeave * if &filetype=='fzf' | wincmd q
+autocmd! WinLeave * if &filetype=='floaterm' | :FloatermHide<cr>
 
 augroup Binary
   au!
