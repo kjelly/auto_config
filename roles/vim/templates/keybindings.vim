@@ -279,7 +279,7 @@ tnoremap <A-u> <C-\><C-n>:History:<cr>
 " buufer switch
 nnoremap <A-d> <c-^>
 inoremap <A-d> <Esc><c-^>a
-tnoremap <A-d> <C-\><C-n><c-^>a
+tnoremap <A-d> <C-\><C-n>:FloatermNext<cr>
 
 " save
 nnoremap <A-s> :w<cr>
