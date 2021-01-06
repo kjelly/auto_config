@@ -161,6 +161,7 @@ endif
 {% endif %}
 
 let g:polyglot_disabled = ['ansible']
+let g:sneak#label = 1
 
 set nocompatible              " be improved
 filetype off                  " required before plugins
@@ -189,7 +190,7 @@ Plug 'gagoar/stripwhitespaces'
 " + for expand, _ for shrink
 Plug 'terryma/vim-expand-region'
 Plug 'itchyny/lightline.vim'
-Plug 'easymotion/vim-easymotion'
+Plug 'justinmk/vim-sneak'
 Plug 'unblevable/quick-scope'
 Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
