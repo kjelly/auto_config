@@ -986,8 +986,8 @@ if exists('*nvim_open_win')
   endfunction
 
   set wildoptions=pum
-  set winblend=30
-  set pumblend=30
+  set winblend=0
+  set pumblend=0
 endif
 
 silent! source ~/.vim_custom.vim
