@@ -1,0 +1,7 @@
+---
+
+- debug: var=ansible_env.HOME
+- name: download micro
+  shell: curl https://getmic.ro | bash
+  args:
+    chdir: "{{ ansible_env.HOME }}"

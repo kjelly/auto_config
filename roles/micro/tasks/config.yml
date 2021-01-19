@@ -1,0 +1,9 @@
+---
+- file:
+    path: ~/.config/micro/
+    state: directory
+    recurse: yes
+
+- template:
+    src: bindings.json.j2
+    dest: ~/.config/micro/bindings.json
