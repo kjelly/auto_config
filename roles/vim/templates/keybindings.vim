@@ -274,9 +274,9 @@ nnoremap <A-u> :History:<cr>
 tnoremap <A-u> <C-\><C-n>:History:<cr>
 
 " buufer switch
-nnoremap <A-d> <c-^>
+nnoremap <expr> <A-d> &filetype=="floaterm" ? ":FloatermPrev<cr>" : "<c-^>"
 inoremap <A-d> <Esc><c-^>a
-tnoremap <A-d> <C-\><C-n>:FloatermNext<cr>
+tnoremap <A-d> <C-\><C-n>:FloatermNext<cr>i
 
 " save
 nnoremap <A-s> :w<cr>
@@ -341,9 +341,8 @@ inoremap <silent> <a-:> <Esc>:FloatermNew<cr>
 nnoremap <silent> <a-:> :FloatermNew<cr>
 tnoremap <silent> <a-:> <c-\><c-n>:FloatermNew<cr>
 
-inoremap <silent> <a-'> <Esc>:FloatermNext<cr>
 nnoremap <silent> <a-'> :FloatermNext<cr>
-tnoremap <silent> <a-'> <c-\><c-n>:FloatermNext<cr>
+tnoremap <silent> <a-'> <c-\><c-n>:FloatermNext<cr>i
 
 inoremap <silent> <a-"> <Esc>:FloatermPrev<cr>
 nnoremap <silent> <a-"> :FloatermPrev<cr>
