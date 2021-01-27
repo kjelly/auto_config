@@ -21,6 +21,9 @@ nnoremap <Tab> >>
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
+imap <C-f> <Plug>(coc-snippets-expand)
+imap <C-f> <Plug>(coc-snippets-expand-jump)
+
 nnoremap <C-h> <Home>
 nnoremap <C-j> <PageDown>
 nnoremap <C-k> <PageUp>

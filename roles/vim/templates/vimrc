@@ -164,6 +164,11 @@ let g:polyglot_disabled = ['ansible']
 let g:floaterm_autoinsert = v:false
 let g:sneak#label = 1
 
+imap <C-f> <Plug>(coc-snippets-expand)
+imap <C-f> <Plug>(coc-snippets-expand-jump)
+let g:coc_snippet_next = '<c-f>'
+let g:coc_snippet_prev = '<c-b>'
+
 set nocompatible              " be improved
 filetype off                  " required before plugins
 
@@ -356,7 +361,6 @@ endif
 Plug 'pechorin/any-jump.nvim'
 "Plug 'Shougo/neosnippet'
 "Plug 'Shougo/neosnippet-snippets'
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 "Plug 'ncm2/ncm2'
@@ -634,11 +638,6 @@ let daily.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'type
 let g:vimwiki_list = [base_wiki, daily]
 
 
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-f>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-let g:UltiSnipsRemoveSelectModeMappings = 0
 
 " Markdown tag bar
 let g:tagbar_type_markdown = {
@@ -709,7 +708,6 @@ let g:LanguageClient_diagnosticsDisplay={
 let g:LanguageClient_diagnosticsEnable=1
 
 let g:bookmark_no_default_key_mappings = 1
-let g:UltiSnipsNoPythonWarning = 1
 
 let g:go_list_type = "quickfix"
 
