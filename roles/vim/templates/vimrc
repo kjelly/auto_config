@@ -179,7 +179,7 @@ silent! call plug#begin('~/.vim/plugged')
 {% endif %}
 if has('nvim-0.5')
   Plug 'kevinhwang91/nvim-hlslens'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate all'}
 endif
 Plug 'voldikss/vim-floaterm'
 Plug 'liuchengxu/vim-which-key'
