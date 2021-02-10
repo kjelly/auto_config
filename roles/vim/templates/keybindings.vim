@@ -185,12 +185,6 @@ nnoremap Q :qa<cr>
 " Exit vim quickly
 nnoremap <c-c> :qa!
 
-if exists('g:incsearch#_go_config')
-  map /  <Plug>(incsearch-forward)\v
-  map ?  <Plug>(incsearch-backward)\v
-  map g/ <Plug>(incsearch-stay)\v
-endif
-
 function! SwitchBuffer()
   if &buftype == 'terminal'
     wincmd k
