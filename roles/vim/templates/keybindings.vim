@@ -399,3 +399,16 @@ endfunction
 "imap <a-/> <Plug>(ncm2_manual_trigger)
 "au TextChangedI * call ncm2#auto_trigger()
 "let g:ncm2#complete_length=[[1,3],[7,4]]
+
+"kevinhwang91/nvim-hlslens
+noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR>
+            \<Cmd>lua require('hlslens').start()<CR>
+noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR>
+            \<Cmd>lua require('hlslens').start()<CR>
+noremap * *<Cmd>lua require('hlslens').start()<CR>
+noremap # #<Cmd>lua require('hlslens').start()<CR>
+noremap g* g*<Cmd>lua require('hlslens').start()<CR>
+noremap g# g#<Cmd>lua require('hlslens').start()<CR>
+
+" use : instead of <Cmd>
+nnoremap <silent> <leader>l :nohlsearch<CR>

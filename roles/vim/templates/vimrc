@@ -177,6 +177,9 @@ silent! call plug#begin('~/.config/nvim/plugged')
 {% else %}
 silent! call plug#begin('~/.vim/plugged')
 {% endif %}
+if has('nvim-0.5')
+  Plug 'kevinhwang91/nvim-hlslens'
+endif
 Plug 'voldikss/vim-floaterm'
 Plug 'liuchengxu/vim-which-key'
 " Show register content when pressing " or <c-r>
