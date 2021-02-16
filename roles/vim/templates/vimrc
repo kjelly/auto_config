@@ -180,6 +180,8 @@ silent! call plug#begin('~/.vim/plugged')
 if has('nvim-0.5')
   Plug 'kevinhwang91/nvim-hlslens'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate all'}
+  Plug 'mfussenegger/nvim-dap'
+  Plug 'mfussenegger/nvim-dap-python'
 endif
 Plug 'voldikss/vim-floaterm'
 Plug 'liuchengxu/vim-which-key'
@@ -1068,13 +1070,4 @@ nmap YY "+yy
 nmap Y "+y
 vmap Y "+y
 
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = { },  -- list of language that will be disabled
-  },
-}
-EOF
-
+luafile ~/.config/nvim/config.lua
