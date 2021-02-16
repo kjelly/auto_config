@@ -260,8 +260,8 @@ Plug 'pechorin/any-jump.nvim'
 " :w suda://%
 Plug 'lambdalisue/suda.vim'
 
-" sudo pip3 install requests beautifulsoup4
-Plug 'iandingx/leetcode.vim'
+" sudo pip3 install keyring browser-cookie3
+Plug 'ianding1/leetcode.vim'
 
 " colorscheme
 Plug 'morhetz/gruvbox'
@@ -744,7 +744,7 @@ let g:NERDTreeWinSize=20
 
 {% if nvim %}let test#strategy = "neovim" {% endif %}
 
-let g:leetcode_solution_filetype='python'
+let g:leetcode_solution_filetype='python3'
 let g:floaterm_width=0.9
 let g:floaterm_height=0.9
 
