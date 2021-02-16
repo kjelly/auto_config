@@ -76,7 +76,7 @@
 - template: src=devdocsrc.json dest=~/.devdocsrc
   when: not devdocsrc.stat.exists
 
-- lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_username" line="let g:leetcode_username=''"
+- lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_browser" line="let g:leetcode_browser='firefox'"
   ignore_errors: yes
-- lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_password" line="let g:leetcode_password=''"
+- lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_hide_paid_only" line="let g:leetcode_hide_paid_only='1'"
   ignore_errors: yes
