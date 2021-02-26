@@ -192,12 +192,8 @@ Plug 'fcpg/vim-shore'
 Plug 'AndrewRadev/switch.vim'
 
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
-"Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
 Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
-"Plug 'vim-scripts/grep.vim'
-"Plug 'ervandew/supertab'
 "Plug 'DevWurm/autosession.vim'
-"Plug 'ntpeters/vim-better-whitespace'
 Plug 'gagoar/stripwhitespaces'
 " + for expand, _ for shrink
 Plug 'terryma/vim-expand-region'
@@ -221,23 +217,16 @@ Plug 'chrisbra/Colorizer', { 'on': ['ColorToggle'] }
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'thaerkh/vim-workspace'
 Plug 'tpope/vim-speeddating'
-
-" File manager
-Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'Yggdroot/indentLine'
 
 " Disable vaffle.newrw support remote edit but vaffle not.
 "Plug 'cocopon/vaffle.vim'
 " Helper for netrw. I use vaffle. It will useless
-"Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-vinegar'
 " This support rclone.
 "Plug 'ipod825/vim-netranger'
 
-Plug 'Yggdroot/indentLine'
-"Plug 'vim-multiple-cursors'
-"Plug 'osyo-manga/vim-over'
-"Plug 'justinmk/vim-gtfo'
-"Plug 'Shougo/unite.vim'
-"Plug 'JamshedVesuna/vim-markdown-preview' " sudo pip install grip
 
 " set filetype=rest
 " <c-j> for send request
@@ -304,23 +293,6 @@ Plug 'hashivim/vim-vagrant'
 Plug 'sheerun/vim-polyglot'
 
 
-"Plug 'vim-scripts/OmniCppComplete'
-"Plug 'neomake/neomake'
-"Plug 'adimit/prolog.vim'
-"Plug 'nathanaelkane/vim-indent-guides'
-"Plug 'JesseKPhillips/d.vim'
-"Plug 'HerringtonDarkholme/w3m.vim'
-"Plug 'mhinz/vim-startify'
-"Plug 'suan/vim-instant-markdown'
-
-Plug 'MattesGroeger/vim-bookmarks'
-"Plug 'thinca/vim-quickrun'
-"Plug 'mkitt/tabline.vim'
-"Plug 'mru.vim'
-"Plug 'rhysd/vim-clang-format'
-"Plug 'justmao945/vim-clang' "for autocomplete
-
-
 if executable("fcitx") == 1
   Plug 'vim-scripts/fcitx.vim'
 endif
@@ -330,29 +302,19 @@ endif
 Plug 'kjelly/auto-pairs'
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
-"Plug 'lambdalisue/gina.vim'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'majutsushi/tagbar', { 'on':  ['Tagbar'] }
 " emmet `<c-y>,` for expand `div>a` to `<div><a></a></div>
 Plug 'mattn/emmet-vim'
-Plug 'w0rp/ale', { 'for': 'go'}
 Plug 'tomtom/tcomment_vim'
 " Useful for handling tag
 Plug 'tpope/vim-surround'
 Plug 'Shougo/denite.nvim'
 
-"Plug 'myusuf3/numbers.vim'
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle']}
 
 " Plugin to toggle, display and navigate marks
 Plug 'kshenoy/vim-signature'
-
-"Plug 'Shougo/vimproc.vim'
-"Plug 'Shougo/vimshell.vim'
-Plug 'Chiel92/vim-autoformat'
-
-"Plug 'iamcco/devdocs.nvim', { 'do': 'npm install' }
-"Plug 'rhysd/devdocs.vim', { 'on': 'DevDocsUnderCursor'}
 
 {% if nvim %}
 
@@ -362,85 +324,22 @@ if has('python3')
   Plug 'vim-vdebug/vdebug', { 'on': 'VdebugStart'}
 endif
 
-"Plug 'kjelly/nvim-multiterm2'
 Plug 'pechorin/any-jump.nvim'
-"Plug 'Shougo/neosnippet'
-"Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
-
-"Plug 'ncm2/ncm2'
-"Plug 'roxma/nvim-yarp'
-"Plug 'ncm2/ncm2-bufword'
-"Plug 'ncm2/ncm2-tmux'
-"Plug 'ncm2/ncm2-path'
-"Plug 'ncm2/ncm2-syntax' | Plug 'Shougo/neco-syntax'
-"Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
-"Plug 'ncm2/ncm2-ultisnips'
 
 if executable('node')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
-
-
-elseif has('python3')
-  Plug 'autozimu/LanguageClient-neovim', { 'do': 'bash ./install.sh', 'branch': 'next' }
-  Plug 'ncm2/ncm2'
-  Plug 'roxma/nvim-yarp'
-  "Plug 'mhartington/nvim-typescript'
-
-  autocmd! BufEnter * silent! call ncm2#enable_for_buffer()
-  set completeopt=noinsert,menuone,noselect
-
-  " it's needed because lsp doesn't work for go
-else
-  " If not programming, use pure vimL plugins for vim and neovim.
-  Plug 'prabirshrestha/asyncomplete.vim'
-  Plug 'prabirshrestha/asyncomplete-buffer.vim'
-  Plug 'prabirshrestha/asyncomplete-file.vim'
-  Plug 'wellle/tmux-complete.vim'
-
-  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-      \ 'name': 'file',
-      \ 'whitelist': ['*'],
-      \ 'priority': 10,
-      \ 'completor': function('asyncomplete#sources#file#completor')
-      \ }))
-
-  let g:tmuxcomplete#asyncomplete_source_options = {
-              \ 'name':      'tmuxcomplete',
-              \ 'whitelist': ['*'],
-              \ 'config': {
-              \     'splitmode':      'words',
-              \     'filter_prefix':   1,
-              \     'show_incomplete': 1,
-              \     'sort_candidates': 0,
-              \     'scrollback':      0,
-              \     'truncate':        0
-              \     }
-              \ }
-
-  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-      \ 'name': 'buffer',
-      \ 'whitelist': ['*'],
-      \ 'blacklist': ['go'],
-      \ 'completor': function('asyncomplete#sources#buffer#completor'),
-      \ 'config': {
-      \    'max_buffer_size': 1000000,
-      \  },
-      \ }))
 endif
 
-Plug 'Shougo/neco-vim'
-Plug 'Shougo/neco-syntax'
 " project-wide async search and replace
 " `,ff` for esearch.
 Plug 'eugen0329/vim-esearch'
 
 
 {% else %}
-Plug 'Valloric/YouCompleteMe'
-"Plug 'maralla/completor.vim' "for vim8
+
 {% endif %}
 
 {% else %}
@@ -450,8 +349,6 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'mhinz/neovim-remote'
 Plug 'kassio/neoterm'
 
-" For neovim-qt or go-nvim
-Plug 'equalsraf/neovim-gui-shim'
 {% endif %}
 
 
@@ -1016,52 +913,6 @@ let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-j
 let g:random_scheme=1
 let g:available_colorschemes=['gruvbox', 'onedark', 'dracula', 'gruvbox-material', 'space-vim-dark', 'codedark', 'solarized8']
 
-" Define defxs mappings
-autocmd FileType defx do WinEnter | call s:defx_my_settings()
-function! s:defx_my_settings() abort
-    nnoremap <silent><buffer><expr> <CR>  defx#do_action('drop')
-    nnoremap <silent><buffer><expr> l     defx#do_action('drop')
-    nnoremap <silent><buffer><expr> s     defx#do_action('open', 'botright vsplit')
-    nnoremap <silent><buffer><expr> i     defx#do_action('open', 'topleft split')
-    nnoremap <silent><buffer><expr> st    defx#do_action('multi', [['drop', 'tabnew'], 'quit'])
-    nnoremap <silent><buffer><expr> sg    defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
-    nnoremap <silent><buffer><expr> sv    defx#do_action('multi', [['drop', 'split'], 'quit'])
-    nnoremap <silent><buffer><expr> P     defx#do_action('open', 'pedit')
-    nnoremap <silent><buffer><expr> K     defx#do_action('new_directory')
-    nnoremap <silent><buffer><expr> N     defx#do_action('new_multiple_files')
-    nnoremap <silent><buffer><expr> dd    defx#do_action('remove')
-    nnoremap <silent><buffer><expr> r     defx#do_action('rename')
-    nnoremap <silent><buffer><expr> x     defx#do_action('execute_system')
-    nnoremap <silent><buffer><expr> .     defx#do_action('toggle_ignored_files')
-    nnoremap <silent><buffer><expr> yy    defx#do_action('yank_path')
-    nnoremap <silent><buffer><expr> h     defx#do_action('cd', ['..'])
-    nnoremap <silent><buffer><expr> ~     defx#async_action('cd')
-    nnoremap <silent><buffer><expr> q     defx#do_action('quit')
-
-    nnoremap <silent><buffer><expr><nowait> \  defx#do_action('cd', getcwd())
-    nnoremap <silent><buffer><expr><nowait> c  defx#do_action('copy')
-    nnoremap <silent><buffer><expr><nowait> m  defx#do_action('move')
-    nnoremap <silent><buffer><expr><nowait> p  defx#do_action('paste')
-
-    nnoremap <silent><buffer><expr> '      defx#do_action('toggle_select') . 'j'
-    nnoremap <silent><buffer><expr> *      defx#do_action('toggle_select_all')
-    nnoremap <silent><buffer><expr> <C-r>  defx#do_action('redraw')
-    nnoremap <silent><buffer><expr> <C-g>  defx#do_action('print')
-
-    nnoremap <silent><buffer><expr> S  defx#do_action('toggle_sort', 'Time')
-    nnoremap <silent><buffer><expr> C
-      \ defx#do_action('toggle_columns', 'indent:mark:filename:type:size:time')
-
-    " Plugins
-    nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
-      \ ':<C-u>wincmd w<CR>' :
-      \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
-
-    nnoremap <silent><buffer><expr>gl  defx#do_action('call', 'DefxTmuxExplorer')
-    nnoremap <silent><buffer><expr>gp  defx#do_action('call', 'DefxDeniteGrep')
-    nnoremap <silent><buffer><expr>gf  defx#do_action('call', 'DefxDeniteFile')
-    nnoremap <silent><buffer><expr>w   defx#do_action('call', 'DefxToggleWidth')
-endfunction
 " Yank to tmux normally
 set clipboard=unnamed
 

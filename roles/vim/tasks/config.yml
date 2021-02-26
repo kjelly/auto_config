@@ -66,6 +66,10 @@
 
 - copy: src="vimwiki.vim" dest="~/.config/nvim/ftplugin"
 
+- file: path="~/.config/coc/ultisnips/" state=directory recurse=yes
+
+- copy: src="json.snippets" dest="~/.config/coc/ultisnips/"
+
 - copy: src="ctags" dest="~/.ctags"
 
 - copy: src=clipboard-provider dest="~/.config/nvim/bin/" mode=0755
