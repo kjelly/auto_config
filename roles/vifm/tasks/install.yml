@@ -13,3 +13,8 @@
    - byobu
   become: true
   when: ansible_distribution == 'Debian'
+
+- git:
+    repo: 'https://github.com/vifm/vifm-colors'
+    dest: ~/.vifm/colors/
+  ignore_errors: yes
