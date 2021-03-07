@@ -139,6 +139,10 @@ nnoremap <silent> <leader>mn ]`
 nnoremap <silent> <leader>mp [`
 nnoremap <silent> <leader>mc :delmarks!<cr>
 nnoremap <silent> <leader>mg `.
+
+nnoremap <silent> <leader>nl :Note<cr>
+nnoremap <silent> <leader>ns :NoteSearch<cr>
+
 " Gina
 "nnoremap <leader>vs :Gina status<cr>
 "nnoremap <leader>vpl :Gina pull<cr>

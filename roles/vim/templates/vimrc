@@ -846,6 +846,13 @@ function! Wiki()
 endfunction
 command! -register Wiki call Wiki()
 
+command! -bang -nargs=* NoteSearch
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>).' ~/notes', 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+command! Note :Files ~/notes
+
 if exists('*nvim_open_win')
   let $FZF_DEFAULT_OPTS='--layout=reverse'
   let g:fzf_layout = { 'window': 'call FloatingFZF()' }
