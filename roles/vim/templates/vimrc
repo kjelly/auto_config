@@ -913,7 +913,7 @@ let g:clipboard = {
       \ }
 
 let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-json',
-      \  'coc-post', 'coc-marketplace', 'coc-post','coc-pyls','coc-snippets',
+      \  'coc-post', 'coc-marketplace', 'coc-post','coc-snippets',
       \  'coc-translator','coc-tsserver','coc-tabnine','coc-rls','coc-todolist','coc-explorer',
       \  'coc-yank', 'coc-just-complete', 'coc-html', 'coc-css', 'coc-metals',
       \  'coc-go', 'coc-zi', 'coc-word', 'coc-rest', 'coc-pyright']
