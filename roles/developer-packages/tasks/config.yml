@@ -1,2 +1,26 @@
 ---
 - copy: src="gitconfig" dest="~/.gitconfig"
+
+- git:
+    repo: https://github.com/asdf-vm/asdf.git
+    dest: "~/.asdf"
+    version: v0.8.0
+
+- lineinfile:
+    path: "~/.config/fish/config.fish"
+    state: "present"
+    line: "source ~/.asdf/asdf.fish"
+  ignore_errors: yes
+
+- lineinfile:
+    path: "~/.bashrc"
+    state: "present"
+    line: ". $HOME/.asdf/asdf.sh"
+  ignore_errors: yes
+
+- lineinfile:
+    path: "~/.zshrc"
+    state: "present"
+    line: ". $HOME/.asdf/asdf.sh"
+  ignore_errors: yes
+
