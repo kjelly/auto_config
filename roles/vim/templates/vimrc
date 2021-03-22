@@ -497,7 +497,10 @@ set noshowmode
 set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
+
+{% if nvim %}
 set inccommand=nosplit
+{% endif %}
 
 if executable("fish") == 1
   set shell=fish
@@ -647,15 +650,10 @@ let g:floaterm_height=0.9
 
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
-autocmd! InsertEnter,WinLeave * set nocursorline
 
 {% if nvim %}
 
-autocmd! BufEnter * set laststatus=2
-"autocmd! BufEnter * if &buftype == 'terminal' | :set laststatus=0 | endif
-"autocmd! TermOpen *sh set laststatus=0
-autocmd! TermOpen *sh* set nonu
-"autocmd! BufEnter * if &buftype == 'terminal' | :startinsert | endif
+autocmd! TermLeave * if &filetype=='fzf' | wincmd q
 
 {% endif %}
 
@@ -667,7 +665,6 @@ autocmd! BufCreate __REST_response__ vertical resize 20
 autocmd! BufCreate __REST_response__ set nonu
 autocmd! BufEnter __REST_response__ set modifiable
 autocmd! FileType tagbar vertical resize 20
-autocmd! TermLeave * if &filetype=='fzf' | wincmd q
 autocmd! WinLeave * if &filetype=='floaterm' | :FloatermHide<cr>
 
 augroup Binary
@@ -939,4 +936,7 @@ nmap YY "+yy
 nmap Y "+y
 vmap Y "+y
 
+
+{% if nvim %}
 luafile ~/.config/nvim/config.lua
+{% endif %}
