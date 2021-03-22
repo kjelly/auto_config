@@ -191,6 +191,7 @@ if has('nvim-0.5')
   Plug 'mfussenegger/nvim-dap-python'
 endif
 Plug 'voldikss/vim-floaterm'
+Plug 'dominikduda/vim_current_word'
 Plug 'liuchengxu/vim-which-key'
 " Show register content when pressing " or <c-r>
 Plug 'junegunn/vim-peekaboo'
