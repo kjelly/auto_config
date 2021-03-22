@@ -9,6 +9,13 @@ if has("gui_running")
     set guitablabel=%M\ %t
 endif
 
+"https://github.com/tmux/tmux/issues/1246
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
 
 " Specify the behavior when switching between buffers
 try
@@ -745,8 +752,6 @@ hi VimwikiHeader6 guifg=#FFFF00
 
 {% include './templates/keybindings.vim' %}
 {% include './templates/keybindings_leader.vim' %}
-
-{% if nvim and programming %}set termguicolors{% endif %}
 
 "silent colorscheme desert
 if filereadable(expand("~/.vim_custom.vim")) && match(readfile(expand("~/.vim_custom.vim")),"colorscheme")==-1
