@@ -1,42 +1,59 @@
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = { },  -- list of language that will be disabled
-  },
-}
+function isModuleAvailable(name)
+    if package.loaded[name] then
+        return true
+    else
+        for _, searcher in ipairs(package.searchers or package.loaders) do
+            local loader = searcher(name)
+            if type(loader) == "function" then
+                package.preload[name] = loader
+                return true
+            end
+        end
+        return false
+    end
+end
 
-local dap = require('dap')
+if isModuleAvailable("nvim-treesitter") then
+    require "nvim-treesitter.configs".setup {
+        ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+        highlight = {
+            enable = true, -- false will disable the whole extension
+            disable = {"dart"} -- list of language that will be disabled
+        }
+    }
+end
 
-dap.adapters.python = {
-  type = 'executable';
-  command = '/usr/bin/python3';
-  args = { '-m', 'debugpy.adapter' };
-}
+if isModuleAvailable("dap") then
+    local dap = require("dap")
+    dap.adapters.python = {
+        type = "executable",
+        command = "/usr/bin/python3",
+        args = {"-m", "debugpy.adapter"}
+    }
 
-dap.configurations.python = {
-  {
-    -- The first three options are required by nvim-dap
-    type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
-    request = 'launch';
-    name = "Launch file";
+    dap.configurations.python = {
+        {
+            -- The first three options are required by nvim-dap
+            type = "python", -- the type here established the link to the adapter definition: `dap.adapters.python`
+            request = "launch",
+            name = "Launch file",
+            -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
 
-    -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-
-    program = "${file}"; -- This configuration will launch the current file if used.
-    pythonPath = function()
-      -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-      -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-      -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-      local cwd = vim.fn.getcwd()
-      if vim.fn.executable(cwd .. '/venv/bin/python') then
-        return '/usr/bin/python3'
-      elseif vim.fn.executable(cwd .. '/.venv/bin/python') then
-        return '/usr/bin/python3'
-      else
-        return '/usr/bin/python3'
-      end
-    end;
-  },
-}
+            program = "${file}", -- This configuration will launch the current file if used.
+            pythonPath = function()
+                -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
+                -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
+                -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
+                local cwd = vim.fn.getcwd()
+                if vim.fn.executable(cwd .. "/venv/bin/python") then
+                    return "/usr/bin/python3"
+                elseif vim.fn.executable(cwd .. "/.venv/bin/python") then
+                    return "/usr/bin/python3"
+                else
+                    return "/usr/bin/python3"
+                end
+            end
+        }
+    }
+end
 
