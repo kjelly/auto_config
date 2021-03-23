@@ -754,14 +754,6 @@ hi VimwikiHeader6 guifg=#FFFF00
 {% include './templates/keybindings.vim' %}
 {% include './templates/keybindings_leader.vim' %}
 
-"silent colorscheme desert
-if filereadable(expand("~/.vim_custom.vim")) && match(readfile(expand("~/.vim_custom.vim")),"colorscheme")==-1
-  silent! colorscheme gruvbox-material
-endif
-if !filereadable(expand("~/.vim_custom.vim"))
-  silent! colorscheme gruvbox-material
-endif
-
 let g:which_key_map =  {}
 let g:which_key_map.g = { 'name' : 'Git' }
 let g:which_key_map.z = { 'name' : 'Grep/Find/FZF' }
@@ -817,6 +809,15 @@ let g:any_jump_disable_default_keybindings = 1
 let g:any_jump_preview_lines_count = 5
 let g:any_jump_window_width_ratio  = 0.8
 let g:any_jump_window_height_ratio = 0.8
+
+
+"silent colorscheme desert
+if filereadable(expand("~/.vim_custom.vim")) && match(readfile(expand("~/.vim_custom.vim")),"colorscheme")==-1
+  silent! colorscheme gruvbox-material
+endif
+if !filereadable(expand("~/.vim_custom.vim"))
+  silent! colorscheme gruvbox-material
+endif
 
 
 silent! call which_key#register(',', "g:which_key_map")
@@ -900,8 +901,6 @@ if exists('*nvim_open_win')
   set pumblend=0
 endif
 
-silent! source ~/.vim_custom.vim
-silent! exec 'source' g:MYVIMRC_DIR . '/hterm-copy.vim'
 
 let g:clipboard = {
       \ 'name': 'myClipboard',
@@ -934,6 +933,9 @@ let g:gruvbox_material_enable_italic = 1
 let g:gruvbox_material_enable_bold = 1
 let g:gruvbox_material_background = 'hard'
 
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+
 " Yank to tmux normally
 set clipboard=unnamed
 
@@ -956,3 +958,6 @@ vmap Y "+y
 {% if nvim %}
 luafile ~/.config/nvim/config.lua
 {% endif %}
+
+silent! source ~/.vim_custom.vim
+silent! exec 'source' g:MYVIMRC_DIR . '/hterm-copy.vim'
