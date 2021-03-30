@@ -812,16 +812,6 @@ let g:any_jump_preview_lines_count = 5
 let g:any_jump_window_width_ratio  = 0.8
 let g:any_jump_window_height_ratio = 0.8
 
-
-"silent colorscheme desert
-if filereadable(expand("~/.vim_custom.vim")) && match(readfile(expand("~/.vim_custom.vim")),"colorscheme")==-1
-  silent! colorscheme gruvbox-material
-endif
-if !filereadable(expand("~/.vim_custom.vim"))
-  silent! colorscheme gruvbox-material
-endif
-
-
 silent! call which_key#register(',', "g:which_key_map")
 if exists('*which_key#register')
   nnoremap <silent> <leader> :<c-u>WhichKey  ','<CR>
@@ -928,7 +918,7 @@ let g:available_colorschemes=['gruvbox', 'onedark', 'dracula', 'gruvbox-material
 let g:gruvbox_material_better_performance = 1
 let g:gruvbox_material_palette = 'material'
 let g:gruvbox_material_current_word = 'bold'
-let g:gruvbox_material_diagnostic_line_highlight = 1
+let g:gruvbox_material_diagnostic_line_highlight = 0
 let g:gruvbox_material_diagnostic_text_highlight = 1
 let g:gruvbox_material_transparent_background = 1
 let g:gruvbox_material_enable_italic = 1
@@ -960,6 +950,13 @@ vmap Y "+y
 {% if nvim %}
 luafile ~/.config/nvim/config.lua
 {% endif %}
+
+if filereadable(expand("~/.vim_custom.vim")) && match(readfile(expand("~/.vim_custom.vim")),"colorscheme")==-1
+  silent! colorscheme gruvbox-material
+endif
+if !filereadable(expand("~/.vim_custom.vim"))
+  silent! colorscheme gruvbox-material
+endif
 
 silent! source ~/.vim_custom.vim
 silent! exec 'source' g:MYVIMRC_DIR . '/hterm-copy.vim'
