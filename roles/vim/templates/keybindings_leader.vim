@@ -298,6 +298,7 @@ nnoremap <silent> <localleader>k :wincmd k<cr>
 nnoremap <silent> <localleader>l :wincmd l<cr>
 nnoremap <silent> <localleader>n :NERDTreeToggle<cr>
 nnoremap <silent> <localleader>o :Buffers<cr>
+nnoremap <silent> <localleader>p :Files<cr>
 nnoremap <silent> <localleader>q :q!<cr>
 nnoremap <silent> <localleader>r :C <up><cr>
 nnoremap <silent> <localleader>t :tabnew %<cr>
