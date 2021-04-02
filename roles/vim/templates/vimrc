@@ -316,6 +316,7 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'majutsushi/tagbar', { 'on':  ['Tagbar'] }
 " emmet `<c-y>,` for expand `div>a` to `<div><a></a></div>
 Plug 'mattn/emmet-vim'
+" use <c-/> for toggling comment
 Plug 'tomtom/tcomment_vim'
 " Useful for handling tag
 Plug 'tpope/vim-surround'
@@ -848,6 +849,13 @@ command! -bang -nargs=* NoteSearch
   \   fzf#vim#with_preview(), <bang>0)
 
 command! Note :Files ~/notes
+
+command! DisableTmuxKey
+         \ call jobstart('set-tmux-prefix -k F1 -t 20', {
+         \    'on_exit': { j,d,e ->
+         \       execute('echom "enable tmux key"', '')
+         \    }
+         \ })
 
 if exists('*nvim_open_win')
   let $FZF_DEFAULT_OPTS='--layout=reverse'

@@ -103,6 +103,7 @@ nnoremap <silent> <leader>si :source Session.vim<cr>
 nnoremap <silent> <leader>se :mksession!<cr>
 nnoremap <silent> <leader>sc :call ToggleForCopy()<cr>
 nnoremap <silent> <leader>st :Switch<cr>
+nnoremap <silent> <leader>sk :DisableTmuxKey<cr>
 
 " Find file in NERDTree
 nnoremap <silent> <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
