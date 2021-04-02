@@ -3,6 +3,8 @@
   "diagnostic.warningSign": "W",
   "diagnostic.infoSign": "I",
   "diagnostic.hintSign": "H",
+  "tabnine.priority": 90,
+  "coc.source.word.priority": 20,
   "languageserver": {
     "golang": {
       "command": "go-langserver",
