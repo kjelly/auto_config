@@ -6,6 +6,7 @@ if has("gui_running")
     set guioptions-=T
     set guioptions+=e
     set t_Co=256
+    set t_ut=
     set guitablabel=%M\ %t
 endif
 
