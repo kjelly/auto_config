@@ -81,6 +81,8 @@ endfunction
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
+command! SearchPanel :lua require('spectre').open()<CR>
+
 function! <SID>BufcloseCloseIt()
   let l:currentBufNum = bufnr("%")
   let l:alternateBufNum = bufnr("#")
@@ -192,6 +194,9 @@ if has('nvim-0.5')
   Plug 'mfussenegger/nvim-dap'
   Plug 'mfussenegger/nvim-dap-python'
 endif
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'windwp/nvim-spectre'
 Plug 'voldikss/vim-floaterm'
 Plug 'dominikduda/vim_current_word'
 Plug 'liuchengxu/vim-which-key'
