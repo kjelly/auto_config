@@ -48,7 +48,6 @@ nnoremap <silent> <leader>sh :noh<cr>
 
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :Pushd %:p:h<cr>:pwd<cr>
-nnoremap <leader>co :Colors<cr>
 
 nnoremap <leader>fx :Explore<space>
 nnoremap <leader>fr :Explore scp://
