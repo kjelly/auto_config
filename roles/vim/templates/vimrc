@@ -927,7 +927,9 @@ let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-j
       \  'coc-go', 'coc-zi', 'coc-word', 'coc-rest', 'coc-pyright', 'coc-highlight']
 
 let g:random_scheme=1
-let g:available_colorschemes=['gruvbox', 'onedark', 'dracula', 'gruvbox-material', 'space-vim-dark', 'codedark', 'solarized8']
+let g:available_colorschemes=['gruvbox', 'onedark', 'dracula', 'gruvbox-material',
+      \ 'space-vim-dark', 'codedark', 'solarized8', 'iceberg',
+      \ 'ayu', 'nord', 'moonfly', 'murphy', 'deep-spaciie']
 
 let g:gruvbox_material_better_performance = 1
 let g:gruvbox_material_palette = 'material'
@@ -938,6 +940,7 @@ let g:gruvbox_material_transparent_background = 1
 let g:gruvbox_material_enable_italic = 1
 let g:gruvbox_material_enable_bold = 1
 let g:gruvbox_material_background = 'hard'
+let g:onedark_terminal_italics=1
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
