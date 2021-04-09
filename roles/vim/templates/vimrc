@@ -269,7 +269,6 @@ Plug 'lambdalisue/suda.vim'
 Plug 'ianding1/leetcode.vim'
 
 " colorscheme
-Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'iCyMind/NeoSolarized'
 Plug 'liuchengxu/space-vim-dark' " Good
@@ -927,7 +926,7 @@ let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-j
       \  'coc-go', 'coc-zi', 'coc-word', 'coc-rest', 'coc-pyright', 'coc-highlight']
 
 let g:random_scheme=1
-let g:available_colorschemes=['gruvbox', 'onedark', 'dracula', 'gruvbox-material',
+let g:available_colorschemes=['onedark', 'dracula', 'gruvbox-material',
       \ 'space-vim-dark', 'codedark', 'solarized8', 'iceberg',
       \ 'ayu', 'nord', 'moonfly', 'murphy', 'deep-spaciie']
 
