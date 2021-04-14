@@ -10,4 +10,4 @@ sudo mv squashfs-root neovim.nightly
 sudo find /opt/neovim.nightly/ -type d -exec chmod go+rx {} \;
 cd /usr/local/bin
 sudo ln -s /opt/neovim.nightly/AppRun nvim.nightly
-
+sudo rm -rf  /usr/share/nvim/runtime/colors/*
