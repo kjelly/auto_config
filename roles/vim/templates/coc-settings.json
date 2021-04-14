@@ -1,8 +1,8 @@
 {
-  "diagnostic.errorSign": "E",
-  "diagnostic.warningSign": "W",
-  "diagnostic.infoSign": "I",
-  "diagnostic.hintSign": "H",
+  "diagnostic.errorSign": "❌",
+  "diagnostic.warningSign": "🔺",
+  "diagnostic.infoSign": "🌲",
+  "diagnostic.hintSign": "❔",
   "tabnine.priority": 90,
   "coc.source.word.priority": 20,
   "languageserver": {
