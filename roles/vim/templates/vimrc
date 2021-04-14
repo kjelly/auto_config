@@ -286,6 +286,7 @@ Plug 'cocopon/iceberg.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'gruvbox-community/gruvbox'
 Plug 'Sammyalhashe/random_colorscheme.vim'
 
 
