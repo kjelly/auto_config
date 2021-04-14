@@ -1,9 +1,3 @@
-set __oceanfish_glyph_anchor \u2693
-set __oceanfish_glyph_flag \u2691
-set __oceanfish_glyph_radioactive \u2622
-set arrow \u21d2
-
-
 function _git_branch_name
     echo (__fish_git_prompt)
 end
@@ -53,14 +47,15 @@ function fish_prompt
     if [ (_git_branch_name) ]
         set -l git_branch (_git_branch_name)
         if [ (_is_git_dirty) ]
-            echo -n -s $magenta "$git_branch " $red "$__oceanfish_glyph_flag "
+            echo -n -s $magenta "$git_branch " $red " 🍎 "
         else
-            echo -n -s $magenta "$git_branch "
+            echo -n -s $magenta "$git_branch " "🌲 "
         end
     end
 
     if test $last_status -ne 0
       set last_status_color $red
+      echo -n ' ❌'
     else
       set last_status_color $normal
     end
