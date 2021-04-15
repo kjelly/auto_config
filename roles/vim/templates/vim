@@ -1,4 +1,5 @@
 #!/bin/bash
+random-color-scheme.py
 if [ -f `which nvr` ] && [ $# -ne 0 ] && [ -f /tmp/nvimsocket  ]; then
   nvr $@
 elif [ -f `which nvim` ]; then

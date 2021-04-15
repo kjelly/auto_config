@@ -72,6 +72,8 @@
 
 - copy: src="ctags" dest="~/.ctags"
 
+- copy: src="random-color-scheme.py" dest="~/bin/random-color-scheme.py" mode=0755
+
 - copy: src=clipboard-provider dest="~/.config/nvim/bin/" mode=0755
 
 - stat: path=~/.devdocsrc
