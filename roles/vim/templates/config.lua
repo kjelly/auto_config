@@ -1,4 +1,4 @@
-function isModuleAvailable(name)
+function IsModuleAvailable(name)
     if package.loaded[name] then
         return true
     else
@@ -13,7 +13,7 @@ function isModuleAvailable(name)
     end
 end
 
-if isModuleAvailable("nvim-treesitter") then
+if IsModuleAvailable("nvim-treesitter") then
     require "nvim-treesitter.configs".setup {
         ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
         highlight = {
@@ -23,7 +23,7 @@ if isModuleAvailable("nvim-treesitter") then
     }
 end
 
-if isModuleAvailable("dap") then
+if IsModuleAvailable("dap") then
     local dap = require("dap")
     dap.adapters.python = {
         type = "executable",
@@ -57,3 +57,23 @@ if isModuleAvailable("dap") then
     }
 end
 
+if IsModuleAvailable("lualine") then
+    require('lualine').setup{
+        sections = {
+          lualine_a = {'mode'},
+          lualine_b = {'branch'},
+          lualine_c = {'filename'},
+          lualine_x = {'encoding', 'fileformat', 'filetype'},
+          lualine_y = {'progress'},
+          lualine_z = {'location'}
+        },
+        inactive_sections = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {'filename'},
+          lualine_x = {'location'},
+          lualine_y = {},
+          lualine_z = {}
+        }
+    }
+end

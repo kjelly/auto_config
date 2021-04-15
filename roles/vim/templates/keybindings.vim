@@ -329,9 +329,9 @@ tnoremap <silent> <expr> <Esc><Esc> &filetype=="floaterm" ? "<c-\><c-n>:Floaterm
 nnoremap <silent> <expr> <Esc><Esc> &filetype=="floaterm" ? ":FloatermHide<cr>" : ""
 nnoremap <silent> <expr> <Esc> &filetype=="floaterm" ? ":FloatermHide<cr>" : ""
 
-inoremap <silent> <a-;> <Esc>:FloatermToggle<cr>
-nnoremap <silent> <a-;> :FloatermToggle<cr>
-tnoremap <silent> <a-;> <c-\><c-n>:FloatermToggle<cr>
+inoremap <a-;> <Esc>:FloatermToggle<cr>
+nnoremap <a-;> :FloatermToggle<cr>
+tnoremap <a-;> <c-\><c-n>:FloatermToggle<cr>
 
 inoremap <silent> <a-:> <Esc>:FloatermNew<cr>
 nnoremap <silent> <a-:> :FloatermNew<cr>

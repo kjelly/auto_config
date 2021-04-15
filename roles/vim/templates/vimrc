@@ -194,6 +194,9 @@ if has('nvim-0.5')
   Plug 'kevinhwang91/nvim-hlslens'
   Plug 'mfussenegger/nvim-dap'
   Plug 'mfussenegger/nvim-dap-python'
+  Plug 'hoob3rt/lualine.nvim'
+else
+  Plug 'itchyny/lightline.vim'
 endif
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -213,7 +216,6 @@ Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle'
 Plug 'gagoar/stripwhitespaces'
 " + for expand, _ for shrink
 Plug 'terryma/vim-expand-region'
-Plug 'itchyny/lightline.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'unblevable/quick-scope'
 Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
@@ -512,7 +514,6 @@ set listchars=tab:>-,trail:~,extends:>,precedes:<
 set list
 set foldlevel=9
 set sessionoptions+=globals
-set noshowmode
 " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
 " found' messages
 " or don't give |ins-completion-menu| messages.
@@ -949,6 +950,13 @@ let g:onedark_terminal_italics=1
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
+let g:lightline = {
+      \ 'colorscheme': 'PaperColor',
+      \ 'active': {
+      \   'left': [ [ 'mode','paste' ],
+      \             [ 'readonly', 'filename', 'modified'] ]
+      \ },
+\ }
 
 " Yank to tmux normally
 set clipboard=unnamed
