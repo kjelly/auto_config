@@ -197,10 +197,13 @@ if has('nvim-0.5')
   Plug 'hoob3rt/lualine.nvim'
 else
   Plug 'itchyny/lightline.vim'
+  Plug 'Shougo/denite.nvim'
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'windwp/nvim-spectre'
+  "Jump to any definition and references IDE madness without overhead
+  Plug 'pechorin/any-jump.nvim'
 endif
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'windwp/nvim-spectre'
 Plug 'voldikss/vim-floaterm'
 "Plug 'dominikduda/vim_current_word'
 Plug 'liuchengxu/vim-which-key'
@@ -259,9 +262,6 @@ Plug 'diepm/vim-rest-console'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 "Plug 'ctrlpvim/ctrlp.vim'
-
-"Jump to any definition and references IDE madness without overhead
-Plug 'pechorin/any-jump.nvim'
 
 " For sudo
 " :w suda://%
@@ -333,7 +333,6 @@ Plug 'mattn/emmet-vim'
 Plug 'tomtom/tcomment_vim'
 " Useful for handling tag
 Plug 'tpope/vim-surround'
-Plug 'Shougo/denite.nvim'
 
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle']}
 
