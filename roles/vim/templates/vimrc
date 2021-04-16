@@ -195,14 +195,15 @@ if has('nvim-0.5')
   Plug 'mfussenegger/nvim-dap'
   Plug 'mfussenegger/nvim-dap-python'
   Plug 'hoob3rt/lualine.nvim'
-else
-  Plug 'itchyny/lightline.vim'
   Plug 'Shougo/denite.nvim'
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'windwp/nvim-spectre'
   "Jump to any definition and references IDE madness without overhead
   Plug 'pechorin/any-jump.nvim'
+else
+  Plug 'itchyny/lightline.vim'
+
 endif
 Plug 'voldikss/vim-floaterm'
 "Plug 'dominikduda/vim_current_word'
