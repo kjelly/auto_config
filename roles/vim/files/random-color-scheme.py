@@ -9,7 +9,6 @@ colorscheme {color}
 '''
 
 colors = [
-    "moonfly",
     "deep-space",
     "gruvbox-material",
     "iceberg",
