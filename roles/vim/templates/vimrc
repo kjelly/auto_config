@@ -669,6 +669,8 @@ let g:NERDTreeWinSize=20
 let g:leetcode_solution_filetype='python3'
 let g:floaterm_width=0.9
 let g:floaterm_height=0.9
+let g:floaterm_borderchars='########'
+
 
 " Autocmd
 autocmd! InsertLeave,WinEnter * set cursorline
