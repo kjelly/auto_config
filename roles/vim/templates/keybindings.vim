@@ -46,8 +46,11 @@ tnoremap <c-l> <Right>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-t> :tabnew %<CR>
 inoremap <C-t> <Esc>:tabnew %<CR>
-noremap H gT
-noremap L gt
+
+{% if nvim %}
+nnoremap <silent> H :BufferPrevious<CR>
+nnoremap <silent> L :BufferNext<CR>
+{% endif %}
 
 " Command
 nnoremap <C-e> :Commands<cr>
@@ -261,9 +264,11 @@ inoremap <A-o> <Esc>:Buffers<cr>
 nnoremap <A-o> :Buffers<cr>
 tnoremap <A-o> <C-\><C-n>:Buffers<cr>
 
-inoremap <A-i> <Esc>:Ag<cr>
-nnoremap <A-i> :Ag<cr>
-tnoremap <A-i> <C-\><C-n>:Ag<cr>
+{% if nvim %}
+inoremap <A-i> <Esc>:BufferPick<cr>
+nnoremap <A-i> :BufferPick<cr>
+tnoremap <A-i> <C-\><C-n>:BufferPick<cr>
+{% endif %}
 
 inoremap <A-u> <Esc>:History:<cr>
 nnoremap <A-u> :History:<cr>

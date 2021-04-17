@@ -178,6 +178,16 @@ imap <C-f> <Plug>(coc-snippets-expand)
 imap <C-f> <Plug>(coc-snippets-expand-jump)
 let g:coc_snippet_next = '<c-f>'
 let g:coc_snippet_prev = '<c-b>'
+let bufferline = get(g:, 'bufferline', {})
+let bufferline.icons = v:false
+let bufferline.icon_custom_colors = v:false
+let bufferline.tabpages = v:false
+let bufferline.closable = v:false
+let bufferline.icon_separator_active = '|'
+let bufferline.icon_separator_inactive = '|'
+let bufferline.icon_close_tab = ''
+let bufferline.icon_close_tab_modified = '●'
+
 
 set nocompatible              " be improved
 filetype off                  " required before plugins
@@ -201,6 +211,7 @@ if has('nvim-0.5')
   Plug 'windwp/nvim-spectre'
   "Jump to any definition and references IDE madness without overhead
   Plug 'pechorin/any-jump.nvim'
+  Plug 'romgrk/barbar.nvim'
 else
   Plug 'itchyny/lightline.vim'
 
