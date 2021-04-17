@@ -265,9 +265,9 @@ nnoremap <A-o> :Buffers<cr>
 tnoremap <A-o> <C-\><C-n>:Buffers<cr>
 
 {% if nvim %}
-inoremap <A-i> <Esc>:BufferPick<cr>
+inoremap <A-i> <Esc>:BufferPick<cr>i
 nnoremap <A-i> :BufferPick<cr>
-tnoremap <A-i> <C-\><C-n>:BufferPick<cr>
+tnoremap <A-i> <C-\><C-n>:BufferPick<cr>i
 {% endif %}
 
 inoremap <A-u> <Esc>:History:<cr>
