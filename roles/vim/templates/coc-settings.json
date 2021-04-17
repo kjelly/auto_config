@@ -1,6 +1,6 @@
 {
   "coc.preferences.enableFloatHighlight": true,
-  "coc.preferences.snippetStatusText": "Ⓢ ",
+  "coc.preferences.snippetStatusText": "🌠",
   "coc.preferences.extensionUpdateCheck": "daily",
   "coc.preferences.messageLevel": "error",
   "coc.source.around.firstMatch": false,
@@ -21,7 +21,7 @@
 
   "diagnostic.errorSign": "❌",
   "diagnostic.warningSign": "🔺",
-  "diagnostic.infoSign": "🌲",
+  "diagnostic.infoSign": "ί",
   "diagnostic.hintSign": "❔",
   "tabnine.priority": 90,
   "coc.source.word.priority": 20,
