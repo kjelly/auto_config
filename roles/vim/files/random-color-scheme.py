@@ -2,11 +2,6 @@
 import random
 import os
 
-t = '''
-let g:leetcode_browser='firefox'
-let g:leetcode_hide_paid_only='1'
-colorscheme {color}
-'''
 
 colors = [
     "deep-space",
@@ -15,6 +10,12 @@ colors = [
     "onedark",
     "space-vim-dark",
 ]
+color = random.choice(colors)
+with open(os.path.expanduser('~/.vim_custom.vim'), 'r') as ftr:
+    data = ftr.read().strip().split('\n')
+
+data = [i for i in data if 'colorscheme' not in i]
+data.append(f'colorscheme {color}')
 
 with open(os.path.expanduser('~/.vim_custom.vim'), 'w') as ftr:
-    ftr.write(t.format(color=random.choice(colors)))
+    ftr.write('\n'.join(data))
