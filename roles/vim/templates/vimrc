@@ -481,7 +481,6 @@ set mat=2
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
-set t_vb=
 set tm=500
 
 " Sets how many lines of history VIM has to remember
@@ -681,7 +680,6 @@ let g:NERDTreeWinSize=20
 let g:leetcode_solution_filetype='python3'
 let g:floaterm_width=0.9
 let g:floaterm_height=0.9
-let g:floaterm_borderchars='########'
 
 
 " Autocmd
