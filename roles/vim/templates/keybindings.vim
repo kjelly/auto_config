@@ -376,30 +376,6 @@ vnoremap <A-x> :lua multiTermRunCurrentSelectedLines()<cr>
 
 {% endif %}
 
-function! ShowDoc()
-  let l:my_filetype = &filetype
-  echo l:my_filetype
-  if l:my_filetype == 'scala'
-    execute "EnDocBrowse"
-  elseif l:my_filetype == 'java'
-    execute "EnDocBrowse"
-  else
-    call LanguageClient_textDocument_hover()
-  endif
-endfunction
-
-function! ShowDef()
-  let l:my_filetype = &filetype
-  echo l:my_filetype
-  if l:my_filetype == 'scala'
-    execute "EnDeclaration"
-  elseif l:my_filetype == 'java'
-    execute "EnDeclaration"
-  else
-    call LanguageClient_textDocument_definition()
-  endif
-endfunction
-
 "imap <a-/> <Plug>(ncm2_manual_trigger)
 "au TextChangedI * call ncm2#auto_trigger()
 "let g:ncm2#complete_length=[[1,3],[7,4]]
