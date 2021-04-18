@@ -163,6 +163,8 @@ nnoremap <silent> <leader>wt :ToggleWorkspace<CR>
 nnoremap <silent> <leader>wr :WinResizerStartResize<cr>
 nnoremap <silent> <leader>wm :WinResizerStartMove<cr>
 nnoremap <silent> <leader>wf :WinResizerStartFocus<cr>
+nnoremap <silent> <leader>wsh :split<cr>
+nnoremap <silent> <leader>wsv :vsplit<cr>
 
 nnoremap <silent> <leader>wh :wincmd h<cr>
 nnoremap <silent> <leader>wj :wincmd j<cr>
@@ -188,6 +190,8 @@ nnoremap <silent> <leader>ecd :let @a=expand("%:p:h")<cr>
 
 nnoremap <silent> <leader>pp :put<cr>
 nnoremap <silent> <leader>pr :put<cr>G$a<cr>
+nnoremap <leader>pu :PlugUpdate<cr>
+nnoremap <leader>pi :PlugInstall<cr>
 
 " Run/Test
 nnoremap <silent> <leader>rt :TestNearest<cr>
