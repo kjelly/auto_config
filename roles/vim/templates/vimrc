@@ -284,21 +284,14 @@ Plug 'ianding1/leetcode.vim'
 
 " colorscheme
 Plug 'joshdick/onedark.vim'
-Plug 'iCyMind/NeoSolarized'
 Plug 'liuchengxu/space-vim-dark' " Good
-Plug 'lifepillar/vim-solarized8'
-Plug 'tomasiser/vim-code-dark'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'tyrannicaltoucan/vim-deep-space'
-Plug 'connorholyday/vim-snazzy'
 Plug 'bluz71/vim-moonfly-colors'
-Plug 'hzchirs/vim-material'
-Plug 'kaicataldo/material.vim'
 Plug 'sainnhe/gruvbox-material'
 Plug 'ayu-theme/ayu-vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'arcticicestudio/nord-vim'
-Plug 'altercation/vim-colors-solarized'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'gruvbox-community/gruvbox'
 Plug 'romgrk/doom-one.vim'
