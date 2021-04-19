@@ -68,7 +68,16 @@ inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDow
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 " Find file
-nnoremap <C-p> :Files<cr>
+function FindFile()
+  call system("git status")
+  if v:shell_error == 0
+    execute 'GitFiles'
+    return
+  else
+    execute 'Files'
+  endif
+endfunction
+nnoremap <C-p> :call FindFile()<cr>
 vnoremap <c-p> "ry:<c-u>Rg <c-r>r<cr>
 
 " Insert mode completion
