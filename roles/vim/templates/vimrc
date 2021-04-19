@@ -216,6 +216,14 @@ else
   Plug 'itchyny/lightline.vim'
 
 endif
+Plug 'adelarsq/vim-emoji-icon-theme'
+Plug 'yazgoo/unicodemoji'
+
+Plug 'tpope/vim-dadbod', { 'on': ['DB']}
+Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DB']}
+
+Plug 'mhinz/vim-signify' " show git diff
+
 Plug 'voldikss/vim-floaterm'
 "Plug 'dominikduda/vim_current_word'
 Plug 'liuchengxu/vim-which-key'
@@ -524,7 +532,7 @@ set sessionoptions+=globals
 set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
-
+set encoding=UTF-8
 {% if nvim %}
 set inccommand=nosplit
 {% endif %}
