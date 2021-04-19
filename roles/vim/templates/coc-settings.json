@@ -19,10 +19,11 @@
   "flutter.openDevLogSplitCommand": "botright 12split",
   "flutter.lsp.initialization.onlyAnalyzeProjectsWithOpenFiles": false,
 
+  "diagnostic.virtualText": true,
   "diagnostic.errorSign": "❌",
   "diagnostic.warningSign": "🔺",
-  "diagnostic.infoSign": "ί",
-  "diagnostic.hintSign": "❔",
+  "diagnostic.infoSign": "💬",
+  "diagnostic.hintSign": "💡",
   "tabnine.priority": 90,
   "coc.source.word.priority": 20,
   "languageserver": {
