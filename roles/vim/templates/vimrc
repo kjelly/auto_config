@@ -680,9 +680,14 @@ let g:floaterm_height=0.9
 autocmd! InsertLeave,WinEnter * set cursorline
 
 {% if nvim %}
+function! WinLeaveAction()
+  if &filetype=='floaterm' | :FloatermHide<cr>
+  endif
+  if &filetype=='fzf' | wincmd q
+  endif
+endfunction
 
-autocmd! TermLeave * if &filetype=='fzf' | wincmd q
-
+autocmd! WinLeave * call WinLeaveAction()
 {% endif %}
 
 autocmd! bufwritepost .vimrc source %
@@ -693,7 +698,6 @@ autocmd! BufCreate __REST_response__ vertical resize 20
 autocmd! BufCreate __REST_response__ set nonu
 autocmd! BufEnter __REST_response__ set modifiable
 autocmd! FileType tagbar vertical resize 20
-autocmd! WinLeave * if &filetype=='floaterm' | :FloatermHide<cr>
 
 augroup Binary
   au!
