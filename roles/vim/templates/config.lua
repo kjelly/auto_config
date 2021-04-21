@@ -82,3 +82,13 @@ if IsModuleAvailable("lualine") then
         }
     }
 end
+
+
+if IsModuleAvailable("hlslens") then
+    vim.api.nvim_command("noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>")
+    vim.api.nvim_command("noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>")
+    vim.api.nvim_command("noremap * *<Cmd>lua require('hlslens').start()<CR>")
+    vim.api.nvim_command("noremap # #<Cmd>lua require('hlslens').start()<CR>")
+    vim.api.nvim_command("noremap g* g*<Cmd>lua require('hlslens').start()<CR>")
+    vim.api.nvim_command("noremap g# g#<Cmd>lua require('hlslens').start()<CR>")
+end
