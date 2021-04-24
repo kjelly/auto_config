@@ -214,8 +214,13 @@ if has('nvim-0.5')
   Plug 'romgrk/barbar.nvim'
 else
   Plug 'itchyny/lightline.vim'
-
 endif
+if empty($SSH_CLIENT)
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'blueyed/vim-diminactive' " use different background color for inactive window
+endif
+
 Plug 'adelarsq/vim-emoji-icon-theme'
 Plug 'yazgoo/unicodemoji'
 
@@ -245,7 +250,6 @@ Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
 Plug 'jceb/vim-orgmode'
 Plug 'fidian/hexmode'
-Plug 'blueyed/vim-diminactive' " use different background color for inactive window
 Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite','TestVisit']}
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'simeji/winresizer'
