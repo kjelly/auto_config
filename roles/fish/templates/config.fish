@@ -32,4 +32,8 @@ end
 #set -g __fish_vi_mode 1
 set -g fish_key_bindings fish_user_key_bindings
 
+if test -z "$VIRTUAL_ENV" && test -e "$HOME/.asdf/asdf.fish"
+  source ~/.asdf/asdf.fish
+end
+
 {% if is_wsl.value %}export DISPLAY=127.0.0.1:0.0{% endif %}
