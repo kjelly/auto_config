@@ -43,7 +43,7 @@ tnoremap <c-j> <Down>
 tnoremap <c-k> <Up>
 tnoremap <c-l> <Right>
 
-nnoremap <C-n> :NERDTreeToggle<cr>
+nnoremap <expr> <C-n> len(getbufinfo({'buflisted': 1})) == 0 ?  "" : ":NERDTreeToggle<cr>"
 nnoremap <C-t> :tabnew %<CR>
 inoremap <C-t> <Esc>:tabnew %<CR>
 
