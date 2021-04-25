@@ -241,7 +241,6 @@ Plug 'AndrewRadev/switch.vim'
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
 Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
 "Plug 'DevWurm/autosession.vim'
-Plug 'gagoar/stripwhitespaces'
 " + for expand, _ for shrink
 Plug 'terryma/vim-expand-region'
 Plug 'justinmk/vim-sneak'
@@ -307,6 +306,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'gruvbox-community/gruvbox'
 Plug 'romgrk/doom-one.vim'
+Plug 'tiagovla/tokyodark.nvim'
 Plug 'Sammyalhashe/random_colorscheme.vim'
 
 
