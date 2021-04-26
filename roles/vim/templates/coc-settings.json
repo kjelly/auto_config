@@ -26,6 +26,18 @@
   "diagnostic.hintSign": "💡",
   "tabnine.priority": 90,
   "coc.source.word.priority": 20,
+
+  "Lua": {
+    "workspace.library": {
+      "/opt/neovim.nightly/usr/share/nvim/runtime/lua": true,
+      "/opt/neovim.nightly/usr/share/nvim/runtime/lua/vim": true,
+      "/opt/neovim.nightly/usr/share/nvim/runtime/lua/vim/lsp": true
+    },
+    "diagnostics": {
+      "globals": ["vim"]
+    }
+  },
+
   "languageserver": {
     "golang": {
       "command": "go-langserver",

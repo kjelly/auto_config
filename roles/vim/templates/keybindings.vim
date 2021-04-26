@@ -43,14 +43,18 @@ tnoremap <c-j> <Down>
 tnoremap <c-k> <Up>
 tnoremap <c-l> <Right>
 
-nnoremap <expr> <C-n> len(getbufinfo({'buflisted': 1})) == 0 ?  "" : ":NERDTreeToggle<cr>"
+function TreeToggle()
+  if len(getbufinfo({'buflisted': 1})) == 0
+    return
+  elseif exists(":NvimTreeToggle")
+    execute "NvimTreeToggle"
+  elseif exists(":NERDTreeToggle")
+    execute "NERDTreeToggle"
+  endif
+endfunction
+nnoremap <C-n> :call TreeToggle()<cr>
 nnoremap <C-t> :tabnew %<CR>
 inoremap <C-t> <Esc>:tabnew %<CR>
-
-{% if nvim %}
-nnoremap <silent> H :BufferPrevious<CR>
-nnoremap <silent> L :BufferNext<CR>
-{% endif %}
 
 " Command
 nnoremap <C-e> :Commands<cr>
@@ -272,12 +276,6 @@ cmap <A-n> <c-n>
 inoremap <A-o> <Esc>:Buffers<cr>
 nnoremap <A-o> :Buffers<cr>
 tnoremap <A-o> <C-\><C-n>:Buffers<cr>
-
-{% if nvim %}
-inoremap <A-i> <Esc>:BufferPick<cr>
-nnoremap <A-i> :BufferPick<cr>
-tnoremap <A-i> <C-\><C-n>:BufferPick<cr>
-{% endif %}
 
 inoremap <A-u> <Esc>:History:<cr>
 nnoremap <A-u> :History:<cr>

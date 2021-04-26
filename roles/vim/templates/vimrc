@@ -188,6 +188,37 @@ let bufferline.icon_separator_inactive = '|'
 let bufferline.icon_close_tab = 'x'
 let bufferline.icon_close_tab_modified ='●'
 
+let g:nvim_tree_icons = {
+    \ 'default': '📃',
+    \ 'symlink': '🔗',
+    \ 'git': {
+    \   'unstaged': "📝",
+    \   'staged': "✅",
+    \   'unmerged': "🎌",
+    \   'renamed': "㈴",
+    \   'untracked': "🚩",
+    \   'deleted': "⌦",
+    \   'ignored': "🔆"
+    \   },
+    \ 'folder': {
+    \   'default': "📁",
+    \   'open': "📂",
+    \   'empty': "🛑",
+    \   'empty_open': "🛑",
+    \   'symlink': "🌓",
+    \   'symlink_open': "🌕",
+    \   },
+    \   'lsp': {
+    \     'hint': "💡",
+    \     'info': "💬",
+    \     'warning': "🔺",
+    \     'error': "❌",
+    \   }
+    \ }
+
+
+let g:indent_blankline_char_highlight_list = ['Error', 'Function', 'Variable']
+let g:blameLineUseVirtualText = 1
 
 set nocompatible              " be improved
 filetype off                  " required before plugins
@@ -211,9 +242,29 @@ if has('nvim-0.5')
   Plug 'windwp/nvim-spectre'
   "Jump to any definition and references IDE madness without overhead
   Plug 'pechorin/any-jump.nvim'
-  Plug 'romgrk/barbar.nvim'
+  Plug 'akinsho/nvim-bufferline.lua'
+  Plug 'windwp/nvim-autopairs'
+  Plug 'monaqa/dial.nvim'
+  Plug 'https://github.com/phaazon/hop.nvim'
+  Plug 'https://github.com/rmagatti/auto-session'
+  Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'tversteeg/registers.nvim'
+  Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
+  Plug 'tveskag/nvim-blame-line'
+  Plug 'b3nj5m1n/kommentary'
 else
   Plug 'itchyny/lightline.vim'
+  Plug 'kjelly/auto-pairs'
+  Plug 'tpope/vim-speeddating'
+  Plug 'justinmk/vim-sneak'
+  Plug 'thaerkh/vim-workspace'
+  Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
+  Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
+  " Show register content when pressing " or <c-r>
+  Plug 'junegunn/vim-peekaboo'
+  Plug 'Yggdroot/indentLine'
+" use <c-/> for toggling comment
+  Plug 'tomtom/tcomment_vim'
 endif
 if empty($SSH_CLIENT)
   Plug 'ryanoasis/vim-devicons'
@@ -232,18 +283,12 @@ Plug 'mhinz/vim-signify' " show git diff
 Plug 'voldikss/vim-floaterm'
 "Plug 'dominikduda/vim_current_word'
 Plug 'liuchengxu/vim-which-key'
-" Show register content when pressing " or <c-r>
-Plug 'junegunn/vim-peekaboo'
 "Autojump to 1st non-blank when j/k into leading spaces.
 Plug 'fcpg/vim-shore'
 Plug 'AndrewRadev/switch.vim'
 
-Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
-Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
-"Plug 'DevWurm/autosession.vim'
 " + for expand, _ for shrink
 Plug 'terryma/vim-expand-region'
-Plug 'justinmk/vim-sneak'
 Plug 'unblevable/quick-scope'
 Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
@@ -259,10 +304,7 @@ Plug 'john-nanney/pushd.vim'
 Plug 'metakirby5/codi.vim'
 Plug 'chrisbra/Colorizer', { 'on': ['ColorToggle'] }
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'thaerkh/vim-workspace'
-Plug 'tpope/vim-speeddating'
 Plug 'MattesGroeger/vim-bookmarks'
-Plug 'Yggdroot/indentLine'
 
 " Disable vaffle.newrw support remote edit but vaffle not.
 "Plug 'cocopon/vaffle.vim'
@@ -340,15 +382,12 @@ endif
 
 {% if programming %}
 
-Plug 'kjelly/auto-pairs'
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'majutsushi/tagbar', { 'on':  ['Tagbar'] }
 " emmet `<c-y>,` for expand `div>a` to `<div><a></a></div>
 Plug 'mattn/emmet-vim'
-" use <c-/> for toggling comment
-Plug 'tomtom/tcomment_vim'
 " Useful for handling tag
 Plug 'tpope/vim-surround'
 
@@ -529,7 +568,7 @@ set completeopt-=preview
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 set list
 set foldlevel=9
-set sessionoptions=buffers,curdir,tabpages,winsize
+set sessionoptions=buffers,curdir,tabpages,winsize,globals
 " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
 " found' messages
 " or don't give |ins-completion-menu| messages.
@@ -1006,8 +1045,7 @@ luafile ~/.config/nvim/config.lua
 
 if filereadable(expand("~/.vim_custom.vim")) && match(readfile(expand("~/.vim_custom.vim")),"colorscheme")==-1
   silent! colorscheme gruvbox-material
-endif
-if !filereadable(expand("~/.vim_custom.vim"))
+elseif !filereadable(expand("~/.vim_custom.vim"))
   silent! colorscheme gruvbox-material
 endif
 

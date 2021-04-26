@@ -92,3 +92,43 @@ if IsModuleAvailable("hlslens") then
     vim.api.nvim_command("noremap g* g*<Cmd>lua require('hlslens').start()<CR>")
     vim.api.nvim_command("noremap g# g#<Cmd>lua require('hlslens').start()<CR>")
 end
+
+
+if IsModuleAvailable("nvim-autopairs") then
+    require('nvim-autopairs').setup()
+    vim.api.nvim_command([[
+nmap <C-a> <Plug>(dial-increment)
+nmap <C-x> <Plug>(dial-decrement)
+vmap <C-a> <Plug>(dial-increment)
+vmap <C-x> <Plug>(dial-decrement)
+vmap g<C-a> <Plug>(dial-increment-additional)
+vmap g<C-x> <Plug>(dial-decrement-additional)
+    ]])
+end
+
+if IsModuleAvailable("bufferline") then
+    require'bufferline'.setup{
+        options={
+            view = "multiwindow" ,
+            always_show_bufferline = true,
+            buffer_close_icon= '❌',
+            modified_icon = '●',
+            close_icon = '❌',
+            show_close_icon = false,
+            left_trunc_marker = '◀',
+            right_trunc_marker = '▶',
+            separator_style = {"📖|", "|"},
+        }
+    }
+    vim.api.nvim_command([[
+nnoremap <silent> H :BufferLineCyclePrev<CR>
+nnoremap <silent> L :BufferLineCycleNext<CR>
+inoremap <A-i> <Esc>:BufferLinePick<cr>
+nnoremap <A-i> :BufferLinePick<cr>
+tnoremap <A-i> <C-\><C-n>:BufferLinePick<cr>
+    ]])
+end
+
+if IsModuleAvailable("hop") then
+  vim.api.nvim_set_keymap('n', 's', "<cmd>lua require'hop'.hint_words()<cr>", {})
+end
