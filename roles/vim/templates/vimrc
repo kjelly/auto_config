@@ -236,7 +236,7 @@ if has('nvim-0.5')
   Plug 'mfussenegger/nvim-dap'
   Plug 'mfussenegger/nvim-dap-python'
   Plug 'hoob3rt/lualine.nvim'
-  Plug 'Shougo/denite.nvim'
+  " Plug 'Shougo/denite.nvim'
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'windwp/nvim-spectre'
@@ -265,6 +265,7 @@ else
   Plug 'Yggdroot/indentLine'
 " use <c-/> for toggling comment
   Plug 'tomtom/tcomment_vim'
+  Plug 'google/vim-searchindex'
 endif
 if empty($SSH_CLIENT)
   Plug 'ryanoasis/vim-devicons'
@@ -292,18 +293,17 @@ Plug 'terryma/vim-expand-region'
 Plug 'unblevable/quick-scope'
 Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
-Plug 'jceb/vim-orgmode'
-Plug 'fidian/hexmode'
+" Plug 'jceb/vim-orgmode'
+" Plug 'fidian/hexmode'
 Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite','TestVisit']}
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'simeji/winresizer'
 "Plug 'pseewald/vim-anyfold'
-Plug 'google/vim-searchindex'
 Plug 't9md/vim-choosewin'
 Plug 'john-nanney/pushd.vim'
 Plug 'metakirby5/codi.vim'
 Plug 'chrisbra/Colorizer', { 'on': ['ColorToggle'] }
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+" Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'MattesGroeger/vim-bookmarks'
 
 " Disable vaffle.newrw support remote edit but vaffle not.
@@ -371,9 +371,9 @@ Plug 'Sammyalhashe/random_colorscheme.vim'
 "Plug 'dart-lang/dart-vim-plugin'
 "Plug 'keith/swift.vim'
 "Plug 'gre/play2vim'
-Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
-Plug 'hashivim/vim-vagrant'
-Plug 'sheerun/vim-polyglot'
+"Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
+"Plug 'hashivim/vim-vagrant'
+"Plug 'sheerun/vim-polyglot'
 
 
 if executable("fcitx") == 1
@@ -384,7 +384,7 @@ endif
 
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+" Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'majutsushi/tagbar', { 'on':  ['Tagbar'] }
 " emmet `<c-y>,` for expand `div>a` to `<div><a></a></div>
 Plug 'mattn/emmet-vim'
@@ -399,8 +399,6 @@ Plug 'kshenoy/vim-signature'
 {% if nvim %}
 
 if has('python3')
-  " Buffer filtering
-  Plug 'lambdalisue/lista.nvim', { 'do': ':UpdateRemotePlugins'}
   Plug 'vim-vdebug/vdebug', { 'on': 'VdebugStart'}
 endif
 
@@ -587,7 +585,6 @@ endif
 let @/ = ""
 let anyfold_activate=1
 let anyfold_fold_comments=1
-let g:vim_markdown_folding_disabled=1
 let NERDTreeMapOpenInTab='<TAB>'
 let g:nerdtree_tabs_focus_on_files=1
 let g:ale_python_pylint_options="--disable=C0111,C0103,C1801,C0325"
@@ -595,10 +592,6 @@ let g:ale_python_pylint_options="--disable=C0111,C0103,C1801,C0325"
 "let g:vimshell_prompt_expr =
 "\ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
 "let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
-
-" Easymotion
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 
 " Let fzf ignore the files which is ignored by gitignore or hgignore
 if executable("ag") == 1
@@ -641,55 +634,6 @@ let g:tagbar_type_vimwiki = {
     \ ]
     \ }
 
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rls'],
-    \ 'python': ['pyls'],
-    \ 'ruby': ['language_server-ruby'],
-    \ 'go': ['go-langserver', '-gocodecompletion', '-func-snippet-enabled=false', '-trace', '-logfile', expand('~/langserver-go.log')],
-    \ 'javascript': ['typescript-language-server', '--stdio'],
-    \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
-    \ 'typescript': ['typescript-language-server', '--stdio'],
-    \ 'dart': ['dart_language_server'],
-    \ 'css': ['css-languageserver', '--stdio'],
-    \ 'sass': ['css-languageserver', '--stdio'],
-    \ 'dockfile': ['docker-langserver', '--stdio'],
-    \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
-    \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
-    \ }
-
-let g:LanguageClient_loadSettings = 1
-let g:LanguageClient_settingsPath = '~/.config/nvim/settings.json'
-
-let g:LanguageClient_diagnosticsDisplay={
-\       1: {
-\           "name": "Error",
-\           "texthl": "ALEError",
-\           "signText": "X",
-\           "signTexthl": "ALEErrorSign",
-\       },
-\       2: {
-\           "name": "Warning",
-\           "texthl": "ALEWarning",
-\           "signText": "W",
-\           "signTexthl": "ALEWarningSign",
-\       },
-\       3: {
-\           "name": "Information",
-\           "texthl": "ALEInfo",
-\           "signText": "I",
-\           "signTexthl": "ALEInfoSign",
-\       },
-\       4: {
-\           "name": "Hint",
-\           "texthl": "ALEInfo",
-\           "signText": "H",
-\           "signTexthl": "ALEInfoSign",
-\       },
-\   }
-
-let g:LanguageClient_diagnosticsEnable=1
-
 let g:bookmark_no_default_key_mappings = 1
 
 let g:go_list_type = "quickfix"
@@ -704,13 +648,13 @@ let g:python3_host_prog='{{ python3_exec.path }}'
 let $BROWSER='w3m'
 let $IN_VIM=1
 let $HTERM_TTY=substitute(system("tty < /proc/" . getpid() . "/fd/0"), '\n$', '', '')
-let g:AutoPairsFlyMode = 1
-let g:AutoPairsShortcutToggle = ''
-let g:AutoPairsShortcutFastWrap = ''
-let g:AutoPairsShortcutJump = ''
-let g:AutoPairsMapCh = ''
-let g:AutoPairsMapSpace = ''
-let g:AutoPairsShortcutBackInsert ='<M-\>'
+" let g:AutoPairsFlyMode = 1
+" let g:AutoPairsShortcutToggle = ''
+" let g:AutoPairsShortcutFastWrap = ''
+" let g:AutoPairsShortcutJump = ''
+" let g:AutoPairsMapCh = ''
+" let g:AutoPairsMapSpace = ''
+" let g:AutoPairsShortcutBackInsert ='<M-\>'
 
 let g:vrc_keepalt = 1
 let g:vrc_curl_opts = {
