@@ -284,7 +284,7 @@ Plug 'voldikss/vim-floaterm'
 "Plug 'dominikduda/vim_current_word'
 Plug 'liuchengxu/vim-which-key'
 "Autojump to 1st non-blank when j/k into leading spaces.
-Plug 'fcpg/vim-shore'
+"Plug 'fcpg/vim-shore'
 Plug 'AndrewRadev/switch.vim'
 
 " + for expand, _ for shrink
