@@ -6,3 +6,4 @@
 
 - template: src="vimrc" dest="~/.config/nvim/init.vim"
 
+- template: src=config.lua dest=~/.config/nvim/config.lua
