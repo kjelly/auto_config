@@ -219,6 +219,7 @@ let g:nvim_tree_icons = {
 
 let g:indent_blankline_char_highlight_list = ['Function', 'Variable']
 let g:blameLineUseVirtualText = 1
+let g:material_style = 'darker'
 
 set nocompatible              " be improved
 filetype off                  " required before plugins
@@ -349,6 +350,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'gruvbox-community/gruvbox'
 Plug 'romgrk/doom-one.vim'
 Plug 'folke/tokyonight.nvim'
+Plug 'marko-cerovac/material.nvim'
 Plug 'Sammyalhashe/random_colorscheme.vim'
 
 
