@@ -92,12 +92,20 @@ nnoremap <silent> <leader>qt :tabclose<cr>
 nnoremap <silent> <leader>qa :qa!<cr>
 
 " State / Switch
+function ToggleIndentLine()
+  if exists(":IndentLinesToggle")
+    execute "IndentLinesToggle"
+  elseif exists(":IndentBlanklineToggle")
+    execute ":IndentBlanklineToggle"
+  endif
+endfunction
+
 nnoremap <silent> <leader>sn :set nu!<cr>
 nnoremap <silent> <leader>sw :set wrap!<cr>
 nnoremap <silent> <leader>sp :set paste!<cr>
 nnoremap <silent> <leader>sm :call ToggleMouse()<cr>
 nnoremap <silent> <leader>ss :call ToggleStatusLine()<cr>
-nnoremap <silent> <leader>sl :IndentLinesToggle<cr>
+nnoremap <silent> <leader>sl :call ToggleIndentLine()<cr>
 nnoremap <silent> <leader>si :source Session.vim<cr>
 nnoremap <silent> <leader>se :mksession!<cr>
 nnoremap <silent> <leader>sc :call ToggleForCopy()<cr>

@@ -9,6 +9,7 @@ colors = [
     "iceberg",
     "onedark",
     "space-vim-dark",
+    "tokyodark"
 ]
 color = random.choice(colors)
 with open(os.path.expanduser('~/.vim_custom.vim'), 'r') as ftr:

@@ -198,13 +198,13 @@ let g:nvim_tree_icons = {
     \   'renamed': "㈴",
     \   'untracked': "🚩",
     \   'deleted': "⌦",
-    \   'ignored': "🔆"
+    \   'ignored': "🧹"
     \   },
     \ 'folder': {
     \   'default': "📁",
     \   'open': "📂",
-    \   'empty': "🛑",
-    \   'empty_open': "🛑",
+    \   'empty': "🪣",
+    \   'empty_open': "🪣",
     \   'symlink': "🌓",
     \   'symlink_open': "🌕",
     \   },
@@ -217,7 +217,7 @@ let g:nvim_tree_icons = {
     \ }
 
 
-let g:indent_blankline_char_highlight_list = ['Error', 'Function', 'Variable']
+let g:indent_blankline_char_highlight_list = ['Function', 'Variable']
 let g:blameLineUseVirtualText = 1
 
 set nocompatible              " be improved
@@ -656,6 +656,7 @@ let $HTERM_TTY=substitute(system("tty < /proc/" . getpid() . "/fd/0"), '\n$', ''
 " let g:AutoPairsMapSpace = ''
 " let g:AutoPairsShortcutBackInsert ='<M-\>'
 
+" vim-rest-console
 let g:vrc_keepalt = 1
 let g:vrc_curl_opts = {
   \ '-sS': '',
@@ -978,9 +979,9 @@ endif
 
 
 " Yank to system clipboard with Y
-nmap YY "+yy
-nmap Y "+y
-vmap Y "+y
+nnoremap YY "+yy
+nnoremap Y "+y
+vnoremap Y "+y
 
 
 {% if nvim %}

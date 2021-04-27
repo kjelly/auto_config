@@ -18,7 +18,7 @@ if IsModuleAvailable("nvim-treesitter") then
         ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
         highlight = {
             enable = true, -- false will disable the whole extension
-            disable = {"dart"} -- list of language that will be disabled
+            disable = { } -- list of language that will be disabled
         }
     }
 end
@@ -115,6 +115,7 @@ if IsModuleAvailable("bufferline") then
             modified_icon = '●',
             close_icon = '❌',
             show_close_icon = false,
+            show_buffer_close_icons = false,
             left_trunc_marker = '◀',
             right_trunc_marker = '▶',
             separator_style = {"📖|", "|"},
