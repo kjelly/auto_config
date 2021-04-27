@@ -348,7 +348,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'gruvbox-community/gruvbox'
 Plug 'romgrk/doom-one.vim'
-Plug 'tiagovla/tokyodark.nvim'
+Plug 'folke/tokyonight.nvim'
 Plug 'Sammyalhashe/random_colorscheme.vim'
 
 
