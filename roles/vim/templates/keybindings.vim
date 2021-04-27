@@ -291,26 +291,11 @@ nnoremap <A-s> :w<cr>
 inoremap <A-s> <Esc>:w<cr>
 tnoremap <A-s> <C-\><C-n>
 
-
-" Resize buffer
-nnoremap <silent> <A-a>  :resize +1000<cr>
-nnoremap <silent> <A-q>  :resize +1000<cr>
-nnoremap <silent> <A-w>  <c-w><c-=>
-nnoremap <silent> <A-e>  :resize -1000<cr>
-"nnoremap <silent> <A-r>  :vertical resize +1000<cr>
-"nnoremap <silent> <A-t>  :vertical resize -1000<cr>
-inoremap <silent> <A-a>  <Esc>:resize +1000<cr>a
-inoremap <silent> <A-q>  <Esc>:resize +1000<cr>a
-inoremap <silent> <A-w>  <Esc><c-w><c-=>i
-inoremap <silent> <A-e>  <Esc>:resize -1000<cr>a
-"inoremap <silent> <A-r>  <Esc>:vertical resize +1000<cr>a
-"inoremap <silent> <A-t>  <Esc>:vertical resize -1000<cr>a
-tnoremap <silent> <A-a>  <C-\><C-n>:resize +1000<cr>a
-tnoremap <silent> <A-q>  <C-\><C-n>:resize +1000<cr>a
-tnoremap <silent> <A-w>  <C-\><C-n><c-w><c-=>i
-tnoremap <silent> <A-e>  <C-\><C-n>:resize -1000<cr>a
-"tnoremap <silent> <A-r>  <C-\><C-n>:vertical resize +1000<cr>a
-"tnoremap <silent> <A-t>  <C-\><C-n>:vertical resize -1000<cr>a
+imap <a-w> <c-w>
+nmap <a-w> <c-w>
+tmap <a-w> <c-w>
+cmap <a-w> <c-w>
+vmap <a-w> <c-w>
 
 " Paste text
 tnoremap <A-v> <C-\><C-n>pi
@@ -380,5 +365,20 @@ inoremap <A-c> <Esc>:lua multiTermRunCurrentLine()<cr>i
 nnoremap <A-c> <Esc>:lua multiTermRunCurrentLine()<cr>
 nnoremap <A-x> <Esc>:lua multiTermRunCurrentSelectedLines()<cr>
 vnoremap <A-x> :lua multiTermRunCurrentSelectedLines()<cr>
+
+let g:maxWindow=0
+function ResizeWin()
+  if g:maxWindow == 0
+    resize +2000
+    let g:maxWindow=1
+  else
+    wincmd =
+    let g:maxWindow=0
+  endif
+endfunction
+
+inoremap <a-`> <Esc>:call ResizeWin()<cr>a
+nnoremap <a-`> :call ResizeWin()<cr>
+tnoremap <a-`> <c-\><c-n>:call ResizeWin()<cr>a
 
 {% endif %}
