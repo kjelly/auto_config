@@ -9,6 +9,8 @@ function fish_user_key_bindings
     bind -M insert \ef "forward-word"
     bind -M insert \eb "backward-word"
 
+    bind -M insert \ew "backward-kill-word"
+
     bind -M insert \cp up-or-search
     bind -M insert \cn down-or-search
 
