@@ -274,9 +274,11 @@ if empty($SSH_CLIENT)
   Plug 'ryanoasis/vim-devicons'
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'blueyed/vim-diminactive' " use different background color for inactive window
+else
+  Plug 'https://github.com/ryanoasis/vim-devicons'
+  Plug 'adelarsq/vim-emoji-icon-theme'
 endif
 
-Plug 'adelarsq/vim-emoji-icon-theme'
 Plug 'yazgoo/unicodemoji'
 
 Plug 'tpope/vim-dadbod', { 'on': ['DB']}
