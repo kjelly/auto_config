@@ -249,10 +249,11 @@ if has('nvim-0.5')
   Plug 'https://github.com/phaazon/hop.nvim'
   Plug 'https://github.com/rmagatti/auto-session'
   Plug 'kyazdani42/nvim-tree.lua'
-  Plug 'tversteeg/registers.nvim'
+  " Plug 'tversteeg/registers.nvim'
   Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
   Plug 'tveskag/nvim-blame-line'
   Plug 'b3nj5m1n/kommentary'
+  Plug 'https://github.com/folke/which-key.nvim'
 else
   Plug 'itchyny/lightline.vim'
   Plug 'kjelly/auto-pairs'
@@ -267,6 +268,7 @@ else
 " use <c-/> for toggling comment
   Plug 'tomtom/tcomment_vim'
   Plug 'google/vim-searchindex'
+  Plug 'liuchengxu/vim-which-key'
 endif
 if empty($SSH_CLIENT)
   Plug 'ryanoasis/vim-devicons'
@@ -284,7 +286,6 @@ Plug 'mhinz/vim-signify' " show git diff
 
 Plug 'voldikss/vim-floaterm'
 "Plug 'dominikduda/vim_current_word'
-Plug 'liuchengxu/vim-which-key'
 "Autojump to 1st non-blank when j/k into leading spaces.
 "Plug 'fcpg/vim-shore'
 Plug 'AndrewRadev/switch.vim'

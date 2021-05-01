@@ -58,6 +58,10 @@ if IsModuleAvailable("dap") then
 end
 
 if IsModuleAvailable("lualine") then
+    local function showFilePath()
+      local filePath = vim.api.nvim_eval("expand('%')")
+      return filePath
+    end
     require('lualine').setup{
         options = {
           theme = 'gruvbox_material',
@@ -67,7 +71,7 @@ if IsModuleAvailable("lualine") then
         sections = {
           lualine_a = {'mode'},
           lualine_b = {'branch', 'diff'},
-          lualine_c = {'hostname', 'getcwd', 'filename'},
+          lualine_c = {'hostname', 'getcwd', showFilePath},
           lualine_x = {'encoding', 'fileformat', 'filetype'},
           lualine_y = {'progress'},
           lualine_z = {'location'}
@@ -75,7 +79,7 @@ if IsModuleAvailable("lualine") then
         inactive_sections = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = {'filename'},
+          lualine_c = {showFilePath},
           lualine_x = {'location'},
           lualine_y = {},
           lualine_z = {}
@@ -132,4 +136,92 @@ end
 
 if IsModuleAvailable("hop") then
   vim.api.nvim_set_keymap('n', 's', "<cmd>lua require'hop'.hint_words()<cr>", {})
+end
+
+if IsModuleAvailable("which-key") then
+  local wk = require("which-key")
+  wk.register({
+    g = {
+      name = "+Git",
+    },
+    z = {
+      name = "+Grep/Find/FZF"
+    },
+    t = {
+      name = "+Tab"
+    },
+    b = {
+      name = "+Buffer/Bookmark",
+      c = {
+        "Copy file path"
+      }
+    },
+    c = {
+      name = "+Comment/cd"
+    },
+    q = {
+      name = "+Quit"
+    },
+    l = {
+      name = "+Language",
+      d = {
+        "ddgr"
+      },
+      e = {
+        "Leetcode",
+      },
+      s = {
+        "Doc/Workspace Symbol",
+      },
+      r = {
+        "Rename/Reference",
+      },
+      t = {
+        "Test",
+      },
+    },
+    f = {
+      name = "+File/esearch"
+    },
+    s = {
+      name = "+Status"
+    },
+    m = {
+      name = "+Move",
+      p = { 'Previous mark'},
+      n = { 'Next mark'},
+    },
+    w = {
+      name = "+Wiki/Window"
+    },
+    r = {
+      name = "+Run/Test"
+    },
+    o = {
+      name = "+Fold"
+    },
+    e = {
+      name = "+Edit"
+    },
+    g = {
+      name = "+Git/Paste",
+    },
+    n = {
+      name = "+Note",
+    },
+    i = {
+      name = "+Insert time",
+    },
+    a = {
+      name = "+AnyJump/CocAction",
+    },
+ 
+  }, { prefix = "<leader>" })
+
+  require("which-key").setup {
+    plugins = {
+      registers = true
+    }
+  }
+
 end
