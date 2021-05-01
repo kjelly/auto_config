@@ -9,6 +9,8 @@ colors = [
     "iceberg",
     "onedark",
     "space-vim-dark",
+    "material",
+    "doom-one",
     "tokyonight"
 ]
 color = random.choice(colors)
