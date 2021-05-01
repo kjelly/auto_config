@@ -990,7 +990,7 @@ vnoremap Y "+y
 
 
 {% if nvim %}
-luafile ~/.config/nvim/config.lua
+silent! exec 'luafile' g:MYVIMRC_DIR . '/config.lua'
 {% endif %}
 
 if filereadable(expand("~/.vim_custom.vim")) && match(readfile(expand("~/.vim_custom.vim")),"colorscheme")==-1

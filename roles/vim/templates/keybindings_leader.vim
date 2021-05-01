@@ -180,11 +180,12 @@ nnoremap <silent> <leader>wk :wincmd k<cr>
 nnoremap <silent> <leader>wl :wincmd l<cr>
 
 nnoremap <silent> <leader>eu :UndotreeToggle<cr>
-nnoremap <silent> <leader>es :e $MYVIMRC<cr>
+nnoremap <silent> <leader>esi :e $MYVIMRC<cr>
+nnoremap <silent> <leader>esl :e ~/.vim_custom.vim<cr>
+nnoremap <silent> <leader>esc :e ~/.config/nvim/config.lua<cr>
 nnoremap <silent> <leader>er :registers<cr>
 nnoremap <leader>ef :set filetype=
 nnoremap <silent> <leader>eg :Grepper<cr>
-nnoremap <silent> <leader>el :e ~/.vim_custom.vim<cr>
 nnoremap <silent> <leader>ej ::%!jq '.'<cr>
 nnoremap <leader>ee :terminal<space>
 cnoremap <silent> <c-e> <Esc>:History:<cr>
