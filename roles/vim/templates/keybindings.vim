@@ -98,14 +98,6 @@ vnoremap <C-]> <Esc>:FloatermToggle<cr>
 cnoremap <C-]> <Esc>:FloatermToggle<cr>
 nnoremap <C-]> :FloatermToggle<cr>
 
-
-nnoremap ; :
-
-inoremap ;; <Esc>
-cnoremap ;; <Esc>
-vnoremap ;; <Esc>
-{% if nvim %}tnoremap ;; <C-\><C-n> {% endif %}
-
 {% if nvim %}
 " If we need Esc in terminal buffer,
 " just unmap it.
