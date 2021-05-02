@@ -1,3 +1,8 @@
+local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
+local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
+local g = vim.g      -- a table to access global variables
+local api = vim.api
+
 function IsModuleAvailable(name)
     if package.loaded[name] then
         return true
@@ -131,6 +136,7 @@ nnoremap <silent> L :BufferLineCycleNext<CR>
 inoremap <A-i> <Esc>:BufferLinePick<cr>
 nnoremap <A-i> :BufferLinePick<cr>
 tnoremap <A-i> <C-\><C-n>:BufferLinePick<cr>
+nnoremap <silent> <leader>sb :BufferLineSortByDirectory<cr>
     ]])
 end
 
