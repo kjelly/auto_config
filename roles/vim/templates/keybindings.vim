@@ -18,10 +18,8 @@ nnoremap <Tab> >>
 
 nnoremap <a-f> <c-w>p
 
-nnoremap <C-h> <Home>
 nnoremap <C-j> <PageDown>
 nnoremap <C-k> <PageUp>
-nnoremap <C-l> <End>
 
 cnoremap <c-h> <Left>
 cnoremap <c-j> <Down>

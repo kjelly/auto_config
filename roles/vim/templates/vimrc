@@ -1,4 +1,3 @@
-let mapleader = ","
 let maplocalleader = "\<space>"
 
 " Set extra options when running in GUI mode
