@@ -235,5 +235,21 @@ if IsModuleAvailable("which-key") then
       registers = true
     }
   }
+end
 
+function MyRun(cmds)
+  if type(cmds) == "string" then
+      vim.api.nvim_command(cmds)
+      vim.api.nvim_set_var("MyRun", cmds)
+  elseif cmds == nil then
+    cmds = vim.api.nvim_get_var("MyRun")
+    if cmds ~= nil then
+      MyRun(cmds)
+    end
+  else
+    vim.api.nvim_set_var("MyRun", cmds)
+    for k,v in pairs(cmds) do
+      vim.api.nvim_command(v)
+    end
+  end
 end

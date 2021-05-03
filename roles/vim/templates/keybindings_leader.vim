@@ -281,7 +281,7 @@ nnoremap <silent> <leader>ltf :TestFile<cr>
 nnoremap <silent> <leader>ltn :TestNearest<cr>
 nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
-nnoremap <leader>lc :C curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
+nnoremap <leader>lc :FloatermNew curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
 nnoremap <leader>ldg :C ddgr <c-r>=&filetype<cr><space>
 nnoremap <leader>lg :C w w3m, w3m -no-cookie 'https://www.startpage.com/search?q=<c-r>=&filetype<cr> '<left>
 nnoremap <silent> <leader>lb :C brow<cr>
@@ -307,7 +307,7 @@ nnoremap <silent> <localleader>k :wincmd k<cr>
 nnoremap <silent> <localleader>l :wincmd l<cr>
 nnoremap <silent> <localleader>n :NERDTreeToggle<cr>
 nnoremap <silent> <localleader>o :Buffers<cr>
-nnoremap <silent> <localleader>p :Files<cr>
 nnoremap <silent> <localleader>q :q!<cr>
-nnoremap <silent> <localleader>r :C <up><cr>
+nnoremap <silent> <localleader>p :Files<cr>
 nnoremap <silent> <localleader>t :tabnew %<cr>
+nnoremap <localleader>rr :lua MyRun({''})<left><left><left>

@@ -286,9 +286,9 @@ vmap <a-w> <c-w>
 tnoremap <A-v> <C-\><C-n>pi
 inoremap <A-v> <Esc>pi
 
-nnoremap <A-r> :C ./debug.sh <cr>
-inoremap <A-r> <Esc>:C ./debug.sh <cr>
-tnoremap <A-r> <c-\><c-n>:C ./debug.sh <cr>i
+nnoremap <A-r> :lua MyRun()<cr>
+inoremap <A-r> <Esc>:lua MyRun()<cr>
+tnoremap <A-r> <c-\><c-n>:lua MyRun()<cr>
 
 " Tab navigate
 nnoremap <A-,> gT
