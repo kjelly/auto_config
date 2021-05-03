@@ -4,13 +4,9 @@ import os
 
 
 colors = [
-    "deep-space",
     "gruvbox-material",
-    "iceberg",
-    "onedark",
     "space-vim-dark",
-    "material",
-    "doom-one",
+    "material", 
     "tokyonight"
 ]
 color = random.choice(colors)
