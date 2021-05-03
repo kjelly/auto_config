@@ -689,6 +689,7 @@ endfunction
 autocmd BufReadPost,FileReadPost *.smd call AutoDec1()
 autocmd BufWritePre,FileWritePre *.smd Enc1
 autocmd BufWritePost,FileWritePost *.smd call AutoDec1()
+autocmd BufWritePre * %s/\s\+$//e
 
 augroup Binary
   au!
