@@ -681,6 +681,15 @@ autocmd! BufEnter __REST_response__ set modifiable
 autocmd! FileType tagbar vertical resize 20
 autocmd! BufLeave * if expand("<afile>") == "" && &modified == 0 | bdelete | endif
 
+function AutoDec1()
+  execute "Dec1"
+  set filetype=markdown
+endfunction
+
+autocmd BufReadPost,FileReadPost *.smd call AutoDec1()
+autocmd BufWritePre,FileWritePre *.smd Enc1
+autocmd BufWritePost,FileWritePost *.smd call AutoDec1()
+
 augroup Binary
   au!
   au! BufReadPre  *.bin let &bin=1
@@ -980,3 +989,7 @@ endif
 
 silent! source ~/.vim_custom.vim
 silent! exec 'source' g:MYVIMRC_DIR . '/hterm-copy.vim'
+
+if filereadable("workspace.vim")
+  silent! source workspace.vim
+endif

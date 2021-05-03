@@ -202,7 +202,9 @@ if IsModuleAvailable("which-key") then
       n = { 'Next mark'},
     },
     w = {
-      name = "+Wiki/Window"
+      name = "+Wiki/Window",
+      q = { "wqa" },
+      s = { "split" }
     },
     r = {
       name = "+Run/Test"
@@ -215,6 +217,10 @@ if IsModuleAvailable("which-key") then
     },
     g = {
       name = "+Git/Paste",
+      d = {
+        name = "git diff",
+        l = { "git diff last commit"}
+      }
     },
     n = {
       name = "+Note",

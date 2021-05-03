@@ -2,6 +2,8 @@
 " B for current buffer
 " For example, Lines for Lines in loaded buffers.
 " BLines for Lines in the current buffer
+nnoremap <leader><leader> :
+
 nnoremap <silent> <leader>zl :Lines<cr>
 nnoremap <silent> <leader>zbl :BLines<cr>
 nnoremap <silent> <leader>zc :Commits<cr>
@@ -30,6 +32,8 @@ nnoremap <silent> <leader>gi :Git add -p %<CR>
 nnoremap <silent> <leader>gg :SignifyToggle<CR>
 nnoremap <silent> <leader>gu :Git pull --rebase<CR>
 nnoremap <silent> <leader>ga :Agit<CR>
+nnoremap <silent> <leader>gdi :Git diff<CR>
+nnoremap <silent> <leader>gdl :Git diff @~..@<CR>
 
 nnoremap <silent> <leader>id :put =strftime('%Y-%m-%d')<cr>
 nnoremap <silent> <leader>it :put =strftime('%H:%M:%S')<cr>
@@ -164,6 +168,7 @@ nnoremap <silent> <leader>wm :WinResizerStartMove<cr>
 nnoremap <silent> <leader>wf :WinResizerStartFocus<cr>
 nnoremap <silent> <leader>wsh :split<cr>
 nnoremap <silent> <leader>wsv :vsplit<cr>
+nnoremap <silent> <leader>wqa :wqa<cr>
 
 nnoremap <silent> <leader>wh :wincmd h<cr>
 nnoremap <silent> <leader>wj :wincmd j<cr>
