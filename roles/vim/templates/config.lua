@@ -151,9 +151,6 @@ end
 if IsModuleAvailable("which-key") then
   local wk = require("which-key")
   wk.register({
-    g = {
-      name = "+Git",
-    },
     z = {
       name = "+Grep/Find/FZF"
     },
@@ -231,7 +228,6 @@ if IsModuleAvailable("which-key") then
     a = {
       name = "+AnyJump/CocAction",
     },
- 
   }, { prefix = "<leader>" })
 
   require("which-key").setup {
