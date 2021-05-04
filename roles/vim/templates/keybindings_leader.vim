@@ -147,17 +147,17 @@ nnoremap <silent> <leader>nl :Note<cr>
 nnoremap <silent> <leader>ns :NoteSearch<cr>
 
 " Gina
-"nnoremap <leader>vs :Gina status<cr>
-"nnoremap <leader>vpl :Gina pull<cr>
-"nnoremap <leader>vph :Gina push<cr>
-"nnoremap <leader>vf :Gina fetch<cr>
-"nnoremap <leader>vd :Gina diff<cr>
-"nnoremap <leader>vl :Gina log<cr>
-"nnoremap <leader>vc :Gina commit<cr>
-"nnoremap <leader>va :Gina add<space>
-"nnoremap <leader>vt :Gina tag<cr>
-"nnoremap <leader>vb :Gina branch<cr>
-"nnoremap <leader>vv :Gina<space>
+nnoremap <leader>vs :Gina status<cr>
+nnoremap <leader>vpl :Gina pull<cr>
+nnoremap <leader>vph :Gina push<cr>
+nnoremap <leader>vf :Gina fetch<cr>
+nnoremap <leader>vd :Gina diff<cr>
+nnoremap <leader>vl :Gina log<cr>
+nnoremap <leader>vc :Gina commit<cr>
+nnoremap <leader>va :Gina add<space>
+nnoremap <leader>vt :Gina tag<cr>
+nnoremap <leader>vb :Gina branch<cr>
+nnoremap <leader>vv :Gina<space>
 
 autocmd FileType vimwiki nmap <space><space> <Plug>VimwikiToggleListItem
 

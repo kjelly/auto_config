@@ -257,6 +257,7 @@ else
 endif
 
 Plug 'yazgoo/unicodemoji'
+Plug 'https://github.com/lambdalisue/gina.vim'
 
 Plug 'tpope/vim-dadbod', { 'on': ['DB']}
 Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DB']}
