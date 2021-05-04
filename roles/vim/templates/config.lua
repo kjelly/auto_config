@@ -151,6 +151,14 @@ end
 if IsModuleAvailable("which-key") then
   local wk = require("which-key")
   wk.register({
+    r = {
+      name = "+Run"
+    },
+    d = {
+      name = "+Debug"
+    },
+  }, { prefix = "<localleader>" })
+  wk.register({
     z = {
       name = "+Grep/Find/FZF"
     },
