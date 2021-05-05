@@ -131,14 +131,14 @@ if IsModuleAvailable("bufferline") then
         }
     }
     vim.api.nvim_command([[
-nnoremap <silent> H :BufferLineCyclePrev<CR>
-nnoremap <silent> L :BufferLineCycleNext<CR>
+nnoremap <silent> H :BufferLineMovePrev<CR>
+nnoremap <silent> L :BufferLineMoveNext<CR>
 inoremap <A-i> <Esc>:BufferLinePick<cr>
 nnoremap <A-i> :BufferLinePick<cr>
 tnoremap <A-i> <C-\><C-n>:BufferLinePick<cr>
 nnoremap <silent> <leader>sb :BufferLineSortByDirectory<cr>
-nnoremap <silent> <C-h> :BufferLineMovePrev<CR>
-nnoremap <silent> <C-l> :BufferLineMoveNext<CR>
+nnoremap <silent> <C-h> :BufferLineCyclePrev<CR>
+nnoremap <silent> <C-l> :BufferLineCycleNext<CR>
 nnoremap <silent> , :BufferLineCyclePrev<CR>
 nnoremap <silent> . :BufferLineCycleNext<CR>
     ]])
