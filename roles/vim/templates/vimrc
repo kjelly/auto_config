@@ -418,7 +418,6 @@ Plug 'eugen0329/vim-esearch'
 {% endif %}
 {% if nvim %}
 Plug 'mhinz/neovim-remote'
-Plug 'kassio/neoterm'
 
 {% endif %}
 
