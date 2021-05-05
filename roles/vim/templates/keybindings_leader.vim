@@ -108,12 +108,6 @@ nnoremap <silent> <leader>sc :call ToggleForCopy()<cr>
 nnoremap <silent> <leader>st :Switch<cr>
 nnoremap <silent> <leader>sk :DisableTmuxKey<cr>
 
-" Find file in NERDTree
-nnoremap <silent> <leader>ff :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
-nnoremap <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
-nnoremap <silent> <leader>ed :e <c-r>=expand("%:p:h")<cr>/<cr>
-nnoremap <silent> <leader>fi :NERDTreeMirrorOpen<cr>:NERDTreeTabsFind<cr>
-
 " Bookmarks keybinding
 nnoremap <silent> mm :BookmarkToggle<cr>
 nnoremap <silent> <Leader>bb :BookmarkToggle<cr>
@@ -176,6 +170,7 @@ nnoremap <silent> <leader>wj :wincmd j<cr>
 nnoremap <silent> <leader>wk :wincmd k<cr>
 nnoremap <silent> <leader>wl :wincmd l<cr>
 
+nnoremap <silent> <leader>ed :e <c-r>=expand("%:p:h")<cr>/<cr>
 nnoremap <silent> <leader>eu :UndotreeToggle<cr>
 nnoremap <silent> <leader>esi :e $MYVIMRC<cr>
 nnoremap <silent> <leader>esl :e ~/.vim_custom.vim<cr>
