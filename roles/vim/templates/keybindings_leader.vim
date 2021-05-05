@@ -43,13 +43,14 @@ nnoremap <silent> <leader>sh :noh<cr>
 
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :Pushd %:p:h<cr>:pwd<cr>
+nnoremap <leader>cc :call RunShellAndShow('')<left><left>
 
 nnoremap <leader>fx :Explore<space>
 nnoremap <leader>fr :Explore scp://
 nnoremap <silent> <leader>fb :Rexplore<CR>
-nnoremap <silent> <leader>ft :NERDTreeToggle<CR>
 nnoremap <silent> <leader>fv :Vaffle<CR>
 nnoremap <silent> <leader>fs :w<CR>
+nnoremap <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
 
 " Tab mappings
 nnoremap <silent> <leader>to :tabonly<cr>
@@ -299,15 +300,14 @@ nnoremap <silent> <localleader>dr :lua require'dap'.repl.open()<cr>
 nnoremap <silent> <localleader>a :Ag<cr>
 nnoremap <silent> <localleader>b :b#<cr>
 nnoremap <silent> <localleader>g :ChooseWin<cr>
-nnoremap <silent> <localleader>n :NERDTreeToggle<cr>
 nnoremap <silent> <localleader>t :tabnew %<cr>
 nnoremap <silent> <localleader>h :wincmd h<cr>
 nnoremap <silent> <localleader>j :wincmd j<cr>
 nnoremap <silent> <localleader>k :wincmd k<cr>
 nnoremap <silent> <localleader>l :wincmd l<cr>
-nnoremap <silent> <localleader>n :NERDTreeToggle<cr>
 nnoremap <silent> <localleader>o :Buffers<cr>
 nnoremap <silent> <localleader>q :q!<cr>
 nnoremap <silent> <localleader>p :Files<cr>
 nnoremap <silent> <localleader>t :tabnew %<cr>
 nnoremap <localleader>rr :lua MyRun({''})<left><left><left>
+nnoremap <localleader>e :call RunShellAndShow('')<left><left>

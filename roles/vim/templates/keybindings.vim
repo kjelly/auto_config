@@ -289,6 +289,9 @@ inoremap <A-v> <Esc>pi
 nnoremap <A-r> :lua MyRun()<cr>
 inoremap <A-r> <Esc>:lua MyRun()<cr>
 tnoremap <A-r> <c-\><c-n>:lua MyRun()<cr>
+nnoremap <A-e> :call RunShellAndShow('')<left><left>
+inoremap <A-e> <Esc>:call RunShellAndShow('')<left><left>
+tnoremap <A-e> <c-\><c-n>:call RunShellAndShow('')<left><left>
 
 " Tab navigate
 nnoremap <A-,> gT
