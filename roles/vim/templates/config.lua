@@ -248,14 +248,14 @@ end
 function MyRun(cmds)
   if type(cmds) == "string" then
       vim.api.nvim_command(cmds)
-      vim.api.nvim_set_var("MyRun", cmds)
+      vim.api.nvim_set_var("MyRunLastCommand", cmds)
   elseif cmds == nil then
-    cmds = vim.api.nvim_get_var("MyRun")
+    cmds = vim.api.nvim_get_var("MyRunLastCommand")
     if cmds ~= nil then
       MyRun(cmds)
     end
   else
-    vim.api.nvim_set_var("MyRun", cmds)
+    vim.api.nvim_set_var("MyRunLastCommand", cmds)
     for k,v in pairs(cmds) do
       vim.api.nvim_command(v)
     end
