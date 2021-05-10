@@ -177,6 +177,7 @@ nnoremap <silent> <leader>esl :e ~/.vim_custom.vim<cr>
 nnoremap <silent> <leader>esc :e ~/.config/nvim/config.lua<cr>
 nnoremap <silent> <leader>er :registers<cr>
 nnoremap <leader>ef :set filetype=
+nnoremap <leader>ea :filetype detect<cr>
 nnoremap <silent> <leader>eg :Grepper<cr>
 nnoremap <silent> <leader>ej ::%!jq '.'<cr>
 nnoremap <leader>ee :terminal<space>
