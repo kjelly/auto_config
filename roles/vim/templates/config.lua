@@ -127,7 +127,8 @@ if IsModuleAvailable("bufferline") then
             show_buffer_close_icons = false,
             left_trunc_marker = '◀',
             right_trunc_marker = '▶',
-            separator_style = {"📖|", "|"},
+            indicator_icon = '📌',
+            separator_style = {"📌|", "|"},
         }
     }
     vim.api.nvim_command([[
