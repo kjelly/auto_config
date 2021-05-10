@@ -150,10 +150,10 @@ else
     set background=dark
 endif
 
-if executable("zsh") == 1
-  set shell=zsh
-elseif executable("fish") == 1
+if executable("fish") == 1
   set shell=fish
+elseif executable("zsh") == 1
+  set shell=zsh
 endif
 
 let g:polyglot_disabled = ['ansible']
