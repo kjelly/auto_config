@@ -150,14 +150,11 @@ else
     set background=dark
 endif
 
-{% if nvim %}
-{% else %}
-
-if &shell =~# 'fish$'
-  set shell=sh
+if executable("zsh") == 1
+  set shell=zsh
+elseif executable("fish") == 1
+  set shell=fish
 endif
-
-{% endif %}
 
 let g:polyglot_disabled = ['ansible']
 let g:floaterm_autoinsert = v:false
@@ -569,10 +566,6 @@ set encoding=UTF-8
 {% if nvim %}
 set inccommand=nosplit
 {% endif %}
-
-if executable("fish") == 1
-  set shell=fish
-endif
 
 let @/ = ""
 let anyfold_activate=1
