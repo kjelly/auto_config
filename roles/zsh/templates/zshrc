@@ -53,7 +53,7 @@ plugins=(zsh-syntax-highlighting  zsh-autosuggestions git docker)
 
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="{{ ZSH_EXTRA_PATH }}:/usr/local/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -96,4 +96,8 @@ alias cd6='cd ../../../../../..'
 if [[ -v ${+IN_VIM} ]]; then
   export HTERM_TTY=$(tty)
 fi
+
+NEWLINE=$'\n'
+export PROMPT="%{$purple%}%n${PR_RST} at %{$orange%}%m${PR_RST} in %{$limegreen%}%~${PR_RST} $vcs_info_msg_0_$(virtualenv_info) ${NEWLINE}%(?.%F{green}√.%F{red}%?)%f $ "
+bindkey '^[w' backward-kill-word
 
