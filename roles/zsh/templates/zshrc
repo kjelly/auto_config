@@ -24,7 +24,7 @@ DISABLE_AUTO_UPDATE="true"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -97,7 +97,8 @@ if [[ -v ${+IN_VIM} ]]; then
   export HTERM_TTY=$(tty)
 fi
 
-NEWLINE=$'\n'
-export PROMPT="%{$purple%}%n${PR_RST} at %{$orange%}%m${PR_RST} in %{$limegreen%}%~${PR_RST} $vcs_info_msg_0_$(virtualenv_info) ${NEWLINE}%(?.%F{green}√.%F{red}%?)%f $ "
-bindkey '^[w' backward-kill-word
+setopt autopushd pushdsilent
+alias d='popd'
+alias c='cd'
 
+bindkey '^[w' backward-kill-word
