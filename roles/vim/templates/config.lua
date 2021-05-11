@@ -67,6 +67,12 @@ if IsModuleAvailable("lualine") then
       local filePath = vim.api.nvim_eval("expand('%')")
       return filePath
     end
+    local function showCWD()
+      local path = vim.api.nvim_eval("getcwd()")
+      local home = vim.api.nvim_eval("$HOME")
+      path = path:gsub(home, '~')
+      return path
+    end
     require('lualine').setup{
         options = {
           theme = 'gruvbox_material',
@@ -76,7 +82,7 @@ if IsModuleAvailable("lualine") then
         sections = {
           lualine_a = {'mode'},
           lualine_b = {'branch', 'diff'},
-          lualine_c = {'hostname', 'getcwd', showFilePath},
+          lualine_c = {'hostname', showCWD, showFilePath},
           lualine_x = {'encoding', 'fileformat', 'filetype'},
           lualine_y = {'progress'},
           lualine_z = {'location'}
