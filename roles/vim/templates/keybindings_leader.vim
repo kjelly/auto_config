@@ -143,8 +143,8 @@ nnoremap <silent> <leader>ns :NoteSearch<cr>
 
 " Gina
 nnoremap <leader>vs :Gina status<cr>
-nnoremap <leader>vpl :Gina pull<cr>
-nnoremap <leader>vph :Gina push<cr>
+nnoremap <leader>vu :Gina pull<cr>
+nnoremap <leader>vp :Gina push<cr>
 nnoremap <leader>vf :Gina fetch<cr>
 nnoremap <leader>vd :Gina diff<cr>
 nnoremap <leader>vl :Gina log<cr>
