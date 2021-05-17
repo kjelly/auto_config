@@ -82,7 +82,7 @@
 - template: src=devdocsrc.json dest=~/.devdocsrc
   when: not devdocsrc.stat.exists
 
-- template: src=config.lua dest=~/.config/nvim/config.lua
+- copy: src=config.lua dest=~/.config/nvim/config.lua
 
 - lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_browser" line="let g:leetcode_browser='firefox'"
   ignore_errors: yes

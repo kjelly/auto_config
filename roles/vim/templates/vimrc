@@ -376,8 +376,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
 " Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'majutsushi/tagbar', { 'on':  ['Tagbar'] }
-" emmet `<c-y>,` for expand `div>a` to `<div><a></a></div>
-Plug 'mattn/emmet-vim'
 " Useful for handling tag
 Plug 'tpope/vim-surround'
 
@@ -399,6 +397,9 @@ if executable('node')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
+else
+  " emmet `<c-y>,` for expand `div>a` to `<div><a></a></div>
+  Plug 'mattn/emmet-vim'
 endif
 
 " project-wide async search and replace
