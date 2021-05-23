@@ -207,6 +207,11 @@ let g:indent_blankline_char_highlight_list = ['Function', 'Variable']
 let g:blameLineUseVirtualText = 1
 let g:material_style = 'darker'
 
+let g:signify_sign_delete            = '_'
+let g:signify_sign_delete_first_line = '_'
+let g:signify_sign_change            = '!'
+let g:signify_sign_change_delete     = g:signify_sign_change . g:signify_sign_delete_first_line
+
 set nocompatible              " be improved
 filetype off                  " required before plugins
 
