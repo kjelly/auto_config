@@ -338,13 +338,15 @@ Plug 'bluz71/vim-moonfly-colors'
 Plug 'sainnhe/gruvbox-material'
 Plug 'ayu-theme/ayu-vim'
 Plug 'cocopon/iceberg.vim'
-Plug 'arcticicestudio/nord-vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'gruvbox-community/gruvbox'
 Plug 'romgrk/doom-one.vim'
 Plug 'folke/tokyonight.nvim'
 Plug 'marko-cerovac/material.nvim'
 Plug 'Sammyalhashe/random_colorscheme.vim'
+Plug 'briones-gabriel/darcula-solid.nvim'
+Plug 'rktjmp/lush.nvim'
+Plug 'eddyekofo94/gruvbox-flat.nvim'
 
 
 " Lang

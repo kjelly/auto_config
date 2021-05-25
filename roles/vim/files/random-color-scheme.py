@@ -6,8 +6,9 @@ import os
 colors = [
     "gruvbox-material",
     "space-vim-dark",
-    "material", 
-    "tokyonight"
+    "material",
+    "gruvbox-flat",
+    "tokyonight",
 ]
 color = random.choice(colors)
 with open(os.path.expanduser('~/.vim_custom.vim'), 'r') as ftr:
