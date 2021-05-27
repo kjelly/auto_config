@@ -268,6 +268,8 @@ if empty($SSH_CLIENT)
 else
 endif
 
+" While the usual 0 jumps to the beginning of the line, zero.nvim toggles between ^ and 0.
+Plug 'https://github.com/yuki-yano/zero.nvim'
 Plug 'yazgoo/unicodemoji'
 Plug 'https://github.com/lambdalisue/gina.vim'
 

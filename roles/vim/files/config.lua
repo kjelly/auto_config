@@ -62,6 +62,10 @@ if IsModuleAvailable("dap") then
     }
 end
 
+if IsModuleAvailable("zero") then
+  require('zero').setup()
+end
+
 if IsModuleAvailable("lualine") then
     local function showFilePath()
       local filePath = vim.api.nvim_eval("expand('%')")
