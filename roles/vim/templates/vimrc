@@ -681,7 +681,6 @@ autocmd! BufCreate __REST_response__ vertical resize 20
 autocmd! BufCreate __REST_response__ set nonu
 autocmd! BufEnter __REST_response__ set modifiable
 autocmd! FileType tagbar vertical resize 20
-autocmd! BufLeave * if expand("<afile>") == "" && &modified == 0 | bdelete | endif
 
 function AutoDec1()
   execute "Dec1"
