@@ -69,7 +69,7 @@ def main():
 
     f = tempfile.NamedTemporaryFile(delete=False, prefix='auto_config')
     f.write(outputText.encode('utf-8'))
-    f.close()
+    f.flush()
 
     data['playbook'] = f.name
 
@@ -79,7 +79,7 @@ def main():
             ''' ''').format(**data) + ' '.join(unknown))
     print(cmd)
     os.system(cmd)
-    os.system('rm -f %s' % f.name)
+    f.close()
 
 
 if __name__ == '__main__':
