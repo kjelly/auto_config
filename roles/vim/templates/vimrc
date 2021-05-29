@@ -214,6 +214,7 @@ silent! call plug#begin('~/.vim/plugged')
 if has('nvim-0.5')
   if executable('tree-sitter')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate all'}
+    Plug 'https://github.com/p00f/nvim-ts-rainbow'
   endif
   Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
   Plug 'mfussenegger/nvim-dap'
