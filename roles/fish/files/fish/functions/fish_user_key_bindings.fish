@@ -8,6 +8,8 @@ function fish_user_key_bindings
     bind -M insert jk "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
     bind -M insert \ef "forward-word"
     bind -M insert \eb "backward-word"
+    bind -M insert \ep "history-search-backward"
+    bind -M insert \en "history-search-forward"
 
     bind -M insert \ew "backward-kill-word"
 
