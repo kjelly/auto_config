@@ -144,6 +144,14 @@ function RunShellAndShow(cmd)
   execute "startinsert"
 endfunction
 
+function TermToggle()
+  if  &filetype == 'NvimTree'
+    echo 'not work in nvim tree'
+  elseif exists(":FloatermToggle")
+    execute "FloatermToggle"
+  endif
+endfunction
+
 if has('gui_running')
     set background=light
 else
@@ -665,8 +673,7 @@ autocmd! InsertLeave,WinEnter * set cursorline
 {% if nvim %}
 function! WinLeaveAction()
   if &filetype=='floaterm' | :FloatermHide<cr>
-  endif
-  if &filetype=='fzf' | wincmd q
+  elseif &filetype=='fzf' | wincmd q
   endif
 endfunction
 

@@ -90,13 +90,13 @@ cnoremap <c-s> Explore scp://
 "imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<Tab>":"\<CR>")
 
 {% if nvim %}
-tnoremap <C-]> <C-\><C-n>:FloatermToggle<cr>
+tnoremap <C-]> <C-\><C-n>:call TermToggle()<cr>
 
 {% endif %}
-inoremap <C-]> <Esc>:FloatermToggle<cr>
-vnoremap <C-]> <Esc>:FloatermToggle<cr>
-cnoremap <C-]> <Esc>:FloatermToggle<cr>
-nnoremap <C-]> :FloatermToggle<cr>
+inoremap <C-]> <Esc>:call TermToggle()<cr>
+vnoremap <C-]> <Esc>:call TermToggle()<cr>
+cnoremap <C-]> <Esc>:call TermToggle()<cr>
+nnoremap <C-]> :call TermToggle()<cr>
 
 {% if nvim %}
 " If we need Esc in terminal buffer,
@@ -314,9 +314,9 @@ tnoremap <silent> <expr> <Esc><Esc> &filetype=="floaterm" ? "<c-\><c-n>:Floaterm
 nnoremap <silent> <expr> <Esc><Esc> &filetype=="floaterm" ? ":FloatermHide<cr>" : ""
 nnoremap <silent> <expr> <Esc> &filetype=="floaterm" ? ":FloatermHide<cr>" : ""
 
-inoremap <a-;> <Esc>:FloatermToggle<cr>
-nnoremap <a-;> :FloatermToggle<cr>
-tnoremap <a-;> <c-\><c-n>:FloatermToggle<cr>
+inoremap <a-;> <Esc>:call TermToggle()<cr>
+nnoremap <a-;> :call TermToggle()<cr>
+tnoremap <a-;> <c-\><c-n>:call TermToggle()<cr>
 
 inoremap <silent> <a-:> <Esc>:FloatermNew<cr>
 nnoremap <silent> <a-:> :FloatermNew<cr>
