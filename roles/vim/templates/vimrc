@@ -712,6 +712,8 @@ augroup Binary
   au! BufWritePost *.bin set nomod | endif
 augroup END
 
+command! ClearBuffer bufdo if ((expand("%p") == "" || !filereadable(expand("%p"))) && &modified == 0) | bdelete | endif
+
 " num toggle
 command! Nu execute "call Num_Toggle()"
 
