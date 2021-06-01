@@ -146,7 +146,8 @@ endfunction
 
 function TermToggle()
   if  &filetype == 'NvimTree'
-    echo 'not work in nvim tree'
+    wincmd l
+    execute "FloatermToggle"
   elseif exists(":FloatermToggle")
     execute "FloatermToggle"
   endif
