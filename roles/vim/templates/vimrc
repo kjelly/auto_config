@@ -144,7 +144,7 @@ function RunShellAndShow(cmd)
   execute "startinsert"
 endfunction
 
-function TermToggle()
+function! TermToggle()
   if  &filetype == 'NvimTree'
     wincmd l
     execute "FloatermToggle"
