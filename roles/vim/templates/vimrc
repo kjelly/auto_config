@@ -153,6 +153,14 @@ function! TermToggle()
   endif
 endfunction
 
+function! FindFileInTree()
+  if exists(":NvimTreeFindFile")
+    execute "NvimTreeFindFile"
+  elseif exists("NERDTreeTabsFind")
+    execute "NERDTreeTabsFind"
+  endif
+endfunction
+
 if has('gui_running')
     set background=light
 else

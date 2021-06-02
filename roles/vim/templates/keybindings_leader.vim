@@ -50,6 +50,7 @@ nnoremap <leader>fr :Explore scp://
 nnoremap <silent> <leader>fb :Rexplore<CR>
 nnoremap <silent> <leader>fv :Vaffle<CR>
 nnoremap <silent> <leader>fs :w<CR>
+nnoremap <silent> <leader>fi :call FindFileInTree()<CR>
 nnoremap <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
 
 " Tab mappings
