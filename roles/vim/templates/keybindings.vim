@@ -1,3 +1,6 @@
+nnoremap H :tabprevious<cr>
+nnoremap L :tabnext<cr>
+
 "bash like keybinding
 " <c-a> for <home>, <c-e> for <end>
 " <c-d> for <delete>,

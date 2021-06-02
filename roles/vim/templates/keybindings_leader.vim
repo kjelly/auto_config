@@ -54,6 +54,7 @@ nnoremap <silent> <leader>fi :call FindFileInTree()<CR>
 nnoremap <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
 
 " Tab mappings
+nnoremap <silent> <leader>ta :tabnew<cr>
 nnoremap <silent> <leader>to :tabonly<cr>
 nnoremap <silent> <leader>tc :tabclose<cr>
 nnoremap <silent> <leader>tm :tabmove
