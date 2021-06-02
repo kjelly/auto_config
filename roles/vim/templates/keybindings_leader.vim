@@ -37,6 +37,7 @@ nnoremap <silent> <leader>gdl :Git diff @~..@<CR>
 
 nnoremap <silent> <leader>id :put =strftime('%Y-%m-%d')<cr>
 nnoremap <silent> <leader>it :put =strftime('%H:%M:%S')<cr>
+nnoremap <silent> <leader>ic :colorscheme<cr>
 
 " Disable highlight
 nnoremap <silent> <leader>sh :noh<cr>
@@ -44,6 +45,7 @@ nnoremap <silent> <leader>sh :noh<cr>
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :Pushd %:p:h<cr>:pwd<cr>
 nnoremap <leader>cc :call RunShellAndShow('')<left><left>
+"nnoremap <leader>co  " for rnadom colorscheme
 
 nnoremap <leader>fx :Explore<space>
 nnoremap <leader>fr :Explore scp://
