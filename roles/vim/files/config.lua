@@ -246,10 +246,17 @@ if IsModuleAvailable("which-key") then
       name = "+Note",
     },
     i = {
-      name = "+Insert time",
+      name = "+Insert time/Info",
     },
     a = {
       name = "+AnyJump/CocAction",
+    },
+    v = {
+      name = "+Gina"
+
+    },
+    p = {
+      name = "+Paste/Plugin"
     },
   }, { prefix = "<leader>" })
 
