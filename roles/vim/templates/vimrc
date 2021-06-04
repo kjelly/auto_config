@@ -254,6 +254,7 @@ if has('nvim-0.5')
   Plug 'tveskag/nvim-blame-line'
   Plug 'b3nj5m1n/kommentary'
   Plug 'https://github.com/folke/which-key.nvim'
+  Plug 'mizlan/iswap.nvim'
 else
   Plug 'itchyny/lightline.vim'
   Plug 'kjelly/auto-pairs'

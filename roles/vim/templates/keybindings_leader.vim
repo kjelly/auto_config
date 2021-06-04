@@ -270,7 +270,8 @@ nnoremap <silent> <leader>lle :<C-u>CocList extensions<cr>
 nnoremap <silent> <leader>llc :<C-u>CocList commands<cr>
 nnoremap <silent> <leader>llo :<C-u>CocList outline<cr>
 nnoremap <silent> <leader>lls :<C-u>CocList outline<cr>
-nnoremap <silent> <leader>ls :CocSearch<space>
+nnoremap <leader>lse :CocSearch<space>
+nnoremap <silent> <leader>lsw :ISwap<cr>
 nmap <silent> <leader>lrf <Plug>(coc-references)
 nmap <silent> <leader>lrn <Plug>(coc-rename)
 nnoremap <silent> <leader>lf :call CocAction('format')<cr>
