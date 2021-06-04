@@ -689,6 +689,7 @@ endfunction
 autocmd! WinLeave * call WinLeaveAction()
 autocmd! TermLeave * if &filetype=='fzf' | wincmd q| endif | echo '-- NORMAL --'
 autocmd! TermEnter * set showmode
+autocmd! TermOpen * setlocal nonumber norelativenumber
 {% endif %}
 
 autocmd! bufwritepost .vimrc source %
