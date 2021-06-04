@@ -156,6 +156,8 @@ nnoremap <silent> <C-h> :BufferLineMovePrev<CR>
 nnoremap <silent> <C-l> :BufferLineMoveNext<CR>
 nnoremap <silent> , :BufferLineCyclePrev<CR>
 nnoremap <silent> . :BufferLineCycleNext<CR>
+nnoremap <expr> <silent> , &filetype=='floaterm' ? ":call TermToggle()<cr>" : ":BufferLineCyclePrev<cr>"
+nnoremap <expr> <silent> . &filetype=='floaterm' ? ":call TermToggle()<cr>" : ":BufferLineCycleNext<cr>"
     ]])
 end
 
