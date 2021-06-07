@@ -110,11 +110,11 @@ function! ToggleForCopy()
     if &nu==0
         set nu!
         set signcolumn=yes
-        exec 'IndentLinesEnable'
+        call ToggleIndentLine()
     else
         set nu!
         set signcolumn=no
-        exec 'IndentLinesDisable'
+        call ToggleIndentLine()
     endif
 endfunc
 
