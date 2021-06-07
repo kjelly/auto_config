@@ -84,6 +84,8 @@
 
 - copy: src=config.lua dest=~/.config/nvim/config.lua
 
+- copy: src=workspace.py dest=~/bin/workspace mode=0755
+
 - lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_browser" line="let g:leetcode_browser='firefox'"
   ignore_errors: yes
 - lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_hide_paid_only" line="let g:leetcode_hide_paid_only='1'"
