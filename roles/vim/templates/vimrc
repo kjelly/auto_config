@@ -716,10 +716,11 @@ function AutoDec1()
   set filetype=markdown
 endfunction
 
-autocmd BufReadPost,FileReadPost *.smd call AutoDec1()
-autocmd BufWritePre,FileWritePre *.smd Enc1
-autocmd BufWritePost,FileWritePost *.smd call AutoDec1()
-autocmd BufWritePre * %s/\s\+$//e
+autocmd! BufReadPost,FileReadPost *.smd call AutoDec1()
+autocmd! BufWritePre,FileWritePre *.smd Enc1
+autocmd! BufWritePost,FileWritePost *.smd call AutoDec1()
+autocmd! BufWritePre * %s/\s\+$//e
+autocmd! FileType NvimTree execute ":IndentBlanklineDisable"
 
 augroup Binary
   au!
