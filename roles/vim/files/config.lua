@@ -164,7 +164,10 @@ end
 if IsModuleAvailable("hop") then
   vim.api.nvim_set_keymap('n', 's', "<cmd>lua require'hop'.hint_words()<cr>", {})
   require'hop'.setup {
-    create_hl_autocmd = true
+    winblend = 10,
+    jump_on_sole_occurrence = true,
+    create_hl_autocmd = true,
+    reverse_distribution = false
   }
 end
 
