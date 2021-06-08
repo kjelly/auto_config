@@ -163,6 +163,9 @@ end
 
 if IsModuleAvailable("hop") then
   vim.api.nvim_set_keymap('n', 's', "<cmd>lua require'hop'.hint_words()<cr>", {})
+  require'hop'.setup {
+    create_hl_autocmd = true
+  }
 end
 
 if IsModuleAvailable("which-key") then
