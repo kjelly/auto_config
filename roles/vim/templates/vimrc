@@ -139,8 +139,9 @@ function RunShellAndShow(cmd)
   if first_bufnr == -1
     execute "FloatermNew!"
   endif
-  execute "FloatermShow!"
+  execute "FloatermHide!"
   execute "FloatermSend! " . a:cmd
+  execute "FloatermShow!"
   execute "startinsert"
 endfunction
 
