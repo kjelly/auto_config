@@ -221,8 +221,6 @@ let g:signify_sign_delete            = '_'
 let g:signify_sign_delete_first_line = '_'
 let g:signify_sign_change            = '!'
 let g:signify_sign_change_delete     = g:signify_sign_change . g:signify_sign_delete_first_line
-let g:floaterm_wintype='vsplit'
-let g:floaterm_width=0.85
 
 
 set nocompatible              " be improved
@@ -683,8 +681,9 @@ let g:NERDTreeWinSize=20
 {% if nvim %}let test#strategy = "neovim" {% endif %}
 
 let g:leetcode_solution_filetype='python3'
-let g:floaterm_width=0.9
-let g:floaterm_height=0.9
+let g:floaterm_wintype='float'
+let g:floaterm_width=1.0
+let g:floaterm_height=1.0
 
 
 " Autocmd
