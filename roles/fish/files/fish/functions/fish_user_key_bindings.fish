@@ -21,5 +21,6 @@ function fish_user_key_bindings
     bind -M insert \ca beginning-of-line
 
     bind -M insert \ei fish_notify
+    bind -M insert \eo workspace\n
 end
 

@@ -33,6 +33,13 @@ if __name__ == '__main__':
     stdout_bytes, stderr_bytes = fzf.communicate(
         '\n'.join(chooses).encode('utf-8'))
     stdout = stdout_bytes.decode('utf-8').strip()
-    if os.path.exists(stdout) and os.path.isdir(stdout):
-        os.chdir(stdout)
-        os.system("vim")
+    stdout = os.path.expanduser(stdout)
+    old_title = '%s-%s' % ('fish', os.getcwd())
+    if os.path.exists(stdout):
+        os.system("tmux rename-window nvim-%s" % stdout)
+        if os.path.isdir(stdout):
+            os.chdir(stdout)
+            os.system("vim")
+        else:
+            os.system("vim '%s'" % stdout)
+        os.system("tmux rename-window %s" % old_title)
