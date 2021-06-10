@@ -2,6 +2,10 @@ function fish_notify
        commandline -i -- ";hterm-notify.sh done "
 end
 
+function workspace_func
+       commandline -i -- "workspace"
+end
+
 function fish_user_key_bindings
     fish_vi_key_bindings
     fzf_key_bindings
@@ -21,7 +25,7 @@ function fish_user_key_bindings
     bind -M insert \ca beginning-of-line
 
     bind -M insert \ei fish_notify
-    bind -M insert \eo workspace\n
-    bind -M insert \co workspace\n
+    bind -M insert \eo workspace
+    bind -M insert \co workspace
 end
 

@@ -102,3 +102,8 @@ alias d='popd'
 alias c='cd'
 
 bindkey '^[w' backward-kill-word
+
+workspace-widget() workspace
+zle -N workspace-widget
+bindkey '^[o' workspace-widget
+bindkey '^o' workspace-widget
