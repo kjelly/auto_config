@@ -1013,6 +1013,8 @@ endif
 
 
 " Yank to system clipboard with Y
+nnoremap yy yy
+vnoremap y y
 nnoremap YY "+yy
 nnoremap Y "+y
 vnoremap Y "+y
