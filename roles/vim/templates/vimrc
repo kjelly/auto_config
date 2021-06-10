@@ -252,7 +252,7 @@ if has('nvim-0.5')
   Plug 'monaqa/dial.nvim'
   Plug 'https://github.com/phaazon/hop.nvim'
   Plug 'https://github.com/rmagatti/auto-session'
-  Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'kyazdani42/nvim-tree.lua', { 'commit': 'f56ac7884c9b12343d66a2bacf90097af3c58cf6'}
   " Plug 'tversteeg/registers.nvim'
   Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
   Plug 'tveskag/nvim-blame-line'
