@@ -162,6 +162,10 @@ function! FindFileInTree()
   endif
 endfunction
 
+function! SwitchBuffer()
+  execute v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')
+endfunction
+
 if has('gui_running')
     set background=light
 else
@@ -721,6 +725,10 @@ autocmd! BufWritePre,FileWritePre *.smd Enc1
 autocmd! BufWritePost,FileWritePost *.smd call AutoDec1()
 autocmd! BufWritePre * %s/\s\+$//e
 autocmd! FileType NvimTree execute ":IndentBlanklineDisable"
+
+if exists(":NvimTreeFind")
+  autocmd DirChanged * NerdTreeFind
+endif
 
 augroup Binary
   au!
