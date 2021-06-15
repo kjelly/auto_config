@@ -157,7 +157,8 @@ nnoremap <leader>va :Gina add<space>
 nnoremap <leader>vt :Gina tag<cr>
 nnoremap <leader>vb :Gina branch<cr>
 nnoremap <leader>vv :Gina<space>
-nnoremap <leader>vi :call RunShellAndShow('git add -p %')<cr>
+nnoremap <leader>vi :call RunShellAndShow('git add -p %:p')<cr>
+
 
 autocmd FileType vimwiki nmap <space><space> <Plug>VimwikiToggleListItem
 
