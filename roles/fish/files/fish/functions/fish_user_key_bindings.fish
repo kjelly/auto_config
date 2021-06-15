@@ -6,6 +6,23 @@ function workspace_func
        commandline -i -- "workspace"
 end
 
+function cd_workspace
+  set --local dir (workspace -p)
+  if test -n "$dir"
+    cd $dir
+    commandline -f repaint
+  end
+end
+
+function vim_workspace
+  set --local dir (workspace -p)
+  if test -n "$dir"
+    cd $dir
+    commandline -f repaint
+    vim
+  end
+end
+
 function fish_user_key_bindings
     fish_vi_key_bindings
     fzf_key_bindings
@@ -24,8 +41,13 @@ function fish_user_key_bindings
     bind -M insert \ce end-of-line
     bind -M insert \ca beginning-of-line
 
-    bind -M insert \ei fish_notify
-    bind -M insert \eo workspace
-    bind -M insert \co workspace
-end
+    bind -M insert \eh backward-char
+    bind -M insert \ej history-search-forward
+    bind -M insert \ek history-search-backward
+    bind -M insert \el forward-char
 
+    bind -M insert \ea fish_notify
+    bind -M insert \eo vim_workspace
+    bind -M insert \ei cd_workspace
+    bind -M insert \eu vim
+end
