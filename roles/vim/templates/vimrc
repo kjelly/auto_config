@@ -243,6 +243,7 @@ if has('nvim-0.5')
   Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
   Plug 'mfussenegger/nvim-dap'
   Plug 'mfussenegger/nvim-dap-python'
+  Plug "rcarriga/nvim-dap-ui"
   Plug 'hoob3rt/lualine.nvim'
   " Plug 'Shougo/denite.nvim'
   Plug 'nvim-lua/popup.nvim'
