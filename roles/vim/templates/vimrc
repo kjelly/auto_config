@@ -188,35 +188,34 @@ let g:coc_snippet_next = '<c-f>'
 let g:coc_snippet_prev = '<c-b>'
 
 let g:nvim_tree_icons = {
-    \ 'default': '📃',
-    \ 'symlink': '🔗',
+    \ 'default': '',
+    \ 'symlink': '',
     \ 'git': {
-    \   'unstaged': "📝",
-    \   'staged': "✅",
-    \   'unmerged': "🎌",
+    \   'unstaged': "✗",
+    \   'staged': "✓",
+    \   'unmerged': "",
     \   'renamed': "㈴",
     \   'untracked': "🚩",
-    \   'deleted': "⌦",
-    \   'ignored': "🧹"
+    \   'deleted': "",
+    \   'ignored': "◌"
     \   },
     \ 'folder': {
-    \   'arrow_open': "+",
-    \   'arrow_closed': ">",
-    \   'default': "📁",
-    \   'open': "📂",
-    \   'empty': "🪣",
-    \   'empty_open': "🪣",
-    \   'symlink': "🌓",
-    \   'symlink_open': "🌕",
+    \   'arrow_open': "",
+    \   'arrow_closed': "",
+    \   'default': "",
+    \   'open': "",
+    \   'empty': "",
+    \   'empty_open': "",
+    \   'symlink': "",
+    \   'symlink_open': "",
     \   },
     \   'lsp': {
-    \     'hint': "💡",
-    \     'info': "💬",
-    \     'warning': "🔺",
-    \     'error': "❌",
+    \     'hint': "",
+    \     'info': "",
+    \     'warning': "",
+    \     'error': "",
     \   }
     \ }
-
 
 let g:indent_blankline_char_highlight_list = ['Function', 'Variable']
 let g:blameLineUseVirtualText = 1
@@ -279,9 +278,9 @@ else
   Plug 'google/vim-searchindex'
   Plug 'liuchengxu/vim-which-key'
 endif
+Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
 if empty($SSH_CLIENT)
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'kyazdani42/nvim-web-devicons'
   Plug 'blueyed/vim-diminactive' " use different background color for inactive window
 else
 endif
