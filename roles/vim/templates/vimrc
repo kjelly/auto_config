@@ -239,11 +239,12 @@ if has('nvim-0.5')
   if executable('tree-sitter')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate all'}
     Plug 'https://github.com/p00f/nvim-ts-rainbow'
+    Plug 'mizlan/iswap.nvim'
   endif
   Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
   Plug 'mfussenegger/nvim-dap'
   Plug 'mfussenegger/nvim-dap-python'
-  Plug "rcarriga/nvim-dap-ui"
+  Plug 'rcarriga/nvim-dap-ui'
   Plug 'hoob3rt/lualine.nvim'
   " Plug 'Shougo/denite.nvim'
   Plug 'nvim-lua/popup.nvim'
@@ -262,7 +263,6 @@ if has('nvim-0.5')
   Plug 'tveskag/nvim-blame-line'
   Plug 'b3nj5m1n/kommentary'
   Plug 'https://github.com/folke/which-key.nvim'
-  Plug 'mizlan/iswap.nvim'
 else
   Plug 'itchyny/lightline.vim'
   Plug 'kjelly/auto-pairs'
