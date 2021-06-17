@@ -28,7 +28,7 @@ nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gr :Gread<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
 nnoremap <silent> <leader>ge :Gedit<CR>
-nnoremap <silent> <leader>gi :Git add -p %<CR>
+nnoremap <leader>gi :call RunShellAndShow('git add -p %:p')<cr>
 nnoremap <silent> <leader>gg :SignifyToggle<CR>
 nnoremap <silent> <leader>gu :Git pull --rebase<CR>
 nnoremap <silent> <leader>ga :Agit<CR>
