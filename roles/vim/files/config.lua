@@ -41,8 +41,8 @@ if IsModuleAvailable("nvim-treesitter") then
             ["if"] = "@function.inner",
             ["ac"] = "@class.outer",
             ["ic"] = "@class.inner",
-            ["aB"] = "@block.outer",
-            ["iB"] = "@block.inner",
+            ["ao"] = "@block.outer",
+            ["io"] = "@block.inner",
             ["aCa"] = "@call.outer",
             ["iCa"] = "@call.inner",
             ["aCo"] = "@conditional.outer",
@@ -238,6 +238,40 @@ if IsModuleAvailable("hop") then
 end
 
 if IsModuleAvailable("which-key") then
+  wk.register({
+    d = {
+      i = {
+        o = 'block',
+        f = 'function',
+        c = 'class',
+        C = {
+          name = 'Call/Comment/Conditional',
+          a = 'call',
+          o = 'conditional',
+          m = 'comment',
+        },
+        F = 'frame',
+        l = 'loop',
+        p = 'parameter',
+        s = 'scopename',
+      },
+      a = {
+        o = 'block',
+        f = 'function',
+        c = 'class',
+        C = {
+          name = 'Call/Comment/Conditional',
+          a = 'call',
+          o = 'conditional',
+          m = 'comment',
+        },
+        F = 'frame',
+        l = 'loop',
+        p = 'parameter',
+        s = 'scopename',
+      }
+    }
+  })
   local wk = require("which-key")
   wk.register({
     r = {
