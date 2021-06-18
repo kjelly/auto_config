@@ -230,6 +230,11 @@ let g:signify_sign_change_delete     = g:signify_sign_change . g:signify_sign_de
 set nocompatible              " be improved
 filetype off                  " required before plugins
 
+if executable('tree-sitter')
+  set foldmethod=expr
+  set foldexpr=nvim_treesitter#foldexpr()
+endif
+
 {% if nvim %}
 silent! call plug#begin('~/.config/nvim/plugged')
 {% else %}
@@ -240,6 +245,7 @@ if has('nvim-0.5')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate all'}
     Plug 'https://github.com/p00f/nvim-ts-rainbow'
     Plug 'mizlan/iswap.nvim'
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   endif
   Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
   Plug 'mfussenegger/nvim-dap'
