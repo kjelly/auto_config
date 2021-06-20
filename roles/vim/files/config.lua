@@ -31,7 +31,7 @@ if IsModuleAvailable("nvim-treesitter") then
           enable = true,
         },
         indent = {
-          enable = true,
+          enable = false,
         },
         highlight = {
             enable = true, -- false will disable the whole extension
