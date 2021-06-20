@@ -246,27 +246,41 @@ if has('nvim-0.5')
     Plug 'https://github.com/p00f/nvim-ts-rainbow'
     Plug 'mizlan/iswap.nvim'
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+    Plug 'https://github.com/theHamsta/nvim-treesitter-pairs'
+    Plug 'romgrk/nvim-treesitter-context'
+    Plug 'nvim-treesitter/playground'
   endif
+  " Seamlessly jump between matched instances.
   Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
   Plug 'mfussenegger/nvim-dap'
   Plug 'mfussenegger/nvim-dap-python'
   Plug 'rcarriga/nvim-dap-ui'
+  " status line
   Plug 'hoob3rt/lualine.nvim'
-  " Plug 'Shougo/denite.nvim'
+
+  " A search panel for neovim.
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'windwp/nvim-spectre'
-  "Jump to any definition and references IDE madness without overhead
+
+  " Jump to any definition and
+  " references IDE madness without overhead
   Plug 'pechorin/any-jump.nvim'
   Plug 'akinsho/nvim-bufferline.lua'
+
+  " Easymotion-like
+  Plug 'https://github.com/phaazon/hop.nvim'
   Plug 'windwp/nvim-autopairs'
   Plug 'monaqa/dial.nvim'
-  Plug 'https://github.com/phaazon/hop.nvim'
   Plug 'https://github.com/rmagatti/auto-session'
   Plug 'kyazdani42/nvim-tree.lua', { 'commit': 'f56ac7884c9b12343d66a2bacf90097af3c58cf6'}
   " Plug 'tversteeg/registers.nvim'
+
+  " Indent guides for Neovim
   Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
   Plug 'tveskag/nvim-blame-line'
+
+  " Comment
   Plug 'b3nj5m1n/kommentary'
   Plug 'https://github.com/folke/which-key.nvim'
 else
@@ -292,9 +306,13 @@ if empty($SSH_CLIENT)
 else
 endif
 
+" Emoji"
 Plug 'yazgoo/unicodemoji'
+
+" Git
 Plug 'https://github.com/lambdalisue/gina.vim'
 
+" DB
 Plug 'tpope/vim-dadbod', { 'on': ['DB']}
 Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DB']}
 
@@ -304,19 +322,25 @@ Plug 'voldikss/vim-floaterm'
 "Plug 'dominikduda/vim_current_word'
 "Autojump to 1st non-blank when j/k into leading spaces.
 "Plug 'fcpg/vim-shore'
+
+" Switch true/flase
 Plug 'AndrewRadev/switch.vim'
 
 " + for expand, _ for shrink
 Plug 'terryma/vim-expand-region'
+
+" An always-on highlight for a unique character in every word on a line
+" to help you use f, F and family.
 Plug 'unblevable/quick-scope'
 Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
 " Plug 'jceb/vim-orgmode'
 " Plug 'fidian/hexmode'
 Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite','TestVisit']}
+
+" git grep
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'simeji/winresizer'
-"Plug 'pseewald/vim-anyfold'
 Plug 't9md/vim-choosewin'
 Plug 'john-nanney/pushd.vim'
 Plug 'metakirby5/codi.vim'
@@ -327,7 +351,8 @@ Plug 'MattesGroeger/vim-bookmarks'
 " Disable vaffle.newrw support remote edit but vaffle not.
 "Plug 'cocopon/vaffle.vim'
 " Helper for netrw. I use vaffle. It will useless
-Plug 'tpope/vim-vinegar'
+" Plug 'tpope/vim-vinegar'
+
 " This support rclone.
 "Plug 'ipod825/vim-netranger'
 
@@ -426,7 +451,6 @@ if has('python3')
   Plug 'vim-vdebug/vdebug', { 'on': 'VdebugStart'}
 endif
 
-Plug 'pechorin/any-jump.nvim'
 Plug 'honza/vim-snippets'
 
 if executable('node')
@@ -439,7 +463,7 @@ else
 endif
 
 " project-wide async search and replace
-" `,ff` for esearch.
+" `<leader>ff` for esearch.
 Plug 'eugen0329/vim-esearch'
 
 
