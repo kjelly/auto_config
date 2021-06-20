@@ -21,6 +21,16 @@ end
 if IsModuleAvailable("nvim-treesitter") then
     require "nvim-treesitter.configs".setup {
         ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+        refactor = {
+          highlight_definitions = { enable = true },
+          highlight_current_scope = { enable = true},
+          smart_rename = {
+            enable = true,
+            keymaps = {
+              smart_rename = "grr",
+            },
+           },
+        },
         autopairs = {
           enable = true,
         },
