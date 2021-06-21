@@ -23,7 +23,7 @@ if IsModuleAvailable("nvim-treesitter") then
         ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
         refactor = {
           highlight_definitions = { enable = true },
-          highlight_current_scope = { enable = true},
+          highlight_current_scope = { enable = false},
           smart_rename = {
             enable = true,
             keymaps = {
@@ -145,6 +145,20 @@ if IsModuleAvailable("nvim-treesitter") then
       }
     }
 
+    require'nvim-treesitter.configs'.setup {
+      refactor = {
+        navigation = {
+          enable = true,
+          keymaps = {
+            goto_definition = "gnd",
+            list_definitions = "gnD",
+            list_definitions_toc = "gO",
+            goto_next_usage = "gnu",
+            goto_previous_usage = "gnU",
+          },
+        },
+      },
+    }
 end
 
 if IsModuleAvailable("dap") then
@@ -287,6 +301,20 @@ end
 
 if IsModuleAvailable("which-key") then
   wk.register({
+    g = {
+      r = {
+        name = 'rename',
+        r = 'rename'
+      },
+      n = {
+        name = 'navigation',
+        d = 'goto_definition',
+        D = 'list_definitions',
+        u = 'goto_next_usage',
+        U = 'goto_previous_usage',
+      },
+      O = 'list_definitions_toc',
+    },
     d = {
       i = {
         o = 'block',
