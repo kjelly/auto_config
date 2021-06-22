@@ -13,7 +13,6 @@ colors = [
 
 bad_in_dark_mode = [
     "onedark",
-    "space-vim-dark",
     "dracula",
     "deep-space",
     "moonfly",
@@ -21,11 +20,18 @@ bad_in_dark_mode = [
     "iceberg",
     "PaperColor",
     "doom-one",
-    "material",
     "darcula-solid",
 ]
 
-color = random.choice(colors + bad_in_dark_mode)
+treesitter = [
+    "darcula-solid", # treesitter
+    "dracula", # treesitter
+    "material", # treesitter
+    "gruvbox-flat", # treesitter
+    "tokyonight", # treesitter
+]
+
+color = random.choice(list(dict.fromkeys(treesitter)))
 with open(os.path.expanduser('~/.vim_custom.vim'), 'r') as ftr:
     data = ftr.read().strip().split('\n')
 
