@@ -73,6 +73,13 @@
         "kotlin"
       ],
       "initializationOptions": {}
+    },
+    "efm": {
+      "command": "efm-langserver",
+      "args": [],
+      // custom config path
+      // "args": ["-c", "/path/to/your/config.yaml"],
+      "filetypes": ["vim", "eruby", "markdown", "yaml"]
     }
   }
 }
