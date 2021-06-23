@@ -39,7 +39,9 @@ def main():
                  '~/.pub-cache/bin', '~/dart-sdk/bin', '~/activator/bin/',
                  '~/google-cloud-sdk/bin/', '~/kotlinc/bin/', '~/.rvm/bin',
                  '/snap/bin/', '~/flutter/bin/', '~/.local/bin', '~/flutter/bin/cache/dart-sdk/bin',
-                 '~/nfs/bin/']
+                 '~/nfs/bin/', '~/.asdf/installs/python/3.9.2/bin']
+
+    fuzzy_path = ['~/node*/bin', '~/.asdf/installs/python/*/bin']
 
     for path in path_list:
         real_path = os.path.abspath(os.path.expanduser(path))
@@ -50,13 +52,9 @@ def main():
     if goroot_bin != '':
         env_path.append(goroot_bin)
 
-    node_bin = get_real_path("/home/kjelly/node*/bin")
-    node_bin = get_real_path("~/node*/bin")
-    if node_bin:
-        env_path.append(node_bin)
-
-    if module.params['bin'] == 'node':
-        module.exit_json(changed=False, PATH=node_bin)
+    for i in fuzzy_path:
+        if i:
+            env_path.append(i)
 
     if module.params['shell'] == 'fish':
         module.exit_json(changed=False, ENV_PATH=' '.join(env_path))
