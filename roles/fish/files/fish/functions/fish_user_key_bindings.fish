@@ -23,6 +23,13 @@ function vim_workspace
   end
 end
 
+function sn
+  pushd ~/sn/
+  git pull
+  vim
+  popd
+end
+
 function fish_user_key_bindings
     fish_vi_key_bindings
     fzf_key_bindings
@@ -50,4 +57,5 @@ function fish_user_key_bindings
     bind -M insert \eo vim_workspace
     bind -M insert \ei cd_workspace
     bind -M insert \eu vim
+    bind -M insert \ez sn
 end
