@@ -1,11 +1,9 @@
-auto_config
-===========
+# auto_config
 
 The goal of the project is that make me life easy. All of configurations
 is managed by Ansible. We don't need to modify configurations manually.
 
-How to use
-----------
+## How to use
 
 ```
 $ git clone https://github.com/kjelly/auto_config
