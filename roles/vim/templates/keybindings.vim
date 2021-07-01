@@ -58,7 +58,7 @@ inoremap <C-t> <Esc>:tabnew %<CR>
 nnoremap <C-e> :Commands<cr>
 
 " Tag list
-nnoremap <C-s> :Tagbar<cr>
+nnoremap <C-s> :Vista!!<cr>
 
 inoremap <C-s> <Esc>:w<cr>a
 

@@ -226,6 +226,15 @@ let g:signify_sign_delete_first_line = '_'
 let g:signify_sign_change            = '!'
 let g:signify_sign_change_delete     = g:signify_sign_change . g:signify_sign_delete_first_line
 
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_default_executive = 'ctags'
+let g:vista_executive_for = {
+  \ 'python': 'coc',
+  \ 'dart': 'coc',
+  \ 'js': 'coc',
+  \ 'ts': 'coc',
+  \ }
+
 
 set nocompatible              " be improved
 filetype off                  " required before plugins
@@ -435,10 +444,10 @@ endif
 
 {% if programming %}
 
+Plug 'https://github.com/liuchengxu/vista.vim', { 'on': ['Vista', 'Vista!!']}
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
 " Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
-Plug 'majutsushi/tagbar', { 'on':  ['Tagbar'] }
 " Useful for handling tag
 Plug 'tpope/vim-surround'
 
