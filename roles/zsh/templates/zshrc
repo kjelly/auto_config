@@ -87,6 +87,7 @@ source ~/.local_zshrc
 export VIM_CONFIG="{{ HOME_PATH }}/.config/nvim/init.vim"
 setopt PROMPT_SUBST
 export CDPATH=.:~:~/nfs
+export EDITOR=nvim
 alias cd1='cd ..'
 alias cd2='cd ../..'
 alias cd3='cd ../../..'

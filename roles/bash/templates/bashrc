@@ -145,3 +145,4 @@ export PATH="{{ ZSH_EXTRA_PATH }}:$PATH"
 export VIM_CONFIG="{{ HOME_PATH }}/.config/nvim/init.vim"
 export TOXENV=py27,pep8
 export CDPATH=.:~:~/nfs
+export EDITOR=nvim
