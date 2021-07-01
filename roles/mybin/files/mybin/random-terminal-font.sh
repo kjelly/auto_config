@@ -9,6 +9,7 @@ yq e ".font.bold.family=\"$font\"" ~/a.yaml -i
 yq e ".font.italic.family=\"$font\"" ~/a.yaml -i
 yq e ".font.bold_italic.family=\"$font\"" ~/a.yaml -i
 yq e ".font.size=$size" ~/a.yaml -i
+yq e ".env.TERM=xterm-256color" ~/a.yaml -i
 
 cp ~/a.yaml ~/.alacritty.yml
 
