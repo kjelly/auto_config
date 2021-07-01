@@ -31,6 +31,8 @@ cnoremap <c-j> <Down>
 cnoremap <c-k> <Up>
 cnoremap <c-l> <Right>
 
+nnoremap <c-g> <c-b>
+
 " For hterm in tab
 inoremap <c-h> <Left>
 inoremap <c-j> <Down>
