@@ -311,6 +311,7 @@ else
 endif
 
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 
 if empty($SSH_CLIENT)
   Plug 'blueyed/vim-diminactive' " use different background color for inactive window
@@ -1048,6 +1049,16 @@ let g:lightline = {
 
 " Yank to tmux normally
 set clipboard=unnamed
+
+
+# wilder
+call wilder#enable_cmdline_enter()
+set wildcharm=<Tab>
+cmap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
+cmap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
+
+" only / and ? are enabled by default
+call wilder#set_option('modes', ['/', '?', ':'])
 
 
 " Results:  :copen, :cn, :cp
