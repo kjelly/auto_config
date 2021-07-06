@@ -24,11 +24,11 @@ bad_in_dark_mode = [
 ]
 
 treesitter = [
-    "darcula-solid", # treesitter
-    "dracula", # treesitter
-    "material", # treesitter
-    "gruvbox-flat", # treesitter
-    "tokyonight", # treesitter
+    "darcula-solid",  # treesitter
+    "dracula",  # treesitter
+    "material",  # treesitter
+    "gruvbox-flat",  # treesitter
+    "tokyonight",  # treesitter
 ]
 
 color = random.choice(list(dict.fromkeys(treesitter)))
