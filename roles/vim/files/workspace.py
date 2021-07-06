@@ -6,6 +6,13 @@ import subprocess
 import argparse
 import re
 
+from subprocess import check_output
+
+
+def find_dir(path: str) -> str:
+    o = check_output(r"find %s -maxdepth 3 -type d \( -name '.*' -prune -o -print \)|cat" % path,
+            shell=True)
+    return o.decode('utf-8')
 
 def in_tmux():
     return 'TMUX' in os.environ
@@ -38,9 +45,23 @@ def choose(text: str):
 
 def list_tmux_window():
     cmd = 'tmux list-windows -F "#{pane_current_path} #{window_id} ' \
-          '#{pane_current_command} # #{window_index}"'
+          '#{window_name} #{window_index} #"'
     o = subprocess.check_output(cmd, shell=True)
     return o.decode('utf-8')
+
+
+def cd(a: str, b: str):
+    path = a.replace('>cd', '').replace('cd ', '').strip()
+    if path == '' or path == 'cd':
+        path = os.path.expanduser('~')
+    dirs = find_dir(path)
+    _, target = choose(dirs)
+    if target == '':
+        return
+    if in_vim():
+        os.system("tmux new-window -c %s fish" % target)
+    else:
+        print(target)
 
 
 if __name__ == '__main__':
@@ -73,7 +94,7 @@ if __name__ == '__main__':
         else:
             chooses.append(i)
 
-    text = '>new\n>choose\n'
+    text = '>new\n>choose\n>cd\n'
     if in_tmux():
         tmux_window = list_tmux_window()
         for i in chooses:
@@ -85,12 +106,15 @@ if __name__ == '__main__':
     query, result = choose(text)
     result = os.path.expanduser(result)
     old_title = '%s-%s' % ('fish', os.getcwd())
+    command = {
+        'new': lambda a, b: os.system('tmux new-window'),
+        'choose': lambda a, b: os.system('tmux choose-window'),
+        'cd': cd,
+    }
     if result.startswith('>'):
-        command = {
-            'new': 'tmux new-window',
-            'choose': 'tmux choose-window',
-        }
-        os.system(command[result[1:]])
+        command[result[1:]](query, result)
+    elif (query.startswith('>cd') or query.startswith('cd')):
+        command['cd'](query, result)
     elif len(result.strip()) == 0:
         sys.exit(0)
     elif os.path.exists(result):
@@ -98,7 +122,7 @@ if __name__ == '__main__':
             print(result)
             sys.exit(0)
         if in_vim():
-            os.system("tmux new-window -c %s vim" % result)
+            os.system("tmux new-window -c %s -n vim vim" % result)
         else:
             os.system("tmux rename-window nvim-%s" % result)
             if os.path.isdir(result):
