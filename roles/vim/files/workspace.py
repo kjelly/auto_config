@@ -5,6 +5,7 @@ import os
 import subprocess
 import argparse
 import re
+import typing
 
 from subprocess import check_output
 
@@ -22,14 +23,30 @@ def in_vim():
     return 'IN_VIM' in os.environ
 
 
-def choose(text: str):
+def fzf(data: bytes, multi: bool = False, filepath: bool = False,
+        prompt: str = '>') -> str:
+    command = ["fzf", '--prompt=%s' % prompt]
+    if multi:
+        command.append("-m")
+    if filepath:
+        command.append("--filepath-word")
+
+    fzf = subprocess.Popen(
+        command, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    stdout_bytes, stderr_bytes = fzf.communicate(data)
+    stdout = stdout_bytes.decode('utf-8').strip()
+    return stdout
+
+
+def choose_one(text: str) -> typing.Tuple[str, str]:
+    fzf_args = ['--print-query', '--filepath-word']
     fzf = None
     if not in_tmux():
         fzf = subprocess.Popen(
-            ["fzf", "--print-query"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+            ['fzf'] + fzf_args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     else:
         fzf = subprocess.Popen(
-            ["fzf-tmux", "--print-query"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+            ["fzf-tmux"] + fzf_args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     stdout_bytes, stderr_bytes = fzf.communicate(
         text.encode('utf-8'))
     stdout = stdout_bytes.decode('utf-8')
@@ -43,7 +60,7 @@ def choose(text: str):
     return (query, result)
 
 
-def list_tmux_window():
+def list_tmux_window() -> str:
     cmd = 'tmux list-windows -F "#{pane_current_path} #{window_id} ' \
           '#{window_name} #{window_index} #"'
     o = subprocess.check_output(cmd, shell=True)
@@ -55,13 +72,22 @@ def cd(a: str, b: str):
     if path == '' or path == 'cd':
         path = os.path.expanduser('~')
     dirs = find_dir(path)
-    _, target = choose(dirs)
+    _, target = choose_one(dirs)
     if target == '':
         return
     if in_vim():
         os.system("tmux new-window -c %s fish" % target)
     else:
         print(target)
+
+
+def kill_window(a: str, b: str):
+    windows = list_tmux_window()
+    chooses = fzf(windows.encode('utf-8'), multi=True)
+    for i in chooses.split('\n'):
+        if '@' in i:
+            win_id = re.findall(r'@\d+', i)[0]
+            os.system("tmux kill-window -t %s " % win_id)
 
 
 if __name__ == '__main__':
@@ -94,7 +120,7 @@ if __name__ == '__main__':
         else:
             chooses.append(i)
 
-    text = '>new\n>choose\n>cd\n'
+    text = '>new\n>choose\n>cd\n>kill\n'
     if in_tmux():
         tmux_window = list_tmux_window()
         for i in chooses:
@@ -103,13 +129,14 @@ if __name__ == '__main__':
         text = tmux_window + text
     else:
         text = '\n'.join(chooses)
-    query, result = choose(text)
+    query, result = choose_one(text)
     result = os.path.expanduser(result)
     old_title = '%s-%s' % ('fish', os.getcwd())
     command = {
         'new': lambda a, b: os.system('tmux new-window'),
         'choose': lambda a, b: os.system('tmux choose-window'),
         'cd': cd,
+        'kill': kill_window,
     }
     if result.startswith('>'):
         command[result[1:]](query, result)
