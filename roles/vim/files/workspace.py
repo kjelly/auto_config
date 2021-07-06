@@ -25,7 +25,7 @@ def choose(text: str):
             ["fzf-tmux", "--print-query"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     stdout_bytes, stderr_bytes = fzf.communicate(
         text.encode('utf-8'))
-    stdout = stdout_bytes.decode('utf-8').strip()
+    stdout = stdout_bytes.decode('utf-8')
     if len(stdout) == 0:
         return "", ""
     lst = stdout.split('\n')
@@ -109,6 +109,7 @@ if __name__ == '__main__':
             os.system("tmux rename-window %s" % old_title)
     elif '@' in result:
         win = re.findall(r'@\d+', result)[0]
+        print(win)
         os.system("tmux select-window -t %s" % win)
     else:
         sys.exit(0)
