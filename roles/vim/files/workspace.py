@@ -15,20 +15,25 @@ def in_vim():
     return 'IN_VIM' in os.environ
 
 
-def choose(text: str) -> str:
+def choose(text: str):
+    fzf = None
     if not in_tmux():
         fzf = subprocess.Popen(
-            ["fzf"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-        stdout_bytes, stderr_bytes = fzf.communicate(
-            text.encode('utf-8'))
-        stdout = stdout_bytes.decode('utf-8').strip()
-        return stdout
-    fzf = subprocess.Popen(
-        ["fzf-tmux"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+            ["fzf", "--print-query"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    else:
+        fzf = subprocess.Popen(
+            ["fzf-tmux", "--print-query"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     stdout_bytes, stderr_bytes = fzf.communicate(
         text.encode('utf-8'))
     stdout = stdout_bytes.decode('utf-8').strip()
-    return stdout
+    if len(stdout) == 0:
+        return "", ""
+    lst = stdout.split('\n')
+    query = lst[0]
+    result = ''
+    if len(lst) > 1:
+        result = lst[1]
+    return (query, result)
 
 
 def list_tmux_window():
@@ -68,7 +73,7 @@ if __name__ == '__main__':
         else:
             chooses.append(i)
 
-    text = ''
+    text = '>new\n>choose\n'
     if in_tmux():
         tmux_window = list_tmux_window()
         for i in chooses:
@@ -77,27 +82,33 @@ if __name__ == '__main__':
         text = tmux_window + text
     else:
         text = '\n'.join(chooses)
-    stdout = choose(text)
-    stdout = os.path.expanduser(stdout)
+    query, result = choose(text)
+    result = os.path.expanduser(result)
     old_title = '%s-%s' % ('fish', os.getcwd())
-    if len(stdout.strip()) == 0:
-        sys.exit(1)
-    elif os.path.exists(stdout):
+    if result.startswith('>'):
+        command = {
+            'new': 'tmux new-window',
+            'choose': 'tmux choose-window',
+        }
+        os.system(command[result[1:]])
+    elif len(result.strip()) == 0:
+        sys.exit(0)
+    elif os.path.exists(result):
         if args.print:
-            print(stdout)
+            print(result)
             sys.exit(0)
         if in_vim():
-            os.system("tmux new-window -c %s vim" % stdout)
+            os.system("tmux new-window -c %s vim" % result)
         else:
-            os.system("tmux rename-window nvim-%s" % stdout)
-            if os.path.isdir(stdout):
-                os.chdir(stdout)
+            os.system("tmux rename-window nvim-%s" % result)
+            if os.path.isdir(result):
+                os.chdir(result)
                 os.system("vim")
             else:
-                os.system("vim '%s'" % stdout)
+                os.system("vim '%s'" % result)
             os.system("tmux rename-window %s" % old_title)
-    elif '@' in stdout:
-        win = re.findall(r'@\d+', stdout)[0]
+    elif '@' in result:
+        win = re.findall(r'@\d+', result)[0]
         os.system("tmux select-window -t %s" % win)
     else:
         sys.exit(0)
