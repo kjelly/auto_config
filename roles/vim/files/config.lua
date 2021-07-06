@@ -300,6 +300,7 @@ if IsModuleAvailable("hop") then
 end
 
 if IsModuleAvailable("which-key") then
+  local wk = require("which-key")
   wk.register({
     g = {
       r = {
@@ -348,7 +349,6 @@ if IsModuleAvailable("which-key") then
       }
     }
   })
-  local wk = require("which-key")
   wk.register({
     r = {
       name = "+Run"
