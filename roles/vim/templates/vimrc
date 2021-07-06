@@ -287,7 +287,7 @@ if has('nvim-0.5')
   " Plug 'tversteeg/registers.nvim'
 
   " Indent guides for Neovim
-  Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
+  Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'master'}
   Plug 'tveskag/nvim-blame-line'
 
   " Comment
