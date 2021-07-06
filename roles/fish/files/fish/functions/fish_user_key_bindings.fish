@@ -55,6 +55,7 @@ function fish_user_key_bindings
 
     bind -M insert \ea fish_notify
     bind -M insert \eo vim_workspace
+    bind -M insert \eq vim_workspace
     bind -M insert \ei cd_workspace
     bind -M insert \eu vim
     bind -M insert \ez sn

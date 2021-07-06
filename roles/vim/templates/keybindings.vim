@@ -376,4 +376,5 @@ inoremap <a-`> <Esc>:call ResizeWin()<cr>a
 nnoremap <a-`> :call ResizeWin()<cr>
 tnoremap <a-`> <c-\><c-n>:call ResizeWin()<cr>a
 
+nnoremap <a-q> :terminal workspace<cr>
 {% endif %}
