@@ -76,7 +76,7 @@ def cd(a: str, b: str):
     if target == '':
         return
     if in_vim():
-        os.system("tmux new-window -c %s fish" % target)
+        os.system("tmux new-window -c %s " % target)
     else:
         print(target)
 
@@ -131,7 +131,6 @@ if __name__ == '__main__':
         text = '\n'.join(chooses)
     query, result = choose_one(text)
     result = os.path.expanduser(result)
-    old_title = '%s-%s' % ('fish', os.getcwd())
     command = {
         'new': lambda a, b: os.system('tmux new-window'),
         'choose': lambda a, b: os.system('tmux choose-window'),
@@ -151,13 +150,11 @@ if __name__ == '__main__':
         if in_vim():
             os.system("tmux new-window -c %s -n vim vim" % result)
         else:
-            os.system("tmux rename-window nvim-%s" % result)
             if os.path.isdir(result):
                 os.chdir(result)
                 os.system("vim")
             else:
                 os.system("vim '%s'" % result)
-            os.system("tmux rename-window %s" % old_title)
     elif '@' in result:
         win = re.findall(r'@\d+', result)[0]
         print(win)
