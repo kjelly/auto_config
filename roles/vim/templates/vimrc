@@ -234,6 +234,14 @@ let g:vista_executive_for = {
   \ 'js': 'coc',
   \ 'ts': 'coc',
   \ }
+let g:calvera_italic_comments = 1
+let g:calvera_italic_keywords = 1
+let g:calvera_italic_functions = 1
+let g:calvera_contrast = 1
+
+let g:loaded_python_provider = 0
+let g:loaded_perl_provider = 0
+let g:loaded_ruby_provider = 0
 
 
 set nocompatible              " be improved
@@ -409,6 +417,7 @@ Plug 'briones-gabriel/darcula-solid.nvim'
 Plug 'rktjmp/lush.nvim'
 Plug 'eddyekofo94/gruvbox-flat.nvim'
 Plug 'https://github.com/Mofiqul/dracula.nvim'
+Plug 'yashguptaz/calvera-dark.nvim'
 {% else %}
 Plug 'dracula/vim', { 'as': 'dracula' }
 
