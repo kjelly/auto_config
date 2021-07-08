@@ -71,3 +71,11 @@
 - copy: src='dict.sh' dest='~/.config/nvim/bin' mode=0755
 
 - shell: cp /tmp/ripgrep-*/rg ~/.config/nvim/bin
+
+- name: download fd.tar.gz
+  get_url: url={{ fd_download_url }} dest=/tmp/fd.tar.gz
+
+- name: unarchive fd.tar.gz
+  unarchive: src="/tmp/fd.tar.gz" dest="/tmp"
+
+- shell: cp /tmp/fd-*/fd ~/.config/nvim/bin
