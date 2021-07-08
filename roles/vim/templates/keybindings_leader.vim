@@ -42,8 +42,11 @@ nnoremap <silent> <leader>ic :colorscheme<cr>
 " Disable highlight
 nnoremap <silent> <leader>sh :noh<cr>
 
-" Switch CWD to the directory of the open buffer
-nnoremap <leader>cd :Pushd %:p:h<cr>:pwd<cr>
+function TabCD()
+  execute "tabnew" "%"
+  call fzf#run({'source': 'fd -t d .', 'sink': 'tcd'})
+endfunction
+nnoremap <Leader>cd :call TabCD()<cr>
 nnoremap <leader>cc :call RunShellAndShow('')<left><left>
 "nnoremap <leader>co  " for rnadom colorscheme
 
