@@ -285,10 +285,11 @@ nnoremap <silent> <leader>ltf :TestFile<cr>
 nnoremap <silent> <leader>ltn :TestNearest<cr>
 nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
-nnoremap <leader>lc :FloatermNew curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
+nnoremap <leader>lg :FloatermNew curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
 nnoremap <leader>ldg :C ddgr <c-r>=&filetype<cr><space>
-nnoremap <leader>lg :C w w3m, w3m -no-cookie 'https://www.startpage.com/search?q=<c-r>=&filetype<cr> '<left>
 nnoremap <silent> <leader>lb :C brow<cr>
+nnoremap <silent> <leader>lca <Plug>(coc-calc-result-append)
+nnoremap <silent> <leader>lcr <Plug>(coc-calc-result-replace)
 
 nnoremap <silent> <leader>lel :LeetCodeList<cr>
 nnoremap <silent> <leader>les :LeetCodeSubmit<cr>
