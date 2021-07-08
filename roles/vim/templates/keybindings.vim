@@ -311,6 +311,9 @@ tnoremap <A-.> <C-\><C-n>gti
 imap <A-g> <Esc><Plug>(choosewin)
 nmap <A-g> <Plug>(choosewin)
 tmap <A-g> <C-\><C-n><Plug>(choosewin)
+imap <C-g> <Esc><Plug>(choosewin)
+nmap <C-g> <Plug>(choosewin)
+tmap <C-g> <C-\><C-n><Plug>(choosewin)
 
 inoremap <A-m> <Esc>:Marks<cr>
 nnoremap <A-m> :Marks<cr>
