@@ -1,8 +1,6 @@
 nnoremap H :tabprevious<cr>
 nnoremap L :tabnext<cr>
 
-nnoremap <enter> :call TermToggle()<cr>
-
 "bash like keybinding
 " <c-a> for <home>, <c-e> for <end>
 " <c-d> for <delete>,
@@ -298,7 +296,7 @@ inoremap <A-r> <Esc>:lua MyRun()<cr>
 tnoremap <A-r> <c-\><c-n>:lua MyRun()<cr>
 nnoremap <A-e> :call RunShellAndShow('')<left><left>
 inoremap <A-e> <Esc>:call RunShellAndShow('')<left><left>
-tnoremap <A-e> <c-\><c-n>:call RunShellAndShow('')<left><left>
+" tnoremap <A-e> <c-\><c-n>:call RunShellAndShow('')<left><left> " needed by br
 
 " Tab navigate
 nnoremap <A-,> gT
@@ -338,7 +336,7 @@ tnoremap <silent> <a-"> <c-\><c-n>:FloatermPrev<cr>
 
 inoremap <silent> <a-Enter> <Esc>:FloatermSend<cr>
 nnoremap <silent> <a-Enter> :FloatermSend<cr>
-tnoremap <silent> <a-Enter> <c-\><c-n>:FloatermSend<cr>
+" tnoremap <silent> <a-Enter> <c-\><c-n>:FloatermSend<cr> " needed by br
 vnoremap <silent> <a-Enter> :FloatermSend<cr>
 
 inoremap <silent> <s-a-enter> <Esc>:%FloatermSend<cr>
