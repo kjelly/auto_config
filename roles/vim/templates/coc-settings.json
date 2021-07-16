@@ -27,6 +27,11 @@
   "tabnine.priority": 90,
   "coc.source.word.priority": 20,
 
+  "python.linting.flake8Enabled": true,
+  "python.linting.pytypeEnabled": true,
+  "python.linting.pylintEnabled": true,
+  "pyright.organizeimports.provider": "isort",
+
   "Lua": {
     "workspace.library": {
       "/opt/neovim.nightly/usr/share/nvim/runtime/lua": true,
