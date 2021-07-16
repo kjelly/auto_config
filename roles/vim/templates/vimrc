@@ -476,6 +476,7 @@ Plug 'honza/vim-snippets'
 
 if executable('node')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
 else

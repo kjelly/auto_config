@@ -291,8 +291,10 @@ nnoremap <silent> <leader>ltv :TestVisit<cr>
 nnoremap <leader>lg :FloatermNew curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
 nnoremap <leader>ldg :C ddgr <c-r>=&filetype<cr><space>
 nnoremap <silent> <leader>lb :C brow<cr>
+nnoremap <silent> <leader>lco :CocFzfList commands<cr>
 nnoremap <silent> <leader>lca <Plug>(coc-calc-result-append)
 nnoremap <silent> <leader>lcr <Plug>(coc-calc-result-replace)
+nnoremap <silent> <leader>lz :CocFzfList<cr>
 
 nnoremap <silent> <leader>lel :LeetCodeList<cr>
 nnoremap <silent> <leader>les :LeetCodeSubmit<cr>
