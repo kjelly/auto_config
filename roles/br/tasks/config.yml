@@ -1,0 +1,5 @@
+---
+
+- file: path=~/.config/broot/ state=directory recurse=yes
+
+- copy: src=conf.hjson dest=~/.config/broot/conf.hjson

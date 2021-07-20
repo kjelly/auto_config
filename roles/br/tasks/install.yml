@@ -1,0 +1,4 @@
+---
+
+- name: download broot.zip
+  get_url: url={{ broot_url }} dest=~/bin/ mode='0755'

@@ -24,3 +24,4 @@ flutter_version: 1.22.5
 flutter_download_url: https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_{{ flutter_version }}-stable.tar.xz
 fd_version: v8.2.1
 fd_download_url: https://github.com/sharkdp/fd/releases/download/{{fd_version}}/fd-{{fd_version}}-x86_64-unknown-linux-gnu.tar.gz
+broot_download_url: https://dystroy.org/broot/download/x86_64-linux/broot
