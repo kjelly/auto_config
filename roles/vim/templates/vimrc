@@ -62,6 +62,7 @@ endfunction
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 command! SearchPanel :lua require('spectre').open()<CR>
+command! Br :FloatermNew --autoclose=1 br<cr>
 
 function! <SID>BufcloseCloseIt()
   let l:currentBufNum = bufnr("%")
@@ -418,6 +419,7 @@ Plug 'rktjmp/lush.nvim'
 Plug 'eddyekofo94/gruvbox-flat.nvim'
 Plug 'https://github.com/Mofiqul/dracula.nvim'
 Plug 'yashguptaz/calvera-dark.nvim'
+Plug 'projekt0n/github-nvim-theme'
 {% else %}
 Plug 'dracula/vim', { 'as': 'dracula' }
 
@@ -775,6 +777,7 @@ autocmd! BufWritePre,FileWritePre *.smd Enc1
 autocmd! BufWritePost,FileWritePost *.smd call AutoDec1()
 autocmd! BufWritePre * %s/\s\+$//e
 autocmd! FileType NvimTree execute ":IndentBlanklineDisable"
+autocmd! BufWritePre,FileWritePre *.py if &filetype=='python' | execute "CocCommand python.sortImports"
 
 if exists(":NvimTreeFind")
   autocmd DirChanged * NerdTreeFind
