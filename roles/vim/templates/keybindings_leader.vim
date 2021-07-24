@@ -290,6 +290,8 @@ nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
 nnoremap <leader>lg :FloatermNew curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
 nnoremap <leader>ldg :C ddgr <c-r>=&filetype<cr><space>
+nmap <leader>ldn <Plug>(coc-diagnostic-prev)
+nmap <leader>ldp <Plug>(coc-diagnostic-next)
 nnoremap <silent> <leader>lb :C brow<cr>
 nnoremap <silent> <leader>lco :CocFzfList commands<cr>
 nnoremap <silent> <leader>lca <Plug>(coc-calc-result-append)
