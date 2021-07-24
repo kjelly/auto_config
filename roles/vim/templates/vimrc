@@ -136,10 +136,7 @@ function! Ssh(cmd, hosts)
 endfunction
 
 function RunShellAndShow(cmd)
-  let first_bufnr = floaterm#buflist#first()
-  if first_bufnr == -1
-    execute "FloatermNew!"
-  endif
+  execute "FloatermToggle!"
   execute "FloatermHide!"
   execute "FloatermSend! " . a:cmd
   execute "FloatermShow!"
