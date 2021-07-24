@@ -1,4 +1,10 @@
 {
+  "coc.preferences.formatOnSaveFiletypes": [
+    "python",
+    "dart",
+    "javascript",
+    "json"
+  ],
   "coc.preferences.enableFloatHighlight": true,
   "coc.preferences.snippetStatusText": "🌠",
   "coc.preferences.extensionUpdateCheck": "daily",
@@ -18,7 +24,6 @@
   "suggest.echodocSupport": true,
   "flutter.openDevLogSplitCommand": "botright 12split",
   "flutter.lsp.initialization.onlyAnalyzeProjectsWithOpenFiles": false,
-
   "diagnostic.virtualText": true,
   "diagnostic.errorSign": "❌",
   "diagnostic.warningSign": "🔺",
@@ -26,12 +31,10 @@
   "diagnostic.hintSign": "💡",
   "tabnine.priority": 90,
   "coc.source.word.priority": 20,
-
   "python.linting.flake8Enabled": true,
   "python.linting.pytypeEnabled": true,
   "python.linting.pylintEnabled": true,
   "pyright.organizeimports.provider": "isort",
-
   "Lua": {
     "workspace.library": {
       "/opt/neovim.nightly/usr/share/nvim/runtime/lua": true,
@@ -39,10 +42,11 @@
       "/opt/neovim.nightly/usr/share/nvim/runtime/lua/vim/lsp": true
     },
     "diagnostics": {
-      "globals": ["vim"]
+      "globals": [
+        "vim"
+      ]
     }
   },
-
   "languageserver": {
     "golang": {
       "command": "go-langserver",
@@ -84,7 +88,12 @@
       "args": [],
       // custom config path
       // "args": ["-c", "/path/to/your/config.yaml"],
-      "filetypes": ["vim", "eruby", "markdown", "yaml"]
+      "filetypes": [
+        "vim",
+        "eruby",
+        "markdown",
+        "yaml"
+      ]
     }
   }
 }
