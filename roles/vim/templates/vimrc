@@ -288,7 +288,7 @@ if has('nvim-0.5')
   Plug 'https://github.com/phaazon/hop.nvim'
   Plug 'windwp/nvim-autopairs'
   Plug 'monaqa/dial.nvim'
-  Plug 'https://github.com/rmagatti/auto-session'
+  Plug 'https://github.com/Shatur/neovim-session-manager'
   Plug 'kyazdani42/nvim-tree.lua', { 'commit': 'f56ac7884c9b12343d66a2bacf90097af3c58cf6'}
   " Plug 'tversteeg/registers.nvim'
 
