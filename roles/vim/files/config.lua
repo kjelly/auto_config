@@ -470,13 +470,15 @@ function MySort(buffer_a, buffer_b)
     local b_atime = vim.api.nvim_buf_get_var(buffer_b.id, 'atime')
     if a_atime > b_atime then
       return true
+    elseif a_atime < b_atime then
+      return false
     end
-    return false
+    return buffer_a.id > buffer_b.id
   end
   local status, retval = pcall(_sort)
   if status then
     return retval
   else
-    return false
+    return buffer_a.id > buffer_b.id
   end
 end
