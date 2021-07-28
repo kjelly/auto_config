@@ -282,8 +282,6 @@ tnoremap <A-i> <C-\><C-n>:BufferLinePick<cr>
 nnoremap <silent> <leader>sb :BufferLineSortByDirectory<cr>
 nnoremap <silent> <C-h> :BufferLineMovePrev<CR>
 nnoremap <silent> <C-l> :BufferLineMoveNext<CR>
-nnoremap <expr> <silent> , &filetype=='floaterm' ? ":call TermToggle()<cr>" : ":BufferLineCyclePrev<cr>"
-nnoremap <expr> <silent> . &filetype=='floaterm' ? ":call TermToggle()<cr>" : ":BufferLineCycleNext<cr>"
     ]])
 end
 
@@ -467,10 +465,18 @@ function MyRun(cmds)
 end
 
 function MySort(buffer_a, buffer_b)
-  local a_atime = vim.api.nvim_buf_get_var(buffer_a.id, 'atime')
-  local b_atime = vim.api.nvim_buf_get_var(buffer_b.id, 'atime')
-  if a_atime > b_atime then
-    return true
+  local function _sort()
+    local a_atime = vim.api.nvim_buf_get_var(buffer_a.id, 'atime')
+    local b_atime = vim.api.nvim_buf_get_var(buffer_b.id, 'atime')
+    if a_atime > b_atime then
+      return true
+    end
+    return false
   end
-  return false
+  local status, retval = pcall(_sort)
+  if status then
+    return retval
+  else
+    return false
+  end
 end

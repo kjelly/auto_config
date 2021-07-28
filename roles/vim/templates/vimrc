@@ -775,10 +775,15 @@ autocmd! BufWritePost,FileWritePost *.smd call AutoDec1()
 autocmd! BufWritePre * %s/\s\+$//e
 autocmd! FileType NvimTree execute ":IndentBlanklineDisable"
 autocmd! BufWritePre,FileWritePre *.py if &filetype=='python' | execute "CocCommand python.sortImports"
-autocmd! UiEnter * bufdo let b:atime=strftime("%T")
+
 autocmd! InsertEnter * let b:atime=strftime("%T") | lua require'bufferline'.sort_buffers_by(MySort)
+autocmd! BufEnter * let b:atime=strftime("%T") | lua require'bufferline'.sort_buffers_by(MySort)
+autocmd! CursorMoved * let b:atime=strftime("%T") | lua require'bufferline'.sort_buffers_by(MySort)
+autocmd! BufAdd * lua require'bufferline'.sort_buffers_by(MySort)
 autocmd! BufNew * let b:atime=strftime("%T")
-autocmd! BufFilePost * let b:atime=strftime("%T")
+autocmd! BufCreate * let b:atime=strftime("%T")
+autocmd! SessionLoadPost * bufdo let b:atime=strftime("%T")
+
 
 if exists(":NvimTreeFind")
   autocmd DirChanged * NerdTreeFind
