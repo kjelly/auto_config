@@ -417,6 +417,7 @@ Plug 'eddyekofo94/gruvbox-flat.nvim'
 Plug 'https://github.com/Mofiqul/dracula.nvim'
 Plug 'yashguptaz/calvera-dark.nvim'
 Plug 'projekt0n/github-nvim-theme'
+Plug 'yong1le/darkplus.nvim'
 {% else %}
 Plug 'dracula/vim', { 'as': 'dracula' }
 
