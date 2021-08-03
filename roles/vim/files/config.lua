@@ -276,9 +276,6 @@ if IsModuleAvailable("bufferline") then
         }
     }
     vim.api.nvim_command([[
-inoremap <A-i> <Esc>:BufferLinePick<cr>
-nnoremap <A-i> :BufferLinePick<cr>
-tnoremap <A-i> <C-\><C-n>:BufferLinePick<cr>
 nnoremap <silent> <leader>sb :BufferLineSortByDirectory<cr>
 nnoremap <silent> <C-h> :BufferLineMovePrev<CR>
 nnoremap <silent> <C-l> :BufferLineMoveNext<CR>

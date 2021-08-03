@@ -14,6 +14,13 @@ function cd_workspace
   end
 end
 
+function quick_insert
+  set --local word (cat qcmds ~/qcmds 2>/dev/null |sort|uniq |grep -Ev "^$" | fzf)
+  if test -n "$word"
+    commandline -i -- $word
+  end
+end
+
 function vim_workspace
   set --local dir (workspace -p)
   if test -n "$dir"
@@ -56,7 +63,7 @@ function fish_user_key_bindings
     bind -M insert \ea fish_notify
     bind -M insert \eo vim_workspace
     bind -M insert \eq vim_workspace
-    bind -M insert \ei cd_workspace
+    bind -M insert \ei quick_insert
     bind -M insert \eu vim
     bind -M insert \ez sn
 end
