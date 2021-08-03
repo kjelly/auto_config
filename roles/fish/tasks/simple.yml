@@ -3,7 +3,4 @@
 - check_file_content: path=/proc/version pattern="Microsoft"
   register: is_wsl
 
-- path_generator: bin='node'
-  register: stdout
-- set_fact: NODE_BIN_PATH={{ stdout.PATH }}
 - template: src=config.fish dest="~/.config/fish/config.fish"
