@@ -288,7 +288,6 @@ if has('nvim-0.5')
   Plug 'https://github.com/phaazon/hop.nvim'
   Plug 'windwp/nvim-autopairs'
   Plug 'monaqa/dial.nvim'
-  Plug 'https://github.com/Shatur/neovim-session-manager'
   Plug 'kyazdani42/nvim-tree.lua'
   " Plug 'tversteeg/registers.nvim'
 
@@ -304,7 +303,6 @@ else
   Plug 'kjelly/auto-pairs'
   Plug 'tpope/vim-speeddating'
   Plug 'justinmk/vim-sneak'
-  Plug 'thaerkh/vim-workspace'
   Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
   Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
   " Show register content when pressing " or <c-r>
@@ -318,6 +316,7 @@ endif
 
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'thaerkh/vim-workspace'
 
 if empty($SSH_CLIENT)
   Plug 'blueyed/vim-diminactive' " use different background color for inactive window
@@ -914,6 +913,8 @@ let g:switch_custom_definitions =
     \ ]
 
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
+let g:workspace_autosave_always = 1
+let g:workspace_session_disable_on_args = 1
 let g:any_jump_disable_default_keybindings = 1
 let g:any_jump_preview_lines_count = 5
 let g:any_jump_window_width_ratio  = 0.8
