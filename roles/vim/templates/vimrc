@@ -333,8 +333,6 @@ Plug 'https://github.com/lambdalisue/gina.vim'
 Plug 'tpope/vim-dadbod', { 'on': ['DB']}
 Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DB']}
 
-Plug 'mhinz/vim-signify' " show git diff
-
 Plug 'voldikss/vim-floaterm'
 "Plug 'dominikduda/vim_current_word'
 "Autojump to 1st non-blank when j/k into leading spaces.
