@@ -776,13 +776,13 @@ autocmd! BufWritePre * %s/\s\+$//e
 autocmd! FileType NvimTree execute ":IndentBlanklineDisable"
 autocmd! BufWritePre,FileWritePre *.py if &filetype=='python' | execute "CocCommand python.sortImports"
 
-autocmd! InsertEnter * let b:atime=strftime("%T") | lua require'bufferline'.sort_buffers_by(MySort)
-autocmd! BufEnter * let b:atime=strftime("%T") | lua require'bufferline'.sort_buffers_by(MySort)
-autocmd! CursorMoved * let b:atime=strftime("%T") | lua require'bufferline'.sort_buffers_by(MySort)
-autocmd! BufAdd * lua require'bufferline'.sort_buffers_by(MySort)
-autocmd! BufNew * let b:atime=strftime("%T")
-autocmd! BufCreate * let b:atime=strftime("%T")
-autocmd! SessionLoadPost * bufdo let b:atime=strftime("%T")
+autocmd! InsertEnter * silent let b:atime=strftime("%T") | silent lua require'bufferline'.sort_buffers_by(MySort)
+autocmd! BufEnter * silent let b:atime=strftime("%T") | silent lua require'bufferline'.sort_buffers_by(MySort)
+autocmd! CursorMoved * silent let b:atime=strftime("%T") | silent lua require'bufferline'.sort_buffers_by(MySort)
+autocmd! BufAdd * silent lua require'bufferline'.sort_buffers_by(MySort)
+autocmd! BufNew * silent let b:atime=strftime("%T")
+autocmd! BufCreate * silent let b:atime=strftime("%T")
+autocmd! SessionLoadPost * silent bufdo let b:atime=strftime("%T")
 
 
 if exists(":NvimTreeFind")
