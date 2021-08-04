@@ -15,9 +15,15 @@ function cd_workspace
 end
 
 function quick_insert
-  set --local word (cat qcmds ~/qcmds 2>/dev/null |sort|uniq |grep -Ev "^$" | fzf)
-  if test -n "$word"
-    commandline -i -- $word
+  set --local cmd (cat qcmds ~/qcmds 2>/dev/null |sort|uniq |grep -Ev '^$' | fzf)
+  if test -n "$cmd"
+    switch $cmd
+      case "*<newline>"
+        set --local cmd (string replace '<newline>' '' $cmd)
+        fish -c "$cmd"
+      case "*"
+        commandline -i -- $cmd
+    end
   end
 end
 
