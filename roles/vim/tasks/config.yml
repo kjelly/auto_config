@@ -34,9 +34,6 @@
 
 - template: src="nyaovimrc.html" dest="~/.config/nyaovim/nyaovimrc.html"
 
-#- name: install vim plugin
-#  shell: "vim +PluginInstall +qall now"
-
 - block:
     - name: install YouCompleteMe
       shell: ~/.vim/plugged/YouCompleteMe/install.py --clang-completer
@@ -86,7 +83,12 @@
 
 - copy: src=workspace.py dest=~/bin/workspace mode=0755
 
+- file: path="~/.config/coc/ultisnips/" state=directory recurse=yes
+
+- copy: path=efm.yaml dest=~/.config/efm-langserver/config.yaml
+
 - lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_browser" line="let g:leetcode_browser='firefox'"
   ignore_errors: yes
+
 - lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_hide_paid_only" line="let g:leetcode_hide_paid_only='1'"
   ignore_errors: yes
