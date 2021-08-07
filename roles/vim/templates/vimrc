@@ -214,6 +214,7 @@ let g:nvim_tree_icons = {
     \     'error': "",
     \   }
     \ }
+let g:nvim_tree_symlink_arrow = ''
 
 let g:indent_blankline_char_highlight_list = ['Function', 'Variable']
 let g:blameLineUseVirtualText = 1
@@ -224,7 +225,7 @@ let g:signify_sign_delete_first_line = '_'
 let g:signify_sign_change            = '!'
 let g:signify_sign_change_delete     = g:signify_sign_change . g:signify_sign_delete_first_line
 
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_icon_indent = ["﬌", "ﲖ"]
 let g:vista_default_executive = 'ctags'
 let g:vista_executive_for = {
   \ 'python': 'coc',
