@@ -416,6 +416,7 @@ Plug 'https://github.com/Mofiqul/dracula.nvim'
 Plug 'yashguptaz/calvera-dark.nvim'
 Plug 'projekt0n/github-nvim-theme'
 Plug 'yong1le/darkplus.nvim'
+Plug 'ray-x/aurora'
 {% else %}
 Plug 'dracula/vim', { 'as': 'dracula' }
 

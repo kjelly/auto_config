@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-import random
 import os
-
+import random
 
 colors = [
     "gruvbox-material",
@@ -31,6 +30,7 @@ treesitter = [
     "tokyonight",  # treesitter
     "calvera",  # treesitter
     "darkplus",  # treesitter
+    "aurora",
 ]
 
 color = random.choice(list(dict.fromkeys(treesitter)))
