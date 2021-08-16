@@ -31,6 +31,7 @@ treesitter = [
     "calvera",  # treesitter
     "darkplus",  # treesitter
     "aurora",
+    "tonight",
 ]
 
 color = random.choice(list(dict.fromkeys(treesitter)))
