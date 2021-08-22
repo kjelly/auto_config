@@ -266,6 +266,7 @@ if has('nvim-0.5')
     Plug 'romgrk/nvim-treesitter-context'
     Plug 'nvim-treesitter/playground'
     Plug 'nvim-treesitter/nvim-treesitter-refactor'
+    Plug 'https://github.com/David-Kunz/treesitter-unit'
   endif
   " Seamlessly jump between matched instances.
   Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
