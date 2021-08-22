@@ -27,4 +27,8 @@ touch  ~/.vim_custom.vim
 
 mkdir  ~/.vim/
 
+curl -L https://raw.githubusercontent.com/kjelly/auto_config/master/roles/vim/files/config.lua -o ~/.config/nvim/config.lua
+curl -L https://raw.githubusercontent.com/kjelly/auto_config/master/roles/vim/files/clipboard-provider -o ~/.config/nvim/bin/clipboard-provider
+chmod +x ~/.config/nvim/bin/clipboard-provider
+
 nvim "+silent! PlugInstall" "+silent! PlugUpdate" +qall
