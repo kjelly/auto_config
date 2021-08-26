@@ -272,7 +272,9 @@ if IsModuleAvailable("bufferline") then
             right_trunc_marker = '▶',
             indicator_icon = '📌',
             separator_style = {"📌|", "|"},
-            offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center"}},
+            offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center"},
+                       {filetype = "nerdtree", text = "File Explorer", text_align = "center"}
+                      },
         }
     }
     vim.api.nvim_command([[
