@@ -155,7 +155,8 @@ endfunction
 function! FindFileInTree()
   if exists(":NvimTreeFindFile")
     execute "NvimTreeFindFile"
-  elseif exists("NERDTreeTabsFind")
+  elseif exists(":NERDTreeTabsFind")
+    execute "NERDTreeMirrorOpen"
     execute "NERDTreeTabsFind"
   endif
 endfunction
@@ -290,7 +291,9 @@ if has('nvim-0.5')
   Plug 'https://github.com/phaazon/hop.nvim'
   Plug 'windwp/nvim-autopairs'
   Plug 'monaqa/dial.nvim'
-  Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
+  Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
+  " Plug 'kyazdani42/nvim-tree.lua'
   " Plug 'tversteeg/registers.nvim'
 
   " Indent guides for Neovim
@@ -775,7 +778,11 @@ autocmd! BufReadPost,FileReadPost *.smd call AutoDec1()
 autocmd! BufWritePre,FileWritePre *.smd Enc1
 autocmd! BufWritePost,FileWritePost *.smd call AutoDec1()
 autocmd! BufWritePre * %s/\s\+$//e
-autocmd! FileType NvimTree execute ":IndentBlanklineDisable"
+if exists(":IndentBlanklineDisable")
+  autocmd! FileType NvimTree execute ":IndentBlanklineDisable"
+  autocmd! FileType coc-explorer execute ":IndentBlanklineDisable"
+  autocmd! FileType nerdtree execute ":IndentBlanklineDisable"
+endif
 autocmd! BufWritePre,FileWritePre *.py if &filetype=='python' | execute "CocCommand python.sortImports"
 
 autocmd! InsertEnter * silent let b:atime=strftime("%T") | silent lua require'bufferline'.sort_buffers_by(MySort)
