@@ -63,6 +63,7 @@ endfunction
 command! Bclose call <SID>BufcloseCloseIt()
 command! SearchPanel :lua require('spectre').open()<CR>
 command! Br :FloatermNew --autoclose=1 br<cr>
+command! FormatJson :%!format_json.py
 
 function! <SID>BufcloseCloseIt()
   let l:currentBufNum = bufnr("%")
