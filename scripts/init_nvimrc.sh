@@ -10,6 +10,8 @@ mkdir -p ~/.config/nvim/bin/
 cp ~/.vim/autoload/plug.vim ~/.config/nvim/autoload/plug.vim
 
 curl https://myvimrc.herokuapp.com/vimrc?programming=1 -o ~/.config/nvim/init.vim
+grep -v autocmd ~/.config/nvim/init.vim > /tmp/a.vim
+
 
 mkdir -p ~/.config/nvim/bin
 
@@ -31,4 +33,4 @@ curl -L https://raw.githubusercontent.com/kjelly/auto_config/master/roles/vim/fi
 curl -L https://raw.githubusercontent.com/kjelly/auto_config/master/roles/vim/files/clipboard-provider -o ~/.config/nvim/bin/clipboard-provider
 chmod +x ~/.config/nvim/bin/clipboard-provider
 
-nvim "+silent! PlugInstall" "+silent! PlugUpdate" +qall
+nvim -u /tmp/a.vim "+silent! PlugInstall" "+silent! TSUpdateSync" +qall
