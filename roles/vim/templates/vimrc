@@ -653,6 +653,8 @@ set signcolumn=yes
 set encoding=UTF-8
 {% if nvim %}
 set inccommand=nosplit
+set winblend=10
+set pumblend=10
 {% endif %}
 
 let @/ = ""
@@ -1014,8 +1016,6 @@ if exists('*nvim_open_win')
   endfunction
 
   set wildoptions=pum
-  set winblend=0
-  set pumblend=0
 endif
 
 
