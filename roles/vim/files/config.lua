@@ -18,6 +18,15 @@ function IsModuleAvailable(name)
     end
 end
 
+if IsModuleAvailable("timer") then
+  require "timer".add(
+      function()
+          require'bufferline'.sort_buffers_by(MySort)
+          return 1000
+      end
+  )
+end
+
 if IsModuleAvailable("nvim-treesitter") then
     require "nvim-treesitter.configs".setup {
         ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
