@@ -758,15 +758,11 @@ function! WinLeaveAction()
   endif
 endfunction
 
-autocmd! WinLeave * call WinLeaveAction()
+" autocmd! WinLeave * call WinLeaveAction()
 autocmd! TermLeave * if &filetype=='fzf' | wincmd q| endif | echo '-- NORMAL --'
 autocmd! TermEnter * set showmode
 autocmd! TermOpen * setlocal nonumber norelativenumber
 {% endif %}
-
-autocmd! bufwritepost .vimrc source %
-autocmd! bufwritepost init.vim source %
-autocmd! CursorHold * checktime
 
 autocmd! BufCreate __REST_response__ vertical resize 20 | set nonu
 autocmd! BufEnter __REST_response__ set modifiable
