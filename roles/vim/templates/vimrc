@@ -320,6 +320,7 @@ else
   Plug 'liuchengxu/vim-which-key'
 endif
 
+Plug 'https://github.com/alex-popov-tech/timer.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'thaerkh/vim-workspace'
