@@ -114,6 +114,7 @@ nnoremap <silent> <leader>se :mksession!<cr>
 nnoremap <silent> <leader>sc :call ToggleForCopy()<cr>
 nnoremap <silent> <leader>st :Switch<cr>
 nnoremap <silent> <leader>sk :DisableTmuxKey<cr>
+nnoremap <silent> <leader>so :TSContextToggle<cr>
 
 " Bookmarks keybinding
 nnoremap <silent> mm :BookmarkToggle<cr>

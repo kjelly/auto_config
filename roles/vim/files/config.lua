@@ -130,7 +130,8 @@ if IsModuleAvailable("nvim-treesitter") then
     }
 
     require'treesitter-context.config'.setup{
-      enable = true,
+      enable = false,
+      throttle = false,
     }
 
     require "nvim-treesitter.configs".setup {
