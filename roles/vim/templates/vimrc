@@ -321,6 +321,8 @@ else
 endif
 
 Plug 'https://github.com/alex-popov-tech/timer.nvim'
+Plug 'https://github.com/lewis6991/impatient.nvim'
+Plug 'https://github.com/dstein64/vim-startuptime'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'thaerkh/vim-workspace'
@@ -510,6 +512,7 @@ Plug 'mhinz/neovim-remote'
 
 call plug#end()
 
+silent! lua require('impatient')
 silent! call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
 silent! call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
 
