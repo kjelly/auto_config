@@ -375,7 +375,7 @@ inoremap <a-`> <Esc>:call ResizeWin()<cr>a
 nnoremap <a-`> :call ResizeWin()<cr>
 tnoremap <a-`> <c-\><c-n>:call ResizeWin()<cr>a
 
-nnoremap <a-q> :FloatermNew --autoclose=1 workspace<cr>
+nnoremap <a-q> :call jobstart('workspace')<cr>
 
 if has('nvim-0.4.0') || has('patch-8.2.0750')
   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
