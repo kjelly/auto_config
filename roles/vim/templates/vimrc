@@ -753,7 +753,6 @@ let g:floaterm_width=0.6
 let g:floaterm_height=1.0
 
 " Autocmd
-autocmd! InsertLeave,WinEnter * set cursorline
 
 {% if nvim %}
 function! WinLeaveAction()
@@ -763,30 +762,20 @@ function! WinLeaveAction()
 endfunction
 
 " autocmd! WinLeave * call WinLeaveAction()
-autocmd! TermLeave * if &filetype=='fzf' | wincmd q| endif | echo '-- NORMAL --'
-autocmd! TermEnter * set showmode
-autocmd! TermOpen * setlocal nonumber norelativenumber
-{% endif %}
+" autocmd! TermEnter * set showmode
+" autocmd! TermOpen * setlocal nonumber norelativenumber
 
-autocmd! BufCreate __REST_response__ vertical resize 20 | set nonu
-autocmd! BufEnter __REST_response__ set modifiable
-autocmd! FileType tagbar vertical resize 20
+autocmd! TermLeave * if &filetype=='fzf' | wincmd q| endif | echo '-- NORMAL --'
+{% endif %}
 
 function AutoDec1()
   execute "Dec1"
   set filetype=markdown
 endfunction
-
-autocmd! BufReadPost,FileReadPost *.smd call AutoDec1()
-autocmd! BufWritePre,FileWritePre *.smd Enc1
-autocmd! BufWritePost,FileWritePost *.smd call AutoDec1()
-autocmd! BufWritePre * %s/\s\+$//e
-if exists(":IndentBlanklineDisable")
-  autocmd! FileType NvimTree execute ":IndentBlanklineDisable"
-  autocmd! FileType coc-explorer execute ":IndentBlanklineDisable"
-  autocmd! FileType nerdtree execute ":IndentBlanklineDisable"
-endif
-autocmd! BufWritePre,FileWritePre *.py if &filetype=='python' | execute "CocCommand python.sortImports"
+" autocmd! BufReadPost,FileReadPost *.smd call AutoDec1()
+" autocmd! BufWritePre,FileWritePre *.smd Enc1
+" autocmd! BufWritePost,FileWritePost *.smd call AutoDec1()
+" autocmd! BufWritePre * %s/\s\+$//e
 
 autocmd! CursorHold * checktime | silent let b:atime=strftime("%T")
 autocmd! BufCreate * silent let b:atime=strftime("%T")
