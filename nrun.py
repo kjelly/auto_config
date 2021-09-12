@@ -2,12 +2,13 @@
 import argparse
 import getpass
 import json
-import jinja2
-import sys
 import os
 import os.path
 import select
+import sys
 import tempfile
+
+import jinja2
 
 
 def get_template():
