@@ -265,8 +265,8 @@ tmap <A-n> <c-n>
 cmap <A-n> <c-n>
 
 inoremap <A-o> <Esc>:Buffers<cr>
-nnoremap <A-o> :Buffers<cr>
-tnoremap <A-o> <C-\><C-n>:Buffers<cr>
+nnoremap <expr> <A-o> &filetype=='floaterm' ? ':CocList --number-select floaterm<cr>' : ':Buffers<cr>'
+tnoremap <A-o> <C-\><C-n>:CocList floaterm<cr>
 
 inoremap <A-u> <Esc>:History:<cr>
 nnoremap <A-u> :History:<cr>

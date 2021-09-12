@@ -1019,7 +1019,8 @@ let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-j
       \  'coc-post', 'coc-marketplace', 'coc-post','coc-snippets',
       \  'coc-translator','coc-tsserver','coc-tabnine','coc-rls','coc-todolist','coc-explorer',
       \  'coc-yank', 'coc-just-complete', 'coc-html', 'coc-css', 'coc-metals', 'coc-lua',
-      \  'coc-go', 'coc-zi', 'coc-word', 'coc-rest', 'coc-pyright', 'coc-highlight', 'coc-git', 'coc-sh']
+      \  'coc-go', 'coc-zi', 'coc-word', 'coc-rest', 'coc-pyright', 'coc-highlight', 'coc-git', 'coc-sh',
+      \  'coc-floaterm', 'coc-list']
 
 let g:random_scheme=1
 let g:available_colorschemes=[

@@ -50,6 +50,10 @@ nnoremap <Leader>cd :call TabCD()<cr>
 nnoremap <leader>cc :call RunShellAndShow('')<left><left>
 "nnoremap <leader>co  " for rnadom colorscheme
 
+nnoremap <silent> <leader>cn  :<C-u>CocNext<CR>
+nnoremap <silent> <leader>cp :<C-u>CocPrev<CR>
+nnoremap <silent> <leader>cr  :<C-u>CocListResume<CR>
+
 nnoremap <leader>fx :Explore<space>
 nnoremap <leader>fr :Explore scp://
 nnoremap <silent> <leader>fb :Rexplore<CR>
