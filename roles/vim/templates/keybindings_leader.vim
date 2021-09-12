@@ -61,6 +61,7 @@ nnoremap <silent> <leader>fv :Vaffle<CR>
 nnoremap <silent> <leader>fs :w<CR>
 nnoremap <silent> <leader>fi :call FindFileInTree()<CR>
 nnoremap <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
+nnoremap <leader>ft :call TreeToggle()<cr>
 
 " Tab mappings
 nnoremap <silent> <leader>ta :tabnew<cr>
