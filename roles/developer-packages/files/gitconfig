@@ -1,9 +1,9 @@
 [user]
-	email = kjellytw@gmail.com
-	name = Kuo-tung Kao
-	user  = Kuo-tung Kao
+  email = kjellytw@gmail.com
+  name = Kuo-tung Kao
+  user  = Kuo-tung Kao
 [core]
-	editor = vim
-	eol = lf
-    autocrlf = false
+  editor = vim
+  eol = lf
+  autocrlf = false
 
