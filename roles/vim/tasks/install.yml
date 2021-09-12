@@ -13,7 +13,9 @@
   when: ansible_distribution == 'Debian'
 
 - include: "install-ubuntu.yml"
-  when: ansible_distribution == 'Ubuntu' or ansible_os_family == "\"elementary\""
+  when: >
+    ansible_distribution == 'Ubuntu' or
+    ansible_os_family == "\"elementary\""
 
 - include: "install-fedora.yml"
   when: ansible_distribution == 'Fedora'
@@ -36,7 +38,7 @@
 - name: install neovim-remote
   shell: "pip3 install neovim-remote"
   become: true
-  ignore_errors: yes
+  ignore_errors: ture
 
 - git: repo=https://github.com/gmarik/vundle.git
        dest=~/.vim/bundle/vundle
@@ -48,7 +50,9 @@
        depth=1
 
 - name: download vim-plug
-  get_url: url=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim dest=/tmp/plug.vim
+  get_url: >
+    url=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+           dest=/tmp/plug.vim
 
 - file: path="{{ item }}" state=directory recurse=yes
   with_items:
