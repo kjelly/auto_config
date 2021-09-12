@@ -407,6 +407,14 @@ Plug 'projekt0n/github-nvim-theme'
 Plug 'yong1le/darkplus.nvim'
 Plug 'ray-x/aurora'
 Plug 'EdenEast/nightfox.nvim'
+Plug 'https://github.com/Pocco81/Catppuccino.nvim'
+Plug 'frenzyexists/aquarium-vim', { 'branch': 'vimscript-version' }
+Plug 'nxvu699134/vn-night.nvim'
+Plug 'https://github.com/sainnhe/edge'
+Plug 'https://github.com/yonlu/omni.vim'
+Plug 'yashguptaz/calvera-dark.nvim'
+Plug 'https://github.com/sainnhe/everforest'
+Plug 'https://github.com/mcchrish/zenbones.nvim'
 {% else %}
 Plug 'dracula/vim', { 'as': 'dracula' }
 
