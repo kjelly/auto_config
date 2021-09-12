@@ -49,16 +49,6 @@ autocmd! BufReadPost *
 "nnoremap <leader>gn :cn<cr>
 "nnoremap <leader>gp :cp<cr>
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
-endfunction
-
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 command! SearchPanel :lua require('spectre').open()<CR>
@@ -162,10 +152,6 @@ function! FindFileInTree()
   endif
 endfunction
 
-function! SwitchBuffer()
-  execute v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')
-endfunction
-
 if has('gui_running')
     set background=light
 else
@@ -178,9 +164,7 @@ elseif executable("zsh") == 1
   set shell=zsh
 endif
 
-let g:polyglot_disabled = ['ansible']
 let g:floaterm_autoinsert = v:false
-let g:sneak#label = 1
 
 imap <C-f> <Plug>(coc-snippets-expand)
 imap <C-f> <Plug>(coc-snippets-expand-jump)
@@ -678,46 +662,10 @@ if executable('rg')
     let &grepprg = "rg --vimgrep"
 endif
 
-let base_wiki = {}
-let base_wiki.path = '~/vimwiki'
-let base_wiki.syntax = 'markdown'
-let base_wiki.ext = '.md'
-let base_wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'typescript': 'typescript', 'javascript': 'js', 'scala': 'scala', 'vim': 'vim'}
-let daily = {}
-let daily.path = '~/secret/notes/'
-let daily.syntax = 'markdown'
-let daily.ext = '.md'
-let daily.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'typescript': 'typescript', 'javascript': 'js', 'scala': 'scala', 'vim': 'vim'}
-let g:vimwiki_list = [base_wiki, daily]
-
-
-
-" Markdown tag bar
-let g:tagbar_type_markdown = {
-    \ 'ctagstype' : 'markdown',
-    \ 'kinds' : [
-        \ 'h:Heading_L1',
-        \ 'i:Heading_L2',
-        \ 'k:Heading_L3'
-    \ ]
-    \ }
-
-let g:tagbar_type_vimwiki = {
-    \ 'ctagstype' : 'markdown',
-    \ 'kinds' : [
-        \ 'h:Heading_L1',
-        \ 'i:Heading_L2',
-        \ 'k:Heading_L3'
-    \ ]
-    \ }
-
 let g:bookmark_no_default_key_mappings = 1
 
 let g:go_list_type = "quickfix"
 
-{% if python2_exec is defined and python3_exec.exist %}
-let g:python_host_prog='{{ python2_exec.path }}'
-{% endif %}
 {% if python3_exec is defined and python3_exec.exist %}
 let g:python3_host_prog='{{ python3_exec.path }}'
 {% endif %}
@@ -794,7 +742,7 @@ augroup Binary
   au! BufWritePost *.bin set nomod | endif
 augroup END
 
-command! ClearBuffer bufdo if ((expand("%p") == "" || !filereadable(expand("%p"))) && &modified == 0) | bdelete | endif
+command! ClearBuffer bufdo if ((expand("%p") == '' || !filereadable(expand("%p"))) && &modified == 0) | bdelete | endif
 
 " num toggle
 command! Nu execute "call Num_Toggle()"
@@ -845,51 +793,14 @@ command! Vifm FloatermNew vifm -c only
 command! NNN FloatermNew nnn
 command! FFF FloatermNew fff
 
-" It doesn't work in terminal (neo)vim
-hi VimwikiHeader1 guifg=Gray
-hi VimwikiHeader2 guifg=Magenta
-hi VimwikiHeader3 guifg=#30F30F
-hi VimwikiHeader4 guifg=#B266FF
-hi VimwikiHeader5 guifg=#00CC66
-hi VimwikiHeader6 guifg=#FFFF00
-
 {% include './templates/keybindings.vim' %}
 {% include './templates/keybindings_leader.vim' %}
-
-let g:which_key_map =  {}
-let g:which_key_map.g = { 'name' : 'Git' }
-let g:which_key_map.z = { 'name' : 'Grep/Find/FZF' }
-let g:which_key_map.t = { 'name' : 'Tab' }
-let g:which_key_map.b = { 'name' : 'Buffer/Bookmark' }
-let g:which_key_map.c = { 'name' : 'Comment/cd' }
-let g:which_key_map.q = { 'name' : 'Quit' }
-let g:which_key_map.l = { 'name' : 'Language' }
-let g:which_key_map.f = { 'name' : 'File/esearch' }
-let g:which_key_map.s = { 'name' : 'Status' }
-let g:which_key_map.m = { 'name' : 'Moves' }
-let g:which_key_map.w = { 'name' : 'Wiki/Window' }
-let g:which_key_map.r = { 'name' : 'Run/Test' }
-let g:which_key_map.o = { 'name' : 'Fold' }
-let g:which_key_map.e = { 'name' : 'Edit' }
-let g:which_key_map.e.c = { 'name' : 'Copy file path' }
-let g:which_key_map.l.d = { 'name' : 'CocList or ddgr' }
-let g:which_key_map.l.e = { 'name' : 'Leetcode' }
-let g:which_key_map.l.s = { 'name' : 'Doc/Worspace Symbol' }
-let g:which_key_map.l.r = { 'name' : 'Rename/Reference' }
-let g:which_key_map.l.t = { 'name' : 'Test' }
-let g:which_key_map.m.p = [ 'normal! [`', 'Previous mark']
-let g:which_key_map.m.n = [ 'normal! ]`', 'Next mark']
 
 let g:MYVIMRC_DIR = fnamemodify(expand('$MYVIMRC'), ':h')
 let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/bin'
 
-let g:indentLine_fileTypeExclude = ['vimwiki', 'markdown', 'calendar', 'json']
-let g:indentLine_bufTypeExclude = ['help', 'terminal']
-let g:indentLine_bufNameExclude= ['*.md']
-
 let NERDTreeDirArrowExpandable = "+"
 let NERDTreeDirArrowCollapsible = "-"
-let g:polyglot_disabled = ['ansible']
 
 let g:switch_mapping = ""
 let g:switch_custom_definitions =
@@ -913,27 +824,6 @@ let g:any_jump_disable_default_keybindings = 1
 let g:any_jump_preview_lines_count = 5
 let g:any_jump_window_width_ratio  = 0.8
 let g:any_jump_window_height_ratio = 0.8
-
-silent! call which_key#register(',', "g:which_key_map")
-if exists('*which_key#register')
-  nnoremap <silent> <leader> :<c-u>WhichKey  ','<CR>
-  vnoremap <silent> <leader> :<c-u>WhichKey  ','<CR>
-  nnoremap <silent> <localleader>      :<c-u>WhichKey '<Space>'<CR>
-  vnoremap <silent> <localleader>      :<c-u>WhichKey '<Space>'<CR>
-endif
-
-{% if nvim %}
-" Workspace Setup
-" ----------------
-function! DefaultWorkspace()
-   sp
-   wincmd j
-   resize 8
-   terminal
-   wincmd k
-endfunction
-command! -register DefaultWorkspace call DefaultWorkspace()
-{% endif %}
 
 " Wiki
 " ----------------
@@ -1020,50 +910,10 @@ let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-j
       \  'coc-go', 'coc-zi', 'coc-word', 'coc-rest', 'coc-pyright', 'coc-highlight', 'coc-git', 'coc-sh',
       \  'coc-floaterm', 'coc-lists']
 
-let g:random_scheme=1
-let g:available_colorschemes=[
-      \ 'gruvbox-material',
-      \ 'space-vim-dark',
-      \ 'material',
-      \ 'gruvbox-flat',
-      \ 'tokyonight',
-      \ 'onedark',
-      \ 'space-vim-dark',
-      \ 'dracula',
-      \ 'deep-space',
-      \ 'moonfly',
-      \ 'ayu',
-      \ 'iceberg',
-      \ 'PaperColor',
-      \ 'doom-one',
-      \ 'material',
-      \ 'darcula-solid',
-      \ ]
-
-let g:gruvbox_material_better_performance = 1
-let g:gruvbox_material_palette = 'material'
-let g:gruvbox_material_current_word = 'bold'
-let g:gruvbox_material_diagnostic_line_highlight = 0
-let g:gruvbox_material_diagnostic_text_highlight = 1
-let g:gruvbox_material_transparent_background = 1
-let g:gruvbox_material_enable_italic = 1
-let g:gruvbox_material_enable_bold = 1
-let g:gruvbox_material_background = 'hard'
-let g:onedark_terminal_italics=1
-
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-
-let g:lightline = {
-      \ 'colorscheme': 'PaperColor',
-      \ 'active': {
-      \   'left': [ [ 'mode','paste' ],
-      \             [ 'readonly', 'filename', 'modified'] ]
-      \ },
-\ }
 
 " Yank to tmux normally
 set clipboard=unnamed
-
 
 " wilder
 try

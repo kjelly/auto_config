@@ -132,18 +132,7 @@ nnoremap <silent> <Leader>bk :BookmarkPrev<cr>
 nnoremap <silent> <Leader>bc :BookmarkClear<cr>
 nnoremap <silent> <Leader>bx :BookmarkClearAll<cr>
 
-nnoremap <silent> <leader>bs :b#<cr>
 nnoremap <silent> <leader>br :redraw<cr>
-
-"nnoremap <leader>w :W3mTab google
-
-" Easymotion
-nmap <leader>ms <Plug>(easymotion-s)
-nmap <leader>mf <Plug>(easymotion-overwin-w)
-nmap <Leader>mh <Plug>(easymotion-linebackward)
-nmap <Leader>mj <Plug>(easymotion-j)
-nmap <Leader>mk <Plug>(easymotion-k)
-nmap <Leader>ml <Plug>(easymotion-lineforward)
 
 nnoremap <silent> <leader>mm :Marks<cr>
 nnoremap <silent> <leader>mn ]`
@@ -168,10 +157,6 @@ nnoremap <leader>vb :Gina branch<cr>
 nnoremap <leader>vv :Gina<space>
 nnoremap <leader>vi :call RunShellAndShow('git add -p %:p')<cr>
 
-
-autocmd FileType vimwiki nmap <space><space> <Plug>VimwikiToggleListItem
-
-nnoremap <silent> <leader>wf :call fzf#vim#ag('', {'dir': '~/Dropbox/vimwiki/', 'down': '40%'})<cr>
 nnoremap <silent> <leader>wt :ToggleWorkspace<CR>
 nnoremap <silent> <leader>wr :WinResizerStartResize<cr>
 nnoremap <silent> <leader>wm :WinResizerStartMove<cr>
@@ -196,7 +181,6 @@ nnoremap <leader>ea :filetype detect<cr>
 nnoremap <silent> <leader>eg :Grepper<cr>
 nnoremap <silent> <leader>ej ::%!jq '.'<cr>
 nnoremap <leader>ee :terminal<space>
-cnoremap <silent> <c-e> <Esc>:History:<cr>
 
 nnoremap <silent> <leader>en :echo getcwd()<cr>
 nnoremap <silent> <leader>em :Pushd <c-r>=expand("%:p:h")<cr><cr>
@@ -233,19 +217,8 @@ nnoremap <silent> <leader>oc zM<CR>
 
 
 {% if nvim %}
-function! DefaultTerminal()
-  let buf=bufnr('%')
-  terminal
-  C n w3m
-  terminal
-  :C n how2
-  execute 'b' buf
-endfunction
-command! -register OpenDefaultTerm call DefaultTerminal()
-
 " open new terminal in new tab/buffer.
-nnoremap <silent> <leader>tt :tabnew %<cr>:terminal<cr>
-nnoremap <silent> <leader>td :OpenDefaultTerm<cr>
+nnoremap <silent> <leader>tt :tabnew <cr>:terminal<cr>
 nnoremap <silent> <leader>tb :split<cr><c-w>j:terminal<cr>
 nnoremap <silent> <leader>tv :vsplit<cr><c-w>l:terminal<cr>
 
@@ -295,10 +268,8 @@ nnoremap <silent> <leader>ltn :TestNearest<cr>
 nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
 nnoremap <leader>lg :FloatermNew curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
-nnoremap <leader>ldg :C ddgr <c-r>=&filetype<cr><space>
 nmap <leader>ldn <Plug>(coc-diagnostic-prev)
 nmap <leader>ldp <Plug>(coc-diagnostic-next)
-nnoremap <silent> <leader>lb :C brow<cr>
 nnoremap <silent> <leader>lco :CocFzfList commands<cr>
 nnoremap <silent> <leader>lca <Plug>(coc-calc-result-append)
 nnoremap <silent> <leader>lcr <Plug>(coc-calc-result-replace)

@@ -11,6 +11,8 @@ inoremap <c-e> <end>
 inoremap <c-d> <delete>
 inoremap <c-;> <delete>
 
+cnoremap <silent> <c-e> <Esc>:History:<cr>
+
 " Use normal regex
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
@@ -130,43 +132,6 @@ cnoremap <A-j> <Down>
 cnoremap <A-k> <Up>
 cnoremap <A-l> <Right>
 
-" Alt-num to switch tab
-noremap <A-0> 0gt
-noremap <A-1> 1gt
-noremap <A-2> 2gt
-noremap <A-3> 3gt
-noremap <A-4> 4gt
-noremap <A-5> 5gt
-noremap <A-6> 6gt
-noremap <A-7> 7gt
-noremap <A-8> 8gt
-noremap <A-9> 9gt
-noremap <A-0> 0gt
-
-{% else %}
-
-" Alt-num to switch tab
-execute "set <M-0>=\e0"
-noremap <M-0> 0gt
-execute "set <M-1>=\e1"
-noremap <M-1> 1gt
-execute "set <M-2>=\e2"
-noremap <M-2> 2gt
-execute "set <M-3>=\e3"
-noremap <M-3> 3gt
-execute "set <M-4>=\e4"
-noremap <M-4> 4gt
-execute "set <M-5>=\e5"
-noremap <M-5> 5gt
-execute "set <M-6>=\e6"
-noremap <M-6> 6gt
-execute "set <M-7>=\e7"
-noremap <M-7> 7gt
-execute "set <M-8>=\e8"
-noremap <M-8> 8gt
-execute "set <M-9>=\e9"
-noremap <M-9> 9gt
-
 {% endif %}
 
 " Paste text
@@ -180,24 +145,11 @@ vnoremap <Return> "+y
 nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
 nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 
-"inoremap <C-d>     <Plug>(neosnippet_expand_or_jump)
-
-let g:racer_cmd = "{{ HOME_PATH }}/.cargo/bin/racer"
-let $RUST_SRC_PATH="{{ HOME_PATH }}/rust-src/src"
-
 nnoremap zz za
 nnoremap Q :qa<cr>
 
 " Exit vim quickly
 nnoremap <c-c> :qa!
-
-function! SwitchBuffer()
-  if &buftype == 'terminal'
-    wincmd k
-  else
-    wincmd j
-  endif
-endfunction
 
 vmap <C-c> y:call SendViaOSC52(getreg('"'))<cr>
 
@@ -207,30 +159,6 @@ vmap <C-c> y:call SendViaOSC52(getreg('"'))<cr>
 imap <a-bs> <c-w>
 nmap <a-bs> <c-w>
 tmap <a-bs> <c-w>
-
-" Tab switch
-tnoremap <A-1> <C-\><C-n>1gti
-tnoremap <A-2> <C-\><C-n>2gti
-tnoremap <A-3> <C-\><C-n>3gti
-tnoremap <A-4> <C-\><C-n>4gti
-tnoremap <A-5> <C-\><C-n>5gti
-tnoremap <A-6> <C-\><C-n>6gti
-tnoremap <A-7> <C-\><C-n>7gti
-tnoremap <A-8> <C-\><C-n>8gti
-tnoremap <A-9> <C-\><C-n>9gti
-tnoremap <A-0> <C-\><C-n>0gti
-
-" Tab switch
-inoremap <A-1> <Esc>1gti
-inoremap <A-2> <Esc>2gti
-inoremap <A-3> <Esc>3gti
-inoremap <A-4> <Esc>4gti
-inoremap <A-5> <Esc>5gti
-inoremap <A-6> <Esc>6gti
-inoremap <A-7> <Esc>7gti
-inoremap <A-8> <Esc>8gti
-inoremap <A-9> <Esc>9gti
-inoremap <A-0> <Esc>0gti
 
 tnoremap <Insert> <C-\><C-n>
 "tnoremap <C-[> <C-\><C-n> Don't enable this. Esc is useful when vim in vim
@@ -246,14 +174,6 @@ inoremap <A-h> <Esc><C-w>w
 inoremap <A-j> <c-n>
 inoremap <A-k> <c-p>
 inoremap <A-l> <Esc><C-w>w
-
-" Find files/buffers
-function! OpenBuffer()
-  let buf=bufnr('%')
-  bufdo if &buftype ==# 'terminal' | silent! execute 'file' b:term_title | endif
-  exec 'b' buf
-  execute "Buffers"
-endfunction
 
 imap <A-p> <c-p>
 nmap <A-p> <c-p>
@@ -299,14 +219,6 @@ nnoremap <A-e> :call RunShellAndShow('')<left><left>
 inoremap <A-e> <Esc>:call RunShellAndShow('')<left><left>
 " tnoremap <A-e> <c-\><c-n>:call RunShellAndShow('')<left><left> " needed by br
 
-" Tab navigate
-nnoremap <A-,> gT
-nnoremap <A-.> gt
-inoremap <A-,> <ESC>gTi
-inoremap <A-.> <ESC>gti
-tnoremap <A-,> <C-\><C-n>gTi
-tnoremap <A-.> <C-\><C-n>gti
-
 imap <A-g> <Esc><Plug>(choosewin)
 nmap <A-g> <Plug>(choosewin)
 tmap <A-g> <C-\><C-n><Plug>(choosewin)
@@ -343,10 +255,6 @@ vnoremap <silent> <a-Enter> :FloatermSend<cr>
 inoremap <silent> <s-a-enter> <Esc>:%FloatermSend<cr>
 nnoremap <silent> <s-a-enter> :%FloatermSend<cr>
 
-inoremap <a-c> <Esc>:FloatermSend<space>
-nnoremap <a-c> :FloatermSend<space>
-tnoremap <a-c> <c-\><c-n>:FloatermSend<space>
-
 " Location list
 inoremap <A-[> <Esc>:lp<cr>
 nnoremap <A-[> :lp<cr>
@@ -377,7 +285,7 @@ tnoremap <a-`> <c-\><c-n>:call ResizeWin()<cr>a
 
 nnoremap <a-q> :call jobstart('workspace')<cr>
 
-if has('nvim-0.4.0') || has('patch-8.2.0750')
+if exists(':CocOpenLog')
   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
   nnoremap <silent><nowait><expr> <c-g> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
   inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
@@ -385,6 +293,5 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
   vnoremap <silent><nowait><expr> <c-g> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
-
 
 {% endif %}
