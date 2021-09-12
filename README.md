@@ -16,3 +16,8 @@ $ ./run.py -p pc.yml -a deploy # install softwares and generate configurations f
 $ ./run.py -p pc.yml -a config # generate configurations only
 ```
 
+## init nvim
+```
+curl https://github.com/kjelly/auto_config/blob/master/scripts/init_nvim.sh |bash
+curl https://github.com/kjelly/auto_config/blob/master/scripts/init_nvimrc.sh | bash
+```
