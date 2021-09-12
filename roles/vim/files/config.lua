@@ -491,3 +491,8 @@ function MySort(buffer_a, buffer_b)
     return buffer_a.id > buffer_b.id
   end
 end
+
+if IsModuleAvailable("persistence") then
+  require("persistence").setup {
+  }
+end
