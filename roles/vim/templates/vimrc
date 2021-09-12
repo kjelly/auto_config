@@ -292,9 +292,7 @@ if has('nvim-0.5')
   Plug 'https://github.com/phaazon/hop.nvim'
   Plug 'windwp/nvim-autopairs'
   Plug 'monaqa/dial.nvim'
-  Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
-  Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
-  " Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'kyazdani42/nvim-tree.lua'
   " Plug 'tversteeg/registers.nvim'
 
   " Indent guides for Neovim
