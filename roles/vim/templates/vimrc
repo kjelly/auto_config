@@ -398,7 +398,6 @@ Plug 'romgrk/doom-one.vim'
 {% if nvim %}
 Plug 'folke/tokyonight.nvim'
 Plug 'marko-cerovac/material.nvim'
-Plug 'Sammyalhashe/random_colorscheme.vim'
 Plug 'briones-gabriel/darcula-solid.nvim'
 Plug 'rktjmp/lush.nvim'
 Plug 'eddyekofo94/gruvbox-flat.nvim'
