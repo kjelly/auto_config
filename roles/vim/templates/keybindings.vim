@@ -235,16 +235,16 @@ inoremap <A-0> <Esc>0gti
 tnoremap <Insert> <C-\><C-n>
 "tnoremap <C-[> <C-\><C-n> Don't enable this. Esc is useful when vim in vim
 tnoremap <A-h> <C-\><C-n><C-w>w
-tnoremap <A-j> <C-\><C-n><C-w>w
-tnoremap <A-k> <C-\><C-n><C-w>w
+tnoremap <A-j> <C-n>
+tnoremap <A-k> <C-p>
 tnoremap <A-l> <C-\><C-n><C-w>w
 nnoremap <A-h> <C-w>w
-nnoremap <A-j> <C-w>w
-nnoremap <A-k> <C-w>w
+nnoremap <A-j> <C-n>
+nnoremap <A-k> <C-p>
 nnoremap <A-l> <C-w>w
 inoremap <A-h> <Esc><C-w>w
-inoremap <A-j> <Esc><C-w>w
-inoremap <A-k> <Esc><C-w>w
+inoremap <A-j> <c-n>
+inoremap <A-k> <c-p>
 inoremap <A-l> <Esc><C-w>w
 
 " Find files/buffers
