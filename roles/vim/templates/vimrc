@@ -415,6 +415,9 @@ Plug 'https://github.com/yonlu/omni.vim'
 Plug 'yashguptaz/calvera-dark.nvim'
 Plug 'https://github.com/sainnhe/everforest'
 Plug 'https://github.com/mcchrish/zenbones.nvim'
+Plug 'https://github.com/navarasu/onedark.nvim'
+Plug 'lourenci/github-colors'
+Plug 'shaunsingh/moonlight.nvim'
 {% else %}
 Plug 'dracula/vim', { 'as': 'dracula' }
 

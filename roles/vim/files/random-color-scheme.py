@@ -41,6 +41,9 @@ treesitter = [
     'calvera',
     'omni',
     'zenbones',
+    'onedark',
+    'github-colors',
+    'moonlight',
 ]
 
 color = random.choice(list(dict.fromkeys(treesitter)))
