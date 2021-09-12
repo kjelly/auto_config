@@ -533,8 +533,8 @@ set showtabline=1
 set dir=~/.vim_cache/swapfiles
 set backup
 set backupdir=~/.vim_cache
-set undofile
 set undodir=~/.vim_cache
+set undofile
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
