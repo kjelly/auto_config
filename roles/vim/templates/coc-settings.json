@@ -86,6 +86,24 @@
       "initializationOptions": {}
     }
   },
+  "list.insertMappings": {
+    "<A-n>": "normal:j",
+    "<A-p>": "normal:k",
+    "<C-f>": "feedkeys:\\<C-f>",
+    "<C-g>": "feedkeys:\\<C-b>",
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k",
+    "<C-r>": "do:refresh",
+    "<C-t>": "action:tabe",
+    "<C-v>": "eval:@@"
+  },
+  "list.normalMappings": {
+    "c": "expr:MyExprFunc",
+    "d": "action:delete"
+  },
+  "list.source.files.defaultOptions": [
+    "--number-select"
+  ],
   "pyright.organizeimports.provider": "isort",
   "python.linting.flake8Enabled": true,
   "python.linting.pylintEnabled": true,
