@@ -48,6 +48,12 @@ if IsModuleAvailable("nvim-treesitter") then
         },
         incremental_selection = {
           enable = true,
+          keymaps = {
+            init_selection = "+",
+            node_incremental = "+",
+            scope_incremental = "grc",
+            node_decremental = "_",
+          },
         },
         indent = {
           enable = false,

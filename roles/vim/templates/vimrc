@@ -253,6 +253,9 @@ if has('nvim-0.5')
     Plug 'nvim-treesitter/playground'
     Plug 'nvim-treesitter/nvim-treesitter-refactor'
     Plug 'https://github.com/David-Kunz/treesitter-unit'
+  else
+    " + for expand, _ for shrink
+    Plug 'terryma/vim-expand-region'
   endif
   " Seamlessly jump between matched instances.
   Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
@@ -331,9 +334,6 @@ Plug 'voldikss/vim-floaterm'
 
 " Switch true/flase
 Plug 'AndrewRadev/switch.vim'
-
-" + for expand, _ for shrink
-Plug 'terryma/vim-expand-region'
 
 " An always-on highlight for a unique character in every word on a line
 " to help you use f, F and family.
