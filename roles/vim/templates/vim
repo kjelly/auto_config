@@ -4,7 +4,6 @@ if [ -f `which nvr` ] && [ $# -ne 0 ] && [ -f /tmp/nvimsocket  ]; then
   nvr $@
 elif [ -f `which nvim` ]; then
     if [ -z ${IN_VIM+x} ]; then
-      tmux rename-window nvim
       nvim $@
     else
       myvi $@
