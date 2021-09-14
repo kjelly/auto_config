@@ -43,8 +43,8 @@ nnoremap <silent> <leader>ic :colorscheme<cr>
 nnoremap <silent> <leader>sh :noh<cr>
 
 function TabCD()
-  execute "tabnew" "%"
-  call fzf#run({'source': 'fd -t d .', 'sink': 'tcd'})
+  execute "tabnew %"
+  execute "tcd %:p:h"
 endfunction
 nnoremap <Leader>cd :call TabCD()<cr>
 nnoremap <leader>cc :call RunShellAndShow('')<left><left>
