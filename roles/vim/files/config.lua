@@ -277,6 +277,16 @@ end
 if IsModuleAvailable("bufferline") then
     require'bufferline'.setup{
         options={
+            diagnostics = "coc",
+            diagnostics_indicator = function(count, level, diagnostics_dict, context)
+              local s = " "
+              for e, n in pairs(diagnostics_dict) do
+                local sym = e == "error" and " "
+                  or (e == "warning" and " " or "" )
+                s = s .. n .. sym
+              end
+              return s
+            end,
             view = "multiwindow" ,
             always_show_bufferline = true,
             buffer_close_icon= '❌',
