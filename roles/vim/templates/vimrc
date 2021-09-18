@@ -738,7 +738,8 @@ endfunction
 " autocmd! BufReadPost,FileReadPost *.smd call AutoDec1()
 " autocmd! BufWritePre,FileWritePre *.smd Enc1
 " autocmd! BufWritePost,FileWritePost *.smd call AutoDec1()
-" autocmd! BufWritePre * %s/\s\+$//e
+autocmd! BufWritePre * %s/\s\+$//e
+autocmd! TermOpen * setlocal nonu norelativenumber
 
 autocmd! CursorHold * checktime | silent let b:atime=strftime("%T")
 autocmd! BufCreate * silent let b:atime=strftime("%T")
