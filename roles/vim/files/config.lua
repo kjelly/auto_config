@@ -512,3 +512,7 @@ if IsModuleAvailable("persistence") then
   require("persistence").setup {
   }
 end
+
+if IsModuleAvailable("detect-language") then
+  require('detect-language').setup {}
+end
