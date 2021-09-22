@@ -252,20 +252,16 @@ silent! call plug#begin('~/.config/nvim/plugged')
 silent! call plug#begin('~/.vim/plugged')
 {% endif %}
 if has('nvim-0.5')
-  if executable('tree-sitter')
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate all'}
-    Plug 'https://github.com/p00f/nvim-ts-rainbow'
-    Plug 'mizlan/iswap.nvim'
-    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-    Plug 'https://github.com/theHamsta/nvim-treesitter-pairs'
-    Plug 'romgrk/nvim-treesitter-context'
-    Plug 'nvim-treesitter/playground'
-    Plug 'nvim-treesitter/nvim-treesitter-refactor'
-    Plug 'https://github.com/David-Kunz/treesitter-unit'
-  else
-    " + for expand, _ for shrink
-    Plug 'terryma/vim-expand-region'
-  endif
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate all'}
+  Plug 'https://github.com/p00f/nvim-ts-rainbow'
+  Plug 'mizlan/iswap.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+  Plug 'https://github.com/theHamsta/nvim-treesitter-pairs'
+  Plug 'romgrk/nvim-treesitter-context'
+  Plug 'nvim-treesitter/playground'
+  Plug 'nvim-treesitter/nvim-treesitter-refactor'
+  Plug 'https://github.com/David-Kunz/treesitter-unit'
+
   " Seamlessly jump between matched instances.
   Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
   Plug 'mfussenegger/nvim-dap'
