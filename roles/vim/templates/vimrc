@@ -241,7 +241,7 @@ let g:loaded_ruby_provider = 0
 set nocompatible              " be improved
 filetype off                  " required before plugins
 
-if executable('tree-sitter')
+if exists(':TSUpdate')
   set foldmethod=expr
   set foldexpr=nvim_treesitter#foldexpr()
 endif
