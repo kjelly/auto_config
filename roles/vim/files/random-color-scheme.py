@@ -31,17 +31,12 @@ treesitter = [
     "calvera",  # treesitter
     "darkplus",  # treesitter
     "aurora",
-    "nightfox",
-    "aurora",
     'aquarium',
     'catppuccino',
     'edge',
     'everforest',
     'calvera',
     'omni',
-    'onedark',
-    'github-colors',
-    'moonlight',
 ]
 
 color = random.choice(list(dict.fromkeys(treesitter)))
