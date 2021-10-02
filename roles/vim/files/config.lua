@@ -516,3 +516,18 @@ end
 if IsModuleAvailable("detect-language") then
   require('detect-language').setup {}
 end
+
+if IsModuleAvailable("nvim-tree") then
+  require'nvim-tree'.setup {
+    lsp_diagnostics     = true,
+    update_focused_file = {
+      enable      = true,
+      update_cwd  = false,
+      ignore_list = {}
+    },
+  }
+end
+
+if IsModuleAvailable("lspconfig") then
+  require'lspconfig'.pyright.setup{}
+end

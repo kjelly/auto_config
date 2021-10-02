@@ -171,13 +171,12 @@ imap <C-f> <Plug>(coc-snippets-expand-jump)
 let g:coc_snippet_next = '<c-f>'
 let g:coc_snippet_prev = '<c-b>'
 
-let g:nvim_tree_auto_close=1
-let g:nvim_tree_follow_update_path=1
 let g:nvim_tree_hide_dotfiles=1
 let g:nvim_tree_highlight_opened_files=1
-let g:nvim_tree_follow=1
 let g:nvim_tree_lsp_diagnostic=1
 let g:nvim_tree_disable_window_picker=0
+let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 }
+highlight NvimTreeFolderIcon guibg=blue
 let g:nvim_tree_icons = {
     \ 'default': '',
     \ 'symlink': '',
@@ -311,6 +310,7 @@ else
   Plug 'liuchengxu/vim-which-key'
 endif
 
+Plug 'neovim/nvim-lspconfig'
 Plug 'https://github.com/alex-popov-tech/timer.nvim'
 Plug 'https://github.com/lewis6991/impatient.nvim'
 Plug 'https://github.com/dstein64/vim-startuptime'
