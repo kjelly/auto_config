@@ -38,3 +38,15 @@ if test -z "$VIRTUAL_ENV" && test -e "$HOME/.asdf/asdf.fish"
 end
 
 {% if is_wsl.value %}export DISPLAY=127.0.0.1:0.0{% endif %}
+
+function vagrant
+  docker run -it --rm \
+    -e LIBVIRT_DEFAULT_URI \
+    -v /var/run/libvirt/:/var/run/libvirt/ \
+    -v ~/.vagrant.d:/.vagrant.d \
+    -v (realpath "$PWD"):$PWD \
+    -w (realpath "$PWD") \
+    --network host \
+    vagrantlibvirt/vagrant-libvirt:latest \
+      vagrant $argv
+end
