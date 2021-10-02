@@ -198,10 +198,10 @@ if IsModuleAvailable("dap") then
                 -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
                 -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
                 -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-                local cwd = vim.fn.getcwd()
-                if vim.fn.executable(cwd .. "/venv/bin/python") then
+                local cwd = fn.getcwd()
+                if fn.executable(cwd .. "/venv/bin/python") then
                     return "/usr/bin/python3"
-                elseif vim.fn.executable(cwd .. "/.venv/bin/python") then
+                elseif fn.executable(cwd .. "/.venv/bin/python") then
                     return "/usr/bin/python3"
                 else
                     return "/usr/bin/python3"
@@ -217,12 +217,12 @@ end
 
 if IsModuleAvailable("lualine") then
     local function showFilePath()
-      local filePath = vim.api.nvim_eval("expand('%')")
+      local filePath = api.nvim_eval("expand('%')")
       return filePath
     end
     local function showCWD()
-      local path = vim.api.nvim_eval("getcwd()")
-      local home = vim.api.nvim_eval("$HOME")
+      local path = api.nvim_eval("getcwd()")
+      local home = api.nvim_eval("$HOME")
       path = path:gsub(home, '~')
       return path
     end
@@ -253,18 +253,18 @@ end
 
 
 if IsModuleAvailable("hlslens") then
-    vim.api.nvim_command("noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>")
-    vim.api.nvim_command("noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>")
-    vim.api.nvim_command("noremap * *<Cmd>lua require('hlslens').start()<CR>")
-    vim.api.nvim_command("noremap # #<Cmd>lua require('hlslens').start()<CR>")
-    vim.api.nvim_command("noremap g* g*<Cmd>lua require('hlslens').start()<CR>")
-    vim.api.nvim_command("noremap g# g#<Cmd>lua require('hlslens').start()<CR>")
+    api.nvim_command("noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>")
+    api.nvim_command("noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>")
+    api.nvim_command("noremap * *<Cmd>lua require('hlslens').start()<CR>")
+    api.nvim_command("noremap # #<Cmd>lua require('hlslens').start()<CR>")
+    api.nvim_command("noremap g* g*<Cmd>lua require('hlslens').start()<CR>")
+    api.nvim_command("noremap g# g#<Cmd>lua require('hlslens').start()<CR>")
 end
 
 
 if IsModuleAvailable("nvim-autopairs") then
     require('nvim-autopairs').setup()
-    vim.api.nvim_command([[
+    api.nvim_command([[
 nmap <C-a> <Plug>(dial-increment)
 nmap <C-x> <Plug>(dial-decrement)
 vmap <C-a> <Plug>(dial-increment)
@@ -303,7 +303,7 @@ if IsModuleAvailable("bufferline") then
                       },
         }
     }
-    vim.api.nvim_command([[
+    .api.nvim_command([[
 nnoremap <silent> <leader>sb :BufferLineSortByDirectory<cr>
 nnoremap <silent> <C-h> :BufferLineMovePrev<CR>
 nnoremap <silent> <C-l> :BufferLineMoveNext<CR>
@@ -311,7 +311,7 @@ nnoremap <silent> <C-l> :BufferLineMoveNext<CR>
 end
 
 if IsModuleAvailable("hop") then
-  vim.api.nvim_set_keymap('n', 's', "<cmd>lua require'hop'.hint_words()<cr>", {})
+  api.nvim_set_keymap('n', 's', "<cmd>lua require'hop'.hint_words()<cr>", {})
   require'hop'.setup {
     winblend = 10,
     jump_on_sole_occurrence = true,
@@ -474,25 +474,25 @@ end
 
 function MyRun(cmds)
   if type(cmds) == "string" then
-      vim.api.nvim_command(cmds)
-      vim.api.nvim_set_var("MyRunLastCommand", cmds)
+      api.nvim_command(cmds)
+      api.nvim_set_var("MyRunLastCommand", cmds)
   elseif cmds == nil then
-    cmds = vim.api.nvim_get_var("MyRunLastCommand")
+    cmds = api.nvim_get_var("MyRunLastCommand")
     if cmds ~= nil then
       MyRun(cmds)
     end
   else
-    vim.api.nvim_set_var("MyRunLastCommand", cmds)
+    api.nvim_set_var("MyRunLastCommand", cmds)
     for k,v in pairs(cmds) do
-      vim.api.nvim_command(v)
+      api.nvim_command(v)
     end
   end
 end
 
 function MySort(buffer_a, buffer_b)
   local function _sort()
-    local a_atime = vim.api.nvim_buf_get_var(buffer_a.id, 'atime')
-    local b_atime = vim.api.nvim_buf_get_var(buffer_b.id, 'atime')
+    local a_atime = api.nvim_buf_get_var(buffer_a.id, 'atime')
+    local b_atime = api.nvim_buf_get_var(buffer_b.id, 'atime')
     if a_atime > b_atime then
       return true
     elseif a_atime < b_atime then
