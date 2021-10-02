@@ -87,6 +87,8 @@
 
 - file: path="~/.config/coc/ultisnips/" state=directory recurse=yes
 
+- file: path="~/.config/efm-langserver/" state=directory recurse=yes
+
 - copy: src=efm.yaml dest=~/.config/efm-langserver/config.yaml
 
 - lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_browser"
