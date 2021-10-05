@@ -19,9 +19,11 @@ def dmenu(options, dmenu):
     return stdout.decode('utf-8').strip('\n')
 
 
-def dmenu_cmd(prompt, lines=30, width=80, size=25, bg='#000000', fg='#505050', opacity=70, border=3):
-    return ('rofi -dmenu -fg "{fg}" -bg "{bg}" -font "mono {size}" -fuzzy -p "{prompt}" '
-            '-width {width} -lines {lines} -opacity {opacity} -bw {border}'.format(**locals()))
+def dmenu_cmd(prompt, lines=30, width=80, size=15, bg='#000000', fg='#505050',
+              opacity=70, border=3):
+    return (f'rofi -dmenu -fg "{fg}" -bg "{bg}" -font "mono {size}" '
+            f'-fuzzy -p "{prompt}" -no-case-sensitive '
+            f'-width {width} -lines {lines} -opacity {opacity} -bw {border}')
 
 
 def list_screen():
@@ -47,11 +49,14 @@ def get_screen():
         screen_number = 0
     return all_screen[screen_number]
 
+
 def rename_workspace(a, b):
     if a == b:
         return False
-    output = check_output("i3-msg 'rename workspace %d to %d'" % (a, b), shell=True)
+    output = check_output(
+        "i3-msg 'rename workspace %d to %d'" % (a, b), shell=True)
     return json.loads(output)
+
 
 def swap_workspace(a, b):
     if a == b:
@@ -61,6 +66,7 @@ def swap_workspace(a, b):
     rename_workspace(b, a)
     rename_workspace(tmp, b)
     return True
+
 
 def get_workspace_info():
     output = check_output("i3-msg -t get_workspaces", shell=True)
