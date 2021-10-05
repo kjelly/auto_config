@@ -2,3 +2,8 @@ set hint-keys=asdfghjkl
 set dark-mode=on
 set cookie-accept=origin
 set hint-timeout=0
+nnoremap H <ESC><C-O>
+nnoremap L <ESC><C-I>
+nnoremap <C-C> <ESC>:q
+shortcut-add go=https://www.google.com/search?q=$0
+autocmd LoadFinished * e! document.title+=' '+document.URL;
