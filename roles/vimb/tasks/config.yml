@@ -1,7 +1,10 @@
 ---
 
 - file: path=~/.config/vimb/ state=directory recurse=yes
+- file: path=~/bin/ state=directory recurse=yes
 
 - copy: src=config dest=~/.config/vimb/config
 
 - copy: src=style.css dest=~/.config/vimb/style.css
+
+- copy: src=bb dest=~/bin/bb
