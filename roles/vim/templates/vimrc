@@ -32,23 +32,6 @@ autocmd! BufReadPost *
     \   exe "normal! g`\"" |
     \ endif
 
-
-" Do :help cope if you are unsure what cope is. It's super useful!
-"
-" When you search with vimgrep, display your results in cope by doing:
-"   <leader>cc
-"
-" To go to the next search result do:
-"   <leader>n
-"
-" To go to the previous search results do:
-"   <leader>p
-
-"nnoremap <leader>gcc :botright cope<cr>
-"nnoremap <leader>gco ggVGy:tabnew %<cr>:set syntax=qf<cr>pgg
-"nnoremap <leader>gn :cn<cr>
-"nnoremap <leader>gp :cp<cr>
-
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 command! SearchPanel :lua require('spectre').open()<CR>
@@ -285,7 +268,6 @@ if has('nvim-0.5')
   Plug 'windwp/nvim-autopairs'
   Plug 'monaqa/dial.nvim'
   Plug 'kyazdani42/nvim-tree.lua'
-  " Plug 'tversteeg/registers.nvim'
 
   " Indent guides for Neovim
   Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'master'}
@@ -334,9 +316,6 @@ Plug 'tpope/vim-dadbod', { 'on': ['DB']}
 Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DB']}
 
 Plug 'voldikss/vim-floaterm'
-"Plug 'dominikduda/vim_current_word'
-"Autojump to 1st non-blank when j/k into leading spaces.
-"Plug 'fcpg/vim-shore'
 
 " Switch true/flase
 Plug 'AndrewRadev/switch.vim'
@@ -346,8 +325,6 @@ Plug 'AndrewRadev/switch.vim'
 Plug 'unblevable/quick-scope'
 Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
-" Plug 'jceb/vim-orgmode'
-" Plug 'fidian/hexmode'
 Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite','TestVisit']}
 
 " git grep
@@ -359,15 +336,6 @@ Plug 'metakirby5/codi.vim'
 Plug 'chrisbra/Colorizer', { 'on': ['ColorToggle'] }
 " Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'MattesGroeger/vim-bookmarks'
-
-" Disable vaffle.newrw support remote edit but vaffle not.
-"Plug 'cocopon/vaffle.vim'
-" Helper for netrw. I use vaffle. It will useless
-" Plug 'tpope/vim-vinegar'
-
-" This support rclone.
-"Plug 'ipod825/vim-netranger'
-
 
 " set filetype=rest
 " <c-j> for send request
@@ -427,31 +395,6 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 
 {% endif %}
 
-
-" Lang
-"Plug 'dag/vim-fish'
-"Plug 'ekalinin/Dockerfile.vim'
-"Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
-"Plug 'fatih/vim-go', { 'for': 'go' }
-"Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-"Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-"Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' } " typescript
-"Plug 'Glench/Vim-Jinja2-Syntax'
-"Plug 'derekwyatt/vim-scala'
-"Plug 'mxw/vim-jsx'
-"Plug 'kjelly/vim-mecury-lang'
-"Plug 'rust-lang/rust.vim'
-"Plug 'racer-rust/vim-racer'
-"Plug 'udalov/kotlin-vim'
-"Plug 'dart-lang/dart-vim-plugin'
-"Plug 'keith/swift.vim'
-"Plug 'gre/play2vim'
-"Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
-"Plug 'hashivim/vim-vagrant'
-"Plug 'sheerun/vim-polyglot'
-
-
 if executable("fcitx") == 1
   Plug 'vim-scripts/fcitx.vim'
 endif
@@ -461,9 +404,6 @@ endif
 Plug 'https://github.com/liuchengxu/vista.vim', { 'on': ['Vista', 'Vista!!']}
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
-" Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
-" Useful for handling tag
-Plug 'tpope/vim-surround'
 
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle']}
 
@@ -687,13 +627,6 @@ let g:python3_host_prog='{{ python3_exec.path }}'
 let $BROWSER='w3m'
 let $IN_VIM=1
 let $HTERM_TTY=substitute(system("tty < /proc/" . getpid() . "/fd/0"), '\n$', '', '')
-" let g:AutoPairsFlyMode = 1
-" let g:AutoPairsShortcutToggle = ''
-" let g:AutoPairsShortcutFastWrap = ''
-" let g:AutoPairsShortcutJump = ''
-" let g:AutoPairsMapCh = ''
-" let g:AutoPairsMapSpace = ''
-" let g:AutoPairsShortcutBackInsert ='<M-\>'
 
 " vim-rest-console
 let g:vrc_keepalt = 1
@@ -961,7 +894,7 @@ vnoremap Y "+y
 
 
 {% if nvim %}
-silent! exec 'luafile' g:MYVIMRC_DIR . '/config.lua'
+exec 'luafile' g:MYVIMRC_DIR . '/config.lua'
 {% endif %}
 
 if filereadable(expand("~/.vim_custom.vim")) && match(readfile(expand("~/.vim_custom.vim")),"colorscheme")==-1
