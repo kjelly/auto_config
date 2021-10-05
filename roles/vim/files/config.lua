@@ -303,7 +303,7 @@ if IsModuleAvailable("bufferline") then
                       },
         }
     }
-    .api.nvim_command([[
+    api.nvim_command([[
 nnoremap <silent> <leader>sb :BufferLineSortByDirectory<cr>
 nnoremap <silent> <C-h> :BufferLineMovePrev<CR>
 nnoremap <silent> <C-l> :BufferLineMoveNext<CR>
