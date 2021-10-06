@@ -83,6 +83,9 @@ def main():
     if answer:
         if answer == ';close':
             os.system("i3-msg kill")
+        elif answer.startswith(';s'):
+            answer = answer.replace(';s', '')
+            os.system(f"i3-msg 'exec vimb \'go {answer}\''")
         elif answer.startswith(';'):
             answer = answer[1:]
             subprocess.call(

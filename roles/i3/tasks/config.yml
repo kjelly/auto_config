@@ -65,6 +65,10 @@
 
 - copy: src="ivi" dest="~/bin/ivi" mode=0755
 
+- copy: src="search.py" dest="~/bin/search.py" mode=0755
+
+- copy: src="bookmarks.py" dest="~/bin/bookmarks.py" mode=0755
+
 - copy: src="xinputrc" dest="~/.xinputrc"
 
 - file: path="~/.config/fcitx/" state=directory mode=0755

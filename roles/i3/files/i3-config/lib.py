@@ -19,9 +19,9 @@ def dmenu(options, dmenu):
     return stdout.decode('utf-8').strip('\n')
 
 
-def dmenu_cmd(prompt, lines=30, width=80, size=15, bg='#000000', fg='#505050',
-              opacity=70, border=3):
-    return (f'rofi -dmenu -fg "{fg}" -bg "{bg}" -font "mono {size}" '
+def dmenu_cmd(prompt, lines=30, width=80, size=13, opacity=70, border=3):
+    return (f'rofi -dmenu -font "mono {size}" '
+            f'-theme Arc-Dark '
             f'-fuzzy -p "{prompt}" -no-case-sensitive '
             f'-width {width} -lines {lines} -opacity {opacity} -bw {border}')
 
