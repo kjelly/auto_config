@@ -1,6 +1,6 @@
 function fish_title
-    echo $_ ' '
-	echo $USER
+    echo $argv ' '
+  	echo $USER
     echo '@'
     hostname
     echo ':'
