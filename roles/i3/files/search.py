@@ -2,11 +2,11 @@
 import subprocess
 import sys
 
-commands = [';kill']
+commands = [';kill', ';layout tabbed', ';layout splith', ';layout splitv']
 if len(sys.argv) == 1:
     for i in commands:
         print(i)
-elif sys.argv[1] == ';kill':
+elif sys.argv[1] in commands:
     subprocess.run(
         ['i3-msg', f'{sys.argv[1][1:]}'],
         stdout=subprocess.PIPE,

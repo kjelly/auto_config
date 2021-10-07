@@ -67,6 +67,8 @@
 
 - copy: src="search.py" dest="~/bin/search.py" mode=0755
 
+- copy: src="rofi-dirs.py" dest="~/bin/rofi-dirs" mode=0755
+
 - copy: src="bookmarks.py" dest="~/bin/bookmarks.py" mode=0755
 
 - copy: src="xinputrc" dest="~/.xinputrc"

@@ -1,4 +1,6 @@
 #!/usr/bin/bash
-rofi -modi 'combi,bookmark:bookmarks.py,search:search.py' -show combi \
-  -combi-modi search,window,bookmark,ssh,drun -kb-mode-next 'Alt-l' \
-  -kb-row-up 'Alt-p' -kb-row-down 'Alt-n' -no-disable-history
+rofi -modi 'combi,bookmark:bookmarks.py,search:search.py,dirs:rofi-dirs' -show combi \
+  -combi-modi search,window,bookmark,dirs,ssh,drun -kb-mode-next 'Alt-l' \
+  -kb-row-up 'Alt-k' -kb-row-down 'Alt-j' -no-disable-history \
+  -theme Arc-Dark -font 'mono 15'
+

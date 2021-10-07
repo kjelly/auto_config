@@ -9,7 +9,18 @@ pad_percents          3
 override_utf8_locale yes
 
 TEXT
-,[{"full_text": " ❤ $acpitemp°C [$cpu%] ","color": "\#DC322F"},
+,[
+  { "full_text" : " ${exec cat /etc/hostname}" , "color" : "\#ffffff" },
+
+  # RAM
+  { "full_text" : " ${mem}" , "color" : \
+  ${if_match ${memperc}<90}"\#ffffff"${else}"\#ff0000"${endif} },
+
+  # CPU
+  { "full_text" : "  ${cpu}% ", "color" : \
+  ${if_match ${cpu}<90}"\#ffffff"${else}"\#ff0000"${endif}},
+
+  {"full_text": " ❤ $acpitemp°C [$cpu%] ","color": "\#DC322F"},
   {"full_text": " ≣ [$membar] ", "color":"\#B58900"},
   {"full_text": " ≈ ${wireless_essid wlan0} [${wireless_link_qual_perc wlan0}%] ","color":"\#33CC99"},
   {"full_text": " ☇ [$battery_percent%] ","color":"\#9933CC"},

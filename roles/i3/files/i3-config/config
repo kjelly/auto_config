@@ -27,7 +27,7 @@ floating_minimum_size 800x600
 bar {
         position top
         status_command i3status
-        # status_command ~/.i3/conky
+        # status_command bash ~/.i3/conky
         # status_command py3status -c ~/.i3/i3status.conf -i ~/.i3/modules
 
         font pango: Droid Sans Mono 13
@@ -57,7 +57,7 @@ mode "kill_mode" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-bindsym $mod+Escape mode "kill_mode"
+bindsym $mod+q mode "kill_mode"
 
 # start dmenu (a program launcher)
 bindsym $mod+r exec i3-dmenu-desktop
@@ -83,7 +83,6 @@ bindsym $mod+Shift+Right move right
 # change container layout (stacked, tabbed, default)
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout splith
-bindsym $mod+q layout splitv
 
 # switch to workspace
 bindsym $mod+1 workspace number 1
@@ -243,28 +242,6 @@ bindsym $mod+Down exec amixer -q sset Master 2%-
 
 bindsym mod4+XF86TouchpadToggle exec unity-control-center
 
-# switch to workspace
-bindsym $mod+a workspace number 1
-bindsym $mod+s workspace number 2
-bindsym $mod+d workspace number 3
-bindsym $mod+f workspace number 4
-bindsym $mod+g workspace number 5
-bindsym $mod+z workspace number 6
-bindsym $mod+x workspace number 7
-bindsym $mod+c workspace number 8
-bindsym $mod+v workspace number 9
-bindsym $mod+b workspace number 10
-
-bindsym $mod+Shift+a move container to workspace number 1
-bindsym $mod+Shift+s move container to workspace number 2
-bindsym $mod+Shift+d move container to workspace number 3
-bindsym $mod+Shift+f move container to workspace number 4
-bindsym $mod+Shift+g move container to workspace number 5
-bindsym $mod+Shift+z move container to workspace number 6
-bindsym $mod+Shift+x move container to workspace number 7
-bindsym $mod+Shift+c move container to workspace number 8
-bindsym $mod+Shift+v move container to workspace number 9
-bindsym $mod+Shift+b move container to workspace number 10
 bindsym $mod+y fullscreen
 bindsym $mod+m exec ~/.i3/new_quick_switch.py
 
@@ -305,4 +282,9 @@ exec --no-startup-id i3-msg 'workspace number 1;workspace 1:Web; exec sensible-b
 #exec --no-startup-id dunst -print -fn "Ubuntu 40"
 exec --no-startup-id kupfer
 exec xautolock -detectsleep -time 5 -locker 'i3lock -d -c 000000'
-#124
+
+bindsym Control+semicolon exec alacritty -e fish
+bindsym Control+comma focus left
+bindsym Control+period focus right
+# bindsym Control+slash exec rofi -show window
+bindsym Control+slash exec bash ~/.i3/rofi-wrapper
