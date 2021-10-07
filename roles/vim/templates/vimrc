@@ -838,18 +838,19 @@ if exists('*nvim_open_win')
   set wildoptions=pum
 endif
 
-
-let g:clipboard = {
-      \ 'name': 'myClipboard',
-      \     'copy': {
-      \         '+': 'clipboard-provider copy',
-      \         '*': 'env COPY_PROVIDERS=tmux clipboard-provider copy',
-      \     },
-      \     'paste': {
-      \         '+': 'clipboard-provider paste',
-      \         '*': 'env COPY_PROVIDERS=tmux clipboard-provider paste',
-      \     },
-      \ }
+if !empty($TMUX)
+  let g:clipboard = {
+        \ 'name': 'myClipboard',
+        \     'copy': {
+        \         '+': 'clipboard-provider copy',
+        \         '*': 'env COPY_PROVIDERS=tmux clipboard-provider copy',
+        \     },
+        \     'paste': {
+        \         '+': 'clipboard-provider paste',
+        \         '*': 'env COPY_PROVIDERS=tmux clipboard-provider paste',
+        \     },
+        \ }
+endif
 
 let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-json',
       \  'coc-post', 'coc-marketplace', 'coc-post','coc-snippets',
