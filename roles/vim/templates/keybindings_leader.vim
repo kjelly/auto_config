@@ -20,7 +20,6 @@ nnoremap <silent> <leader>zg :GitFiles<cr>
 nnoremap <silent> <leader>zr :Rg<cr>
 
 nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gc :Git commit<CR>
 nnoremap <silent> <leader>gb :Git blame<CR>
 nnoremap <silent> <leader>gl :Git log<CR>
@@ -32,6 +31,7 @@ nnoremap <silent> <leader>gi :Git add -p %<CR>
 nnoremap <silent> <leader>gg :SignifyToggle<CR>
 nnoremap <silent> <leader>gu :Git pull --rebase<CR>
 nnoremap <silent> <leader>ga :Agit<CR>
+nnoremap <silent> <leader>go :Git checkout %<cr>
 nnoremap <silent> <leader>gdi :Git diff<CR>
 nnoremap <silent> <leader>gdl :Git diff @~..@<CR>
 
