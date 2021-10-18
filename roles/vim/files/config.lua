@@ -29,7 +29,7 @@ end
 
 if IsModuleAvailable("nvim-treesitter") then
     require "nvim-treesitter.configs".setup {
-        ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+        ensure_installed = "maintained",
         refactor = {
           highlight_definitions = { enable = true },
           highlight_current_scope = { enable = false},
@@ -59,13 +59,13 @@ if IsModuleAvailable("nvim-treesitter") then
           enable = false,
         },
         highlight = {
-            enable = true, -- false will disable the whole extension
-            disable = { } -- list of language that will be disabled
+            enable = true,
+            disable = { }
         },
         rainbow = {
           enable = true,
-          extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-          max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
+          extended_mode = true,
+          max_file_lines = 1000,
         }
     }
     require'nvim-treesitter.configs'.setup {
@@ -73,7 +73,6 @@ if IsModuleAvailable("nvim-treesitter") then
         select = {
           enable = true,
           keymaps = {
-            -- You can use the capture groups defined in textobjects.scm
             ["af"] = "@function.outer",
             ["if"] = "@function.inner",
             ["ac"] = "@class.outer",
@@ -144,8 +143,8 @@ if IsModuleAvailable("nvim-treesitter") then
       playground = {
         enable = true,
         disable = {},
-        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-        persist_queries = false, -- Whether the query persists across vim sessions
+        updatetime = 25,
+        persist_queries = false,
         keybindings = {
           toggle_query_editor = 'o',
           toggle_hl_groups = 'i',
@@ -187,17 +186,12 @@ if IsModuleAvailable("dap") then
 
     dap.configurations.python = {
         {
-            -- The first three options are required by nvim-dap
-            type = "python", -- the type here established the link to the adapter definition: `dap.adapters.python`
+            type = "python",
             request = "launch",
             name = "Launch file",
-            -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
 
-            program = "${file}", -- This configuration will launch the current file if used.
+            program = "${file}",
             pythonPath = function()
-                -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-                -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-                -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
                 local cwd = fn.getcwd()
                 if fn.executable(cwd .. "/venv/bin/python") then
                     return "/usr/bin/python3"
@@ -519,11 +513,23 @@ end
 
 if IsModuleAvailable("nvim-tree") then
   require'nvim-tree'.setup {
-    lsp_diagnostics     = true,
+    diagnostics = {
+      enable = true,
+      icons = {
+        hint = "",
+        info = "",
+        warning = "",
+        error = "",
+      }
+    },
     update_focused_file = {
       enable      = true,
       update_cwd  = false,
       ignore_list = {}
+    },
+    system_open = {
+      cmd  = 'file',
+      args = {}
     },
   }
 end
