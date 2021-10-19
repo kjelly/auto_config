@@ -292,6 +292,7 @@ else
   Plug 'liuchengxu/vim-which-key'
 endif
 
+Plug 'jdhao/better-escape.vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'https://github.com/alex-popov-tech/timer.nvim'
 Plug 'https://github.com/lewis6991/impatient.nvim'
