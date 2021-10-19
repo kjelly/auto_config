@@ -122,17 +122,6 @@ nnoremap <silent> <leader>st :Switch<cr>
 nnoremap <silent> <leader>sk :DisableTmuxKey<cr>
 nnoremap <silent> <leader>so :TSContextToggle<cr>
 
-" Bookmarks keybinding
-nnoremap <silent> mm :BookmarkToggle<cr>
-nnoremap <silent> <Leader>bb :BookmarkToggle<cr>
-nnoremap <silent> <Leader>bt :BookmarkToggle<cr>
-nnoremap <silent> <Leader>bi :BookmarkAnnotate<cr>
-nnoremap <silent> <Leader>bl :BookmarkShowAll<cr>
-nnoremap <silent> <Leader>bj :BookmarkNext<cr>
-nnoremap <silent> <Leader>bk :BookmarkPrev<cr>
-nnoremap <silent> <Leader>bc :BookmarkClear<cr>
-nnoremap <silent> <Leader>bx :BookmarkClearAll<cr>
-
 nnoremap <silent> <leader>br :redraw<cr>
 
 nnoremap <silent> <leader>mm :Marks<cr>

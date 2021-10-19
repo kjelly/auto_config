@@ -335,7 +335,6 @@ Plug 'john-nanney/pushd.vim'
 Plug 'metakirby5/codi.vim'
 Plug 'chrisbra/Colorizer', { 'on': ['ColorToggle'] }
 " Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'MattesGroeger/vim-bookmarks'
 
 " set filetype=rest
 " <c-j> for send request
@@ -407,8 +406,8 @@ Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
 
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle']}
 
-" Plugin to toggle, display and navigate marks
-Plug 'kshenoy/vim-signature'
+" Bookmarks and marks
+Plug 'https://github.com/chentau/marks.nvim'
 
 {% if nvim %}
 
