@@ -818,6 +818,7 @@ let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-j
       \  'coc-floaterm', 'coc-lists']
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+let g:better_escape_shortcut = 'jk'
 
 " Yank to tmux normally
 set clipboard=unnamed
