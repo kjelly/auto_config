@@ -162,18 +162,18 @@ tmap <a-bs> <c-w>
 
 tnoremap <Insert> <C-\><C-n>
 "tnoremap <C-[> <C-\><C-n> Don't enable this. Esc is useful when vim in vim
-tnoremap <A-h> <C-\><C-n><C-w>w
-tnoremap <A-j> <C-n>
-tnoremap <A-k> <C-p>
-tnoremap <A-l> <C-\><C-n><C-w>w
-nnoremap <A-h> <C-w>w
-nnoremap <A-j> <C-n>
-nnoremap <A-k> <C-p>
-nnoremap <A-l> <C-w>w
-inoremap <A-h> <Esc><C-w>w
-inoremap <A-j> <c-n>
-inoremap <A-k> <c-p>
-inoremap <A-l> <Esc><C-w>w
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+inoremap <A-h> <Esc><C-w>h
+inoremap <A-j> <Esc><C-w>j
+inoremap <A-k> <Esc><C-w>k
+inoremap <A-l> <Esc><C-w>l
 
 imap <A-p> <c-p>
 nmap <A-p> <c-p>
