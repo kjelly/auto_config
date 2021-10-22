@@ -117,12 +117,17 @@ function RunShellAndShow(cmd)
   execute "startinsert"
 endfunction
 
+let g:termOpen=0
 function! TermToggle()
-  if  &filetype == 'NvimTree'
-    wincmd l
-    execute "FloatermToggle"
-  elseif exists(":FloatermToggle")
-    execute "FloatermToggle"
+  if g:termOpen == 0
+    execute "FloatermNew"
+    let g:termOpen = 2
+  elseif g:termOpen == 1
+    execute "FloatermShow!"
+    let g:termOpen = 2
+  else
+    execute "FloatermHide!"
+    let g:termOpen = 1
   endif
 endfunction
 
@@ -147,8 +152,6 @@ elseif executable("zsh") == 1
   set shell=zsh
 endif
 
-let g:floaterm_autoinsert = v:false
-
 imap <C-f> <Plug>(coc-snippets-expand)
 imap <C-f> <Plug>(coc-snippets-expand-jump)
 let g:coc_snippet_next = '<c-f>'
@@ -159,7 +162,6 @@ let g:nvim_tree_highlight_opened_files=1
 let g:nvim_tree_lsp_diagnostic=1
 let g:nvim_tree_disable_window_picker=0
 let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 }
-highlight NvimTreeFolderIcon guibg=blue
 let g:nvim_tree_icons = {
     \ 'default': '',
     \ 'symlink': '',
@@ -568,7 +570,7 @@ set tw=500
 
 set ai "Auto indent
 set si "Smart indent
-set nowrap "Wrap lines
+set wrap "Wrap lines
 
 " Always show the status line
 set laststatus=2
@@ -640,10 +642,18 @@ let g:NERDTreeWinSize=20
 {% if nvim %}let test#strategy = "neovim" {% endif %}
 
 let g:leetcode_solution_filetype='python3'
-let g:floaterm_wintype='float'
+let g:floaterm_wintype='vsplit'
 let g:floaterm_position='right'
-let g:floaterm_width=0.6
+let g:floaterm_width=0.5
 let g:floaterm_height=1.0
+let g:floaterm_autoinsert = v:false
+
+
+highlight NvimTreeFolderIcon guibg=blue
+hi FloatermNC guibg=#444444
+
+" blueyed/vim-diminactive
+hi ColorColumn guibg=#444444
 
 " Autocmd
 
