@@ -361,7 +361,6 @@ Plug 'lambdalisue/suda.vim'
 Plug 'ianding1/leetcode.vim'
 
 " colorscheme
-Plug 'joshdick/onedark.vim'
 Plug 'liuchengxu/space-vim-dark' " Good
 Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'bluz71/vim-moonfly-colors'
