@@ -32,7 +32,7 @@
   "diagnostic.errorSign": "❌",
   "diagnostic.hintSign": "💡",
   "diagnostic.infoSign": "💬",
-  "diagnostic.virtualText": true,
+  "diagnostic.virtualText": false,
   "diagnostic.warningSign": "🔺",
   "flutter.lsp.initialization.onlyAnalyzeProjectsWithOpenFiles": false,
   "flutter.openDevLogSplitCommand": "botright 12split",
