@@ -648,12 +648,6 @@ let g:floaterm_height=1.0
 let g:floaterm_autoinsert = v:false
 
 
-highlight NvimTreeFolderIcon guibg=blue
-hi FloatermNC guibg=#444444
-
-" blueyed/vim-diminactive
-hi ColorColumn guibg=#444444
-
 " Autocmd
 
 {% if nvim %}
@@ -824,10 +818,17 @@ let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-j
       \  'coc-translator','coc-tsserver','coc-tabnine','coc-rls','coc-todolist','coc-explorer',
       \  'coc-yank', 'coc-just-complete', 'coc-html', 'coc-css', 'coc-metals', 'coc-lua',
       \  'coc-go', 'coc-zi', 'coc-word', 'coc-rest', 'coc-pyright', 'coc-highlight', 'coc-git', 'coc-sh',
-      \  'coc-floaterm', 'coc-lists']
+      \  'coc-floaterm', 'coc-lists', 'coc-flutter']
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:better_escape_shortcut = 'jk'
+
+" hightlight
+highlight NvimTreeFolderIcon guibg=blue
+highlight FloatermNC guibg=#444444
+
+" blueyed/vim-diminactive
+highlight ColorColumn guibg=#444444
 
 " Yank to tmux normally
 set clipboard=unnamed
