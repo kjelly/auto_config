@@ -222,7 +222,7 @@ if IsModuleAvailable("lualine") then
     end
     require('lualine').setup{
         options = {
-          theme = 'gruvbox_material',
+          theme = 'auto',
           section_separators = {'', ''},
           component_separators = {'', ''},
         },
