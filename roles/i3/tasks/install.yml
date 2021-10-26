@@ -73,7 +73,6 @@
       - i3
       - i3status
       - terminator
-      - python-pip
       - xfce4-panel
       - gnome-control-center
       - xbacklight
@@ -84,7 +83,6 @@
       - lxpanel
       - xdotool
       - rofi
-      - volti
 
       - boxes
       - libnotify-bin
@@ -97,7 +95,6 @@
       - dunst
       - fcitx-chewing
 
-      - gnome-do # app launcher
       - kupfer # app launcher
 
 
