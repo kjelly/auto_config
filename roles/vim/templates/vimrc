@@ -253,7 +253,7 @@ if has('nvim-0.5')
   Plug 'mfussenegger/nvim-dap-python'
   Plug 'rcarriga/nvim-dap-ui'
   " status line
-  Plug 'hoob3rt/lualine.nvim'
+  Plug 'https://github.com/nvim-lualine/lualine.nvim'
 
   " A search panel for neovim.
   Plug 'nvim-lua/popup.nvim'
@@ -594,8 +594,8 @@ set signcolumn=yes
 set encoding=UTF-8
 {% if nvim %}
 set inccommand=nosplit
-set winblend=10
-set pumblend=10
+set winblend=8
+set pumblend=8
 {% endif %}
 
 let @/ = ""
@@ -822,6 +822,7 @@ let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-j
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:better_escape_shortcut = 'jk'
+let g:fzf_colors = {'gutter': ['bg', 'Normal']}
 
 " hightlight
 highlight NvimTreeFolderIcon guibg=blue
