@@ -531,6 +531,11 @@ if IsModuleAvailable("nvim-tree") then
       cmd  = 'file',
       args = {}
     },
+    view = {
+      width = '18%',
+      side = 'left',
+      auto_resize = true,
+    }
   }
 end
 
