@@ -385,7 +385,6 @@ Plug 'EdenEast/nightfox.nvim'
 Plug 'https://github.com/Pocco81/Catppuccino.nvim'
 Plug 'frenzyexists/aquarium-vim', { 'branch': 'vimscript-version' }
 Plug 'https://github.com/sainnhe/edge'
-Plug 'https://github.com/yonlu/omni.vim'
 Plug 'yashguptaz/calvera-dark.nvim'
 Plug 'https://github.com/sainnhe/everforest'
 Plug 'https://github.com/navarasu/onedark.nvim'
