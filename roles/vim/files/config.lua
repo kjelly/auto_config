@@ -3,7 +3,7 @@ local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g      -- a table to access global variables
 local api = vim.api
 
-function indexOf(array, value)
+local function indexOf(array, value)
     for i, v in ipairs(array) do
         if v == value then
             return i
@@ -240,7 +240,8 @@ if IsModuleAvailable("lualine") then
     local my_extension = {
       sections = {
         lualine_a = {'mode'},
-        lualine_b = {'hostname', floatermInfo},
+        lualine_b = {'hostname'},
+        lualine_c = {floatermInfo},
         lualine_y = {'progress'},
         lualine_z = {'location'},
       }, filetypes = {'floaterm'}}
