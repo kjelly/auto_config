@@ -244,7 +244,12 @@ if IsModuleAvailable("lualine") then
         lualine_c = {floatermInfo},
         lualine_y = {'progress'},
         lualine_z = {'location'},
-      }, filetypes = {'floaterm'}}
+      },
+      inactive_sections = {
+        lualine_c = {floatermInfo},
+        lualine_z = {'location'},
+      },
+      filetypes = {'floaterm'}}
 
     require('lualine').setup{
         options = {
