@@ -591,6 +591,7 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 set encoding=UTF-8
+set noshowmode
 {% if nvim %}
 set inccommand=nosplit
 set winblend=8
@@ -655,10 +656,6 @@ function! WinLeaveAction()
   elseif &filetype=='fzf' | wincmd q
   endif
 endfunction
-
-" autocmd! WinLeave * call WinLeaveAction()
-" autocmd! TermEnter * set showmode
-" autocmd! TermOpen * setlocal nonumber norelativenumber
 
 {% endif %}
 
