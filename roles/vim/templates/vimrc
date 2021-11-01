@@ -660,7 +660,6 @@ endfunction
 " autocmd! TermEnter * set showmode
 " autocmd! TermOpen * setlocal nonumber norelativenumber
 
-autocmd! TermLeave * if &filetype=='fzf' | wincmd q| endif | echo '-- NORMAL --'
 {% endif %}
 
 function AutoDec1()
