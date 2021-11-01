@@ -553,6 +553,10 @@ if IsModuleAvailable("nvim-tree") then
       update_cwd  = false,
       ignore_list = {}
     },
+    filters = {
+      dotfiles = false,
+      custom = {}
+    },
     system_open = {
       cmd  = 'file',
       args = {}
