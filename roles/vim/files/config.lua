@@ -3,6 +3,15 @@ local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g      -- a table to access global variables
 local api = vim.api
 
+function indexOf(array, value)
+    for i, v in ipairs(array) do
+        if v == value then
+            return i
+        end
+    end
+    return nil
+end
+
 function IsModuleAvailable(name)
     if package.loaded[name] then
         return true
@@ -220,6 +229,22 @@ if IsModuleAvailable("lualine") then
       path = path:gsub(home, '~')
       return path
     end
+    local function floatermInfo()
+      local bufid = api.nvim_get_current_buf()
+      local buffers = api.nvim_eval("floaterm#buflist#gather()")
+      local title = api.nvim_buf_get_var(bufid, 'term_title')
+      local ret = indexOf(buffers, bufid) .. '/' .. #buffers
+      return ret
+    end
+
+    local my_extension = {
+      sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'hostname', floatermInfo},
+        lualine_y = {'progress'},
+        lualine_z = {'location'},
+      }, filetypes = {'floaterm'}}
+
     require('lualine').setup{
         options = {
           theme = 'auto',
@@ -241,7 +266,8 @@ if IsModuleAvailable("lualine") then
           lualine_x = {'location'},
           lualine_y = {},
           lualine_z = {}
-        }
+        },
+        extensions = {my_extension},
     }
 end
 
