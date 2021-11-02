@@ -653,8 +653,7 @@ let g:floaterm_autoinsert = v:false
 
 {% if nvim %}
 function! WinLeaveAction()
-  if &filetype=='floaterm' | :FloatermHide<cr>
-  elseif &filetype=='fzf' | wincmd q
+  if &filetype=='fzf' | wincmd q
   endif
 endfunction
 
@@ -669,6 +668,7 @@ endfunction
 " autocmd! BufWritePost,FileWritePost *.smd call AutoDec1()
 autocmd! BufWritePre * %s/\s\+$//e
 autocmd! TermOpen * setlocal nonu norelativenumber
+autocmd! WinLeave * call WinLeaveAction()
 
 autocmd! CursorHold * checktime | silent let b:atime=strftime("%T")
 autocmd! BufCreate * silent let b:atime=strftime("%T")
