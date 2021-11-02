@@ -223,12 +223,14 @@ if IsModuleAvailable("lualine") then
       local filePath = api.nvim_eval("expand('%')")
       return filePath
     end
+
     local function showCWD()
       local path = api.nvim_eval("getcwd()")
       local home = api.nvim_eval("$HOME")
       path = path:gsub(home, '~')
       return path
     end
+
     local function floatermInfo()
       local bufid = api.nvim_get_current_buf()
       local buffers = api.nvim_eval("floaterm#buflist#gather()")
@@ -237,13 +239,18 @@ if IsModuleAvailable("lualine") then
       return ret
     end
 
+    local function termTitle()
+      local title = api.nvim_buf_get_var(nil, 'term_title')
+      return title
+    end
+
     local my_extension = {
       sections = {
         lualine_a = {'mode'},
-        lualine_b = {'hostname'},
-        lualine_c = {floatermInfo},
-        lualine_y = {'progress'},
-        lualine_z = {'location'},
+        lualine_b = {},
+        lualine_c = {floatermInfo, termTitle},
+        lualine_y = {},
+        lualine_z = {'progress'},
       },
       inactive_sections = {
         lualine_c = {floatermInfo},
