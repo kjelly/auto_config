@@ -109,7 +109,7 @@ nnoremap <C-]> :call TermToggle()<cr>
 {% if nvim %}
 " If we need Esc in terminal buffer,
 " just unmap it.
-tnoremap <Esc> <C-\><C-n>
+tnoremap <expr> <silent> <Esc> &filetype=='fzf' ? '<C-\><C-n>:close<cr>' : '<C-\><C-n>'
 "tunmap <Esc> <C-\><C-n>
 
 {% endif %}
@@ -185,8 +185,8 @@ tmap <A-n> <c-n>
 cmap <A-n> <c-n>
 
 inoremap <A-o> <Esc>:Buffers<cr>
-nnoremap <expr> <A-o> &filetype=='floaterm' ? ':CocList --number-select floaterm<cr>' : ':Buffers<cr>'
-tnoremap <A-o> <C-\><C-n>:CocList floaterm<cr>
+nnoremap <expr> <A-o> &filetype=='floaterm' ? ':Floaterms<cr>' : ':Buffers<cr>'
+tnoremap <A-o> <C-\><C-n>:Floaterms<cr>
 
 inoremap <A-u> <Esc>:History:<cr>
 nnoremap <A-u> :History:<cr>
@@ -225,12 +225,6 @@ tmap <A-g> <C-\><C-n><Plug>(choosewin)
 
 inoremap <A-m> <Esc>:Marks<cr>
 nnoremap <A-m> :Marks<cr>
-
-" Floaterm
-
-tnoremap <silent> <expr> <Esc><Esc> &filetype=="floaterm" ? "<c-\><c-n>:FloatermHide<cr>" : ""
-nnoremap <silent> <expr> <Esc><Esc> &filetype=="floaterm" ? ":FloatermHide<cr>" : ""
-nnoremap <silent> <expr> <Esc> &filetype=="floaterm" ? ":FloatermHide<cr>" : ""
 
 inoremap <a-;> <Esc>:call TermToggle()<cr>
 nnoremap <a-;> :call TermToggle()<cr>

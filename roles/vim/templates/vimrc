@@ -318,6 +318,7 @@ Plug 'https://github.com/lambdalisue/gina.vim'
 Plug 'tpope/vim-dadbod', { 'on': ['DB']}
 Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DB']}
 
+Plug 'https://github.com/kjelly/fzf-floaterm'
 Plug 'voldikss/vim-floaterm'
 
 " Switch true/flase
@@ -818,6 +819,11 @@ let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-j
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:better_escape_shortcut = 'jk'
 let g:fzf_colors = {'gutter': ['bg', 'Normal']}
+let g:fzf_floaterm_newentries = {
+  \ '+root' : {
+    \ 'title': 'Root Shell',
+    \ 'cmd': 'sudo sh' },
+  \ }
 
 " hightlight
 highlight NvimTreeFolderIcon guibg=blue
