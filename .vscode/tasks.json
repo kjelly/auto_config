@@ -1,19 +1,28 @@
 {
-    "version": "0.1.0",
-    "isShellCommand": true,
-    "showOutput": "always",
+    "version": "2.0.0",
     "echoCommand": true,
-    "suppressTaskName": true,
     "tasks": [
         {
-            "taskName": "deploy",
+            "label": "deploy",
+            "type": "shell",
             "command": "./run.py",
-            "args": ["-p", "test.yml", "-a", "deploy"]
+            "args": [
+                "-p",
+                "test.yml",
+                "-a",
+                "deploy"
+            ],
+            "problemMatcher": []
         },
         {
-            "taskName": "config",
+            "label": "config",
+            "type": "shell",
             "command": "./run.py",
-            "args": ["-p", "test.yml"]
+            "args": [
+                "-p",
+                "test.yml"
+            ],
+            "problemMatcher": []
         }
     ]
 }
