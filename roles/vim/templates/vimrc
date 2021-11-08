@@ -198,6 +198,7 @@ let g:indent_blankline_filetype_exclude=['help', 'NvimTree', 'vista', 'floaterm'
 let g:indent_blankline_char_list = ['|', '¦', '┆', '┊']
 let g:indent_blankline_use_treesitter = v:true
 let g:blameLineUseVirtualText = 1
+let g:blameLineGitFormat = '%an - %h - %s'
 
 let g:signify_sign_delete            = '_'
 let g:signify_sign_delete_first_line = '_'
@@ -274,6 +275,7 @@ if has('nvim-0.5')
   " Indent guides for Neovim
   Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'master'}
   Plug 'tveskag/nvim-blame-line'
+  Plug 'https://github.com/tveskag/nvim-blame-line'
 
   " Comment
   Plug 'b3nj5m1n/kommentary'
