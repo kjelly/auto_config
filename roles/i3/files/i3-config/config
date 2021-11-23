@@ -25,9 +25,12 @@ floating_minimum_size 800x600
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+        mode hide
+        hidden_state hide
+        modifier Mod1
         position top
-        status_command i3status
-        # status_command bash ~/.i3/conky
+
+        status_command bash ~/.i3/conky
         # status_command py3status -c ~/.i3/i3status.conf -i ~/.i3/modules
 
         font pango: Droid Sans Mono 13
@@ -48,7 +51,7 @@ focus_follows_mouse  no
 force_focus_wrapping yes
 
 # start a terminal
-bindsym $mod+Return exec python ~/.i3/open_term.py
+bindsym $mod+Return exec alacritty -e fish
 bindsym $mod+Shift+Return exec xfce4-terminal
 
 # kill focused window
@@ -278,6 +281,7 @@ mode "mark" {
 bindsym $mod+t exec ~/.i3/name_workspace.py
 bindsym $mod+period exec ~/.i3/noteit.py
 exec --no-startup-id i3-msg 'workspace number 1;workspace 1:Web; exec sensible-browser'
+exec --no-startup-id ~/bin/pcloud
 
 #exec --no-startup-id dunst -print -fn "Ubuntu 40"
 exec --no-startup-id kupfer
