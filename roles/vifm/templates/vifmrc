@@ -426,6 +426,10 @@ noremap <c-h> <c-w>h
 noremap <c-j> <c-w>j
 noremap <c-k> <c-w>k
 noremap <c-l> <c-w>l
+noremap <a-h> <c-w>h
+noremap <a-j> <c-w>j
+noremap <a-k> <c-w>k
+noremap <a-l> <c-w>l
 
 noremap <space>h <c-w>h
 noremap <space>j <c-w>j
@@ -434,3 +438,4 @@ noremap <space>l <c-w>l
 
 noremap <space>m :marks
 
+set notrash
