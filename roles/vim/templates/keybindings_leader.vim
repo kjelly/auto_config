@@ -22,7 +22,7 @@ nnoremap <silent> <leader>zr :Rg<cr>
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gc :Git commit<CR>
 nnoremap <silent> <leader>gb :Git blame<CR>
-nnoremap <silent> <leader>gl :Git log<CR>
+nnoremap <silent> <leader>glo :Git log<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gr :Gread<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
@@ -34,6 +34,15 @@ nnoremap <silent> <leader>ga :Agit<CR>
 nnoremap <silent> <leader>go :Git checkout %<cr>
 nnoremap <silent> <leader>gdi :Git diff<CR>
 nnoremap <silent> <leader>gdl :Git diff @~..@<CR>
+
+let g:glab_mr=''
+nnoremap <leader>glms :let g:glab_mr=
+nnoremap <leader>glml :call RunShellAndShow('glab mr list')<cr>
+nnoremap <leader>glmc :call RunShellAndShow('glab mr checkout ' . g:glab_mr)<cr>
+nnoremap <leader>glma :call RunShellAndShow('glab mr approve ' . g:glab_mr)<cr>
+nnoremap <leader>glmn :call RunShellAndShow('glab mr note ' . g:glab_mr)<cr>
+nnoremap <leader>glmm :call RunShellAndShow('glab mr merge ' . g:glab_mr)<cr>
+nnoremap <leader>glmv :call RunShellAndShow('glab mr view ' . g:glab_mr)<cr>
 
 nnoremap <silent> <leader>id :put =strftime('%Y-%m-%d')<cr>
 nnoremap <silent> <leader>it :put =strftime('%H:%M:%S')<cr>
