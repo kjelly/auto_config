@@ -239,3 +239,16 @@
   with_items:
     - "make install"
   become: true
+
+- name: download conky
+  shell: |
+    curl -sL -o /usr/local/bin/conky \
+    $(curl -sL https://api.github.com/repos/brndnmtthws/conky/releases/latest | \
+    jq --raw-output '.assets[0] | .browser_download_url')
+  become: true
+
+- name: change conky permission
+  ansible.builtin.file:
+    path: '/usr/local/bin/conky'
+    mode: '0755'
+  become: true
