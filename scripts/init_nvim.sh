@@ -3,8 +3,9 @@ version=$(git -c 'versionsort.suffix=-' \
     ls-remote --exit-code --refs --sort='version:refname' --tags https://github.com/neovim/neovim '*.*.*' \
     | tail --lines=1 \
     | cut --delimiter='/' --fields=3)
-echo sudo curl -fL https://github.com/neovim/neovim/releases/download/$version/nvim.appimage -o /opt/nvim.appimage
+sudo curl -fL https://github.com/neovim/neovim/releases/download/$version/nvim.appimage -o /opt/nvim.appimage
 sudo chmod +x /opt/nvim.appimage
+sudo cp /opt/nvim.appimage /bin/nvim
 
 cd /opt/
 sudo rm -rf /opt/squashfs-root
