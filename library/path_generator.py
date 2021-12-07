@@ -39,9 +39,9 @@ def main():
                  '~/.pub-cache/bin', '~/dart-sdk/bin', '~/activator/bin/',
                  '~/google-cloud-sdk/bin/', '~/kotlinc/bin/', '~/.rvm/bin',
                  '/snap/bin/', '~/flutter/bin/', '~/.local/bin', '~/flutter/bin/cache/dart-sdk/bin',
-                 '~/nfs/bin/', '~/.asdf/installs/python/3.9.2/bin']
+                 '~/nfs/bin/']
 
-    fuzzy_path = ['~/node*/bin', '~/.asdf/installs/python/*/bin']
+    fuzzy_path = ['~/node*/bin', '~/.asdf/installs/python/*/bin', '~/pypy*/bin/']
 
     for path in path_list:
         real_path = os.path.abspath(os.path.expanduser(path))
