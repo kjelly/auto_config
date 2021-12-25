@@ -22,7 +22,7 @@ inoremap <S-Tab> <Esc><<i
 nnoremap <S-Tab> <<
 nnoremap <Tab> >>
 
-nnoremap <a-f> <c-w>p
+nnoremap <a-f> <c-w>w
 
 nnoremap <C-j> <PageDown>
 nnoremap <C-k> <PageUp>
