@@ -32,7 +32,6 @@ treesitter = [
     "darkplus",  # treesitter
     "aurora",
     'aquarium',
-    'catppuccino',
     'edge',
     'everforest',
     'calvera',
