@@ -273,7 +273,7 @@ if has('nvim-0.5')
   Plug 'kyazdani42/nvim-tree.lua'
 
   " Indent guides for Neovim
-  Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'master'}
+  Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'master', 'on': 'IndentBlanklineEnable'}
   Plug 'tveskag/nvim-blame-line'
   Plug 'https://github.com/tveskag/nvim-blame-line'
 
@@ -282,7 +282,6 @@ if has('nvim-0.5')
   Plug 'https://github.com/folke/which-key.nvim'
 else
   Plug 'itchyny/lightline.vim'
-  Plug 'kjelly/auto-pairs'
   Plug 'tpope/vim-speeddating'
   Plug 'justinmk/vim-sneak'
   Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
@@ -387,7 +386,7 @@ Plug 'yong1le/darkplus.nvim'
 Plug 'ray-x/aurora'
 Plug 'EdenEast/nightfox.nvim'
 Plug 'https://github.com/Pocco81/Catppuccino.nvim'
-Plug 'frenzyexists/aquarium-vim', { 'branch': 'vimscript-version' }
+Plug 'frenzyexists/aquarium-vim', { 'branch': 'develop' }
 Plug 'https://github.com/sainnhe/edge'
 Plug 'yashguptaz/calvera-dark.nvim'
 Plug 'https://github.com/sainnhe/everforest'
@@ -817,7 +816,7 @@ let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-j
       \  'coc-translator','coc-tsserver','coc-tabnine','coc-rls','coc-todolist','coc-explorer',
       \  'coc-yank', 'coc-just-complete', 'coc-html', 'coc-css', 'coc-metals', 'coc-lua',
       \  'coc-go', 'coc-zi', 'coc-word', 'coc-rest', 'coc-pyright', 'coc-highlight', 'coc-git', 'coc-sh',
-      \  'coc-floaterm', 'coc-lists', 'coc-flutter']
+      \  'coc-floaterm', 'coc-lists', 'coc-flutter', 'coc-pairs']
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:better_escape_shortcut = 'jk'

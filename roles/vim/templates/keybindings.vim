@@ -66,11 +66,12 @@ nnoremap <C-s> :Vista!!<cr>
 inoremap <C-s> <Esc>:w<cr>a
 
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Find file
 function FindFile()
@@ -180,7 +181,9 @@ nmap <A-p> <c-p>
 tmap <A-p> <c-p>
 cmap <A-p> <c-p>
 nmap <A-n> <c-n>
-imap <A-n> <c-n>
+inoremap <silent><expr> <A-n>
+      \ pumvisible() ? "\<C-n>" :
+      \ coc#refresh()
 tmap <A-n> <c-n>
 cmap <A-n> <c-n>
 
