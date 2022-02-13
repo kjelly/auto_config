@@ -30,7 +30,6 @@ end
 if IsModuleAvailable("timer") then
   require "timer".add(
       function()
-          require'bufferline'.sort_buffers_by(MySort)
           return 1000
       end
   )
