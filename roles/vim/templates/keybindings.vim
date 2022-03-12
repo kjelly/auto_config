@@ -1,6 +1,6 @@
 nnoremap H :tabprevious<cr>
 nnoremap L :tabnext<cr>
-nnoremap ; :
+nnoremap ; <cmd>FineCmdline<CR>
 
 "bash like keybinding
 " <c-a> for <home>, <c-e> for <end>

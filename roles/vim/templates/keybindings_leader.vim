@@ -19,6 +19,7 @@ nnoremap <silent> <leader>zo :Buffers<cr>
 nnoremap <silent> <leader>zg :GitFiles<cr>
 nnoremap <silent> <leader>zr :Rg<cr>
 
+xmap ga <Plug>(EasyAlign)
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gc :Git commit<CR>
 nnoremap <silent> <leader>gb :Git blame<CR>

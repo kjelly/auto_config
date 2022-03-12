@@ -310,6 +310,9 @@ if empty($SSH_CLIENT)
 else
 endif
 
+" Markdown table formaater
+Plug 'https://github.com/junegunn/vim-easy-align'
+
 " Emoji"
 Plug 'yazgoo/unicodemoji'
 
@@ -362,6 +365,10 @@ Plug 'lambdalisue/suda.vim'
 
 " sudo pip3 install keyring browser-cookie3
 Plug 'ianding1/leetcode.vim'
+
+" fine-cmdline needs nui.nvim
+Plug 'MunifTanjim/nui.nvim'
+Plug 'VonHeikemen/fine-cmdline.nvim'
 
 " colorscheme
 Plug 'liuchengxu/space-vim-dark' " Good

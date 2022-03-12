@@ -454,7 +454,7 @@ if IsModuleAvailable("which-key") then
       name = "+Status"
     },
     m = {
-      name = "+Move",
+      name = "+Mark",
       p = { 'Previous mark'},
       n = { 'Next mark'},
     },
