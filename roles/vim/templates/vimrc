@@ -246,6 +246,7 @@ if has('nvim-0.5')
   Plug 'nvim-treesitter/playground'
   Plug 'nvim-treesitter/nvim-treesitter-refactor'
   Plug 'https://github.com/David-Kunz/treesitter-unit'
+  Plug 'SmiteshP/nvim-gps'
   Plug 'spywhere/detect-language.nvim'
 
   " Seamlessly jump between matched instances.
@@ -268,7 +269,6 @@ if has('nvim-0.5')
 
   " Easymotion-like
   Plug 'https://github.com/phaazon/hop.nvim'
-  Plug 'windwp/nvim-autopairs'
   Plug 'monaqa/dial.nvim'
   Plug 'kyazdani42/nvim-tree.lua'
 
@@ -295,11 +295,13 @@ else
   Plug 'liuchengxu/vim-which-key'
 endif
 
+Plug 'https://github.com/petertriho/nvim-scrollbar'
+Plug 'https://github.com/Chaitanyabsprip/present.nvim'
+
 Plug 'github/copilot.vim'
 Plug 'jdhao/better-escape.vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'https://github.com/alex-popov-tech/timer.nvim'
-Plug 'https://github.com/lewis6991/impatient.nvim'
 Plug 'https://github.com/dstein64/vim-startuptime'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -309,6 +311,8 @@ if empty($SSH_CLIENT)
   Plug 'blueyed/vim-diminactive' " use different background color for inactive window
 else
 endif
+
+Plug 'https://github.com/nyngwang/NeoZoom.lua'
 
 " Markdown table formaater
 Plug 'https://github.com/junegunn/vim-easy-align'
@@ -458,7 +462,6 @@ Plug 'mhinz/neovim-remote'
 
 call plug#end()
 
-silent! lua require('impatient')
 silent! call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
 silent! call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
 
@@ -604,8 +607,8 @@ set encoding=UTF-8
 set noshowmode
 {% if nvim %}
 set inccommand=nosplit
-set winblend=8
-set pumblend=8
+set winblend=0
+set pumblend=0
 {% endif %}
 
 let @/ = ""
@@ -631,9 +634,11 @@ let g:bookmark_no_default_key_mappings = 1
 
 let g:go_list_type = "quickfix"
 
-{% if python3_exec is defined and python3_exec.exist %}
-let g:python3_host_prog='{{ python3_exec.path }}'
-{% endif %}
+if exists("$VIRTUAL_ENV")
+    let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
+else
+    let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
+endif
 
 let $BROWSER='w3m'
 let $IN_VIM=1

@@ -243,6 +243,14 @@ if IsModuleAvailable("lualine") then
       return title
     end
 
+    local function gpsLocation()
+      if IsModuleAvailable("nvim-gps") then
+        local gps = require("nvim-gps")
+        return gps.get_location()
+      end
+      return ''
+    end
+
     local my_extension = {
       sections = {
         lualine_a = {'mode'},
@@ -267,7 +275,7 @@ if IsModuleAvailable("lualine") then
           lualine_a = {'mode'},
           lualine_b = {'branch', 'diff'},
           lualine_c = {'hostname', showCWD, showFilePath},
-          lualine_x = {'encoding', 'fileformat', 'filetype'},
+          lualine_x = {gpsLocation, 'encoding', 'fileformat', 'filetype'},
           lualine_y = {'progress'},
           lualine_z = {'location'}
         },
@@ -598,4 +606,15 @@ if IsModuleAvailable("marks") then
     },
     mappings = {}
   }
+end
+
+
+if IsModuleAvailable("nvim-gps") then
+  require("nvim-gps").setup {
+  }
+end
+
+
+if IsModuleAvailable("scrollbar") then
+  require("scrollbar").setup()
 end
