@@ -657,7 +657,7 @@ let g:NERDTreeWinSize=20
 
 let g:leetcode_solution_filetype='python3'
 let g:floaterm_wintype='vsplit'
-let g:floaterm_position='right'
+let g:floaterm_position='botright'
 let g:floaterm_width=0.5
 let g:floaterm_height=1.0
 let g:floaterm_autoinsert = v:false
