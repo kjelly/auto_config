@@ -618,3 +618,7 @@ end
 if IsModuleAvailable("scrollbar") then
   require("scrollbar").setup()
 end
+
+if IsModuleAvailable("focus") then
+  require("focus").setup()
+end

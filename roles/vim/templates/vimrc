@@ -295,7 +295,10 @@ else
   Plug 'liuchengxu/vim-which-key'
 endif
 
-Plug 'https://github.com/petertriho/nvim-scrollbar'
+Plug 'https://github.com/beauwilliams/focus.nvim'
+
+" Disable scrollbar. Not useful for me.
+" Plug 'https://github.com/petertriho/nvim-scrollbar'
 Plug 'https://github.com/Chaitanyabsprip/present.nvim'
 
 Plug 'github/copilot.vim'
@@ -422,6 +425,7 @@ Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle']}
 
 " Bookmarks and marks
+" Disable this to use float floaterm.
 Plug 'https://github.com/chentau/marks.nvim'
 
 {% if nvim %}
