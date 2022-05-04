@@ -297,6 +297,7 @@ endif
 
 Plug 'https://github.com/petertriho/nvim-scrollbar'
 Plug 'https://github.com/Chaitanyabsprip/present.nvim'
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 
 Plug 'github/copilot.vim'
 Plug 'jdhao/better-escape.vim'
@@ -686,6 +687,7 @@ autocmd! WinLeave * call WinLeaveAction()
 
 autocmd! BufEnter * silent! execute "BufferLineSortByTabs"
 autocmd! BufNew * silent! execute "BufferLineSortByTabs"
+autocmd! TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankReg +' | endif
 
 if exists(":NvimTreeFind")
   autocmd DirChanged * NerdTreeFind
@@ -807,20 +809,6 @@ command! DisableTmuxKey
          \       execute('echom "enable tmux key"', '')
          \    }
          \ })
-
-if !empty($TMUX)
-  let g:clipboard = {
-        \ 'name': 'myClipboard',
-        \     'copy': {
-        \         '+': 'clipboard-provider copy',
-        \         '*': 'env COPY_PROVIDERS=tmux clipboard-provider copy',
-        \     },
-        \     'paste': {
-        \         '+': 'clipboard-provider paste',
-        \         '*': 'env COPY_PROVIDERS=tmux clipboard-provider paste',
-        \     },
-        \ }
-endif
 
 let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-json',
       \  'coc-post', 'coc-marketplace', 'coc-post','coc-snippets',
