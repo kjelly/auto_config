@@ -160,7 +160,6 @@ let g:coc_snippet_prev = '<c-b>'
 
 let g:nvim_tree_highlight_opened_files=1
 let g:nvim_tree_lsp_diagnostic=1
-let g:nvim_tree_disable_window_picker=0
 let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 }
 let g:nvim_tree_icons = {
     \ 'default': '',
@@ -300,6 +299,7 @@ Plug 'https://github.com/beauwilliams/focus.nvim'
 " Disable scrollbar. Not useful for me.
 " Plug 'https://github.com/petertriho/nvim-scrollbar'
 Plug 'https://github.com/Chaitanyabsprip/present.nvim'
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 
 Plug 'github/copilot.vim'
 Plug 'jdhao/better-escape.vim'
@@ -439,6 +439,7 @@ Plug 'honza/vim-snippets'
 if executable('node')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
+  Plug 'yaegassy/coc-ansible', {'do': 'yarn install --frozen-lockfile'}
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
 else
@@ -690,6 +691,7 @@ autocmd! WinLeave * call WinLeaveAction()
 
 autocmd! BufEnter * silent! execute "BufferLineSortByTabs"
 autocmd! BufNew * silent! execute "BufferLineSortByTabs"
+autocmd! TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankReg +' | endif
 
 if exists(":NvimTreeFind")
   autocmd DirChanged * NerdTreeFind
@@ -811,20 +813,6 @@ command! DisableTmuxKey
          \       execute('echom "enable tmux key"', '')
          \    }
          \ })
-
-if !empty($TMUX)
-  let g:clipboard = {
-        \ 'name': 'myClipboard',
-        \     'copy': {
-        \         '+': 'clipboard-provider copy',
-        \         '*': 'env COPY_PROVIDERS=tmux clipboard-provider copy',
-        \     },
-        \     'paste': {
-        \         '+': 'clipboard-provider paste',
-        \         '*': 'env COPY_PROVIDERS=tmux clipboard-provider paste',
-        \     },
-        \ }
-endif
 
 let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-json',
       \  'coc-post', 'coc-marketplace', 'coc-post','coc-snippets',

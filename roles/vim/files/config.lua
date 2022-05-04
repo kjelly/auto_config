@@ -37,7 +37,7 @@ end
 
 if IsModuleAvailable("nvim-treesitter") then
     require "nvim-treesitter.configs".setup {
-        ensure_installed = "maintained",
+        ensure_installed = "all",
         refactor = {
           highlight_definitions = { enable = true },
           highlight_current_scope = { enable = false},
@@ -584,7 +584,20 @@ if IsModuleAvailable("nvim-tree") then
     view = {
       width = '18%',
       side = 'left',
-      auto_resize = true,
+    },
+    actions = {
+      open_file = {
+        quit_on_open = false,
+        resize_window = false,
+        window_picker = {
+          enable = true,
+          chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+          exclude = {
+            filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
+            buftype = { "nofile", "terminal", "help" },
+          },
+        },
+      },
     }
   }
 end
