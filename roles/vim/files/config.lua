@@ -584,7 +584,6 @@ if IsModuleAvailable("nvim-tree") then
     view = {
       width = '18%',
       side = 'left',
-      auto_resize = true,
     }
   }
 end
