@@ -436,6 +436,7 @@ Plug 'honza/vim-snippets'
 if executable('node')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
+  Plug 'yaegassy/coc-ansible', {'do': 'yarn install --frozen-lockfile'}
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
 else
