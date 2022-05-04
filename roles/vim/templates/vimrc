@@ -160,7 +160,6 @@ let g:coc_snippet_prev = '<c-b>'
 
 let g:nvim_tree_highlight_opened_files=1
 let g:nvim_tree_lsp_diagnostic=1
-let g:nvim_tree_disable_window_picker=0
 let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 }
 let g:nvim_tree_icons = {
     \ 'default': '',
