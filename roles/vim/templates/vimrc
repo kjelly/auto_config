@@ -233,7 +233,6 @@ let g:loaded_python_provider = 0
 let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
 
-
 set nocompatible              " be improved
 filetype off                  " required before plugins
 
@@ -306,6 +305,9 @@ else
   Plug 'google/vim-searchindex'
   Plug 'liuchengxu/vim-which-key'
 endif
+
+" markdown support with some fetures
+Plug 'https://github.com/SidOfc/mkdx'
 
 Plug 'https://github.com/beauwilliams/focus.nvim'
 
@@ -842,6 +844,7 @@ let g:fzf_floaterm_newentries = {
     \ 'title': 'Root Shell',
     \ 'cmd': 'sudo sh' },
   \ }
+let g:mkdx#settings = { 'map': { 'enable': 1, 'prefix': '<leader>md' }, 'checkbox': { 'toggles': [' ', 'x'] } }
 
 " hightlight
 highlight NvimTreeFolderIcon guibg=blue
