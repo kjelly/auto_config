@@ -256,6 +256,7 @@ nnoremap <silent> <leader>llc :<C-u>CocList commands<cr>
 nnoremap <silent> <leader>llo :<C-u>CocList outline<cr>
 nnoremap <silent> <leader>lls :<C-u>CocList outline<cr>
 nnoremap <leader>lse :CocSearch<space>
+nnoremap <leader>lsg :FloatermNew! curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
 nnoremap <silent> <leader>lsw :ISwap<cr>
 nmap <silent> <leader>lrf <Plug>(coc-references)
 nmap <silent> <leader>lrn <Plug>(coc-rename)
@@ -268,7 +269,7 @@ nnoremap <silent> <leader>ltf :TestFile<cr>
 nnoremap <silent> <leader>ltn :TestNearest<cr>
 nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
-nnoremap <leader>lg :FloatermNew curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
+nnoremap <leader>lg <cmd>Neogen<cr>
 nmap <leader>ldn <Plug>(coc-diagnostic-prev)
 nmap <leader>ldp <Plug>(coc-diagnostic-next)
 nnoremap <silent> <leader>lco :CocFzfList commands<cr>

@@ -635,3 +635,7 @@ end
 if IsModuleAvailable("focus") then
   require("focus").setup()
 end
+
+if IsModuleAvailable("neogen") then
+  require('neogen').setup {}
+end
