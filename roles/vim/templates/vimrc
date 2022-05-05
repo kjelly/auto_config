@@ -141,6 +141,18 @@ function! FindFileInTree()
   endif
 endfunction
 
+function! EditTodayNote() abort
+  let path = "~/notes/journals/"
+  let file_name = path.strftime("%Y-%m-%d.md")
+  " Empty buffer
+  if filereadable(expand(file_name))
+    execute "e ".fnameescape(file_name)
+  else
+    system("cp '~/notes/templates/daily template.md' ~/notes/journals/".fnameescape(file_name))
+    execute "e ".fnameescape(file_name)
+  endif
+endfunction
+
 if has('gui_running')
     set background=light
 else
