@@ -306,6 +306,8 @@ else
   Plug 'liuchengxu/vim-which-key'
 endif
 
+Plug 'https://github.com/bennypowers/nvim-regexplainer'
+
 " markdown support with some fetures
 Plug 'https://github.com/SidOfc/mkdx'
 
