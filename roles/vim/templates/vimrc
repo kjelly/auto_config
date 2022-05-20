@@ -367,15 +367,7 @@ Plug 'metakirby5/codi.vim'
 Plug 'chrisbra/Colorizer', { 'on': ['ColorToggle'] }
 " Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
-" set filetype=rest
-" <c-j> for send request
-" http://localhost:9200
-" POST /testindex/testtype
-" {
-"   "key": "new key",
-"   "value": "new value"|
-" }
-Plug 'diepm/vim-rest-console'
+Plug 'https://github.com/NTBBloodbath/rest.nvim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -673,7 +665,7 @@ let g:vrc_curl_opts = {
 
 let g:NERDTreeWinSize=20
 
-{% if nvim %}let test#strategy = "neovim" {% endif %}
+{% if nvim %}let g:test#strategy = "neovim" {% endif %}
 
 let g:leetcode_solution_filetype='python3'
 let g:floaterm_wintype='vsplit'
@@ -700,13 +692,23 @@ endfunction
 " autocmd! BufReadPost,FileReadPost *.smd call AutoDec1()
 " autocmd! BufWritePre,FileWritePre *.smd Enc1
 " autocmd! BufWritePost,FileWritePost *.smd call AutoDec1()
-autocmd! BufWritePre * %s/\s\+$//e
-autocmd! TermOpen * setlocal nonu norelativenumber
-autocmd! WinLeave * call WinLeaveAction()
 
-autocmd! BufEnter * silent! execute "BufferLineSortByTabs"
-autocmd! BufNew * silent! execute "BufferLineSortByTabs"
-autocmd! TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankReg +' | endif
+augroup basic
+  autocmd!
+  autocmd! BufWritePre * %s/\s\+$//e
+  autocmd! TermOpen * setlocal nonu norelativenumber
+  autocmd! WinLeave * call WinLeaveAction()
+
+  autocmd! BufEnter * silent! execute "BufferLineSortByTabs"
+  autocmd! BufNew * silent! execute "BufferLineSortByTabs"
+  autocmd! TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankReg +' | endif
+augroup end
+
+augroup rest_nvim
+  autocmd FileType http nnoremap <buffer> <localleader>rr <Plug>RestNvim<cr>
+  autocmd FileType http nnoremap <buffer> <localleader>rl <Plug>RestNvimLast<cr>
+  autocmd FileType http nnoremap <buffer> <localleader>rp <Plug>RestNvimPreview<cr>
+augroup end
 
 if exists(":NvimTreeFind")
   autocmd DirChanged * NerdTreeFind
