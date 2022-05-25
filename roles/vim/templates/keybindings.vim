@@ -70,8 +70,10 @@ inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+if exists(':CocOpenLog')
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                                \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+endif
 
 " Find file
 function FindFile()
@@ -181,9 +183,13 @@ nmap <A-p> <c-p>
 tmap <A-p> <c-p>
 cmap <A-p> <c-p>
 nmap <A-n> <c-n>
+if exists('CocOpenLog')
 inoremap <silent><expr> <A-n>
       \ pumvisible() ? "\<C-n>" :
       \ coc#refresh()
+else
+imap <A-n> <c-n>
+endif
 tmap <A-n> <c-n>
 cmap <A-n> <c-n>
 
@@ -289,6 +295,14 @@ if exists(':CocOpenLog')
   inoremap <silent><nowait><expr> <c-g> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
   vnoremap <silent><nowait><expr> <c-g> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+else
+  nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+  nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+  nnoremap <silent> <leader>ld <cmd>lua vim.diagnostic.open_float()<CR>
+  nnoremap <silent> [d <cmd>lua vim.diagnostic.goto_prev()<CR>
+  nnoremap <silent> ]d <cmd>lua vim.diagnostic.goto_next()<CR>
 endif
 
 {% endif %}

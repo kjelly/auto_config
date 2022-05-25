@@ -60,10 +60,6 @@ nnoremap <Leader>cd :call TabCD()<cr>
 nnoremap <leader>cc :call RunShellAndShow('')<left><left>
 "nnoremap <leader>co  " for rnadom colorscheme
 
-nnoremap <silent> <leader>cn  :<C-u>CocNext<CR>
-nnoremap <silent> <leader>cp :<C-u>CocPrev<CR>
-nnoremap <silent> <leader>cr  :<C-u>CocListResume<CR>
-
 nnoremap <leader>fx :Explore<space>
 nnoremap <leader>fr :Explore scp://
 nnoremap <silent> <leader>fb :Rexplore<CR>
@@ -238,6 +234,10 @@ nnoremap <leader>al :AnyJumpLastResults<CR>
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 
+nnoremap <silent> <leader>cn  :<C-u>CocNext<CR>
+nnoremap <silent> <leader>cp :<C-u>CocPrev<CR>
+nnoremap <silent> <leader>cr  :<C-u>CocListResume<CR>
+
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 function! s:show_documentation()
@@ -248,34 +248,47 @@ function! s:show_documentation()
   endif
 endfunction
 
-nmap <silent> gd <Plug>(coc-definition)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-nnoremap <silent> <leader>lld :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <leader>lle :<C-u>CocList extensions<cr>
-nnoremap <silent> <leader>llc :<C-u>CocList commands<cr>
-nnoremap <silent> <leader>llo :<C-u>CocList outline<cr>
-nnoremap <silent> <leader>lls :<C-u>CocList outline<cr>
-nnoremap <leader>lse :CocSearch<space>
+if exists(':CocOpenLog')
+  nmap <silent> gd <Plug>(coc-definition)
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
+  nnoremap <silent> <leader>lld :<C-u>CocList diagnostics<cr>
+  nnoremap <silent> <leader>lle :<C-u>CocList extensions<cr>
+  nnoremap <silent> <leader>llc :<C-u>CocList commands<cr>
+  nnoremap <silent> <leader>llo :<C-u>CocList outline<cr>
+  nnoremap <silent> <leader>lls :<C-u>CocList outline<cr>
+  nnoremap <leader>lse :CocSearch<space>
+  nmap <silent> <leader>lrf <Plug>(coc-references)
+  nmap <silent> <leader>lrn <Plug>(coc-rename)
+  nnoremap <silent> <leader>lf :call CocAction('format')<cr>
+  nmap <silent> <leader>li <Plug>(coc-implementation)
+  nnoremap <silent> <leader>la :CocAction<cr>
+  nnoremap <silent> <leader>lll :CocList<cr>
+  nmap <silent> <leader>ltd <Plug>(coc-type-definition)
+  nmap <leader>ldn <Plug>(coc-diagnostic-prev)
+  nmap <leader>ldp <Plug>(coc-diagnostic-next)
+  nnoremap <silent> <leader>lco :CocFzfList commands<cr>
+  nnoremap <silent> <leader>lca <Plug>(coc-calc-result-append)
+  nnoremap <silent> <leader>lcr <Plug>(coc-calc-result-replace)
+  nnoremap <silent> <leader>lz :CocFzfList<cr>
+else
+  nnoremap <silent> <leader>ls <cmd>lua vim.lsp.buf.signature_help()<cr>
+  nnoremap <silent> <leader>lwa <cmd>lua vim.lsp.buf.add_workspace_folder()<cr>
+  nnoremap <silent> <leader>lwr <cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>
+  nnoremap <silent> <leader>lwl <cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>
+  nnoremap <silent> <leader>lD <cmd>lua vim.lsp.buf.type_definition()<cr>
+  nnoremap <silent> <leader>lrn <cmd>lua vim.lsp.buf.rename()<cr>
+  nnoremap <silent> <leader>la <cmd>lua vim.lsp.buf.code_action()<cr>
+  nnoremap <silent> <leader>lre <cmd>lua vim.lsp.buf.references()<cr>
+  nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.formatting()<cr>
+endif
+
 nnoremap <leader>lsg :FloatermNew! curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
 nnoremap <silent> <leader>lsw :ISwap<cr>
-nmap <silent> <leader>lrf <Plug>(coc-references)
-nmap <silent> <leader>lrn <Plug>(coc-rename)
-nnoremap <silent> <leader>lf :call CocAction('format')<cr>
-nmap <silent> <leader>li <Plug>(coc-implementation)
-nnoremap <silent> <leader>la :CocAction<cr>
-nnoremap <silent> <leader>lll :CocList<cr>
-nmap <silent> <leader>ltd <Plug>(coc-type-definition)
 nnoremap <silent> <leader>ltf :TestFile<cr>
 nnoremap <silent> <leader>ltn :TestNearest<cr>
 nnoremap <silent> <leader>lts :TestSuite<cr>
 nnoremap <silent> <leader>ltv :TestVisit<cr>
 nnoremap <leader>lg <cmd>Neogen<cr>
-nmap <leader>ldn <Plug>(coc-diagnostic-prev)
-nmap <leader>ldp <Plug>(coc-diagnostic-next)
-nnoremap <silent> <leader>lco :CocFzfList commands<cr>
-nnoremap <silent> <leader>lca <Plug>(coc-calc-result-append)
-nnoremap <silent> <leader>lcr <Plug>(coc-calc-result-replace)
-nnoremap <silent> <leader>lz :CocFzfList<cr>
 
 nnoremap <silent> <leader>lel :LeetCodeList<cr>
 nnoremap <silent> <leader>les :LeetCodeSubmit<cr>
