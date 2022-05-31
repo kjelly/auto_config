@@ -271,15 +271,26 @@ if exists(':CocOpenLog')
   nnoremap <silent> <leader>lcr <Plug>(coc-calc-result-replace)
   nnoremap <silent> <leader>lz :CocFzfList<cr>
 else
-  nnoremap <silent> <leader>ls <cmd>lua vim.lsp.buf.signature_help()<cr>
   nnoremap <silent> <leader>lwa <cmd>lua vim.lsp.buf.add_workspace_folder()<cr>
   nnoremap <silent> <leader>lwr <cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>
   nnoremap <silent> <leader>lwl <cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>
-  nnoremap <silent> <leader>lD <cmd>lua vim.lsp.buf.type_definition()<cr>
+  nnoremap <silent> <leader>ldt <cmd>lua vim.lsp.buf.type_definition()<cr>
+  nnoremap <silent> <leader>lde <cmd>lua vim.lsp.buf.definition()<cr>
+  nnoremap <silent> <leader>ldE <cmd>lua vim.lsp.buf.declaration_call()<cr>
   nnoremap <silent> <leader>lrn <cmd>lua vim.lsp.buf.rename()<cr>
   nnoremap <silent> <leader>la <cmd>lua vim.lsp.buf.code_action()<cr>
   nnoremap <silent> <leader>lre <cmd>lua vim.lsp.buf.references()<cr>
   nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.formatting()<cr>
+  nnoremap <silent> <leader>li <cmd>lua require'fzf_lsp'.implementation_call()<cr>
+  nnoremap <silent> <leader>li <cmd>lua <cr>
+  nnoremap <silent> <leader>li <cmd>lua <cr>
+  nnoremap <silent> <leader>li <cmd>lua <cr>
+  nnoremap <silent> <leader>li <cmd>lua <cr>
+  nnoremap <silent> <leader>lsa <cmd>lua vim.lsp.buf.signature_help()<cr>
+  nnoremap <silent> <leader>lsy <cmd>lua require'fzf_lsp'.document_symbol_call()<cr>
+  nnoremap <silent> <leader>lsY <cmd>lua require'fzf_lsp'.workspace_symbol_call()<cr>
+  nnoremap <silent> <leader>lsc <cmd>lua require'fzf_lsp'.incoming_calls_call()<cr>
+  nnoremap <silent> <leader>lsC <cmd>lua require'fzf_lsp'.outcoming_calls_call()<cr>
 endif
 
 nnoremap <leader>lsg :FloatermNew! curl 'cht.sh/<c-r>=&filetype<cr>/'<left>

@@ -427,7 +427,6 @@ endif
 
 {% if programming %}
 
-Plug 'https://github.com/liuchengxu/vista.vim', { 'on': ['Vista', 'Vista!!']}
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
 
@@ -445,10 +444,11 @@ endif
 
 Plug 'honza/vim-snippets'
 
-if executable('node')
+if executable('node1')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
   Plug 'yaegassy/coc-ansible', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'https://github.com/liuchengxu/vista.vim', { 'on': ['Vista', 'Vista!!']}
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
 else
@@ -459,7 +459,11 @@ else
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/nvim-cmp'
-
+  Plug 'https://github.com/windwp/nvim-autopairs'
+  Plug 'https://github.com/L3MON4D3/LuaSnip'
+  Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+  Plug 'https://github.com/gfanto/fzf-lsp.nvim'
+  Plug 'https://github.com/stevearc/aerial.nvim'
 endif
 
 " project-wide async search and replace

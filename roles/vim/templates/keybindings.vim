@@ -61,7 +61,11 @@ inoremap <C-t> <Esc>:tabnew %<CR>
 nnoremap <C-e> :Commands<cr>
 
 " Tag list
-nnoremap <C-s> :Vista!!<cr>
+if exists(':Vista')
+  nnoremap <C-s> :Vista!!<cr>
+else
+  nnoremap <C-s> <cmd>AerialToggle!<CR>
+endif
 
 inoremap <C-s> <Esc>:w<cr>a
 
