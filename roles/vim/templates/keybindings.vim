@@ -22,7 +22,7 @@ inoremap <S-Tab> <Esc><<i
 nnoremap <S-Tab> <<
 nnoremap <Tab> >>
 
-nnoremap <a-f> <c-w>w
+nnoremap <m-f> <c-w>w
 
 nnoremap <C-j> <PageDown>
 nnoremap <C-k> <PageUp>
@@ -134,10 +134,10 @@ nmap  -  <Plug>(choosewin)
 nnoremap <leader>et :tabnew<cr>:read !grep # -P -e<space>
 {% if nvim %}
 
-cnoremap <A-h> <Left>
-cnoremap <A-j> <Down>
-cnoremap <A-k> <Up>
-cnoremap <A-l> <Right>
+cnoremap <m-h> <Left>
+cnoremap <m-j> <Down>
+cnoremap <m-k> <Up>
+cnoremap <m-l> <Right>
 
 {% endif %}
 
@@ -163,117 +163,117 @@ vmap <C-c> y:call SendViaOSC52(getreg('"'))<cr>
 {% if nvim %}
 
 " Since I use hterm in tab, I need another key for <c-w>
-imap <a-bs> <c-w>
-nmap <a-bs> <c-w>
-tmap <a-bs> <c-w>
+imap <m-bs> <c-w>
+nmap <m-bs> <c-w>
+tmap <m-bs> <c-w>
 
 tnoremap <Insert> <C-\><C-n>
 "tnoremap <C-[> <C-\><C-n> Don't enable this. Esc is useful when vim in vim
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
-inoremap <A-h> <Esc><C-w>h
-inoremap <A-j> <Esc><C-w>j
-inoremap <A-k> <Esc><C-w>k
-inoremap <A-l> <Esc><C-w>l
+tnoremap <m-h> <C-\><C-n><C-w>h
+tnoremap <m-j> <C-\><C-n><C-w>j
+tnoremap <m-k> <C-\><C-n><C-w>k
+tnoremap <m-l> <C-\><C-n><C-w>l
+nnoremap <m-h> <C-w>h
+nnoremap <m-j> <C-w>j
+nnoremap <m-k> <C-w>k
+nnoremap <m-l> <C-w>l
+inoremap <m-h> <Esc><C-w>h
+inoremap <m-j> <Esc><C-w>j
+inoremap <m-k> <Esc><C-w>k
+inoremap <m-l> <Esc><C-w>l
 
-imap <A-p> <c-p>
-nmap <A-p> <c-p>
-tmap <A-p> <c-p>
-cmap <A-p> <c-p>
-nmap <A-n> <c-n>
+imap <m-p> <c-p>
+nmap <m-p> <c-p>
+tmap <m-p> <c-p>
+cmap <m-p> <c-p>
+nmap <m-n> <c-n>
 if exists('CocOpenLog')
-inoremap <silent><expr> <A-n>
+inoremap <silent><expr> <m-n>
       \ pumvisible() ? "\<C-n>" :
       \ coc#refresh()
 else
-imap <A-n> <c-n>
+imap <m-n> <c-n>
 endif
-tmap <A-n> <c-n>
-cmap <A-n> <c-n>
+tmap <m-n> <c-n>
+cmap <m-n> <c-n>
 
-inoremap <A-o> <Esc>:Buffers<cr>
-nnoremap <expr> <A-o> &filetype=='floaterm' ? ':Floaterms<cr>' : ':Buffers<cr>'
-tnoremap <A-o> <C-\><C-n>:Floaterms<cr>
+inoremap <m-o> <Esc>:Buffers<cr>
+nnoremap <expr> <m-o> &filetype=='floaterm' ? ':Floaterms<cr>' : ':Buffers<cr>'
+tnoremap <m-o> <C-\><C-n>:Floaterms<cr>
 
-inoremap <A-u> <Esc>:History:<cr>
-nnoremap <A-u> :History:<cr>
-tnoremap <A-u> <C-\><C-n>:History:<cr>
+inoremap <m-u> <Esc>:History:<cr>
+nnoremap <m-u> :History:<cr>
+tnoremap <m-u> <C-\><C-n>:History:<cr>
 
 " buufer switch
-nnoremap <expr> <A-d> &filetype=="floaterm" ? ":FloatermPrev<cr>" : "<c-^>"
-inoremap <A-d> <Esc><c-^>a
-tnoremap <A-d> <C-\><C-n>:FloatermNext<cr>i
+nnoremap <expr> <m-d> &filetype=="floaterm" ? ":FloatermPrev<cr>" : "<c-^>"
+inoremap <m-d> <Esc><c-^>a
+tnoremap <m-d> <C-\><C-n>:FloatermNext<cr>i
 
 " save
-nnoremap <A-s> :w<cr>
-inoremap <A-s> <Esc>:w<cr>
-tnoremap <A-s> <C-\><C-n>
+nnoremap <m-s> :w<cr>
+inoremap <m-s> <Esc>:w<cr>
+tnoremap <m-s> <C-\><C-n>
 
-imap <a-w> <c-w>
-nmap <a-w> <c-w>
-tmap <a-w> <c-w>
-cmap <a-w> <c-w>
-vmap <a-w> <c-w>
+imap <m-w> <c-w>
+nmap <m-w> <c-w>
+tmap <m-w> <c-w>
+cmap <m-w> <c-w>
+vmap <m-w> <c-w>
 
 " Paste text
-tnoremap <A-v> <C-\><C-n>pi
-inoremap <A-v> <Esc>pi
+tnoremap <m-v> <C-\><C-n>pi
+inoremap <m-v> <Esc>pi
 
-nnoremap <A-r> :lua MyRun()<cr>
-inoremap <A-r> <Esc>:lua MyRun()<cr>
-tnoremap <A-r> <c-\><c-n>:lua MyRun()<cr>
-nnoremap <A-e> :call RunShellAndShow('')<left><left>
-inoremap <A-e> <Esc>:call RunShellAndShow('')<left><left>
-" tnoremap <A-e> <c-\><c-n>:call RunShellAndShow('')<left><left> " needed by br
+nnoremap <m-r> :lua MyRun()<cr>
+inoremap <m-r> <Esc>:lua MyRun()<cr>
+tnoremap <m-r> <c-\><c-n>:lua MyRun()<cr>
+nnoremap <m-e> :call RunShellAndShow('')<left><left>
+inoremap <m-e> <Esc>:call RunShellAndShow('')<left><left>
+" tnoremap <m-e> <c-\><c-n>:call RunShellAndShow('')<left><left> " needed by br
 
-imap <A-g> <Esc><Plug>(choosewin)
-nmap <A-g> <Plug>(choosewin)
-tmap <A-g> <C-\><C-n><Plug>(choosewin)
+imap <m-g> <Esc><Plug>(choosewin)
+nmap <m-g> <Plug>(choosewin)
+tmap <m-g> <C-\><C-n><Plug>(choosewin)
 
-inoremap <A-m> <Esc>:Marks<cr>
-nnoremap <A-m> :Marks<cr>
+inoremap <m-m> <Esc>:Marks<cr>
+nnoremap <m-m> :Marks<cr>
 
-inoremap <a-;> <Esc>:call TermToggle()<cr>
-nnoremap <a-;> :call TermToggle()<cr>
-tnoremap <a-;> <c-\><c-n>:call TermToggle()<cr>
+inoremap <m-;> <Esc>:call TermToggle()<cr>
+nnoremap <m-;> :call TermToggle()<cr>
+tnoremap <m-;> <c-\><c-n>:call TermToggle()<cr>
 
-inoremap <silent> <a-:> <Esc>:FloatermNew<cr>
-nnoremap <silent> <a-:> :FloatermNew<cr>
-tnoremap <silent> <a-:> <c-\><c-n>:FloatermNew<cr>
+inoremap <silent> <m-:> <Esc>:FloatermNew<cr>
+nnoremap <silent> <m-:> :FloatermNew<cr>
+tnoremap <silent> <m-:> <c-\><c-n>:FloatermNew<cr>
 
-nnoremap <silent> <a-'> :FloatermNext<cr>
-tnoremap <silent> <a-'> <c-\><c-n>:FloatermNext<cr>i
+nnoremap <silent> <m-'> :FloatermNext<cr>
+tnoremap <silent> <m-'> <c-\><c-n>:FloatermNext<cr>i
 
-inoremap <silent> <a-"> <Esc>:FloatermPrev<cr>
-nnoremap <silent> <a-"> :FloatermPrev<cr>
-tnoremap <silent> <a-"> <c-\><c-n>:FloatermPrev<cr>
+inoremap <silent> <m-"> <Esc>:FloatermPrev<cr>
+nnoremap <silent> <m-"> :FloatermPrev<cr>
+tnoremap <silent> <m-"> <c-\><c-n>:FloatermPrev<cr>
 
-inoremap <silent> <a-Enter> <Esc>:FloatermSend<cr>
-nnoremap <silent> <a-Enter> :FloatermSend<cr>
-" tnoremap <silent> <a-Enter> <c-\><c-n>:FloatermSend<cr> " needed by br
-vnoremap <silent> <a-Enter> :FloatermSend<cr>
+inoremap <silent> <m-Enter> <Esc>:FloatermSend<cr>
+nnoremap <silent> <m-Enter> :FloatermSend<cr>
+" tnoremap <silent> <m-Enter> <c-\><c-n>:FloatermSend<cr> " needed by br
+vnoremap <silent> <m-Enter> :FloatermSend<cr>
 
 inoremap <silent> <s-a-enter> <Esc>:%FloatermSend<cr>
 nnoremap <silent> <s-a-enter> :%FloatermSend<cr>
 
 " Location list
-inoremap <A-[> <Esc>:lp<cr>
-nnoremap <A-[> :lp<cr>
-tnoremap <A-[> <C-\><C-n><C-w>:lp<cr>
-inoremap <A-]> <Esc>:lne<cr>
-nnoremap <A-]> :lne<cr>
-tnoremap <A-]> <C-\><C-n><C-w>:lne<cr>
+inoremap <m-[> <Esc>:lp<cr>
+nnoremap <m-[> :lp<cr>
+tnoremap <m-[> <C-\><C-n><C-w>:lp<cr>
+inoremap <m-]> <Esc>:lne<cr>
+nnoremap <m-]> :lne<cr>
+tnoremap <m-]> <C-\><C-n><C-w>:lne<cr>
 
-inoremap <A-c> <Esc>:lua multiTermRunCurrentLine()<cr>i
-nnoremap <A-c> <Esc>:lua multiTermRunCurrentLine()<cr>
-nnoremap <A-x> <Esc>:lua multiTermRunCurrentSelectedLines()<cr>
-vnoremap <A-x> :lua multiTermRunCurrentSelectedLines()<cr>
+inoremap <m-c> <Esc>:lua multiTermRunCurrentLine()<cr>i
+nnoremap <m-c> <Esc>:lua multiTermRunCurrentLine()<cr>
+nnoremap <m-x> <Esc>:lua multiTermRunCurrentSelectedLines()<cr>
+vnoremap <m-x> :lua multiTermRunCurrentSelectedLines()<cr>
 
 let g:maxWindow=0
 function ResizeWin()
@@ -286,11 +286,11 @@ function ResizeWin()
   endif
 endfunction
 
-inoremap <a-`> <Esc>:call ResizeWin()<cr>a
-nnoremap <a-`> :call ResizeWin()<cr>
-tnoremap <a-`> <c-\><c-n>:call ResizeWin()<cr>a
+inoremap <m-`> <Esc>:call ResizeWin()<cr>a
+nnoremap <m-`> :call ResizeWin()<cr>
+tnoremap <m-`> <c-\><c-n>:call ResizeWin()<cr>a
 
-nnoremap <a-q> :call jobstart('workspace')<cr>
+nnoremap <m-q> :call jobstart('workspace')<cr>
 
 if exists(':CocOpenLog')
   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
