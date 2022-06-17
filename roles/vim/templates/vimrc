@@ -170,40 +170,6 @@ imap <C-f> <Plug>(coc-snippets-expand-jump)
 let g:coc_snippet_next = '<c-f>'
 let g:coc_snippet_prev = '<c-b>'
 
-let g:nvim_tree_highlight_opened_files=1
-let g:nvim_tree_lsp_diagnostic=1
-let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 }
-let g:nvim_tree_icons = {
-    \ 'default': '',
-    \ 'symlink': '',
-    \ 'git': {
-    \   'unstaged': "❌",
-    \   'staged': "✅",
-    \   'unmerged': "",
-    \   'renamed': "㈴",
-    \   'untracked': "🚩",
-    \   'deleted': "",
-    \   'ignored': "◌"
-    \   },
-    \ 'folder': {
-    \   'arrow_open': "",
-    \   'arrow_closed': "",
-    \   'default': "",
-    \   'open': "",
-    \   'empty': "",
-    \   'empty_open': "",
-    \   'symlink': "",
-    \   'symlink_open': "",
-    \   },
-    \   'lsp': {
-    \     'hint': "",
-    \     'info': "",
-    \     'warning': "",
-    \     'error': "",
-    \   }
-    \ }
-let g:nvim_tree_symlink_arrow = ''
-
 let g:indent_blankline_buftype_exclude = ['terminal']
 let g:indent_blankline_filetype_exclude=['help', 'NvimTree', 'vista', 'floaterm']
 let g:indent_blankline_char_list = ['|', '¦', '┆', '┊']
@@ -307,6 +273,7 @@ else
 endif
 
 Plug 'https://github.com/bennypowers/nvim-regexplainer'
+Plug 'towolf/vim-helm'
 
 " markdown support with some fetures
 Plug 'https://github.com/SidOfc/mkdx'
