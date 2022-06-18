@@ -68,7 +68,10 @@
   get_url: url={{ ripgrep_url }} dest=/tmp/ripgrep.tar.gz
 
 - name: unarchive ripgrep.tar.gz
-  unarchive: src="/tmp/ripgrep.tar.gz" dest="/tmp"
+  unarchive:
+    remote_src: yes
+    src: /tmp/ripgrep.tar.gz
+    dest: /tmp
 
 - file: path="~/.config/nvim/bin" state="directory"
 
@@ -80,6 +83,9 @@
   get_url: url={{ fd_download_url }} dest=/tmp/fd.tar.gz
 
 - name: unarchive fd.tar.gz
-  unarchive: src="/tmp/fd.tar.gz" dest="/tmp"
+  unarchive:
+    remote_src: yes
+    src: "/tmp/fd.tar.gz"
+    dest: /tmp
 
 - shell: cp /tmp/fd-*/fd ~/.config/nvim/bin
