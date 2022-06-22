@@ -763,11 +763,13 @@ if IsModuleAvailable("cmp") then
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       { name = 'luasnip' }, -- For luasnip users.
+      { name = 'copilot' },
+      { name = 'cmp_tabnine' },
     }, {
       { name = 'buffer' },
     })
@@ -832,4 +834,28 @@ if IsModuleAvailable("cmp") then
   end
   require'fzf_lsp'.setup()
   require('aerial').setup({})
+
+  local tabnine = require('cmp_tabnine.config')
+  tabnine:setup({
+    max_lines = 1000;
+    max_num_results = 20;
+    sort = true;
+    run_on_every_keystroke = true;
+    snippet_placeholder = '..';
+    ignored_file_types = {
+    };
+    show_prediction_strength = false;
+  })
+end
+
+if IsModuleAvailable("ufo") then
+  vim.wo.foldcolumn = '1'
+  vim.wo.foldlevel = 99
+  vim.wo.foldenable = true
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true
+  }
+  require('ufo').setup()
 end

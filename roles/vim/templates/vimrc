@@ -272,6 +272,9 @@ else
   Plug 'liuchengxu/vim-which-key'
 endif
 
+Plug 'kevinhwang91/promise-async'
+Plug 'https://github.com/kevinhwang91/nvim-ufo'
+
 Plug 'https://github.com/bennypowers/nvim-regexplainer'
 Plug 'towolf/vim-helm'
 
@@ -429,6 +432,7 @@ else
   Plug 'https://github.com/windwp/nvim-autopairs'
   Plug 'https://github.com/L3MON4D3/LuaSnip'
   Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+  Plug 'https://github.com/hrsh7th/cmp-copilot'
   Plug 'https://github.com/gfanto/fzf-lsp.nvim'
   Plug 'https://github.com/stevearc/aerial.nvim'
 endif
