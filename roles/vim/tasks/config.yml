@@ -113,3 +113,60 @@
 - lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_hide_paid_only"
               line="let g:leetcode_hide_paid_only='1'"
   ignore_errors: yes
+
+- name: install lang server
+  npm:
+    name: "{{ item }}"
+    global: yes
+    state: latest
+  with_items:
+    - pyright
+    - "@ansible/ansible-language-server"
+    - "vscode-langservers-extracted"
+    - "vim-language-server"
+    - "sql-language-server"
+
+- name: get lua-langserver
+  uri:
+    url: https://api.github.com/repos/sumneko/lua-language-server/releases/latest
+    return_content: true
+  register: json_reponse
+
+- name: download lua-langserver
+  get_url:
+    url: "{{ json_reponse.json.tarball_url }}"
+    dest: ./tmp.tar.gz
+
+- name: untar /tmp/tar.gz
+  unarchive:
+    src: ./tmp.tar.gz
+    dest: /tmp/
+    creates: ~/lua-langserver/bin/lua-language-server
+
+- name: move lua-langserver to home
+  shell: mv /tmp/sumneko-lua-language-server* ~
+  args:
+    creates: ~/lua-langserver/bin/lua-language-server
+  ignore_errors: yes
+
+- name: download terraform-ls
+  get_url:
+    url: "https://releases.hashicorp.com/terraform-ls/{{ terraformls_version }}/terraform-ls_{{ terraformls_version }}_linux_amd64.zip"
+    dest: /tmp/terraform-ls.zip
+
+- name: unzip terraformls
+  unarchive:
+    src: /tmp/terraform-ls.zip
+    dest: /tmp/
+
+- name: mv terraform-ls to ~/bin/
+  shell: mv /tmp/terraform-ls ~/bin/
+
+- name: download marksman
+  get_url:
+    url: "https://github.com/artempyanykh/marksman/releases/download/{{ marksman_version }}/marksman-linux"
+    dest: /tmp/marksman
+
+- name: mv marksman to ~/bin/
+  shell: mv /tmp/marksman ~/bin/
+

@@ -3,7 +3,9 @@ local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g      -- a table to access global variables
 local api = vim.api
 
-local langservers = { 'pyright', 'rust_analyzer', 'tsserver', 'dartls' }
+local langservers = { 'pyright', 'rust_analyzer', 'tsserver', 'dartls', 'jsonls',
+                      'ansiblels', 'terraformls', 'marksman', 'vimls', 'sqlls', 'sumneko_lua',
+                      'dockerls'}
 
 local function indexOf(array, value)
     for i, v in ipairs(array) do
@@ -776,6 +778,7 @@ if IsModuleAvailable("cmp") then
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
+      { name = 'path' },
       { name = 'luasnip' }, -- For luasnip users.
       { name = 'copilot' },
       { name = 'cmp_tabnine' },
@@ -886,4 +889,5 @@ if IsModuleAvailable("ufo") then
       lineFoldingOnly = true
   }
   require('ufo').setup()
+  require('lspconfig').ufo.setup {}
 end
