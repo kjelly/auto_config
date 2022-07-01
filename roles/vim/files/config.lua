@@ -5,7 +5,7 @@ local api = vim.api
 
 local langservers = { 'pyright', 'rust_analyzer', 'tsserver', 'dartls', 'jsonls',
                       'ansiblels', 'terraformls', 'marksman', 'vimls', 'sqlls', 'sumneko_lua',
-                      'dockerls'}
+                      'dockerls', 'jedi_language_server'}
 
 local function indexOf(array, value)
     for i, v in ipairs(array) do
@@ -697,6 +697,9 @@ if IsModuleAvailable("nvim-tree") then
 end
 
 if IsModuleAvailable("lspconfig") then
+  require("nvim-lsp-installer").setup {
+    automatic_installation = true,
+  }
   for _, lsp in pairs(langservers) do
     require('lspconfig')[lsp].setup {
     }
@@ -889,5 +892,4 @@ if IsModuleAvailable("ufo") then
       lineFoldingOnly = true
   }
   require('ufo').setup()
-  require('lspconfig').ufo.setup {}
 end

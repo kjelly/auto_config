@@ -201,6 +201,9 @@ inoremap <m-o> <Esc>:Buffers<cr>
 nnoremap <expr> <m-o> &filetype=='floaterm' ? ':Floaterms<cr>' : ':Buffers<cr>'
 tnoremap <m-o> <C-\><C-n>:Floaterms<cr>
 
+inoremap <m-i> <cmd>Copilot<cr>
+nnoremap <m-i> <cmd>Copilot<cr>
+
 inoremap <m-u> <Esc>:History:<cr>
 nnoremap <m-u> :History:<cr>
 tnoremap <m-u> <C-\><C-n>:History:<cr>

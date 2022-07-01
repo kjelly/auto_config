@@ -114,6 +114,12 @@
               line="let g:leetcode_hide_paid_only='1'"
   ignore_errors: yes
 
+
+- name: install lang server by pip
+  pip:
+    name: "{{ name }}"
+  with_items:
+    - python-lsp-server[all]
 - name: install lang server
   npm:
     name: "{{ item }}"
