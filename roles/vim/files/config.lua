@@ -798,6 +798,11 @@ if IsModuleAvailable("cmp") then
           end
           vim_item.kind = ''
         end
+        if entry.source.name == "copilot" then
+          vim_item.kind = "[] Copilot"
+          vim_item.kind_hl_group = "CmpItemKindCopilot"
+          return vim_item
+        end
         vim_item.menu = menu
         return vim_item
       end
