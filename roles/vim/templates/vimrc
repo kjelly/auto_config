@@ -687,6 +687,8 @@ augroup basic
   autocmd! BufEnter * silent! execute "BufferLineSortByTabs"
   autocmd! BufNew * silent! execute "BufferLineSortByTabs"
   autocmd! TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankReg +' | endif
+  au! BufRead */tasks/*.yaml,*/tasks/*.yml set ft=yaml.ansible
+
 augroup end
 
 augroup rest_nvim
