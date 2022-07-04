@@ -3,9 +3,9 @@ local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g      -- a table to access global variables
 local api = vim.api
 
-local langservers = { 'pyright', 'rust_analyzer', 'tsserver', 'dartls', 'jsonls',
-                      'ansiblels', 'terraformls', 'marksman', 'vimls', 'sqlls', 'sumneko_lua',
-                      'dockerls', 'jedi_language_server'}
+local langservers = {
+'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'emmet_ls', 'gopls', 'graphql', 'html', 'jedi_language_server', 'jsonls', 'marksman', 'pylsp', 'pyright', 'rust_analyzer', 'sourcery', 'sqlls', 'sqls', 'sumneko_lua', 'terraformls', 'tsserver', 'vimls', 'yamlls'
+}
 
 local function indexOf(array, value)
     for i, v in ipairs(array) do
