@@ -3,7 +3,7 @@
     repo: 'ppa:jonathonf/vim'
     state: present
     validate_certs: no
-  become: yes
+  become: true
 
 - name: Install packages
   apt: name={{ item }} state=present

@@ -17,4 +17,4 @@
 - git:
     repo: 'https://github.com/vifm/vifm-colors'
     dest: ~/.vifm/colors/
-  ignore_errors: yes
+  ignore_errors: true

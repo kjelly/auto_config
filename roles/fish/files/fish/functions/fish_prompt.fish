@@ -2,11 +2,18 @@ function _git_branch_name
     echo (__fish_git_prompt)
 end
 
+function command_run_time
+    if test $CMD_DURATION
+        # Show duration of the last command in seconds
+        set duration (echo "$CMD_DURATION 1000" | awk '{printf "%.3fs", $1 / $2}')
+        echo $duration
+    end
+    echo "😄"
+end
 
 function _is_git_dirty
     echo (command git status -s --ignore-submodules=dirty ^/dev/null)
 end
-
 
 function fish_prompt
     set -l last_status $status
@@ -59,7 +66,8 @@ function fish_prompt
     else
       set last_status_color $normal
     end
-    echo -n -s $last_status_color ' [' $last_status ']' $normal
+    echo -n -s $last_status_color ' [' $last_status '] ' $normal (command_run_time)
+
 
 
     # Terminate with a space

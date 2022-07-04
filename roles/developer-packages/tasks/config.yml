@@ -10,17 +10,17 @@
     path: "~/.config/fish/config.fish"
     state: "present"
     line: "source ~/.asdf/asdf.fish"
-  ignore_errors: yes
+  ignore_errors: true
 
 - lineinfile:
     path: "~/.bashrc"
     state: "present"
     line: ". $HOME/.asdf/asdf.sh"
-  ignore_errors: yes
+  ignore_errors: true
 
 - lineinfile:
     path: "~/.zshrc"
     state: "present"
     line: ". $HOME/.asdf/asdf.sh"
-  ignore_errors: yes
+  ignore_errors: true
 

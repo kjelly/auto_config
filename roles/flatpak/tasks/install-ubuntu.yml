@@ -3,12 +3,12 @@
 - apt_repository:
     repo: ppa:alexlarsson/flatpak
     state: present
-  become: yes
+  become: true
 
 - apt:
     name: flatpak
     update_cache: yes
-  become: yes
+  become: true
 
 - shell: "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
-  become: yes
+  become: true

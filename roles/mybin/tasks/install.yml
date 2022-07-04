@@ -8,19 +8,19 @@
       - qemu-system
       - qemu-utils
   when: ansible_os_family == 'Debian'
-  become: yes
+  become: true
 
 - apt: name={{ item }} state=present
   with_items:
       - qemu-common
   ignore_errors: true
   when: ansible_os_family == 'Debian'
-  become: yes
+  become: true
 
 - file: path=~/mybin state=directory
 
 - lineinfile: dest=~/.zshrc line="export PATH=\"`pwd`/mybin/:$PATH\""
-  ignore_errors: yes
+  ignore_errors: true
 
 - lineinfile: dest=~/.bashrc line="export PATH=\"`pwd`/mybin/:$PATH\""
-  ignore_errors: yes
+  ignore_errors: true

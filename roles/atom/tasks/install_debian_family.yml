@@ -12,11 +12,11 @@
   always:
     - name: instalal atom from deb file
       apt: deb=/tmp/deb
-      become: yes
+      become: true
 
 - name: install package
   apt: name="{{ item }}" state=present
   with_items:
     - "silversearcher-ag"
   when: ansible_distribution == 'Ubuntu'
-  become: yes
+  become: true

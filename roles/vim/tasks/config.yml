@@ -108,18 +108,19 @@
 
 - lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_browser"
               line="let g:leetcode_browser='firefox'"
-  ignore_errors: yes
+  ignore_errors: true
 
 - lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_hide_paid_only"
               line="let g:leetcode_hide_paid_only='1'"
-  ignore_errors: yes
+  ignore_errors: true
 
 
 - name: install lang server by pip
   pip:
-    name: "{{ name }}"
+    name: "{{ item }}"
   with_items:
     - python-lsp-server[all]
+
 - name: install lang server
   npm:
     name: "{{ item }}"
@@ -153,7 +154,7 @@
   shell: mv /tmp/sumneko-lua-language-server* ~
   args:
     creates: ~/lua-langserver/bin/lua-language-server
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: download terraform-ls
   get_url:

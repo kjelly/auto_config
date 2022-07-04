@@ -13,7 +13,7 @@
   always:
     - name: instalal vscode from deb file
       apt: deb=/tmp/vscode.deb state=present
-      become: yes
+      become: true
 
     - name: remove vscode.deb
       file: path=/tmp/vscode.deb state=absent

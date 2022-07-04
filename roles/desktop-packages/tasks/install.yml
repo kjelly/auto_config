@@ -13,4 +13,4 @@
       - touchegg
       - xclip # for paste.sh
   become: true
-  ignore_errors: yes
+  ignore_errors: true

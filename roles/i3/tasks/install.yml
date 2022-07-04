@@ -5,7 +5,7 @@
       - hime
       - hime-chewing
   when: ansible_os_family == 'Debian'
-  ignore_errors: yes
+  ignore_errors: true
 - name: Install i3 dependence lib
   apt: name={{ item }} state=present
   with_items:
@@ -36,7 +36,7 @@
 
   become: true
   when: ansible_os_family == 'Debian' or ansible_os_family == "\"elementary\""
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: Install i3 dependence lib for fedora
   dnf: name={{ item }} state=present
@@ -63,7 +63,7 @@
 
   become: true
   when: ansible_distribution == 'Fedora'
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: Install i3 package
   apt: name={{ item }} state=present
@@ -176,9 +176,9 @@
   with_items:
     - xfce4-notifyd
     - notify-osd
-  ignore_errors: yes
+  ignore_errors: true
   when: ansible_distribution == 'Ubuntu'
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: Install python package for i3
   pip: name={{ item }}

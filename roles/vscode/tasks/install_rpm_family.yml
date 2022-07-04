@@ -12,4 +12,4 @@
   always:
     - name: instalal vscode from rpm file
       yum: name=/tmp/vscode.rpm state=present
-      become: yes
+      become: true

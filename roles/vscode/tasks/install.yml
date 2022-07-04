@@ -9,6 +9,6 @@
 
 - name: code ext install
   shell: code --install-extension {{ item }}
-  ignore_errors: yes
+  ignore_errors: true
   with_lines:
       - "cat /tmp/ext_list"

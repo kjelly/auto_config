@@ -12,11 +12,11 @@
   always:
     - name: instalal atom from deb file
       yum: name=/tmp/rpm state=present
-      become: yes
+      become: true
 
 - name: install package
   apt: name="{{ item }}" state=present
   with_items:
     - "silversearcher-ag"
   when: ansible_distribution == 'Fedora'
-  become: yes
+  become: true

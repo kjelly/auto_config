@@ -24,7 +24,7 @@
   file:
    path: "~/node"
    state: absent
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: create node symlink
   file:

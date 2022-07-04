@@ -19,4 +19,4 @@
        depth=1
 
 - shell: "~/.bash_it/install.sh"
-  ignore_errors: yes
+  ignore_errors: true

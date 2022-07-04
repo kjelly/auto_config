@@ -3,14 +3,14 @@
   apt: name={{ item }} state=present
   with_items:
     - bc
-  become: yes
+  become: true
   when: ansible_os_family == "Debian" or ansible_os_family == "\"elementary\""
 
 - name: Install bc package(RedHat family)
   yum: name={{ item }} state=present
   with_items:
     - bc
-  become: yes
+  become: true
   when: ansible_os_family == "RedHat"
 
 - stat: path=/usr/local/bin/fish
@@ -22,13 +22,13 @@
 - name: get fish version
   shell: "fish --version|awk '{print $3}'"
   register: current_fish_version
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: check fish version to decide fish need to be install or not
   set_fact:
     need_install: "{{ current_fish_version| version_compare('{{ fish_version }}', '<') }}"
   when: not need_install
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: Install fish shell
   apt: name={{ item }} state=present
@@ -88,7 +88,7 @@
 
 - name: clone fzf
   git: repo=https://github.com/junegunn/fzf dest=~/.fzf
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: install fzf
   shell: ~/.fzf/install --all
