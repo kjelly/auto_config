@@ -683,6 +683,7 @@ augroup basic
   autocmd! BufWritePre * %s/\s\+$//e
   autocmd! TermOpen * setlocal nonu norelativenumber
   autocmd! WinLeave * call WinLeaveAction()
+  autocmd! BufWritePost worksapce.vim source workspace.vim
 
   autocmd! BufEnter * silent! execute "BufferLineSortByTabs"
   autocmd! BufNew * silent! execute "BufferLineSortByTabs"
