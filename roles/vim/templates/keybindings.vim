@@ -204,9 +204,17 @@ tnoremap <m-o> <C-\><C-n>:Floaterms<cr>
 inoremap <m-i> <cmd>Copilot<cr>
 nnoremap <m-i> <cmd>Copilot<cr>
 
-inoremap <m-u> <Esc>:History:<cr>
-nnoremap <m-u> :History:<cr>
-tnoremap <m-u> <C-\><C-n>:History:<cr>
+
+inoremap <m-u> <cmd>Rg<cr>
+function! CallHistoryShell()
+  execute feedkeys("fzf-history-widget")
+  execute feedkeys("\<CR>")
+  if mode() != 't'
+    startinsert
+  endif
+endfunction
+nnoremap <expr> <m-u> &filetype=='floaterm' ? ':call CallHistoryShell()<cr>' : ':Rg<cr>'
+tnoremap <m-u> <cmd>calll CallHistoryShell()<cr>
 
 " buufer switch
 nnoremap <expr> <m-d> &filetype=="floaterm" ? ":FloatermPrev<cr>" : "<c-^>"
@@ -228,11 +236,43 @@ vmap <m-w> <c-w>
 tnoremap <m-v> <C-\><C-n>pi
 inoremap <m-v> <Esc>pi
 
-nnoremap <m-r> :lua MyRun()<cr>
-inoremap <m-r> <Esc>:lua MyRun()<cr>
-tnoremap <m-r> <c-\><c-n>:lua MyRun()<cr>
-nnoremap <m-e> :call RunShellAndShow('')<left><left>
-inoremap <m-e> <Esc>:call RunShellAndShow('')<left><left>
+function RunPreviousCommandFunc()
+  let mod = mode()
+  if mod == 't'
+    execute feedkeys("\<C-p>")
+    execute feedkeys("\<CR>")
+  elseif mod == 'n'
+    execute 'FloatermShow!'
+    execute feedkeys("i", "t")
+    execute feedkeys("\<C-p>", "t")
+    execute feedkeys("\<CR>", "t")
+  else
+    execute 'FloatermShow!'
+    execute feedkeys("i", "t")
+    execute feedkeys("\<C-p>", "t")
+    execute feedkeys("\<CR>", "t")
+  endif
+endfunction
+tnoremap <m-r> <cmd>call RunPreviousCommandFunc()<cr>
+nnoremap <m-r> <cmd>call RunPreviousCommandFunc()<cr>
+inoremap <m-r> <cmd>call RunPreviousCommandFunc()<cr>
+
+function! EnterShellFunc()
+  let mod = mode()
+  if mod == 'n'
+    execute 'FloatermShow!'
+    execute feedkeys("i", "t")
+  elseif mod == 'i'
+    execute 'FloatermShow!'
+    if &filetype != 'floaterm'
+      execute "FloatermToggle"
+    endif
+    execute feedkeys("i", "t")
+  endif
+endfunction
+
+nnoremap <m-e> <cmd>call EnterShellFunc()<cr>
+inoremap <m-e> <cmd>call EnterShellFunc()<cr>
 " tnoremap <m-e> <c-\><c-n>:call RunShellAndShow('')<left><left> " needed by br
 
 imap <m-g> <Esc><Plug>(choosewin)
