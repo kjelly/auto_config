@@ -5,7 +5,7 @@
   hosts: "{{ group }}"
   vars:
       programming: true
-
+      group: localhost
   roles:
       - activator
       - atom

@@ -5,6 +5,7 @@
   hosts: "{{ group }}"
   vars:
     programming: {{ programming }}
+    group: local
 
   roles:
    {% for i in roles %}
