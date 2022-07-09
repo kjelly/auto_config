@@ -7,6 +7,7 @@ import os.path
 import select
 import sys
 import tempfile
+from contextlib import suppress
 
 import jinja2
 
@@ -15,8 +16,7 @@ def get_template():
     templateLoader = jinja2.FileSystemLoader(searchpath="./playbook")
     templateEnv = jinja2.Environment(loader=templateLoader)
     TEMPLATE_FILE = "playbook.j2"
-    template = templateEnv.get_template(TEMPLATE_FILE)
-    return template
+    return templateEnv.get_template(TEMPLATE_FILE)
 
 
 def find_base_dir():
@@ -46,7 +46,7 @@ def main():
         'roles': args.role,
         'programming': True
     }
-    sudo = ''
+    sudo = 'sudo -E -P -u {user} ' if args.sudo else ''
 
     if args.host == 'local':
         data['group'] = 'local'
@@ -54,16 +54,13 @@ def main():
     else:
         data['group'] = 'remote'
         data['remote_host'] = args.host
-    if args.sudo:
-        sudo = 'sudo -E -P -u {user} '
 
     stdin_data = {}
-    try:
+    with suppress(Exception):
         if select.select([sys.stdin, ], [], [], 0.0)[0]:
             stdin_data = json.loads(sys.stdin.read())
-    except json.JSONDecodeError:
-        pass
-    data.update(stdin_data)
+
+    data |= stdin_data
 
     template = get_template()
     outputText = template.render(**data)
@@ -81,6 +78,7 @@ def main():
     print(cmd)
     os.system(cmd)
     f.close()
+    os.remove(f.name)
 
 
 if __name__ == '__main__':
