@@ -242,12 +242,12 @@ function RunPreviousCommandFunc()
     execute feedkeys("\<C-p>")
     execute feedkeys("\<CR>")
   elseif mod == 'n'
-    execute 'FloatermShow!'
+    execute 'FloatermShow'
     execute feedkeys("i", "t")
     execute feedkeys("\<C-p>", "t")
     execute feedkeys("\<CR>", "t")
   else
-    execute 'FloatermShow!'
+    execute 'FloatermShow'
     execute feedkeys("i", "t")
     execute feedkeys("\<C-p>", "t")
     execute feedkeys("\<CR>", "t")
