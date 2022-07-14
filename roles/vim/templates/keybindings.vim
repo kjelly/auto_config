@@ -105,13 +105,14 @@ cnoremap <c-s> Explore scp://
 "imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<Tab>":"\<CR>")
 
 {% if nvim %}
-tnoremap <C-]> <C-\><C-n>:call TermToggle()<cr>
+
+tnoremap <C-]> <cmd>stopinsert<cr>
 
 {% endif %}
-inoremap <C-]> <Esc>:call TermToggle()<cr>
-vnoremap <C-]> <Esc>:call TermToggle()<cr>
-cnoremap <C-]> <Esc>:call TermToggle()<cr>
-nnoremap <C-]> :call TermToggle()<cr>
+inoremap <C-]> <Esc>
+vnoremap <C-]> <Esc>
+cnoremap <C-]> <Esc>
+nnoremap <C-]> <Esc>
 
 {% if nvim %}
 " If we need Esc in terminal buffer,
@@ -290,11 +291,12 @@ inoremap <silent> <m-:> <Esc>:FloatermNew<cr>
 nnoremap <silent> <m-:> :FloatermNew<cr>
 tnoremap <silent> <m-:> <c-\><c-n>:FloatermNew<cr>
 
-nnoremap <silent> <m-'> :FloatermNext<cr>
-tnoremap <silent> <m-'> <c-\><c-n>:FloatermNext<cr>i
+inoremap <expr> <silent> <m-'> &filetype=='floaterm' ? '<cmd>FloatermNext<cr>' : '<cmd>FloatermNext<cr><cmd>wincmd h<cr>'
+nnoremap <expr> <silent> <m-'> &filetype=='floaterm' ? '<cmd>FloatermNext<cr>' : '<cmd>FloatermNext<cr><cmd>wincmd h<cr>'
+tnoremap <m-'> <cmd>FloatermNext<cr><cmd>startinsert<cr>
 
-inoremap <silent> <m-"> <Esc>:FloatermPrev<cr>
-nnoremap <silent> <m-"> :FloatermPrev<cr>
+inoremap <expr> <silent> <m-"> &filetype=='floaterm' ? '<cmd>FloatermPrev<cr>' : '<cmd>FloatermPrev<cr><cmd>wincmd h<cr>'
+nnoremap <expr> <silent> <m-"> &filetype=='floaterm' ? '<cmd>FloatermPrev<cr>' : '<cmd>FloatermPrev<cr><cmd>wincmd h<cr>'
 tnoremap <silent> <m-"> <c-\><c-n>:FloatermPrev<cr>
 
 inoremap <silent> <m-Enter> <Esc>:FloatermSend<cr>
