@@ -898,3 +898,8 @@ if IsModuleAvailable("ufo") then
   }
   require('ufo').setup()
 end
+
+if IsModuleAvailable("cybu") then
+  require("cybu").setup()
+end
+

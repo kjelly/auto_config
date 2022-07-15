@@ -272,6 +272,7 @@ else
   Plug 'liuchengxu/vim-which-key'
 endif
 
+Plug 'https://github.com/ghillb/cybu.nvim'
 Plug 'kevinhwang91/promise-async'
 Plug 'https://github.com/kevinhwang91/nvim-ufo'
 

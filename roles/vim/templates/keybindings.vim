@@ -18,9 +18,8 @@ cnoremap <silent> <c-e> <Esc>:History:<cr>
 nnoremap / /\v
 vnoremap / /\v
 
-inoremap <S-Tab> <Esc><<i
-nnoremap <S-Tab> <<
-nnoremap <Tab> >>
+nnoremap <tab> <cmd><plug>(CybuLastusedNext)<cr>
+nnoremap <s-tab> <cmd><plug>(CybuLastusedPrev)<cr>
 
 nnoremap <m-f> <c-w>w
 
