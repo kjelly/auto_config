@@ -20,7 +20,7 @@ endif
 
 " Specify the behavior when switching between buffers
 try
-  set switchbuf=useopen,usetab,newtab
+  set switchbuf=uselast
   set stal=2
 catch
 endtry
