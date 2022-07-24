@@ -7,6 +7,15 @@ local langservers = {
 'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'emmet_ls', 'gopls', 'graphql', 'html', 'jedi_language_server', 'jsonls', 'marksman', 'pylsp', 'pyright', 'rust_analyzer', 'sqlls', 'sqls', 'sumneko_lua', 'terraformls', 'tsserver', 'vimls', 'yamlls'
 }
 
+local function smart_dd()
+  if vim.api.nvim_get_current_line():match("^%s*$") then
+    return "\"_dd"
+  else
+    return "dd"
+  end
+end
+vim.keymap.set( "n", "dd", smart_dd, { noremap = true, expr = true } )
+
 local function indexOf(array, value)
     for i, v in ipairs(array) do
         if v == value then
