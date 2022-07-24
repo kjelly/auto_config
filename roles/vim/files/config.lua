@@ -822,6 +822,7 @@ if IsModuleAvailable("cmp") then
     formatting = {
       format = function(entry, vim_item)
         vim_item.kind = lspkind.presets.default[vim_item.kind]
+        vim_item.abbr = string.gsub(string.sub(vim_item.abbr, 1, 60), "%s+", "")
         local menu = source_mapping[entry.source.name]
         if entry.source.name == 'cmp_tabnine' then
           if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
