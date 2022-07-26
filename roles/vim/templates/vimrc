@@ -165,11 +165,6 @@ elseif executable("zsh") == 1
   set shell=zsh
 endif
 
-imap <C-f> <Plug>(coc-snippets-expand)
-imap <C-f> <Plug>(coc-snippets-expand-jump)
-let g:coc_snippet_next = '<c-f>'
-let g:coc_snippet_prev = '<c-b>'
-
 let g:indent_blankline_buftype_exclude = ['terminal']
 let g:indent_blankline_filetype_exclude=['help', 'NvimTree', 'vista', 'floaterm']
 let g:indent_blankline_char_list = ['|', '¦', '┆', '┊']
@@ -185,22 +180,15 @@ let g:signify_sign_change_delete     = g:signify_sign_change . g:signify_sign_de
 let g:vista_icon_indent = ["﬌", "ﲖ"]
 let g:vista_default_executive = 'ctags'
 let g:vista_executive_for = {
-  \ 'python': 'coc',
-  \ 'dart': 'coc',
-  \ 'js': 'coc',
-  \ 'ts': 'coc',
+  \ 'python': 'nvim_lsp',
+  \ 'dart': 'nvim_lsp',
+  \ 'js': 'nvim_lsp',
+  \ 'ts': 'nvim_lsp',
   \ }
-let g:calvera_italic_comments = 1
-let g:calvera_italic_keywords = 1
-let g:calvera_italic_functions = 1
-let g:calvera_contrast = 1
 
 let g:loaded_python_provider = 0
 let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
-
-set nocompatible              " be improved
-filetype off                  " required before plugins
 
 if exists(':TSUpdate')
   set foldmethod=expr
@@ -460,13 +448,6 @@ Plug 'mhinz/neovim-remote'
 
 call plug#end()
 
-silent! call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
-silent! call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
-
-syntax enable
-filetype plugin indent on     " required!
-
-
 set nu
 set keywordprg=sdcvh.sh
 "set whichwrap+=h,l
@@ -479,9 +460,7 @@ set mouse=
 set showtabline=1
 
 " Set utf8 as standard encoding and en_US as the standard language
-if !has('nvim')
-    set encoding=utf8
-endif
+set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
@@ -525,9 +504,6 @@ set hid
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
-
-" Ignore case when searching
-set ignorecase
 
 " When searching try to be smart about cases
 set smartcase
@@ -610,15 +586,6 @@ set pumblend=0
 {% endif %}
 
 let @/ = ""
-let anyfold_activate=1
-let anyfold_fold_comments=1
-let NERDTreeMapOpenInTab='<TAB>'
-let g:nerdtree_tabs_focus_on_files=1
-let g:ale_python_pylint_options="--disable=C0111,C0103,C1801,C0325"
-
-"let g:vimshell_prompt_expr =
-"\ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
-"let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
 
 " Let fzf ignore the files which is ignored by gitignore or hgignore
 if executable("ag") == 1
@@ -640,16 +607,6 @@ endif
 
 let $BROWSER='w3m'
 let $IN_VIM=1
-let $HTERM_TTY=substitute(system("tty < /proc/" . getpid() . "/fd/0"), '\n$', '', '')
-
-" vim-rest-console
-let g:vrc_keepalt = 1
-let g:vrc_curl_opts = {
-  \ '-sS': '',
-  \ '--connect-timeout': 10,
-  \}
-
-let g:NERDTreeWinSize=20
 
 {% if nvim %}let g:test#strategy = "neovim" {% endif %}
 
@@ -659,7 +616,6 @@ let g:floaterm_position='botright'
 let g:floaterm_width=0.5
 let g:floaterm_height=1.0
 let g:floaterm_autoinsert = v:false
-
 
 " Autocmd
 
@@ -699,10 +655,6 @@ augroup rest_nvim
   autocmd FileType http nnoremap <buffer> <localleader>rl <Plug>RestNvimLast<cr>
   autocmd FileType http nnoremap <buffer> <localleader>rp <Plug>RestNvimPreview<cr>
 augroup end
-
-if exists(":NvimTreeFind")
-  autocmd DirChanged * NerdTreeFind
-endif
 
 augroup Binary
   au!
@@ -772,9 +724,6 @@ command! FFF FloatermNew fff
 let g:MYVIMRC_DIR = fnamemodify(expand('$MYVIMRC'), ':h')
 let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/bin'
 
-let NERDTreeDirArrowExpandable = "+"
-let NERDTreeDirArrowCollapsible = "-"
-
 let g:switch_mapping = ""
 let g:switch_custom_definitions =
     \ [
@@ -797,15 +746,6 @@ let g:any_jump_disable_default_keybindings = 1
 let g:any_jump_preview_lines_count = 5
 let g:any_jump_window_width_ratio  = 0.8
 let g:any_jump_window_height_ratio = 0.8
-
-" Wiki
-" ----------------
-function! Wiki()
-  set autoread
-  set autowrite
-  VimwikiIndex
-endfunction
-command! -register Wiki call Wiki()
 
 command! -bang -nargs=* NoteSearch
   \ call fzf#vim#grep(
@@ -869,14 +809,12 @@ if executable('ugrep')
     set grepformat=%f:%l:%c:%m,%f+%l+%c+%m,%-G%f\\\|%l\\\|%c\\\|%m
 endif
 
-
 " Yank to system clipboard with Y
 nnoremap yy yy
 vnoremap y y
 nnoremap YY "+yy
 nnoremap Y "+y
 vnoremap Y "+y
-
 
 {% if nvim %}
 exec 'luafile' g:MYVIMRC_DIR . '/config.lua'

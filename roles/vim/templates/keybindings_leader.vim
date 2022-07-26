@@ -234,10 +234,6 @@ nnoremap <leader>al :AnyJumpLastResults<CR>
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-nnoremap <silent> <leader>cn  :<C-u>CocNext<CR>
-nnoremap <silent> <leader>cp :<C-u>CocPrev<CR>
-nnoremap <silent> <leader>cr  :<C-u>CocListResume<CR>
-
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 function! s:show_documentation()
@@ -270,6 +266,11 @@ if exists(':CocOpenLog')
   nnoremap <silent> <leader>lca <Plug>(coc-calc-result-append)
   nnoremap <silent> <leader>lcr <Plug>(coc-calc-result-replace)
   nnoremap <silent> <leader>lz :CocFzfList<cr>
+
+  nnoremap <silent> <leader>cn  :<C-u>CocNext<CR>
+  nnoremap <silent> <leader>cp :<C-u>CocPrev<CR>
+  nnoremap <silent> <leader>cr  :<C-u>CocListResume<CR>
+
 else
   nnoremap <silent> <leader>lwa <cmd>lua vim.lsp.buf.add_workspace_folder()<cr>
   nnoremap <silent> <leader>lwr <cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>

@@ -1,6 +1,6 @@
 nnoremap H :tabprevious<cr>
 nnoremap L :tabnext<cr>
-nnoremap ; <cmd>FineCmdline<CR>
+nnoremap ; :
 
 "bash like keybinding
 " <c-a> for <home>, <c-e> for <end>
@@ -8,8 +8,6 @@ nnoremap ; <cmd>FineCmdline<CR>
 " <c-h> will be overrided for <left>
 inoremap <c-a> <home>
 inoremap <c-e> <end>
-inoremap <c-d> <delete>
-inoremap <c-;> <delete>
 
 cnoremap <silent> <c-e> <Esc>:History:<cr>
 
@@ -73,10 +71,6 @@ inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-if exists(':CocOpenLog')
-  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                                \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-endif
 
 " Find file
 function FindFile()
@@ -187,13 +181,7 @@ nmap <m-p> <c-p>
 tmap <m-p> <c-p>
 cmap <m-p> <c-p>
 nmap <m-n> <c-n>
-if exists('CocOpenLog')
-inoremap <silent><expr> <m-n>
-      \ pumvisible() ? "\<C-n>" :
-      \ coc#refresh()
-else
 imap <m-n> <c-n>
-endif
 tmap <m-n> <c-n>
 cmap <m-n> <c-n>
 
@@ -313,11 +301,6 @@ tnoremap <m-[> <C-\><C-n><C-w>:lp<cr>
 inoremap <m-]> <Esc>:lne<cr>
 nnoremap <m-]> :lne<cr>
 tnoremap <m-]> <C-\><C-n><C-w>:lne<cr>
-
-inoremap <m-c> <Esc>:lua multiTermRunCurrentLine()<cr>i
-nnoremap <m-c> <Esc>:lua multiTermRunCurrentLine()<cr>
-nnoremap <m-x> <Esc>:lua multiTermRunCurrentSelectedLines()<cr>
-vnoremap <m-x> :lua multiTermRunCurrentSelectedLines()<cr>
 
 let g:maxWindow=0
 function ResizeWin()
