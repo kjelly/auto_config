@@ -24,6 +24,7 @@
    - luarocks # for neovim
    - m4 # for neovim
    - ncurses-dev  # for neovim
+   - ugrep
 
   become: true
   when: programming == true
