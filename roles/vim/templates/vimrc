@@ -346,15 +346,8 @@ Plug 'MunifTanjim/nui.nvim'
 Plug 'VonHeikemen/fine-cmdline.nvim'
 
 " colorscheme
-Plug 'liuchengxu/space-vim-dark' " Good
-Plug 'tyrannicaltoucan/vim-deep-space'
-Plug 'bluz71/vim-moonfly-colors'
 Plug 'sainnhe/gruvbox-material'
-Plug 'ayu-theme/ayu-vim'
-Plug 'cocopon/iceberg.vim'
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'gruvbox-community/gruvbox'
-Plug 'romgrk/doom-one.vim'
 {% if nvim %}
 Plug 'folke/tokyonight.nvim'
 Plug 'marko-cerovac/material.nvim'
@@ -362,7 +355,6 @@ Plug 'briones-gabriel/darcula-solid.nvim'
 Plug 'rktjmp/lush.nvim'
 Plug 'eddyekofo94/gruvbox-flat.nvim'
 Plug 'https://github.com/Mofiqul/dracula.nvim'
-Plug 'yashguptaz/calvera-dark.nvim'
 Plug 'projekt0n/github-nvim-theme'
 Plug 'yong1le/darkplus.nvim'
 Plug 'ray-x/aurora'
