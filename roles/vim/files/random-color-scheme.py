@@ -3,11 +3,23 @@ import os
 import random
 
 colors = [
-    "gruvbox-material",
-    "space-vim-dark",
-    "material",
-    "gruvbox-flat",
-    "tokyonight",
+    'aquarium',
+    'material',
+    'aurora',
+    'moonlight',
+    'everforest',
+    'calvera',
+    'github-colors',
+    'gruvbox',
+    'gruvbox-flat',
+    'nightfox',
+    'darcula-solid',
+    'dracula',
+    'gruvbox-material',
+    'tokyonight',
+    'onedark',
+    'darkplus',
+    'edge',
 ]
 
 bad_in_dark_mode = [
@@ -28,13 +40,11 @@ treesitter = [
     "material",  # treesitter
     "gruvbox-flat",  # treesitter
     "tokyonight",  # treesitter
-    "calvera",  # treesitter
     "darkplus",  # treesitter
     "aurora",
     'aquarium',
     'edge',
     'everforest',
-    'calvera',
 ]
 
 color = random.choice(list(dict.fromkeys(treesitter)))
