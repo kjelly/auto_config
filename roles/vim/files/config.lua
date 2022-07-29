@@ -1,6 +1,6 @@
-local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
-local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
-local g = vim.g      -- a table to access global variables
+local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
+local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
+local g = vim.g -- a table to access global variables
 local api = vim.api
 
 
@@ -8,7 +8,6 @@ function FileExists(name)
   local f = io.open(name, "r")
   if f ~= nil then io.close(f) return true else return false end
 end
-
 
 LSP_CONFIG = {
   sumneko_lua = {
@@ -43,7 +42,9 @@ LSP_CONFIG = {
 }
 
 local langservers = {
-'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'emmet_ls', 'gopls', 'graphql', 'html', 'jedi_language_server', 'jsonls', 'marksman', 'pylsp', 'pyright', 'rust_analyzer', 'sqlls', 'sqls', 'sumneko_lua', 'terraformls', 'tsserver', 'vimls', 'yamlls'
+  'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'emmet_ls', 'gopls', 'graphql', 'html', 'jedi_language_server',
+  'jsonls', 'marksman', 'pylsp', 'pyright', 'rust_analyzer', 'sqlls', 'sqls', 'sumneko_lua', 'terraformls', 'tsserver',
+  'vimls', 'yamlls'
 }
 
 local function smart_dd()
@@ -53,215 +54,216 @@ local function smart_dd()
     return "dd"
   end
 end
-vim.keymap.set( "n", "dd", smart_dd, { noremap = true, expr = true } )
+
+vim.keymap.set("n", "dd", smart_dd, { noremap = true, expr = true })
 
 local function indexOf(array, value)
-    for i, v in ipairs(array) do
-        if v == value then
-            return i
-        end
+  for i, v in ipairs(array) do
+    if v == value then
+      return i
     end
-    return nil
+  end
+  return nil
 end
 
 local function all_trim(s)
-   return s:match( "^%s*(.-)%s*$" )
+  return s:match("^%s*(.-)%s*$")
 end
 
 function IsModuleAvailable(name)
-    if package.loaded[name] then
+  if package.loaded[name] then
+    return true
+  else
+    for _, searcher in ipairs(package.searchers or package.loaders) do
+      local loader = searcher(name)
+      if type(loader) == "function" then
+        package.preload[name] = loader
         return true
-    else
-        for _, searcher in ipairs(package.searchers or package.loaders) do
-            local loader = searcher(name)
-            if type(loader) == "function" then
-                package.preload[name] = loader
-                return true
-            end
-        end
-        return false
+      end
     end
+    return false
+  end
 end
 
 if IsModuleAvailable("timer") then
   require "timer".add(
-      function()
-          return 1000
-      end
+    function()
+      return 1000
+    end
   )
 end
 
 if IsModuleAvailable("nvim-treesitter") then
-    require "nvim-treesitter.configs".setup {
-        ensure_installed = "all",
-        refactor = {
-          highlight_definitions = { enable = true },
-          highlight_current_scope = { enable = false},
-          smart_rename = {
-            enable = true,
-            keymaps = {
-              smart_rename = "grr",
-            },
-           },
-        },
-        autopairs = {
-          enable = true,
-        },
-        iswap = {
-          enable = true,
-        },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "+",
-            node_incremental = "+",
-            scope_incremental = "grc",
-            node_decremental = "_",
-          },
-        },
-        indent = {
-          enable = false,
-        },
-        highlight = {
-            enable = true,
-            disable = { }
-        },
-        rainbow = {
-          enable = true,
-          extended_mode = true,
-          max_file_lines = 1000,
-        }
-    }
-    require'nvim-treesitter.configs'.setup {
-      textobjects = {
-        select = {
-          enable = true,
-          keymaps = {
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = "@class.inner",
-            ["ao"] = "@block.outer",
-            ["io"] = "@block.inner",
-            ["aCa"] = "@call.outer",
-            ["iCa"] = "@call.inner",
-            ["aCo"] = "@conditional.outer",
-            ["iCo"] = "@conditional.inner",
-            ["aCm"] = "@comment.outer",
-            ["aF"] = "@frame.outer",
-            ["iF"] = "@frame.inner",
-            ["al"] = "@loop.outer",
-            ["il"] = "@loop.inner",
-            ["ap"] = "@parameter.outer",
-            ["ip"] = "@parameter.inner",
-            ["as"] = "@statement.outer",
-            ["is"] = "@scopename.inner",
-          },
-        },
-      },
-    }
-    require'nvim-treesitter.configs'.setup {
-      textobjects = {
-        swap = {
-          enable = true,
-          swap_next = {
-            ["<leader>lsa"] = "@parameter.inner",
-          },
-          swap_previous = {
-            ["<leader>lsA"] = "@parameter.inner",
-          },
-        },
-      },
-    }
-    require'nvim-treesitter.configs'.setup {
-      textobjects = {
-        move = {
-          enable = true,
-          set_jumps = true, -- whether to set jumps in the jumplist
-          goto_next_start = {
-            ["]m"] = "@function.outer",
-            ["]]"] = "@class.outer",
-          },
-          goto_next_end = {
-            ["]M"] = "@function.outer",
-            ["]["] = "@class.outer",
-          },
-          goto_previous_start = {
-            ["[m"] = "@function.outer",
-            ["[["] = "@class.outer",
-          },
-          goto_previous_end = {
-            ["[M"] = "@function.outer",
-            ["[]"] = "@class.outer",
-          },
-        },
-      },
-    }
-
-    require "nvim-treesitter.configs".setup {
-      playground = {
+  require "nvim-treesitter.configs".setup {
+    ensure_installed = "all",
+    refactor = {
+      highlight_definitions = { enable = true },
+      highlight_current_scope = { enable = false },
+      smart_rename = {
         enable = true,
-        disable = {},
-        updatetime = 25,
-        persist_queries = false,
-        keybindings = {
-          toggle_query_editor = 'o',
-          toggle_hl_groups = 'i',
-          toggle_injected_languages = 't',
-          toggle_anonymous_nodes = 'a',
-          toggle_language_display = 'I',
-          focus_language = 'f',
-          unfocus_language = 'F',
-          update = 'R',
-          goto_node = '<cr>',
-          show_help = '?',
-        },
-      }
-    }
-
-    require'nvim-treesitter.configs'.setup {
-      refactor = {
-        navigation = {
-          enable = true,
-          keymaps = {
-            goto_definition = "gnd",
-            list_definitions = "gnD",
-            list_definitions_toc = "gO",
-            goto_next_usage = "gnu",
-            goto_previous_usage = "gnU",
-          },
+        keymaps = {
+          smart_rename = "grr",
         },
       },
+    },
+    autopairs = {
+      enable = true,
+    },
+    iswap = {
+      enable = true,
+    },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = "+",
+        node_incremental = "+",
+        scope_incremental = "grc",
+        node_decremental = "_",
+      },
+    },
+    indent = {
+      enable = false,
+    },
+    highlight = {
+      enable = true,
+      disable = {}
+    },
+    rainbow = {
+      enable = true,
+      extended_mode = true,
+      max_file_lines = 1000,
     }
+  }
+  require 'nvim-treesitter.configs'.setup {
+    textobjects = {
+      select = {
+        enable = true,
+        keymaps = {
+          ["af"] = "@function.outer",
+          ["if"] = "@function.inner",
+          ["ac"] = "@class.outer",
+          ["ic"] = "@class.inner",
+          ["ao"] = "@block.outer",
+          ["io"] = "@block.inner",
+          ["aCa"] = "@call.outer",
+          ["iCa"] = "@call.inner",
+          ["aCo"] = "@conditional.outer",
+          ["iCo"] = "@conditional.inner",
+          ["aCm"] = "@comment.outer",
+          ["aF"] = "@frame.outer",
+          ["iF"] = "@frame.inner",
+          ["al"] = "@loop.outer",
+          ["il"] = "@loop.inner",
+          ["ap"] = "@parameter.outer",
+          ["ip"] = "@parameter.inner",
+          ["as"] = "@statement.outer",
+          ["is"] = "@scopename.inner",
+        },
+      },
+    },
+  }
+  require 'nvim-treesitter.configs'.setup {
+    textobjects = {
+      swap = {
+        enable = true,
+        swap_next = {
+          ["<leader>lsa"] = "@parameter.inner",
+        },
+        swap_previous = {
+          ["<leader>lsA"] = "@parameter.inner",
+        },
+      },
+    },
+  }
+  require 'nvim-treesitter.configs'.setup {
+    textobjects = {
+      move = {
+        enable = true,
+        set_jumps = true, -- whether to set jumps in the jumplist
+        goto_next_start = {
+          ["]m"] = "@function.outer",
+          ["]]"] = "@class.outer",
+        },
+        goto_next_end = {
+          ["]M"] = "@function.outer",
+          ["]["] = "@class.outer",
+        },
+        goto_previous_start = {
+          ["[m"] = "@function.outer",
+          ["[["] = "@class.outer",
+        },
+        goto_previous_end = {
+          ["[M"] = "@function.outer",
+          ["[]"] = "@class.outer",
+        },
+      },
+    },
+  }
+
+  require "nvim-treesitter.configs".setup {
+    playground = {
+      enable = true,
+      disable = {},
+      updatetime = 25,
+      persist_queries = false,
+      keybindings = {
+        toggle_query_editor = 'o',
+        toggle_hl_groups = 'i',
+        toggle_injected_languages = 't',
+        toggle_anonymous_nodes = 'a',
+        toggle_language_display = 'I',
+        focus_language = 'f',
+        unfocus_language = 'F',
+        update = 'R',
+        goto_node = '<cr>',
+        show_help = '?',
+      },
+    }
+  }
+
+  require 'nvim-treesitter.configs'.setup {
+    refactor = {
+      navigation = {
+        enable = true,
+        keymaps = {
+          goto_definition = "gnd",
+          list_definitions = "gnD",
+          list_definitions_toc = "gO",
+          goto_next_usage = "gnu",
+          goto_previous_usage = "gnU",
+        },
+      },
+    },
+  }
 end
 
 if IsModuleAvailable("dap") then
-    local dap = require("dap")
-    dap.adapters.python = {
-        type = "executable",
-        command = "/usr/bin/python3",
-        args = {"-m", "debugpy.adapter"}
-    }
+  local dap = require("dap")
+  dap.adapters.python = {
+    type = "executable",
+    command = "/usr/bin/python3",
+    args = { "-m", "debugpy.adapter" }
+  }
 
-    dap.configurations.python = {
-        {
-            type = "python",
-            request = "launch",
-            name = "Launch file",
+  dap.configurations.python = {
+    {
+      type = "python",
+      request = "launch",
+      name = "Launch file",
 
-            program = "${file}",
-            pythonPath = function()
-                local cwd = fn.getcwd()
-                if fn.executable(cwd .. "/venv/bin/python") then
-                    return "/usr/bin/python3"
-                elseif fn.executable(cwd .. "/.venv/bin/python") then
-                    return "/usr/bin/python3"
-                else
-                    return "/usr/bin/python3"
-                end
-            end
-        }
+      program = "${file}",
+      pythonPath = function()
+        local cwd = fn.getcwd()
+        if fn.executable(cwd .. "/venv/bin/python") then
+          return "/usr/bin/python3"
+        elseif fn.executable(cwd .. "/.venv/bin/python") then
+          return "/usr/bin/python3"
+        else
+          return "/usr/bin/python3"
+        end
+      end
     }
+  }
 end
 
 if IsModuleAvailable("zero") then
@@ -269,93 +271,93 @@ if IsModuleAvailable("zero") then
 end
 
 if IsModuleAvailable("lualine") then
-    local function showFilePath()
-      local filePath = api.nvim_eval("expand('%')")
-      return filePath
+  local function showFilePath()
+    local filePath = api.nvim_eval("expand('%')")
+    return filePath
+  end
+
+  local function showCWD()
+    local path = api.nvim_eval("getcwd()")
+    local home = api.nvim_eval("$HOME")
+    path = path:gsub(home, '~')
+    return path
+  end
+
+  local function floatermInfo()
+    local bufid = api.nvim_get_current_buf()
+    local buffers = api.nvim_eval("floaterm#buflist#gather()")
+    local title = api.nvim_buf_get_var(bufid, 'term_title')
+    local ret = indexOf(buffers, bufid) .. '/' .. #buffers
+    return ret
+  end
+
+  local function termTitle()
+    local title = api.nvim_buf_get_var(nil, 'term_title')
+    return title
+  end
+
+  local function gpsLocation()
+    if IsModuleAvailable("nvim-gps") then
+      local gps = require("nvim-gps")
+      return gps.get_location()
     end
+    return ''
+  end
 
-    local function showCWD()
-      local path = api.nvim_eval("getcwd()")
-      local home = api.nvim_eval("$HOME")
-      path = path:gsub(home, '~')
-      return path
-    end
+  local my_extension = {
+    sections = {
+      lualine_a = { 'mode' },
+      lualine_b = {},
+      lualine_c = { floatermInfo, termTitle },
+      lualine_y = {},
+      lualine_z = { 'progress' },
+    },
+    inactive_sections = {
+      lualine_c = { floatermInfo },
+      lualine_z = { 'location' },
+    },
+    filetypes = { 'floaterm' } }
 
-    local function floatermInfo()
-      local bufid = api.nvim_get_current_buf()
-      local buffers = api.nvim_eval("floaterm#buflist#gather()")
-      local title = api.nvim_buf_get_var(bufid, 'term_title')
-      local ret = indexOf(buffers, bufid) .. '/' .. #buffers
-      return ret
-    end
-
-    local function termTitle()
-      local title = api.nvim_buf_get_var(nil, 'term_title')
-      return title
-    end
-
-    local function gpsLocation()
-      if IsModuleAvailable("nvim-gps") then
-        local gps = require("nvim-gps")
-        return gps.get_location()
-      end
-      return ''
-    end
-
-    local my_extension = {
-      sections = {
-        lualine_a = {'mode'},
-        lualine_b = {},
-        lualine_c = {floatermInfo, termTitle},
-        lualine_y = {},
-        lualine_z = {'progress'},
-      },
-      inactive_sections = {
-        lualine_c = {floatermInfo},
-        lualine_z = {'location'},
-      },
-      filetypes = {'floaterm'}}
-
-    require('lualine').setup{
-        options = {
-          theme = 'auto',
-          section_separators = {'', ''},
-          component_separators = {'', ''},
-        },
-        sections = {
-          lualine_a = {'mode'},
-          lualine_b = {'branch', 'diff'},
-          lualine_c = {'hostname', showCWD, showFilePath},
-          lualine_x = {gpsLocation, 'encoding', 'fileformat', 'filetype'},
-          lualine_y = {'progress'},
-          lualine_z = {'location'}
-        },
-        inactive_sections = {
-          lualine_a = {},
-          lualine_b = {},
-          lualine_c = {showFilePath},
-          lualine_x = {'location'},
-          lualine_y = {},
-          lualine_z = {}
-        },
-        extensions = {my_extension},
-    }
+  require('lualine').setup {
+    options = {
+      theme = 'auto',
+      section_separators = { '', '' },
+      component_separators = { '', '' },
+    },
+    sections = {
+      lualine_a = { 'mode' },
+      lualine_b = { 'branch', 'diff' },
+      lualine_c = { 'hostname', showCWD, showFilePath },
+      lualine_x = { gpsLocation, 'encoding', 'fileformat', 'filetype' },
+      lualine_y = { 'progress' },
+      lualine_z = { 'location' }
+    },
+    inactive_sections = {
+      lualine_a = {},
+      lualine_b = {},
+      lualine_c = { showFilePath },
+      lualine_x = { 'location' },
+      lualine_y = {},
+      lualine_z = {}
+    },
+    extensions = { my_extension },
+  }
 end
 
 
 if IsModuleAvailable("hlslens") then
-    api.nvim_command("noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>")
-    api.nvim_command("noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>")
-    api.nvim_command("noremap * *<Cmd>lua require('hlslens').start()<CR>")
-    api.nvim_command("noremap # #<Cmd>lua require('hlslens').start()<CR>")
-    api.nvim_command("noremap g* g*<Cmd>lua require('hlslens').start()<CR>")
-    api.nvim_command("noremap g# g#<Cmd>lua require('hlslens').start()<CR>")
+  api.nvim_command("noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>")
+  api.nvim_command("noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>")
+  api.nvim_command("noremap * *<Cmd>lua require('hlslens').start()<CR>")
+  api.nvim_command("noremap # #<Cmd>lua require('hlslens').start()<CR>")
+  api.nvim_command("noremap g* g*<Cmd>lua require('hlslens').start()<CR>")
+  api.nvim_command("noremap g# g#<Cmd>lua require('hlslens').start()<CR>")
 end
 
 
 if IsModuleAvailable("nvim-autopairs") then
-    require('nvim-autopairs').setup()
-    api.nvim_command([[
+  require('nvim-autopairs').setup()
+  api.nvim_command([[
 nmap <C-a> <Plug>(dial-increment)
 nmap <C-x> <Plug>(dial-decrement)
 vmap <C-a> <Plug>(dial-increment)
@@ -366,35 +368,35 @@ vmap g<C-x> <Plug>(dial-decrement-additional)
 end
 
 if IsModuleAvailable("bufferline") then
-    require'bufferline'.setup{
-        options={
-            diagnostics = "coc",
-            diagnostics_indicator = function(count, level, diagnostics_dict, context)
-              local s = " "
-              for e, n in pairs(diagnostics_dict) do
-                local sym = e == "error" and " "
-                  or (e == "warning" and " " or "" )
-                s = s .. n .. sym
-              end
-              return s
-            end,
-            view = "multiwindow" ,
-            always_show_bufferline = true,
-            buffer_close_icon= '❌',
-            modified_icon = '●',
-            close_icon = '❌',
-            show_close_icon = false,
-            show_buffer_close_icons = false,
-            left_trunc_marker = '◀',
-            right_trunc_marker = '▶',
-            indicator_icon = '📌',
-            separator_style = {"📌|", "|"},
-            offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center"},
-                       {filetype = "nerdtree", text = "File Explorer", text_align = "center"}
-                      },
-        }
+  require 'bufferline'.setup {
+    options = {
+      diagnostics = "coc",
+      diagnostics_indicator = function(count, level, diagnostics_dict, context)
+        local s = " "
+        for e, n in pairs(diagnostics_dict) do
+          local sym = e == "error" and " "
+              or (e == "warning" and " " or "")
+          s = s .. n .. sym
+        end
+        return s
+      end,
+      view = "multiwindow",
+      always_show_bufferline = true,
+      buffer_close_icon = '❌',
+      modified_icon = '●',
+      close_icon = '❌',
+      show_close_icon = false,
+      show_buffer_close_icons = false,
+      left_trunc_marker = '◀',
+      right_trunc_marker = '▶',
+      indicator_icon = '📌',
+      separator_style = { "📌|", "|" },
+      offsets = { { filetype = "NvimTree", text = "File Explorer", text_align = "center" },
+        { filetype = "nerdtree", text = "File Explorer", text_align = "center" }
+      },
     }
-    api.nvim_command([[
+  }
+  api.nvim_command([[
 nnoremap <silent> <leader>sb :BufferLineSortByDirectory<cr>
 nnoremap <silent> <C-h> :BufferLineMovePrev<CR>
 nnoremap <silent> <C-l> :BufferLineMoveNext<CR>
@@ -403,7 +405,7 @@ end
 
 if IsModuleAvailable("hop") then
   api.nvim_set_keymap('n', 's', "<cmd>lua require'hop'.hint_words()<cr>", {})
-  require'hop'.setup {
+  require 'hop'.setup {
     winblend = 10,
     jump_on_sole_occurrence = true,
     create_hl_autocmd = true,
@@ -514,8 +516,8 @@ if IsModuleAvailable("which-key") then
     },
     m = {
       name = "+Mark",
-      p = { 'Previous mark'},
-      n = { 'Next mark'},
+      p = { 'Previous mark' },
+      n = { 'Next mark' },
     },
     w = {
       name = "+Wiki/Window",
@@ -535,7 +537,7 @@ if IsModuleAvailable("which-key") then
       name = "+Git/Paste",
       d = {
         name = "git diff",
-        l = { "git diff last commit"}
+        l = { "git diff last commit" }
       }
     },
     n = {
@@ -565,8 +567,8 @@ end
 
 function MyRun(cmds)
   if type(cmds) == "string" then
-      api.nvim_command(cmds)
-      api.nvim_set_var("MyRunLastCommand", cmds)
+    api.nvim_command(cmds)
+    api.nvim_set_var("MyRunLastCommand", cmds)
   elseif cmds == nil then
     cmds = api.nvim_get_var("MyRunLastCommand")
     if cmds ~= nil then
@@ -574,7 +576,7 @@ function MyRun(cmds)
     end
   else
     api.nvim_set_var("MyRunLastCommand", cmds)
-    for k,v in pairs(cmds) do
+    for k, v in pairs(cmds) do
       api.nvim_command(v)
     end
   end
@@ -591,6 +593,7 @@ function MySort(buffer_a, buffer_b)
     end
     return buffer_a.id > buffer_b.id
   end
+
   local status, retval = pcall(_sort)
   if status then
     return retval
@@ -609,7 +612,7 @@ if IsModuleAvailable("detect-language") then
 end
 
 if IsModuleAvailable("nvim-tree") then
-  require'nvim-tree'.setup {
+  require 'nvim-tree'.setup {
     diagnostics = {
       enable = true,
       icons = {
@@ -636,45 +639,45 @@ if IsModuleAvailable("nvim-tree") then
       width = '18%',
       side = 'left',
       mappings = {
-        custom_only=true,
+        custom_only = true,
         list = {
-          { key = {"<CR>", "o", "<2-LeftMouse>"}, action = "edit" },
-          { key = "<C-e>",                        action = "edit_in_place" },
-          { key = {"O"},                          action = "edit_no_picker" },
-          { key = {"<2-RightMouse>", "<C-]>"},    action = "cd" },
-          { key = "<C-v>",                        action = "vsplit" },
-          { key = "<C-x>",                        action = "split" },
-          { key = "<C-t>",                        action = "tabnew" },
-          { key = "<",                            action = "prev_sibling" },
-          { key = ">",                            action = "next_sibling" },
-          { key = "P",                            action = "parent_node" },
-          { key = "<BS>",                         action = "close_node" },
-          { key = "<Tab>",                        action = "preview" },
-          { key = "K",                            action = "first_sibling" },
-          { key = "J",                            action = "last_sibling" },
-          { key = "I",                            action = "toggle_git_ignored" },
-          { key = "H",                            action = "toggle_dotfiles" },
-          { key = "R",                            action = "refresh" },
-          { key = "a",                            action = "create" },
-          { key = "d",                            action = "remove" },
-          { key = "D",                            action = "trash" },
-          { key = "r",                            action = "rename" },
-          { key = "<C-r>",                        action = "full_rename" },
-          { key = "x",                            action = "cut" },
-          { key = "c",                            action = "copy" },
-          { key = "p",                            action = "paste" },
-          { key = "y",                            action = "copy_name" },
-          { key = "Y",                            action = "copy_path" },
-          { key = "gy",                           action = "copy_absolute_path" },
-          { key = "[c",                           action = "prev_git_item" },
-          { key = "]c",                           action = "next_git_item" },
-          { key = "-",                            action = "dir_up" },
-          { key = "q",                            action = "close" },
-          { key = "g?",                           action = "toggle_help" },
-          { key = "W",                            action = "collapse_all" },
-          { key = "S",                            action = "search_node" },
-          { key = "<C-k>",                        action = "toggle_file_info" },
-          { key = ".",                            action = "run_file_command" }
+          { key = { "<CR>", "o", "<2-LeftMouse>" }, action = "edit" },
+          { key = "<C-e>", action = "edit_in_place" },
+          { key = { "O" }, action = "edit_no_picker" },
+          { key = { "<2-RightMouse>", "<C-]>" }, action = "cd" },
+          { key = "<C-v>", action = "vsplit" },
+          { key = "<C-x>", action = "split" },
+          { key = "<C-t>", action = "tabnew" },
+          { key = "<", action = "prev_sibling" },
+          { key = ">", action = "next_sibling" },
+          { key = "P", action = "parent_node" },
+          { key = "<BS>", action = "close_node" },
+          { key = "<Tab>", action = "preview" },
+          { key = "K", action = "first_sibling" },
+          { key = "J", action = "last_sibling" },
+          { key = "I", action = "toggle_git_ignored" },
+          { key = "H", action = "toggle_dotfiles" },
+          { key = "R", action = "refresh" },
+          { key = "a", action = "create" },
+          { key = "d", action = "remove" },
+          { key = "D", action = "trash" },
+          { key = "r", action = "rename" },
+          { key = "<C-r>", action = "full_rename" },
+          { key = "x", action = "cut" },
+          { key = "c", action = "copy" },
+          { key = "p", action = "paste" },
+          { key = "y", action = "copy_name" },
+          { key = "Y", action = "copy_path" },
+          { key = "gy", action = "copy_absolute_path" },
+          { key = "[c", action = "prev_git_item" },
+          { key = "]c", action = "next_git_item" },
+          { key = "-", action = "dir_up" },
+          { key = "q", action = "close" },
+          { key = "g?", action = "toggle_help" },
+          { key = "W", action = "collapse_all" },
+          { key = "S", action = "search_node" },
+          { key = "<C-k>", action = "toggle_file_info" },
+          { key = ".", action = "run_file_command" }
         }
       }
     },
@@ -755,13 +758,13 @@ if IsModuleAvailable("lspconfig") then
 end
 
 if IsModuleAvailable("marks") then
-  require'marks'.setup {
+  require 'marks'.setup {
     default_mappings = true,
     builtin_marks = { ".", "<", ">", "^" },
     cyclic = true,
     force_write_shada = false,
     refresh_interval = 250,
-    sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
+    sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
     bookmark_0 = {
       sign = "⚑",
       virt_text = "hello world"
@@ -799,7 +802,7 @@ end
 
 
 if IsModuleAvailable("cmp") then
-  local cmp = require'cmp'
+  local cmp = require 'cmp'
   local lspkind = require('lspkind')
 
   local source_mapping = {
@@ -889,14 +892,14 @@ if IsModuleAvailable("cmp") then
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   capabilities.textDocument.foldingRange = {
-      dynamicRegistration = false,
-      lineFoldingOnly = true
+    dynamicRegistration = false,
+    lineFoldingOnly = true
   }
 
 
   -- Mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-  local opts = { noremap=true, silent=true }
+  local opts = { noremap = true, silent = true }
   vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
@@ -922,7 +925,7 @@ if IsModuleAvailable("cmp") then
       settings = LSP_CONFIG[lsp] or {},
     }
   end
-  require'fzf_lsp'.setup()
+  require 'fzf_lsp'.setup()
   require('aerial').setup({})
 
   local tabnine = require('cmp_tabnine.config')
@@ -944,8 +947,8 @@ if IsModuleAvailable("ufo") then
   vim.wo.foldenable = true
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.foldingRange = {
-      dynamicRegistration = false,
-      lineFoldingOnly = true
+    dynamicRegistration = false,
+    lineFoldingOnly = true
   }
   require('ufo').setup()
 end
