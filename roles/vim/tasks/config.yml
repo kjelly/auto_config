@@ -30,10 +30,8 @@
 
 - file: path="~/bin" state=directory mode=0755
 
-- template: src="myvi" dest="~/bin/myvi" mode=0755
 - template: src="vit" dest="~/bin/vit" mode=0755
 - copy: src="navim" dest="~/bin/navim" mode=0755
-- template: src="vim" dest="~/bin/vim" mode=0755
 - template: src="vimt" dest="~/bin/vimt" mode=0755
 - template: src="wiki.py" dest="~/bin/wiki" mode=0755
 

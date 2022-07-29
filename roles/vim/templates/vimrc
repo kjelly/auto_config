@@ -119,17 +119,18 @@ endfunction
 
 let g:termOpen=0
 function! TermToggle()
-  let l:buffers = floaterm#buflist#gather()
-  if len(l:buffers) == 0
-    execute "FloatermNew"
-    let g:termOpen = 1
-  elseif g:termOpen == 0
-    execute "FloatermShow"
-    let g:termOpen = 1
-  else
-    execute "FloatermHide!"
-    let g:termOpen = 0
-  endif
+  execute "FloatermToggle!"
+  " let l:buffers = floaterm#buflist#gather()
+  " if len(l:buffers) == 0
+  "   execute "FloatermNew"
+  "   let g:termOpen = 1
+  " elseif g:termOpen == 0
+  "   execute "FloatermShow"
+  "   let g:termOpen = 1
+  " else
+  "   execute "FloatermHide!"
+  "   let g:termOpen = 0
+  " endif
 endfunction
 
 function! FindFileInTree()
@@ -280,6 +281,8 @@ Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'github/copilot.vim'
 Plug 'jdhao/better-escape.vim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'https://github.com/j-hui/fidget.nvim'
+
 Plug 'https://github.com/alex-popov-tech/timer.nvim'
 Plug 'https://github.com/dstein64/vim-startuptime'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -603,10 +606,10 @@ let $IN_VIM=1
 {% if nvim %}let g:test#strategy = "neovim" {% endif %}
 
 let g:leetcode_solution_filetype='python3'
-let g:floaterm_wintype='vsplit'
-let g:floaterm_position='botright'
-let g:floaterm_width=0.5
-let g:floaterm_height=1.0
+let g:floaterm_wintype='split'
+let g:floaterm_position='bottom'
+let g:floaterm_width=1.0
+let g:floaterm_height=0.5
 let g:floaterm_autoinsert = v:false
 
 " Autocmd

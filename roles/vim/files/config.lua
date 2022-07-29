@@ -3,6 +3,45 @@ local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g      -- a table to access global variables
 local api = vim.api
 
+
+function FileExists(name)
+  local f = io.open(name, "r")
+  if f ~= nil then io.close(f) return true else return false end
+end
+
+
+LSP_CONFIG = {
+  sumneko_lua = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = { 'vim' },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+  pyright = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        diagnosticMode = "workspace",
+        useLibraryCodeForTypes = true
+      }
+    }
+  }
+}
+
 local langservers = {
 'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'emmet_ls', 'gopls', 'graphql', 'html', 'jedi_language_server', 'jsonls', 'marksman', 'pylsp', 'pyright', 'rust_analyzer', 'sqlls', 'sqls', 'sumneko_lua', 'terraformls', 'tsserver', 'vimls', 'yamlls'
 }
@@ -713,33 +752,8 @@ if IsModuleAvailable("lspconfig") then
   require("nvim-lsp-installer").setup {
     automatic_installation = true,
   }
-  for _, lsp in pairs(langservers) do
-    require('lspconfig')[lsp].setup {
-    }
-  end
-  require'lspconfig'.sumneko_lua.setup {
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = 'LuaJIT',
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = {'vim'},
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
-        },
-        -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = {
-          enable = false,
-        },
-      },
-    },
-  }
 end
+
 if IsModuleAvailable("marks") then
   require'marks'.setup {
     default_mappings = true,
@@ -904,7 +918,8 @@ if IsModuleAvailable("cmp") then
       flags = {
         -- This will be the default in neovim 0.7+
         debounce_text_changes = 150,
-      }
+      },
+      settings = LSP_CONFIG[lsp] or {},
     }
   end
   require'fzf_lsp'.setup()
@@ -939,3 +954,44 @@ if IsModuleAvailable("cybu") then
   require("cybu").setup()
 end
 
+if IsModuleAvailable("fidget") then
+  require("fidget").setup()
+end
+
+local function getWorkspaceVimPath()
+  local function convertName(name)
+    local firstChar = string.sub(name, 1, 1)
+    local lastChar = string.sub(name, #name, #name)
+    local startPos = 1
+    local endPos = #name
+    if firstChar == '/' then
+      startPos = 2
+    end
+    if lastChar == '/' then
+      endPos = #name - 1
+    end
+    name = string.sub(name, startPos, endPos)
+    name = string.gsub(name, "/", '-')
+    return name
+  end
+
+  local workspace_path = vim.api.nvim_eval("g:MYVIMRC_DIR") .. '/workspaces/'
+  os.execute('mkdir -p ' .. workspace_path)
+  workspaceConfigPath = workspace_path .. convertName(vim.fn.getcwd()) .. '.vim'
+  return workspaceConfigPath
+end
+
+WorkspaceVimPath = getWorkspaceVimPath()
+
+if FileExists(WorkspaceVimPath) then
+  pcall(vim.api.nvim_command, 'source ' .. WorkspaceVimPath)
+end
+
+vim.api.nvim_set_keymap('n', '<Leader>esw', '', {
+  noremap = true,
+  desc = 'Edit workspace vim',
+  callback = function()
+    vim.api.nvim_command('edit ' .. WorkspaceVimPath)
+    pcall(vim.api.nvim_command, 'edit ' .. WorkspaceVimPath)
+  end,
+})
