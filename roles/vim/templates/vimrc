@@ -643,7 +643,7 @@ augroup basic
   autocmd! TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankReg +' | endif
   au! BufRead */tasks/*.yaml,*/tasks/*.yml set ft=yaml.ansible
   au! BufRead *.yaml,*.yml if search('hosts:\|tasks:\|roles:', 'nw') | set ft=yaml.ansible | endif
-  autocmd! BufWritePost *.py if executable("isort") | execute "silent !isort %" | endif
+  autocmd! BufWritePost *.py if executable("isort") && exists("g:isort") | execute "silent !isort %" | endif
 
 augroup end
 
