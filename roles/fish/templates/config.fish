@@ -51,3 +51,14 @@ function vagrant
     vagrantlibvirt/vagrant-libvirt:latest \
       vagrant $argv
 end
+
+function vim
+  random-color-scheme.py
+  if test -n "$IN_NVIM"
+    nvr $argv
+  else if type -q nvim
+    nvim $argv
+  else
+    vim $argv
+  end
+end

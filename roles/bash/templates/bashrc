@@ -146,3 +146,13 @@ export VIM_CONFIG="{{ HOME_PATH }}/.config/nvim/init.vim"
 export TOXENV=py27,pep8
 export CDPATH=.:~:~/nfs
 export EDITOR=nvim
+
+vim (){
+  if (( ${+IN_VIM} )) && type nvr; then
+     nvr $@
+  elif [ -f `which nvim` ]; then
+    nvim $@
+  else
+    vim $@
+  fi
+}

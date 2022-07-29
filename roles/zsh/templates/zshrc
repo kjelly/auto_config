@@ -108,3 +108,13 @@ workspace-widget() workspace
 zle -N workspace-widget
 bindkey '^[o' workspace-widget
 bindkey '^o' workspace-widget
+
+vim (){
+  if (( ${+IN_VIM} )) && type nvr; then
+     nvr $@
+  elif [ -f `which nvim` ]; then
+    nvim $@
+  else
+    vim $@
+  fi
+}
