@@ -281,8 +281,6 @@ Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'github/copilot.vim'
 Plug 'jdhao/better-escape.vim'
 
-Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
-
 Plug 'neovim/nvim-lspconfig'
 Plug 'https://github.com/j-hui/fidget.nvim'
 
@@ -645,6 +643,7 @@ augroup basic
   autocmd! TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankReg +' | endif
   au! BufRead */tasks/*.yaml,*/tasks/*.yml set ft=yaml.ansible
   au! BufRead *.yaml,*.yml if search('hosts:\|tasks:\|roles:', 'nw') | set ft=yaml.ansible | endif
+  autocmd! BufWritePost *.py if executable("isort") | execute "silent !isort %" | endif
 
 augroup end
 
