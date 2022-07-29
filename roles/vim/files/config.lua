@@ -32,10 +32,18 @@ LSP_CONFIG = {
   },
   pyright = {
     python = {
+      venvPath = vim.fn.expand("$HOME/.cache/pypoetry/virtualenvs/"),
       analysis = {
         autoSearchPaths = true,
         diagnosticMode = "workspace",
         useLibraryCodeForTypes = true
+      }
+    }
+  },
+  pylsp = {
+    plugin = {
+      pylint = {
+        enabled = true
       }
     }
   }
