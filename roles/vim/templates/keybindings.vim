@@ -50,21 +50,24 @@ function TreeToggle()
     execute "NERDTreeToggle"
   endif
 endfunction
-nnoremap <C-n> :call TreeToggle()<cr>
-nnoremap <C-t> :tabnew %<CR>
-inoremap <C-t> <Esc>:tabnew %<CR>
+nnoremap <c-n> :call TreeToggle()<cr>
+nnoremap <c-t> :tabnew %<CR>
+inoremap <c-t> <Esc>:tabnew %<CR>
 
 " Command
-nnoremap <C-e> :Commands<cr>
+nnoremap <c-e> :Commands<cr>
 
 " Tag list
 if exists(':Vista')
-  nnoremap <C-s> :Vista!!<cr>
+  nnoremap <m-s> :Vista!!<cr>
 else
-  nnoremap <C-s> <cmd>AerialToggle!<CR>
+  nnoremap <m-s> <cmd>AerialToggle!<CR>
 endif
 
-inoremap <C-s> <Esc>:w<cr>a
+" save
+nnoremap <c-s> :w<cr>
+inoremap <c-s> <Esc>:w<cr>
+tnoremap <c-s> <C-\><C-n> " exit terminal
 
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
@@ -99,13 +102,13 @@ cnoremap <c-s> Explore scp://
 
 {% if nvim %}
 
-tnoremap <C-]> <cmd>stopinsert<cr>
+tnoremap <c-]> <cmd>stopinsert<cr>
 
 {% endif %}
-inoremap <C-]> <Esc>
-vnoremap <C-]> <Esc>
-cnoremap <C-]> <Esc>
-nnoremap <C-]> <Esc>
+inoremap <c-]> <Esc>
+vnoremap <c-]> <Esc>
+cnoremap <c-]> <Esc>
+nnoremap <c-]> <Esc>
 
 {% if nvim %}
 " If we need Esc in terminal buffer,
@@ -208,11 +211,6 @@ tnoremap <m-u> <cmd>calll CallHistoryShell()<cr>
 nnoremap <expr> <m-d> &filetype=="floaterm" ? ":FloatermPrev<cr>" : "<c-^>"
 inoremap <m-d> <Esc><c-^>a
 tnoremap <m-d> <C-\><C-n>:FloatermNext<cr>i
-
-" save
-nnoremap <m-s> :w<cr>
-inoremap <m-s> <Esc>:w<cr>
-tnoremap <m-s> <C-\><C-n>
 
 imap <m-w> <c-w>
 nmap <m-w> <c-w>
