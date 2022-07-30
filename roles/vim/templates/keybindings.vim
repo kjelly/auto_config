@@ -77,8 +77,7 @@ inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 " Find file
 function FindFile()
-  call system("git status")
-  if v:shell_error == 0
+  if isdirectory('.git')
     execute 'GitFiles'
     return
   else
