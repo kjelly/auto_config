@@ -801,7 +801,7 @@ end
 
 if IsModuleAvailable("focus") then
   require("focus").setup({
-    signcolumn = false
+    signcolumn = false,
   })
 end
 
