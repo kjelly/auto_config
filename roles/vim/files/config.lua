@@ -591,7 +591,7 @@ function MyRun(cmds)
     end
   else
     api.nvim_set_var("MyRunLastCommand", cmds)
-    for k, v in pairs(cmds) do
+    for _, v in pairs(cmds) do
       api.nvim_command(v)
     end
   end
@@ -827,6 +827,9 @@ if IsModuleAvailable("cmp") then
     cmp_tabnine = "[TN]",
     path = "[Path]",
   }
+  if(cmp == nil) then
+    return
+  end
 
   cmp.setup({
     snippet = {
@@ -998,7 +1001,7 @@ local function getWorkspaceVimPath()
 
   local workspace_path = vim.api.nvim_eval("g:MYVIMRC_DIR") .. '/workspaces/'
   os.execute('mkdir -p ' .. workspace_path)
-  workspaceConfigPath = workspace_path .. convertName(vim.fn.getcwd()) .. '.vim'
+  local workspaceConfigPath = workspace_path .. convertName(vim.fn.getcwd()) .. '.vim'
   return workspaceConfigPath
 end
 
