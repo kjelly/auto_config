@@ -800,7 +800,9 @@ if IsModuleAvailable("scrollbar") then
 end
 
 if IsModuleAvailable("focus") then
-  require("focus").setup()
+  require("focus").setup({
+    signcolumn = false
+  })
 end
 
 if IsModuleAvailable("neogen") then
