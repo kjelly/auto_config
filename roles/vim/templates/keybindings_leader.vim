@@ -1,8 +1,4 @@
-" Grep
-" B for current buffer
-" For example, Lines for Lines in loaded buffers.
-" BLines for Lines in the current buffer
-nnoremap <silent> . :BufferLinePick<CR>
+nnoremap <silent> . <cmd>Buffers<cr>
 
 nnoremap <silent> <leader>zl :Lines<cr>
 nnoremap <silent> <leader>zbl :BLines<cr>
