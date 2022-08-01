@@ -50,7 +50,7 @@ LSP_CONFIG = {
 }
 
 local langservers = {
-  'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'emmet_ls', 'gopls', 'graphql', 'html', 'jedi_language_server',
+  'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'emmet_ls', 'gopls', 'graphql', 'html',
   'jsonls', 'marksman', 'pylsp', 'pyright', 'rust_analyzer', 'sqlls', 'sqls', 'sumneko_lua', 'terraformls', 'tsserver',
   'vimls', 'yamlls'
 }
@@ -1006,3 +1006,10 @@ vim.api.nvim_set_keymap('n', '<Leader>esw', '', {
     pcall(vim.api.nvim_command, 'edit ' .. WorkspaceVimPath)
   end,
 })
+
+if IsModuleAvailable('lspsaga') then
+  local saga = require 'lspsaga'
+  saga.init_lsp_saga({
+  })
+end
+

@@ -278,15 +278,11 @@ else
   nnoremap <silent> <leader>ldt <cmd>lua vim.lsp.buf.type_definition()<cr>
   nnoremap <silent> <leader>lde <cmd>lua vim.lsp.buf.definition()<cr>
   nnoremap <silent> <leader>ldE <cmd>lua vim.lsp.buf.declaration_call()<cr>
-  nnoremap <silent> <leader>lrn <cmd>lua vim.lsp.buf.rename()<cr>
+  nnoremap <silent> <leader>lrn <cmd>Lspsaga rename<cr>
   nnoremap <silent> <leader>la <cmd>lua vim.lsp.buf.code_action()<cr>
   nnoremap <silent> <leader>lre <cmd>lua vim.lsp.buf.references()<cr>
   nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.formatting()<cr>
   nnoremap <silent> <leader>li <cmd>lua require'fzf_lsp'.implementation_call()<cr>
-  nnoremap <silent> <leader>li <cmd>lua <cr>
-  nnoremap <silent> <leader>li <cmd>lua <cr>
-  nnoremap <silent> <leader>li <cmd>lua <cr>
-  nnoremap <silent> <leader>li <cmd>lua <cr>
   nnoremap <silent> <leader>lsa <cmd>lua vim.lsp.buf.signature_help()<cr>
   nnoremap <silent> <leader>lsy <cmd>lua require'fzf_lsp'.document_symbol_call()<cr>
   nnoremap <silent> <leader>lsY <cmd>lua require'fzf_lsp'.workspace_symbol_call()<cr>

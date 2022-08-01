@@ -65,8 +65,8 @@ else
 endif
 
 " save
-nnoremap <c-s> :w<cr>
-inoremap <c-s> <Esc>:w<cr>
+nnoremap <c-s> <cmd>w<cr>
+inoremap <c-s> <cmd>w<cr><esc>
 tnoremap <c-s> <C-\><C-n> " exit terminal
 
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
