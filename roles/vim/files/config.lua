@@ -49,6 +49,13 @@ LSP_CONFIG = {
   }
 }
 
+-- show caps
+-- :lua =vim.lsp.get_active_clients()[1].server_capabilities
+local disabled_lsp_caps = {
+  pylsp = { 'renameProvider', 'referencesProvider', 'hoverProvider' },
+  jedi_language_server = { 'renameProvider', 'referencesProvider', 'hoverProvider' },
+}
+
 local langservers = {
   'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'emmet_ls', 'gopls', 'graphql', 'html',
   'jsonls', 'marksman', 'pylsp', 'pyright', 'rust_analyzer', 'sqlls', 'sqls', 'sumneko_lua', 'terraformls', 'tsserver',
@@ -913,16 +920,19 @@ if IsModuleAvailable("cmp") then
   vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
-  -- Use an on_attach function to only map the following keys
-  -- after the language server attaches to the current buffer
-  local on_attach = function(client, bufnr)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  end
-
   -- Use a loop to conveniently call 'setup' on multiple servers and
   -- map buffer local keybindings when the language server attaches
   for _, lsp in pairs(langservers) do
+    local on_attach = function(client, bufnr)
+      -- Enable completion triggered by <c-x><c-o>
+      vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+      if disabled_lsp_caps[lsp] then
+          for _, cap in ipairs(disabled_lsp_caps[lsp]) do
+            client.server_capabilities[cap] = false
+          end
+      end
+    end
+
     require('lspconfig')[lsp].setup {
       capabilities = capabilities,
       on_attach = on_attach,
