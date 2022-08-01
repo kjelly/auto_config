@@ -635,7 +635,7 @@ endfunction
 augroup basic
   autocmd!
   autocmd! BufWritePre * %s/\s\+$//e
-  autocmd! TermOpen * setlocal nonu norelativenumber
+  autocmd! TermOpen * setlocal nonu norelativenumber | setlocal signcolumn=no
   autocmd! WinLeave * call WinLeaveAction()
   autocmd! BufWritePost worksapce.vim source workspace.vim
 
