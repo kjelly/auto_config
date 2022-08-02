@@ -824,36 +824,28 @@ if IsModuleAvailable("cmp") then
   local lspkind = require('lspkind')
 
   local source_mapping = {
-    buffer = "[Buffer]",
-    nvim_lsp = "[LSP]",
-    nvim_lua = "[Lua]",
-    cmp_tabnine = "[TN]",
-    path = "[Path]",
+    buffer = "[Buffer] 📦",
+    nvim_lua = "[Lua] 🐖",
+    cmp_tabnine = "[TN] 📝",
+    path = "[Path] 📁",
+    copilot = "[Copilot] ",
+    fish = "[fish] 🐠",
+    rg = "[rg] 🔎",
+    luasnip = "[luasnip] 🐍",
   }
 
   local function custom_format(entry, vim_item)
     vim_item.kind = lspkind.presets.default[vim_item.kind]
     vim_item.abbr = all_trim(string.sub(vim_item.abbr, 1, 60))
-    local menu = source_mapping[entry.source.name]
-    if entry.source.name == 'cmp_tabnine' then
-      if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-        menu = entry.completion_item.data.detail .. ' ' .. menu
-      end
-      vim_item.kind = ''
-    elseif entry.source.name == "copilot" then
-      vim_item.kind = "[] Copilot"
-      vim_item.kind_hl_group = "CmpItemKindCopilot"
-      return vim_item
-    elseif entry.source.name == "rg" then
-      vim_item.kind = "🚩 [RG]"
-    elseif entry.source.name == "fish" then
-      vim_item.kind = "🐟 fish"
-    elseif entry.source.name == "buffer" then
-      vim_item.kind = "📦 buffer"
-    elseif entry.source.name == "luasnip" then
-      vim_item.kind = vim_item.kind .. " [snip]"
+    local source_name = entry.source.name
+    if (vim_item.menu ~= nil and
+        entry.completion_item.data ~= nil and
+        entry.completion_item.data.detail ~= nil) then
+      vim_item.menu = entry.completion_item.data.detail .. ' ' .. vim_item.menu
     end
-    vim_item.menu = menu
+    if source_mapping[source_name] then
+      vim_item.kind = source_mapping[source_name]
+    end
     return vim_item
   end
 
