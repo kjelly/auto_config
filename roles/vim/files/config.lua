@@ -855,8 +855,12 @@ if IsModuleAvailable("cmp") then
   end
   local luasnip = require("luasnip")
   require("luasnip.loaders.from_vscode").lazy_load()
-  require("luasnip.loaders.from_vscode").lazy_load({paths='~/.config/nvim/plugged/friendly-snippets/'})
+  require("luasnip.loaders.from_vscode").lazy_load({ paths = '~/.config/nvim/plugged/friendly-snippets/' })
 
+  if IsModuleAvailable("lsp_signature") then
+    require "lsp_signature".setup({ floating_window = true, floating_window_off_y = -10,
+      transparency = 50, max_height = 9, handler_opts = { border = "none" } })
+  end
 
   if (cmp == nil) then
     return
@@ -905,7 +909,7 @@ if IsModuleAvailable("cmp") then
       { name = 'luasnip' }, -- For luasnip users.
       { name = 'copilot' },
       { name = 'cmp_tabnine' },
-      { name = 'rg' , max_item_count=10 },
+      { name = 'rg', max_item_count = 10 },
       { name = 'fish' },
       { name = 'buffer' },
     }),

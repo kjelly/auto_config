@@ -421,6 +421,7 @@ else
   Plug 'rafamadriz/friendly-snippets'
   Plug 'https://github.com/L3MON4D3/LuaSnip'
   Plug 'saadparwaiz1/cmp_luasnip'
+  Plug 'ray-x/lsp_signature.nvim'
 
   Plug 'https://github.com/windwp/nvim-autopairs'
   Plug 'https://github.com/L3MON4D3/LuaSnip'
