@@ -11,11 +11,6 @@ inoremap <c-e> <end>
 
 cnoremap <silent> <c-e> <Esc>:History:<cr>
 
-" Use normal regex
-" http://stevelosh.com/blog/2010/09/coming-home-to-vim
-nnoremap / /\v
-vnoremap / /\v
-
 nnoremap <tab> <cmd><plug>(CybuLastusedNext)<cr>
 nnoremap <s-tab> <cmd><plug>(CybuLastusedPrev)<cr>
 

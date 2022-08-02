@@ -415,6 +415,15 @@ else
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/nvim-cmp'
+  Plug 'lukas-reineke/cmp-rg'
+  Plug 'https://github.com/mtoohey31/cmp-fish'
+  Plug 'https://github.com/dmitmel/cmp-cmdline-history'
+  Plug 'https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol'
+  Plug 'https://github.com/hrsh7th/cmp-calc'
+  Plug 'rafamadriz/friendly-snippets'
+  Plug 'https://github.com/L3MON4D3/LuaSnip'
+  Plug 'saadparwaiz1/cmp_luasnip'
+
   Plug 'https://github.com/windwp/nvim-autopairs'
   Plug 'https://github.com/L3MON4D3/LuaSnip'
   Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
@@ -561,9 +570,7 @@ set laststatus=2
 " a mapped sequence to complete.
 set timeoutlen=500
 set updatetime=300
-
-set completeopt+=noinsert
-set completeopt-=preview
+set completeopt=menu,menuone,noselect
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 set list
 set foldlevel=9

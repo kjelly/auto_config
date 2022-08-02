@@ -331,7 +331,8 @@ if IsModuleAvailable("lualine") then
       lualine_c = { floatermInfo },
       lualine_z = { 'location' },
     },
-    filetypes = { 'floaterm' } }
+    filetypes = { 'floaterm' }
+  }
 
   require('lualine').setup {
     options = {
@@ -829,25 +830,80 @@ if IsModuleAvailable("cmp") then
     cmp_tabnine = "[TN]",
     path = "[Path]",
   }
-  if(cmp == nil) then
-    return
+
+  local function custom_format(entry, vim_item)
+    vim_item.kind = lspkind.presets.default[vim_item.kind]
+    vim_item.abbr = all_trim(string.sub(vim_item.abbr, 1, 60))
+    local menu = source_mapping[entry.source.name]
+    if entry.source.name == 'cmp_tabnine' then
+      if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
+        menu = entry.completion_item.data.detail .. ' ' .. menu
+      end
+      vim_item.kind = ''
+    elseif entry.source.name == "copilot" then
+      vim_item.kind = "[] Copilot"
+      vim_item.kind_hl_group = "CmpItemKindCopilot"
+      return vim_item
+    elseif entry.source.name == "rg" then
+      vim_item.kind = "🚩 [RG]"
+    elseif entry.source.name == "fish" then
+      vim_item.kind = "🐟 fish"
+    elseif entry.source.name == "buffer" then
+      vim_item.kind = "📦 buffer"
+    elseif entry.source.name == "luasnip" then
+      vim_item.kind = vim_item.kind .. " [snip]"
+    end
+    vim_item.menu = menu
+    return vim_item
   end
 
+  local has_words_before = function()
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  end
+  local luasnip = require("luasnip")
+  require("luasnip.loaders.from_vscode").lazy_load()
+  require("luasnip.loaders.from_vscode").lazy_load({paths='~/.config/nvim/plugged/friendly-snippets/'})
+
+
+  if (cmp == nil) then
+    return
+  end
   cmp.setup({
     snippet = {
       -- REQUIRED - you must specify a snippet engine
       expand = function(args)
-        require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        require('luasnip').lsp_expand(args.body)
       end,
     },
     window = {
-      -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-g>'] = cmp.mapping(
+        function(fallback)
+          if luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end,
+        { "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
+      ),
+      ['<C-f>'] = cmp.mapping(
+        function(fallback)
+          if luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+          elseif has_words_before() then
+            cmp.complete()
+          else
+            fallback()
+          end
+        end,
+        { "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
+      ),
+      ['<m-/>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
       ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
@@ -857,28 +913,12 @@ if IsModuleAvailable("cmp") then
       { name = 'luasnip' }, -- For luasnip users.
       { name = 'copilot' },
       { name = 'cmp_tabnine' },
-    }, {
+      { name = 'rg' , max_item_count=10 },
+      { name = 'fish' },
       { name = 'buffer' },
     }),
     formatting = {
-      format = function(entry, vim_item)
-        vim_item.kind = lspkind.presets.default[vim_item.kind]
-        vim_item.abbr = all_trim(string.sub(vim_item.abbr, 1, 60))
-        local menu = source_mapping[entry.source.name]
-        if entry.source.name == 'cmp_tabnine' then
-          if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-            menu = entry.completion_item.data.detail .. ' ' .. menu
-          end
-          vim_item.kind = ''
-        end
-        if entry.source.name == "copilot" then
-          vim_item.kind = "[] Copilot"
-          vim_item.kind_hl_group = "CmpItemKindCopilot"
-          return vim_item
-        end
-        vim_item.menu = menu
-        return vim_item
-      end
+      format = custom_format,
     },
   })
 
@@ -891,23 +931,54 @@ if IsModuleAvailable("cmp") then
     })
   })
 
-  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline('/', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'buffer' }
-    }
-  })
-
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
+  local search_sources = {
+    { name = 'nvim_lsp_document_symbol' },
+    { name = 'buffer' },
+  }
+  local function setup_cmdline(cmd_type, sources)
+    cmp.setup.cmdline(cmd_type, {
+      formatting = {
+        format = custom_format,
+      },
+      mapping = cmp.mapping.preset.cmdline({
+        ['<C-p>'] = {
+          c = function(fallback)
+            local cmp = require('cmp')
+            if cmp.visible() then
+              cmp.select_next_item()
+            else
+              fallback()
+            end
+          end,
+        },
+        ['<C-n>'] = {
+          c = function(fallback)
+            local cmp = require('cmp')
+            if cmp.visible() then
+              cmp.select_prev_item()
+            else
+              fallback()
+            end
+          end,
+        },
+        ['<CR>'] = function(fallback)
+          fallback()
+        end
+      }),
+      view = {
+        entries = { name = 'custom', selection_order = 'near_cursor' }
+      },
+      sources = sources
     })
+  end
+
+  setup_cmdline(':', {
+    { name = 'path' },
+    { name = 'cmdline' },
+    { name = 'cmdline_history' },
   })
+  setup_cmdline('/', search_sources)
+  setup_cmdline('?', search_sources)
 
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -932,9 +1003,9 @@ if IsModuleAvailable("cmp") then
       -- Enable completion triggered by <c-x><c-o>
       vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
       if disabled_lsp_caps[lsp] then
-          for _, cap in ipairs(disabled_lsp_caps[lsp]) do
-            client.server_capabilities[cap] = false
-          end
+        for _, cap in ipairs(disabled_lsp_caps[lsp]) do
+          client.server_capabilities[cap] = false
+        end
       end
     end
 
@@ -1027,4 +1098,3 @@ if IsModuleAvailable('lspsaga') then
   saga.init_lsp_saga({
   })
 end
-
