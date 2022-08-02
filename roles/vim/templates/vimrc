@@ -398,8 +398,6 @@ if has('python3')
   Plug 'vim-vdebug/vdebug', { 'on': 'VdebugStart'}
 endif
 
-Plug 'honza/vim-snippets'
-
 if executable('node1')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
