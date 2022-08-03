@@ -1096,3 +1096,7 @@ end
 if IsModuleAvailable('dap-python') then
   require('dap-python').setup(vim.api.nvim_eval("g:python3_host_prog"))
 end
+
+if IsModuleAvailable('trouble') then
+  require("trouble").setup {}
+end

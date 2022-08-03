@@ -326,3 +326,9 @@ onoremap au :<c-u>lua require"treesitter-unit".select(true)<CR>
 
 nnoremap <leader>dg :silent exec '!bb "go <c-r>=&filetype<cr><space>"'<left><left>
 nnoremap <leader>dd :silent exec '!bb "https://devdocs.io/<c-r>=&filetype<cr>"'<cr>
+
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
