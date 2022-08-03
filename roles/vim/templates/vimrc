@@ -260,6 +260,7 @@ else
   Plug 'google/vim-searchindex'
   Plug 'liuchengxu/vim-which-key'
 endif
+Plug 'https://github.com/romainl/vim-cool'
 
 Plug 'https://github.com/ghillb/cybu.nvim'
 Plug 'kevinhwang91/promise-async'

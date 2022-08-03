@@ -939,7 +939,6 @@ if IsModuleAvailable("cmp") then
       mapping = cmp.mapping.preset.cmdline({
         ['<C-p>'] = {
           c = function(fallback)
-            local cmp = require('cmp')
             if cmp.visible() then
               cmp.select_next_item()
             else
@@ -949,7 +948,6 @@ if IsModuleAvailable("cmp") then
         },
         ['<C-n>'] = {
           c = function(fallback)
-            local cmp = require('cmp')
             if cmp.visible() then
               cmp.select_prev_item()
             else
@@ -1093,4 +1091,8 @@ if IsModuleAvailable('lspsaga') then
   local saga = require 'lspsaga'
   saga.init_lsp_saga({
   })
+end
+
+if IsModuleAvailable('dap-python') then
+  require('dap-python').setup(vim.api.nvim_eval("g:python3_host_prog"))
 end
