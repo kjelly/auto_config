@@ -298,11 +298,12 @@ nnoremap <silent> <leader>lel :LeetCodeList<cr>
 nnoremap <silent> <leader>les :LeetCodeSubmit<cr>
 nnoremap <silent> <leader>let :LeetCodeTest<cr>
 
-nnoremap <silent> <localleader>dt :lua require'dap'.toggle_breakpoint()<cr>
-nnoremap <silent> <localleader>dc :lua require'dap'.continue()<cr>
-nnoremap <silent> <localleader>di :lua require'dap'.step_into()<cr>
-nnoremap <silent> <localleader>do :lua require'dap'.step_over()<cr>
-nnoremap <silent> <localleader>dr :lua require'dap'.repl.open()<cr>
+nnoremap <silent> <localleader>dt <cmd>lua require'dap'.toggle_breakpoint()<cr>
+nnoremap <silent> <localleader>dc <cmd>lua require'dap'.continue()<cr>
+nnoremap <silent> <localleader>di <cmd>lua require'dap'.step_into()<cr>
+nnoremap <silent> <localleader>do <cmd>lua require'dap'.step_over()<cr>
+nnoremap <silent> <localleader>dr <cmd>lua require'dap'.repl.open()<cr>
+nnoremap <silent> <localleader>dr <cmd>lua require("dapui").toggle()<cr>
 
 nnoremap <silent> <localleader>a :Ag<cr>
 nnoremap <silent> <localleader>b :b#<cr>

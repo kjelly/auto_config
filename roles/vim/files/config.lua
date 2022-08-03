@@ -1100,3 +1100,6 @@ end
 if IsModuleAvailable('trouble') then
   require("trouble").setup {}
 end
+if IsModuleAvailable('dapui') then
+  require("dapui").setup {}
+end
