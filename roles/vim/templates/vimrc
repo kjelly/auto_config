@@ -212,6 +212,7 @@ if has('nvim-0.5')
   Plug 'nvim-treesitter/playground'
   Plug 'nvim-treesitter/nvim-treesitter-refactor'
   Plug 'https://github.com/David-Kunz/treesitter-unit'
+  Plug 'https://github.com/yioneko/nvim-yati'
   Plug 'SmiteshP/nvim-gps'
   Plug 'spywhere/detect-language.nvim'
 
