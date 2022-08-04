@@ -60,7 +60,7 @@ def main():
         if select.select([sys.stdin, ], [], [], 0.0)[0]:
             stdin_data = json.loads(sys.stdin.read())
 
-    data |= stdin_data
+    data.update(stdin_data)
 
     template = get_template()
     outputText = template.render(**data)
