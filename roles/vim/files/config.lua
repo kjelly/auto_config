@@ -257,29 +257,10 @@ end
 
 if IsModuleAvailable("dap") then
   local dap = require("dap")
-  dap.adapters.python = {
-    type = "executable",
-    command = "/usr/bin/python3",
-    args = { "-m", "debugpy.adapter" }
-  }
-
-  dap.configurations.python = {
-    {
-      type = "python",
-      request = "launch",
-      name = "Launch file",
-
-      program = "${file}",
-      pythonPath = function()
-        return vim.api.nvim_eval("g:python3_host_prog")
-      end
-    }
-  }
 
   dap.adapters.dart = {
     type = "executable",
     command = "dart",
-    -- This command was introduced upstream in https://github.com/dart-lang/sdk/commit/b68ccc9a
     args = {"debug_adapter"}
   }
   dap.configurations.dart = {
@@ -287,9 +268,7 @@ if IsModuleAvailable("dap") then
       type = "dart",
       request = "launch",
       name = "Launch Dart Program",
-      -- The nvim-dap plugin populates this variable with the filename of the current buffer
       program = "${file}",
-      -- The nvim-dap plugin populates this variable with the editor's current working directory
       cwd = "${workspaceFolder}",
     }
   }
