@@ -1,3 +1,6 @@
+#!/bin/bash
+
+sudo apt update && sudo apt install -y ugrep
 export RIPGREP_VERSION=11.0.1
 mv ~/.config/nvim/init.vim ~/.config/nvim/init.vim.`date +%F_%R`
 
