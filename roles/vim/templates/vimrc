@@ -119,18 +119,7 @@ endfunction
 
 let g:termOpen=0
 function! TermToggle()
-  execute "FloatermToggle!"
-  " let l:buffers = floaterm#buflist#gather()
-  " if len(l:buffers) == 0
-  "   execute "FloatermNew"
-  "   let g:termOpen = 1
-  " elseif g:termOpen == 0
-  "   execute "FloatermShow"
-  "   let g:termOpen = 1
-  " else
-  "   execute "FloatermHide!"
-  "   let g:termOpen = 0
-  " endif
+  execute "FloatermToggle"
 endfunction
 
 function! FindFileInTree()
