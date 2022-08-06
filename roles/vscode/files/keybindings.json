@@ -23,11 +23,12 @@
     { "key": ", f",              "command": "workbench.files.action.showActiveFileInExplorer",
                                    "when": "editorTextFocus && !inDebugRepl && vim.mode == 'Normal'" },
     // File Explorer
-    { "key": "j", "command": "list.focusDown", "when": "filesExplorerFocus" },
-    { "key": "k", "command": "list.focusUp", "when": "filesExplorerFocus" },
-    { "key": "l", "command": "list.expand", "when": "filesExplorerFocus" },
-    { "key": "h", "command": "list.collapse", "when": "filesExplorerFocus" },
-    { "key": "enter", "command": "list.select", "when": "filesExplorerFocus" },
+    { "key": "j", "command": "list.focusDown", "when": "filesExplorerFocus && !editorAreaVisible" },
+    { "key": "k", "command": "list.focusUp", "when": "filesExplorerFocus && !editorAreaVisible" },
+    { "key": "l", "command": "list.expand", "when": "filesExplorerFocus && !editorAreaVisible" },
+    { "key": "h", "command": "list.collapse", "when": "filesExplorerFocus && !editorAreaVisible" },
+    { "key": "enter", "command": "list.select", "when": "filesExplorerFocus && !editorAreaVisible" },
+
 
     // Terminal
     { "key": "alt+p", "command": "workbench.action.terminal.focusPrevious", "when": "terminalFocus"},
@@ -79,8 +80,19 @@
     { "key": "alt+p", "command": "workbench.action.quickOpenPreviousEditor"},
     { "key": "alt+s", "command": "workbench.action.files.save"},
     { "key": "alt+a", "command": "extension.vim_escape", "when": "editorTextFocus && vim.active && !inDebugRepl" },
+    {
+        "key": "alt+n",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "alt+p",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
 
     { "key": "alt+backspace", "command": "deleteWordLeft" },
+
     {
         "key": ";",
         "command": "vim.showQuickpickCmdLine",
