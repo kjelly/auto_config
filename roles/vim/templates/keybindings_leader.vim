@@ -1,6 +1,6 @@
 nnoremap <silent> . <cmd>Buffers<cr>
 
-nnoremap D <cmd> <cmd>lua vim.diagnostic.open_float(nil, { focusable = false })<cr>
+nnoremap D <cmd> <cmd>lua vim.diagnostic.open_float()<cr>
 
 nnoremap <silent> <leader>zl :Lines<cr>
 nnoremap <silent> <leader>zbl :BLines<cr>

@@ -3,6 +3,16 @@ local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g -- a table to access global variables
 local api = vim.api
 
+vim.diagnostic.config({
+  virtual_text = {
+    severity = vim.diagnostic.severity.ERROR,
+    source = true,
+  },
+  float = {
+    source = true,
+  },
+  update_in_insert = true
+})
 
 function FileExists(name)
   local f = io.open(name, "r")
