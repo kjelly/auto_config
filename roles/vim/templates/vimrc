@@ -346,7 +346,6 @@ Plug 'VonHeikemen/fine-cmdline.nvim'
 " colorscheme
 Plug 'sainnhe/gruvbox-material'
 Plug 'gruvbox-community/gruvbox'
-{% if nvim %}
 Plug 'folke/tokyonight.nvim'
 Plug 'marko-cerovac/material.nvim'
 Plug 'briones-gabriel/darcula-solid.nvim'
@@ -365,10 +364,13 @@ Plug 'https://github.com/sainnhe/everforest'
 Plug 'https://github.com/navarasu/onedark.nvim'
 Plug 'lourenci/github-colors'
 Plug 'shaunsingh/moonlight.nvim'
-{% else %}
+Plug 'https://github.com/savq/melange'
+Plug 'https://github.com/rmehri01/onenord.nvim'
+Plug 'https://github.com/luisiacc/gruvbox-baby'
+Plug 'https://github.com/Shatur/neovim-ayu'
+Plug 'https://github.com/NTBBloodbath/doom-one.nvim'
+Plug 'https://github.com/rockerBOO/boo-colorscheme-nvim'
 Plug 'dracula/vim', { 'as': 'dracula' }
-
-{% endif %}
 
 if executable("fcitx") == 1
   Plug 'vim-scripts/fcitx.vim'
