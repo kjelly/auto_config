@@ -18,6 +18,7 @@ def find_all_color_schemes():
     for i in color_scheme_dir:
         ret.extend(glob.glob(f'{i}/*.vim'))
     ret = [os.path.basename(i)[:-4] for i in ret]
+    ret = [i for i in ret if not any(j in i for j in ['light'])]
     return ret
 
 
