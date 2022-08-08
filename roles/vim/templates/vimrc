@@ -355,7 +355,6 @@ Plug 'https://github.com/Mofiqul/dracula.nvim'
 Plug 'projekt0n/github-nvim-theme'
 Plug 'yong1le/darkplus.nvim'
 Plug 'ray-x/aurora'
-Plug 'EdenEast/nightfox.nvim'
 Plug 'https://github.com/Pocco81/Catppuccino.nvim'
 Plug 'frenzyexists/aquarium-vim', { 'branch': 'develop' }
 Plug 'https://github.com/sainnhe/edge'
