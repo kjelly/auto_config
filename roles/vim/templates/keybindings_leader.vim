@@ -12,7 +12,6 @@ nnoremap <silent> <leader>zhs :History/<cr>
 nnoremap <silent> <leader>zm :Marks<cr>
 nnoremap <silent> <leader>za :Ag<cr>
 nnoremap <silent> <leader>zf :Files<cr>
-nnoremap <silent> <leader>zp :Files<cr>
 nnoremap <silent> <leader>zo :Buffers<cr>
 nnoremap <silent> <leader>zg :GitFiles<cr>
 nnoremap <silent> <leader>zr :Rg<cr>

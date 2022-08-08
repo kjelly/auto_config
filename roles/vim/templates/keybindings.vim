@@ -70,18 +70,6 @@ inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
-" Find file
-function FindFile()
-  if isdirectory('.git')
-    execute 'GitFiles'
-    return
-  else
-    execute 'Files'
-  endif
-endfunction
-nnoremap <C-p> :call FindFile()<cr>
-vnoremap <c-p> "ry:<c-u>Rg <c-r>r<cr>
-
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -200,6 +188,7 @@ function! CallHistoryShell()
 endfunction
 nnoremap <expr> <m-u> &filetype=='floaterm' ? ':call CallHistoryShell()<cr>' : ':Rg<cr>'
 tnoremap <m-u> <cmd>calll CallHistoryShell()<cr>
+vnoremap <m-u> "ry:<c-u>Rg <c-r>r<cr>
 
 " buufer switch
 nnoremap <expr> <m-d> &filetype=="floaterm" ? ":FloatermPrev<cr>" : "<c-^>"

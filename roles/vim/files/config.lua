@@ -1106,3 +1106,26 @@ end
 if IsModuleAvailable('dapui') then
   require("dapui").setup {}
 end
+
+function FindFileCwd()
+  local cwd = vim.fn.getcwd()
+  local currentFile = vim.fn.expand('%:p')
+  local gitDir = cwd .. '/.git'
+  if currentFile ~= '' and string.find(currentFile, cwd) == nil then
+    vim.cmd('Files')
+  elseif vim.fn.isdirectory(gitDir) then
+    vim.cmd('GitFiles')
+  else
+    vim.cmd('Files')
+  end
+end
+vim.api.nvim_set_keymap('n', '<c-p>', '', {silent = true, callback = FindFileCwd})
+
+function FindFileBuffer()
+  local oldCwd = vim.fn.getcwd()
+  local currentBufferPath = vim.fn.expand('%:p:h')
+  vim.cmd('cd ' .. currentBufferPath)
+  vim.cmd('Files')
+  vim.cmd('cd ' .. oldCwd)
+end
+vim.api.nvim_set_keymap('', '<leader>zf', '', {silent = true, callback = FindFileBuffer})
