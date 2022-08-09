@@ -275,6 +275,8 @@ else
   nnoremap <silent> <leader>ldt <cmd>lua vim.lsp.buf.type_definition()<cr>
   nnoremap <silent> <leader>lde <cmd>lua vim.lsp.buf.definition()<cr>
   nnoremap <silent> <leader>ldE <cmd>lua vim.lsp.buf.declaration_call()<cr>
+  nnoremap <silent> <leader>ldf <cmd>lua vim.diagnostic.open_float()<CR>
+  nnoremap <silent> <leader>ldl <cmd>lua vim.diagnostic.setloclist()<CR>
   nnoremap <silent> <leader>lrn <cmd>Lspsaga rename<cr>
   nnoremap <silent> <leader>la <cmd>lua vim.lsp.buf.code_action()<cr>
   nnoremap <silent> <leader>lre <cmd>lua vim.lsp.buf.references()<cr>

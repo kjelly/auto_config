@@ -369,6 +369,7 @@ Plug 'https://github.com/luisiacc/gruvbox-baby'
 Plug 'https://github.com/Shatur/neovim-ayu'
 Plug 'https://github.com/NTBBloodbath/doom-one.nvim'
 Plug 'https://github.com/rockerBOO/boo-colorscheme-nvim'
+Plug 'https://github.com/Everblush/everblush.nvim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 
 if executable("fcitx") == 1
@@ -589,7 +590,8 @@ if executable("ag") == 1
   let $FZF_DEFAULT_COMMAND='ag -g ""'
 endif
 if executable('rg')
-    let &grepprg = "rg --vimgrep"
+  let &grepprg = "rg --vimgrep"
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 endif
 
 let g:bookmark_no_default_key_mappings = 1

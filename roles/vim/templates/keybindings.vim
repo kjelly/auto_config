@@ -39,6 +39,8 @@ tnoremap <c-l> <Right>
 function TreeToggle()
   if len(getbufinfo({'buflisted': 1})) == 0
     return
+  elseif exists(":Neotree")
+    execute "Neotree toggle"
   elseif exists(":NvimTreeToggle")
     execute "NvimTreeToggle"
   elseif exists(":NERDTreeToggle")
@@ -312,9 +314,8 @@ else
   nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
   nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
   nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap <silent> <leader>ld <cmd>lua vim.diagnostic.open_float()<CR>
-  nnoremap <silent> [d <cmd>lua vim.diagnostic.goto_prev()<CR>
-  nnoremap <silent> ]d <cmd>lua vim.diagnostic.goto_next()<CR>
+  nnoremap <silent> [d <cmd>lua vim.diagnostic.goto_prev(severity=vim.diagnostic.severity.INFO)<CR>
+  nnoremap <silent> ]d <cmd>lua vim.diagnostic.goto_next(severity=vim.diagnostic.severity.INFO)<CR>
 endif
 
 {% endif %}
