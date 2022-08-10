@@ -138,7 +138,7 @@ function! EditTodayNote() abort
   if filereadable(expand(file_name))
     execute "e ".fnameescape(file_name)
   else
-    system("cp '~/notes/templates/daily template.md' ~/notes/journals/".fnameescape(file_name))
+    call system("cp '~/notes/templates/daily template.md' ~/notes/journals/".fnameescape(file_name))
     execute "e ".fnameescape(file_name)
   endif
 endfunction
@@ -227,6 +227,7 @@ if has('nvim-0.5')
   Plug 'https://github.com/phaazon/hop.nvim'
   Plug 'monaqa/dial.nvim'
   Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'https://github.com/nvim-neo-tree/neo-tree.nvim', {'branch': 'v2.x'}
 
   " Indent guides for Neovim
   Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'master', 'on': 'IndentBlanklineEnable'}
@@ -277,11 +278,8 @@ Plug 'https://github.com/j-hui/fidget.nvim'
 Plug 'https://github.com/glepnir/lspsaga.nvim'
 Plug 'folke/trouble.nvim'
 
-
-Plug 'https://github.com/alex-popov-tech/timer.nvim'
 Plug 'https://github.com/dstein64/vim-startuptime'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'folke/persistence.nvim'
 
 if empty($SSH_CLIENT)
@@ -641,8 +639,6 @@ augroup basic
   autocmd! WinLeave * call WinLeaveAction()
   autocmd! BufWritePost worksapce.vim source workspace.vim
 
-  autocmd! BufEnter * silent! execute "BufferLineSortByTabs"
-  autocmd! BufNew * silent! execute "BufferLineSortByTabs"
   autocmd! TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankReg +' | endif
   au! BufRead */tasks/*.yaml,*/tasks/*.yml set ft=yaml.ansible
   au! BufRead *.yaml,*.yml if search('hosts:\|tasks:\|roles:', 'nw') | set ft=yaml.ansible | endif
@@ -788,19 +784,6 @@ highlight ColorColumn guibg=#444444
 " Yank to tmux normally
 set clipboard=unnamed
 
-" wilder
-try
-  call wilder#enable_cmdline_enter()
-  set wildcharm=<Tab>
-  cmap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
-  cmap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
-
-  " only / and ? are enabled by default
-  call wilder#set_option('modes', ['/', '?', ':'])
-catch
-endtry
-
-
 " Results:  :copen, :cn, :cp
 " Ex: :grep -f c++/comments %
 " Ex: :grep -tc++ FIXME
@@ -819,15 +802,7 @@ vnoremap Y "+y
 {% if nvim %}
 exec 'luafile' g:MYVIMRC_DIR . '/config.lua'
 {% endif %}
-
-if filereadable(expand("~/.vim_custom.vim")) && match(readfile(expand("~/.vim_custom.vim")),"colorscheme")==-1
-  silent! colorscheme gruvbox-material
-elseif !filereadable(expand("~/.vim_custom.vim"))
-  silent! colorscheme gruvbox-material
-endif
-
 silent! source ~/.vim_custom.vim
-silent! exec 'source' g:MYVIMRC_DIR . '/hterm-copy.vim'
 
 if filereadable("workspace.vim")
   silent! source workspace.vim

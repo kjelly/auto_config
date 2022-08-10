@@ -207,26 +207,9 @@ vmap <m-w> <c-w>
 tnoremap <m-v> <C-\><C-n>pi
 inoremap <m-v> <Esc>pi
 
-function RunPreviousCommandFunc()
-  let mod = mode()
-  if mod == 't'
-    execute feedkeys("\<C-p>")
-    execute feedkeys("\<CR>")
-  elseif mod == 'n'
-    execute 'FloatermShow'
-    execute feedkeys("i", "t")
-    execute feedkeys("\<C-p>", "t")
-    execute feedkeys("\<CR>", "t")
-  else
-    execute 'FloatermShow'
-    execute feedkeys("i", "t")
-    execute feedkeys("\<C-p>", "t")
-    execute feedkeys("\<CR>", "t")
-  endif
-endfunction
-tnoremap <m-r> <cmd>call RunPreviousCommandFunc()<cr>
-nnoremap <m-r> <cmd>call RunPreviousCommandFunc()<cr>
-inoremap <m-r> <cmd>call RunPreviousCommandFunc()<cr>
+tnoremap <m-r> <cmd>lua RunPreviousCommandFunc()<cr>
+nnoremap <m-r> <cmd>lua RunPreviousCommandFunc()<cr>
+inoremap <m-r> <cmd>lua RunPreviousCommandFunc()<cr>
 
 function! EnterShellFunc()
   let mod = mode()
@@ -253,9 +236,9 @@ tmap <m-g> <C-\><C-n><Plug>(choosewin)
 inoremap <m-m> <Esc>:Marks<cr>
 nnoremap <m-m> :Marks<cr>
 
-inoremap <m-;> <Esc>:call TermToggle()<cr>
-nnoremap <m-;> :call TermToggle()<cr>
-tnoremap <m-;> <c-\><c-n>:call TermToggle()<cr>
+inoremap <m-;> <cmd>lua TermToggle()<cr>
+nnoremap <m-;> <cmd>lua TermToggle()<cr>
+tnoremap <m-;> <cmd>lua TermToggle()<cr>
 
 inoremap <silent> <m-:> <Esc>:FloatermNew<cr>
 nnoremap <silent> <m-:> :FloatermNew<cr>
@@ -314,8 +297,8 @@ else
   nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
   nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
   nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap <silent> [d <cmd>lua vim.diagnostic.goto_prev(severity=vim.diagnostic.severity.INFO)<CR>
-  nnoremap <silent> ]d <cmd>lua vim.diagnostic.goto_next(severity=vim.diagnostic.severity.INFO)<CR>
+  nnoremap <silent> [d <cmd>lua vim.diagnostic.goto_prev({severity=vim.diagnostic.severity.INFO})<CR>
+  nnoremap <silent> ]d <cmd>lua vim.diagnostic.goto_next({severity=vim.diagnostic.severity.INFO})<CR>
 endif
 
 {% endif %}

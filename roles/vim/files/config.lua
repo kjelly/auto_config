@@ -14,6 +14,10 @@ vim.diagnostic.config({
   update_in_insert = true
 })
 
+function Dump(o)
+  print(vim.inspect(o))
+end
+
 function FileExists(name)
   local f = io.open(name, "r")
   if f ~= nil then io.close(f) return true else return false end
@@ -99,7 +103,7 @@ function IsModuleAvailable(name)
   if package.loaded[name] then
     return true
   else
-    for _, searcher in ipairs(package.searchers or package.loaders) do
+    for _, searcher in ipairs(package.loaders) do
       local loader = searcher(name)
       if type(loader) == "function" then
         package.preload[name] = loader
@@ -110,185 +114,168 @@ function IsModuleAvailable(name)
   end
 end
 
-if IsModuleAvailable("timer") then
-  require "timer".add(
-    function()
-      return 1000
+function SafeRequire(name)
+  if IsModuleAvailable(name) then
+    return require(name)
+  end
+  return {
+    setup = function(arg)
     end
-  )
+  }
 end
 
-if IsModuleAvailable("nvim-treesitter") then
-  require "nvim-treesitter.configs".setup {
-    ensure_installed = "all",
-    refactor = {
-      highlight_definitions = { enable = true },
-      highlight_current_scope = { enable = false },
-      smart_rename = {
-        enable = true,
-        keymaps = {
-          smart_rename = "grr",
-        },
-      },
-    },
-    autopairs = {
-      enable = true,
-    },
-    iswap = {
-      enable = true,
-    },
-    incremental_selection = {
+function SafeRequireCallback(name, func)
+  if IsModuleAvailable(name) then
+    return func(require(name))
+  end
+end
+
+SafeRequire "nvim-treesitter.configs".setup {
+  ensure_installed = "all",
+  refactor = {
+    highlight_definitions = { enable = true },
+    highlight_current_scope = { enable = false },
+    smart_rename = {
       enable = true,
       keymaps = {
-        init_selection = "+",
-        node_incremental = "+",
-        scope_incremental = "grc",
-        node_decremental = "_",
+        smart_rename = "grr",
       },
     },
-    indent = {
-      enable = false,
+  },
+  autopairs = {
+    enable = true,
+  },
+  iswap = {
+    enable = true,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "+",
+      node_incremental = "+",
+      scope_incremental = "grc",
+      node_decremental = "_",
     },
-    highlight = {
+  },
+  indent = {
+    enable = false,
+  },
+  highlight = {
+    enable = true,
+    disable = {}
+  },
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = 1000,
+  },
+  yati = {
+    enable = true,
+  }
+}
+SafeRequire 'nvim-treesitter.configs'.setup {
+  textobjects = {
+    select = {
       enable = true,
-      disable = {}
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+        ["ao"] = "@block.outer",
+        ["io"] = "@block.inner",
+        ["aCa"] = "@call.outer",
+        ["iCa"] = "@call.inner",
+        ["aCo"] = "@conditional.outer",
+        ["iCo"] = "@conditional.inner",
+        ["aCm"] = "@comment.outer",
+        ["aF"] = "@frame.outer",
+        ["iF"] = "@frame.inner",
+        ["al"] = "@loop.outer",
+        ["il"] = "@loop.inner",
+        ["ap"] = "@parameter.outer",
+        ["ip"] = "@parameter.inner",
+        ["as"] = "@statement.outer",
+        ["is"] = "@scopename.inner",
+      },
     },
-    rainbow = {
+  },
+}
+SafeRequire 'nvim-treesitter.configs'.setup {
+  textobjects = {
+    swap = {
       enable = true,
-      extended_mode = true,
-      max_file_lines = 1000,
+      swap_next = {
+        ["<leader>lsa"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["<leader>lsA"] = "@parameter.inner",
+      },
     },
-    yati = {
+  },
+}
+SafeRequire 'nvim-treesitter.configs'.setup {
+  textobjects = {
+    move = {
       enable = true,
-    }
-  }
-  require 'nvim-treesitter.configs'.setup {
-    textobjects = {
-      select = {
-        enable = true,
-        keymaps = {
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          ["ic"] = "@class.inner",
-          ["ao"] = "@block.outer",
-          ["io"] = "@block.inner",
-          ["aCa"] = "@call.outer",
-          ["iCa"] = "@call.inner",
-          ["aCo"] = "@conditional.outer",
-          ["iCo"] = "@conditional.inner",
-          ["aCm"] = "@comment.outer",
-          ["aF"] = "@frame.outer",
-          ["iF"] = "@frame.inner",
-          ["al"] = "@loop.outer",
-          ["il"] = "@loop.inner",
-          ["ap"] = "@parameter.outer",
-          ["ip"] = "@parameter.inner",
-          ["as"] = "@statement.outer",
-          ["is"] = "@scopename.inner",
-        },
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]]"] = "@class.outer",
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]["] = "@class.outer",
+      },
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[["] = "@class.outer",
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        ["[]"] = "@class.outer",
       },
     },
-  }
-  require 'nvim-treesitter.configs'.setup {
-    textobjects = {
-      swap = {
-        enable = true,
-        swap_next = {
-          ["<leader>lsa"] = "@parameter.inner",
-        },
-        swap_previous = {
-          ["<leader>lsA"] = "@parameter.inner",
-        },
-      },
-    },
-  }
-  require 'nvim-treesitter.configs'.setup {
-    textobjects = {
-      move = {
-        enable = true,
-        set_jumps = true, -- whether to set jumps in the jumplist
-        goto_next_start = {
-          ["]m"] = "@function.outer",
-          ["]]"] = "@class.outer",
-        },
-        goto_next_end = {
-          ["]M"] = "@function.outer",
-          ["]["] = "@class.outer",
-        },
-        goto_previous_start = {
-          ["[m"] = "@function.outer",
-          ["[["] = "@class.outer",
-        },
-        goto_previous_end = {
-          ["[M"] = "@function.outer",
-          ["[]"] = "@class.outer",
-        },
-      },
-    },
-  }
+  },
+}
 
-  require "nvim-treesitter.configs".setup {
-    playground = {
+SafeRequire "nvim-treesitter.configs".setup {
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25,
+    persist_queries = false,
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
+    },
+  }
+}
+
+SafeRequire 'nvim-treesitter.configs'.setup {
+  refactor = {
+    navigation = {
       enable = true,
-      disable = {},
-      updatetime = 25,
-      persist_queries = false,
-      keybindings = {
-        toggle_query_editor = 'o',
-        toggle_hl_groups = 'i',
-        toggle_injected_languages = 't',
-        toggle_anonymous_nodes = 'a',
-        toggle_language_display = 'I',
-        focus_language = 'f',
-        unfocus_language = 'F',
-        update = 'R',
-        goto_node = '<cr>',
-        show_help = '?',
-      },
-    }
-  }
-
-  require 'nvim-treesitter.configs'.setup {
-    refactor = {
-      navigation = {
-        enable = true,
-        keymaps = {
-          goto_definition = "gnd",
-          list_definitions = "gnD",
-          list_definitions_toc = "gO",
-          goto_next_usage = "gnu",
-          goto_previous_usage = "gnU",
-        },
+      keymaps = {
+        goto_definition = "gnd",
+        list_definitions = "gnD",
+        list_definitions_toc = "gO",
+        goto_next_usage = "gnu",
+        goto_previous_usage = "gnU",
       },
     },
-  }
-end
+  },
+}
 
-if IsModuleAvailable("dap") then
-  local dap = require("dap")
-
-  dap.adapters.dart = {
-    type = "executable",
-    command = "dart",
-    args = {"debug_adapter"}
-  }
-  dap.configurations.dart = {
-    {
-      type = "dart",
-      request = "launch",
-      name = "Launch Dart Program",
-      program = "${file}",
-      cwd = "${workspaceFolder}",
-    }
-  }
-end
-
-if IsModuleAvailable("zero") then
-  require('zero').setup()
-end
-
-if IsModuleAvailable("lualine") then
+SafeRequireCallback('lualine', function(lualine)
   local function showFilePath()
     local filePath = api.nvim_eval("expand('%')")
     return filePath
@@ -304,7 +291,6 @@ if IsModuleAvailable("lualine") then
   local function floatermInfo()
     local bufid = api.nvim_get_current_buf()
     local buffers = api.nvim_eval("floaterm#buflist#gather()")
-    local title = api.nvim_buf_get_var(bufid, 'term_title')
     local ret = indexOf(buffers, bufid) .. '/' .. #buffers
     return ret
   end
@@ -322,7 +308,7 @@ if IsModuleAvailable("lualine") then
     return ''
   end
 
-  local my_extension = {
+  local floaterm_lualine = {
     sections = {
       lualine_a = { 'mode' },
       lualine_b = {},
@@ -337,7 +323,18 @@ if IsModuleAvailable("lualine") then
     filetypes = { 'floaterm' }
   }
 
-  require('lualine').setup {
+  local tree_lualine = {
+    sections = {
+      lualine_a = { 'mode' },
+      lualine_b = { 'hostname' },
+    },
+    inactive_sections = {
+      lualine_a = { 'hostname' },
+    },
+    filetypes = { 'nvim-tree', 'neo-tree', 'aerial', 'Trouble' }
+  }
+
+  lualine.setup {
     options = {
       theme = 'auto',
       section_separators = { '', '' },
@@ -359,35 +356,22 @@ if IsModuleAvailable("lualine") then
       lualine_y = {},
       lualine_z = {}
     },
-    extensions = { my_extension },
+    extensions = { floaterm_lualine, tree_lualine },
   }
-end
+end)
 
 
-if IsModuleAvailable("hlslens") then
+SafeRequireCallback("hlslens", function(hlslens)
   api.nvim_command("noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>")
   api.nvim_command("noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>")
   api.nvim_command("noremap * *<Cmd>lua require('hlslens').start()<CR>")
   api.nvim_command("noremap # #<Cmd>lua require('hlslens').start()<CR>")
   api.nvim_command("noremap g* g*<Cmd>lua require('hlslens').start()<CR>")
   api.nvim_command("noremap g# g#<Cmd>lua require('hlslens').start()<CR>")
-end
+end)
 
-
-if IsModuleAvailable("nvim-autopairs") then
-  require('nvim-autopairs').setup()
-  api.nvim_command([[
-nmap <C-a> <Plug>(dial-increment)
-nmap <C-x> <Plug>(dial-decrement)
-vmap <C-a> <Plug>(dial-increment)
-vmap <C-x> <Plug>(dial-decrement)
-vmap g<C-a> <Plug>(dial-increment-additional)
-vmap g<C-x> <Plug>(dial-decrement-additional)
-    ]])
-end
-
-if IsModuleAvailable("bufferline") then
-  require 'bufferline'.setup {
+SafeRequireCallback("bufferline", function(bufferline)
+  bufferline.setup {
     options = {
       diagnostics = "nvim_lsp",
       diagnostics_indicator = function(count, level, diagnostics_dict, context)
@@ -411,7 +395,8 @@ if IsModuleAvailable("bufferline") then
       indicator_icon = '📌',
       separator_style = { "📌|", "|" },
       offsets = { { filetype = "NvimTree", text = "File Explorer", text_align = "center" },
-        { filetype = "nerdtree", text = "File Explorer", text_align = "center" }
+        { filetype = "nerdtree", text = "File Explorer", text_align = "center" },
+        { filetype = "neo-tree", text = "File Explorer", text_align = "center" },
       },
     }
   }
@@ -420,20 +405,9 @@ nnoremap <silent> <leader>sb :BufferLineSortByDirectory<cr>
 nnoremap <silent> <C-h> :BufferLineMovePrev<CR>
 nnoremap <silent> <C-l> :BufferLineMoveNext<CR>
     ]])
-end
+end)
 
-if IsModuleAvailable("hop") then
-  api.nvim_set_keymap('n', 's', "<cmd>lua require'hop'.hint_words()<cr>", {})
-  require 'hop'.setup {
-    winblend = 10,
-    jump_on_sole_occurrence = true,
-    create_hl_autocmd = true,
-    reverse_distribution = false
-  }
-end
-
-if IsModuleAvailable("which-key") then
-  local wk = require("which-key")
+SafeRequireCallback("which-key", function(wk)
   wk.register({
     g = {
       r = {
@@ -577,12 +551,12 @@ if IsModuleAvailable("which-key") then
     },
   }, { prefix = "<leader>" })
 
-  require("which-key").setup {
+  wk.setup {
     plugins = {
       registers = true
     }
   }
-end
+end)
 
 function MyRun(cmds)
   if type(cmds) == "string" then
@@ -621,208 +595,168 @@ function MySort(buffer_a, buffer_b)
   end
 end
 
-if IsModuleAvailable("persistence") then
-  require("persistence").setup {
-  }
-end
+SafeRequire("persistence").setup {
+}
 
-if IsModuleAvailable("detect-language") then
-  require('detect-language').setup {}
-end
+SafeRequire('detect-language').setup {}
 
-if IsModuleAvailable("nvim-tree") then
-  require 'nvim-tree'.setup {
-    diagnostics = {
-      enable = true,
-      icons = {
-        hint = "",
-        info = "",
-        warning = "",
-        error = "",
+SafeRequire 'nvim-tree'.setup {
+  diagnostics = {
+    enable = true,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    }
+  },
+  update_focused_file = {
+    enable      = true,
+    update_cwd  = false,
+    ignore_list = {}
+  },
+  filters = {
+    dotfiles = false,
+    custom = {}
+  },
+  system_open = {
+    cmd  = 'file',
+    args = {}
+  },
+  view = {
+    width = '18%',
+    side = 'left',
+    mappings = {
+      custom_only = true,
+      list = {
+        { key = { "<CR>", "o", "<2-LeftMouse>" }, action = "edit" },
+        { key = "<C-e>", action = "edit_in_place" },
+        { key = { "O" }, action = "edit_no_picker" },
+        { key = { "<2-RightMouse>", "<C-]>" }, action = "cd" },
+        { key = "<C-v>", action = "vsplit" },
+        { key = "<C-x>", action = "split" },
+        { key = "<C-t>", action = "tabnew" },
+        { key = "<", action = "prev_sibling" },
+        { key = ">", action = "next_sibling" },
+        { key = "P", action = "parent_node" },
+        { key = "<BS>", action = "close_node" },
+        { key = "<Tab>", action = "preview" },
+        { key = "K", action = "first_sibling" },
+        { key = "J", action = "last_sibling" },
+        { key = "I", action = "toggle_git_ignored" },
+        { key = "H", action = "toggle_dotfiles" },
+        { key = "R", action = "refresh" },
+        { key = "a", action = "create" },
+        { key = "d", action = "remove" },
+        { key = "D", action = "trash" },
+        { key = "r", action = "rename" },
+        { key = "<C-r>", action = "full_rename" },
+        { key = "x", action = "cut" },
+        { key = "c", action = "copy" },
+        { key = "p", action = "paste" },
+        { key = "y", action = "copy_name" },
+        { key = "Y", action = "copy_path" },
+        { key = "gy", action = "copy_absolute_path" },
+        { key = "[c", action = "prev_git_item" },
+        { key = "]c", action = "next_git_item" },
+        { key = "-", action = "dir_up" },
+        { key = "q", action = "close" },
+        { key = "g?", action = "toggle_help" },
+        { key = "W", action = "collapse_all" },
+        { key = "S", action = "search_node" },
+        { key = "<C-k>", action = "toggle_file_info" },
+        { key = ".", action = "run_file_command" }
       }
-    },
-    update_focused_file = {
-      enable      = true,
-      update_cwd  = false,
-      ignore_list = {}
-    },
-    filters = {
-      dotfiles = false,
-      custom = {}
-    },
-    system_open = {
-      cmd  = 'file',
-      args = {}
-    },
-    view = {
-      width = '18%',
-      side = 'left',
-      mappings = {
-        custom_only = true,
-        list = {
-          { key = { "<CR>", "o", "<2-LeftMouse>" }, action = "edit" },
-          { key = "<C-e>", action = "edit_in_place" },
-          { key = { "O" }, action = "edit_no_picker" },
-          { key = { "<2-RightMouse>", "<C-]>" }, action = "cd" },
-          { key = "<C-v>", action = "vsplit" },
-          { key = "<C-x>", action = "split" },
-          { key = "<C-t>", action = "tabnew" },
-          { key = "<", action = "prev_sibling" },
-          { key = ">", action = "next_sibling" },
-          { key = "P", action = "parent_node" },
-          { key = "<BS>", action = "close_node" },
-          { key = "<Tab>", action = "preview" },
-          { key = "K", action = "first_sibling" },
-          { key = "J", action = "last_sibling" },
-          { key = "I", action = "toggle_git_ignored" },
-          { key = "H", action = "toggle_dotfiles" },
-          { key = "R", action = "refresh" },
-          { key = "a", action = "create" },
-          { key = "d", action = "remove" },
-          { key = "D", action = "trash" },
-          { key = "r", action = "rename" },
-          { key = "<C-r>", action = "full_rename" },
-          { key = "x", action = "cut" },
-          { key = "c", action = "copy" },
-          { key = "p", action = "paste" },
-          { key = "y", action = "copy_name" },
-          { key = "Y", action = "copy_path" },
-          { key = "gy", action = "copy_absolute_path" },
-          { key = "[c", action = "prev_git_item" },
-          { key = "]c", action = "next_git_item" },
-          { key = "-", action = "dir_up" },
-          { key = "q", action = "close" },
-          { key = "g?", action = "toggle_help" },
-          { key = "W", action = "collapse_all" },
-          { key = "S", action = "search_node" },
-          { key = "<C-k>", action = "toggle_file_info" },
-          { key = ".", action = "run_file_command" }
-        }
-      }
-    },
-    actions = {
-      open_file = {
-        quit_on_open = false,
-        resize_window = false,
-        window_picker = {
-          enable = true,
-          chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
-          exclude = {
-            filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
-            buftype = { "nofile", "terminal", "help" },
-          },
+    }
+  },
+  actions = {
+    open_file = {
+      quit_on_open = false,
+      resize_window = false,
+      window_picker = {
+        enable = true,
+        chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+        exclude = {
+          filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
+          buftype = { "nofile", "terminal", "help" },
         },
       },
     },
-    renderer = {
-      add_trailing = false,
-      group_empty = false,
-      highlight_git = false,
-      full_name = false,
-      highlight_opened_files = "none",
-      root_folder_modifier = ":~",
-      indent_markers = {
-        enable = false,
-        icons = {
-          corner = "└ ",
-          edge = "│ ",
-          item = "│ ",
-          none = "  ",
-        },
-      },
+  },
+  renderer = {
+    add_trailing = false,
+    group_empty = false,
+    highlight_git = false,
+    full_name = false,
+    highlight_opened_files = "none",
+    root_folder_modifier = ":~",
+    indent_markers = {
+      enable = false,
       icons = {
-        webdev_colors = true,
-        git_placement = "before",
-        padding = " ",
-        symlink_arrow = "",
-        show = {
-          file = true,
-          folder = true,
-          folder_arrow = true,
-          git = true,
+        corner = "└ ",
+        edge = "│ ",
+        item = "│ ",
+        none = "  ",
+      },
+    },
+    icons = {
+      webdev_colors = true,
+      git_placement = "before",
+      padding = " ",
+      symlink_arrow = "",
+      show = {
+        file = true,
+        folder = true,
+        folder_arrow = true,
+        git = true,
+      },
+      glyphs = {
+        default = "",
+        symlink = "",
+        folder = {
+          arrow_closed = "",
+          arrow_open = "",
+          default = "",
+          open = "",
+          empty = "",
+          empty_open = "",
+          symlink = "",
+          symlink_open = "",
         },
-        glyphs = {
-          default = "",
-          symlink = "",
-          folder = {
-            arrow_closed = "",
-            arrow_open = "",
-            default = "",
-            open = "",
-            empty = "",
-            empty_open = "",
-            symlink = "",
-            symlink_open = "",
-          },
-          git = {
-            unstaged = "❌",
-            staged = "✅",
-            unmerged = "",
-            renamed = "㈴",
-            untracked = "🚩",
-            deleted = "",
-            ignored = "◌",
-          },
+        git = {
+          unstaged = "❌",
+          staged = "✅",
+          unmerged = "",
+          renamed = "㈴",
+          untracked = "🚩",
+          deleted = "",
+          ignored = "◌",
         },
       },
-      special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
     },
-  }
-end
+    special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
+  },
+}
 
-if IsModuleAvailable("lspconfig") then
-  require("nvim-lsp-installer").setup {
-    automatic_installation = true,
-  }
-end
+SafeRequire("nvim-lsp-installer").setup {
+  automatic_installation = true,
+}
 
-if IsModuleAvailable("marks") then
-  require 'marks'.setup {
-    default_mappings = true,
-    builtin_marks = { ".", "<", ">", "^" },
-    cyclic = true,
-    force_write_shada = false,
-    refresh_interval = 250,
-    sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
-    bookmark_0 = {
-      sign = "⚑",
-      virt_text = "hello world"
-    },
-    mappings = {}
-  }
-end
+SafeRequire 'marks'.setup {
+  default_mappings = true,
+  builtin_marks = { ".", "<", ">", "^" },
+  cyclic = true,
+  force_write_shada = false,
+  refresh_interval = 250,
+  sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
+  bookmark_0 = {
+    sign = "⚑",
+    virt_text = "hello world"
+  },
+  mappings = {}
+}
 
-
-if IsModuleAvailable("nvim-gps") then
-  require("nvim-gps").setup {
-  }
-end
-
-
-if IsModuleAvailable("scrollbar") then
-  require("scrollbar").setup()
-end
-
-if IsModuleAvailable("focus") then
-  require("focus").setup({
-    signcolumn = false,
-  })
-end
-
-if IsModuleAvailable("neogen") then
-  require('neogen').setup {}
-end
-
-if IsModuleAvailable("rest-nvim") then
-  require('rest-nvim').setup {
-    jump_to_request = true,
-    env_file = '.env',
-    skip_ssl_verification = true
-  }
-end
-
-
-if IsModuleAvailable("cmp") then
+SafeRequireCallback("cmp", function()
   local cmp = require 'cmp'
   local lspkind = require('lspkind')
 
@@ -970,9 +904,9 @@ if IsModuleAvailable("cmp") then
   end
 
   setup_cmdline(':', {
-    { name = 'path' },
-    { name = 'cmdline' },
-    { name = 'cmdline_history' },
+    { name = 'path', group_index = 1 },
+    { name = 'cmdline', group_index = 1},
+    { name = 'cmdline_history' , group_index = 2},
   })
   setup_cmdline('/', search_sources)
   setup_cmdline('?', search_sources)
@@ -983,11 +917,6 @@ if IsModuleAvailable("cmp") then
     dynamicRegistration = false,
     lineFoldingOnly = true
   }
-
-
-  -- Mappings.
-  -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-  local opts = { noremap = true, silent = true }
 
   -- Use a loop to conveniently call 'setup' on multiple servers and
   -- map buffer local keybindings when the language server attaches
@@ -1012,8 +941,6 @@ if IsModuleAvailable("cmp") then
       settings = LSP_CONFIG[lsp] or {},
     }
   end
-  require 'fzf_lsp'.setup()
-  require('aerial').setup({})
 
   local tabnine = require('cmp_tabnine.config')
   tabnine:setup({
@@ -1026,27 +953,7 @@ if IsModuleAvailable("cmp") then
     };
     show_prediction_strength = false;
   })
-end
-
-if IsModuleAvailable("ufo") then
-  vim.wo.foldcolumn = '1'
-  vim.wo.foldlevel = 99
-  vim.wo.foldenable = true
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true
-  }
-  require('ufo').setup()
-end
-
-if IsModuleAvailable("cybu") then
-  require("cybu").setup()
-end
-
-if IsModuleAvailable("fidget") then
-  require("fidget").setup()
-end
+end)
 
 local function getWorkspaceVimPath()
   local function convertName(name)
@@ -1086,36 +993,20 @@ vim.api.nvim_set_keymap('n', '<Leader>esw', '', {
   end,
 })
 
-if IsModuleAvailable('lspsaga') then
-  local saga = require 'lspsaga'
-  saga.init_lsp_saga({
-  })
-end
-
-if IsModuleAvailable('dap-python') then
-  require('dap-python').setup(vim.api.nvim_eval("g:python3_host_prog"))
-end
-
-if IsModuleAvailable('trouble') then
-  require("trouble").setup {}
-end
-if IsModuleAvailable('dapui') then
-  require("dapui").setup {}
-end
-
 function FindFileCwd()
   local cwd = vim.fn.getcwd()
   local currentFile = vim.fn.expand('%:p')
   local gitDir = cwd .. '/.git'
   if currentFile ~= '' and string.find(currentFile, cwd) == nil then
     vim.cmd('Files')
-  elseif vim.fn.isdirectory(gitDir) then
+  elseif vim.fn.isdirectory(gitDir) ~= 0 then
     vim.cmd('GitFiles')
   else
     vim.cmd('Files')
   end
 end
-vim.api.nvim_set_keymap('n', '<c-p>', '', {silent = true, callback = FindFileCwd, desc = 'Find file'})
+
+vim.api.nvim_set_keymap('n', '<c-p>', '', { silent = true, callback = FindFileCwd, desc = 'Find file' })
 
 function FindFileBuffer()
   local oldCwd = vim.fn.getcwd()
@@ -1124,14 +1015,155 @@ function FindFileBuffer()
   vim.cmd('Files')
   vim.cmd('cd ' .. oldCwd)
 end
-vim.api.nvim_set_keymap('', '<leader>zf', '', {silent = true, callback = FindFileBuffer, desc = 'Find file in buffer'})
 
-if IsModuleAvailable('neo-tree')
-  require("neo-tree").setup({
-    close_if_last_window = true,
-    use_libuv_file_watcher = true,
+vim.api.nvim_set_keymap('', '<leader>zf', '', { silent = true, callback = FindFileBuffer, desc = 'Find file in buffer' })
+
+function TermToggle()
+  local bufList = vim.api.nvim_eval("map(filter(range(0, bufnr('$')), 'bufwinnr(v:val)>=0'), 'bufname(v:val)')")
+  for i in pairs(bufList) do
+    if string.find(bufList[i], 'term://') then
+      vim.cmd("FloatermHide!")
+      return
+    end
+  end
+  vim.cmd("FloatermToggle")
+end
+
+function DelaySetup2()
+  SafeRequireCallback("dap", function(dap)
+    dap.adapters.dart = {
+      type = "executable",
+      command = "dart",
+      args = { "debug_adapter" }
+    }
+    dap.configurations.dart = {
+      {
+        type = "dart",
+        request = "launch",
+        name = "Launch Dart Program",
+        program = "${file}",
+        cwd = "${workspaceFolder}",
+      }
+    }
+  end)
+  SafeRequire('dap-python').setup(vim.api.nvim_eval("g:python3_host_prog"))
+  SafeRequire("trouble").setup {}
+  SafeRequire("dapui").setup {}
+  SafeRequire('aerial').setup()
+  SafeRequire('neogen').setup {}
+  SafeRequire('rest-nvim').setup {
+    jump_to_request = true,
+    env_file = '.env',
+    skip_ssl_verification = true
+  }
+  SafeRequireCallback("hop", function(hop)
+    api.nvim_set_keymap('n', 's', "<cmd>lua require'hop'.hint_words()<cr>", {})
+    hop.setup {
+      winblend = 10,
+      jump_on_sole_occurrence = true,
+      create_hl_autocmd = true,
+      reverse_distribution = false
+    }
+  end)
+  SafeRequireCallback("nvim-autopairs", function(autopairs)
+    autopairs.setup()
+    api.nvim_command([[
+  nmap <C-a> <Plug>(dial-increment)
+  nmap <C-x> <Plug>(dial-decrement)
+  vmap <C-a> <Plug>(dial-increment)
+  vmap <C-x> <Plug>(dial-decrement)
+  vmap g<C-a> <Plug>(dial-increment-additional)
+  vmap g<C-x> <Plug>(dial-decrement-additional)
+      ]])
+  end)
+
+end
+
+function DelaySetup1()
+  SafeRequire('neo-tree').setup({
     window = {
       width = 30,
-    }
+      max_width = 30,
+    },
   })
+  SafeRequireCallback('lspsaga', function(saga)
+    saga.init_lsp_saga()
+  end)
+  SafeRequire('fzf_lsp').setup()
+  SafeRequireCallback("ufo", function(ufo)
+    vim.wo.foldcolumn = '1'
+    vim.wo.foldlevel = 99
+    vim.wo.foldenable = true
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true
+    }
+    ufo.setup()
+  end)
+  SafeRequire("cybu").setup()
+  SafeRequire("fidget").setup()
+  SafeRequire("nvim-gps").setup {}
+  SafeRequire("scrollbar").setup()
+  SafeRequire("focus").setup({
+    signcolumn = false,
+  })
+  vim.schedule(DelaySetup2)
+
+end
+
+vim.schedule(DelaySetup1)
+
+function GetBuffers()
+  local buffers = {}
+  local len = 0
+  local vim_fn = vim.fn
+  local buflisted = vim_fn.buflisted
+
+  for buffer = 1, vim_fn.bufnr('$') do
+    len = len + 1
+    buffers[len] = vim.fn.bufname(buffer)
+  end
+  return buffers
+end
+
+function HasTerminal()
+  local bufList = GetBuffers()
+  for key, name in pairs(bufList) do
+    if string.find(name, 'term://') then
+      return true
+    end
+  end
+  return false
+end
+
+function RunPreviousCommandFunc()
+  if HasTerminal() == false then
+    vim.cmd("FloatermNew")
+  end
+  local mode = vim.fn.mode()
+  if mode == 't' then
+    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true, true), 't')
+    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true, true), 't')
+  elseif mode == 'n' then
+    vim.cmd("FloatermShow")
+    vim.fn.feedkeys('i', 't')
+    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true, true), 't')
+    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true, true), 't')
+  elseif mode == 'i' then
+    vim.cmd("stopinsert")
+    vim.cmd("FloatermShow")
+    vim.fn.feedkeys('i', 't')
+    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true, true), 't')
+    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true, true), 't')
+  end
+end
+
+function LspFormat()
+  local api_level = vim.version().api_level
+  if api_level == 9 then
+    vim.lsp.buf.formatting()
+  elseif api_level >= 10 then
+    vim.lsp.buf.format { async = true }
+  end
 end
