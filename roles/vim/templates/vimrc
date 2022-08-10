@@ -109,14 +109,6 @@ function! Ssh(cmd, hosts)
   endfor
 endfunction
 
-function RunShellAndShow(cmd)
-  execute "FloatermToggle!"
-  execute "FloatermHide!"
-  execute "FloatermSend! " . a:cmd
-  execute "FloatermShow!"
-  execute "startinsert"
-endfunction
-
 let g:termOpen=0
 function! TermToggle()
   execute "FloatermToggle"
@@ -177,6 +169,7 @@ let g:vista_executive_for = {
   \ }
 
 let g:loaded_python_provider = 0
+let g:loaded_python3_provider = 0
 let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
 
@@ -391,40 +384,29 @@ if has('python3')
   Plug 'vim-vdebug/vdebug', { 'on': 'VdebugStart'}
 endif
 
-if executable('node1')
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
-  Plug 'yaegassy/coc-ansible', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'https://github.com/liuchengxu/vista.vim', { 'on': ['Vista', 'Vista!!']}
-  " Highlight symbol under cursor on CursorHold
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-else
-  " emmet `<c-y>,` for expand `div>a` to `<div><a></a></div>
-  " Plug 'mattn/emmet-vim'
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'lukas-reineke/cmp-rg'
-  Plug 'https://github.com/mtoohey31/cmp-fish'
-  Plug 'https://github.com/dmitmel/cmp-cmdline-history'
-  Plug 'https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol'
-  Plug 'https://github.com/hrsh7th/cmp-calc'
-  Plug 'rafamadriz/friendly-snippets'
-  Plug 'https://github.com/L3MON4D3/LuaSnip'
-  Plug 'saadparwaiz1/cmp_luasnip'
-  Plug 'ray-x/lsp_signature.nvim'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'lukas-reineke/cmp-rg'
+Plug 'https://github.com/mtoohey31/cmp-fish'
+Plug 'https://github.com/dmitmel/cmp-cmdline-history'
+Plug 'https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol'
+Plug 'https://github.com/hrsh7th/cmp-calc'
+Plug 'rafamadriz/friendly-snippets'
+Plug 'https://github.com/L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'ray-x/lsp_signature.nvim'
 
-  Plug 'https://github.com/windwp/nvim-autopairs'
-  Plug 'https://github.com/L3MON4D3/LuaSnip'
-  Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-  Plug 'https://github.com/hrsh7th/cmp-copilot'
-  Plug 'https://github.com/gfanto/fzf-lsp.nvim'
-  Plug 'https://github.com/stevearc/aerial.nvim'
-  Plug 'https://github.com/onsails/lspkind.nvim'
-  Plug 'https://github.com/williamboman/nvim-lsp-installer'
-endif
+Plug 'https://github.com/windwp/nvim-autopairs'
+Plug 'https://github.com/L3MON4D3/LuaSnip'
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+Plug 'https://github.com/hrsh7th/cmp-copilot'
+Plug 'https://github.com/gfanto/fzf-lsp.nvim'
+Plug 'https://github.com/stevearc/aerial.nvim'
+Plug 'https://github.com/onsails/lspkind.nvim'
+Plug 'https://github.com/williamboman/nvim-lsp-installer'
 
 " project-wide async search and replace
 " `<leader>ff` for esearch.
@@ -757,13 +739,6 @@ command! DisableTmuxKey
          \    }
          \ })
 
-let g:coc_global_extensions = ['coc-calc', 'coc-dictionary', 'coc-emmet', 'coc-json',
-      \  'coc-post', 'coc-marketplace', 'coc-post','coc-snippets',
-      \  'coc-translator','coc-tsserver','coc-tabnine','coc-rls','coc-todolist','coc-explorer',
-      \  'coc-yank', 'coc-just-complete', 'coc-html', 'coc-css', 'coc-metals', 'coc-lua',
-      \  'coc-go', 'coc-zi', 'coc-word', 'coc-rest', 'coc-pyright', 'coc-highlight', 'coc-git', 'coc-sh',
-      \  'coc-floaterm', 'coc-lists', 'coc-flutter', 'coc-pairs']
-
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:better_escape_shortcut = 'jk'
 let g:fzf_colors = {'gutter': ['bg', 'Normal']}
@@ -803,7 +778,3 @@ vnoremap Y "+y
 exec 'luafile' g:MYVIMRC_DIR . '/config.lua'
 {% endif %}
 silent! source ~/.vim_custom.vim
-
-if filereadable("workspace.vim")
-  silent! source workspace.vim
-endif

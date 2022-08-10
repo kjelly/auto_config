@@ -227,7 +227,7 @@ endfunction
 
 nnoremap <m-e> <cmd>call EnterShellFunc()<cr>
 inoremap <m-e> <cmd>call EnterShellFunc()<cr>
-" tnoremap <m-e> <c-\><c-n>:call RunShellAndShow('')<left><left> " needed by br
+" tnoremap <m-e> <c-\><c-n>:lua RunShellAndShow('')<left><left> " needed by br
 
 imap <m-g> <Esc><Plug>(choosewin)
 nmap <m-g> <Plug>(choosewin)
@@ -285,20 +285,11 @@ tnoremap <m-`> <c-\><c-n>:call ResizeWin()<cr>a
 
 nnoremap <m-q> :call jobstart('workspace')<cr>
 
-if exists(':CocOpenLog')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <c-g> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <c-g> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <c-g> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-else
-  nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
-  nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-  nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap <silent> [d <cmd>lua vim.diagnostic.goto_prev({severity=vim.diagnostic.severity.INFO})<CR>
-  nnoremap <silent> ]d <cmd>lua vim.diagnostic.goto_next({severity=vim.diagnostic.severity.INFO})<CR>
-endif
+nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> [d <cmd>lua vim.diagnostic.goto_prev({severity=vim.diagnostic.severity.INFO})<CR>
+nnoremap <silent> ]d <cmd>lua vim.diagnostic.goto_next({severity=vim.diagnostic.severity.INFO})<CR>
 
 {% endif %}

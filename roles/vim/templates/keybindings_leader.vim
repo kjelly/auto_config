@@ -82,9 +82,6 @@ function! NameTerminalBuffer(name)
 endfunction
 nnoremap <leader>tn :call NameTerminalBuffer('')<left><left>
 
-nmap <Leader>tr <Plug>(coc-translator-p)
-
-
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 nnoremap <silent> <leader>te :tabedit %<cr>
@@ -219,77 +216,31 @@ nnoremap <silent> <leader>tv :vsplit<cr><c-w>l:terminal<cr>
 
 {% endif %}
 
-" Remap for format selected region
-vmap <leader>f  <Plug>(coc-format-selected)
-
 " Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
 nnoremap <leader>aj :AnyJump<CR>
 nnoremap <leader>ab :AnyJumpBack<CR>
 nnoremap <leader>al :AnyJumpLastResults<CR>
 
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-if exists(':CocOpenLog')
-  nmap <silent> gd <Plug>(coc-definition)
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
-  nnoremap <silent> <leader>lld :<C-u>CocList diagnostics<cr>
-  nnoremap <silent> <leader>lle :<C-u>CocList extensions<cr>
-  nnoremap <silent> <leader>llc :<C-u>CocList commands<cr>
-  nnoremap <silent> <leader>llo :<C-u>CocList outline<cr>
-  nnoremap <silent> <leader>lls :<C-u>CocList outline<cr>
-  nnoremap <leader>lse :CocSearch<space>
-  nmap <silent> <leader>lrf <Plug>(coc-references)
-  nmap <silent> <leader>lrn <Plug>(coc-rename)
-  nnoremap <silent> <leader>lf :call CocAction('format')<cr>
-  nmap <silent> <leader>li <Plug>(coc-implementation)
-  nnoremap <silent> <leader>la :CocAction<cr>
-  nnoremap <silent> <leader>lll :CocList<cr>
-  nmap <silent> <leader>ltd <Plug>(coc-type-definition)
-  nmap <leader>ldn <Plug>(coc-diagnostic-prev)
-  nmap <leader>ldp <Plug>(coc-diagnostic-next)
-  nnoremap <silent> <leader>lco :CocFzfList commands<cr>
-  nnoremap <silent> <leader>lca <Plug>(coc-calc-result-append)
-  nnoremap <silent> <leader>lcr <Plug>(coc-calc-result-replace)
-  nnoremap <silent> <leader>lz :CocFzfList<cr>
-
-  nnoremap <silent> <leader>cn  :<C-u>CocNext<CR>
-  nnoremap <silent> <leader>cp :<C-u>CocPrev<CR>
-  nnoremap <silent> <leader>cr  :<C-u>CocListResume<CR>
-
-else
-  nnoremap <silent> <leader>lwa <cmd>lua vim.lsp.buf.add_workspace_folder()<cr>
-  nnoremap <silent> <leader>lwr <cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>
-  nnoremap <silent> <leader>lwl <cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>
-  nnoremap <silent> <leader>ldt <cmd>lua vim.lsp.buf.type_definition()<cr>
-  nnoremap <silent> <leader>lde <cmd>lua vim.lsp.buf.definition()<cr>
-  nnoremap <silent> <leader>ldE <cmd>lua vim.lsp.buf.declaration_call()<cr>
-  nnoremap <silent> <leader>ldf <cmd>lua vim.diagnostic.open_float()<CR>
-  nnoremap <silent> <leader>ldl <cmd>lua vim.diagnostic.setloclist()<CR>
-  nnoremap <silent> <leader>lrn <cmd>Lspsaga rename<cr>
-  nnoremap <silent> <leader>la <cmd>lua vim.lsp.buf.code_action()<cr>
-  nnoremap <silent> <leader>lre <cmd>lua vim.lsp.buf.references()<cr>
-  nnoremap <silent> <leader>lf <cmd>lua LspFormat()<cr>
-  vnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.range_formatting()<cr>
-  vnoremap <silent> f <cmd>lua vim.lsp.buf.range_formatting()<cr>
-  nnoremap <silent> <leader>li <cmd>lua require'fzf_lsp'.implementation_call()<cr>
-  nnoremap <silent> <leader>lsa <cmd>lua vim.lsp.buf.signature_help()<cr>
-  nnoremap <silent> <leader>lsy <cmd>lua require'fzf_lsp'.document_symbol_call()<cr>
-  nnoremap <silent> <leader>lsY <cmd>lua require'fzf_lsp'.workspace_symbol_call()<cr>
-  nnoremap <silent> <leader>lsc <cmd>lua require'fzf_lsp'.incoming_calls_call()<cr>
-  nnoremap <silent> <leader>lsC <cmd>lua require'fzf_lsp'.outcoming_calls_call()<cr>
-endif
+nnoremap <silent> <leader>lwa <cmd>lua vim.lsp.buf.add_workspace_folder()<cr>
+nnoremap <silent> <leader>lwr <cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>
+nnoremap <silent> <leader>lwl <cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>
+nnoremap <silent> <leader>ldt <cmd>lua vim.lsp.buf.type_definition()<cr>
+nnoremap <silent> <leader>lde <cmd>lua vim.lsp.buf.definition()<cr>
+nnoremap <silent> <leader>ldE <cmd>lua vim.lsp.buf.declaration_call()<cr>
+nnoremap <silent> <leader>ldf <cmd>lua vim.diagnostic.open_float()<CR>
+nnoremap <silent> <leader>ldl <cmd>lua vim.diagnostic.setloclist()<CR>
+nnoremap <silent> <leader>lrn <cmd>Lspsaga rename<cr>
+nnoremap <silent> <leader>la <cmd>lua vim.lsp.buf.code_action()<cr>
+nnoremap <silent> <leader>lre <cmd>lua vim.lsp.buf.references()<cr>
+nnoremap <silent> <leader>lf <cmd>lua LspFormat()<cr>
+vnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.range_formatting()<cr>
+vnoremap <silent> f <cmd>lua vim.lsp.buf.range_formatting()<cr>
+nnoremap <silent> <leader>li <cmd>lua require'fzf_lsp'.implementation_call()<cr>
+nnoremap <silent> <leader>lsa <cmd>lua vim.lsp.buf.signature_help()<cr>
+nnoremap <silent> <leader>lsy <cmd>lua require'fzf_lsp'.document_symbol_call()<cr>
+nnoremap <silent> <leader>lsY <cmd>lua require'fzf_lsp'.workspace_symbol_call()<cr>
+nnoremap <silent> <leader>lsc <cmd>lua require'fzf_lsp'.incoming_calls_call()<cr>
+nnoremap <silent> <leader>lsC <cmd>lua require'fzf_lsp'.outcoming_calls_call()<cr>
 
 nnoremap <leader>lsg :FloatermNew! curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
 nnoremap <silent> <leader>lsw :ISwap<cr>
