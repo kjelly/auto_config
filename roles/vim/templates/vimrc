@@ -1,15 +1,6 @@
 let mapleader = ","
 let maplocalleader = "\<space>"
 
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions+=e
-    set t_Co=256
-    set t_ut=
-    set guitablabel=%M\ %t
-endif
-
 "https://github.com/tmux/tmux/issues/1246
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -17,14 +8,12 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
-
 " Specify the behavior when switching between buffers
 try
   set switchbuf=uselast
   set stal=2
 catch
 endtry
-
 
 " Return to last edit position when opening files (You want this!)
 autocmd! BufReadPost *
@@ -109,14 +98,11 @@ function! Ssh(cmd, hosts)
   endfor
 endfunction
 
-let g:termOpen=0
-function! TermToggle()
-  execute "FloatermToggle"
-endfunction
-
 function! FindFileInTree()
   if exists(":NvimTreeFindFile")
     execute "NvimTreeFindFile"
+  elseif exists(":Neotree")
+    execute "Neotree reveal"
   elseif exists(":NERDTreeTabsFind")
     execute "NERDTreeMirrorOpen"
     execute "NERDTreeTabsFind"
@@ -154,24 +140,11 @@ let g:indent_blankline_use_treesitter = v:true
 let g:blameLineUseVirtualText = 1
 let g:blameLineGitFormat = '%an - %h - %s'
 
-let g:signify_sign_delete            = '_'
-let g:signify_sign_delete_first_line = '_'
-let g:signify_sign_change            = '!'
-let g:signify_sign_change_delete     = g:signify_sign_change . g:signify_sign_delete_first_line
-
-let g:vista_icon_indent = ["﬌", "ﲖ"]
-let g:vista_default_executive = 'ctags'
-let g:vista_executive_for = {
-  \ 'python': 'nvim_lsp',
-  \ 'dart': 'nvim_lsp',
-  \ 'js': 'nvim_lsp',
-  \ 'ts': 'nvim_lsp',
-  \ }
-
 let g:loaded_python_provider = 0
 let g:loaded_python3_provider = 0
 let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
+let g:loaded_node_provider = 0
 
 if exists(':TSUpdate')
   set foldmethod=expr
@@ -183,67 +156,52 @@ silent! call plug#begin('~/.config/nvim/plugged')
 {% else %}
 silent! call plug#begin('~/.vim/plugged')
 {% endif %}
-if has('nvim-0.5')
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate all'}
-  Plug 'https://github.com/danymat/neogen'
-  Plug 'https://github.com/p00f/nvim-ts-rainbow'
-  Plug 'mizlan/iswap.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-  Plug 'https://github.com/theHamsta/nvim-treesitter-pairs'
-  Plug 'romgrk/nvim-treesitter-context'
-  Plug 'nvim-treesitter/playground'
-  Plug 'nvim-treesitter/nvim-treesitter-refactor'
-  Plug 'https://github.com/David-Kunz/treesitter-unit'
-  Plug 'https://github.com/yioneko/nvim-yati'
-  Plug 'SmiteshP/nvim-gps'
-  Plug 'spywhere/detect-language.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate all'}
+Plug 'https://github.com/danymat/neogen'
+Plug 'https://github.com/p00f/nvim-ts-rainbow'
+Plug 'mizlan/iswap.nvim'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'https://github.com/theHamsta/nvim-treesitter-pairs'
+Plug 'romgrk/nvim-treesitter-context'
+Plug 'nvim-treesitter/playground'
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
+Plug 'https://github.com/David-Kunz/treesitter-unit'
+Plug 'https://github.com/yioneko/nvim-yati'
+Plug 'SmiteshP/nvim-gps'
+Plug 'spywhere/detect-language.nvim'
 
-  " Seamlessly jump between matched instances.
-  Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
-  Plug 'mfussenegger/nvim-dap'
-  Plug 'mfussenegger/nvim-dap-python'
-  Plug 'rcarriga/nvim-dap-ui'
-  " status line
-  Plug 'https://github.com/nvim-lualine/lualine.nvim'
+" Seamlessly jump between matched instances.
+Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
+Plug 'mfussenegger/nvim-dap'
+Plug 'mfussenegger/nvim-dap-python'
+Plug 'rcarriga/nvim-dap-ui'
+" status line
+Plug 'https://github.com/nvim-lualine/lualine.nvim'
 
-  " A search panel for neovim.
-  Plug 'nvim-lua/popup.nvim'
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'windwp/nvim-spectre'
+" A search panel for neovim.
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'windwp/nvim-spectre'
 
-  " Jump to any definition and
-  " references IDE madness without overhead
-  Plug 'pechorin/any-jump.nvim'
-  Plug 'akinsho/nvim-bufferline.lua'
+" Jump to any definition and
+" references IDE madness without overhead
+Plug 'pechorin/any-jump.nvim'
+Plug 'akinsho/nvim-bufferline.lua'
 
-  " Easymotion-like
-  Plug 'https://github.com/phaazon/hop.nvim'
-  Plug 'monaqa/dial.nvim'
-  Plug 'kyazdani42/nvim-tree.lua'
-  Plug 'https://github.com/nvim-neo-tree/neo-tree.nvim', {'branch': 'v2.x'}
+" Easymotion-like
+Plug 'https://github.com/phaazon/hop.nvim'
+Plug 'monaqa/dial.nvim'
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'https://github.com/nvim-neo-tree/neo-tree.nvim', {'branch': 'v2.x'}
 
-  " Indent guides for Neovim
-  Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'master', 'on': 'IndentBlanklineEnable'}
-  Plug 'tveskag/nvim-blame-line'
-  Plug 'https://github.com/tveskag/nvim-blame-line'
+" Indent guides for Neovim
+Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'master', 'on': 'IndentBlanklineEnable'}
+Plug 'tveskag/nvim-blame-line'
+Plug 'https://github.com/tveskag/nvim-blame-line'
 
-  " Comment
-  Plug 'b3nj5m1n/kommentary'
-  Plug 'https://github.com/folke/which-key.nvim'
-else
-  Plug 'itchyny/lightline.vim'
-  Plug 'tpope/vim-speeddating'
-  Plug 'justinmk/vim-sneak'
-  Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
-  Plug 'jistr/vim-nerdtree-tabs', { 'on':  ['NERDTreeToggle', 'NERDTreeTabsToggle', 'NERDTreeMirrorOpen', 'NERDTreeTabsFind'] }
-  " Show register content when pressing " or <c-r>
-  Plug 'junegunn/vim-peekaboo'
-  Plug 'Yggdroot/indentLine'
-" use <c-/> for toggling comment
-  Plug 'tomtom/tcomment_vim'
-  Plug 'google/vim-searchindex'
-  Plug 'liuchengxu/vim-which-key'
-endif
+" Comment
+Plug 'b3nj5m1n/kommentary'
+Plug 'https://github.com/folke/which-key.nvim'
 Plug 'https://github.com/romainl/vim-cool'
 
 Plug 'https://github.com/ghillb/cybu.nvim'
@@ -574,10 +532,6 @@ if executable('rg')
   let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 endif
 
-let g:bookmark_no_default_key_mappings = 1
-
-let g:go_list_type = "quickfix"
-
 if exists("$VIRTUAL_ENV")
     let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
 else
@@ -717,9 +671,6 @@ let g:switch_custom_definitions =
     \   ['TODO', 'WORKING','DONE'],
     \ ]
 
-let g:workspace_session_directory = $HOME . '/.vim/sessions/'
-let g:workspace_autosave_always = 1
-let g:workspace_session_disable_on_args = 1
 let g:any_jump_disable_default_keybindings = 1
 let g:any_jump_preview_lines_count = 5
 let g:any_jump_window_width_ratio  = 0.8
