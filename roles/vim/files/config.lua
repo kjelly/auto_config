@@ -1167,3 +1167,11 @@ function LspFormat()
     vim.lsp.buf.format { async = true }
   end
 end
+
+function RunShellAndShow(command)
+  if HasTerminal() == false then
+    vim.cmd("FloatermNew")
+  end
+  vim.cmd("FloatermShow")
+  vim.cmd("FloatermSend " .. command .. "")
+end

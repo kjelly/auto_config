@@ -35,12 +35,12 @@ nnoremap <silent> <leader>gdl :Git diff @~..@<CR>
 
 let g:glab_mr=''
 nnoremap <leader>glms :let g:glab_mr=
-nnoremap <leader>glml :call RunShellAndShow('glab mr list')<cr>
-nnoremap <leader>glmc :call RunShellAndShow('glab mr checkout ' . g:glab_mr)<cr>
-nnoremap <leader>glma :call RunShellAndShow('glab mr approve ' . g:glab_mr)<cr>
-nnoremap <leader>glmn :call RunShellAndShow('glab mr note ' . g:glab_mr)<cr>
-nnoremap <leader>glmm :call RunShellAndShow('glab mr merge ' . g:glab_mr)<cr>
-nnoremap <leader>glmv :call RunShellAndShow('glab mr view ' . g:glab_mr)<cr>
+nnoremap <leader>glml :lua RunShellAndShow('glab mr list')<cr>
+nnoremap <leader>glmc :lua RunShellAndShow('glab mr checkout ' . g:glab_mr)<cr>
+nnoremap <leader>glma :lua RunShellAndShow('glab mr approve ' . g:glab_mr)<cr>
+nnoremap <leader>glmn :lua RunShellAndShow('glab mr note ' . g:glab_mr)<cr>
+nnoremap <leader>glmm :lua RunShellAndShow('glab mr merge ' . g:glab_mr)<cr>
+nnoremap <leader>glmv :lua RunShellAndShow('glab mr view ' . g:glab_mr)<cr>
 
 nnoremap <silent> <leader>id :put =strftime('%Y-%m-%d')<cr>
 nnoremap <silent> <leader>it :put =strftime('%H:%M:%S')<cr>
@@ -54,7 +54,7 @@ function TabCD()
   execute "tcd %:p:h"
 endfunction
 nnoremap <Leader>cd :call TabCD()<cr>
-nnoremap <leader>cc :call RunShellAndShow('')<left><left>
+nnoremap <leader>cc :lua RunShellAndShow('')<left><left>
 "nnoremap <leader>co  " for rnadom colorscheme
 
 nnoremap <leader>fx :Explore<space>
@@ -148,7 +148,7 @@ nnoremap <leader>va :Gina add<space>
 nnoremap <leader>vt :Gina tag<cr>
 nnoremap <leader>vb :Gina branch<cr>
 nnoremap <leader>vv :Gina<space>
-nnoremap <leader>vi :call RunShellAndShow('git add -p %:p')<cr>
+nnoremap <leader>vi :lua RunShellAndShow('git add -p %:p')<cr>
 
 nnoremap <silent> <leader>wt :ToggleWorkspace<CR>
 nnoremap <silent> <leader>wr :WinResizerStartResize<cr>
@@ -280,7 +280,9 @@ else
   nnoremap <silent> <leader>lrn <cmd>Lspsaga rename<cr>
   nnoremap <silent> <leader>la <cmd>lua vim.lsp.buf.code_action()<cr>
   nnoremap <silent> <leader>lre <cmd>lua vim.lsp.buf.references()<cr>
-  nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.format { async = true }<cr>
+  nnoremap <silent> <leader>lf <cmd>lua LspFormat()<cr>
+  vnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.range_formatting()<cr>
+  vnoremap <silent> f <cmd>lua vim.lsp.buf.range_formatting()<cr>
   nnoremap <silent> <leader>li <cmd>lua require'fzf_lsp'.implementation_call()<cr>
   nnoremap <silent> <leader>lsa <cmd>lua vim.lsp.buf.signature_help()<cr>
   nnoremap <silent> <leader>lsy <cmd>lua require'fzf_lsp'.document_symbol_call()<cr>
@@ -321,7 +323,7 @@ nnoremap <silent> <localleader>q :q!<cr>
 nnoremap <silent> <localleader>p :Files<cr>
 nnoremap <silent> <localleader>t :tabnew %<cr>
 nnoremap <localleader>rr :lua MyRun({''})<left><left><left>
-nnoremap <localleader>e :call RunShellAndShow('')<left><left>
+nnoremap <localleader>e :lua RunShellAndShow('')<left><left>
 
 xnoremap iu :lua require"treesitter-unit".select()<CR>
 xnoremap au :lua require"treesitter-unit".select(true)<CR>
