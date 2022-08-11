@@ -1225,3 +1225,35 @@ function RunShellAndShow(command)
   vim.cmd("FloatermShow")
   vim.cmd("FloatermSend " .. command .. "")
 end
+
+function NextItem(offset)
+  if vim.api.nvim_eval("len(filter(getwininfo(), 'v:val.quickfix'))") > 0 then
+    if offset > 0 then
+      vim.cmd("cn")
+    else
+      vim.cmd("cp")
+    end
+  elseif vim.api.nvim_eval("len(filter(getwininfo(), 'v:val.loclist'))") > 0 then
+    if offset > 0 then
+      vim.cmd("ln")
+    else
+      vim.cmd("lp")
+    end
+  else
+    vim.cmd("wincmd j")
+    if vim.api.nvim_eval("&filetype") == "Trouble" then
+      if offset > 0 then
+        vim.cmd("normal j")
+      else
+        vim.cmd("normal k")
+      end
+      vim.cmd("wincmd w")
+    else
+      if offset > 0 then
+        vim.diagnostic.goto_next()
+      else
+        vim.diagnostic.goto_prev()
+      end
+    end
+  end
+end

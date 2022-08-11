@@ -260,46 +260,12 @@ vnoremap <silent> <m-Enter> :FloatermSend<cr>
 inoremap <silent> <s-a-enter> <Esc>:%FloatermSend<cr>
 nnoremap <silent> <s-a-enter> :%FloatermSend<cr>
 
-function NextItem()
-  if len(filter(getwininfo(), 'v:val.quickfix')) > 0
-    execute ':cn'
-  elseif len(filter(getwininfo(), 'v:val.loclist')) > 0
-    execute ':lne'
-  else
-    wincmd j
-    if &filetype == 'Trouble'
-      normal j
-      wincmd w
-    else
-      wincmd w
-      lua vim.diagnostic.goto_next()
-    endif
-  endif
-endfunction
-
-function PreviousItem()
-  if len(filter(getwininfo(), 'v:val.quickfix')) > 0
-    execute ':cp'
-  elseif len(filter(getwininfo(), 'v:val.loclist')) > 0
-    execute ':lp'
-  else
-    wincmd j
-    if &filetype == 'Trouble'
-      normal k
-      wincmd w
-    else
-      wincmd w
-      lua vim.diagnostic.goto_prev()
-    endif
-  endif
-endfunction
-
-inoremap <m-]> <cmd>call NextItem()<cr>
-nnoremap <m-]> <cmd>call NextItem()<cr>
-tnoremap <m-]> <cmd>call NextItem()<cr>
-inoremap <m-[> <cmd>call PreviousItem()<cr>
-nnoremap <m-[> <cmd>call PreviousItem()<cr>
-tnoremap <m-[> <cmd>call PreviousItem()<cr>
+inoremap <m-]> <cmd>lua NextItem(1)<cr>
+nnoremap <m-]> <cmd>lua NextItem(1)<cr>
+tnoremap <m-]> <cmd>lua NextItem(1)<cr>
+inoremap <m-[> <cmd>lua NextItem(-1)<cr>
+nnoremap <m-[> <cmd>lua NextItem(-1)<cr>
+tnoremap <m-[> <cmd>lua NextItem(-1)<cr>
 
 let g:maxWindow=0
 function ResizeWin()
