@@ -146,11 +146,6 @@ let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
 let g:loaded_node_provider = 0
 
-if exists(':TSUpdate')
-  set foldmethod=expr
-  set foldexpr=nvim_treesitter#foldexpr()
-endif
-
 {% if nvim %}
 silent! call plug#begin('~/.config/nvim/plugged')
 {% else %}
@@ -166,6 +161,7 @@ Plug 'romgrk/nvim-treesitter-context'
 Plug 'nvim-treesitter/playground'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'https://github.com/David-Kunz/treesitter-unit'
+"Yet another tree-sitter powered indent plugin for Neovim.
 Plug 'https://github.com/yioneko/nvim-yati'
 Plug 'SmiteshP/nvim-gps'
 Plug 'spywhere/detect-language.nvim'
@@ -207,8 +203,11 @@ Plug 'b3nj5m1n/kommentary'
 Plug 'https://github.com/folke/which-key.nvim'
 Plug 'https://github.com/romainl/vim-cool'
 
+" offers context when cycling buffers in the form of a customizable notification window.
 Plug 'https://github.com/ghillb/cybu.nvim'
 Plug 'kevinhwang91/promise-async'
+
+" Fold
 Plug 'https://github.com/kevinhwang91/nvim-ufo'
 
 Plug 'https://github.com/bennypowers/nvim-regexplainer'
@@ -228,6 +227,7 @@ Plug 'github/copilot.vim'
 Plug 'jdhao/better-escape.vim'
 
 Plug 'neovim/nvim-lspconfig'
+" Standalone UI for nvim-lsp progress
 Plug 'https://github.com/j-hui/fidget.nvim'
 Plug 'https://github.com/glepnir/lspsaga.nvim'
 Plug 'folke/trouble.nvim'
@@ -269,13 +269,10 @@ Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
 Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
 Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite','TestVisit']}
 
-" git grep
-Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
-Plug 'simeji/winresizer'
+Plug 'simeji/winresizer', { 'on': ['WinResizerStartResize', 'WinResizerStartMove']}
 Plug 't9md/vim-choosewin'
-Plug 'john-nanney/pushd.vim'
 Plug 'metakirby5/codi.vim'
-Plug 'chrisbra/Colorizer', { 'on': ['ColorToggle'] }
+Plug 'https://github.com/norcalli/nvim-colorizer.lua'
 " Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 Plug 'https://github.com/NTBBloodbath/rest.nvim'
@@ -350,13 +347,11 @@ Plug 'lukas-reineke/cmp-rg'
 Plug 'https://github.com/mtoohey31/cmp-fish'
 Plug 'https://github.com/dmitmel/cmp-cmdline-history'
 Plug 'https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol'
-Plug 'https://github.com/hrsh7th/cmp-calc'
-Plug 'rafamadriz/friendly-snippets'
-Plug 'https://github.com/L3MON4D3/LuaSnip'
-Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'ray-x/lsp_signature.nvim'
+Plug 'saadparwaiz1/cmp_luasnip'
 
 Plug 'https://github.com/windwp/nvim-autopairs'
+Plug 'rafamadriz/friendly-snippets'
 Plug 'https://github.com/L3MON4D3/LuaSnip'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'https://github.com/hrsh7th/cmp-copilot'
@@ -364,11 +359,6 @@ Plug 'https://github.com/gfanto/fzf-lsp.nvim'
 Plug 'https://github.com/stevearc/aerial.nvim'
 Plug 'https://github.com/onsails/lspkind.nvim'
 Plug 'https://github.com/williamboman/nvim-lsp-installer'
-
-" project-wide async search and replace
-" `<leader>ff` for esearch.
-Plug 'eugen0329/vim-esearch'
-
 
 {% else %}
 
@@ -450,12 +440,12 @@ set tm=500
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Be smart when using tabs ;)
+set expandtab
 set smarttab
 
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+" 1 tab == 2 spaces
+set shiftwidth=2
+set tabstop=2
 
 " Linebreak on 500 characters
 set lbr

@@ -9,7 +9,7 @@ function Random(min, max)
   local str = vim.api.nvim_buf_get_name(0)
   local num = 0
   for i = 1, #str do
-    local c = str:sub(i,i)
+    local c = str:sub(i, i)
     num = num + string.byte(c, 1, 1)
   end
   for i = 1, num % 100 do
@@ -17,7 +17,6 @@ function Random(min, max)
   end
   return math.random(min, max)
 end
-
 
 function FileExists(file)
   local f = io.open(file, "rb")
@@ -945,8 +944,8 @@ SafeRequireCallback("cmp", function()
 
   setup_cmdline(':', {
     { name = 'path', group_index = 1 },
-    { name = 'cmdline', group_index = 1},
-    { name = 'cmdline_history' , group_index = 2},
+    { name = 'cmdline', group_index = 1 },
+    { name = 'cmdline_history', group_index = 2 },
   })
   setup_cmdline('/', search_sources)
   setup_cmdline('?', search_sources)
@@ -1117,6 +1116,16 @@ function DelaySetup2()
   vmap g<C-x> <Plug>(dial-decrement-additional)
       ]])
   end)
+
+  SafeRequire('colorizer').setup()
+  SafeRequire('neo-zoom').setup({
+    left_ratio = 0.2,
+    top_ratio = 0.03,
+    width_ratio = 0.67,
+    height_ratio = 0.9,
+  })
+  SafeRequire('regexplainer').setup()
+
 
 end
 
