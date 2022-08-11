@@ -192,6 +192,9 @@ Plug 'akinsho/nvim-bufferline.lua'
 Plug 'https://github.com/phaazon/hop.nvim'
 Plug 'monaqa/dial.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
+
+" neo-tree requires nui
+Plug 'MunifTanjim/nui.nvim'
 Plug 'https://github.com/nvim-neo-tree/neo-tree.nvim', {'branch': 'v2.x'}
 
 " Indent guides for Neovim
@@ -283,14 +286,10 @@ Plug 'junegunn/fzf.vim'
 
 " For sudo
 " :w suda://%
-Plug 'lambdalisue/suda.vim'
+Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
 
 " sudo pip3 install keyring browser-cookie3
 Plug 'ianding1/leetcode.vim'
-
-" fine-cmdline needs nui.nvim
-Plug 'MunifTanjim/nui.nvim'
-Plug 'VonHeikemen/fine-cmdline.nvim'
 
 " colorscheme
 Plug 'sainnhe/gruvbox-material'

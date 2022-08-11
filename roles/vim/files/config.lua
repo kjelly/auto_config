@@ -3,6 +3,46 @@ local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g -- a table to access global variables
 local api = vim.api
 
+math.randomseed(os.time())
+
+function Random(min, max)
+  local str = vim.api.nvim_buf_get_name(0)
+  local num = 0
+  for i = 1, #str do
+    local c = str:sub(i,i)
+    num = num + string.byte(c, 1, 1)
+  end
+  for i = 1, num % 100 do
+    math.random(1, 100)
+  end
+  return math.random(min, max)
+end
+
+
+function FileExists(file)
+  local f = io.open(file, "rb")
+  if f then f:close() end
+  return f ~= nil
+end
+
+function LinesFrom(file)
+  if not FileExists(file) then return {} end
+  local lines = {}
+  for line in io.lines(file) do
+    lines[#lines + 1] = line
+  end
+  return lines
+end
+
+function RandomScheme()
+  local schemes = LinesFrom(vim.fn.expand("$HOME/.colors.txt"))
+  if schemes then
+    vim.cmd("colorscheme " .. schemes[Random(1, #schemes)])
+  end
+end
+
+RandomScheme()
+
 vim.diagnostic.config({
   virtual_text = {
     severity = vim.diagnostic.severity.ERROR,
@@ -1019,6 +1059,7 @@ end
 vim.api.nvim_set_keymap('', '<leader>zf', '', { silent = true, callback = FindFileBuffer, desc = 'Find file in buffer' })
 
 function TermToggle()
+  --- Get active buffers
   local bufList = vim.api.nvim_eval("map(filter(range(0, bufnr('$')), 'bufwinnr(v:val)>=0'), 'bufname(v:val)')")
   for i in pairs(bufList) do
     if string.find(bufList[i], 'term://') then
@@ -1118,7 +1159,6 @@ function GetBuffers()
   local buffers = {}
   local len = 0
   local vim_fn = vim.fn
-  local buflisted = vim_fn.buflisted
 
   for buffer = 1, vim_fn.bufnr('$') do
     len = len + 1
@@ -1128,9 +1168,10 @@ function GetBuffers()
 end
 
 function HasTerminal()
-  local bufList = GetBuffers()
-  for key, name in pairs(bufList) do
-    if string.find(name, 'term://') then
+  --- Get any terminal including hidding.
+  local wininfoTable = vim.fn.getwininfo()
+  for _, value in pairs(wininfoTable) do
+    if value.terminal > 0 then
       return true
     end
   end

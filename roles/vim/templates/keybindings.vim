@@ -214,10 +214,10 @@ inoremap <m-r> <cmd>lua RunPreviousCommandFunc()<cr>
 function! EnterShellFunc()
   let mod = mode()
   if mod == 'n'
-    execute 'FloatermShow!'
+    execute 'FloatermShow'
     execute feedkeys("i", "t")
   elseif mod == 'i'
-    execute 'FloatermShow!'
+    execute 'FloatermShow'
     if &filetype != 'floaterm'
       execute "FloatermToggle"
     endif
@@ -244,12 +244,12 @@ inoremap <silent> <m-:> <Esc>:FloatermNew<cr>
 nnoremap <silent> <m-:> :FloatermNew<cr>
 tnoremap <silent> <m-:> <c-\><c-n>:FloatermNew<cr>
 
-inoremap <expr> <silent> <m-'> &filetype=='floaterm' ? '<cmd>FloatermNext<cr>' : '<cmd>FloatermNext<cr><cmd>wincmd h<cr>'
-nnoremap <expr> <silent> <m-'> &filetype=='floaterm' ? '<cmd>FloatermNext<cr>' : '<cmd>FloatermNext<cr><cmd>wincmd h<cr>'
+inoremap <expr> <silent> <m-'> &filetype=='floaterm' ? '<cmd>FloatermNext<cr>' : '<cmd>FloatermNext<cr><cmd>wincmd w<cr>'
+nnoremap <expr> <silent> <m-'> &filetype=='floaterm' ? '<cmd>FloatermNext<cr>' : '<cmd>FloatermNext<cr><cmd>wincmd w<cr>'
 tnoremap <m-'> <cmd>FloatermNext<cr><cmd>startinsert<cr>
 
-inoremap <expr> <silent> <m-"> &filetype=='floaterm' ? '<cmd>FloatermPrev<cr>' : '<cmd>FloatermPrev<cr><cmd>wincmd h<cr>'
-nnoremap <expr> <silent> <m-"> &filetype=='floaterm' ? '<cmd>FloatermPrev<cr>' : '<cmd>FloatermPrev<cr><cmd>wincmd h<cr>'
+inoremap <expr> <silent> <m-"> &filetype=='floaterm' ? '<cmd>FloatermPrev<cr>' : '<cmd>FloatermPrev<cr><cmd>wincmd w<cr>'
+nnoremap <expr> <silent> <m-"> &filetype=='floaterm' ? '<cmd>FloatermPrev<cr>' : '<cmd>FloatermPrev<cr><cmd>wincmd w<cr>'
 tnoremap <silent> <m-"> <c-\><c-n>:FloatermPrev<cr>
 
 inoremap <silent> <m-Enter> <Esc>:FloatermSend<cr>
@@ -260,13 +260,46 @@ vnoremap <silent> <m-Enter> :FloatermSend<cr>
 inoremap <silent> <s-a-enter> <Esc>:%FloatermSend<cr>
 nnoremap <silent> <s-a-enter> :%FloatermSend<cr>
 
-" Location list
-inoremap <m-[> <Esc>:lp<cr>
-nnoremap <m-[> :lp<cr>
-tnoremap <m-[> <C-\><C-n><C-w>:lp<cr>
-inoremap <m-]> <Esc>:lne<cr>
-nnoremap <m-]> :lne<cr>
-tnoremap <m-]> <C-\><C-n><C-w>:lne<cr>
+function NextItem()
+  if len(filter(getwininfo(), 'v:val.quickfix')) > 0
+    execute ':cn'
+  elseif len(filter(getwininfo(), 'v:val.loclist')) > 0
+    execute ':lne'
+  else
+    wincmd j
+    if &filetype == 'Trouble'
+      normal j
+      wincmd w
+    else
+      wincmd w
+      lua vim.diagnostic.goto_next()
+    endif
+  endif
+endfunction
+
+function PreviousItem()
+  if len(filter(getwininfo(), 'v:val.quickfix')) > 0
+    execute ':cp'
+  elseif len(filter(getwininfo(), 'v:val.loclist')) > 0
+    execute ':lp'
+  else
+    wincmd j
+    if &filetype == 'Trouble'
+      normal k
+      wincmd w
+    else
+      wincmd w
+      lua vim.diagnostic.goto_prev()
+    endif
+  endif
+endfunction
+
+inoremap <m-]> <cmd>call NextItem()<cr>
+nnoremap <m-]> <cmd>call NextItem()<cr>
+tnoremap <m-]> <cmd>call NextItem()<cr>
+inoremap <m-[> <cmd>call PreviousItem()<cr>
+nnoremap <m-[> <cmd>call PreviousItem()<cr>
+tnoremap <m-[> <cmd>call PreviousItem()<cr>
 
 let g:maxWindow=0
 function ResizeWin()
