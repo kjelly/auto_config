@@ -46,42 +46,6 @@ function! <SID>BufcloseCloseIt()
   endif
 endfunction
 
-function! Num_Toggle()
-  exe "NumbersToggle"
-  exe "set number!"
-endfunction
-
-function! ToggleMouse()
-    " check if mouse is enabled
-    if &mouse == 'a'
-        " disable mouse
-        set mouse=
-    else
-        " enable mouse everywhere
-        set mouse=a
-    endif
-endfunc
-
-function! ToggleStatusLine()
-    if &laststatus==0
-        set laststatus=2
-    else
-        set laststatus=0
-    endif
-endfunc
-
-function! ToggleForCopy()
-    if &nu==0
-        set nu!
-        set signcolumn=yes
-        call ToggleIndentLine()
-    else
-        set nu!
-        set signcolumn=no
-        call ToggleIndentLine()
-    endif
-endfunc
-
 function! s:DiffWithSaved()
   let filetype=&ft
   diffthis
@@ -182,11 +146,14 @@ Plug 'windwp/nvim-spectre'
 " Jump to any definition and
 " references IDE madness without overhead
 Plug 'pechorin/any-jump.nvim'
-Plug 'akinsho/nvim-bufferline.lua'
+Plug 'noib3/nvim-cokeline'
+
+" Buffer switch
+Plug 'https://github.com/matbme/JABS.nvim'
 
 " Easymotion-like
 Plug 'https://github.com/phaazon/hop.nvim'
-Plug 'monaqa/dial.nvim'
+Plug 'monaqa/dial.nvim', {'on': ['DialIncrement', 'DialDecrement']}
 Plug 'kyazdani42/nvim-tree.lua'
 
 " neo-tree requires nui
@@ -214,7 +181,7 @@ Plug 'https://github.com/bennypowers/nvim-regexplainer'
 Plug 'towolf/vim-helm'
 
 " markdown support with some fetures
-Plug 'https://github.com/SidOfc/mkdx'
+" Plug 'https://github.com/SidOfc/mkdx'
 
 Plug 'https://github.com/beauwilliams/focus.nvim'
 

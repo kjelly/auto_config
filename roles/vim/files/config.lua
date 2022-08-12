@@ -6,16 +6,7 @@ local api = vim.api
 math.randomseed(os.time())
 
 function Random(min, max)
-  local str = vim.api.nvim_buf_get_name(0)
-  local num = 0
-  for i = 1, #str do
-    local c = str:sub(i, i)
-    num = num + string.byte(c, 1, 1)
-  end
-  for i = 1, num % 100 do
-    math.random(1, 100)
-  end
-  return math.random(min, max)
+  return math.floor((math.random(min, max)+math.random(min, max))/2)
 end
 
 function FileExists(file)
@@ -35,12 +26,19 @@ end
 
 function RandomScheme()
   local schemes = LinesFrom(vim.fn.expand("$HOME/.colors.txt"))
-  if schemes then
+  if #schemes > 0 then
     vim.cmd("colorscheme " .. schemes[Random(1, #schemes)])
   end
 end
 
 RandomScheme()
+
+function CheckOutput(command)
+  local f = assert(io.popen(command .. ' 2>&1', 'r'))
+  local s = assert(f:read('*a'))
+  f:close()
+  return s
+end
 
 vim.diagnostic.config({
   virtual_text = {
@@ -409,43 +407,6 @@ SafeRequireCallback("hlslens", function(hlslens)
   api.nvim_command("noremap g# g#<Cmd>lua require('hlslens').start()<CR>")
 end)
 
-SafeRequireCallback("bufferline", function(bufferline)
-  bufferline.setup {
-    options = {
-      diagnostics = "nvim_lsp",
-      diagnostics_indicator = function(count, level, diagnostics_dict, context)
-        local s = " "
-        for e, n in pairs(diagnostics_dict) do
-          local sym = e == "error" and " "
-              or (e == "warning" and " " or "")
-          s = s .. n .. sym
-        end
-        return s
-      end,
-      view = "multiwindow",
-      always_show_bufferline = true,
-      buffer_close_icon = '❌',
-      modified_icon = '●',
-      close_icon = '❌',
-      show_close_icon = false,
-      show_buffer_close_icons = false,
-      left_trunc_marker = '◀',
-      right_trunc_marker = '▶',
-      indicator_icon = '📌',
-      separator_style = { "📌|", "|" },
-      offsets = { { filetype = "NvimTree", text = "File Explorer", text_align = "center" },
-        { filetype = "nerdtree", text = "File Explorer", text_align = "center" },
-        { filetype = "neo-tree", text = "File Explorer", text_align = "center" },
-      },
-    }
-  }
-  api.nvim_command([[
-nnoremap <silent> <leader>sb :BufferLineSortByDirectory<cr>
-nnoremap <silent> <C-h> :BufferLineMovePrev<CR>
-nnoremap <silent> <C-l> :BufferLineMoveNext<CR>
-    ]])
-end)
-
 SafeRequireCallback("which-key", function(wk)
   wk.register({
     g = {
@@ -787,6 +748,7 @@ SafeRequire 'marks'.setup {
   cyclic = true,
   force_write_shada = false,
   refresh_interval = 250,
+  excluded_filetypes = { 'JABSwindow', 'floaterm'},
   sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
   bookmark_0 = {
     sign = "⚑",
@@ -1066,6 +1028,9 @@ function TermToggle()
       return
     end
   end
+  if vim.fn.winwidth(0) < 40 then
+    vim.cmd('wincmd w')
+  end
   vim.cmd("FloatermToggle")
 end
 
@@ -1257,3 +1222,80 @@ function NextItem(offset)
     end
   end
 end
+
+function ToggleMouse()
+  if vim.api.nvim_eval("&mouse") == "a" then
+    vim.cmd("set mouse=")
+  else
+    vim.cmd("set mouse=a")
+  end
+end
+
+function ToggleStatusLine()
+  if vim.api.nvim_eval("&laststatus") == 0 then
+    vim.cmd("set laststatus=2")
+  else
+    vim.cmd("set laststatus=0")
+  end
+end
+
+function ToggleForCopy()
+  if vim.api.nvim_eval("&nu") == 0 then
+    vim.cmd("set nu!")
+    vim.cmd("set signcolumn=yes")
+  else
+    vim.cmd("set nu!")
+    vim.cmd("set signcolumn=no")
+  end
+end
+
+function SSH(command, hosts)
+  for h in pairs(hosts) do
+    vim.cmd("enew")
+    vim.cmd("read !ssh " .. h .." " .. command)
+    vim.cmd("file ssh-" .. h .. "-" .. command .. ".log")
+  end
+end
+
+function ResizeWin()
+  local screenHeight = vim.api.nvim_eval("&lines")
+  if vim.fn.winheight(0) < (screenHeight - 10) then
+    vim.cmd('resize ' .. screenHeight - 5)
+    print('max')
+  else
+    if vim.fn.winheight(0) >= screenHeight - 3 then
+      return
+    end
+
+    vim.cmd('resize ' .. screenHeight / 2)
+    print('equal')
+  end
+end
+
+SafeRequire('cokeline').setup({
+  default_hl = {
+    fg = function(buffer)
+      return
+        buffer.is_focused
+        and '#ff0000'
+         or '#116822'
+    end,
+    bg = '#cccccc',
+  },
+  sidebar = {
+    filetype = 'neo-tree',
+    components = {
+      {
+        text = '  neo-tree',
+        style = 'bold',
+      },
+    }
+  },
+})
+
+SafeRequire('jabs').setup({
+  position = 'center',
+  width = 50,
+  height = 10,
+
+})

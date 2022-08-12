@@ -172,8 +172,8 @@ imap <m-n> <c-n>
 tmap <m-n> <c-n>
 cmap <m-n> <c-n>
 
-inoremap <m-o> <Esc>:Buffers<cr>
-nnoremap <expr> <m-o> &filetype=='floaterm' ? ':Floaterms<cr>' : ':Buffers<cr>'
+inoremap <m-o> <Esc>:JABSOpen<cr>
+nnoremap <expr> <m-o> &filetype=='floaterm' ? ':Floaterms<cr>' : ':JABSOpen<cr>'
 tnoremap <m-o> <C-\><C-n>:Floaterms<cr>
 
 inoremap <m-i> <cmd>Copilot<cr>
@@ -266,23 +266,19 @@ tnoremap <m-]> <cmd>lua NextItem(1)<cr>
 inoremap <m-[> <cmd>lua NextItem(-1)<cr>
 nnoremap <m-[> <cmd>lua NextItem(-1)<cr>
 tnoremap <m-[> <cmd>lua NextItem(-1)<cr>
+inoremap <m-\> <cmd>lua NextItem(1)<cr>
+nnoremap <m-\> <cmd>lua NextItem(1)<cr>
+tnoremap <m-\> <cmd>lua NextItem(1)<cr>
 
-let g:maxWindow=0
 function ResizeWin()
-  if g:maxWindow == 0
-    resize +2000
-    let g:maxWindow=1
-  else
-    wincmd =
-    let g:maxWindow=0
-  endif
+  resize +2000
 endfunction
 
-inoremap <m-`> <Esc>:call ResizeWin()<cr>a
-nnoremap <m-`> :call ResizeWin()<cr>
-tnoremap <m-`> <c-\><c-n>:call ResizeWin()<cr>a
+inoremap <m-q> <cmd>lua ResizeWin()<cr>
+nnoremap <m-q> <cmd>lua ResizeWin()<cr>
+tnoremap <m-q> <cmd>lua ResizeWin()<cr>
 
-nnoremap <m-q> :call jobstart('workspace')<cr>
+nnoremap <m-`> :call jobstart('workspace')<cr>
 
 nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>

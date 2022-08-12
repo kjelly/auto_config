@@ -1,4 +1,4 @@
-nnoremap <silent> . <cmd>Buffers<cr>
+nnoremap <silent> . <cmd>JABSOpen<cr>
 
 nnoremap D <cmd>lua vim.diagnostic.open_float()<cr>
 
@@ -12,7 +12,7 @@ nnoremap <silent> <leader>zhs :History/<cr>
 nnoremap <silent> <leader>zm :Marks<cr>
 nnoremap <silent> <leader>za :Ag<cr>
 nnoremap <silent> <leader>zf :Files<cr>
-nnoremap <silent> <leader>zo :Buffers<cr>
+nnoremap <silent> <leader>zo :JABSOpen<cr>
 nnoremap <silent> <leader>zg :GitFiles<cr>
 nnoremap <silent> <leader>zr :Rg<cr>
 
@@ -112,12 +112,12 @@ endfunction
 nnoremap <silent> <leader>sn :set nu!<cr>
 nnoremap <silent> <leader>sw :set wrap!<cr>
 nnoremap <silent> <leader>sp :set paste!<cr>
-nnoremap <silent> <leader>sm :call ToggleMouse()<cr>
-nnoremap <silent> <leader>ss :call ToggleStatusLine()<cr>
-nnoremap <silent> <leader>sl :call ToggleIndentLine()<cr>
+nnoremap <silent> <leader>sm <cmd>lua ToggleMouse()<cr>
+nnoremap <silent> <leader>ss <cmd>lua ToggleStatusLine()<cr>
+nnoremap <silent> <leader>sl <cmd>lua ToggleIndentLine()<cr>
 nnoremap <silent> <leader>si :source Session.vim<cr>
 nnoremap <silent> <leader>se :mksession!<cr>
-nnoremap <silent> <leader>sc :call ToggleForCopy()<cr>
+nnoremap <silent> <leader>sc <cmd>lua ToggleForCopy()<cr>
 nnoremap <silent> <leader>st :Switch<cr>
 nnoremap <silent> <leader>sk :DisableTmuxKey<cr>
 nnoremap <silent> <leader>so :TSContextToggle<cr>
@@ -128,6 +128,7 @@ nnoremap <silent> <leader>mm :Marks<cr>
 nnoremap <silent> <leader>mn ]`
 nnoremap <silent> <leader>mp [`
 nnoremap <silent> <leader>mc :delmarks!<cr>
+nnoremap <silent> <leader>md :delmarks!<cr>
 nnoremap <silent> <leader>mg `.
 
 nnoremap <silent> <leader>nl :Note<cr>
@@ -269,7 +270,7 @@ nnoremap <silent> <localleader>h :wincmd h<cr>
 nnoremap <silent> <localleader>j :wincmd j<cr>
 nnoremap <silent> <localleader>k :wincmd k<cr>
 nnoremap <silent> <localleader>l :wincmd l<cr>
-nnoremap <silent> <localleader>o :Buffers<cr>
+nnoremap <silent> <localleader>o :JABSOpen<cr>
 nnoremap <silent> <localleader>q :q!<cr>
 nnoremap <silent> <localleader>p :Files<cr>
 nnoremap <silent> <localleader>t :tabnew %<cr>
