@@ -64,18 +64,14 @@ LSP_CONFIG = {
   sumneko_lua = {
     Lua = {
       runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
         version = 'LuaJIT',
       },
       diagnostics = {
-        -- Get the language server to recognize the `vim` global
         globals = { 'vim' },
       },
       workspace = {
-        -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
       },
-      -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
         enable = false,
       },
@@ -100,8 +96,6 @@ LSP_CONFIG = {
   }
 }
 
--- show caps
--- :lua =vim.lsp.get_active_clients()[1].server_capabilities
 local disabled_lsp_caps = {
   pylsp = { 'renameProvider', 'referencesProvider', 'hoverProvider' },
   jedi_language_server = { 'renameProvider', 'referencesProvider', 'hoverProvider' },
@@ -315,6 +309,9 @@ SafeRequire 'nvim-treesitter.configs'.setup {
 SafeRequireCallback('lualine', function(lualine)
   local function showFilePath()
     local filePath = api.nvim_eval("expand('%')")
+    if api.nvim_eval("&modified") == 1 then
+      filePath = filePath .. " [+]"
+    end
     return filePath
   end
 
@@ -1299,3 +1296,111 @@ SafeRequire('jabs').setup({
   height = 10,
 
 })
+
+function SSH(command, hosts)
+  local Job = require 'plenary.job'
+
+  for _, v in pairs(hosts) do
+    local job = Job:new({
+      command = 'ssh',
+      args = { 'v1', '-t', command },
+      cwd = '/usr/bin',
+      env = { ['a'] = 'b' },
+    })
+    job:start()
+    job:after_success(function()
+      vim.defer_fn(function()
+        vim.cmd('enew')
+        vim.cmd('file! ' .. v .. '-' .. command .. '.log')
+        vim.fn.append('$', job:result())
+      end, 100)
+    end)
+  end
+end
+
+function RunInBuffer(command, filename)
+  local Job = require 'plenary.job'
+  local job = Job:new({
+    command = 'bash',
+    args = { '-c', command },
+    on_exit = function(j, exitcode)
+      vim.defer_fn(function()
+        vim.cmd('enew')
+        vim.cmd('file! ' .. filename .. '-' .. command .. '.log')
+        vim.fn.append('$', j:result())
+      end, 100)
+    end
+  })
+  job:start()
+end
+
+function GetVisualSelection()
+  local s_start = vim.fn.getpos("'<")
+  local s_end = vim.fn.getpos("'>")
+  local n_lines = math.abs(s_end[2] - s_start[2]) + 1
+  local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
+  print(vim.inspect(s_start))
+  lines[1] = string.sub(lines[1], s_start[3], -1)
+  if n_lines == 1 then
+    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
+  else
+    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
+  end
+  return table.concat(lines, '\n')
+end
+
+function RunBuffer(opts)
+if opts == nil then
+    opts = {}
+  end
+  vim.cmd('set filetype=txt')
+  local command = vim.fn.getline('.')
+  if opts.select then
+    command = GetVisualSelection()
+  elseif opts.command then
+    command = opts.command
+  end
+  if opts.new then
+    vim.cmd('split')
+    vim.cmd('enew')
+  end
+  local result = vim.fn.searchpos('--- output ---')
+  local bufID = vim.fn.bufnr()
+  vim.api.nvim_buf_set_name(bufID, command .. '-' .. os.date('%Y-%m-%d-%H-%M-%S') .. '.log')
+  if result[1] ~= 0 then
+    vim.defer_fn(function()
+      vim.cmd((result[1]) .. ',$d')
+      vim.fn.appendbufline(bufID, '$', '--- output --- processing')
+    end, 10)
+  else
+    vim.fn.appendbufline(bufID, '$', '--- output --- processing')
+  end
+  local Job = require 'plenary.job'
+  local job = Job:new({
+    command = 'bash',
+    args = { '-c', command },
+    on_stderr = function(error, data)
+      vim.defer_fn(function()
+        vim.fn.appendbufline(bufID, '$', data)
+      end, 100)
+    end,
+    on_stdout = function(error, data)
+      vim.defer_fn(function()
+        vim.fn.appendbufline(bufID, '$', data)
+      end, 100)
+    end,
+    on_exit = function(j, exitcode)
+      vim.defer_fn(function()
+        result = vim.fn.searchpos('--- output ---', 'n')
+        vim.fn.setbufline(bufID, result[1], string.format('--- output --- [%d]', exitcode))
+      end, 100)
+    end
+  })
+
+  job:start()
+end
+
+
+SafeRequire('due_nvim').setup {
+  use_clock_time = true,
+}

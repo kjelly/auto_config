@@ -191,6 +191,8 @@ nnoremap <silent> <leader>rt :TestNearest<cr>
 nnoremap <silent> <leader>rs :TestSuite<cr>
 nnoremap <silent> <leader>rf :TestFile<cr>
 nnoremap <silent> <leader>rr :History:<cr>
+nnoremap <silent> <leader>rbc <cmd>lua RunBuffer()<cr>
+nnoremap <silent> <leader>rbv <cmd>lua RunBuffer({new=true})<cr>
 nnoremap <leader>rc ::%FloatermSend<cr>
 nnoremap <leader>rh :call Ssh('',[])<left><left><left><left><left>
 

@@ -165,6 +165,9 @@ Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'maste
 Plug 'tveskag/nvim-blame-line'
 Plug 'https://github.com/tveskag/nvim-blame-line'
 
+" Due date
+Plug 'NFrid/due.nvim'
+
 " Comment
 Plug 'b3nj5m1n/kommentary'
 Plug 'https://github.com/folke/which-key.nvim'
