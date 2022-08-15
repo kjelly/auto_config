@@ -146,7 +146,7 @@ Plug 'windwp/nvim-spectre'
 " Jump to any definition and
 " references IDE madness without overhead
 Plug 'pechorin/any-jump.nvim'
-Plug 'noib3/nvim-cokeline'
+" Plug 'noib3/nvim-cokeline'
 
 " Buffer switch
 Plug 'https://github.com/matbme/JABS.nvim'
@@ -200,7 +200,7 @@ Plug 'neovim/nvim-lspconfig'
 " Standalone UI for nvim-lsp progress
 Plug 'https://github.com/j-hui/fidget.nvim'
 Plug 'https://github.com/glepnir/lspsaga.nvim'
-Plug 'folke/trouble.nvim'
+Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 
 Plug 'https://github.com/dstein64/vim-startuptime'
 Plug 'kyazdani42/nvim-web-devicons'

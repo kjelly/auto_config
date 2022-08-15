@@ -344,7 +344,7 @@ SafeRequireCallback('lualine', function(lualine)
 
   local floaterm_lualine = {
     sections = {
-      lualine_a = { 'mode' },
+      lualine_a = { 'mode', },
       lualine_b = {},
       lualine_c = { floatermInfo, termTitle },
       lualine_y = {},
@@ -368,6 +368,14 @@ SafeRequireCallback('lualine', function(lualine)
     filetypes = { 'nvim-tree', 'neo-tree', 'aerial', 'Trouble' }
   }
 
+  local function getModified()
+    if api.nvim_eval("&modified") == 1 then
+      return '⚡'
+    else
+      return ' '
+    end
+  end
+
   lualine.setup {
     options = {
       theme = 'auto',
@@ -375,7 +383,7 @@ SafeRequireCallback('lualine', function(lualine)
       component_separators = { '', '' },
     },
     sections = {
-      lualine_a = { 'mode' },
+      lualine_a = { 'mode', {getModified, color={fg='red'}}},
       lualine_b = { 'branch', 'diff' },
       lualine_c = { 'hostname', showCWD, showFilePath },
       lualine_x = { gpsLocation, 'encoding', 'fileformat', 'filetype' },
@@ -383,7 +391,7 @@ SafeRequireCallback('lualine', function(lualine)
       lualine_z = { 'location' }
     },
     inactive_sections = {
-      lualine_a = {},
+      lualine_a = { 'mode', {getModified, color={fg='red'}}},
       lualine_b = {},
       lualine_c = { showFilePath },
       lualine_x = { 'location' },
@@ -1189,35 +1197,38 @@ function RunShellAndShow(command)
 end
 
 function NextItem(offset)
-  if vim.api.nvim_eval("len(filter(getwininfo(), 'v:val.quickfix'))") > 0 then
-    if offset > 0 then
-      vim.cmd("cn")
-    else
-      vim.cmd("cp")
-    end
-  elseif vim.api.nvim_eval("len(filter(getwininfo(), 'v:val.loclist'))") > 0 then
-    if offset > 0 then
-      vim.cmd("ln")
-    else
-      vim.cmd("lp")
-    end
-  else
-    vim.cmd("wincmd j")
-    if vim.api.nvim_eval("&filetype") == "Trouble" then
+  local function inner()
+    if vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 then
       if offset > 0 then
-        vim.cmd("normal j")
+        vim.cmd("ln")
       else
-        vim.cmd("normal k")
+        vim.cmd("lp")
       end
-      vim.cmd("wincmd w")
-    else
+    elseif vim.api.nvim_eval("len(filter(getwininfo(), 'v:val.quickfix'))") > 0 then
       if offset > 0 then
-        vim.diagnostic.goto_next()
+        vim.cmd("cn")
       else
-        vim.diagnostic.goto_prev()
+        vim.cmd("cp")
+      end
+    else
+      vim.cmd("wincmd j")
+      if vim.api.nvim_eval("&filetype") == "Trouble" then
+        if offset > 0 then
+          vim.cmd("normal j")
+        else
+          vim.cmd("normal k")
+        end
+        vim.cmd("wincmd w")
+      else
+        if offset > 0 then
+          vim.diagnostic.goto_next()
+        else
+          vim.diagnostic.goto_prev()
+        end
       end
     end
   end
+  pcall(inner)
 end
 
 function ToggleMouse()
@@ -1404,3 +1415,5 @@ end
 SafeRequire('due_nvim').setup {
   use_clock_time = true,
 }
+
+SafeRequire("lsp_lines").setup()

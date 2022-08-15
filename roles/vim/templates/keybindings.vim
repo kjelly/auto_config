@@ -269,6 +269,9 @@ tnoremap <m-[> <cmd>lua NextItem(-1)<cr>
 inoremap <m-\> <cmd>lua NextItem(1)<cr>
 nnoremap <m-\> <cmd>lua NextItem(1)<cr>
 tnoremap <m-\> <cmd>lua NextItem(1)<cr>
+inoremap <c-\> <cmd>lua NextItem(-1)<cr>
+nnoremap <c-\> <cmd>lua NextItem(-1)<cr>
+tnoremap <c-\> <cmd>lua NextItem(-1)<cr>
 
 function ResizeWin()
   resize +2000
