@@ -58,7 +58,7 @@ nnoremap <c-e> :Commands<cr>
 if exists(':Vista')
   nnoremap <m-s> :Vista!!<cr>
 else
-  nnoremap <m-s> <cmd>AerialToggle!<CR>
+  nnoremap <m-s> <cmd>SymbolsOutline<CR>
 endif
 
 " save

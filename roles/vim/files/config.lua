@@ -376,6 +376,45 @@ SafeRequireCallback('lualine', function(lualine)
     end
   end
 
+  function GetCurrentDiagnostic()
+    local bufnr = 0
+    local line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
+    local opts = { ["lnum"] = line_nr }
+
+    local line_diagnostics = vim.diagnostic.get(bufnr, opts)
+    if vim.tbl_isempty(line_diagnostics) then
+      return
+    end
+
+    local best_diagnostic = nil
+
+    for _, diagnostic in ipairs(line_diagnostics) do
+      if best_diagnostic == nil or diagnostic.severity < best_diagnostic.severity
+      then
+        best_diagnostic = diagnostic
+      end
+    end
+
+    return best_diagnostic
+  end
+
+  function GetCurrentDiagnosticString()
+    local diagnostic = GetCurrentDiagnostic()
+
+    if not diagnostic or not diagnostic.message then
+      return
+    end
+
+    local message = vim.split(diagnostic.message, "\n")[1]
+    local max_width = vim.api.nvim_win_get_width(0) - 35
+
+    if string.len(message) < max_width then
+      return message
+    else
+      return string.sub(message, 1, max_width) .. "..."
+    end
+  end
+
   lualine.setup {
     options = {
       theme = 'auto',
@@ -384,8 +423,8 @@ SafeRequireCallback('lualine', function(lualine)
     },
     sections = {
       lualine_a = { 'mode', {getModified, color={fg='red'}}},
-      lualine_b = { 'branch', 'diff' },
-      lualine_c = { 'hostname', showCWD, showFilePath },
+      lualine_b = { 'diagnostics', 'branch', 'diff' },
+      lualine_c = { 'hostname', showFilePath, 'GetCurrentDiagnosticString()' },
       lualine_x = { gpsLocation, 'encoding', 'fileformat', 'filetype' },
       lualine_y = { 'progress' },
       lualine_z = { 'location' }
@@ -808,6 +847,7 @@ SafeRequireCallback("cmp", function()
   if (cmp == nil) then
     return
   end
+
   cmp.setup({
     snippet = {
       -- REQUIRED - you must specify a snippet engine
@@ -924,10 +964,19 @@ SafeRequireCallback("cmp", function()
     lineFoldingOnly = true
   }
 
+  local lsp_on_attach = {
+    sqls = SafeRequire('sqls').on_attach
+  }
+
   -- Use a loop to conveniently call 'setup' on multiple servers and
   -- map buffer local keybindings when the language server attaches
   for _, lsp in pairs(langservers) do
     local on_attach = function(client, bufnr)
+      if lsp_on_attach[lsp] then
+        lsp_on_attach[lsp](client, bufnr)
+      end
+      SafeRequire('virtualtypes').on_attach(client, bufnr)
+      SafeRequire('illuminate').on_attach(client)
       -- Enable completion triggered by <c-x><c-o>
       vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
       if disabled_lsp_caps[lsp] then
@@ -1059,7 +1108,6 @@ function DelaySetup2()
   SafeRequire('dap-python').setup(vim.api.nvim_eval("g:python3_host_prog"))
   SafeRequire("trouble").setup {}
   SafeRequire("dapui").setup {}
-  SafeRequire('aerial').setup()
   SafeRequire('neogen').setup {}
   SafeRequire('rest-nvim').setup {
     jump_to_request = true,
@@ -1416,4 +1464,6 @@ SafeRequire('due_nvim').setup {
   use_clock_time = true,
 }
 
-SafeRequire("lsp_lines").setup()
+SafeRequire('nvim-lightbulb').setup({})
+SafeRequire("symbols-outline").setup()
+SafeRequire('git-conflict').setup()
