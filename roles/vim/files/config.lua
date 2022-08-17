@@ -1467,3 +1467,13 @@ SafeRequire('due_nvim').setup {
 SafeRequire('nvim-lightbulb').setup({})
 SafeRequire("symbols-outline").setup()
 SafeRequire('git-conflict').setup()
+
+function KillAndRerunTerm(name, command)
+  local lst = vim.fn.getcompletion('FloatermKill ', 'cmdline')
+  for _, v in pairs(lst) do
+    if v == name then
+      vim.cmd('FloatermKill ' .. name)
+    end
+  end
+  vim.cmd('FloatermNew --name=' .. name .. ' ' .. command)
+end
