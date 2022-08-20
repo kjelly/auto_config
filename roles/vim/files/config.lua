@@ -1478,3 +1478,28 @@ function KillAndRerunTerm(name, command)
   end
   vim.cmd('FloatermNew --name=' .. name .. ' ' .. command)
 end
+SafeRequire("stabilize").setup()
+
+function ReleasePlugSpace()
+  local scan = require 'plenary.scandir'
+  local Job = require 'plenary.job'
+  local all_dir = scan.scan_dir(vim.fn.expand("$HOME/.config/nvim/plugged/"),
+    { hidden = false, depth = 1, only_dirs = true })
+  local total = #all_dir
+  local count = 0
+
+  for _, v in pairs(all_dir) do
+    Job:new({
+      command = 'bash',
+      args = { '-c', string.format("cd %s;git pull --depth 1;git gc --prune=all", v) },
+      on_exit = function(j, return_val)
+        count = count + 1
+        if count % 50 == 0 or count == total then
+          SafeRequireCallback("notify", function(notify)
+            notify(count .. '-' .. total, vim.log.levels.INFO, { title = 'update', hide_from_history = true })
+          end)
+        end
+      end,
+    }):start()
+  end
+end
