@@ -42,7 +42,6 @@ end
 
 vim.diagnostic.config({
   virtual_text = {
-    severity = vim.diagnostic.severity.ERROR,
     source = true,
   },
   float = {
@@ -370,9 +369,11 @@ SafeRequireCallback('lualine', function(lualine)
 
   local function getModified()
     if api.nvim_eval("&modified") == 1 then
-      return '⚡'
+      return '📖'
+    elseif api.nvim_eval("&readonly") == 1 then
+      return '🔒'
     else
-      return ' '
+      return '📗'
     end
   end
 
@@ -422,16 +423,16 @@ SafeRequireCallback('lualine', function(lualine)
       component_separators = { '', '' },
     },
     sections = {
-      lualine_a = { 'mode', {getModified, color={fg='red'}}},
-      lualine_b = { 'diagnostics', 'branch', 'diff' },
+      lualine_a = { 'mode' },
+      lualine_b = { {getModified, color={fg='red'}}, 'diagnostics', 'branch', 'diff' },
       lualine_c = { 'hostname', showFilePath, 'GetCurrentDiagnosticString()' },
       lualine_x = { gpsLocation, 'encoding', 'fileformat', 'filetype' },
       lualine_y = { 'progress' },
       lualine_z = { 'location' }
     },
     inactive_sections = {
-      lualine_a = { 'mode', {getModified, color={fg='red'}}},
-      lualine_b = {},
+      lualine_a = { 'mode'},
+      lualine_b = { {getModified, color={fg='red'}} },
       lualine_c = { showFilePath },
       lualine_x = { 'location' },
       lualine_y = {},
@@ -892,7 +893,7 @@ SafeRequireCallback("cmp", function()
       { name = 'luasnip' }, -- For luasnip users.
       { name = 'copilot' },
       { name = 'cmp_tabnine' },
-      { name = 'rg', max_item_count = 10 },
+      { name = 'rg', max_item_count = 10 ,option = { additional_arguments = "--max-depth 5" }},
       { name = 'fish' },
       { name = 'buffer' },
     }),

@@ -63,10 +63,10 @@ function! Ssh(cmd, hosts)
 endfunction
 
 function! FindFileInTree()
-  if exists(":NvimTreeFindFile")
-    execute "NvimTreeFindFile"
-  elseif exists(":Neotree")
+  if exists(":Neotree")
     execute "Neotree reveal"
+  elseif exists(":NvimTreeFindFile")
+    execute "NvimTreeFindFile"
   elseif exists(":NERDTreeTabsFind")
     execute "NERDTreeMirrorOpen"
     execute "NERDTreeTabsFind"
@@ -129,6 +129,7 @@ Plug 'https://github.com/David-Kunz/treesitter-unit'
 Plug 'https://github.com/yioneko/nvim-yati'
 Plug 'SmiteshP/nvim-gps'
 Plug 'spywhere/detect-language.nvim'
+Plug 'm-demare/hlargs.nvim'
 
 " Seamlessly jump between matched instances.
 Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
@@ -187,6 +188,10 @@ Plug 'towolf/vim-helm'
 " Plug 'https://github.com/SidOfc/mkdx'
 
 Plug 'https://github.com/beauwilliams/focus.nvim'
+Plug 'https://github.com/luukvbaal/stabilize.nvim'
+
+" notify ui
+Plug 'rcarriga/nvim-notify'
 
 " Disable scrollbar. Not useful for me.
 " Plug 'https://github.com/petertriho/nvim-scrollbar'
@@ -257,6 +262,8 @@ Plug 'https://github.com/NTBBloodbath/rest.nvim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 "Plug 'ctrlpvim/ctrlp.vim'
+
+Plug 'https://codeberg.org/esensar/nvim-dev-container'
 
 " For sudo
 " :w suda://%
@@ -633,11 +640,10 @@ let g:fzf_floaterm_newentries = {
 let g:mkdx#settings = { 'map': { 'enable': 1, 'prefix': '<leader>md' }, 'checkbox': { 'toggles': [' ', 'x'] } }
 
 " hightlight
-highlight NvimTreeFolderIcon guibg=blue
-highlight FloatermNC guibg=#444444
 
-" blueyed/vim-diminactive
-highlight ColorColumn guibg=#444444
+highlight! link HopNextKey Error
+highlight! link HopNextKey1 Error
+highlight! link HopNextKey2 Error
 
 " Yank to tmux normally
 set clipboard=unnamed
