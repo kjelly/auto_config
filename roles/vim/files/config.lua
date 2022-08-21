@@ -1503,3 +1503,7 @@ function ReleasePlugSpace()
     }):start()
   end
 end
+
+SafeRequireCallback("notify", function(notify)
+  vim.notify = notify
+end)
