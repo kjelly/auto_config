@@ -315,8 +315,8 @@ SafeRequireCallback('lualine', function(lualine)
   end
 
   local function showCWD()
-    local path = api.nvim_eval("getcwd()")
-    local home = api.nvim_eval("$HOME")
+    local path = vim.fn.getcwd()
+    local home = vim.env.HOME
     path = path:gsub(home, '~')
     return path
   end
@@ -645,144 +645,6 @@ SafeRequire("persistence").setup {
 
 SafeRequire('detect-language').setup {}
 
-SafeRequire 'nvim-tree'.setup {
-  diagnostics = {
-    enable = true,
-    icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
-    }
-  },
-  update_focused_file = {
-    enable      = true,
-    update_cwd  = false,
-    ignore_list = {}
-  },
-  filters = {
-    dotfiles = false,
-    custom = {}
-  },
-  system_open = {
-    cmd  = 'file',
-    args = {}
-  },
-  view = {
-    width = '18%',
-    side = 'left',
-    mappings = {
-      custom_only = true,
-      list = {
-        { key = { "<CR>", "o", "<2-LeftMouse>" }, action = "edit" },
-        { key = "<C-e>", action = "edit_in_place" },
-        { key = { "O" }, action = "edit_no_picker" },
-        { key = { "<2-RightMouse>", "<C-]>" }, action = "cd" },
-        { key = "<C-v>", action = "vsplit" },
-        { key = "<C-x>", action = "split" },
-        { key = "<C-t>", action = "tabnew" },
-        { key = "<", action = "prev_sibling" },
-        { key = ">", action = "next_sibling" },
-        { key = "P", action = "parent_node" },
-        { key = "<BS>", action = "close_node" },
-        { key = "<Tab>", action = "preview" },
-        { key = "K", action = "first_sibling" },
-        { key = "J", action = "last_sibling" },
-        { key = "I", action = "toggle_git_ignored" },
-        { key = "H", action = "toggle_dotfiles" },
-        { key = "R", action = "refresh" },
-        { key = "a", action = "create" },
-        { key = "d", action = "remove" },
-        { key = "D", action = "trash" },
-        { key = "r", action = "rename" },
-        { key = "<C-r>", action = "full_rename" },
-        { key = "x", action = "cut" },
-        { key = "c", action = "copy" },
-        { key = "p", action = "paste" },
-        { key = "y", action = "copy_name" },
-        { key = "Y", action = "copy_path" },
-        { key = "gy", action = "copy_absolute_path" },
-        { key = "[c", action = "prev_git_item" },
-        { key = "]c", action = "next_git_item" },
-        { key = "-", action = "dir_up" },
-        { key = "q", action = "close" },
-        { key = "g?", action = "toggle_help" },
-        { key = "W", action = "collapse_all" },
-        { key = "S", action = "search_node" },
-        { key = "<C-k>", action = "toggle_file_info" },
-        { key = ".", action = "run_file_command" }
-      }
-    }
-  },
-  actions = {
-    open_file = {
-      quit_on_open = false,
-      resize_window = false,
-      window_picker = {
-        enable = true,
-        chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
-        exclude = {
-          filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
-          buftype = { "nofile", "terminal", "help" },
-        },
-      },
-    },
-  },
-  renderer = {
-    add_trailing = false,
-    group_empty = false,
-    highlight_git = false,
-    full_name = false,
-    highlight_opened_files = "none",
-    root_folder_modifier = ":~",
-    indent_markers = {
-      enable = false,
-      icons = {
-        corner = "└ ",
-        edge = "│ ",
-        item = "│ ",
-        none = "  ",
-      },
-    },
-    icons = {
-      webdev_colors = true,
-      git_placement = "before",
-      padding = " ",
-      symlink_arrow = "",
-      show = {
-        file = true,
-        folder = true,
-        folder_arrow = true,
-        git = true,
-      },
-      glyphs = {
-        default = "",
-        symlink = "",
-        folder = {
-          arrow_closed = "",
-          arrow_open = "",
-          default = "",
-          open = "",
-          empty = "",
-          empty_open = "",
-          symlink = "",
-          symlink_open = "",
-        },
-        git = {
-          unstaged = "❌",
-          staged = "✅",
-          unmerged = "",
-          renamed = "㈴",
-          untracked = "🚩",
-          deleted = "",
-          ignored = "◌",
-        },
-      },
-    },
-    special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
-  },
-}
-
 SafeRequire("nvim-lsp-installer").setup {
   automatic_installation = true,
 }
@@ -819,7 +681,7 @@ SafeRequireCallback("cmp", function()
 
   local function custom_format(entry, vim_item)
     vim_item.kind = lspkind.presets.default[vim_item.kind]
-    vim_item.abbr = all_trim(string.sub(vim_item.abbr, 1, 60))
+    vim_item.abbr = vim.trim(string.sub(vim_item.abbr, 1, 60))
     local source_name = entry.source.name
     if (vim_item.menu ~= nil and
         entry.completion_item.data ~= nil and
@@ -841,7 +703,7 @@ SafeRequireCallback("cmp", function()
   require("luasnip.loaders.from_vscode").lazy_load({ paths = '~/.config/nvim/plugged/friendly-snippets/' })
 
   if IsModuleAvailable("lsp_signature") then
-    require "lsp_signature".setup({ floating_window = true, floating_window_off_y = -10,
+    require "lsp_signature".setup({ floating_window = true, floating_window_off_y = nil,
       transparency = 50, max_height = 9, handler_opts = { border = "none" } })
   end
 
@@ -1011,6 +873,23 @@ SafeRequireCallback("cmp", function()
   })
 end)
 
+function FindMainWindow()
+  local wininfoTable = vim.fn.getwininfo()
+  local minMainWidth = 1
+  local current_win_id = nil
+  for _, value in pairs(wininfoTable) do
+    if value.width > minMainWidth then
+      minMainWidth = value.width
+      current_win_id = value.winid
+    end
+  end
+  return current_win_id
+end
+
+function GotoMainWindow()
+  vim.api.nvim_set_current_win(FindMainWindow())
+end
+
 local function getWorkspaceVimPath()
   local function convertName(name)
     local firstChar = string.sub(name, 1, 1)
@@ -1028,7 +907,7 @@ local function getWorkspaceVimPath()
     return name
   end
 
-  local workspace_path = vim.api.nvim_eval("g:MYVIMRC_DIR") .. '/workspaces/'
+  local workspace_path = vim.g.MYVIMRC_DIR .. '/workspaces/'
   os.execute('mkdir -p ' .. workspace_path)
   local workspaceConfigPath = workspace_path .. convertName(vim.fn.getcwd()) .. '.vim'
   return workspaceConfigPath
@@ -1044,8 +923,7 @@ vim.api.nvim_set_keymap('n', '<Leader>esw', '', {
   noremap = true,
   desc = 'Edit workspace vim',
   callback = function()
-    vim.api.nvim_command('edit ' .. WorkspaceVimPath)
-    pcall(vim.api.nvim_command, 'edit ' .. WorkspaceVimPath)
+    pcall(EditFile, WorkspaceVimPath)
   end,
 })
 
@@ -1053,6 +931,7 @@ function FindFileCwd()
   local cwd = vim.fn.getcwd()
   local currentFile = vim.fn.expand('%:p')
   local gitDir = cwd .. '/.git'
+  GotoMainWindow()
   if currentFile ~= '' and string.find(currentFile, cwd) == nil then
     vim.cmd('Files')
   elseif vim.fn.isdirectory(gitDir) ~= 0 then
@@ -1067,6 +946,7 @@ vim.api.nvim_set_keymap('n', '<c-p>', '', { silent = true, callback = FindFileCw
 function FindFileBuffer()
   local oldCwd = vim.fn.getcwd()
   local currentBufferPath = vim.fn.expand('%:p:h')
+  GotoMainWindow()
   vim.cmd('cd ' .. currentBufferPath)
   vim.cmd('Files')
   vim.cmd('cd ' .. oldCwd)
@@ -1076,15 +956,15 @@ vim.api.nvim_set_keymap('', '<leader>zf', '', { silent = true, callback = FindFi
 
 function TermToggle()
   --- Get active buffers
-  local bufList = vim.api.nvim_eval("map(filter(range(0, bufnr('$')), 'bufwinnr(v:val)>=0'), 'bufname(v:val)')")
-  for i in pairs(bufList) do
-    if string.find(bufList[i], 'term://') then
+  local bufList = vim.fn.getwininfo()
+  for _, v in pairs(bufList) do
+    if vim.bo[v.bufnr].filetype == 'floaterm' then
       vim.cmd("FloatermHide!")
       return
     end
   end
-  if vim.fn.winwidth(0) < 40 then
-    vim.cmd('wincmd w')
+  if vim.bo.filetype ~= 'floaterm' then
+    GotoMainWindow()
   end
   vim.cmd("FloatermToggle")
 end
@@ -1106,7 +986,7 @@ function DelaySetup2()
       }
     }
   end)
-  SafeRequire('dap-python').setup(vim.api.nvim_eval("g:python3_host_prog"))
+  SafeRequire('dap-python').setup(vim.g.python3_host_prog)
   SafeRequire("trouble").setup {}
   SafeRequire("dapui").setup {}
   SafeRequire('neogen').setup {}
@@ -1242,7 +1122,7 @@ function RunShellAndShow(command)
     vim.cmd("FloatermNew")
   end
   vim.cmd("FloatermShow")
-  vim.cmd("FloatermSend " .. command .. "")
+  vim.cmd("FloatermSend " .. command)
 end
 
 function NextItem(offset)
@@ -1460,13 +1340,14 @@ if opts == nil then
   job:start()
 end
 
-
 SafeRequire('due_nvim').setup {
   use_clock_time = true,
 }
 
 SafeRequire('nvim-lightbulb').setup({})
-SafeRequire("symbols-outline").setup()
+SafeRequire("symbols-outline").setup({
+  auto_preview = true
+})
 SafeRequire('git-conflict').setup()
 
 function KillAndRerunTerm(name, command)
@@ -1507,3 +1388,17 @@ end
 SafeRequireCallback("notify", function(notify)
   vim.notify = notify
 end)
+
+function SymbolToggle()
+  vim.cmd("SymbolsOutline")
+  vim.defer_fn(function()
+    if vim.api.nvim_eval("&filetype") == 'Outline' then
+      vim.cmd("setlocal signcolumn=no")
+    end
+  end, 300)
+end
+
+function EditFile(path)
+  GotoMainWindow()
+  vim.cmd('e ' .. path)
+end

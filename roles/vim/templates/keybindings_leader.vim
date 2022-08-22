@@ -163,9 +163,9 @@ nnoremap <silent> <leader>wl :wincmd l<cr>
 
 nnoremap <silent> <leader>ed :e <c-r>=expand("%:p:h")<cr>/<cr>
 nnoremap <silent> <leader>eu :UndotreeToggle<cr>
-nnoremap <silent> <leader>esi :e $MYVIMRC<cr>
-nnoremap <silent> <leader>esl :e ~/.vim_custom.vim<cr>
-nnoremap <silent> <leader>esc :e ~/.config/nvim/config.lua<cr>
+nnoremap <silent> <leader>esi <cmd>lua EditFile(vim.env.MYVIMRC)<cr>
+nnoremap <silent> <leader>esl <cmd>lua EditFile('~/.vim_custom.vim')<cr>
+nnoremap <silent> <leader>esc <cmd>lua EditFile('~/.config/nvim/config.lua')<cr>
 nnoremap <silent> <leader>esj <cmd>call EditTodayNote()<cr>
 nnoremap <silent> <leader>er :registers<cr>
 nnoremap <leader>ef :set filetype=

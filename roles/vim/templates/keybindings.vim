@@ -54,12 +54,7 @@ inoremap <c-t> <Esc>:tabnew %<CR>
 " Command
 nnoremap <c-e> :Commands<cr>
 
-" Tag list
-if exists(':Vista')
-  nnoremap <m-s> :Vista!!<cr>
-else
-  nnoremap <m-s> <cmd>SymbolsOutline<CR>
-endif
+nnoremap <m-s> <cmd>lua SymbolToggle()<cr>
 
 " save
 nnoremap <c-s> <cmd>w<cr>
