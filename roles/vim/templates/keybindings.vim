@@ -220,9 +220,9 @@ function! EnterShellFunc()
   endif
 endfunction
 
-nnoremap <m-e> <cmd>call EnterShellFunc()<cr>
-inoremap <m-e> <cmd>call EnterShellFunc()<cr>
-" tnoremap <m-e> <c-\><c-n>:lua RunShellAndShow('')<left><left> " needed by br
+nnoremap <m-e> <cmd>call FocusNextInputArea()<cr>
+inoremap <m-e> <cmd>call FocusNextInputArea()<cr>
+tnoremap <m-e> <cmd>call FocusNextInputArea()<cr>
 
 imap <m-g> <Esc><Plug>(choosewin)
 nmap <m-g> <Plug>(choosewin)

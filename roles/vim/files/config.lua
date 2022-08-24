@@ -6,7 +6,7 @@ local api = vim.api
 math.randomseed(os.time())
 
 function Random(min, max)
-  return math.floor((math.random(min, max)+math.random(min, max))/2)
+  return math.floor((math.random(min, max) + math.random(min, max)) / 2)
 end
 
 function FileExists(file)
@@ -69,7 +69,7 @@ LSP_CONFIG = {
         globals = { 'vim' },
       },
       workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
+        library = vim.api.nvim_get_runtime_file("lua/", true),
       },
       telemetry = {
         enable = false,
@@ -424,15 +424,15 @@ SafeRequireCallback('lualine', function(lualine)
     },
     sections = {
       lualine_a = { 'mode' },
-      lualine_b = { {getModified, color={fg='red'}}, 'diagnostics', 'branch', 'diff' },
+      lualine_b = { { getModified, color = { fg = 'red' } }, 'diagnostics', 'branch', 'diff' },
       lualine_c = { 'hostname', showFilePath, 'GetCurrentDiagnosticString()' },
       lualine_x = { gpsLocation, 'encoding', 'fileformat', 'filetype' },
       lualine_y = { 'progress' },
       lualine_z = { 'location' }
     },
     inactive_sections = {
-      lualine_a = { 'mode'},
-      lualine_b = { {getModified, color={fg='red'}} },
+      lualine_a = { 'mode' },
+      lualine_b = { { getModified, color = { fg = 'red' } } },
       lualine_c = { showFilePath },
       lualine_x = { 'location' },
       lualine_y = {},
@@ -655,7 +655,7 @@ SafeRequire 'marks'.setup {
   cyclic = true,
   force_write_shada = false,
   refresh_interval = 250,
-  excluded_filetypes = { 'JABSwindow', 'floaterm'},
+  excluded_filetypes = { 'JABSwindow', 'floaterm' },
   sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
   bookmark_0 = {
     sign = "⚑",
@@ -755,7 +755,7 @@ SafeRequireCallback("cmp", function()
       { name = 'luasnip' }, -- For luasnip users.
       { name = 'copilot' },
       { name = 'cmp_tabnine' },
-      { name = 'rg', max_item_count = 10 ,option = { additional_arguments = "--max-depth 5" }},
+      { name = 'rg', max_item_count = 10, option = { additional_arguments = "--max-depth 5" } },
       { name = 'fish' },
       { name = 'buffer' },
     }),
@@ -1157,6 +1157,7 @@ function NextItem(offset)
       end
     end
   end
+
   pcall(inner)
 end
 
@@ -1189,7 +1190,7 @@ end
 function SSH(command, hosts)
   for h in pairs(hosts) do
     vim.cmd("enew")
-    vim.cmd("read !ssh " .. h .." " .. command)
+    vim.cmd("read !ssh " .. h .. " " .. command)
     vim.cmd("file ssh-" .. h .. "-" .. command .. ".log")
   end
 end
@@ -1212,10 +1213,9 @@ end
 SafeRequire('cokeline').setup({
   default_hl = {
     fg = function(buffer)
-      return
-        buffer.is_focused
-        and '#ff0000'
-         or '#116822'
+      return buffer.is_focused
+          and '#ff0000'
+          or '#116822'
     end,
     bg = '#cccccc',
   },
@@ -1234,7 +1234,7 @@ SafeRequire('jabs').setup({
   position = 'center',
   width = 50,
   height = 10,
-
+  border = 'single',
 })
 
 function SSH(command, hosts)
@@ -1290,7 +1290,7 @@ function GetVisualSelection()
 end
 
 function RunBuffer(opts)
-if opts == nil then
+  if opts == nil then
     opts = {}
   end
   vim.cmd('set filetype=txt')
@@ -1359,6 +1359,7 @@ function KillAndRerunTerm(name, command)
   end
   vim.cmd('FloatermNew --name=' .. name .. ' ' .. command)
 end
+
 SafeRequire("stabilize").setup()
 
 function ReleasePlugSpace()
@@ -1401,4 +1402,21 @@ end
 function EditFile(path)
   GotoMainWindow()
   vim.cmd('e ' .. path)
+end
+
+function FocusNextInputArea()
+  local wininfoTable = vim.fn.getwininfo()
+  local currentBufnr = vim.api.nvim_win_get_buf(0)
+  for _, value in pairs(wininfoTable) do
+    if currentBufnr == value.bufnr then
+    elseif vim.bo[value.bufnr].modifiable then
+      vim.api.nvim_set_current_win(value.winid)
+      vim.fn.feedkeys('i')
+      return
+    elseif vim.bo[value.bufnr].filetype == 'floaterm' then
+      vim.api.nvim_set_current_win(value.winid)
+      vim.fn.feedkeys('i')
+      return
+    end
+  end
 end
