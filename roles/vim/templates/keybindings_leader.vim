@@ -17,21 +17,23 @@ nnoremap <silent> <leader>zg :GitFiles<cr>
 nnoremap <silent> <leader>zr :Rg<cr>
 
 xmap ga <Plug>(EasyAlign)
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gc :Git commit<CR>
-nnoremap <silent> <leader>gb :Git blame<CR>
-nnoremap <silent> <leader>glo :Git log<CR>
-nnoremap <silent> <leader>gp :Git push<CR>
-nnoremap <silent> <leader>gr :Gread<CR>
-nnoremap <silent> <leader>gw :Gwrite<CR>
-nnoremap <silent> <leader>ge :Gedit<CR>
-nnoremap <silent> <leader>gi :Git add -p %<CR>
-nnoremap <silent> <leader>gg :SignifyToggle<CR>
-nnoremap <silent> <leader>gu :Git pull --rebase<CR>
-nnoremap <silent> <leader>ga :Agit<CR>
-nnoremap <silent> <leader>go :Git checkout %<cr>
-nnoremap <silent> <leader>gdi :Git diff<CR>
-nnoremap <silent> <leader>gdl :Git diff @~..@<CR>
+nnoremap <silent> <leader>gs <cmd>FloatermNew --name=git_status --autoclose=0 git status<cr>
+nnoremap <silent> <leader>gc <cmd>Git commit<CR>
+nnoremap <silent> <leader>gb <cmd>Git blame<CR>
+nnoremap <silent> <leader>glo <cmd>Git log<CR>
+nnoremap <silent> <leader>gp <cmd>Git push<CR>
+nnoremap <silent> <leader>gr <cmd>Gread<CR>
+nnoremap <silent> <leader>gw <cmd>Gwrite<CR>
+nnoremap <silent> <leader>ge <cmd>Gedit<CR>
+nnoremap <silent> <leader>gi <cmd>Git add -p %<CR>
+nnoremap <silent> <leader>gg <cmd>SignifyToggle<CR>
+nnoremap <silent> <leader>gu <cmd>Git pull --rebase<CR>
+nnoremap <silent> <leader>ga <cmd>Agit<CR>
+nnoremap <silent> <leader>go <cmd>Git checkout %<cr>
+nnoremap <silent> <leader>gds <cmd>Git diff --cached<CR>
+nnoremap <silent> <leader>gdc <cmd>Git diff %<CR>
+nnoremap <silent> <leader>gdi <cmd>Git diff<CR>
+nnoremap <silent> <leader>gdl <cmd>Git diff @~..@<CR>
 
 let g:glab_mr=''
 nnoremap <leader>glms :let g:glab_mr=

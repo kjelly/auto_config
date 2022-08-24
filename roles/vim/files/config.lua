@@ -24,8 +24,34 @@ function LinesFrom(file)
   return lines
 end
 
+function FileBaseName(file)
+  return file:match("^.+/(.+)$")
+end
+
 function RandomScheme()
-  local schemes = LinesFrom(vim.fn.expand("$HOME/.colors.txt"))
+  local schemes = vim.api.nvim_get_runtime_file("colors/*", true)
+  local excludedPatterns = { 'day', 'light' }
+  schemes = vim.tbl_filter(function(v)
+    if string.find(v, 'plugged') == nil then
+      return false
+    end
+    for _, p in ipairs(excludedPatterns) do
+      if string.find(v, p) ~= nil then
+        return false
+      end
+    end
+    return true
+  end, schemes)
+  schemes = vim.tbl_map(function(v)
+    v = FileBaseName(v)
+    for _, p in ipairs(excludedPatterns) do
+      if string.find(v, p) ~= nil then
+        return nil
+      end
+    end
+    return string.sub(v, 1, #v - 4)
+  end, schemes)
+
   if #schemes > 0 then
     vim.cmd("colorscheme " .. schemes[Random(1, #schemes)])
   end
@@ -96,13 +122,13 @@ LSP_CONFIG = {
 }
 
 local disabled_lsp_caps = {
-  pylsp = { 'renameProvider', 'referencesProvider', 'hoverProvider' },
+  pylsp = { 'renameProvider', 'referencesProvider', 'hoverProvider', 'documentSymbolProvider' },
   jedi_language_server = { 'renameProvider', 'referencesProvider', 'hoverProvider' },
 }
 
 local langservers = {
   'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'emmet_ls', 'gopls', 'graphql', 'html',
-  'jsonls', 'marksman', 'pylsp', 'pyright', 'rust_analyzer', 'sqlls', 'sqls', 'sumneko_lua', 'terraformls', 'tsserver',
+  'jsonls', 'marksman', 'pyright', 'rust_analyzer', 'sqlls', 'sqls', 'sumneko_lua', 'terraformls', 'tsserver',
   'vimls', 'yamlls'
 }
 
@@ -1401,7 +1427,7 @@ end
 
 function EditFile(path)
   GotoMainWindow()
-  vim.cmd('e ' .. path)
+  pcall(vim.cmd, 'e ' .. path)
 end
 
 function FocusNextInputArea()

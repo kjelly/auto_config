@@ -198,7 +198,7 @@ Plug 'rcarriga/nvim-notify'
 Plug 'https://github.com/Chaitanyabsprip/present.nvim'
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
 Plug 'jdhao/better-escape.vim'
 
 Plug 'neovim/nvim-lspconfig'
@@ -272,6 +272,9 @@ Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
 " sudo pip3 install keyring browser-cookie3
 Plug 'ianding1/leetcode.vim'
 
+" colorscheme foramework
+Plug 'rktjmp/lush.nvim'
+
 " colorscheme
 Plug 'sainnhe/gruvbox-material'
 Plug 'gruvbox-community/gruvbox'
@@ -300,6 +303,11 @@ Plug 'https://github.com/NTBBloodbath/doom-one.nvim'
 Plug 'https://github.com/rockerBOO/boo-colorscheme-nvim'
 Plug 'https://github.com/Everblush/everblush.nvim'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'shaunsingh/nord.nvim'
+Plug 'titanzero/zephyrium'
+Plug 'rockyzhang24/arctic.nvim'
+
+
 
 if executable("fcitx") == 1
   Plug 'vim-scripts/fcitx.vim'
@@ -338,7 +346,7 @@ Plug 'https://github.com/windwp/nvim-autopairs'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'https://github.com/L3MON4D3/LuaSnip'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-Plug 'https://github.com/hrsh7th/cmp-copilot'
+" Plug 'https://github.com/hrsh7th/cmp-copilot'
 Plug 'https://github.com/gfanto/fzf-lsp.nvim'
 Plug 'https://github.com/stevearc/aerial.nvim'
 Plug 'https://github.com/onsails/lspkind.nvim'
@@ -639,12 +647,6 @@ let g:fzf_floaterm_newentries = {
   \ }
 let g:mkdx#settings = { 'map': { 'enable': 1, 'prefix': '<leader>md' }, 'checkbox': { 'toggles': [' ', 'x'] } }
 
-" hightlight
-
-highlight! link HopNextKey Error
-highlight! link HopNextKey1 Error
-highlight! link HopNextKey2 Error
-
 " Yank to tmux normally
 set clipboard=unnamed
 
@@ -667,3 +669,10 @@ vnoremap Y "+y
 exec 'luafile' g:MYVIMRC_DIR . '/config.lua'
 {% endif %}
 silent! source ~/.vim_custom.vim
+
+" hightlight
+highlight! link HopNextKey Error
+highlight! link HopNextKey1 Error
+highlight! link HopNextKey2 Error
+
+
