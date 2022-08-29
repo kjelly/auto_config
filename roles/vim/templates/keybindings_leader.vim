@@ -185,8 +185,8 @@ nnoremap <silent> <leader>ecd :let @a=expand("%:p:h")<cr>
 
 nnoremap <silent> <leader>pp :put<cr>
 nnoremap <silent> <leader>pr :put<cr>G$a<cr>
-nnoremap <leader>pi :lua MyRun({"FloatermNew --autoclose=1 nvim '+silent! PlugInstall' '+silent! TSUpdateSync' +qall"})<cr>
-nnoremap <leader>pu :lua MyRun({"FloatermNew --autoclose=1 nvim '+silent! PlugUpgrade' '+silent! PlugUpdate' '+silent! TSUpdateSync' +qall"})<cr>
+nnoremap <leader>pi :lua KillAndRerunTerm("FloatermNew --autoclose=1 nvim '+silent! PlugInstall' '+silent! TSUpdateSync' +qall")<cr>
+nnoremap <leader>pu :lua KillAndRerunTerm("FloatermNew --autoclose=1 nvim '+silent! PlugUpgrade' '+silent! PlugUpdate' '+silent! TSUpdateSync' +qall")<cr>
 
 " Run/Test
 nnoremap <silent> <leader>rt :TestNearest<cr>
@@ -215,7 +215,7 @@ nnoremap <silent> <leader>oc zM<CR>
 {% if nvim %}
 " open new terminal in new tab/buffer.
 nnoremap <silent> <leader>tt :tabnew <cr>:terminal<cr>
-nnoremap <silent> <leader>tb :split<cr><c-w>j:terminal<cr>
+nnoremap <leader>tb :lua KillAndRerunTermWrapper('')<left><left>
 nnoremap <silent> <leader>tv :vsplit<cr><c-w>l:terminal<cr>
 
 
@@ -280,8 +280,8 @@ nnoremap <silent> <localleader>o :JABSOpen<cr>
 nnoremap <silent> <localleader>q :q!<cr>
 nnoremap <silent> <localleader>p :Files<cr>
 nnoremap <silent> <localleader>t :tabnew %<cr>
-nnoremap <localleader>rr :lua MyRun({''})<left><left><left>
-nnoremap <localleader>e :lua RunShellAndShow('')<left><left>
+nnoremap <localleader>rr :lua KillAndRerunTermWrapper('')<left><left>
+nnoremap <localleader>e <cmd>lua RunBuffer()<cr>
 
 xnoremap iu :lua require"treesitter-unit".select()<CR>
 xnoremap au :lua require"treesitter-unit".select(true)<CR>

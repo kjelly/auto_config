@@ -1,6 +1,3 @@
-local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
-local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
-local g = vim.g -- a table to access global variables
 local api = vim.api
 
 math.randomseed(os.time())
@@ -122,7 +119,7 @@ LSP_CONFIG = {
 }
 
 local disabled_lsp_caps = {
-  pylsp = { 'renameProvider', 'referencesProvider', 'hoverProvider', 'documentSymbolProvider' },
+  pylsp = { 'renameProvider', 'referencesProvider', 'hoverProvider', 'documentSymbolProvider', 'workspaceSymbolProvider' },
   jedi_language_server = { 'renameProvider', 'referencesProvider', 'hoverProvider' },
 }
 
@@ -149,10 +146,6 @@ local function indexOf(array, value)
     end
   end
   return nil
-end
-
-local function all_trim(s)
-  return s:match("^%s*(.-)%s*$")
 end
 
 function IsModuleAvailable(name)
@@ -355,7 +348,7 @@ SafeRequireCallback('lualine', function(lualine)
   end
 
   local function termTitle()
-    local title = api.nvim_buf_get_var(nil, 'term_title')
+    local title = api.nvim_buf_get_var(0, 'term_title')
     return title
   end
 
@@ -628,23 +621,6 @@ SafeRequireCallback("which-key", function(wk)
     }
   }
 end)
-
-function MyRun(cmds)
-  if type(cmds) == "string" then
-    api.nvim_command(cmds)
-    api.nvim_set_var("MyRunLastCommand", cmds)
-  elseif cmds == nil then
-    cmds = api.nvim_get_var("MyRunLastCommand")
-    if cmds ~= nil then
-      MyRun(cmds)
-    end
-  else
-    api.nvim_set_var("MyRunLastCommand", cmds)
-    for _, v in pairs(cmds) do
-      api.nvim_command(v)
-    end
-  end
-end
 
 function MySort(buffer_a, buffer_b)
   local function _sort()
@@ -1289,7 +1265,7 @@ function RunInBuffer(command, filename)
   local job = Job:new({
     command = 'bash',
     args = { '-c', command },
-    on_exit = function(j, exitcode)
+    on_exit = function(j, _)
       vim.defer_fn(function()
         vim.cmd('enew')
         vim.cmd('file! ' .. filename .. '-' .. command .. '.log')
@@ -1345,17 +1321,17 @@ function RunBuffer(opts)
   local job = Job:new({
     command = 'bash',
     args = { '-c', command },
-    on_stderr = function(error, data)
+    on_stderr = function(_, data)
       vim.defer_fn(function()
         vim.fn.appendbufline(bufID, '$', data)
       end, 100)
     end,
-    on_stdout = function(error, data)
+    on_stdout = function(_, data)
       vim.defer_fn(function()
         vim.fn.appendbufline(bufID, '$', data)
       end, 100)
     end,
-    on_exit = function(j, exitcode)
+    on_exit = function(_, exitcode)
       vim.defer_fn(function()
         result = vim.fn.searchpos('--- output ---', 'n')
         vim.fn.setbufline(bufID, result[1], string.format('--- output --- [%d]', exitcode))
@@ -1383,7 +1359,19 @@ function KillAndRerunTerm(name, command)
       vim.cmd('FloatermKill ' .. name)
     end
   end
-  vim.cmd('FloatermNew --name=' .. name .. ' ' .. command)
+  vim.cmd(string.format('FloatermNew --autoclose=0 --name=%s %s', name,command))
+end
+
+function KillAndRerunTermWrapper(command)
+  local name = string.gsub(command, ' ', '_')
+  KillAndRerunTerm(name, command)
+  vim.fn.feedkeys('i')
+end
+
+function RunCurrentLine()
+  local cmd =tostring(vim.api.nvim_get_current_line())
+  KillAndRerunTermWrapper(cmd)
+  vim.fn.feedkeys('i')
 end
 
 SafeRequire("stabilize").setup()
@@ -1400,7 +1388,7 @@ function ReleasePlugSpace()
     Job:new({
       command = 'bash',
       args = { '-c', string.format("cd %s;git pull --depth 1;git gc --prune=all", v) },
-      on_exit = function(j, return_val)
+      on_exit = function(_, _)
         count = count + 1
         if count % 50 == 0 or count == total then
           SafeRequireCallback("notify", function(notify)

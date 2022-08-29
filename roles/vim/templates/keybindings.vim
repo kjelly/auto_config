@@ -220,9 +220,8 @@ function! EnterShellFunc()
   endif
 endfunction
 
-nnoremap <m-e> <cmd>call FocusNextInputArea()<cr>
-inoremap <m-e> <cmd>call FocusNextInputArea()<cr>
-tnoremap <m-e> <cmd>call FocusNextInputArea()<cr>
+nnoremap <m-e> <cmd>lua RunCurrentLine()<cr>
+inoremap <m-e> <cmd>lua RunCurrentLine()<cr>
 
 imap <m-g> <Esc><Plug>(choosewin)
 nmap <m-g> <Plug>(choosewin)

@@ -8,6 +8,16 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
+if filereadable('poetry.lock')
+    let poetry_env = trim(system("poetry env info -p"))
+    let g:python3_host_prog= poetry_env . '/bin/python3'
+    let $PATH = poetry_env . '/bin/:' . $PATH
+elseif exists("$VIRTUAL_ENV")
+    let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
+else
+    let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
+endif
+
 " Specify the behavior when switching between buffers
 try
   set switchbuf=uselast
@@ -130,6 +140,7 @@ Plug 'https://github.com/yioneko/nvim-yati'
 Plug 'SmiteshP/nvim-gps'
 Plug 'spywhere/detect-language.nvim'
 Plug 'm-demare/hlargs.nvim'
+Plug 'https://github.com/kylechui/nvim-surround'
 
 " Seamlessly jump between matched instances.
 Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
@@ -477,12 +488,6 @@ endif
 if executable('rg')
   let &grepprg = "rg --vimgrep"
   let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
-endif
-
-if exists("$VIRTUAL_ENV")
-    let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
-else
-    let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
 endif
 
 let $BROWSER='w3m'
