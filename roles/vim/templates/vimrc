@@ -497,7 +497,7 @@ let $IN_VIM=1
 
 let g:leetcode_solution_filetype='python3'
 let g:floaterm_wintype='split'
-let g:floaterm_position='bottom'
+let g:floaterm_position='top'
 let g:floaterm_width=1.0
 let g:floaterm_height=0.5
 let g:floaterm_autoinsert = v:false

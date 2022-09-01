@@ -125,7 +125,7 @@ local disabled_lsp_caps = {
 
 local langservers = {
   'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'emmet_ls', 'gopls', 'graphql', 'html',
-  'jsonls', 'marksman', 'pyright', 'rust_analyzer', 'sqlls', 'sqls', 'sumneko_lua', 'terraformls', 'tsserver',
+  'jsonls', 'marksman', 'pylsp', 'pyright', 'rust_analyzer', 'sqlls', 'sqls', 'sumneko_lua', 'terraformls', 'tsserver',
   'vimls', 'yamlls'
 }
 
