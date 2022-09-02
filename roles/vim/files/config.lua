@@ -880,7 +880,8 @@ function FindMainWindow()
   local minMainWidth = 1
   local current_win_id = nil
   for _, value in pairs(wininfoTable) do
-    if value.width > minMainWidth then
+    if vim.bo[value.bufnr].filetype == 'floaterm' then
+    elseif value.width > minMainWidth then
       minMainWidth = value.width
       current_win_id = value.winid
     end
