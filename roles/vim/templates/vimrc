@@ -107,6 +107,8 @@ elseif executable("zsh") == 1
   set shell=zsh
 endif
 
+cabbrev h vert h
+
 let g:indent_blankline_buftype_exclude = ['terminal']
 let g:indent_blankline_filetype_exclude=['help', 'NvimTree', 'vista', 'floaterm']
 let g:indent_blankline_char_list = ['|', '¦', '┆', '┊']
