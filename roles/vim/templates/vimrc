@@ -681,5 +681,3 @@ silent! source ~/.vim_custom.vim
 highlight! link HopNextKey Error
 highlight! link HopNextKey1 Error
 highlight! link HopNextKey2 Error
-
-

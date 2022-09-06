@@ -20,3 +20,12 @@
 - name: add user to docker group
   user: append=yes name={{ ansible_ssh_user }} groups=docker
   become: true
+
+- name: Download link
+  ansible.builtin.get_url:
+    url: "https://github.com/docker/compose/releases/download/{{docker_compose_version}}/docker-compose-linux-x86_64"
+    dest: /bin/docker-compose
+    mode: 0755
+  become: true
+
+

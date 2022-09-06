@@ -1,9 +1,22 @@
 local api = vim.api
 
-math.randomseed(os.time())
-
-function Random(min, max)
-  return math.floor((math.random(min, max) + math.random(min, max)) / 2)
+if vim.fn.filereadable('/dev/urandom') then
+  function Random(min, max)
+    local urandom = assert(io.open('/dev/urandom', 'rb'))
+    local diff = max - min
+    local count = diff / 255 + 1
+    local s = urandom:read(count)
+    local sum = 0
+    for i = 1, count do
+      sum = sum + s:byte(i)
+    end
+    return min + sum % diff
+  end
+else
+  math.randomseed(os.time())
+  function Random(min, max)
+    return math.floor((math.random(min, max) + math.random(min, max)) / 2)
+  end
 end
 
 function FileExists(file)
@@ -363,27 +376,18 @@ SafeRequireCallback('lualine', function(lualine)
   local floaterm_lualine = {
     sections = {
       lualine_a = { 'mode', },
-      lualine_b = {},
-      lualine_c = { floatermInfo, termTitle },
-      lualine_y = {},
-      lualine_z = { 'progress' },
+      lualine_b = { 'branch', 'diff' },
+      lualine_c = { 'hostname', floatermInfo, termTitle },
+      lualine_x = { 'filetype' },
+      lualine_y = { 'progress' },
+      lualine_z = { 'location' }
+
     },
     inactive_sections = {
       lualine_c = { floatermInfo },
       lualine_z = { 'location' },
     },
     filetypes = { 'floaterm' }
-  }
-
-  local tree_lualine = {
-    sections = {
-      lualine_a = { 'mode' },
-      lualine_b = { 'hostname' },
-    },
-    inactive_sections = {
-      lualine_a = { 'hostname' },
-    },
-    filetypes = { 'nvim-tree', 'neo-tree', 'aerial', 'Trouble' }
   }
 
   local function getModified()
@@ -457,7 +461,7 @@ SafeRequireCallback('lualine', function(lualine)
       lualine_y = {},
       lualine_z = {}
     },
-    extensions = { floaterm_lualine, tree_lualine },
+    extensions = { floaterm_lualine },
   }
 end)
 
@@ -999,7 +1003,6 @@ function DelaySetup2()
     skip_ssl_verification = true
   }
   SafeRequireCallback("hop", function(hop)
-    api.nvim_set_keymap('n', 's', "<cmd>lua require'hop'.hint_words()<cr>", {})
     hop.setup {
       winblend = 10,
       jump_on_sole_occurrence = true,
@@ -1036,6 +1039,9 @@ function DelaySetup1()
     window = {
       width = 30,
       max_width = 30,
+      mappings = {
+        ["s"] = "none"
+      }
     },
   })
   SafeRequireCallback('lspsaga', function(saga)

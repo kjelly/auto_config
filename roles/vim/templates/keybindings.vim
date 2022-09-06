@@ -2,6 +2,15 @@ nnoremap H :tabprevious<cr>
 nnoremap L :tabnext<cr>
 nnoremap ; :
 
+function GoHint()
+  if &filetype == 'neo-tree'
+    execute 'HopLine'
+  else
+    execute 'HopWord'
+  endif
+endfunction
+nnoremap <silent> s <cmd>call GoHint()<cr>
+
 "bash like keybinding
 " <c-a> for <home>, <c-e> for <end>
 " <c-d> for <delete>,

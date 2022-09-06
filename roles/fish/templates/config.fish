@@ -53,7 +53,6 @@ function vagrant
 end
 
 function vim
-  random-color-scheme.py
   if test -n "$IN_NVIM"
     nvr $argv
   else if type -q nvim
