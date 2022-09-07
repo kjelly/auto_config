@@ -319,8 +319,7 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'shaunsingh/nord.nvim'
 Plug 'titanzero/zephyrium'
 Plug 'rockyzhang24/arctic.nvim'
-
-
+Plug 'rebelot/kanagawa.nvim'
 
 if executable("fcitx") == 1
   Plug 'vim-scripts/fcitx.vim'
@@ -460,7 +459,7 @@ set si "Smart indent
 set wrap "Wrap lines
 
 " Always show the status line
-set laststatus=2
+set laststatus=3
 
 " The time in milliseconds that is waited for
 " a mapped sequence to complete.

@@ -176,8 +176,8 @@ imap <m-n> <c-n>
 tmap <m-n> <c-n>
 cmap <m-n> <c-n>
 
-inoremap <m-o> <Esc>:JABSOpen<cr>
-nnoremap <expr> <m-o> &filetype=='floaterm' ? ':Floaterms<cr>' : ':JABSOpen<cr>'
+inoremap <m-o> <Esc>:Buffers<cr>
+nnoremap <expr> <m-o> &filetype=='floaterm' ? ':Floaterms<cr>' : ':Buffers<cr>'
 tnoremap <m-o> <C-\><C-n>:Floaterms<cr>
 
 inoremap <m-i> <cmd>Copilot<cr>

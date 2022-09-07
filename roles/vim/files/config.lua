@@ -261,10 +261,6 @@ SafeRequire 'nvim-treesitter.configs'.setup {
         ["is"] = "@scopename.inner",
       },
     },
-  },
-}
-SafeRequire 'nvim-treesitter.configs'.setup {
-  textobjects = {
     swap = {
       enable = true,
       swap_next = {
@@ -274,10 +270,6 @@ SafeRequire 'nvim-treesitter.configs'.setup {
         ["<leader>lsA"] = "@parameter.inner",
       },
     },
-  },
-}
-SafeRequire 'nvim-treesitter.configs'.setup {
-  textobjects = {
     move = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
@@ -365,14 +357,6 @@ SafeRequireCallback('lualine', function(lualine)
     return title
   end
 
-  local function gpsLocation()
-    if IsModuleAvailable("nvim-gps") then
-      local gps = require("nvim-gps")
-      return gps.get_location()
-    end
-    return ''
-  end
-
   local floaterm_lualine = {
     sections = {
       lualine_a = { 'mode', },
@@ -439,6 +423,7 @@ SafeRequireCallback('lualine', function(lualine)
     end
   end
 
+  local gps = SafeRequire("nvim-gps")
   lualine.setup {
     options = {
       theme = 'auto',
@@ -449,7 +434,7 @@ SafeRequireCallback('lualine', function(lualine)
       lualine_a = { 'mode' },
       lualine_b = { { getModified, color = { fg = 'red' } }, 'diagnostics', 'branch', 'diff' },
       lualine_c = { 'hostname', showFilePath, 'GetCurrentDiagnosticString()' },
-      lualine_x = { gpsLocation, 'encoding', 'fileformat', 'filetype' },
+      lualine_x = { { gps.get_location, cond = gps ~= nil and gps.is_available }, 'encoding', 'fileformat', 'filetype' },
       lualine_y = { 'progress' },
       lualine_z = { 'location' }
     },
@@ -1383,7 +1368,7 @@ end
 
 SafeRequire("stabilize").setup()
 
-function ReleasePlugSpace()
+function UpdatePlug()
   local scan = require 'plenary.scandir'
   local Job = require 'plenary.job'
   local all_dir = scan.scan_dir(vim.fn.expand("$HOME/.config/nvim/plugged/"),

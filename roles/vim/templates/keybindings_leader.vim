@@ -186,7 +186,7 @@ nnoremap <silent> <leader>ecd :let @a=expand("%:p:h")<cr>
 nnoremap <silent> <leader>pp :put<cr>
 nnoremap <silent> <leader>pr :put<cr>G$a<cr>
 nnoremap <leader>pi :lua KillAndRerunTerm("FloatermNew --autoclose=1 nvim '+silent! PlugInstall' '+silent! TSUpdateSync' +qall")<cr>
-nnoremap <leader>pu :lua KillAndRerunTerm("FloatermNew --autoclose=1 nvim '+silent! PlugUpgrade' '+silent! PlugUpdate' '+silent! TSUpdateSync' +qall")<cr>
+nnoremap <leader>pu :lua KillAndRerunTerm("FloatermNew --autoclose=1 nvim '+silent! PlugUpgrade' '+silent! lua PlugUpdate()' '+silent! TSUpdateSync' +qall")<cr>
 
 " Run/Test
 nnoremap <silent> <leader>rt :TestNearest<cr>
