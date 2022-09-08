@@ -176,15 +176,15 @@ imap <m-n> <c-n>
 tmap <m-n> <c-n>
 cmap <m-n> <c-n>
 
-inoremap <m-o> <Esc>:Buffers<cr>
-nnoremap <expr> <m-o> &filetype=='floaterm' ? ':Floaterms<cr>' : ':Buffers<cr>'
-tnoremap <m-o> <C-\><C-n>:Floaterms<cr>
+inoremap <m-o> <cmd>FzfLua buffers<cr>
+nnoremap <m-o> <cmd>FzfLua buffers<cr>
+tnoremap <m-o> <cmd>FzfLua buffers<cr>
 
-inoremap <m-i> <cmd>Copilot<cr>
-nnoremap <m-i> <cmd>Copilot<cr>
+inoremap <m-i> <cmd>FzfLua resume<cr>
+nnoremap <m-i> <cmd>FzfLua resume<cr>
+tnoremap <m-i> <cmd>FzfLua resume<cr>
 
-
-inoremap <m-u> <cmd>Rg<cr>
+inoremap <m-u> <cmd>FzfLua live_grep_native<cr>
 function! CallHistoryShell()
   execute feedkeys("fzf-history-widget")
   execute feedkeys("\<CR>")
@@ -192,9 +192,12 @@ function! CallHistoryShell()
     startinsert
   endif
 endfunction
-nnoremap <expr> <m-u> &filetype=='floaterm' ? ':call CallHistoryShell()<cr>' : ':Rg<cr>'
+nnoremap <expr> <m-u> &filetype=='floaterm' ? ':call CallHistoryShell()<cr>' : ':FzfLua live_grep_native<cr>'
 tnoremap <m-u> <cmd>calll CallHistoryShell()<cr>
 vnoremap <m-u> "ry:<c-u>Rg <c-r>r<cr>
+
+inoremap <m-U> <cmd>FzfLua live_grep_resume<cr>
+nnoremap <m-U> <cmd>FzfLua live_grep_resume<cr>
 
 " buufer switch
 nnoremap <expr> <m-d> &filetype=="floaterm" ? ":FloatermPrev<cr>" : "<c-^>"

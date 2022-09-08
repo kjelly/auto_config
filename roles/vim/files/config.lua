@@ -1,5 +1,14 @@
 local api = vim.api
 
+function SafeBufGetVar(bufnr, key)
+  local ok, value = pcall(vim.api.nvim_buf_get_var, bufnr, key)
+  if ok then
+    return value, nil
+  else
+    return nil, value
+  end
+end
+
 if vim.fn.filereadable('/dev/urandom') then
   function Random(min, max)
     local urandom = assert(io.open('/dev/urandom', 'rb'))
@@ -141,6 +150,28 @@ local langservers = {
   'jsonls', 'marksman', 'pylsp', 'pyright', 'rust_analyzer', 'sqlls', 'sqls', 'sumneko_lua', 'terraformls', 'tsserver',
   'vimls', 'yamlls'
 }
+
+local function termTitle()
+  local title = SafeBufGetVar(0, 'floaterm_name')
+  if title ~= nil then
+    return title
+  end
+  title = api.nvim_buf_get_var(0, 'term_title')
+  if string.find(title, 'term://') ~= nil then
+    local start = string.find(title, '//')
+    start = string.find(title, ':', start) + 1
+    title = title:sub(start, #title)
+    if #title > 60 then
+      return title:sub(1, 60)
+    else
+      return title
+    end
+  else
+    local parts = vim.split(title, ' ', { trimempty = true })
+    parts = { table.unpack(parts, 1, #parts - 1) }
+    return table.concat(parts, ' ')
+  end
+end
 
 local function smart_dd()
   if vim.api.nvim_get_current_line():match("^%s*$") then
@@ -352,9 +383,12 @@ SafeRequireCallback('lualine', function(lualine)
     return ret
   end
 
-  local function termTitle()
-    local title = api.nvim_buf_get_var(0, 'term_title')
-    return title
+  local function gpsLocation()
+    if IsModuleAvailable("nvim-gps") then
+      local gps = require("nvim-gps")
+      return gps.get_location()
+    end
+    return ''
   end
 
   local floaterm_lualine = {
@@ -646,7 +680,7 @@ SafeRequire 'marks'.setup {
   cyclic = true,
   force_write_shada = false,
   refresh_interval = 250,
-  excluded_filetypes = { 'JABSwindow', 'floaterm' },
+  excluded_filetypes = { 'floaterm' },
   sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
   bookmark_0 = {
     sign = "⚑",
@@ -743,7 +777,7 @@ SafeRequireCallback("cmp", function()
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       { name = 'path' },
-      { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
       { name = 'copilot' },
       { name = 'cmp_tabnine' },
       { name = 'rg', max_item_count = 10, option = { additional_arguments = "--max-depth 5" } },
@@ -925,11 +959,11 @@ function FindFileCwd()
   local gitDir = cwd .. '/.git'
   GotoMainWindow()
   if currentFile ~= '' and string.find(currentFile, cwd) == nil then
-    vim.cmd('Files')
+    require('fzf-lua').files()
   elseif vim.fn.isdirectory(gitDir) ~= 0 then
-    vim.cmd('GitFiles')
+    require('fzf-lua').git_files()
   else
-    vim.cmd('Files')
+    require('fzf-lua').files()
   end
 end
 
@@ -940,11 +974,12 @@ function FindFileBuffer()
   local currentBufferPath = vim.fn.expand('%:p:h')
   GotoMainWindow()
   vim.cmd('cd ' .. currentBufferPath)
-  vim.cmd('Files')
+  require('fzf-lua').files()
   vim.cmd('cd ' .. oldCwd)
 end
 
 vim.api.nvim_set_keymap('', '<leader>zf', '', { silent = true, callback = FindFileBuffer, desc = 'Find file in buffer' })
+vim.api.nvim_set_keymap('', '<m-P>', '', { silent = true, callback = FindFileBuffer, desc = 'Find file in buffer' })
 
 function TermToggle()
   --- Get active buffers
@@ -1051,6 +1086,22 @@ function DelaySetup1()
   SafeRequire("focus").setup({
     signcolumn = false,
   })
+
+  SafeRequireCallback('fzf-lua', function(fzf)
+    local disable_icons = {
+      git_icons = false,
+      file_icons = false,
+      color_icons = false,
+    }
+    fzf.setup({
+      files = disable_icons,
+      buffers = disable_icons,
+      grep = disable_icons,
+      git = {
+        files = disable_icons,
+      }
+    })
+  end)
   vim.schedule(DelaySetup2)
 
 end
@@ -1351,7 +1402,7 @@ function KillAndRerunTerm(name, command)
       vim.cmd('FloatermKill ' .. name)
     end
   end
-  vim.cmd(string.format('FloatermNew --autoclose=0 --name=%s %s', name,command))
+  vim.cmd(string.format('FloatermNew --autoclose=0 --name=%s %s', name, command))
 end
 
 function KillAndRerunTermWrapper(command)
@@ -1361,7 +1412,7 @@ function KillAndRerunTermWrapper(command)
 end
 
 function RunCurrentLine()
-  local cmd =tostring(vim.api.nvim_get_current_line())
+  local cmd = tostring(vim.api.nvim_get_current_line())
   KillAndRerunTermWrapper(cmd)
   vim.fn.feedkeys('i')
 end
@@ -1425,4 +1476,13 @@ function FocusNextInputArea()
       return
     end
   end
+end
+
+function UpdateTitleString()
+  local hostname = vim.fn.hostname()
+  local name = vim.fn.expand('%')
+  if vim.api.nvim_eval("&filetype") == 'floaterm' then
+    name = termTitle()
+  end
+  vim.cmd(string.format("let &titlestring='%s - %s'", hostname, name))
 end

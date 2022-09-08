@@ -1,20 +1,22 @@
-nnoremap <silent> . <cmd>JABSOpen<cr>
+nnoremap <silent> . <cmd>FzfLua buffers<cr>
 
 nnoremap D <cmd>lua vim.diagnostic.open_float()<cr>
 
-nnoremap <silent> <leader>zl :Lines<cr>
-nnoremap <silent> <leader>zbl :BLines<cr>
-nnoremap <silent> <leader>zc :Commits<cr>
-nnoremap <silent> <leader>zbc :BCommits<cr>
-nnoremap <silent> <leader>zhf :History<cr>
-nnoremap <silent> <leader>zhc :History:<cr>
-nnoremap <silent> <leader>zhs :History/<cr>
-nnoremap <silent> <leader>zm :Marks<cr>
-nnoremap <silent> <leader>za :Ag<cr>
-nnoremap <silent> <leader>zf :Files<cr>
-nnoremap <silent> <leader>zo :JABSOpen<cr>
-nnoremap <silent> <leader>zg :GitFiles<cr>
-nnoremap <silent> <leader>zr :Rg<cr>
+nnoremap <silent> <leader>zlp <cmd>FzfLua Lines<cr>
+nnoremap <silent> <leader>zlb <cmd>FzfLua BLines<cr>
+nnoremap <silent> <leader>zgb <cmd>FzfLua git_branches<cr>
+nnoremap <silent> <leader>zgs <cmd>FzfLua git_status<cr>
+nnoremap <silent> <leader>zgh <cmd>FzfLua git_stash<cr>
+nnoremap <silent> <leader>zgcp <cmd>FzfLua git_commits<cr>
+nnoremap <silent> <leader>zgcb <cmd>FzfLua git_bcommits<cr>
+nnoremap <silent> <leader>zhf <cmd>FzfLua oldfiles<cr>
+nnoremap <silent> <leader>zhc <cmd>FzfLua command_history<cr>
+nnoremap <silent> <leader>zhs <cmd>FzfLua search_history<cr>
+nnoremap <silent> <leader>zm <cmd>FzfLua Marks<cr>
+nnoremap <silent> <leader>zf <cmd>FzfLua files<cr>
+nnoremap <silent> <leader>zo <cmd>FzfLua buffers<cr>
+nnoremap <silent> <leader>zg <cmd>GitFiles<cr>
+nnoremap <silent> <leader>zr <cmd>FzfLua live_grep<cr>
 
 xmap ga <Plug>(EasyAlign)
 nnoremap <silent> <leader>gs <cmd>FloatermNew --name=git_status --autoclose=0 git status<cr>
@@ -276,7 +278,7 @@ nnoremap <silent> <localleader>h :wincmd h<cr>
 nnoremap <silent> <localleader>j :wincmd j<cr>
 nnoremap <silent> <localleader>k :wincmd k<cr>
 nnoremap <silent> <localleader>l :wincmd l<cr>
-nnoremap <silent> <localleader>o :JABSOpen<cr>
+nnoremap <silent> <localleader>o :FzfLua buffers<cr>
 nnoremap <silent> <localleader>q :q!<cr>
 nnoremap <silent> <localleader>p :Files<cr>
 nnoremap <silent> <localleader>t :tabnew %<cr>

@@ -162,9 +162,6 @@ Plug 'windwp/nvim-spectre'
 Plug 'pechorin/any-jump.nvim'
 " Plug 'noib3/nvim-cokeline'
 
-" Buffer switch
-Plug 'https://github.com/matbme/JABS.nvim'
-
 " Easymotion-like
 Plug 'https://github.com/phaazon/hop.nvim'
 Plug 'monaqa/dial.nvim', {'on': ['DialIncrement', 'DialDecrement']}
@@ -267,14 +264,14 @@ Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite
 Plug 'simeji/winresizer', { 'on': ['WinResizerStartResize', 'WinResizerStartMove']}
 Plug 't9md/vim-choosewin'
 Plug 'metakirby5/codi.vim'
-Plug 'https://github.com/norcalli/nvim-colorizer.lua'
+Plug 'https://github.com/NvChad/nvim-colorizer.lua'
 " Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 Plug 'https://github.com/NTBBloodbath/rest.nvim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-"Plug 'ctrlpvim/ctrlp.vim'
+Plug 'https://github.com/ibhagwan/fzf-lua'
 
 Plug 'https://codeberg.org/esensar/nvim-dev-container'
 
@@ -363,6 +360,8 @@ Plug 'https://github.com/gfanto/fzf-lsp.nvim'
 Plug 'https://github.com/stevearc/aerial.nvim'
 Plug 'https://github.com/onsails/lspkind.nvim'
 Plug 'https://github.com/williamboman/nvim-lsp-installer'
+Plug 'https://github.com/gaoDean/autolist.nvim'
+Plug 'https://github.com/doums/suit.nvim'
 
 {% else %}
 
@@ -532,7 +531,7 @@ augroup basic
   au! BufRead */tasks/*.yaml,*/tasks/*.yml set ft=yaml.ansible
   au! BufRead *.yaml,*.yml if search('hosts:\|tasks:\|roles:', 'nw') | set ft=yaml.ansible | endif
   autocmd! BufWritePost *.py if executable("isort") && exists("g:isort") | execute "silent !isort %" | endif
-
+  auto WinEnter * silent lua UpdateTitleString()
 augroup end
 
 augroup rest_nvim
@@ -655,6 +654,7 @@ let g:mkdx#settings = { 'map': { 'enable': 1, 'prefix': '<leader>md' }, 'checkbo
 
 " Yank to tmux normally
 set clipboard=unnamed
+set title
 
 " Results:  :copen, :cn, :cp
 " Ex: :grep -f c++/comments %
