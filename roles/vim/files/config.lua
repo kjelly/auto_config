@@ -192,6 +192,35 @@ local function indexOf(array, value)
   return nil
 end
 
+function ListCurrentBuffer(opts)
+  if opts == nil then
+    opts = {}
+  end
+  local lst = vim.fn.getwininfo()
+  local ret = {}
+  for _, v in pairs(lst) do
+    if opts.filetype == nil then
+      ret[#ret + 1] = v.bufnr
+    else
+      if opts.filetype == vim.bo[v.bufnr].filetype then
+        ret[#ret + 1] = v.bufnr
+      end
+    end
+  end
+  return ret
+end
+
+function GlobalFloatermIndex()
+  local term_list = ListCurrentBuffer({ filetype = 'floaterm' })
+  local buffers = api.nvim_eval("floaterm#buflist#gather()")
+  if #term_list == 0 then
+    return '0/' .. #buffers
+  end
+  local bufid = term_list[1]
+  local ret = indexOf(buffers, bufid) .. '/' .. #buffers
+  return ret
+end
+
 function IsModuleAvailable(name)
   if package.loaded[name] then
     return true
@@ -1060,7 +1089,12 @@ function DelaySetup1()
       width = 30,
       max_width = 30,
       mappings = {
-        ["s"] = "none"
+        ["s"] = "none",
+        ["<cr>"] = function(state)
+          local node = state.tree:get_node()
+          GotoMainWindow()
+          require('neo-tree.sources.filesystem.commands').open(state)
+        end
       }
     },
   })
@@ -1102,6 +1136,7 @@ function DelaySetup1()
       }
     })
   end)
+  vim.cmd('FzfLua register_ui_select')
   vim.schedule(DelaySetup2)
 
 end
@@ -1485,4 +1520,27 @@ function UpdateTitleString()
     name = termTitle()
   end
   vim.cmd(string.format("let &titlestring='%s - %s'", hostname, name))
+end
+
+function FloatermNext(offset)
+  local current_type = vim.bo.filetype
+  if current_type ~= 'floaterm' then
+    GotoMainWindow()
+  end
+  if not HasTerminal() then
+    vim.cmd('FloatermShow')
+  end
+  if offset > 0 then
+    vim.cmd("FloatermNext")
+  else
+    vim.cmd("FloatermPrev")
+  end
+  if vim.fn.mode() == 't' then
+    vim.fn.feedkeys('i')
+  else
+    if current_type == 'floaterm' then
+    else
+      vim.cmd('wincmd w')
+    end
+  end
 end

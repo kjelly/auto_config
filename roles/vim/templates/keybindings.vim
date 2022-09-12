@@ -246,13 +246,13 @@ inoremap <m-;> <cmd>lua TermToggle()<cr>
 nnoremap <m-;> <cmd>lua TermToggle()<cr>
 tnoremap <m-;> <cmd>lua TermToggle()<cr>
 
-inoremap <silent> <m-:> <Esc>:FloatermNew<cr>
-nnoremap <silent> <m-:> :FloatermNew<cr>
-tnoremap <silent> <m-:> <c-\><c-n>:FloatermNew<cr>
+inoremap <silent> <m-'> <cmd>lua FloatermNext(1)<cr>
+nnoremap <silent> <m-'> <cmd>lua FloatermNext(1)<cr>
+tnoremap <silent> <m-'> <cmd>lua FloatermNext(1)<cr>
 
-inoremap <expr> <silent> <m-'> &filetype=='floaterm' ? '<cmd>FloatermNext<cr>' : '<cmd>FloatermNext<cr><cmd>wincmd w<cr>'
-nnoremap <expr> <silent> <m-'> &filetype=='floaterm' ? '<cmd>FloatermNext<cr>' : '<cmd>FloatermNext<cr><cmd>wincmd w<cr>'
-tnoremap <m-'> <cmd>FloatermNext<cr><cmd>startinsert<cr>
+inoremap <silent> <m-"> <cmd>lua FloatermNext(-1)<cr>
+nnoremap <silent> <m-"> <cmd>lua FloatermNext(-1)<cr>
+tnoremap <silent> <m-"> <cmd>lua FloatermNext(-1)<cr>
 
 inoremap <expr> <silent> <m-"> &filetype=='floaterm' ? '<cmd>FloatermPrev<cr>' : '<cmd>FloatermPrev<cr><cmd>wincmd w<cr>'
 nnoremap <expr> <silent> <m-"> &filetype=='floaterm' ? '<cmd>FloatermPrev<cr>' : '<cmd>FloatermPrev<cr><cmd>wincmd w<cr>'
