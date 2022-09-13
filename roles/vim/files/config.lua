@@ -1091,7 +1091,6 @@ function DelaySetup1()
       mappings = {
         ["s"] = "none",
         ["<cr>"] = function(state)
-          local node = state.tree:get_node()
           GotoMainWindow()
           require('neo-tree.sources.filesystem.commands').open(state)
         end

@@ -361,7 +361,6 @@ Plug 'https://github.com/stevearc/aerial.nvim'
 Plug 'https://github.com/onsails/lspkind.nvim'
 Plug 'https://github.com/williamboman/nvim-lsp-installer'
 Plug 'https://github.com/gaoDean/autolist.nvim'
-Plug 'https://github.com/doums/suit.nvim'
 
 {% else %}
 
@@ -680,3 +679,4 @@ silent! source ~/.vim_custom.vim
 highlight! link HopNextKey Error
 highlight! link HopNextKey1 Error
 highlight! link HopNextKey2 Error
+highlight! link WinSeparator Boolean

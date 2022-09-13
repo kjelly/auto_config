@@ -19,32 +19,27 @@ nnoremap <silent> <leader>zg <cmd>GitFiles<cr>
 nnoremap <silent> <leader>zr <cmd>FzfLua live_grep<cr>
 
 xmap ga <Plug>(EasyAlign)
-nnoremap <silent> <leader>gs <cmd>FloatermNew --name=git_status --autoclose=0 git status<cr>
+
+nnoremap <silent> <leader>gag <cmd>Agit<CR>
+nnoremap <silent> <leader>gam <cmd>Git commit --amend<cr>
+nnoremap <silent> <leader>gbl <cmd>Git blame<CR>
+nnoremap <silent> <leader>gbr <cmd>FzfLua git_branches<cr>
 nnoremap <silent> <leader>gc <cmd>Git commit<CR>
-nnoremap <silent> <leader>gb <cmd>Git blame<CR>
-nnoremap <silent> <leader>glo <cmd>Git log<CR>
-nnoremap <silent> <leader>gp <cmd>Git push<CR>
-nnoremap <silent> <leader>gr <cmd>Gread<CR>
-nnoremap <silent> <leader>gw <cmd>Gwrite<CR>
-nnoremap <silent> <leader>ge <cmd>Gedit<CR>
-nnoremap <silent> <leader>gi <cmd>Git add -p %<CR>
-nnoremap <silent> <leader>gg <cmd>SignifyToggle<CR>
-nnoremap <silent> <leader>gu <cmd>Git pull --rebase<CR>
-nnoremap <silent> <leader>ga <cmd>Agit<CR>
-nnoremap <silent> <leader>go <cmd>Git checkout %<cr>
-nnoremap <silent> <leader>gds <cmd>Git diff --cached<CR>
 nnoremap <silent> <leader>gdc <cmd>Git diff %<CR>
 nnoremap <silent> <leader>gdi <cmd>Git diff<CR>
 nnoremap <silent> <leader>gdl <cmd>Git diff @~..@<CR>
-
-let g:glab_mr=''
-nnoremap <leader>glms :let g:glab_mr=
-nnoremap <leader>glml :lua RunShellAndShow('glab mr list')<cr>
-nnoremap <leader>glmc :lua RunShellAndShow('glab mr checkout ' . g:glab_mr)<cr>
-nnoremap <leader>glma :lua RunShellAndShow('glab mr approve ' . g:glab_mr)<cr>
-nnoremap <leader>glmn :lua RunShellAndShow('glab mr note ' . g:glab_mr)<cr>
-nnoremap <leader>glmm :lua RunShellAndShow('glab mr merge ' . g:glab_mr)<cr>
-nnoremap <leader>glmv :lua RunShellAndShow('glab mr view ' . g:glab_mr)<cr>
+nnoremap <silent> <leader>gds <cmd>Git diff --cached<CR>
+nnoremap <silent> <leader>ge <cmd>Gedit<CR>
+nnoremap <silent> <leader>gg <cmd>SignifyToggle<CR>
+nnoremap <silent> <leader>gi <cmd>Git add -p %<CR>
+nnoremap <silent> <leader>glb <cmd>FzfLua git_bcommits<cr>
+nnoremap <silent> <leader>glp <cmd>FzfLua git_commits<cr>
+nnoremap <silent> <leader>go <cmd>Git checkout %<cr>
+nnoremap <silent> <leader>gp <cmd>Git push<CR>
+nnoremap <silent> <leader>gr <cmd>Gread<CR>
+nnoremap <silent> <leader>gs <cmd>FzfLua git_status<cr>
+nnoremap <silent> <leader>gu <cmd>Git pull --rebase<CR>
+nnoremap <silent> <leader>gw <cmd>Gwrite<CR>
 
 nnoremap <silent> <leader>id :put =strftime('%Y-%m-%d')<cr>
 nnoremap <silent> <leader>it :put =strftime('%H:%M:%S')<cr>
