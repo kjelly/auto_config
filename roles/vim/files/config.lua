@@ -1079,8 +1079,9 @@ function DelaySetup2()
     height_ratio = 0.9,
   })
   SafeRequire('regexplainer').setup()
-
-
+  if Random(1, 100) < 20 then
+    UpdatePlug()
+  end
 end
 
 function DelaySetup1()
@@ -1092,7 +1093,13 @@ function DelaySetup1()
         ["s"] = "none",
         ["<cr>"] = function(state)
           GotoMainWindow()
-          require('neo-tree.sources.filesystem.commands').open(state)
+          local node = state.tree:get_node()
+          if node.type == 'directory' then
+            require('neo-tree.sources.filesystem.commands').toggle_node(state)
+            vim.cmd('NeoTreeFocus')
+          else
+            require('neo-tree.sources.filesystem.commands').open(state)
+          end
         end
       }
     },
@@ -1465,7 +1472,12 @@ function UpdatePlug()
     Job:new({
       command = 'bash',
       args = { '-c', string.format("cd %s;git pull --depth 1;git gc --prune=all", v) },
-      on_exit = function(_, _)
+      on_exit = function(j, return_val)
+        if return_val ~= 0 then
+          SafeRequireCallback("notify", function(notify)
+            notify('pull failed,' .. v, vim.log.levels.ERROR, { title = 'error to update plugin', hide_from_history = true })
+          end)
+        end
         count = count + 1
         if count % 50 == 0 or count == total then
           SafeRequireCallback("notify", function(notify)
