@@ -25,3 +25,4 @@ fd_download_url: https://github.com/sharkdp/fd/releases/download/{{fd_version}}/
 broot_download_url: https://dystroy.org/broot/download/x86_64-linux/broot
 terraformls_version: 0.28.1
 marksman_version: 2022-06-23
+docker_compose_version: v2.10.2

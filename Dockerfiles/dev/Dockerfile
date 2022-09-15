@@ -12,8 +12,6 @@ RUN apt-get update &&  \
     apt-get install -y silversearcher-ag fish tmux gnome-terminal tzdata&& \
     pip3 install ansible fish
 
-
-
 RUN apt install -y python-dev python-pip terminator;pip2 install ansible pynvim
 RUN curl https://raw.githubusercontent.com/kjelly/auto_config/master/scripts/init_nvimrc.sh | bash ; \
     curl https://raw.githubusercontent.com/kjelly/auto_config/master/scripts/init_nvim_nightly.sh | bash ;

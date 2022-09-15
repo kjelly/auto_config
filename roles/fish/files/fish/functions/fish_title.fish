@@ -1,9 +1,15 @@
 function fish_title
-    echo $argv ' '
-  	echo $USER
-    echo '@'
-    hostname
-    echo ':'
-    pwd
-    echo ' '
+    if test -z "$argv"
+      echo 'fish '
+    else
+      echo $argv ' '
+    end
+    if set -q IN_VIM
+      echo $USER
+      echo '@'
+      hostname
+      echo ':'
+      pwd
+      echo ' '
+    end
 end
