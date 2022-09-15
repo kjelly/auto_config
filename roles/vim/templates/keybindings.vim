@@ -235,12 +235,16 @@ endfunction
 nnoremap <m-e> <cmd>lua RunCurrentLine()<cr>
 inoremap <m-e> <cmd>lua RunCurrentLine()<cr>
 
-imap <m-g> <Esc><Plug>(choosewin)
-nmap <m-g> <Plug>(choosewin)
-tmap <m-g> <C-\><C-n><Plug>(choosewin)
+imap <m-g> <cmd>lua require('winpick').select()<cr>
+nmap <m-g> <cmd>lua require('winpick').select()<cr>
+tmap <m-g> <cmd>lua require('winpick').select()<cr>
 
 inoremap <m-m> <Esc>:Marks<cr>
 nnoremap <m-m> :Marks<cr>
+
+inoremap <m-:> <cmd>FloatermNew<cr>
+nnoremap <m-:> <cmd><cr>
+tnoremap <m-:> <cmd><cr>
 
 inoremap <m-;> <cmd>lua TermToggle()<cr>
 nnoremap <m-;> <cmd>lua TermToggle()<cr>

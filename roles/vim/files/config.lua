@@ -392,6 +392,8 @@ SafeRequire 'nvim-treesitter.configs'.setup {
 SafeRequireCallback('lualine', function(lualine)
   local function showFilePath()
     local filePath = api.nvim_eval("expand('%')")
+    local cwd = vim.fn.getcwd()
+    filePath = filePath:gsub(cwd, '.')
     if api.nvim_eval("&modified") == 1 then
       filePath = filePath .. " [+]"
     end
@@ -709,7 +711,7 @@ SafeRequire 'marks'.setup {
   cyclic = true,
   force_write_shada = false,
   refresh_interval = 250,
-  excluded_filetypes = { 'floaterm' },
+  excluded_filetypes = { 'floaterm', '' },
   sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
   bookmark_0 = {
     sign = "⚑",
@@ -1079,6 +1081,52 @@ function DelaySetup2()
     height_ratio = 0.9,
   })
   SafeRequire('regexplainer').setup()
+  SafeRequire('winpick').setup({
+    filter = function(winid, burnr, _)
+      local win_info = vim.fn.getwininfo(winid)[1]
+      if win_info == nil or win_info.height == nil then
+        return false
+      end
+      if win_info.height < 2 then
+        return false
+      end
+      print(vim.bo[burnr].filetype)
+      if #vim.bo[burnr].filetype == 0 then
+        return false
+      end
+      if vim.tbl_contains({ 'fidget', 'notify' }, vim.bo[burnr].filetype) then
+        return false
+      end
+      return true
+    end
+  })
+  function MoveToWindow()
+    SafeRequireCallback('winpick', function(winpick)
+      local winid = winpick.select()
+      if winid then
+        vim.api.nvim_set_current_win(winid)
+      end
+    end)
+  end
+
+  vim.api.nvim_set_keymap('i', '<m-g>', '', {
+    noremap = true,
+    desc = 'Move to Window',
+    callback = MoveToWindow,
+  })
+
+  vim.api.nvim_set_keymap('n', '<m-g>', '', {
+    noremap = true,
+    desc = 'Move to Window',
+    callback = MoveToWindow,
+  })
+
+  vim.api.nvim_set_keymap('t', '<m-g>', '', {
+    noremap = true,
+    desc = 'Move to Window',
+    callback = MoveToWindow,
+  })
+
   if Random(1, 100) < 20 then
     UpdatePlug()
   end
@@ -1112,11 +1160,6 @@ function DelaySetup1()
     vim.wo.foldcolumn = '1'
     vim.wo.foldlevel = 99
     vim.wo.foldenable = true
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.foldingRange = {
-      dynamicRegistration = false,
-      lineFoldingOnly = true
-    }
     ufo.setup()
   end)
   SafeRequire("cybu").setup()
@@ -1475,7 +1518,8 @@ function UpdatePlug()
       on_exit = function(j, return_val)
         if return_val ~= 0 then
           SafeRequireCallback("notify", function(notify)
-            notify('pull failed,' .. v, vim.log.levels.ERROR, { title = 'error to update plugin', hide_from_history = true })
+            notify('pull failed,' .. v, vim.log.levels.ERROR,
+              { title = 'error to update plugin', hide_from_history = true })
           end)
         end
         count = count + 1

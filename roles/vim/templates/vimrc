@@ -361,6 +361,7 @@ Plug 'https://github.com/stevearc/aerial.nvim'
 Plug 'https://github.com/onsails/lspkind.nvim'
 Plug 'https://github.com/williamboman/nvim-lsp-installer'
 Plug 'https://github.com/gaoDean/autolist.nvim'
+Plug 'https://github.com/gbrlsnchs/winpick.nvim'
 
 {% else %}
 
