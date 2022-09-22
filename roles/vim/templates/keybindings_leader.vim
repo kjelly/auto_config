@@ -1,3 +1,15 @@
+lua <<EOF
+function SetKeymap(modes, key, cmd, desc)
+  for _, v in pairs(modes) do
+    vim.api.nvim_set_keymap(v, key, cmd, {
+      noremap = true,
+      desc = desc,
+      nowait = true,
+      silent = true,
+    })
+  end
+end
+EOF
 nnoremap <silent> . <cmd>FzfLua buffers<cr>
 
 nnoremap D <cmd>lua vim.diagnostic.open_float()<cr>
@@ -34,9 +46,10 @@ nnoremap <silent> <leader>gg <cmd>SignifyToggle<CR>
 nnoremap <silent> <leader>gi <cmd>Git add -p %<CR>
 nnoremap <silent> <leader>glb <cmd>FzfLua git_bcommits<cr>
 nnoremap <silent> <leader>glp <cmd>FzfLua git_commits<cr>
-nnoremap <silent> <leader>go <cmd>Git checkout %<cr>
+lua SetKeymap({'n'}, '<leader>grb', '<cmd>Gread<cr>', 'restore file, buffer only')
+lua SetKeymap({'n'}, '<leader>gre', '<cmd>Git checkout %<cr>', 'restore file')
+lua SetKeymap({'n'}, '<leader>grs', '<cmd>Git restore --staged %<cr>', 'restore file')
 nnoremap <silent> <leader>gp <cmd>Git push<CR>
-nnoremap <silent> <leader>gr <cmd>Gread<CR>
 nnoremap <silent> <leader>gs <cmd>FzfLua git_status<cr>
 nnoremap <silent> <leader>gu <cmd>Git pull --rebase<CR>
 nnoremap <silent> <leader>gw <cmd>Gwrite<CR>
@@ -287,9 +300,3 @@ onoremap au :<c-u>lua require"treesitter-unit".select(true)<CR>
 
 nnoremap <leader>dg :silent exec '!bb "go <c-r>=&filetype<cr><space>"'<left><left>
 nnoremap <leader>dd :silent exec '!bb "https://devdocs.io/<c-r>=&filetype<cr>"'<cr>
-
-nnoremap <leader>xx <cmd>TroubleToggle<cr>
-nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
-nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
-nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
-nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>

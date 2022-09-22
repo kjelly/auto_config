@@ -498,7 +498,7 @@ SafeRequireCallback('lualine', function(lualine)
     sections = {
       lualine_a = { 'mode' },
       lualine_b = { { getModified, color = { fg = 'red' } }, 'diagnostics', 'branch', 'diff' },
-      lualine_c = { 'hostname', showFilePath, 'GetCurrentDiagnosticString()' },
+      lualine_c = { showFilePath },
       lualine_x = { { gps.get_location, cond = gps ~= nil and gps.is_available }, 'encoding', 'fileformat', 'filetype' },
       lualine_y = { 'progress' },
       lualine_z = { 'location' }
@@ -526,7 +526,10 @@ SafeRequireCallback("hlslens", function(hlslens)
 end)
 
 SafeRequireCallback("which-key", function(wk)
-  wk.register({
+  local function set_kekymap(opts, mapping)
+    wk.register(mapping, opts)
+  end
+  set_kekymap(nil, {
     g = {
       r = {
         name = 'rename',
@@ -574,57 +577,29 @@ SafeRequireCallback("which-key", function(wk)
       }
     }
   })
-  wk.register({
-    r = {
-      name = "+Run"
-    },
-    d = {
-      name = "+Debug"
-    },
-  }, { prefix = "<localleader>" })
-  wk.register({
-    z = {
-      name = "+Grep/Find/FZF"
-    },
-    t = {
-      name = "+Tab"
-    },
+  set_kekymap({ prefix = "<localleader>" }, {
+    r = { name = "+Run" },
+    d = { name = "+Debug" },
+  })
+  set_kekymap({ prefix = "<leader>" }, {
+    z = { name = "+Grep/Find/FZF" },
+    t = { name = "+Tab" },
     b = {
       name = "+Buffer/Bookmark",
-      c = {
-        "Copy file path"
-      }
+      c = { "Copy file path" }
     },
-    c = {
-      name = "+Comment/cd"
-    },
-    q = {
-      name = "+Quit"
-    },
+    c = { name = "+Comment/cd" },
+    q = { name = "+Quit" },
     l = {
       name = "+Language",
-      d = {
-        "declaration/definition"
-      },
-      e = {
-        "Leetcode",
-      },
-      s = {
-        "Doc/Workspace Symbol",
-      },
-      r = {
-        "Rename/Reference",
-      },
-      t = {
-        "Test",
-      },
+      d = { "declaration/definition" },
+      e = { "Leetcode", },
+      s = { "Doc/Workspace Symbol", },
+      r = { "Rename/Reference", },
+      t = { "Test", },
     },
-    f = {
-      name = "+File/esearch"
-    },
-    s = {
-      name = "+Status"
-    },
+    f = { name = "+File/esearch" },
+    s = { name = "+Status" },
     m = {
       name = "+Mark",
       p = { 'Previous mark' },
@@ -635,39 +610,31 @@ SafeRequireCallback("which-key", function(wk)
       q = { "wqa" },
       s = { "split" }
     },
-    r = {
-      name = "+Run/Test"
-    },
-    o = {
-      name = "+Fold"
-    },
+    r = { name = "+Run/Test" },
+    o = { name = "+Fold" },
     e = {
-      name = "+Edit"
+      name = "+Edit",
+      c = "copy",
+      s = "setting/notes",
     },
     g = {
       name = "+Git/Paste",
       d = {
         name = "git diff",
         l = { "git diff last commit" }
-      }
+      },
+      r = { name = 'restore' },
+      l = { name = 'log' },
+      b = { name = 'blame' },
+      a = { name = 'Agit/amend' },
     },
-    n = {
-      name = "+Note",
-    },
-    i = {
-      name = "+Insert time/Info",
-    },
-    a = {
-      name = "+AnyJump/CocAction",
-    },
-    v = {
-      name = "+Gina"
-
-    },
-    p = {
-      name = "+Paste/Plugin"
-    },
-  }, { prefix = "<leader>" })
+    n = { name = "+Note", },
+    i = { name = "+Insert time/Info", },
+    a = { name = "+AnyJump/CocAction", },
+    v = { name = "+Gina" },
+    p = { name = "+Paste/Plugin" },
+    d = { name = "doc" },
+  })
 
   wk.setup {
     plugins = {
@@ -947,7 +914,7 @@ function GotoMainWindow()
   vim.api.nvim_set_current_win(FindMainWindow())
 end
 
-local function getWorkspaceVimPath()
+local function getWorkspaceVimPath(type)
   local function convertName(name)
     local firstChar = string.sub(name, 1, 1)
     local lastChar = string.sub(name, #name, #name)
@@ -966,11 +933,11 @@ local function getWorkspaceVimPath()
 
   local workspace_path = vim.g.MYVIMRC_DIR .. '/workspaces/'
   os.execute('mkdir -p ' .. workspace_path)
-  local workspaceConfigPath = workspace_path .. convertName(vim.fn.getcwd()) .. '.vim'
+  local workspaceConfigPath = workspace_path .. convertName(vim.fn.getcwd()) .. '.' .. type
   return workspaceConfigPath
 end
 
-WorkspaceVimPath = getWorkspaceVimPath()
+WorkspaceVimPath = getWorkspaceVimPath('vim')
 
 if FileExists(WorkspaceVimPath) then
   pcall(vim.api.nvim_command, 'source ' .. WorkspaceVimPath)
@@ -981,6 +948,14 @@ vim.api.nvim_set_keymap('n', '<Leader>esw', '', {
   desc = 'Edit workspace vim',
   callback = function()
     pcall(EditFile, WorkspaceVimPath)
+  end,
+})
+
+vim.api.nvim_set_keymap('n', '<Leader>esn', '', {
+  noremap = true,
+  desc = 'Edit workspace note',
+  callback = function()
+    pcall(EditFile, getWorkspaceVimPath('md'))
   end,
 })
 
