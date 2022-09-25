@@ -156,6 +156,7 @@ Plug 'https://github.com/nvim-lualine/lualine.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'windwp/nvim-spectre'
+Plug 'https://github.com/sindrets/diffview.nvim'
 
 " Jump to any definition and
 " references IDE madness without overhead
@@ -248,7 +249,7 @@ Plug 'https://github.com/akinsho/git-conflict.nvim'
 Plug 'tpope/vim-dadbod', { 'on': ['DB']}
 Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DB']}
 
-Plug 'https://github.com/kjelly/fzf-floaterm'
+Plug 'https://github.com/kjelly/kube-nvim'
 Plug 'voldikss/vim-floaterm'
 
 " Switch true/flase
@@ -317,6 +318,9 @@ Plug 'shaunsingh/nord.nvim'
 Plug 'titanzero/zephyrium'
 Plug 'rockyzhang24/arctic.nvim'
 Plug 'rebelot/kanagawa.nvim'
+Plug 'https://github.com/Almo7aya/neogruvbox.nvim'
+Plug 'https://github.com/bluz71/vim-nightfly-guicolors'
+Plug 'https://github.com/cranberry-clockworks/coal.nvim'
 
 if executable("fcitx") == 1
   Plug 'vim-scripts/fcitx.vim'

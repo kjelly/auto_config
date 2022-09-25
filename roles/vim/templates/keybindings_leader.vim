@@ -173,6 +173,7 @@ nnoremap <silent> <leader>wj :wincmd j<cr>
 nnoremap <silent> <leader>wk :wincmd k<cr>
 nnoremap <silent> <leader>wl :wincmd l<cr>
 
+nnoremap <leader>ecw ggVG"+y
 nnoremap <silent> <leader>ed :e <c-r>=expand("%:p:h")<cr>/<cr>
 nnoremap <silent> <leader>eu :UndotreeToggle<cr>
 nnoremap <silent> <leader>esi <cmd>lua EditFile(vim.env.MYVIMRC)<cr>

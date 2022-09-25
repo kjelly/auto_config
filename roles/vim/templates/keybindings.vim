@@ -84,10 +84,6 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 cnoremap <c-s> Explore scp://
 
-" Use Enter to expand snippet. This is for nvim-completion-manager.
-"imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
-"imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<Tab>":"\<CR>")
-
 {% if nvim %}
 
 tnoremap <c-]> <cmd>stopinsert<cr>

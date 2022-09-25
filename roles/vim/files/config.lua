@@ -88,6 +88,7 @@ end
 vim.diagnostic.config({
   virtual_text = {
     source = true,
+    severity = { min = vim.diagnostic.severity.INFO }
   },
   float = {
     source = true,
@@ -614,7 +615,10 @@ SafeRequireCallback("which-key", function(wk)
     o = { name = "+Fold" },
     e = {
       name = "+Edit",
-      c = "copy",
+      c ={
+        name = "copy",
+        w = "full file",
+      },
       s = "setting/notes",
     },
     g = {
@@ -1489,7 +1493,7 @@ function UpdatePlug()
   for _, v in pairs(all_dir) do
     Job:new({
       command = 'bash',
-      args = { '-c', string.format("cd %s;git pull --depth 1;git gc --prune=all", v) },
+      args = { '-c', string.format("cd %s;git pull;git gc --prune=all", v) },
       on_exit = function(j, return_val)
         if return_val ~= 0 then
           SafeRequireCallback("notify", function(notify)
@@ -1547,7 +1551,7 @@ function UpdateTitleString()
   local hostname = vim.fn.hostname()
   local name = vim.fn.expand('%')
   if vim.api.nvim_eval("&filetype") == 'floaterm' then
-    name = termTitle()
+    name = vim.fn.escape(termTitle(), "|")
   end
   vim.cmd(string.format("let &titlestring='%s - %s'", hostname, name))
 end
