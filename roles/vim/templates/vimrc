@@ -384,11 +384,9 @@ call plug#end()
 
 set nu
 set keywordprg=sdcvh.sh
-"set whichwrap+=h,l
-set whichwrap+=<,>,[,],s,b
 set cursorline
 set showcmd
-set mouse=
+set mouse=a
 
 " Show tab line if there are more than one tab
 set showtabline=1
@@ -428,7 +426,7 @@ set cmdheight=1
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
+" set whichwrap+=<,>
 
 " When searching try to be smart about cases
 set smartcase

@@ -239,8 +239,8 @@ inoremap <m-m> <Esc>:Marks<cr>
 nnoremap <m-m> :Marks<cr>
 
 inoremap <m-:> <cmd>FloatermNew<cr>
-nnoremap <m-:> <cmd><cr>
-tnoremap <m-:> <cmd><cr>
+nnoremap <m-:> <cmd>FloatermNew<cr>
+tnoremap <m-:> <cmd>FloatermNew<cr>
 
 inoremap <m-;> <cmd>lua TermToggle()<cr>
 nnoremap <m-;> <cmd>lua TermToggle()<cr>

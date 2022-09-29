@@ -211,6 +211,25 @@ function ListCurrentBuffer(opts)
   return ret
 end
 
+
+function ListCurrentWindow(opts)
+  if opts == nil then
+    opts = {}
+  end
+  local lst = vim.fn.getwininfo()
+  local ret = {}
+  for _, v in pairs(lst) do
+    if opts.filetype == nil then
+      ret[#ret + 1] = v.winid
+    else
+      if opts.filetype == vim.bo[v.bufnr].filetype then
+        ret[#ret + 1] = v.winid
+      end
+    end
+  end
+  return ret
+end
+
 function GlobalFloatermIndex()
   local term_list = ListCurrentBuffer({ filetype = 'floaterm' })
   local buffers = api.nvim_eval("floaterm#buflist#gather()")
@@ -1114,8 +1133,9 @@ end
 function DelaySetup1()
   SafeRequire('neo-tree').setup({
     window = {
-      width = 30,
-      max_width = 30,
+      width = 25,
+      max_width = 25,
+      min_width = 25,
       mappings = {
         ["s"] = "none",
         ["<cr>"] = function(state)
@@ -1454,7 +1474,8 @@ SafeRequire('due_nvim').setup {
 
 SafeRequire('nvim-lightbulb').setup({})
 SafeRequire("symbols-outline").setup({
-  auto_preview = true
+  auto_preview = true,
+  width = 20,
 })
 SafeRequire('git-conflict').setup()
 
@@ -1516,11 +1537,25 @@ SafeRequireCallback("notify", function(notify)
   vim.notify = notify
 end)
 
+local symbolLock = false
 function SymbolToggle()
-  vim.cmd("SymbolsOutline")
+  if symbolLock then
+    return
+  end
+  symbolLock = true
+  if #ListCurrentWindow({filetype="Outline"}) > 0 then
+    vim.cmd("SymbolsOutlineClose")
+  else
+    vim.cmd("SymbolsOutlineOpen")
+  end
   vim.defer_fn(function()
-    if vim.api.nvim_eval("&filetype") == 'Outline' then
-      vim.cmd("setlocal signcolumn=no")
+    symbolLock = false
+    vim.wait(300, function()
+      return #ListCurrentWindow({filetype="Outline"}) > 0
+    end, 1000)
+    for _, v in ipairs(ListCurrentWindow({filetype="Outline"})) do
+      pcall(vim.api.nvim_win_set_option, "foldcolumn", "0")
+      pcall(vim.api.nvim_win_set_option, "signcolumn", "no")
     end
   end, 300)
 end
