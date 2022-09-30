@@ -1554,8 +1554,8 @@ function SymbolToggle()
       return #ListCurrentWindow({filetype="Outline"}) > 0
     end, 1000)
     for _, v in ipairs(ListCurrentWindow({filetype="Outline"})) do
-      pcall(vim.api.nvim_win_set_option, "foldcolumn", "0")
-      pcall(vim.api.nvim_win_set_option, "signcolumn", "no")
+      pcall(vim.api.nvim_win_set_option, v, "foldcolumn", "0")
+      pcall(vim.api.nvim_win_set_option, v, "signcolumn", "no")
     end
   end, 300)
 end
