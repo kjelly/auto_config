@@ -110,7 +110,7 @@ endif
 cabbrev h vert h
 
 let g:indent_blankline_buftype_exclude = ['terminal']
-let g:indent_blankline_filetype_exclude=['help', 'NvimTree', 'vista', 'floaterm']
+let g:indent_blankline_filetype_exclude=['help', 'NvimTree', 'vista', 'floaterm', 'neo-tree']
 let g:indent_blankline_char_list = ['|', '¦', '┆', '┊']
 let g:indent_blankline_use_treesitter = v:true
 let g:blameLineUseVirtualText = 1
@@ -151,7 +151,7 @@ Plug 'mfussenegger/nvim-dap-python'
 Plug 'rcarriga/nvim-dap-ui'
 " status line
 Plug 'https://github.com/nvim-lualine/lualine.nvim'
-Plug 'https://github.com/fgheng/winbar.nvim'
+" Plug 'https://github.com/fgheng/winbar.nvim'
 
 " A search panel for neovim.
 Plug 'nvim-lua/popup.nvim'
@@ -387,8 +387,6 @@ set nu
 set keywordprg=sdcvh.sh
 set cursorline
 set showcmd
-set cmdheight=0
-set shortmess=
 set mouse=a
 
 " Show tab line if there are more than one tab
@@ -476,7 +474,7 @@ set sessionoptions=buffers,curdir,tabpages,winsize,globals
 " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
 " found' messages
 " or don't give |ins-completion-menu| messages.
-set shortmess+=c
+set shortmess=sTWAIFS
 " always show signcolumns
 set signcolumn=yes
 set noshowmode
@@ -612,6 +610,8 @@ command! FFF FloatermNew fff
 
 let g:MYVIMRC_DIR = fnamemodify(expand('$MYVIMRC'), ':h')
 let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/bin'
+let $GIT_PAGER='cat'
+let $PAGER='cat'
 
 let g:switch_mapping = ""
 let g:switch_custom_definitions =

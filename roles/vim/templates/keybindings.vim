@@ -180,9 +180,13 @@ inoremap <m-O> <cmd>FzfLua resume<cr>
 nnoremap <m-O> <cmd>FzfLua resume<cr>
 tnoremap <m-O> <cmd>FzfLua resume<cr>
 
-inoremap <m-i> <cmd>FzfLua jumps<cr>
-nnoremap <m-i> <cmd>FzfLua jumps<cr>
-tnoremap <m-i> <cmd>FzfLua jumps<cr>
+inoremap <m-y> <cmd>FzfLua jumps<cr>
+nnoremap <m-y> <cmd>FzfLua jumps<cr>
+tnoremap <m-y> <cmd>FzfLua jumps<cr>
+
+inoremap <m-i> <cmd>lua RegistersInsert()<cr>
+nnoremap <m-i> <cmd>lua RegistersInsert()<cr>
+tnoremap <m-i> <cmd>lua RegistersInsert()<cr>
 
 inoremap <m-u> <cmd>FzfLua live_grep_native<cr>
 function! CallHistoryShell()

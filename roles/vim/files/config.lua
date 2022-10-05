@@ -152,6 +152,8 @@ local langservers = {
   'vimls', 'yamlls'
 }
 
+local lsp_autostart_disabled = { 'sumneko_lua' }
+
 local function termTitle()
   local title = SafeBufGetVar(0, 'floaterm_name')
   if title ~= nil then
@@ -259,10 +261,12 @@ function SafeRequire(name)
   if IsModuleAvailable(name) then
     return require(name)
   end
-  return {
-    setup = function(arg)
+  return setmetatable({}, {
+    __index = function(t, key)
+      return function()
+      end
     end
-  }
+  })
 end
 
 function SafeRequireCallback(name, func)
@@ -860,7 +864,7 @@ SafeRequireCallback("cmp", function()
 
   setup_cmdline(':', {
     { name = 'cmdline', group_index = 1 },
-    { name = 'cmdline_history', group_index = 2 , max_item_count=5},
+    { name = 'cmdline_history', group_index = 2, max_item_count = 5 },
   })
   setup_cmdline('/', search_sources)
   setup_cmdline('?', search_sources)
@@ -901,14 +905,18 @@ SafeRequireCallback("cmp", function()
         -- This will be the default in neovim 0.7+
         debounce_text_changes = 150,
       },
+      root_dir = function(fname)
+        return SafeRequire('lspconfig').util.find_git_ancestor(fname) or vim.fn.getcwd()
+      end,
       settings = LSP_CONFIG[lsp] or {},
+      autostart = not vim.tbl_contains(lsp_autostart_disabled, lsp),
+
     }
   end
 
-  local tabnine = require('cmp_tabnine.config')
-  tabnine:setup({
-    max_lines = 1000;
-    max_num_results = 20;
+  SafeRequire("cmp_tabnine.config").setup({
+    max_lines = 100;
+    max_num_results = 10;
     sort = true;
     run_on_every_keystroke = true;
     snippet_placeholder = '..';
@@ -1124,7 +1132,7 @@ function DelaySetup2()
     callback = MoveToWindow,
   })
 
-  if Random(1, 100) < 20 then
+  if Random(1, 100) < 10 then
     UpdatePlug()
   end
 
@@ -1647,4 +1655,16 @@ function FloatermNext(offset)
       vim.cmd('wincmd w')
     end
   end
+end
+
+function RegistersInsert()
+  require('fzf-lua').registers({ actions = {
+    ["default"] = function(entry)
+      local s = entry[1]
+      local i = string.find(s, "[", 0, true)
+      local j = string.find(s, "]", i, true)
+      s = s:sub(i + 1, j - 1)
+      vim.fn.feedkeys(string.format('"%sp', s))
+    end
+  } })
 end

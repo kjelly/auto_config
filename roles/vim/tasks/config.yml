@@ -43,6 +43,10 @@
 
 - file: path="~/.vim_custom.vim" state=touch
 
+- file: path="~/.config/nvim/.stylua.toml" state=touch
+
+- file: path="~/.config/nvim/.git/" state=directory recurse=yes
+
 - file: path="~/.config/nyaovim/" state=directory recurse=yes
 
 - template: src="nyaovimrc.html" dest="~/.config/nyaovim/nyaovimrc.html"
