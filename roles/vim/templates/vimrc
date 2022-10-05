@@ -151,6 +151,7 @@ Plug 'mfussenegger/nvim-dap-python'
 Plug 'rcarriga/nvim-dap-ui'
 " status line
 Plug 'https://github.com/nvim-lualine/lualine.nvim'
+Plug 'https://github.com/fgheng/winbar.nvim'
 
 " A search panel for neovim.
 Plug 'nvim-lua/popup.nvim'
@@ -386,6 +387,8 @@ set nu
 set keywordprg=sdcvh.sh
 set cursorline
 set showcmd
+set cmdheight=0
+set shortmess=
 set mouse=a
 
 " Show tab line if there are more than one tab

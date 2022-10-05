@@ -176,9 +176,13 @@ inoremap <m-o> <cmd>FzfLua buffers<cr>
 nnoremap <m-o> <cmd>FzfLua buffers<cr>
 tnoremap <m-o> <cmd>FzfLua buffers<cr>
 
-inoremap <m-i> <cmd>FzfLua resume<cr>
-nnoremap <m-i> <cmd>FzfLua resume<cr>
-tnoremap <m-i> <cmd>FzfLua resume<cr>
+inoremap <m-O> <cmd>FzfLua resume<cr>
+nnoremap <m-O> <cmd>FzfLua resume<cr>
+tnoremap <m-O> <cmd>FzfLua resume<cr>
+
+inoremap <m-i> <cmd>FzfLua jumps<cr>
+nnoremap <m-i> <cmd>FzfLua jumps<cr>
+tnoremap <m-i> <cmd>FzfLua jumps<cr>
 
 inoremap <m-u> <cmd>FzfLua live_grep_native<cr>
 function! CallHistoryShell()

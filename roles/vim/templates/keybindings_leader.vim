@@ -186,6 +186,8 @@ nnoremap <leader>ea :filetype detect<cr>
 nnoremap <silent> <leader>eg :Grepper<cr>
 nnoremap <silent> <leader>ej ::%!jq '.'<cr>
 nnoremap <leader>ee :terminal<space>
+nnoremap <leader>ec <cmd>FzfLua changes<cr>
+nnoremap <leader>ej <cmd>FzfLua jumps<cr>
 
 nnoremap <silent> <leader>en :echo getcwd()<cr>
 nnoremap <silent> <leader>em :Pushd <c-r>=expand("%:p:h")<cr><cr>

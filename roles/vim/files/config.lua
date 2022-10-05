@@ -211,7 +211,6 @@ function ListCurrentBuffer(opts)
   return ret
 end
 
-
 function ListCurrentWindow(opts)
   if opts == nil then
     opts = {}
@@ -549,6 +548,7 @@ SafeRequireCallback("which-key", function(wk)
   local function set_kekymap(opts, mapping)
     wk.register(mapping, opts)
   end
+
   set_kekymap(nil, {
     g = {
       r = {
@@ -634,7 +634,7 @@ SafeRequireCallback("which-key", function(wk)
     o = { name = "+Fold" },
     e = {
       name = "+Edit",
-      c ={
+      c = {
         name = "copy",
         w = "full file",
       },
@@ -859,9 +859,8 @@ SafeRequireCallback("cmp", function()
   end
 
   setup_cmdline(':', {
-    { name = 'path', group_index = 1 },
     { name = 'cmdline', group_index = 1 },
-    { name = 'cmdline_history', group_index = 2 },
+    { name = 'cmdline_history', group_index = 2 , max_item_count=5},
   })
   setup_cmdline('/', search_sources)
   setup_cmdline('?', search_sources)
@@ -1128,6 +1127,42 @@ function DelaySetup2()
   if Random(1, 100) < 20 then
     UpdatePlug()
   end
+
+  SafeRequire('winbar').setup({
+    enabled = true,
+
+    show_file_path = true,
+    show_symbols = true,
+
+    colors = {
+      path = '', -- You can customize colors like #c946fd
+      file_name = '',
+      symbols = '',
+    },
+
+    icons = {
+      file_icon_default = '',
+      seperator = '>',
+      editor_state = '●',
+      lock_icon = '',
+    },
+
+    exclude_filetype = {
+      'help',
+      'startify',
+      'dashboard',
+      'packer',
+      'neogitstatus',
+      'NvimTree',
+      'Trouble',
+      'alpha',
+      'lir',
+      'Outline',
+      'spectre_panel',
+      'toggleterm',
+      'qf',
+    }
+  })
 end
 
 function DelaySetup1()
@@ -1543,7 +1578,7 @@ function SymbolToggle()
     return
   end
   symbolLock = true
-  if #ListCurrentWindow({filetype="Outline"}) > 0 then
+  if #ListCurrentWindow({ filetype = "Outline" }) > 0 then
     vim.cmd("SymbolsOutlineClose")
   else
     vim.cmd("SymbolsOutlineOpen")
@@ -1551,9 +1586,9 @@ function SymbolToggle()
   vim.defer_fn(function()
     symbolLock = false
     vim.wait(300, function()
-      return #ListCurrentWindow({filetype="Outline"}) > 0
+      return #ListCurrentWindow({ filetype = "Outline" }) > 0
     end, 1000)
-    for _, v in ipairs(ListCurrentWindow({filetype="Outline"})) do
+    for _, v in ipairs(ListCurrentWindow({ filetype = "Outline" })) do
       pcall(vim.api.nvim_win_set_option, v, "foldcolumn", "0")
       pcall(vim.api.nvim_win_set_option, v, "signcolumn", "no")
     end
