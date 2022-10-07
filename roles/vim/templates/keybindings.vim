@@ -172,17 +172,17 @@ imap <m-n> <c-n>
 tmap <m-n> <c-n>
 cmap <m-n> <c-n>
 
-inoremap <m-o> <cmd>FzfLua buffers<cr>
-nnoremap <m-o> <cmd>FzfLua buffers<cr>
-tnoremap <m-o> <cmd>FzfLua buffers<cr>
+inoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("FzfLua buffers")<cr>
+nnoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("FzfLua buffers")<cr>
+tnoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("FzfLua buffers")<cr>
 
 inoremap <m-O> <cmd>FzfLua resume<cr>
 nnoremap <m-O> <cmd>FzfLua resume<cr>
 tnoremap <m-O> <cmd>FzfLua resume<cr>
 
-inoremap <m-y> <cmd>FzfLua jumps<cr>
-nnoremap <m-y> <cmd>FzfLua jumps<cr>
-tnoremap <m-y> <cmd>FzfLua jumps<cr>
+inoremap <m-y> <cmd>lua GoToMainWindowAndRunCommand("FzfLua jumps")<cr>
+nnoremap <m-y> <cmd>lua GoToMainWindowAndRunCommand("FzfLua jumps")<cr>
+tnoremap <m-y> <cmd>lua GoToMainWindowAndRunCommand("FzfLua jumps")<cr>
 
 inoremap <m-i> <cmd>lua RegistersInsert()<cr>
 nnoremap <m-i> <cmd>lua RegistersInsert()<cr>
@@ -291,9 +291,9 @@ function ResizeWin()
   resize +2000
 endfunction
 
-inoremap <m-q> <cmd>lua ResizeWin()<cr>
-nnoremap <m-q> <cmd>lua ResizeWin()<cr>
-tnoremap <m-q> <cmd>lua ResizeWin()<cr>
+inoremap <m-q> <cmd>call jobstart('workspace')<cr>
+nnoremap <m-q> <cmd>call jobstart('workspace')<cr>
+tnoremap <m-q> <cmd>call jobstart('workspace')<cr>
 
 nnoremap <m-`> :call jobstart('workspace')<cr>
 

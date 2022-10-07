@@ -213,6 +213,8 @@ Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 " Plug 'github/copilot.vim'
 Plug 'jdhao/better-escape.vim'
 
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 " Standalone UI for nvim-lsp progress
 Plug 'https://github.com/j-hui/fidget.nvim'
@@ -364,7 +366,6 @@ Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'https://github.com/gfanto/fzf-lsp.nvim'
 Plug 'https://github.com/stevearc/aerial.nvim'
 Plug 'https://github.com/onsails/lspkind.nvim'
-Plug 'https://github.com/williamboman/nvim-lsp-installer'
 Plug 'https://github.com/gaoDean/autolist.nvim'
 Plug 'https://github.com/gbrlsnchs/winpick.nvim'
 
@@ -383,7 +384,7 @@ Plug 'mhinz/neovim-remote'
 
 call plug#end()
 
-set nu
+set nonu
 set keywordprg=sdcvh.sh
 set cursorline
 set showcmd
@@ -468,7 +469,7 @@ set laststatus=3
 set timeoutlen=500
 set updatetime=300
 set completeopt=menu,menuone,noselect
-set listchars=tab:>-,trail:~,extends:>,precedes:<
+set listchars=tab:▸\ ,trail:~,extends:>,precedes:<
 set list
 set sessionoptions=buffers,curdir,tabpages,winsize,globals
 " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
@@ -686,3 +687,5 @@ highlight! link HopNextKey Error
 highlight! link HopNextKey1 Error
 highlight! link HopNextKey2 Error
 highlight! link WinSeparator Boolean
+highlight! link SignColumn StatusLine
+highlight! link FoldColumn StatusLine

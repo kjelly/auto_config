@@ -115,7 +115,7 @@ LSP_CONFIG = {
         globals = { 'vim' },
       },
       workspace = {
-        library = vim.api.nvim_get_runtime_file("lua/", true),
+        -- library = vim.api.nvim_get_runtime_file("lua/", true),
       },
       telemetry = {
         enable = false,
@@ -652,7 +652,7 @@ SafeRequireCallback("which-key", function(wk)
       },
       r = { name = 'restore' },
       l = { name = 'log' },
-      b = { name = 'blame' },
+      b = { name = 'blame/branch' },
       a = { name = 'Agit/amend' },
     },
     n = { name = "+Note", },
@@ -698,6 +698,11 @@ SafeRequire('detect-language').setup {}
 SafeRequire("nvim-lsp-installer").setup {
   automatic_installation = true,
 }
+
+SafeRequire("mason").setup()
+SafeRequire("mason-lspconfig").setup({
+  ensure_installed = langservers
+})
 
 SafeRequire 'marks'.setup {
   default_mappings = true,
@@ -941,7 +946,10 @@ function FindMainWindow()
 end
 
 function GotoMainWindow()
-  vim.api.nvim_set_current_win(FindMainWindow())
+  local wid = FindMainWindow()
+  if wid ~= nil then
+    vim.api.nvim_set_current_win(wid)
+  end
 end
 
 local function getWorkspaceVimPath(type)
@@ -1199,7 +1207,7 @@ function DelaySetup1()
   end)
   SafeRequire('fzf_lsp').setup()
   SafeRequireCallback("ufo", function(ufo)
-    vim.wo.foldcolumn = '1'
+    vim.wo.foldcolumn = '0'
     vim.wo.foldlevel = 99
     vim.wo.foldenable = true
     ufo.setup()
@@ -1667,4 +1675,9 @@ function RegistersInsert()
       vim.fn.feedkeys(string.format('"%sp', s))
     end
   } })
+end
+
+function GoToMainWindowAndRunCommand(cmd)
+  GotoMainWindow()
+  vim.cmd(cmd)
 end
