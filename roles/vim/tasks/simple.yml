@@ -1,9 +1,21 @@
 ---
-- get_executable_path: name=python3
+- name: Get python3
+  get_executable_path:
+    name: python3
   register: python3_exec
 
-- set_fact: nvim=true
+- name: Set fact
+  set_fact:
+    nvim: true
 
-- template: src="vimrc" dest="~/.config/nvim/init.vim"
+- name: Generate init.vim
+  ansible.builtin.template:
+    src: "vimrc"
+    dest: "~/.config/nvim/init.vim"
+    mode: "0640"
 
-- copy: src=config.lua dest=~/.config/nvim/config.lua
+- name: Copy config.lua
+  ansible.builtin.copy:
+    src: config.lua
+    dest: ~/.config/nvim/config.lua
+    mode: "0640"

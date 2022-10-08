@@ -1,37 +1,44 @@
 ---
 - name: Install packages for vim
-  dnf: name={{ item }} state=present
+  dnf:
+    name="{{ item }}"
+    state=present
   with_items:
    - vim
    - the_silver_searcher
    - ctags-etags
-  sudo: yes
+  sudo: true
 
 
 - name: Install vim package
-  dnf: name={{ item }} state=present
+  dnf:
+    name: "{{ item }}"
+    state: present
   with_items:
-   - vim
-  sudo: yes
-  when: programming == false
+    - vim
+  sudo: true
+  when: not programming
 
 
 - name: Install vim package
-  dnf: name={{ item }} state=present
+  dnf:
+    name="{{ item }}"
+    state=present
   with_items:
-   - ctags-etags
-   - libtool
-   - python3-devel
-   - cmake
-   - libtool # for neovim
-   - pkgconf # for neovim
-   - automake # for neovim
-   - luarocks # for neovim
-   - m4 # for neovim
-   - python-virtualenv # for neovim
-   - ncurses-dev  # for neovim
-   - cmake # for neovim
-  sudo: yes
-  when: programming == true
+    - ctags-etags
+    - libtool
+    - python3-devel
+    - cmake
+    - libtool # for neovim
+    - pkgconf # for neovim
+    - automake # for neovim
+    - luarocks # for neovim
+    - m4 # for neovim
+    - python-virtualenv # for neovim
+    - ncurses-dev  # for neovim
+    - cmake # for neovim
+  sudo: true
+  when: programming
 
-- include: "install-nvim-appimage.yml"
+- name: Include nvim appimage
+  include_tasks: "install-nvim-appimage.yml"

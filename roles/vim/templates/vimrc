@@ -427,7 +427,7 @@ set so=7
 set wildignore=*.o,*~,*.pyc
 
 " Height of the command bar
-set cmdheight=0
+set cmdheight=1
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent

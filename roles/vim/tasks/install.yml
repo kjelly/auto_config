@@ -1,91 +1,107 @@
 ---
-- stat: path=/usr/local/bin/vim
+- name: Check if vim exists
+  ansible.builtin.stat:
+    path: /usr/local/bin/vim
   register: vim_exec
 
-- debug: var=vim_exec
+- name: Show vim info
+  ansible.builtin.debug:
+    var: vim_exec
 
-- set_fact:
+- name: Set fact
+  ansible.builtin.set_fact:
     need_install: "{{ not vim_exec.stat.exists }}"
 
-- debug: var=need_install
+- name: Show info
+  ansible.builtin.debug:
+    var: need_install
 
-- include: "install-debian.yml"
+- name: Include debian
+  include_tasks: "install-debian.yml"
   when: ansible_distribution == 'Debian'
 
-- include: "install-ubuntu.yml"
+- name: Include ubuntu
+  include_tasks: "install-ubuntu.yml"
   when: >
     ansible_distribution == 'Ubuntu' or
     ansible_os_family == "\"elementary\""
 
-- include: "install-fedora.yml"
+- name: Include fedora
+  include_tasks: "install-fedora.yml"
   when: ansible_distribution == 'Fedora'
 
-- include: "install-centos.yml"
+- name: Include centos
+  include_tasks: "install-centos.yml"
   when: ansible_distribution == 'CentOS'
 
-- include: "install-osx.yml"
+- name: Include osx
+  include_tasks: "install-osx.yml"
   when: ansible_distribution == 'MacOSX'
 
-- name: pip install [autopep8, flake8]
-  pip: name={{ item }}
-  become: true
-  with_items:
-    - autopep8
-    - flake8
-    - websocket-client
-    - sexpdata
+- name: Download vim-plug
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    dest: /tmp/plug.vim
+    mode: '0640'
 
-- name: install neovim-remote
-  shell: "pip3 install neovim-remote"
-  become: true
-  ignore_errors: true
-
-- git: repo=https://github.com/gmarik/vundle.git
-       dest=~/.vim/bundle/vundle
-       depth=1
-       force=yes
-
-- git: repo=https://github.com/powerline/powerline
-       dest=~/.powerline
-       depth=1
-
-- name: download vim-plug
-  get_url: >
-    url=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-           dest=/tmp/plug.vim
-
-- file: path="{{ item }}" state=directory recurse=yes
+- name: Create autoload
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    recurse: true
   with_items:
     - "~/.vim/autoload/"
     - "~/.config/nvim/autoload/"
 
-- copy: src=/tmp/plug.vim dest={{ item }} remote_src=yes
+- name: Copy plug.vim
+  ansible.builtin.copy:
+    src: /tmp/plug.vim
+    dest: "{{ item }}"
+    remote_src: true
+    mode: '0640'
   with_items:
     - "~/.vim/autoload/plug.vim"
     - "~/.config/nvim/autoload/plug.vim"
 
-- name: download ripgrep.tar.gz
-  get_url: url={{ ripgrep_url }} dest=/tmp/ripgrep.tar.gz
+- name: Download ripgrep.tar.gz
+  ansible.builtin.get_url:
+    url: "{{ ripgrep_url }}"
+    dest: /tmp/ripgrep.tar.gz
+    mode: '0640'
 
-- name: unarchive ripgrep.tar.gz
+- name: Unarchive ripgrep.tar.gz
   unarchive:
-    remote_src: yes
+    remote_src: true
     src: /tmp/ripgrep.tar.gz
     dest: /tmp
+    mode: '0640'
 
-- file: path="~/.config/nvim/bin" state="directory"
+- name: Create bin directory
+  ansible.builtin.file:
+    path: "~/.config/nvim/bin"
+    state: "directory"
+    mode: '0750'
 
-- copy: src='dict.sh' dest='~/.config/nvim/bin' mode=0755
+- name: Copy nvim bin
+  ansible.builtin.copy:
+    src: 'dict.sh'
+    dest: '~/.config/nvim/bin'
+    mode: 0755
 
-- shell: cp /tmp/ripgrep-*/rg ~/.config/nvim/bin
+- name: Copy rg
+  ansible.builtin.shell: cp /tmp/ripgrep-*/rg ~/.config/nvim/bin
 
-- name: download fd.tar.gz
-  get_url: url={{ fd_download_url }} dest=/tmp/fd.tar.gz
+- name: Download fd.tar.gz
+  ansible.builtin.get_url:
+    url: "{{ fd_download_url }}"
+    dest: /tmp/fd.tar.gz
+    mode: '0640'
 
-- name: unarchive fd.tar.gz
-  unarchive:
-    remote_src: yes
+- name: Unarchive fd.tar.gz
+  ansible.builtin.unarchive:
     src: "/tmp/fd.tar.gz"
     dest: /tmp
+    remote_src: true
 
-- shell: cp /tmp/fd-*/fd ~/.config/nvim/bin
+- name: Copy fd
+  shell: cp /tmp/fd-*/fd ~/.config/nvim/bin

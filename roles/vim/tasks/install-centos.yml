@@ -1,32 +1,41 @@
 ---
 
 - name: Install (neo)vim releated package
-  yum: name={{ item }} state=present
+  yum:
+    name: "{{ item }}"
+    state: present
   with_items:
-   - the_silver_searcher
+    - the_silver_searcher
   become: true
   when: ansible_distribution == 'CentOS'
 
 - name: Install vim releated package
-  yum: name={{ item }} state=present
+  ansible.builtin.yum:
+    name: "{{ item }}"
+    state: present
   with_items:
-   - vim-enhanced
+    - vim-enhanced
   become: true
-  when: ansible_distribution == 'CentOS' and programming == false
+  when: ansible_distribution == 'CentOS' and not programming
 
 - name: Install package for building neovim
-  yum: name={{ item }} state=present
+  yum:
+    name: "{{ item }}"
+    state: present
   with_items:
-   - cmake
+    - cmake
   become: true
-  when: ansible_distribution == 'CentOS' and programming == true
+  when: ansible_distribution == 'CentOS' and programming
 
 - name: Install package for appImage
-  yum: name={{ item }} state=present
+  yum:
+    name: "{{ item }}"
+    state: present
   with_items:
-   - fuse-sshfs
-   - gvfs-fuse
+    - fuse-sshfs
+    - gvfs-fuse
   become: true
   when: ansible_distribution == 'CentOS'
 
-- include: "install-nvim-appimage.yml"
+- name: Install nvim
+  include_tasks: "install-nvim-appimage.yml"

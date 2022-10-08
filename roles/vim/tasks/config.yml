@@ -1,181 +1,198 @@
 ---
-- name: download vim-plug
-  get_url: >
-    url=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-           dest=/tmp/plug.vim
+- name: Download vim-plug
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    dest: /tmp/plug.vim
+    mode: '0640'
 
-- file: path="{{ item }}" state=directory recurse=yes
+
+- name: Create autoload folder
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    recurse: true
   with_items:
     - "~/.vim/autoload/"
     - "~/.config/nvim/autoload/"
 
-- copy: src=/tmp/plug.vim dest={{ item }} remote_src=yes
+- name: Copy vim config
+  ansible.builtin.copy:
+    src: /tmp/plug.vim
+    dest: "{{ item }}"
+    remote_src: true
+    mode: '0640'
   with_items:
     - "~/.vim/autoload/plug.vim"
     - "~/.config/nvim/autoload/plug.vim"
 
-- get_executable_path: name=python3
+- name: Get python path
+  get_executable_path:
+    name: python3
   register: python3_exec
 
-- block:
-    - set_fact: nvim=true
-    - file: path="~/.config/nvim" state=directory
-    - template: src="vimrc" dest="~/.config/nvim/init.vim"
-    - template: src=hterm-copy.vim dest=~/.config/nvim/hterm-copy.vim
-    - template: src=hterm-copy.vim dest=~/.vim/hterm-copy.vim
-    - template: src=coc-settings.json dest=~/.config/nvim/coc-settings.json
+- name: For nvim
+  block:
+    - name: Set fact
+      ansible.builtin.set_fact:
+        nvim: true
+    - name: Create nvim config directory
+      ansible.builtin.file:
+        path: "~/.config/nvim"
+        state: directory
+        mode: '0750'
+    - name: Generate nvim config
+      ansible.builtin.template:
+        src: "vimrc"
+        dest: "~/.config/nvim/init.vim"
+        mode: "0640"
+    - name: Copy hterm-copy.vim
+      ansible.builtin.template:
+        src: hterm-copy.vim
+        dest: "{{ item }}"
+        mode: "0640"
+      with_items:
+        - ~/.vim/hterm-copy.vim
+        - ~/.config/nvim/hterm-copy.vim
+    - name: Copy coc setting
+      ansible.builtin.template:
+        src: coc-settings.json
+        dest: ~/.config/nvim/coc-settings.json
+        mode: '0640'
 
   always:
-    - set_fact: nvim=false
+    - name: Set nvim to false
+      ansible.builtin.set_fact:
+        nvim: false
 
-- file: path="~/bin" state=directory mode=0755
+- name: Create ~/bin
+  ansible.builtin.file:
+    path: "~/bin"
+    state: directory
+    mode: 0755
 
-- template: src="vit" dest="~/bin/vit" mode=0755
-- copy: src="navim" dest="~/bin/navim" mode=0755
-- template: src="vimt" dest="~/bin/vimt" mode=0755
-- template: src="wiki.py" dest="~/bin/wiki" mode=0755
+- name: Copy vit
+  ansible.builtin.template:
+    src: "vit"
+    dest: "~/bin/vit"
+    mode: 0755
 
-- template: src="vimrc" dest="~/.vimrc"
+- name: Copy navim
+  ansible.builtin.copy:
+    src: "navim"
+    dest: "~/bin/navim"
+    mode: 0755
 
-- file: path="~/.config/nvim/autoload/" state=directory recurse=yes
+- name: Copy vimt
+  ansible.builtin.template:
+    src: "vimt"
+    dest: "~/bin/vimt"
+    mode: 0755
 
-- file: path="~/.vim/autoload/" state=directory recurse=yes
+- name: Copy wiki.py
+  ansible.builtin.template:
+    src: "wiki.py"
+    dest: "~/bin/wiki"
+    mode: 0755
 
-- file: path="~/.vim_custom.vim" state=touch
+- name: Copy vimrc
+  ansible.builtin.template:
+    src: "vimrc"
+    dest: "~/.vimrc"
+    mode: '0640'
 
-- file: path="~/.config/nvim/.stylua.toml" state=touch
+- name: Create vim_custom
+  ansible.builtin.file:
+    path: "~/.vim_custom.vim"
+    state: touch
+    mode: '0640'
 
-- file: path="~/.config/nvim/.git/" state=directory recurse=yes
+- name: Create stylua
+  ansible.builtin.file:
+    path: "~/.config/nvim/.stylua.toml"
+    state: touch
+    mode: '0640'
 
-- file: path="~/.config/nyaovim/" state=directory recurse=yes
+- name: Create nvim git
+  ansible.builtin.file:
+    path: "~/.config/nvim/.git/"
+    state: directory
+    recurse: true
 
-- template: src="nyaovimrc.html" dest="~/.config/nyaovim/nyaovimrc.html"
-
-- block:
-    - name: install YouCompleteMe
-      shell: ~/.vim/plugged/YouCompleteMe/install.py --clang-completer
-      args:
-        creates: ~/.vim/ycm_installed
-      register: command_result
-      when: programming == true
-
-    - name: mark ycm installed
-      shell: touch ~/.vim/ycm_installed
-      when: programming == true
-  rescue:
-    - name: remove YouCompleteMe plugin when failed to compile
-      lineinfile: dest="~/.vimrc"
-                  state=absent
-                  regexp="Plug 'Valloric/YouCompleteMe'"
-      when: programming == true
-
-- shell: "getent passwd $LOGNAME | cut -d: -f7"
+- name: Get passwd
+  ansible.builtin.shell: "getent passwd $LOGNAME | cut -d: -f7"
   register: default_shell
 
-- lineinfile: dest="~/.vimrc"
-              regexp="set shell"
-              line="set shell={{ default_shell.stdout }}"
+- name: Change default shell
+  ansible.builtin.lineinfile:
+    dest: "~/.vimrc"
+    regexp: "set shell"
+    line: "set shell={{ default_shell.stdout }}"
 
-- file: path="~/.config/nvim/ftplugin" state=directory recurse=yes
+- name: Create nvim ftplugin
+  ansible.builtin.file:
+    path: "~/.config/nvim/ftplugin"
+    state: directory
+    recurse: true
 
-- copy: src="vimwiki.vim" dest="~/.config/nvim/ftplugin"
+- name: Copy ctags
+  ansible.builtin.copy:
+    src: "ctags"
+    dest: "~/.ctags"
+    mode: "0640"
 
-- file: path="~/.config/coc/ultisnips/" state=directory recurse=yes
+- name: Copy clipboard-provider
+  ansible.builtin.copy:
+    src: clipboard-provider
+    dest: "~/.config/nvim/bin/"
+    mode: 0755
 
-- copy: src="json.snippets" dest="~/.config/coc/ultisnips/"
+- name: Copy format_json
+  ansible.builtin.copy:
+    src: format_json.py
+    dest: "~/.config/nvim/bin/"
+    mode: 0755
 
-- copy: src="ctags" dest="~/.ctags"
+- name: Copy config.lua
+  ansible.builtin.copy:
+    src: config.lua
+    dest: ~/.config/nvim/config.lua
+    mode: '0640'
 
-- copy: src="random-color-scheme.py" dest="~/bin/random-color-scheme.py"
-        mode=0755
+- name: Copy workspace
+  ansible.builtin.copy:
+    src: workspace.py
+    dest: ~/bin/workspace
+    mode: 0755
 
-- copy: src=clipboard-provider dest="~/.config/nvim/bin/" mode=0755
-- copy: src=format_json.py dest="~/.config/nvim/bin/" mode=0755
+- name: Create efm config directory
+  ansible.builtin.file:
+    path: "~/.config/efm-langserver/"
+    state: directory
+    recurse: true
 
-- stat: path=~/.devdocsrc
-  register: devdocsrc
+- name: Copy efm config
+  ansible.builtin.copy:
+    src: efm.yaml
+    dest: ~/.config/efm-langserver/config.yaml
+    mode: '0640'
 
-- template: src=devdocsrc.json dest=~/.devdocsrc
-  when: not devdocsrc.stat.exists
-
-- copy: src=config.lua dest=~/.config/nvim/config.lua
-
-- copy: src=workspace.py dest=~/bin/workspace mode=0755
-
-- file: path="~/.config/coc/ultisnips/" state=directory recurse=yes
-
-- file: path="~/.config/efm-langserver/" state=directory recurse=yes
-
-- copy: src=efm.yaml dest=~/.config/efm-langserver/config.yaml
-
-- lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_browser"
-              line="let g:leetcode_browser='firefox'"
+- name: Add leetcode browser
+  ansible.builtin.lineinfile:
+    dest: "~/.vim_custom.vim"
+    regexp: "g:leetcode_browser"
+    line: "let g:leetcode_browser='firefox'"
   ignore_errors: true
 
-- lineinfile: dest="~/.vim_custom.vim" regexp="g:leetcode_hide_paid_only"
-              line="let g:leetcode_hide_paid_only='1'"
+- name: Update vim_custom
+  ansible.builtin.lineinfile:
+    dest: "~/.vim_custom.vim"
+    regexp: "g:leetcode_hide_paid_only"
+    line: "let g:leetcode_hide_paid_only='1'"
   ignore_errors: true
 
 
-- name: install lang server by pip
-  pip:
+- name: Install lang server by pip
+  ansible.builtin.pip:
     name: "{{ item }}"
   with_items:
     - python-lsp-server[all]
-
-- name: install lang server
-  npm:
-    name: "{{ item }}"
-    global: yes
-    state: latest
-  with_items:
-    - pyright
-    - "@ansible/ansible-language-server"
-    - "vscode-langservers-extracted"
-    - "vim-language-server"
-    - "sql-language-server"
-
-- name: get lua-langserver
-  uri:
-    url: https://api.github.com/repos/sumneko/lua-language-server/releases/latest
-    return_content: true
-  register: json_reponse
-
-- name: download lua-langserver
-  get_url:
-    url: "{{ json_reponse.json.tarball_url }}"
-    dest: ./tmp.tar.gz
-
-- name: untar /tmp/tar.gz
-  unarchive:
-    src: ./tmp.tar.gz
-    dest: /tmp/
-    creates: ~/lua-langserver/bin/lua-language-server
-
-- name: move lua-langserver to home
-  shell: mv /tmp/sumneko-lua-language-server* ~
-  args:
-    creates: ~/lua-langserver/bin/lua-language-server
-  ignore_errors: true
-
-- name: download terraform-ls
-  get_url:
-    url: "https://releases.hashicorp.com/terraform-ls/{{ terraformls_version }}/terraform-ls_{{ terraformls_version }}_linux_amd64.zip"
-    dest: /tmp/terraform-ls.zip
-
-- name: unzip terraformls
-  unarchive:
-    src: /tmp/terraform-ls.zip
-    dest: /tmp/
-
-- name: mv terraform-ls to ~/bin/
-  shell: mv /tmp/terraform-ls ~/bin/
-
-- name: download marksman
-  get_url:
-    url: "https://github.com/artempyanykh/marksman/releases/download/{{ marksman_version }}/marksman-linux"
-    dest: /tmp/marksman
-
-- name: mv marksman to ~/bin/
-  shell: mv /tmp/marksman ~/bin/
-

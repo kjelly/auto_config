@@ -1,43 +1,48 @@
 ---
 
 - name: Install packages
-  apt: name={{ item }} state=present
+  apt:
+    name: "{{ item }}"
+    state: present
   with_items:
-   - vim
-   - libncurses5-dev
-   - libncursesw5-dev
-   - exuberant-ctags
-   - cmake # for YouCompleteMe
-   - python3-dev
-   - "silversearcher-ag"
-   - ruby
-   - "ruby-dev"
-   - "python3-pip"
-   - libtool # for neovim
-   - pkgconf # for neovim
-   - automake # for neovim
-   - luarocks # for neovim
-   - m4 # for neovim
-   - python-virtualenv # for neovim
-   - ncurses-dev  # for neovim
+    - vim
+    - libncurses5-dev
+    - libncursesw5-dev
+    - exuberant-ctags
+    - cmake # for YouCompleteMe
+    - python3-dev
+    - "silversearcher-ag"
+    - ruby
+    - "ruby-dev"
+    - "python3-pip"
+    - libtool # for neovim
+    - pkgconf # for neovim
+    - automake # for neovim
+    - luarocks # for neovim
+    - m4 # for neovim
+    - python-virtualenv # for neovim
+    - ncurses-dev  # for neovim
 
   become: true
-  when: programming == true
+  when: programming
 
 - name: Install vim package
-  apt: name={{ item }} state=present
+  apt:
+    name: "{{ item }}"
+    state: present
   with_items:
-   - vim
-   - libncurses5-dev
-   - libncursesw5-dev
-   - gawk
-   - exuberant-ctags
-   - cmake # for YouCompleteMe
-   - libsm-dev
-   - ruby
-   - "ruby-dev"
-   - libsm-dev
+    - vim
+    - libncurses5-dev
+    - libncursesw5-dev
+    - gawk
+    - exuberant-ctags
+    - cmake # for YouCompleteMe
+    - libsm-dev
+    - ruby
+    - "ruby-dev"
+    - libsm-dev
   become: true
-  when: ansible_distribution == 'Debian' and programming == false
+  when: ansible_distribution == 'Debian' and not programming
 
-- include: "install-nvim-appimage.yml"
+- name: Include nvim appimage
+  include_tasks: "install-nvim-appimage.yml"
