@@ -172,6 +172,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 " neo-tree requires nui
 Plug 'MunifTanjim/nui.nvim'
 Plug 'https://github.com/nvim-neo-tree/neo-tree.nvim', {'branch': 'v2.x'}
+Plug 'https://github.com/folke/noice.nvim'
 
 " Indent guides for Neovim
 Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'master', 'on': 'IndentBlanklineEnable'}
@@ -182,7 +183,8 @@ Plug 'https://github.com/tveskag/nvim-blame-line'
 Plug 'NFrid/due.nvim'
 
 " Comment
-Plug 'b3nj5m1n/kommentary'
+Plug 'https://github.com/numToStr/Comment.nvim'
+
 Plug 'https://github.com/folke/which-key.nvim'
 Plug 'https://github.com/romainl/vim-cool'
 
@@ -389,6 +391,7 @@ set keywordprg=sdcvh.sh
 set cursorline
 set showcmd
 set mouse=a
+set mousemodel="extend"
 
 " Show tab line if there are more than one tab
 set showtabline=1
@@ -424,7 +427,7 @@ set so=7
 set wildignore=*.o,*~,*.pyc
 
 " Height of the command bar
-set cmdheight=1
+set cmdheight=0
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent

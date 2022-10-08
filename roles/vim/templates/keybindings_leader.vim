@@ -289,11 +289,20 @@ nnoremap <silent> <localleader>h :wincmd h<cr>
 nnoremap <silent> <localleader>j :wincmd j<cr>
 nnoremap <silent> <localleader>k :wincmd k<cr>
 nnoremap <silent> <localleader>l :wincmd l<cr>
-nnoremap <silent> <localleader>o :FzfLua buffers<cr>
+nnoremap <silent> <localleader>y <cmd>lua GoToMainWindowAndRunCommand("FzfLua jumps")<cr>
+nnoremap <silent> <localleader>o <cmd>lua GoToMainWindowAndRunCommand("FzfLua buffers")<cr>
+nnoremap <silent> <localleader>p <cmd>lua FindFileCwd()<cr>
 nnoremap <silent> <localleader>q :q!<cr>
-nnoremap <silent> <localleader>p :Files<cr>
-nnoremap <silent> <localleader>t :tabnew %<cr>
+nnoremap <silent> <localleader>n <cmd>call TreeToggle()<cr>
+nnoremap <silent> <localleader>tt <cmd>lua TermToggle()<cr>
+nnoremap <silent> <localleader>tj <cmd>lua FloatermNext(1)<cr>
+nnoremap <silent> <localleader>tk <cmd>lua FloatermNext(-1)<cr>
+nnoremap <silent> <localleader>tn <cmd>FloatermNew<cr>
+nnoremap <silent> <localleader>rp <cmd>RunPreviousCommandFunc()<cr>
+nnoremap <silent> <localleader>; <cmd>lua TermToggle()<cr>
+nnoremap <silent> <localleader>' <cmd>lua FloatermNext(1)<cr>
 nnoremap <localleader>rr :lua KillAndRerunTermWrapper('')<left><left>
+nnoremap <localleader>re :lua KillAndRerunTermWrapper<up>
 nnoremap <localleader>e <cmd>lua RunBuffer()<cr>
 
 xnoremap iu :lua require"treesitter-unit".select()<CR>
