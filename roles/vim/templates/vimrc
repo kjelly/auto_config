@@ -156,6 +156,8 @@ Plug 'https://github.com/nvim-lualine/lualine.nvim'
 " A search panel for neovim.
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+
 Plug 'windwp/nvim-spectre'
 Plug 'https://github.com/sindrets/diffview.nvim'
 
@@ -279,6 +281,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'https://github.com/ibhagwan/fzf-lua'
 
+
 Plug 'https://codeberg.org/esensar/nvim-dev-container'
 
 " For sudo
@@ -354,7 +357,7 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'lukas-reineke/cmp-rg'
-Plug 'https://github.com/mtoohey31/cmp-fish'
+Plug 'https://github.com/mtoohey31/cmp-fish', { 'for': 'fish'}
 Plug 'https://github.com/dmitmel/cmp-cmdline-history'
 Plug 'https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol'
 Plug 'ray-x/lsp_signature.nvim'

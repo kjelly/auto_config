@@ -811,9 +811,7 @@ SafeRequireCallback("cmp", function()
             init_options = {documentFormatting = true},
             capabilities = capabilities,
             on_attach = on_attach,
-            flags = {
-                debounce_text_changes = 150
-            },
+            flags = {debounce_text_changes = 150},
             root_dir = function(fname)
                 return SafeRequire('lspconfig').util.find_git_ancestor(fname) or
                            vim.fn.getcwd()
@@ -1067,6 +1065,12 @@ function DelaySetup2()
         }
     })
     SafeRequire("Comment").setup()
+
+    SafeRequire("telescope").setup({
+        defaults = {
+            mappings = {i = {["<esc>"] = require('telescope.actions').close}}
+        }
+    })
 end
 
 function DelaySetup1()
