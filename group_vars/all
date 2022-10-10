@@ -1,6 +1,6 @@
 ---
 httpd_port: 80
-fish_version: 3.4.1
+fish_version: 3.5.1
 fish_download_url: https://github.com/fish-shell/fish-shell/releases/download/{{ fish_version }}/fish-{{ fish_version }}.tar.gz
 dmenu_version: 4.6
 dmenu_download_url: http://dl.suckless.org/tools/dmenu-{{ dmenu_version}}.tar.gz
@@ -14,13 +14,13 @@ sbt_version: 1.4.7
 sbt_url: https://github.com/sbt/sbt/releases/download/v{{sbt_version }}/sbt-{{ sbt_version }}.zip
 nodejs_version: v16.15.1
 nodejs_download_url: https://nodejs.org/dist/{{ nodejs_version }}/node-{{ nodejs_version }}-linux-x64.tar.xz
-golang_version: 1.18.1
+golang_version: 1.19.2
 golang_download_url: https://dl.google.com/go/go{{ golang_version }}.linux-amd64.tar.gz
 ripgrep_version: 13.0.0
 ripgrep_url: https://github.com/BurntSushi/ripgrep/releases/download/{{ ripgrep_version }}/ripgrep-{{ ripgrep_version }}-x86_64-unknown-linux-musl.tar.gz
-flutter_version: 2.10.5
+flutter_version: 3.3.4
 flutter_download_url: https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_{{ flutter_version }}-stable.tar.xz
-fd_version: v8.3.2
+fd_version: v8.4.0
 fd_download_url: https://github.com/sharkdp/fd/releases/download/{{fd_version}}/fd-{{fd_version}}-x86_64-unknown-linux-gnu.tar.gz
 broot_download_url: https://dystroy.org/broot/download/x86_64-linux/broot
 terraformls_version: 0.28.1

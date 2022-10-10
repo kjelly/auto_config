@@ -283,6 +283,7 @@ nnoremap <silent> <localleader>dr <cmd>lua require("dapui").toggle()<cr>
 
 nnoremap <silent> <localleader>a :Ag<cr>
 nnoremap <silent> <localleader>b :b#<cr>
+nnoremap <silent> <localleader>c <cmd>Telescope<cr>
 nnoremap <silent> <localleader>g :ChooseWin<cr>
 nnoremap <silent> <localleader>t :tabnew %<cr>
 nnoremap <silent> <localleader>h :wincmd h<cr>
