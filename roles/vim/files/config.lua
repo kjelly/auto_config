@@ -92,7 +92,7 @@ function FileExists(name)
   end
 end
 
-function DefaultTable(default, t)
+function DefaultTable(a, b)
   if type(a) == 'table' then
     if type(b) == "table" then
       if vim.tbl_count(a) > vim.tbl_count(b) then
