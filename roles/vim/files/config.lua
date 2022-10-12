@@ -259,13 +259,18 @@ end
 
 function SafeRequire(name)
   if IsModuleAvailable(name) then return require(name) end
-  return
-      setmetatable({}, {__index = function(t, key) return function() end end})
+  return setmetatable({}, {
+    __index = function(t, key)
+      return function() vim.notify(name .. " not found.") end
+    end,
+  })
 end
 
 function SafeRequireCallback(name, func)
   if IsModuleAvailable(name) then return func(require(name)) end
 end
+
+SafeRequireCallback("notify", function(notify) vim.notify = notify end)
 
 SafeRequire"nvim-treesitter.configs".setup {
   ensure_installed = "all",
@@ -620,8 +625,6 @@ SafeRequire("persistence").setup {}
 
 SafeRequire('detect-language').setup {}
 
-SafeRequire("nvim-lsp-installer").setup {automatic_installation = true}
-
 SafeRequire("mason").setup()
 SafeRequire("mason-lspconfig").setup({ensure_installed = langservers})
 
@@ -952,6 +955,7 @@ function TermToggle()
 end
 
 function DelaySetup2()
+  SafeRequire("modicator").setup()
   SafeRequireCallback("dap", function(dap)
     dap.adapters.dart = {
       type = "executable",
@@ -969,7 +973,6 @@ function DelaySetup2()
     }
   end)
   SafeRequire('dap-python').setup(vim.g.python3_host_prog)
-  SafeRequire("trouble").setup {}
   SafeRequire("dapui").setup {}
   SafeRequire('neogen').setup {}
   SafeRequire('rest-nvim').setup {
@@ -1110,7 +1113,6 @@ function DelaySetup1()
   SafeRequire("cybu").setup()
   SafeRequire("fidget").setup()
   SafeRequire("nvim-gps").setup {}
-  SafeRequire("scrollbar").setup()
   SafeRequire("focus").setup({signcolumn = false})
 
   SafeRequireCallback('fzf-lua', function(fzf)
@@ -1289,13 +1291,6 @@ SafeRequire('cokeline').setup({
   },
 })
 
-SafeRequire('jabs').setup({
-  position = 'center',
-  width = 50,
-  height = 10,
-  border = 'single',
-})
-
 function SSH(command, hosts)
   local Job = require 'plenary.job'
 
@@ -1402,17 +1397,22 @@ SafeRequire("symbols-outline").setup({auto_preview = true, width = 20})
 SafeRequire('git-conflict').setup()
 
 function KillAndRerunTerm(name, command, opts)
-  if opts == nil then opts = {notify = ""} end
+  if opts == nil then opts = {notify = "", autoclose = false} end
   local notify_command = ""
   if opts.notify ~= "" or opts.notify ~= nil then
-    notify_command = string.format("hterm-notify '%s' '%s'", opts.notify, name)
+    notify_command = string.format(";hterm-notify '%s' '%s'", opts.notify, name)
+  end
+  local autoclose = 0
+  if opts.autoclose then
+    autoclose = 1
   end
   local lst = vim.fn.getcompletion('FloatermKill ', 'cmdline')
   for _, v in pairs(lst) do
     if v == name then vim.cmd('FloatermKill ' .. name) end
   end
-  vim.cmd(string.format('FloatermNew! --autoclose=0 --name=%s %s;%s;exit 0',
-                        name, command, notify_command))
+  vim.cmd(string.format(
+              'FloatermNew --autoclose=%d --name=%s sh -c "%s%s;exit 0"', autoclose, name,
+              command, notify_command))
 end
 
 function KillAndRerunTermWrapper(command, opts)
@@ -1459,8 +1459,6 @@ function UpdatePlug()
     }):start()
   end
 end
-
-SafeRequireCallback("notify", function(notify) vim.notify = notify end)
 
 local symbolLock = false
 function SymbolToggle()

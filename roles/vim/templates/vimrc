@@ -176,6 +176,9 @@ Plug 'MunifTanjim/nui.nvim'
 Plug 'https://github.com/nvim-neo-tree/neo-tree.nvim', {'branch': 'v2.x'}
 Plug 'https://github.com/folke/noice.nvim'
 
+" Change cursor based on mode
+Plug 'https://github.com/melkster/modicator.nvim'
+
 " Indent guides for Neovim
 Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'master', 'on': 'IndentBlanklineEnable'}
 Plug 'tveskag/nvim-blame-line'
@@ -617,8 +620,8 @@ command! FFF FloatermNew fff
 
 let g:MYVIMRC_DIR = fnamemodify(expand('$MYVIMRC'), ':h')
 let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/bin'
-let $GIT_PAGER='cat'
-let $PAGER='cat'
+let $GIT_PAGER='tail -r'
+let $PAGER='tail -r'
 
 let g:switch_mapping = ""
 let g:switch_custom_definitions =
