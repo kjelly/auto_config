@@ -267,26 +267,20 @@ vim.api.nvim_create_user_command("ShowInfo", function() Dump(feedback_info) end,
                                  {})
 package_loadded = {}
 function SafeRequire(name)
-  if package_loadded[name] ~= nil then
-    return package_loadded[name]
-  end
+  if package_loadded[name] ~= nil then return package_loadded[name] end
   if IsModuleAvailable(name) then
     package_loadded[name] = require(name)
     return package_loadded[name]
   end
   return setmetatable({}, {
     __index = function(t, key)
-      return function()
-        Append(feedback_info.package_not_found, name)
-      end
+      return function() Append(feedback_info.package_not_found, name) end
     end,
   })
 end
 
 function SafeRequireCallback(name, func)
-  if package_loadded[name] ~= nil then
-    return func(package_loadded[name])
-  end
+  if package_loadded[name] ~= nil then return func(package_loadded[name]) end
 
   if IsModuleAvailable(name) then
     package_loadded[name] = require(name)
@@ -1098,9 +1092,34 @@ function DelaySetup2()
   })
   SafeRequire("Comment").setup()
 
+  function fzf_multi_select(prompt_bufnr)
+    local actions = require("telescope.actions")
+    local action_state = require("telescope.actions.state")
+
+    local picker = action_state.get_current_picker(prompt_bufnr)
+    local num_selections = table.getn(picker:get_multi_selection())
+
+    if num_selections > 1 then
+      -- actions.file_edit throws - context of picker seems to change
+      -- actions.file_edit(prompt_bufnr)
+      actions.send_selected_to_qflist(prompt_bufnr)
+      actions.open_qflist()
+    else
+      actions.file_edit(prompt_bufnr)
+    end
+  end
+
   SafeRequire("telescope").setup({
     defaults = {
-      mappings = {i = {["<esc>"] = require('telescope.actions').close}},
+      mappings = {
+        i = {
+          ["<esc>"] = require('telescope.actions').close,
+          ["<cr>"] = fzf_multi_select,
+        },
+        n = {
+          ["<cr>"] = fzf_multi_select,
+        }
+      },
     },
   })
 end
@@ -1427,16 +1446,14 @@ function KillAndRerunTerm(name, command, opts)
     notify_command = string.format(";hterm-notify '%s' '%s'", opts.notify, name)
   end
   local autoclose = 0
-  if opts.autoclose then
-    autoclose = 1
-  end
+  if opts.autoclose then autoclose = 1 end
   local lst = vim.fn.getcompletion('FloatermKill ', 'cmdline')
   for _, v in pairs(lst) do
     if v == name then vim.cmd('FloatermKill ' .. name) end
   end
   vim.cmd(string.format(
-              'FloatermNew --autoclose=%d --name=%s sh -c "%s%s;exit 0"', autoclose, name,
-              command, notify_command))
+              'FloatermNew --autoclose=%d --name=%s sh -c "%s%s;exit 0"',
+              autoclose, name, command, notify_command))
 end
 
 function KillAndRerunTermWrapper(command, opts)
