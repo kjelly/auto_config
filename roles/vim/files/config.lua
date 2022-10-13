@@ -257,17 +257,41 @@ function IsModuleAvailable(name)
   end
 end
 
+function Append(t, value)
+  t[#t + 1] = value
+  return t
+end
+
+feedback_info = {package_not_found = {}}
+vim.api.nvim_create_user_command("ShowInfo", function() Dump(feedback_info) end,
+                                 {})
+package_loadded = {}
 function SafeRequire(name)
-  if IsModuleAvailable(name) then return require(name) end
+  if package_loadded[name] ~= nil then
+    return package_loadded[name]
+  end
+  if IsModuleAvailable(name) then
+    package_loadded[name] = require(name)
+    return package_loadded[name]
+  end
   return setmetatable({}, {
     __index = function(t, key)
-      return function() vim.notify(name .. " not found.") end
+      return function()
+        Append(feedback_info.package_not_found, name)
+      end
     end,
   })
 end
 
 function SafeRequireCallback(name, func)
-  if IsModuleAvailable(name) then return func(require(name)) end
+  if package_loadded[name] ~= nil then
+    return func(package_loadded[name])
+  end
+
+  if IsModuleAvailable(name) then
+    package_loadded[name] = require(name)
+    return func(package_loadded[name])
+  end
 end
 
 SafeRequireCallback("notify", function(notify) vim.notify = notify end)

@@ -620,8 +620,8 @@ command! FFF FloatermNew fff
 
 let g:MYVIMRC_DIR = fnamemodify(expand('$MYVIMRC'), ':h')
 let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/bin'
-let $GIT_PAGER='tail -r'
-let $PAGER='tail -r'
+let $GIT_PAGER='tac'
+let $PAGER='tac'
 
 let g:switch_mapping = ""
 let g:switch_custom_definitions =
