@@ -392,7 +392,7 @@ Plug 'mhinz/neovim-remote'
 
 call plug#end()
 
-set nonu
+set nu
 set keywordprg=sdcvh.sh
 set cursorline
 set showcmd
@@ -696,5 +696,5 @@ highlight! link HopNextKey Error
 highlight! link HopNextKey1 Error
 highlight! link HopNextKey2 Error
 highlight! link WinSeparator Boolean
-highlight! link SignColumn StatusLine
-highlight! link FoldColumn StatusLine
+#highlight! link SignColumn StatusLine
+#highlight! link FoldColumn StatusLine

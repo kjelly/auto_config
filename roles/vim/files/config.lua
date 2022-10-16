@@ -801,9 +801,9 @@ SafeRequireCallback("cmp", function()
   setup_cmdline('?', search_sources)
 
   -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
-                                                                       .protocol
-                                                                       .make_client_capabilities())
+  local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
+                                                                        .protocol
+                                                                        .make_client_capabilities())
   capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
     lineFoldingOnly = true,
@@ -1116,9 +1116,7 @@ function DelaySetup2()
           ["<esc>"] = require('telescope.actions').close,
           ["<cr>"] = fzf_multi_select,
         },
-        n = {
-          ["<cr>"] = fzf_multi_select,
-        }
+        n = {["<cr>"] = fzf_multi_select},
       },
     },
   })
