@@ -207,7 +207,6 @@ Plug 'towolf/vim-helm'
 " Plug 'https://github.com/SidOfc/mkdx'
 
 Plug 'https://github.com/beauwilliams/focus.nvim'
-Plug 'https://github.com/luukvbaal/stabilize.nvim'
 
 " notify ui
 Plug 'rcarriga/nvim-notify'
@@ -670,6 +669,7 @@ let g:mkdx#settings = { 'map': { 'enable': 1, 'prefix': '<leader>md' }, 'checkbo
 " Yank to tmux normally
 set clipboard=unnamed
 set title
+set splitkeep=screen
 
 " Results:  :copen, :cn, :cp
 " Ex: :grep -f c++/comments %
@@ -696,5 +696,5 @@ highlight! link HopNextKey Error
 highlight! link HopNextKey1 Error
 highlight! link HopNextKey2 Error
 highlight! link WinSeparator Boolean
-#highlight! link SignColumn StatusLine
-#highlight! link FoldColumn StatusLine
+"highlight! link SignColumn StatusLine
+"highlight! link FoldColumn StatusLine
