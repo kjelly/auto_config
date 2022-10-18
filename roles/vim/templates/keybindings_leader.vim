@@ -47,8 +47,8 @@ nnoremap <silent> <leader>gi <cmd>Git add -p %<CR>
 nnoremap <silent> <leader>glb <cmd>FzfLua git_bcommits<cr>
 nnoremap <silent> <leader>glp <cmd>FzfLua git_commits<cr>
 lua SetKeymap({'n'}, '<leader>grb', '<cmd>Gread<cr>', 'restore file, buffer only')
-lua SetKeymap({'n'}, '<leader>gre', '<cmd>Git checkout %<cr>', 'restore file')
-lua SetKeymap({'n'}, '<leader>grs', '<cmd>Git restore --staged %<cr>', 'restore file')
+lua SetKeymap({'n'}, '<leader>gre', '<cmd>Git checkout %<cr>', 'restore file from git')
+lua SetKeymap({'n'}, '<leader>grs', '<cmd>Git restore --staged %<cr>', 'restore file from staged')
 nnoremap <silent> <leader>gp <cmd>Git push<CR>
 nnoremap <silent> <leader>gs <cmd>FzfLua git_status<cr>
 nnoremap <silent> <leader>gu <cmd>Git pull --rebase<CR>

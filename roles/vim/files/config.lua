@@ -644,7 +644,10 @@ SafeRequire("persistence").setup {}
 SafeRequire('detect-language').setup {}
 
 SafeRequire("mason").setup()
-SafeRequire("mason-lspconfig").setup({ensure_installed = langservers})
+SafeRequire("mason-lspconfig").setup({
+  ensure_installed = langservers,
+  automatic_installation = true,
+})
 
 SafeRequire'marks'.setup {
   default_mappings = true,
