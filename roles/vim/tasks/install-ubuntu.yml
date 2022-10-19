@@ -27,6 +27,7 @@
    - ugrep
 
   become: true
+  ignore_errors: true
   when: programming == true
 
 - name: Install vim package

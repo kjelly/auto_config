@@ -669,7 +669,10 @@ let g:mkdx#settings = { 'map': { 'enable': 1, 'prefix': '<leader>md' }, 'checkbo
 " Yank to tmux normally
 set clipboard=unnamed
 set title
-set splitkeep=screen
+
+if has("nvim-0.9.0")
+  set splitkeep=screen
+endif
 
 " Results:  :copen, :cn, :cp
 " Ex: :grep -f c++/comments %

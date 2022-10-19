@@ -67,7 +67,7 @@
   ansible.builtin.get_url:
     url: "{{ ripgrep_url }}"
     dest: /tmp/ripgrep.tar.gz
-    mode: '0640'
+    mode: '0755'
 
 - name: Unarchive ripgrep.tar.gz
   unarchive:
