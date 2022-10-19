@@ -228,7 +228,7 @@ Plug 'https://github.com/glepnir/lspsaga.nvim'
 Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 Plug 'kosayoda/nvim-lightbulb'
 Plug 'nanotee/sqls.nvim'
-Plug 'jubnzv/virtual-types.nvim'
+" Plug 'jubnzv/virtual-types.nvim'
 Plug 'https://github.com/simrat39/symbols-outline.nvim'
 Plug 'https://github.com/folke/lsp-colors.nvim'
 Plug 'https://github.com/RRethy/vim-illuminate'
@@ -292,6 +292,8 @@ Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
 
 " sudo pip3 install keyring browser-cookie3
 Plug 'ianding1/leetcode.vim'
+
+Plug 'https://github.com/m-gail/escape.nvim'
 
 " colorscheme foramework
 Plug 'rktjmp/lush.nvim'
