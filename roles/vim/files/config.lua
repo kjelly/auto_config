@@ -515,6 +515,7 @@ SafeRequireCallback('lualine', function(lualine)
 end)
 
 SafeRequireCallback("hlslens", function(hlslens)
+  hlslens.setup()
   api.nvim_command(
       "noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>")
   api.nvim_command(
@@ -703,15 +704,13 @@ SafeRequireCallback("cmp", function()
     paths = '~/.config/nvim/plugged/friendly-snippets/',
   })
 
-  if IsModuleAvailable("lsp_signature") then
-    require"lsp_signature".setup({
-      floating_window = true,
-      floating_window_off_y = nil,
-      transparency = 50,
-      max_height = 9,
-      handler_opts = {border = "none"},
-    })
-  end
+  SafeRequire("lsp_signature").setup({
+    floating_window = true,
+    floating_window_off_y = nil,
+    transparency = 50,
+    max_height = 9,
+    handler_opts = {border = "none"},
+  })
 
   if (cmp == nil) then return end
 
@@ -928,11 +927,11 @@ function FindFileCwd()
   local gitDir = cwd .. '/.git'
   GotoMainWindow()
   if currentFile ~= '' and string.find(currentFile, cwd) == nil then
-    require('fzf-lua').files()
+    SafeRequire('fzf-lua').files()
   elseif vim.fn.isdirectory(gitDir) ~= 0 then
-    require('fzf-lua').git_files()
+    SafeRequire('fzf-lua').git_files()
   else
-    require('fzf-lua').files()
+    SafeRequire('fzf-lua').files()
   end
 end
 
@@ -947,7 +946,7 @@ function FindFileBuffer()
   local currentBufferPath = vim.fn.expand('%:p:h')
   GotoMainWindow()
   vim.cmd('cd ' .. currentBufferPath)
-  require('fzf-lua').files()
+  SafeRequire('fzf-lua').files()
   vim.cmd('cd ' .. oldCwd)
 end
 
