@@ -645,8 +645,11 @@ SafeRequire("persistence").setup {}
 SafeRequire('detect-language').setup {}
 
 SafeRequire("mason").setup()
+
 SafeRequire("mason-lspconfig").setup({
-  ensure_installed = langservers,
+  ensure_installed = vim.tbl_filter(function(server)
+    return not vim.tbl_contains({"dartls", }, server)
+  end, langservers),
   automatic_installation = true,
 })
 
@@ -975,6 +978,7 @@ function TermToggle()
 end
 
 function DelaySetup2()
+  SafeRequire("noice").setup()
   SafeRequire("modicator").setup()
   SafeRequireCallback("dap", function(dap)
     dap.adapters.dart = {
