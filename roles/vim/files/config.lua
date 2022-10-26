@@ -490,7 +490,20 @@ SafeRequireCallback('lualine', function(lualine)
       component_separators = {'', ''},
     },
     sections = {
-      lualine_a = {'mode'},
+      lualine_a = {
+        'mode', {
+          require("noice").api.status.message.get_hl,
+          cond = require("noice").api.status.message.has,
+        }, {
+          require("noice").api.status.mode.get,
+          cond = require("noice").api.status.mode.has,
+          color = {fg = "#ff9e64"},
+        }, {
+          require("noice").api.status.search.get,
+          cond = require("noice").api.status.search.has,
+          color = {fg = "#ff9e64"},
+        },
+      },
       lualine_b = {
         {getModified, color = {fg = 'red'}}, 'diagnostics', 'branch', 'diff',
       },
@@ -648,7 +661,7 @@ SafeRequire("mason").setup()
 
 SafeRequire("mason-lspconfig").setup({
   ensure_installed = vim.tbl_filter(function(server)
-    return not vim.tbl_contains({"dartls", }, server)
+    return not vim.tbl_contains({"dartls"}, server)
   end, langservers),
   automatic_installation = true,
 })
@@ -773,7 +786,7 @@ SafeRequireCallback("cmp", function()
     cmp.setup.cmdline(cmd_type, {
       formatting = {format = custom_format},
       mapping = cmp.mapping.preset.cmdline({
-        ['<C-p>'] = {
+        ['<C-n>'] = {
           c = function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -782,7 +795,7 @@ SafeRequireCallback("cmp", function()
             end
           end,
         },
-        ['<C-n>'] = {
+        ['<C-p>'] = {
           c = function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
@@ -1116,6 +1129,7 @@ function DelaySetup2()
   end
 
   SafeRequire("telescope").setup({
+    pickers = {buffers = {sort_lastused = true}},
     defaults = {
       mappings = {
         i = {

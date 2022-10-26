@@ -444,7 +444,7 @@ set backspace=eol,start,indent
 set smartcase
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw
+set nolazyredraw
 
 " Show matching brackets when text indicator is over them
 set showmatch

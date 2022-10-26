@@ -20,9 +20,6 @@ inoremap <c-e> <end>
 
 cnoremap <silent> <c-e> <Esc>:History:<cr>
 
-nnoremap <tab> <cmd><plug>(CybuLastusedNext)<cr>
-nnoremap <s-tab> <cmd><plug>(CybuLastusedPrev)<cr>
-
 nnoremap <m-f> <c-w>w
 
 nnoremap <C-j> <PageDown>

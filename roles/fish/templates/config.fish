@@ -53,11 +53,18 @@ function vagrant
 end
 
 function vim
-  if test -n "$IN_NVIM"
+  if test -n "$IN_VIM"
     nvr $argv
   else if type -q nvim
     nvim $argv
   else
     vim $argv
   end
+end
+
+
+if test -n "$IN_VIM"
+  alias gl="git log --reverse -20"
+else
+  alias gl="git log"
 end
