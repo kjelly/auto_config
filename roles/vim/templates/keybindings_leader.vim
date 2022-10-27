@@ -25,7 +25,7 @@ nnoremap <silent> <leader>zhf <cmd>FzfLua oldfiles<cr>
 nnoremap <silent> <leader>zhc <cmd>FzfLua command_history<cr>
 nnoremap <silent> <leader>zhs <cmd>FzfLua search_history<cr>
 nnoremap <silent> <leader>zm <cmd>FzfLua Marks<cr>
-nnoremap <silent> <leader>zf <cmd>FzfLua files<cr>
+nnoremap <silent> <leader>zf <cmd>FzfLua frecency<cr>
 nnoremap <silent> <leader>zo <cmd>FzfLua buffers<cr>
 nnoremap <silent> <leader>zg <cmd>GitFiles<cr>
 nnoremap <silent> <leader>zr <cmd>FzfLua live_grep<cr>
