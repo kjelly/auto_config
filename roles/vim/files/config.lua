@@ -498,7 +498,8 @@ SafeRequireCallback('lualine', function(lualine)
       lualine_x = {
         {
           require("noice").api.status.mode.get,
-          cond = require("noice") ~= nil and require("noice").api.status.mode.has,
+          cond = require("noice") ~= nil and
+              require("noice").api.status.mode.has,
           color = {fg = "#ff9e64"},
         }, {gps.get_location, cond = gps ~= nil and gps.is_available},
         'encoding', 'fileformat', 'filetype',
@@ -1119,18 +1120,21 @@ function DelaySetup2()
     end
   end
 
-  SafeRequire("telescope").setup({
-    pickers = {buffers = {sort_lastused = true}},
-    defaults = {
-      mappings = {
-        i = {
-          ["<esc>"] = require('telescope.actions').close,
-          ["<cr>"] = fzf_multi_select,
+  SafeRequireCallback("telescope", function(telescope)
+    telescope.setup({
+      pickers = {buffers = {sort_lastused = true}},
+      defaults = {
+        mappings = {
+          i = {
+            ["<esc>"] = require('telescope.actions').close,
+            ["<cr>"] = fzf_multi_select,
+          },
+          n = {["<cr>"] = fzf_multi_select},
         },
-        n = {["<cr>"] = fzf_multi_select},
       },
-    },
-  })
+    })
+    telescope.load_extension("frecency")
+  end)
 end
 
 function DelaySetup1()
