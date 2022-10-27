@@ -490,27 +490,18 @@ SafeRequireCallback('lualine', function(lualine)
       component_separators = {'', ''},
     },
     sections = {
-      lualine_a = {
-        'mode', {
-          require("noice").api.status.message.get_hl,
-          cond = require("noice").api.status.message.has,
-        }, {
-          require("noice").api.status.mode.get,
-          cond = require("noice").api.status.mode.has,
-          color = {fg = "#ff9e64"},
-        }, {
-          require("noice").api.status.search.get,
-          cond = require("noice").api.status.search.has,
-          color = {fg = "#ff9e64"},
-        },
-      },
+      lualine_a = {'mode'},
       lualine_b = {
         {getModified, color = {fg = 'red'}}, 'diagnostics', 'branch', 'diff',
       },
       lualine_c = {showFilePath},
       lualine_x = {
-        {gps.get_location, cond = gps ~= nil and gps.is_available}, 'encoding',
-        'fileformat', 'filetype',
+        {
+          require("noice").api.status.mode.get,
+          cond = require("noice") ~= nil and require("noice").api.status.mode.has,
+          color = {fg = "#ff9e64"},
+        }, {gps.get_location, cond = gps ~= nil and gps.is_available},
+        'encoding', 'fileformat', 'filetype',
       },
       lualine_y = {'progress'},
       lualine_z = {'location'},
