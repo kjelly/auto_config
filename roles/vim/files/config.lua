@@ -935,7 +935,7 @@ function FindFileCwd()
   local gitDir = cwd .. '/.git'
   GotoMainWindow()
   if require("telescope") then
-    require('telescope').extensions.frecency.frecency({ workspace = 'CWD' })
+    require('telescope').extensions.frecency.frecency({workspace = 'CWD'})
   elseif currentFile ~= '' and string.find(currentFile, cwd) == nil then
     SafeRequire('fzf-lua').files()
   elseif vim.fn.isdirectory(gitDir) ~= 0 then
@@ -985,7 +985,14 @@ function TermToggle()
 end
 
 function DelaySetup2()
-  SafeRequire("noice").setup()
+  SafeRequire("noice").setup({
+    notify = {enabled = false},
+    lsp = {
+      hover = {enabled = false},
+      signature = {enabled = false},
+      message = {enabled = false},
+    },
+  })
   SafeRequire("modicator").setup()
   SafeRequireCallback("dap", function(dap)
     dap.adapters.dart = {
@@ -1127,11 +1134,7 @@ function DelaySetup2()
     telescope.load_extension("fzf")
     telescope.setup({
       pickers = {buffers = {sort_lastused = true}},
-      extensions = {
-        fzf = {
-          fuzzy = true,
-        }
-      },
+      extensions = {fzf = {fuzzy = true}},
       defaults = {
         mappings = {
           i = {

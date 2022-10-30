@@ -143,6 +143,7 @@ Plug 'SmiteshP/nvim-gps'
 Plug 'spywhere/detect-language.nvim'
 Plug 'm-demare/hlargs.nvim'
 Plug 'https://github.com/kylechui/nvim-surround'
+Plug 'https://github.com/smjonas/live-command.nvim'
 
 " Seamlessly jump between matched instances.
 Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
