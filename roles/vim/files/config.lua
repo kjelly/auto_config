@@ -934,8 +934,12 @@ function FindFileCwd()
   local currentFile = vim.fn.expand('%:p')
   local gitDir = cwd .. '/.git'
   GotoMainWindow()
-  if require("telescope") then
-    require('telescope').extensions.frecency.frecency({workspace = 'CWD'})
+  telescope = require("telescope")
+  if telescope then
+    telescope.extensions.frecency.frecency({
+      sorter = require("telescope").extensions.fzf.native_fzf_sorter(),
+      workspace = 'CWD',
+    })
   elseif currentFile ~= '' and string.find(currentFile, cwd) == nil then
     SafeRequire('fzf-lua').files()
   elseif vim.fn.isdirectory(gitDir) ~= 0 then
