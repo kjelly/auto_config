@@ -49,7 +49,7 @@ nnoremap <silent> <leader>glp <cmd>FzfLua git_commits<cr>
 lua SetKeymap({'n'}, '<leader>grb', '<cmd>Gread<cr>', 'restore file, buffer only')
 lua SetKeymap({'n'}, '<leader>gre', '<cmd>Git checkout %<cr>', 'restore file from git')
 lua SetKeymap({'n'}, '<leader>grs', '<cmd>Git restore --staged %<cr>', 'restore file from staged')
-nnoremap <silent> <leader>gp <cmd>lua KillAndRerunTermWrapper("git push")<cr>
+nnoremap <silent> <leader>gp <cmd>lua KillAndRerunTermWrapper("git push", {shell=true})<cr>
 nnoremap <silent> <leader>gs <cmd>FzfLua git_status<cr>
 nnoremap <silent> <leader>gu <cmd>Git pull --rebase<CR>
 nnoremap <silent> <leader>gw <cmd>Gwrite<CR>

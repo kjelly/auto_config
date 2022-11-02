@@ -1468,9 +1468,10 @@ SafeRequire("symbols-outline").setup({auto_preview = true, width = 20})
 SafeRequire('git-conflict').setup()
 
 function KillAndRerunTerm(name, command, opts)
-  if opts == nil then opts = {notify = "", autoclose = false} end
+  if opts == nil then opts = {notify = "", autoclose = false, shell = true} end
   local notify_command = ""
   if opts.notify ~= "" or opts.notify ~= nil then
+    opts.shell = true
     notify_command = string.format(";hterm-notify '%s' '%s'", opts.notify, name)
   end
   local autoclose = 0
@@ -1479,9 +1480,14 @@ function KillAndRerunTerm(name, command, opts)
   for _, v in pairs(lst) do
     if v == name then vim.cmd('FloatermKill ' .. name) end
   end
-  vim.cmd(string.format(
-              'FloatermNew --autoclose=%d --name=%s sh -c "%s%s;exit 0"',
-              autoclose, name, command, notify_command))
+  if opts.shell then
+    vim.cmd(string.format(
+                'FloatermNew --autoclose=%d --name=%s sh -c "%s%s;exit 0"',
+                autoclose, name, command, notify_command))
+  else
+    vim.cmd(string.format('FloatermNew --autoclose=%d --name=%s %s', autoclose,
+                          name, command, notify_command))
+  end
 end
 
 function KillAndRerunTermWrapper(command, opts)
