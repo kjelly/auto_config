@@ -404,9 +404,6 @@ set showcmd
 set mouse=a
 set mousemodel="extend"
 
-" Show tab line if there are more than one tab
-set showtabline=1
-
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
@@ -417,7 +414,7 @@ set ffs=unix,dos,mac
 set viminfo=<800,'10,h
 
 " Show tab line if there are more than one tab
-set showtabline=1
+set showtabline=0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo

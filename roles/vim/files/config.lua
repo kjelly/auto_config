@@ -424,10 +424,11 @@ SafeRequireCallback('lualine', function(lualine)
     end
     return ''
   end
+  local function tab_num() return vim.fn.tabpagenr() end
 
   local floaterm_lualine = {
     sections = {
-      lualine_a = {'mode'},
+      lualine_a = {'mode', tab_num},
       lualine_b = {'branch', 'diff'},
       lualine_c = {'hostname', floatermInfo, termTitle},
       lualine_x = {'filetype'},
@@ -490,7 +491,7 @@ SafeRequireCallback('lualine', function(lualine)
       component_separators = {'', ''},
     },
     sections = {
-      lualine_a = {'mode'},
+      lualine_a = {'mode', tab_num},
       lualine_b = {
         {getModified, color = {fg = 'red'}}, 'diagnostics', 'branch', 'diff',
       },
@@ -876,8 +877,11 @@ function FindMainWindow()
   local wininfoTable = vim.fn.getwininfo()
   local minMainWidth = 1
   local current_win_id = nil
+  local tab_num = vim.fn.tabpagenr()
+
   for _, value in pairs(wininfoTable) do
     if vim.bo[value.bufnr].filetype == 'floaterm' then
+    elseif value.tabnr ~= tab_num then
     elseif value.width > minMainWidth then
       minMainWidth = value.width
       current_win_id = value.winid
@@ -976,16 +980,20 @@ vim.api.nvim_set_keymap('', '<m-P>', '', {
 })
 
 function TermToggle()
-  --- Get active buffers
   local bufList = vim.fn.getwininfo()
+  local tab_num = vim.fn.tabpagenr()
   for _, v in pairs(bufList) do
-    if vim.bo[v.bufnr].filetype == 'floaterm' then
+    if vim.bo[v.bufnr].filetype == 'floaterm' and v.tabnr == tab_num then
       vim.cmd("FloatermHide!")
       return
     end
   end
   if vim.bo.filetype ~= 'floaterm' then GotoMainWindow() end
-  vim.cmd("FloatermToggle")
+  if HasTerminal() then
+    vim.cmd("FloatermShow")
+  else
+    vim.cmd("FloatermToggle")
+  end
 end
 
 function DelaySetup2()
