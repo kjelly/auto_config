@@ -394,6 +394,25 @@ SafeRequire'nvim-treesitter.configs'.setup {
   },
 }
 
+function HasTerminal()
+  --- Get any terminal including hidding.
+  local wininfoTable = vim.fn.getwininfo()
+  for _, value in pairs(wininfoTable) do
+    if value.terminal > 0 then return true end
+  end
+  return false
+end
+
+function GetTerminalBufnr()
+  local wininfoTable = vim.fn.getwininfo()
+  local tab_num = vim.fn.tabpagenr()
+
+  for _, value in pairs(wininfoTable) do
+    if value.terminal > 0 and value.tabnr == tab_num then return value.bufnr end
+  end
+  return -1
+end
+
 SafeRequireCallback('lualine', function(lualine)
   local function showFilePath()
     local filePath = api.nvim_eval("expand('%')")
@@ -411,7 +430,7 @@ SafeRequireCallback('lualine', function(lualine)
   end
 
   local function floatermInfo()
-    local bufid = api.nvim_get_current_buf()
+    local bufid = GetTerminalBufnr()
     local buffers = api.nvim_eval("floaterm#buflist#gather()")
     local ret = indexOf(buffers, bufid) .. '/' .. #buffers
     return ret
@@ -495,7 +514,7 @@ SafeRequireCallback('lualine', function(lualine)
       lualine_b = {
         {getModified, color = {fg = 'red'}}, 'diagnostics', 'branch', 'diff',
       },
-      lualine_c = {showFilePath},
+      lualine_c = {{floatermInfo, cond = HasTerminal}, showFilePath},
       lualine_x = {
         {
           require("noice").api.status.mode.get,
