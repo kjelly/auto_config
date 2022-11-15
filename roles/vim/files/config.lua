@@ -164,7 +164,7 @@ local langservers = {
   'vimls', 'yamlls',
 }
 
-local lsp_autostart_disabled = {'sumneko_lua'}
+local lsp_autostart_disabled = {}
 
 local function termTitle()
   local title = SafeBufGetVar(0, 'floaterm_name')
@@ -936,10 +936,6 @@ end
 
 WorkspaceVimPath = getWorkspaceVimPath('vim')
 
-if FileExists(WorkspaceVimPath) then
-  pcall(vim.api.nvim_command, 'source ' .. WorkspaceVimPath)
-end
-
 vim.api.nvim_set_keymap('n', '<Leader>esw', '', {
   noremap = true,
   desc = 'Edit workspace vim',
@@ -957,7 +953,7 @@ function FindFileCwd()
   local currentFile = vim.fn.expand('%:p')
   local gitDir = cwd .. '/.git'
   GotoMainWindow()
-  telescope = require("telescope")
+  loacl telescope = require("telescope")
   if telescope then
     telescope.extensions.frecency.frecency({
       sorter = require("telescope").extensions.fzf.native_fzf_sorter(),
@@ -1016,6 +1012,11 @@ function TermToggle()
 end
 
 function DelaySetup2()
+
+  if FileExists(WorkspaceVimPath) then
+    pcall(vim.api.nvim_command, 'source ' .. WorkspaceVimPath)
+  end
+
   SafeRequire("noice").setup({
     notify = {enabled = false},
     lsp = {
