@@ -150,7 +150,7 @@ LSP_CONFIG = DefaultTable({}, {
 local disabled_lsp_caps = {
   pylsp = {
     'renameProvider', 'referencesProvider', 'hoverProvider',
-    'documentSymbolProvider', 'workspaceSymbolProvider',
+    'documentSymbolProvider', 'workspaceSymbolProvider', 'completionProvider'
   },
   jedi_language_server = {
     'renameProvider', 'referencesProvider', 'hoverProvider',
