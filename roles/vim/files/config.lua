@@ -953,7 +953,7 @@ function FindFileCwd()
   local currentFile = vim.fn.expand('%:p')
   local gitDir = cwd .. '/.git'
   GotoMainWindow()
-  loacl telescope = require("telescope")
+  local telescope = require("telescope")
   if telescope then
     telescope.extensions.frecency.frecency({
       sorter = require("telescope").extensions.fzf.native_fzf_sorter(),
