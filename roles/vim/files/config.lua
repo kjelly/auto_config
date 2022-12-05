@@ -956,7 +956,6 @@ function FindFileCwd()
   local telescope = require("telescope")
   if telescope then
     telescope.extensions.frecency.frecency({
-      sorter = require("telescope").extensions.fzf.native_fzf_sorter(),
       workspace = 'CWD',
     })
   elseif currentFile ~= '' and string.find(currentFile, cwd) == nil then
@@ -1163,10 +1162,8 @@ function DelaySetup2()
 
   SafeRequireCallback("telescope", function(telescope)
     telescope.load_extension("frecency")
-    telescope.load_extension("fzf")
     telescope.setup({
       pickers = {buffers = {sort_lastused = true}},
-      extensions = {fzf = {fuzzy = true}},
       defaults = {
         mappings = {
           i = {
