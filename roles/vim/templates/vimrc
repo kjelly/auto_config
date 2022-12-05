@@ -196,8 +196,6 @@ Plug 'https://github.com/numToStr/Comment.nvim'
 Plug 'https://github.com/folke/which-key.nvim'
 Plug 'https://github.com/romainl/vim-cool'
 
-" offers context when cycling buffers in the form of a customizable notification window.
-Plug 'https://github.com/ghillb/cybu.nvim'
 Plug 'kevinhwang91/promise-async'
 
 " Fold
