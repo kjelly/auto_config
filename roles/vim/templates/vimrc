@@ -235,7 +235,6 @@ Plug 'https://github.com/folke/lsp-colors.nvim'
 Plug 'https://github.com/RRethy/vim-illuminate'
 
 Plug 'https://github.com/dstein64/vim-startuptime'
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/persistence.nvim'
 
 if empty($SSH_CLIENT)
