@@ -225,8 +225,6 @@ Plug 'jdhao/better-escape.vim'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
-" Standalone UI for nvim-lsp progress
-Plug 'https://github.com/j-hui/fidget.nvim'
 Plug 'https://github.com/glepnir/lspsaga.nvim'
 Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 Plug 'kosayoda/nvim-lightbulb'
