@@ -1156,7 +1156,6 @@ function DelaySetup2()
   end
 
   SafeRequireCallback("telescope", function(telescope)
-    telescope.load_extension("frecency")
     telescope.setup({
       pickers = {buffers = {sort_lastused = true}},
       defaults = {
