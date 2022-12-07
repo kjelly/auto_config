@@ -169,9 +169,9 @@ imap <m-n> <c-n>
 tmap <m-n> <c-n>
 cmap <m-n> <c-n>
 
-inoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("Telescope buffers")<cr>
-nnoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("Telescope buffers")<cr>
-tnoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("Telescope buffers")<cr>
+inoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("FzfLua buffers")<cr>
+nnoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("FzfLua buffers")<cr>
+tnoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("FzfLua buffers")<cr>
 
 inoremap <m-O> <cmd>Telescope resume<cr>
 nnoremap <m-O> <cmd>Telescope resume<cr>
