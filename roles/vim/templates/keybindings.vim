@@ -185,7 +185,6 @@ inoremap <m-i> <cmd>lua RegistersInsert()<cr>
 nnoremap <m-i> <cmd>lua RegistersInsert()<cr>
 tnoremap <m-i> <cmd>lua RegistersInsert()<cr>
 
-inoremap <m-u> <cmd>FzfLua live_grep_native<cr>
 function! CallHistoryShell()
   execute feedkeys("fzf-history-widget")
   execute feedkeys("\<CR>")
@@ -193,9 +192,20 @@ function! CallHistoryShell()
     startinsert
   endif
 endfunction
-nnoremap <expr> <m-u> &filetype=='floaterm' ? ':call CallHistoryShell()<cr>' : ':FzfLua live_grep_native<cr>'
-tnoremap <m-u> <cmd>calll CallHistoryShell()<cr>
-vnoremap <m-u> "ry:<c-u>Rg <c-r>r<cr>
+function! FuncAltU()
+  if mode() == 't' || &filetype=='floaterm'
+    call CallHistoryShell()
+  else
+    lua GoToMainWindowAndRunCommand('lua require("fzf-lua").grep({ search = "",continue_last_search = true,multiprocess=true })')
+  end
+endfunction
+
+inoremap <m-u> <cmd>call FuncAltU()<cr>
+nnoremap <m-u> <cmd>call FuncAltU()<cr>
+tnoremap <m-u> <cmd>call FuncAltU()<cr>
+vnoremap <m-u> "ry:<c-u>FzfLua grep<cr> <c-r>r<cr>
+
+
 
 inoremap <m-U> <cmd>FzfLua live_grep_resume<cr>
 nnoremap <m-U> <cmd>FzfLua live_grep_resume<cr>
