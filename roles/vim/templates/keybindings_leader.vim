@@ -133,6 +133,7 @@ nnoremap <silent> <leader>sc <cmd>lua ToggleForCopy()<cr>
 nnoremap <silent> <leader>st :Switch<cr>
 nnoremap <silent> <leader>sk :DisableTmuxKey<cr>
 nnoremap <silent> <leader>so :TSContextToggle<cr>
+nnoremap <silent> <leader>sg :set guicursor=<cr>
 
 nnoremap <silent> <leader>br :redraw<cr>
 

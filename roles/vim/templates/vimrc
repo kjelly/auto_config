@@ -695,5 +695,3 @@ highlight! link HopNextKey Error
 highlight! link HopNextKey1 Error
 highlight! link HopNextKey2 Error
 highlight! link WinSeparator Boolean
-"highlight! link SignColumn StatusLine
-"highlight! link FoldColumn StatusLine
