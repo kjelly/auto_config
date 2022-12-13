@@ -150,7 +150,7 @@ LSP_CONFIG = DefaultTable({}, {
 local disabled_lsp_caps = {
   pylsp = {
     'renameProvider', 'referencesProvider', 'hoverProvider',
-    'documentSymbolProvider', 'workspaceSymbolProvider', 'completionProvider'
+    'documentSymbolProvider', 'workspaceSymbolProvider', 'completionProvider',
   },
   jedi_language_server = {
     'renameProvider', 'referencesProvider', 'hoverProvider',
@@ -773,13 +773,14 @@ SafeRequireCallback("cmp", function()
       ['<CR>'] = cmp.mapping.confirm({select = false}), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
-      {name = 'nvim_lsp'}, {name = 'path'},
+      {name = 'nvim_lsp', keyword_length = 2}, {name = 'path'},
       -- { name = 'luasnip' }, -- For luasnip users.
-      {name = 'copilot'}, {name = 'cmp_tabnine'}, {
+      {name = 'copilot'}, {name = 'cmp_tabnine', keyword_length = 3}, {
         name = 'rg',
         max_item_count = 10,
+        keyword_length = 5,
         option = {additional_arguments = "--max-depth 5"},
-      }, {name = 'fish'}, {name = 'buffer'},
+      }, {name = 'fish'}, {name = 'buffer', keyword_length = 4},
     }),
     formatting = {format = custom_format},
   })
@@ -1012,9 +1013,7 @@ function DelaySetup2()
   end
 
   SafeRequire("noice").setup({
-    health = {
-      checker = false,
-    },
+    health = {checker = false},
     messages = {
       enabled = true, -- enables the Noice messages UI
       view = "mini", -- default view for messages
@@ -1246,15 +1245,6 @@ function GetBuffers()
     buffers[len] = vim.fn.bufname(buffer)
   end
   return buffers
-end
-
-function HasTerminal()
-  --- Get any terminal including hidding.
-  local wininfoTable = vim.fn.getwininfo()
-  for _, value in pairs(wininfoTable) do
-    if value.terminal > 0 then return true end
-  end
-  return false
 end
 
 function RunPreviousCommandFunc()
