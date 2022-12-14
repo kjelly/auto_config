@@ -540,6 +540,8 @@ augroup basic
   au! BufRead *.yaml,*.yml if search('hosts:\|tasks:\|roles:', 'nw') | set ft=yaml.ansible | endif
   autocmd! BufWritePost *.py if executable("isort") && exists("g:isort") | execute "silent !isort %" | endif
   auto WinEnter * silent lua UpdateTitleString()
+  autocmd! InsertEnter * set nocursorline
+  autocmd! InsertLeave * set cursorline
 augroup end
 
 augroup rest_nvim

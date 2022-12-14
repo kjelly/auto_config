@@ -1,11 +1,19 @@
 ---
-- copy: src="tmux.conf"
-        dest="~/.tmux.conf"
+- name: Copy tmux.conf
+  ansible.builtin.copy:
+    src: "tmux.conf"
+    dest: "~/.tmux.conf"
+    mode: "0600"
 
-- file: path=~/bin state=directory
+- name: Create ~/bin
+  ansible.builtin.file:
+    path: ~/bin state=directory
+    mode: "0755"
 
-- copy: src="{{ item }}"
-        dest="~/bin/{{ (item|splitext)[0] }}"
-        mode=0755
+- name: Copy t.py
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "~/bin/{{ (item | splitext)[0] }}"
+    mode: 0755
   with_items:
-      - t.py
+    - t.py

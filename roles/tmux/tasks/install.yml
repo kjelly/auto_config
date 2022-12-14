@@ -1,13 +1,17 @@
 ---
 - name: Install package
-  apt: name={{ item }} state=present
+  ansible.builtin.apt:
+    lname: "{{ item }}"
+    state: present
   with_items:
       - tmux
   become: true
   when: ansible_distribution == 'Ubuntu'
 
 - name: Install package
-  dnf: name={{ item }} state=present
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: "present"
   with_items:
       - tmux
   become: true
