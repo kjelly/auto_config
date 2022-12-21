@@ -170,6 +170,9 @@ bindsym XF86AudioRaiseVolume exec "amixer set Master '5%+'"
 bindsym XF86AudioLowerVolume exec "amixer set Master '5%-'"
 bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 
+bindsym XF86MonBrightnessUp exec ~/.i3/bright.sh +
+bindsym XF86MonBrightnessDown exec ~/.i3/bright.sh -
+
 bindsym XF86AudioPlay exec "~/.bin/player toggle"
 bindsym XF86AudioStop exec "~/.bin/player stop"
 bindsym XF86AudioNext exec "~/.bin/player next"

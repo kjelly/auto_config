@@ -1,6 +1,12 @@
 #!/bin/bash
 
-sudo='sudo'
+if [ $UID  -eq  0 ]
+then
+  sudo=''
+else
+  sudo='sudo'
+fi
+$sudo bash -c "apt update;apt install -y curl"
 $sudo curl -fL https://github.com/helix-editor/helix/releases/download/22.08.1/helix-22.08.1-x86_64.AppImage -o /opt/hx
 chmod +x /opt/hx
 cd /opt

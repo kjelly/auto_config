@@ -733,11 +733,12 @@ SafeRequireCallback("cmp", function()
   })
 
   SafeRequire("lsp_signature").setup({
+    toggle_key = '<a-f>lt',
+    select_signature_key = '<a-f>ln',
+    timer_interval = 800,
+    fix_pos=true,
     floating_window = true,
-    floating_window_off_y = nil,
-    transparency = 50,
     max_height = 9,
-    handler_opts = {border = "none"},
   })
 
   if (cmp == nil) then return end
@@ -1604,7 +1605,7 @@ function UpdateTitleString()
   if vim.api.nvim_eval("&filetype") == 'floaterm' then
     name = vim.fn.escape(termTitle(), "|")
   end
-  vim.cmd(string.format("let &titlestring='%s - %s'", hostname, name))
+  pcall(vim.cmd, string.format("let &titlestring='%s - %s'", hostname, name))
 end
 
 function FloatermNext(offset)
