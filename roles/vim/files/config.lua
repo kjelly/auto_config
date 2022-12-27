@@ -164,6 +164,12 @@ local langservers = {
   'vimls', 'yamlls',
 }
 
+for _, v in ipairs({"node", "go"}) do
+  if vim.fn.executable(v) == 0 then
+    langservers = {}
+  end
+end
+
 local lsp_autostart_disabled = {}
 
 local function termTitle()
@@ -414,14 +420,6 @@ function GetTerminalBufnr()
 end
 
 SafeRequireCallback('lualine', function(lualine)
-  local function showFilePath()
-    local filePath = api.nvim_eval("expand('%')")
-    local cwd = vim.fn.getcwd()
-    filePath = filePath:gsub(cwd, '.')
-    if api.nvim_eval("&modified") == 1 then filePath = filePath .. " [+]" end
-    return filePath
-  end
-
   local function showCWD()
     local path = vim.fn.getcwd()
     local home = vim.env.HOME
@@ -514,7 +512,7 @@ SafeRequireCallback('lualine', function(lualine)
       lualine_b = {
         {getModified, color = {fg = 'red'}}, 'diagnostics', 'branch', 'diff',
       },
-      lualine_c = {{floatermInfo, cond = HasTerminal}, showFilePath},
+      lualine_c = {{floatermInfo, cond = HasTerminal}, {'filename', path = 1}},
       lualine_x = {
         {
           require("noice").api.status.mode.get,
