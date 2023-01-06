@@ -9,6 +9,8 @@ function SafeBufGetVar(bufnr, key)
   end
 end
 
+local isEmptyTable = function(v) return next(v) == nil end
+
 if vim.fn.filereadable('/dev/urandom') then
   function Random(min, max)
     local urandom = assert(io.open('/dev/urandom', 'rb'))
@@ -724,12 +726,12 @@ SafeRequireCallback("cmp", function()
                                                                           col)
                    :match("%s") == nil
   end
-  local luasnip = require("luasnip")
-  require("luasnip.loaders.from_vscode").lazy_load()
-  require("luasnip.loaders.from_vscode").lazy_load({
-    paths = '~/.config/nvim/plugged/friendly-snippets/',
-  })
-
+  local luasnip = SafeRequire("luasnip")
+  if not isEmptyTable(luasnip) then
+    require("luasnip.loaders.from_vscode").lazy_load({
+      paths = '~/.config/nvim/plugged/friendly-snippets/',
+    })
+  end
   SafeRequire("lsp_signature").setup({
     toggle_key = '<a-f>lt',
     select_signature_key = '<a-f>ln',
@@ -744,7 +746,7 @@ SafeRequireCallback("cmp", function()
   cmp.setup({
     snippet = {
       -- REQUIRED - you must specify a snippet engine
-      expand = function(args) require('luasnip').lsp_expand(args.body) end,
+      expand = function(args) SafeRequire('luasnip').lsp_expand(args.body) end,
     },
     window = {
       completion = cmp.config.window.bordered(),
@@ -752,14 +754,18 @@ SafeRequireCallback("cmp", function()
     },
     mapping = cmp.mapping.preset.insert({
       ['<C-g>'] = cmp.mapping(function(fallback)
-        if luasnip.jumpable(-1) then
+        if isEmptyTable(luasnip) then
+          fallback()
+        elseif luasnip.jumpable(-1) then
           luasnip.jump(-1)
         else
           fallback()
         end
       end, {"i", "s" --[[ "c" (to enable the mapping in command mode) ]] }),
       ['<C-f>'] = cmp.mapping(function(fallback)
-        if luasnip.expand_or_jumpable() then
+        if isEmptyTable(luasnip) then
+          fallback()
+        elseif luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
         elseif has_words_before() then
           cmp.complete()
