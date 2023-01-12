@@ -15,7 +15,11 @@
   when: ansible_distribution == 'Fedora'
 
 - name: download nodejs
-  get_url: url="{{ nodejs_download_url }}" dest="~/nodejs.tar.xz"
+  get_url:
+    url: "{{ nodejs_download_url }}"
+    dest: "~/nodejs.tar.xz"
+
+- debug: var=nodejs_download_url
 
 - name: unarchive nodejs
   unarchive: src="~/nodejs.tar.xz" dest="~"
@@ -30,6 +34,7 @@
   file:
    state: link
    src: "~/node-{{ nodejs_version }}-linux-x64"
+
    dest: "~/node"
 
 - name: download golang
