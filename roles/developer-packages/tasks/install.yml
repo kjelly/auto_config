@@ -1,50 +1,69 @@
 ---
 
 - name: Install package
-  apt: name={{ item }} state=present
+  ansible.builtin.apt:
+      name: "{{ item }}"
+      state: present
   with_items:
       - git
   become: true
   when: ansible_distribution == 'Ubuntu'
 
 - name: Install package
-  dnf: name={{ item }} state=present
+  ansible.builtin.dnf:
+      name: "{{ item }}"
+      state: present
   with_items:
       - git
   become: true
   when: ansible_distribution == 'Fedora'
 
-- name: download nodejs
-  get_url:
-    url: "{{ nodejs_download_url }}"
-    dest: "~/nodejs.tar.xz"
+- name: Download nodejs
+  ansible.builtin.get_url:
+      url: "{{ nodejs_download_url }}"
+      dest: "~/nodejs.tar.xz"
+      mode: "0644"
 
-- debug: var=nodejs_download_url
-
-- name: unarchive nodejs
-  unarchive: src="~/nodejs.tar.xz" dest="~"
+- name: Unarchive nodejs
+  ansible.builtin.unarchive:
+      src: "~/nodejs.tar.xz"
+      dest: "~"
+      remote_src: true
 
 - name: Remove node symlink
-  file:
-   path: "~/node"
-   state: absent
+  ansible.builtin.file:
+      path: "~/node"
+      state: absent
   ignore_errors: true
 
-- name: create node symlink
-  file:
-   state: link
-   src: "~/node-{{ nodejs_version }}-linux-x64"
+- name: Create node symlink
+  ansible.builtin.file:
+      state: link
+      src: "~/node-{{ nodejs_version }}-linux-x64"
+      dest: "~/node"
 
-   dest: "~/node"
+- name: Download golang
+  ansible.builtin.get_url:
+      url: "{{ golang_download_url }}"
+      dest: "~/golang.tar.gz"
+      mode: "0644"
 
-- name: download golang
-  get_url: url="{{ golang_download_url }}" dest="~/golang.tar.gz"
+- name: Unarchive golang
+  ansible.builtin.unarchive:
+      src: "~/golang.tar.gz"
+      dest: "~"
+      remote_src: true
+      mode: "0755"
 
-- name: unarchive golang
-  unarchive: src="~/golang.tar.gz" dest="~"
+- name: Download flutter
+  ansible.builtin.get_url:
+      url: "{{ flutter_download_url }}"
+      dest: "~/flutter.tar.xz"
+      mode: "0644"
 
-- name: download flutter
-  get_url: url="{{ flutter_download_url }}" dest="~/flutter.tar.xz"
-
-- name: unarchive flutter
-  unarchive: src="~/flutter.tar.xz" dest="~"
+- name: Unarchive flutter
+  ansible.builtin.unarchive:
+      src: "~/flutter.tar.xz"
+      dest: "~"
+      remote_src: true
+      mode: "0755"
