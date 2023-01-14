@@ -45,7 +45,7 @@ function FileBaseName(file) return file:match("^.+/(.+)$") end
 
 function RandomScheme()
   local schemes = vim.api.nvim_get_runtime_file("colors/*", true)
-  local excludedPatterns = {'day', 'light'}
+  local excludedPatterns = { 'day', 'light' }
   schemes = vim.tbl_filter(function(v)
     if string.find(v, 'plugged') == nil then return false end
     for _, p in ipairs(excludedPatterns) do
@@ -76,9 +76,9 @@ end
 vim.diagnostic.config({
   virtual_text = {
     source = true,
-    severity = {min = vim.diagnostic.severity.INFO},
+    severity = { min = vim.diagnostic.severity.INFO },
   },
-  float = {source = true},
+  float = { source = true },
   update_in_insert = true,
 })
 
@@ -98,15 +98,15 @@ function DefaultTable(a, b)
   if type(a) == 'table' then
     if type(b) == "table" then
       if vim.tbl_count(a) > vim.tbl_count(b) then
-        return setmetatable(a, {__newindex = function() return b end})
+        return setmetatable(a, { __newindex = function() return b end })
       else
-        return setmetatable(b, {__newindex = function() return a end})
+        return setmetatable(b, { __newindex = function() return a end })
       end
     else
-      return setmetatable(a, {__newindex = function() return b end})
+      return setmetatable(a, { __newindex = function() return b end })
     end
   else
-    return setmetatable(b, {__newindex = function() return a end})
+    return setmetatable(b, { __newindex = function() return a end })
   end
 end
 
@@ -114,12 +114,12 @@ LSP_CONFIG = DefaultTable({}, {
   settings = {
     sumneko_lua = {
       Lua = {
-        runtime = {version = 'LuaJIT'},
-        diagnostics = {globals = {'vim'}},
+        runtime = { version = 'LuaJIT' },
+        diagnostics = { globals = { 'vim' } },
         workspace = {
           -- library = vim.api.nvim_get_runtime_file("lua/", true),
         },
-        telemetry = {enable = false},
+        telemetry = { enable = false },
       },
     },
     pyright = {
@@ -132,9 +132,9 @@ LSP_CONFIG = DefaultTable({}, {
         },
       },
     },
-    pylsp = {plugin = {pylint = {enabled = true}}},
+    pylsp = { plugin = { pylint = { enabled = true } } },
     efm = {
-      rootMarkers = {".git/"},
+      rootMarkers = { ".git/" },
       languages = {
         lua = {
           {
@@ -145,8 +145,8 @@ LSP_CONFIG = DefaultTable({}, {
       },
     },
   },
-  filetypes = {efm = {"lua"}},
-  init_options = {efm = {documentFormatting = true}},
+  filetypes = { efm = { "lua" } },
+  init_options = { efm = { documentFormatting = true } },
 })
 
 local disabled_lsp_caps = {
@@ -163,13 +163,11 @@ local langservers = {
   'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'efm', 'emmet_ls',
   'gopls', 'graphql', 'html', 'jsonls', 'marksman', 'pylsp', 'pyright',
   'rust_analyzer', 'sqlls', 'sqls', 'sumneko_lua', 'terraformls', 'tsserver',
-  'vimls', 'yamlls',
+  'vimls', 'yamlls', 'ruff_lsp',
 }
 
-for _, v in ipairs({"node", "go"}) do
-  if vim.fn.executable(v) == 0 then
-    langservers = {}
-  end
+for _, v in ipairs({ "node", "go" }) do
+  if vim.fn.executable(v) == 0 then langservers = {} end
 end
 
 local lsp_autostart_disabled = {}
@@ -188,8 +186,8 @@ local function termTitle()
       return title
     end
   else
-    local parts = vim.split(title, ' ', {trimempty = true})
-    parts = {table.unpack(parts, 1, #parts - 1)}
+    local parts = vim.split(title, ' ', { trimempty = true })
+    parts = { table.unpack(parts, 1, #parts - 1) }
     return table.concat(parts, ' ')
   end
 end
@@ -202,7 +200,7 @@ local function smart_dd()
   end
 end
 
-vim.keymap.set("n", "dd", smart_dd, {noremap = true, expr = true})
+vim.keymap.set("n", "dd", smart_dd, { noremap = true, expr = true })
 
 local function indexOf(array, value)
   for i, v in ipairs(array) do if v == value then return i end end
@@ -242,7 +240,7 @@ function ListCurrentWindow(opts)
 end
 
 function GlobalFloatermIndex()
-  local term_list = ListCurrentBuffer({filetype = 'floaterm'})
+  local term_list = ListCurrentBuffer({ filetype = 'floaterm' })
   local buffers = api.nvim_eval("floaterm#buflist#gather()")
   if #term_list == 0 then return '0/' .. #buffers end
   local bufid = term_list[1]
@@ -270,9 +268,9 @@ function Append(t, value)
   return t
 end
 
-feedback_info = {package_not_found = {}}
+feedback_info = { package_not_found = {} }
 vim.api.nvim_create_user_command("ShowInfo", function() Dump(feedback_info) end,
-                                 {})
+  {})
 package_loadded = {}
 function SafeRequire(name)
   if package_loadded[name] ~= nil then return package_loadded[name] end
@@ -298,15 +296,15 @@ end
 
 SafeRequireCallback("notify", function(notify) vim.notify = notify end)
 
-SafeRequire"nvim-treesitter.configs".setup {
+SafeRequire "nvim-treesitter.configs".setup {
   ensure_installed = "all",
   refactor = {
-    highlight_definitions = {enable = true},
-    highlight_current_scope = {enable = false},
-    smart_rename = {enable = true, keymaps = {smart_rename = "grr"}},
+    highlight_definitions = { enable = true },
+    highlight_current_scope = { enable = false },
+    smart_rename = { enable = true, keymaps = { smart_rename = "grr" } },
   },
-  autopairs = {enable = true},
-  iswap = {enable = true},
+  autopairs = { enable = true },
+  iswap = { enable = true },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -316,12 +314,12 @@ SafeRequire"nvim-treesitter.configs".setup {
       node_decremental = "_",
     },
   },
-  indent = {enable = false},
-  highlight = {enable = true, disable = {}},
-  rainbow = {enable = true, extended_mode = true, max_file_lines = 1000},
-  yati = {enable = true},
+  indent = { enable = false },
+  highlight = { enable = true, disable = {} },
+  rainbow = { enable = true, extended_mode = true, max_file_lines = 1000 },
+  yati = { enable = true },
 }
-SafeRequire'nvim-treesitter.configs'.setup {
+SafeRequire 'nvim-treesitter.configs'.setup {
   textobjects = {
     select = {
       enable = true,
@@ -349,24 +347,24 @@ SafeRequire'nvim-treesitter.configs'.setup {
     },
     swap = {
       enable = true,
-      swap_next = {["<leader>lsa"] = "@parameter.inner"},
-      swap_previous = {["<leader>lsA"] = "@parameter.inner"},
+      swap_next = { ["<leader>lsa"] = "@parameter.inner" },
+      swap_previous = { ["<leader>lsA"] = "@parameter.inner" },
     },
     move = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {["]m"] = "@function.outer", ["]]"] = "@class.outer"},
-      goto_next_end = {["]M"] = "@function.outer", ["]["] = "@class.outer"},
+      goto_next_start = { ["]m"] = "@function.outer", ["]]"] = "@class.outer" },
+      goto_next_end = { ["]M"] = "@function.outer", ["]["] = "@class.outer" },
       goto_previous_start = {
         ["[m"] = "@function.outer",
         ["[["] = "@class.outer",
       },
-      goto_previous_end = {["[M"] = "@function.outer", ["[]"] = "@class.outer"},
+      goto_previous_end = { ["[M"] = "@function.outer", ["[]"] = "@class.outer" },
     },
   },
 }
 
-SafeRequire"nvim-treesitter.configs".setup {
+SafeRequire "nvim-treesitter.configs".setup {
   playground = {
     enable = true,
     disable = {},
@@ -387,7 +385,7 @@ SafeRequire"nvim-treesitter.configs".setup {
   },
 }
 
-SafeRequire'nvim-treesitter.configs'.setup {
+SafeRequire 'nvim-treesitter.configs'.setup {
   refactor = {
     navigation = {
       enable = true,
@@ -436,27 +434,20 @@ SafeRequireCallback('lualine', function(lualine)
     return ret
   end
 
-  local function gpsLocation()
-    if IsModuleAvailable("nvim-gps") then
-      local gps = require("nvim-gps")
-      return gps.get_location()
-    end
-    return ''
-  end
   local function tab_num() return vim.fn.tabpagenr() end
 
   local floaterm_lualine = {
     sections = {
-      lualine_a = {'mode', tab_num},
-      lualine_b = {'branch', 'diff'},
-      lualine_c = {'hostname', floatermInfo, termTitle},
-      lualine_x = {'filetype'},
-      lualine_y = {'progress'},
-      lualine_z = {'location'},
+      lualine_a = { 'mode', tab_num },
+      lualine_b = { 'branch', 'diff' },
+      lualine_c = { 'hostname', floatermInfo, termTitle },
+      lualine_x = { 'filetype' },
+      lualine_y = { 'progress' },
+      lualine_z = { 'location' },
 
     },
-    inactive_sections = {lualine_c = {floatermInfo}, lualine_z = {'location'}},
-    filetypes = {'floaterm'},
+    inactive_sections = { lualine_c = { floatermInfo }, lualine_z = { 'location' } },
+    filetypes = { 'floaterm' },
   }
 
   local function getModified()
@@ -472,7 +463,7 @@ SafeRequireCallback('lualine', function(lualine)
   function GetCurrentDiagnostic()
     local bufnr = 0
     local line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
-    local opts = {["lnum"] = line_nr}
+    local opts = { ["lnum"] = line_nr }
 
     local line_diagnostics = vim.diagnostic.get(bufnr, opts)
     if vim.tbl_isempty(line_diagnostics) then return end
@@ -502,49 +493,47 @@ SafeRequireCallback('lualine', function(lualine)
     end
   end
 
-  local gps = SafeRequire("nvim-gps")
   lualine.setup {
     options = {
       theme = 'auto',
-      section_separators = {'', ''},
-      component_separators = {'', ''},
+      section_separators = { '', '' },
+      component_separators = { '', '' },
     },
     sections = {
-      lualine_a = {'mode', tab_num},
+      lualine_a = { 'mode', tab_num },
       lualine_b = {
-        {getModified, color = {fg = 'red'}}, 'diagnostics', 'branch', 'diff',
+        { getModified, color = { fg = 'red' } }, 'diagnostics', 'branch', 'diff',
       },
-      lualine_c = {{floatermInfo, cond = HasTerminal}, {'filename', path = 1}},
+      lualine_c = { { floatermInfo, cond = HasTerminal }, { 'filename', path = 1 } },
       lualine_x = {
         {
           require("noice").api.status.mode.get,
           cond = require("noice") ~= nil and
               require("noice").api.status.mode.has,
-          color = {fg = "#ff9e64"},
-        }, {gps.get_location, cond = gps ~= nil and gps.is_available},
-        'encoding', 'fileformat', 'filetype',
+          color = { fg = "#ff9e64" },
+        }, 'encoding', 'fileformat', 'filetype',
       },
-      lualine_y = {'progress'},
-      lualine_z = {'location'},
+      lualine_y = { 'progress' },
+      lualine_z = { 'location' },
     },
     inactive_sections = {
-      lualine_a = {'mode'},
-      lualine_b = {{getModified, color = {fg = 'red'}}},
-      lualine_c = {showFilePath},
-      lualine_x = {'location'},
+      lualine_a = { 'mode' },
+      lualine_b = { { getModified, color = { fg = 'red' } } },
+      lualine_c = { 'filename' },
+      lualine_x = { 'location' },
       lualine_y = {},
       lualine_z = {},
     },
-    extensions = {floaterm_lualine},
+    extensions = { floaterm_lualine },
   }
 end)
 
 SafeRequireCallback("hlslens", function(hlslens)
   hlslens.setup()
   api.nvim_command(
-      "noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>")
+    "noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>")
   api.nvim_command(
-      "noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>")
+    "noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>")
   api.nvim_command("noremap * *<Cmd>lua require('hlslens').start()<CR>")
   api.nvim_command("noremap # #<Cmd>lua require('hlslens').start()<CR>")
   api.nvim_command("noremap g* g*<Cmd>lua require('hlslens').start()<CR>")
@@ -556,7 +545,7 @@ SafeRequireCallback("which-key", function(wk)
 
   set_kekymap(nil, {
     g = {
-      r = {name = 'rename', r = 'rename'},
+      r = { name = 'rename', r = 'rename' },
       n = {
         name = 'navigation',
         d = 'goto_definition',
@@ -599,50 +588,50 @@ SafeRequireCallback("which-key", function(wk)
       },
     },
   })
-  set_kekymap({prefix = "<localleader>"},
-              {r = {name = "+Run"}, d = {name = "+Debug"}})
-  set_kekymap({prefix = "<leader>"}, {
-    z = {name = "+Grep/Find/FZF"},
-    t = {name = "+Tab"},
-    b = {name = "+Buffer/Bookmark", c = {"Copy file path"}},
-    c = {name = "+Comment/cd"},
-    q = {name = "+Quit"},
+  set_kekymap({ prefix = "<localleader>" },
+    { r = { name = "+Run" }, d = { name = "+Debug" } })
+  set_kekymap({ prefix = "<leader>" }, {
+    z = { name = "+Grep/Find/FZF" },
+    t = { name = "+Tab" },
+    b = { name = "+Buffer/Bookmark", c = { "Copy file path" } },
+    c = { name = "+Comment/cd" },
+    q = { name = "+Quit" },
     l = {
       name = "+Language",
-      d = {"declaration/definition"},
-      e = {"Leetcode"},
-      s = {"Doc/Workspace Symbol"},
-      r = {"Rename/Reference"},
-      t = {"Test"},
+      d = { "declaration/definition" },
+      e = { "Leetcode" },
+      s = { "Doc/Workspace Symbol" },
+      r = { "Rename/Reference" },
+      t = { "Test" },
     },
-    f = {name = "+File/esearch"},
-    s = {name = "+Status"},
-    m = {name = "+Mark", p = {'Previous mark'}, n = {'Next mark'}},
-    w = {name = "+Wiki/Window", q = {"wqa"}, s = {"split"}},
-    r = {name = "+Run/Test"},
-    o = {name = "+Fold"},
+    f = { name = "+File/esearch" },
+    s = { name = "+Status" },
+    m = { name = "+Mark", p = { 'Previous mark' }, n = { 'Next mark' } },
+    w = { name = "+Wiki/Window", q = { "wqa" }, s = { "split" } },
+    r = { name = "+Run/Test" },
+    o = { name = "+Fold" },
     e = {
       name = "+Edit",
-      c = {name = "copy", w = "full file"},
+      c = { name = "copy", w = "full file" },
       s = "setting/notes",
     },
     g = {
       name = "+Git/Paste",
-      d = {name = "git diff", l = {"git diff last commit"}},
-      r = {name = 'restore'},
-      l = {name = 'log'},
-      b = {name = 'blame/branch'},
-      a = {name = 'Agit/amend'},
+      d = { name = "git diff", l = { "git diff last commit" } },
+      r = { name = 'restore' },
+      l = { name = 'log' },
+      b = { name = 'blame/branch' },
+      a = { name = 'Agit/amend' },
     },
-    n = {name = "+Note"},
-    i = {name = "+Insert time/Info"},
-    a = {name = "+AnyJump/CocAction"},
-    v = {name = "+Gina"},
-    p = {name = "+Paste/Plugin"},
-    d = {name = "doc"},
+    n = { name = "+Note" },
+    i = { name = "+Insert time/Info" },
+    a = { name = "+AnyJump/CocAction" },
+    v = { name = "+Gina" },
+    p = { name = "+Paste/Plugin" },
+    d = { name = "doc" },
   })
 
-  wk.setup {plugins = {registers = true}}
+  wk.setup { plugins = { registers = true } }
 end)
 
 function MySort(buffer_a, buffer_b)
@@ -673,20 +662,20 @@ SafeRequire("mason").setup()
 
 SafeRequire("mason-lspconfig").setup({
   ensure_installed = vim.tbl_filter(function(server)
-    return not vim.tbl_contains({"dartls"}, server)
+    return not vim.tbl_contains({ "dartls" }, server)
   end, langservers),
   automatic_installation = true,
 })
 
-SafeRequire'marks'.setup {
+SafeRequire 'marks'.setup {
   default_mappings = true,
-  builtin_marks = {".", "<", ">", "^"},
+  builtin_marks = { ".", "<", ">", "^" },
   cyclic = true,
   force_write_shada = false,
   refresh_interval = 250,
-  excluded_filetypes = {'floaterm', ''},
-  sign_priority = {lower = 10, upper = 15, builtin = 8, bookmark = 20},
-  bookmark_0 = {sign = "⚑", virt_text = "hello world"},
+  excluded_filetypes = { 'floaterm', '' },
+  sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
+  bookmark_0 = { sign = "⚑", virt_text = "hello world" },
   mappings = {},
 }
 
@@ -722,9 +711,9 @@ SafeRequireCallback("cmp", function()
   local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and
-               vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col,
-                                                                          col)
-                   :match("%s") == nil
+        vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col,
+          col)
+        :match("%s") == nil
   end
   local luasnip = SafeRequire("luasnip")
   if not isEmptyTable(luasnip) then
@@ -736,7 +725,7 @@ SafeRequireCallback("cmp", function()
     toggle_key = '<a-f>lt',
     select_signature_key = '<a-f>ln',
     timer_interval = 800,
-    fix_pos=true,
+    fix_pos = true,
     floating_window = true,
     max_height = 9,
   })
@@ -761,7 +750,7 @@ SafeRequireCallback("cmp", function()
         else
           fallback()
         end
-      end, {"i", "s" --[[ "c" (to enable the mapping in command mode) ]] }),
+      end, { "i", "s" --[[ "c" (to enable the mapping in command mode) ]] }),
       ['<C-f>'] = cmp.mapping(function(fallback)
         if isEmptyTable(luasnip) then
           fallback()
@@ -772,37 +761,37 @@ SafeRequireCallback("cmp", function()
         else
           fallback()
         end
-      end, {"i", "s" --[[ "c" (to enable the mapping in command mode) ]] }),
+      end, { "i", "s" --[[ "c" (to enable the mapping in command mode) ]] }),
       ['<m-/>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({select = false}), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
-      {name = 'nvim_lsp', keyword_length = 2}, {name = 'path'},
+      { name = 'nvim_lsp', keyword_length = 2 }, { name = 'path' },
       -- { name = 'luasnip' }, -- For luasnip users.
-      {name = 'copilot'}, {name = 'cmp_tabnine', keyword_length = 3}, {
+      { name = 'copilot' }, { name = 'cmp_tabnine', keyword_length = 3 }, {
         name = 'rg',
         max_item_count = 10,
         keyword_length = 5,
-        option = {additional_arguments = "--max-depth 5"},
-      }, {name = 'fish'}, {name = 'buffer', keyword_length = 4},
+        option = { additional_arguments = "--max-depth 5" },
+      }, { name = 'fish' }, { name = 'buffer', keyword_length = 4 },
     }),
-    formatting = {format = custom_format},
+    formatting = { format = custom_format },
   })
 
   -- Set configuration for specific filetype.
   cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
-      {name = 'cmp_git'}, -- You can specify the `cmp_git` source if you were installed it.
-    }, {{name = 'buffer'}}),
+      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    }, { { name = 'buffer' } }),
   })
 
   local search_sources = {
-    {name = 'nvim_lsp_document_symbol'}, {name = 'buffer'},
+    { name = 'nvim_lsp_document_symbol' }, { name = 'buffer' },
   }
   local function setup_cmdline(cmd_type, sources)
     cmp.setup.cmdline(cmd_type, {
-      formatting = {format = custom_format},
+      formatting = { format = custom_format },
       mapping = cmp.mapping.preset.cmdline({
         ['<C-n>'] = {
           c = function(fallback)
@@ -824,28 +813,28 @@ SafeRequireCallback("cmp", function()
         },
         ['<CR>'] = function(fallback) fallback() end,
       }),
-      view = {entries = {name = 'custom', selection_order = 'near_cursor'}},
+      view = { entries = { name = 'custom', selection_order = 'near_cursor' } },
       sources = sources,
     })
   end
 
   setup_cmdline(':', {
-    {name = 'cmdline', group_index = 1},
-    {name = 'cmdline_history', group_index = 2, max_item_count = 5},
+    { name = 'cmdline', group_index = 1 },
+    { name = 'cmdline_history', group_index = 2, max_item_count = 5 },
   })
   setup_cmdline('/', search_sources)
   setup_cmdline('?', search_sources)
 
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
-                                                                        .protocol
-                                                                        .make_client_capabilities())
+    .protocol
+    .make_client_capabilities())
   capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
     lineFoldingOnly = true,
   }
 
-  local lsp_on_attach = {sqls = SafeRequire('sqls').on_attach}
+  local lsp_on_attach = { sqls = SafeRequire('sqls').on_attach }
 
   -- Use a loop to conveniently call 'setup' on multiple servers and
   -- map buffer local keybindings when the language server attaches
@@ -864,13 +853,13 @@ SafeRequireCallback("cmp", function()
     end
 
     local lspconfig_setup_opts = {
-      init_options = {documentFormatting = true},
+      init_options = { documentFormatting = true },
       capabilities = capabilities,
       on_attach = on_attach,
-      flags = {debounce_text_changes = 150},
+      flags = { debounce_text_changes = 150 },
       root_dir = function(fname)
         return SafeRequire('lspconfig').util.find_git_ancestor(fname) or
-                   vim.fn.getcwd()
+            vim.fn.getcwd()
       end,
       settings = LSP_CONFIG["settings"][lsp] or {},
       autostart = not vim.tbl_contains(lsp_autostart_disabled, lsp),
@@ -879,8 +868,8 @@ SafeRequireCallback("cmp", function()
     for _, v in pairs(vim.tbl_keys(LSP_CONFIG)) do
       if LSP_CONFIG[v][lsp] ~= nil then
         lspconfig_setup_opts[v] = vim.tbl_extend("force",
-                                                 lspconfig_setup_opts[v] or {},
-                                                 LSP_CONFIG[v][lsp])
+          lspconfig_setup_opts[v] or {},
+          LSP_CONFIG[v][lsp])
       end
     end
     require('lspconfig')[lsp].setup(lspconfig_setup_opts)
@@ -936,7 +925,7 @@ local function getWorkspaceVimPath(type)
   local workspace_path = vim.g.MYVIMRC_DIR .. '/workspaces/'
   os.execute('mkdir -p ' .. workspace_path)
   local workspaceConfigPath = workspace_path .. convertName(vim.fn.getcwd()) ..
-                                  '.' .. type
+      '.' .. type
   return workspaceConfigPath
 end
 
@@ -1018,7 +1007,7 @@ function DelaySetup2()
   end
 
   SafeRequire("noice").setup({
-    health = {checker = false},
+    health = { checker = false },
     messages = {
       enabled = true, -- enables the Noice messages UI
       view = "mini", -- default view for messages
@@ -1027,11 +1016,11 @@ function DelaySetup2()
       view_history = "messages", -- view for :messages
       view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
     },
-    notify = {enabled = false},
+    notify = { enabled = false },
     lsp = {
-      hover = {enabled = false},
-      signature = {enabled = false},
-      message = {enabled = false},
+      hover = { enabled = false },
+      signature = { enabled = false },
+      message = { enabled = false },
     },
   })
   SafeRequire("modicator").setup()
@@ -1039,7 +1028,7 @@ function DelaySetup2()
     dap.adapters.dart = {
       type = "executable",
       command = "dart",
-      args = {"debug_adapter"},
+      args = { "debug_adapter" },
     }
     dap.configurations.dart = {
       {
@@ -1094,7 +1083,7 @@ function DelaySetup2()
       if win_info.height < 2 then return false end
       print(vim.bo[burnr].filetype)
       if #vim.bo[burnr].filetype == 0 then return false end
-      if vim.tbl_contains({'fidget', 'notify'}, vim.bo[burnr].filetype) then
+      if vim.tbl_contains({ 'fidget', 'notify' }, vim.bo[burnr].filetype) then
         return false
       end
       return true
@@ -1172,14 +1161,14 @@ function DelaySetup2()
 
   SafeRequireCallback("telescope", function(telescope)
     telescope.setup({
-      pickers = {buffers = {sort_lastused = true}},
+      pickers = { buffers = { sort_lastused = true } },
       defaults = {
         mappings = {
           i = {
             ["<esc>"] = require('telescope.actions').close,
             ["<cr>"] = fzf_multi_select,
           },
-          n = {["<cr>"] = fzf_multi_select},
+          n = { ["<cr>"] = fzf_multi_select },
         },
       },
     })
@@ -1207,7 +1196,15 @@ function DelaySetup1()
       },
     },
   })
-  SafeRequireCallback('lspsaga', function(saga) saga.init_lsp_saga() end)
+  SafeRequire('lspsaga').setup({
+    symbol_in_winbar = {
+      enable = true,
+      separator = '->',
+      hide_keyword = true,
+      show_file = true,
+      folder_level = 1,
+    },
+  })
   SafeRequire('fzf_lsp').setup()
   SafeRequireCallback("ufo", function(ufo)
     vim.wo.foldcolumn = '0'
@@ -1217,8 +1214,7 @@ function DelaySetup1()
   end)
   SafeRequire("cybu").setup()
   SafeRequire("fidget").setup()
-  SafeRequire("nvim-gps").setup {}
-  SafeRequire("focus").setup({signcolumn = false})
+  SafeRequire("focus").setup({ signcolumn = false })
 
   SafeRequireCallback('fzf-lua', function(fzf)
     local disable_icons = {
@@ -1230,7 +1226,7 @@ function DelaySetup1()
       files = disable_icons,
       buffers = disable_icons,
       grep = disable_icons,
-      git = {files = disable_icons},
+      git = { files = disable_icons },
     })
   end)
   vim.cmd('FzfLua register_ui_select')
@@ -1257,24 +1253,24 @@ function RunPreviousCommandFunc()
   local mode = vim.fn.mode()
   if mode == 't' then
     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true, true),
-                    't')
+      't')
     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true, true),
-                    't')
+      't')
   elseif mode == 'n' then
     vim.cmd("FloatermShow")
     vim.fn.feedkeys('i', 't')
     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true, true),
-                    't')
+      't')
     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true, true),
-                    't')
+      't')
   elseif mode == 'i' then
     vim.cmd("stopinsert")
     vim.cmd("FloatermShow")
     vim.fn.feedkeys('i', 't')
     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true, true),
-                    't')
+      't')
     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true, true),
-                    't')
+      't')
   end
 end
 
@@ -1283,7 +1279,7 @@ function LspFormat()
   if api_level == 9 then
     vim.lsp.buf.formatting()
   elseif api_level >= 10 then
-    vim.lsp.buf.format {async = true}
+    vim.lsp.buf.format { async = true }
   end
 end
 
@@ -1295,7 +1291,7 @@ end
 
 function NextItem(offset)
   local function inner()
-    if vim.fn.getloclist(0, {winid = 0}).winid ~= 0 then
+    if vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 then
       if offset > 0 then
         vim.cmd("ln")
       else
@@ -1383,7 +1379,7 @@ SafeRequire('cokeline').setup({
   },
   sidebar = {
     filetype = 'neo-tree',
-    components = {{text = '  neo-tree', style = 'bold'}},
+    components = { { text = '  neo-tree', style = 'bold' } },
   },
 })
 
@@ -1393,9 +1389,9 @@ function SSH(command, hosts)
   for _, v in pairs(hosts) do
     local job = Job:new({
       command = 'ssh',
-      args = {'v1', '-t', command},
+      args = { 'v1', '-t', command },
       cwd = '/usr/bin',
-      env = {['a'] = 'b'},
+      env = { ['a'] = 'b' },
     })
     job:start()
     job:after_success(function()
@@ -1412,7 +1408,7 @@ function RunInBuffer(command, filename)
   local Job = require 'plenary.job'
   local job = Job:new({
     command = 'bash',
-    args = {'-c', command},
+    args = { '-c', command },
     on_exit = function(j, _)
       vim.defer_fn(function()
         vim.cmd('enew')
@@ -1455,7 +1451,7 @@ function RunBuffer(opts)
   local result = vim.fn.searchpos('--- output ---')
   local bufID = vim.fn.bufnr()
   vim.api.nvim_buf_set_name(bufID, command .. '-' ..
-                                os.date('%Y-%m-%d-%H-%M-%S') .. '.log')
+    os.date('%Y-%m-%d-%H-%M-%S') .. '.log')
   if result[1] ~= 0 then
     vim.defer_fn(function()
       vim.cmd((result[1]) .. ',$d')
@@ -1467,7 +1463,7 @@ function RunBuffer(opts)
   local Job = require 'plenary.job'
   local job = Job:new({
     command = 'bash',
-    args = {'-c', command},
+    args = { '-c', command },
     on_stderr = function(_, data)
       vim.defer_fn(function() vim.fn.appendbufline(bufID, '$', data) end, 100)
     end,
@@ -1478,7 +1474,7 @@ function RunBuffer(opts)
       vim.defer_fn(function()
         result = vim.fn.searchpos('--- output ---', 'n')
         vim.fn.setbufline(bufID, result[1],
-                          string.format('--- output --- [%d]', exitcode))
+          string.format('--- output --- [%d]', exitcode))
       end, 100)
     end,
   })
@@ -1486,14 +1482,14 @@ function RunBuffer(opts)
   job:start()
 end
 
-SafeRequire('due_nvim').setup {use_clock_time = true}
+SafeRequire('due_nvim').setup { use_clock_time = true }
 
 SafeRequire('nvim-lightbulb').setup({})
-SafeRequire("symbols-outline").setup({auto_preview = true, width = 20})
+SafeRequire("symbols-outline").setup({ auto_preview = true, width = 20 })
 SafeRequire('git-conflict').setup()
 
 function KillAndRerunTerm(name, command, opts)
-  if opts == nil then opts = {notify = "", autoclose = false, shell = true} end
+  if opts == nil then opts = { notify = "", autoclose = false, shell = true } end
   local notify_command = ""
   if opts.notify ~= "" or opts.notify ~= nil then
     opts.shell = true
@@ -1507,11 +1503,11 @@ function KillAndRerunTerm(name, command, opts)
   end
   if opts.shell then
     vim.cmd(string.format(
-                'FloatermNew --autoclose=%d --name=%s sh -c "%s%s;exit 0"',
-                autoclose, name, command, notify_command))
+      'FloatermNew --autoclose=%d --name=%s sh -c "%s%s;exit 0"',
+      autoclose, name, command, notify_command))
   else
     vim.cmd(string.format('FloatermNew --autoclose=%d --name=%s %s', autoclose,
-                          name, command, notify_command))
+      name, command, notify_command))
   end
 end
 
@@ -1533,26 +1529,26 @@ function UpdatePlug()
   local scan = require 'plenary.scandir'
   local Job = require 'plenary.job'
   local all_dir = scan.scan_dir(vim.fn.expand("$HOME/.config/nvim/plugged/"),
-                                {hidden = false, depth = 1, only_dirs = true})
+    { hidden = false, depth = 1, only_dirs = true })
   local total = #all_dir
   local count = 0
 
   for _, v in pairs(all_dir) do
     Job:new({
       command = 'bash',
-      args = {'-c', string.format("cd %s;git pull;git gc --prune=all", v)},
+      args = { '-c', string.format("cd %s;git pull;git gc --prune=all", v) },
       on_exit = function(j, return_val)
         if return_val ~= 0 then
           SafeRequireCallback("notify", function(notify)
             notify('pull failed,' .. v, vim.log.levels.ERROR,
-                   {title = 'error to update plugin', hide_from_history = true})
+              { title = 'error to update plugin', hide_from_history = true })
           end)
         end
         count = count + 1
         if count % 50 == 0 or count == total then
           SafeRequireCallback("notify", function(notify)
             notify(count .. '-' .. total, vim.log.levels.INFO,
-                   {title = 'update', hide_from_history = true})
+              { title = 'update', hide_from_history = true })
           end)
         end
       end,
@@ -1564,7 +1560,7 @@ local symbolLock = false
 function SymbolToggle()
   if symbolLock then return end
   symbolLock = true
-  if #ListCurrentWindow({filetype = "Outline"}) > 0 then
+  if #ListCurrentWindow({ filetype = "Outline" }) > 0 then
     vim.cmd("SymbolsOutlineClose")
   else
     vim.cmd("SymbolsOutlineOpen")
@@ -1572,9 +1568,9 @@ function SymbolToggle()
   vim.defer_fn(function()
     symbolLock = false
     vim.wait(300, function()
-      return #ListCurrentWindow({filetype = "Outline"}) > 0
+      return #ListCurrentWindow({ filetype = "Outline" }) > 0
     end, 1000)
-    for _, v in ipairs(ListCurrentWindow({filetype = "Outline"})) do
+    for _, v in ipairs(ListCurrentWindow({ filetype = "Outline" })) do
       pcall(vim.api.nvim_win_set_option, v, "foldcolumn", "0")
       pcall(vim.api.nvim_win_set_option, v, "signcolumn", "no")
     end
