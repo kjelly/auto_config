@@ -1,82 +1,176 @@
 ---
-- copy: src="i3-config" dest="~/"
-- command: "rm -rf ~/.i3"
-  ignore_errors: True
-- command: "mv ~/i3-config ~/.i3"
+- name: Copy i3-config
+  ansible.builtin.copy:
+    src: "i3-config"
+    dest: "~/"
+    mode: "0755"
 
-- file: path=~/.i3/{{ item }} mode=u+x
+- name: Remove ~/.i3
+  ansible.builtin.file:
+    path: "~/.i3"
+    state: "absent"
+  ignore_errors: true
+
+- name: Copy i3
+  ansible.builtin.command: "mv ~/i3-config ~/.i3"
+
+- name: Copy files
+  ansible.builtin.file:
+    path: ~/.i3/{{ item }}
+    mode: u+x
   with_items:
-      - auto_config_resolution.py
-      - focus_screen.py
-      - go_to_window.py
-      - i3.py
-      - lib.py
-      - move_container_left.py
-      - move_container.py
-      - move_container_right.py
-      - move_workspace_left.py
-      - move_workspace_right.py
-      - quick_switch.py
-      - show_output_workspace.py
-      - show_tiling_window_from_scratchpad.py
-      - show_weather.py
-      - swap.py
-      - swap_workspace_with_current.py
-      - switch.py
-      - dual_screen.sh
-      - rename_worksapce.sh
-      - run_xfce4_panel.sh
-      - swap_workspace.sh
-      - i3exit
-      - new_screen_in.py
-      - quick_insert.py
-      - choose_window_in_scratchpad.py
-      - go_to_mark.py
-      - run_lxpanel.sh
-      - new_quick_switch.py
-      - name_workspace.py
-      - i3_switch_workspace.sh
-      - create_workspace.py
-      - noteit.py
-      - show_workspace_info.py
-      - insert_from_fish_history.py
+    - auto_config_resolution.py
+    - focus_screen.py
+    - go_to_window.py
+    - i3.py
+    - lib.py
+    - move_container_left.py
+    - move_container.py
+    - move_container_right.py
+    - move_workspace_left.py
+    - move_workspace_right.py
+    - quick_switch.py
+    - show_output_workspace.py
+    - show_tiling_window_from_scratchpad.py
+    - show_weather.py
+    - swap.py
+    - swap_workspace_with_current.py
+    - switch.py
+    - dual_screen.sh
+    - rename_worksapce.sh
+    - run_xfce4_panel.sh
+    - swap_workspace.sh
+    - i3exit
+    - new_screen_in.py
+    - quick_insert.py
+    - choose_window_in_scratchpad.py
+    - go_to_mark.py
+    - run_lxpanel.sh
+    - new_quick_switch.py
+    - name_workspace.py
+    - i3_switch_workspace.sh
+    - create_workspace.py
+    - noteit.py
+    - show_workspace_info.py
+    - insert_from_fish_history.py
+    - bright.sh
 
-- file: path="~/.config/lxterminal" state=directory mode=0755
+- name: Create directory
+  ansible.builtin.file:
+    path: "~/.config/lxterminal"
+    state: directory
+    mode: 0755
 
-- copy: src="lxterminal.conf" dest="~/.config/lxterminal/"
+- name: Copy lxterminal.conf
+  ansible.builtin.copy:
+    src: "lxterminal.conf"
+    dest: "~/.config/lxterminal/"
+    mode: 0600
 
-- copy: src="imwheelrc" dest="~/.imwheelrc"
+- name: Create ~/.imwheelrc
+  ansible.builtin.copy:
+    src: "imwheelrc"
+    dest: "~/.imwheelrc"
+    mode: 0600
 
-- file: path="~/.config" state=directory mode=0755
+- name: Create ~/.config
+  ansible.builtin.file:
+    path: "~/.config"
+    state: directory
+    mode: 0755
 
-- file: path="~/.config/lxpanel" state=directory mode=0755
+- name: Copy directory
+  ansible.builtin.file:
+    path: "~/.config/lxpanel"
+    state: directory
+    mode: 0755
 
-- copy: src="jelly" dest="~/.config/lxpanel/"
+- name: Copy lxpanel
+  ansible.builtin.copy:
+    src: "jelly"
+    dest: "~/.config/lxpanel/"
+    mode: 0600
 
-- file: src=~/.i3/i3.py dest=~/.i3/modules/i3.py state=link
+- name: Copy i3.py
+  ansible.builtin.file:
+    src: ~/.i3/i3.py
+    dest: ~/.i3/modules/i3.py
+    state: link
 
-- file: path="~/.config/xfce4/terminal" state=directory mode=0755
+- name: Copy terminal
+  ansible.builtin.file:
+    path: "~/.config/xfce4/terminal"
+    state: directory
+    mode: 0755
 
-- copy: src="terminalrc" dest="~/.config/xfce4/terminal/"
+- name: Copy terminalrc
+  ansible.builtin.copy:
+    src: "terminalrc"
+    dest: "~/.config/xfce4/terminal/"
+    mode: "0600"
 
-- file: path="~/bin" state=directory mode=0755
+- name: Create ~/bin/
+  ansible.builtin.file:
+    path: "~/bin"
+    state: directory
+    mode: 0755
 
-- copy: src="ir" dest="~/bin/ir" mode=0755
+- name: Copy ir
+  ansible.builtin.copy:
+    src: "ir"
+    dest: "~/bin/ir"
+    mode: 0755
 
-- copy: src="ivi" dest="~/bin/ivi" mode=0755
+- name: Copy ivi
+  ansible.builtin.copy:
+    src: "ivi"
+    dest: "~/bin/ivi"
+    mode: 0755
 
-- copy: src="search.py" dest="~/bin/search.py" mode=0755
+- name: Copy search.py
+  ansible.builtin.copy:
+    src: "search.py"
+    dest: "~/bin/search.py"
+    mode: 0755
 
-- copy: src="rofi-dirs.py" dest="~/bin/rofi-dirs" mode=0755
+- name: Copy rofi-dir
+  ansible.builtin.copy:
+    src: "rofi-dirs.py"
+    dest: "~/bin/rofi-dirs"
+    mode: 0755
 
-- copy: src="bookmarks.py" dest="~/bin/bookmarks.py" mode=0755
+- name: Copy bookmarks.py
+  ansible.builtin.copy:
+    src: "bookmarks.py"
+    dest: "~/bin/bookmarks.py"
+    mode: 0755
 
-- copy: src="xinputrc" dest="~/.xinputrc"
+- name: Copy xinputrc
+  ansible.builtin.copy:
+    src: "xinputrc"
+    dest: "~/.xinputrc"
+    mode: "0600"
 
-- file: path="~/.config/fcitx/" state=directory mode=0755
+- name: Create directory
+  ansible.builtin.file:
+    path: "~/.config/fcitx/"
+    state: directory
+    mode: 0755
 
-- copy: src="fcitx_config" dest="~/.config/fcitx/config"
+- name: Copy fcitx_config
+  ansible.builtin.copy:
+    src: "fcitx_config"
+    dest: "~/.config/fcitx/config"
+    mode: "0600"
 
-- file: path="~/.config/kupfer/" state=directory mode=0755
+- name: Create directory
+  ansible.builtin.file:
+    path: "~/.config/kupfer/"
+    state: directory
+    mode: 0755
 
-- copy: src="kupfer.cfg" dest="~/.config/kupfer/kupfer.cfg"
+- name: Copy kupfer.cfg
+  ansible.builtin.copy:
+    src: "kupfer.cfg"
+    dest: "~/.config/kupfer/kupfer.cfg"
+    mode: "0600"
