@@ -11,10 +11,6 @@ function command_run_time
     echo "😄"
 end
 
-function _is_git_dirty
-    echo (command git status -s --ignore-submodules=dirty ^/dev/null)
-end
-
 function fish_prompt
     set -l last_status $status
     set -l magenta (set_color magenta)
@@ -51,14 +47,8 @@ function fish_prompt
 
 
     # Show git branch and dirty state
-    if [ (_git_branch_name) ]
-        set -l git_branch (_git_branch_name)
-        if [ (_is_git_dirty) ]
-            echo -n -s $magenta "$git_branch " $red " 🔧 "
-        else
-            echo -n -s $magenta "$git_branch " "✅ "
-        end
-    end
+    fish_git_prompt
+
 
     if test $last_status -ne 0
       set last_status_color $red

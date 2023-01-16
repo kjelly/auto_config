@@ -8,15 +8,7 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
-if filereadable('poetry.lock')
-    let poetry_env = trim(system("poetry env info -p"))
-    let g:python3_host_prog= poetry_env . '/bin/python3'
-    let $PATH = poetry_env . '/bin/:' . $PATH
-elseif exists("$VIRTUAL_ENV")
-    let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
-else
-    let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
-endif
+let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
 
 " Specify the behavior when switching between buffers
 try
