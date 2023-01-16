@@ -33,10 +33,10 @@ nnoremap <silent> <leader>zr <cmd>FzfLua live_grep<cr>
 xmap ga <Plug>(EasyAlign)
 
 nnoremap <silent> <leader>gag <cmd>Agit<CR>
-nnoremap <silent> <leader>gam <cmd>Git commit --amend<cr>
+nnoremap <silent> <leader>gam <cmd>FloatermNew git commit --amend<CR>
 nnoremap <silent> <leader>gbl <cmd>Git blame<CR>
 nnoremap <silent> <leader>gbr <cmd>FzfLua git_branches<cr>
-nnoremap <silent> <leader>gc <cmd>Git commit<CR>
+nnoremap <silent> <leader>gc <cmd>FloatermNew git commit<CR>
 nnoremap <silent> <leader>gdc <cmd>Git diff %<CR>
 nnoremap <silent> <leader>gdi <cmd>Git diff<CR>
 nnoremap <silent> <leader>gdl <cmd>Git diff @~..@<CR>
