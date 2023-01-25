@@ -1016,7 +1016,7 @@ function RunBashCallback(command, callback)
 end
 
 function UpdateEnv()
-  if vim.fn.filereadable('poetry.lock') then
+  if vim.fn.filereadable('poetry.lock') > 0 then
     RunBashCallback("poetry run bash -c 'echo $VIRTUAL_ENV' 2>/dev/null",
       function(data, exitcode)
         vim.env.VIRTUAL_ENV = data[1]
