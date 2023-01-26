@@ -1,10 +1,10 @@
 ---
 - name: Install package
   ansible.builtin.apt:
-    lname: "{{ item }}"
+    name: "{{ item }}"
     state: present
   with_items:
-      - tmux
+    - tmux
   become: true
   when: ansible_distribution == 'Ubuntu'
 
@@ -13,6 +13,6 @@
     name: "{{ item }}"
     state: "present"
   with_items:
-      - tmux
+    - tmux
   become: true
   when: ansible_distribution == 'Fedora'
