@@ -39,3 +39,4 @@
     regexp: "bind \\\\et fzf-file-widget"
     insertafter: "bind \\\\ct fzf-file-widget\n"
     line: "  bind \\et fzf-file-widget"
+  ignore_errors: true

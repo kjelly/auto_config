@@ -134,6 +134,7 @@ nnoremap <silent> <leader>st :Switch<cr>
 nnoremap <silent> <leader>sk :DisableTmuxKey<cr>
 nnoremap <silent> <leader>so :TSContextToggle<cr>
 nnoremap <silent> <leader>sg :set guicursor=<cr>
+nnoremap <silent> <expr> <leader>sb &background=='light' ? ":set background=dark<cr>" : ":set background=light<cr>"
 
 nnoremap <silent> <leader>br :redraw<cr>
 

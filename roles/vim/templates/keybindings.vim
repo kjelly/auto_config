@@ -173,9 +173,9 @@ inoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("FzfLua buffers")<cr>
 nnoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("FzfLua buffers")<cr>
 tnoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("FzfLua buffers")<cr>
 
-inoremap <m-O> <cmd>Telescope resume<cr>
-nnoremap <m-O> <cmd>Telescope resume<cr>
-tnoremap <m-O> <cmd>Telescope resume<cr>
+inoremap <m-O> <cmd>lua FzfBuffer()<cr>
+nnoremap <m-O> <cmd>lua FzfBuffer()<cr>
+tnoremap <m-O> <cmd>lua FzfBuffer()<cr>
 
 inoremap <m-y> <cmd>lua GoToMainWindowAndRunCommand("FzfLua jumps")<cr>
 nnoremap <m-y> <cmd>lua GoToMainWindowAndRunCommand("FzfLua jumps")<cr>
