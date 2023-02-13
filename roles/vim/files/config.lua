@@ -112,7 +112,7 @@ end
 
 LSP_CONFIG = DefaultTable({}, {
   settings = {
-    sumneko_lua = {
+    lua_ls = {
       Lua = {
         runtime = { version = 'LuaJIT' },
         diagnostics = { globals = { 'vim' } },
@@ -162,7 +162,7 @@ local disabled_lsp_caps = {
 local langservers = {
   'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'efm', 'emmet_ls',
   'gopls', 'graphql', 'html', 'jsonls', 'marksman', 'pylsp', 'pyright',
-  'rust_analyzer', 'sqlls', 'sqls', 'sumneko_lua', 'terraformls', 'tsserver',
+  'rust_analyzer', 'sqlls', 'sqls', 'lua_ls', 'terraformls', 'tsserver',
   'vimls', 'yamlls', 'ruff_lsp',
 }
 

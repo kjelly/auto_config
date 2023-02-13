@@ -87,11 +87,7 @@ function! EditTodayNote() abort
   endif
 endfunction
 
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
+set background=light
 
 if executable("fish") == 1
   set shell=fish
@@ -686,7 +682,7 @@ vnoremap Y "+y
 exec 'luafile' g:MYVIMRC_DIR . '/config.lua'
 {% endif %}
 silent! source ~/.vim_custom.vim
-colorscheme gruvbox
+colorscheme tokyonight-day
 
 " hightlight
 highlight! link HopNextKey Error
