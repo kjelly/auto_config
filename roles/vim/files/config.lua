@@ -407,9 +407,9 @@ SafeRequire'nvim-treesitter.configs'.setup {
 
 function HasTerminal()
   --- Get any terminal including hidding.
-  local wininfoTable = vim.fn.getwininfo()
-  for _, value in pairs(wininfoTable) do
-    if value.terminal > 0 then return true end
+  local buffers = api.nvim_eval("floaterm#buflist#gather()")
+  if #buffers > 0 then
+    return true
   end
   return false
 end
