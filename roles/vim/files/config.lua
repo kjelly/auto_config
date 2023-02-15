@@ -1004,9 +1004,9 @@ function TermToggle()
   end
   if vim.bo.filetype ~= 'floaterm' then GotoMainWindow() end
   if HasTerminal() then
-    vim.cmd("FloatermToggle")
+    vim.cmd("FloatermShow")
   else
-    NewTerminal()
+    vim.cmd("FloatermToggle")
   end
 end
 
