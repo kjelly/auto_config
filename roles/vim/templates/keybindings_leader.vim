@@ -121,6 +121,7 @@ function ToggleIndentLine()
   endif
 endfunction
 
+nnoremap <silent> <leader>sd <cmd>lua ToggleDark()<cr>
 nnoremap <silent> <leader>sn :set nu!<cr>
 nnoremap <silent> <leader>sw :set wrap!<cr>
 nnoremap <silent> <leader>sp :set paste!<cr>
