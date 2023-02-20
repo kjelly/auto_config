@@ -1102,6 +1102,11 @@ function UpdateEnv()
 end
 
 function DelaySetup2()
+  SafeRequireCallback("lsp_lines", function(lines)
+    lines.setup()
+    vim.diagnostic.config({ virtual_text = false })
+  end)
+
   UpdateEnv()
   SafeRequire("prettier").setup({
     bin = 'prettier', -- or `'prettierd'` (v0.22+)
@@ -1115,23 +1120,26 @@ function DelaySetup2()
     pcall(vim.api.nvim_command, 'source ' .. WorkspaceVimPath)
   end
 
-  SafeRequire("noice").setup({
-    health = { checker = false },
-    messages = {
-      enabled = true, -- enables the Noice messages UI
-      view = "mini", -- default view for messages
-      view_error = "notify", -- view for errors
-      view_warn = "mini", -- view for warnings
-      view_history = "messages", -- view for :messages
-      view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
-    },
-    notify = { enabled = false },
-    lsp = {
-      hover = { enabled = false },
-      signature = { enabled = false },
-      message = { enabled = false },
-    },
-  })
+  if vim.fn.has("nvim-0.9.0") then
+    SafeRequire("noice").setup({
+      health = { checker = false },
+      messages = {
+        enabled = true, -- enables the Noice messages UI
+        view = "mini", -- default view for messages
+        view_error = "notify", -- view for errors
+        view_warn = "mini", -- view for warnings
+        view_history = "messages", -- view for :messages
+        view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+      },
+      notify = { enabled = false },
+      lsp = {
+        hover = { enabled = false },
+        signature = { enabled = false },
+        message = { enabled = false },
+      },
+    })
+  end
+
   SafeRequire("modicator").setup()
   SafeRequireCallback("dap", function(dap)
     dap.adapters.dart = {

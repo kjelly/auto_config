@@ -165,6 +165,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'https://github.com/nvim-neo-tree/neo-tree.nvim', {'branch': 'v2.x'}
 Plug 'https://github.com/folke/noice.nvim'
+Plug 'https://github.com/miversen33/netman.nvim/', {'branch': 'v1.1'}
 
 " Change cursor based on mode
 Plug 'https://github.com/melkster/modicator.nvim'
@@ -204,7 +205,6 @@ Plug 'rcarriga/nvim-notify'
 Plug 'https://github.com/Chaitanyabsprip/present.nvim'
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 
-" Plug 'github/copilot.vim'
 Plug 'jdhao/better-escape.vim'
 
 Plug 'williamboman/mason.nvim'
@@ -343,7 +343,6 @@ if has('python3')
   Plug 'vim-vdebug/vdebug', { 'on': 'VdebugStart'}
 endif
 
-Plug 'https://github.com/github/copilot.vim'
 Plug 'https://github.com/zbirenbaum/copilot.lua'
 Plug 'https://github.com/zbirenbaum/copilot-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
