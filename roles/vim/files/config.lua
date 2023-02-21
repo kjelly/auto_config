@@ -747,6 +747,8 @@ SafeRequireCallback("cmp", function()
           "^%s*$") == nil
   end
 
+  SafeRequire('').configure({ filetypes_denylist = { 'dirvish', 'fugitive', 'floaterm' } })
+
   cmp.setup({
     snippet = {
       -- REQUIRED - you must specify a snippet engine

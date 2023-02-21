@@ -685,7 +685,7 @@ vnoremap Y "+y
 exec 'luafile' g:MYVIMRC_DIR . '/config.lua'
 {% endif %}
 silent! source ~/.vim_custom.vim
-colorscheme tokyonight-day
+colorscheme gruvbox
 
 " hightlight
 highlight! link HopNextKey Error
