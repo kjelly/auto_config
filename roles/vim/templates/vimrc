@@ -115,6 +115,7 @@ silent! call plug#begin('~/.config/nvim/plugged')
 {% else %}
 silent! call plug#begin('~/.vim/plugged')
 {% endif %}
+Plug 'https://github.com/lewis6991/impatient.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate all'}
 Plug 'https://github.com/danymat/neogen'
 Plug 'https://github.com/p00f/nvim-ts-rainbow'

@@ -294,6 +294,8 @@ function SafeRequireCallback(name, func)
   end
 end
 
+SafeRequire("impatient")
+
 SafeRequireCallback("notify", function(notify)
   vim.notify = notify
   notify.setup({ background_colour = "#F000000" })
