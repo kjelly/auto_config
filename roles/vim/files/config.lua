@@ -1124,7 +1124,7 @@ function DelaySetup2()
     pcall(vim.api.nvim_command, 'source ' .. WorkspaceVimPath)
   end
 
-  if vim.fn.has("nvim-0.9.0") then
+  if vim.fn.has("nvim-0.9.0") == 1 then
     SafeRequire("noice").setup({
       health = { checker = false },
       messages = {
