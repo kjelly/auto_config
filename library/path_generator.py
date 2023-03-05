@@ -38,7 +38,8 @@ def main():
                  '/usr/lib/dart/bin/', '~/.cargo/bin/', '~/sbt/bin',
                  '~/.pub-cache/bin', '~/dart-sdk/bin', '~/activator/bin/',
                  '~/google-cloud-sdk/bin/', '~/kotlinc/bin/', '~/.rvm/bin',
-                 '/snap/bin/', '~/flutter/bin/', '~/.local/bin', '~/flutter/bin/cache/dart-sdk/bin',
+                 '/snap/bin/', '~/flutter/bin/', '~/.local/bin', '~/.deno/bin/',
+                 '~/flutter/bin/cache/dart-sdk/bin',
                  '~/nfs/bin/', '~/.pub-cache/bin', '~/anaconda3/bin/']
 
     fuzzy_path = ['~/node*/bin', '~/.asdf/installs/python/*/bin', '~/pypy*/bin/']
