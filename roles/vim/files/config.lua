@@ -329,25 +329,25 @@ SafeRequire 'nvim-treesitter.configs'.setup {
     select = {
       enable = true,
       keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-        ["ao"] = "@block.outer",
-        ["io"] = "@block.inner",
-        ["aCa"] = "@call.outer",
-        ["iCa"] = "@call.inner",
-        ["aCo"] = "@conditional.outer",
-        ["iCo"] = "@conditional.inner",
-        ["aCm"] = "@comment.outer",
-        ["aF"] = "@frame.outer",
-        ["iF"] = "@frame.inner",
-        ["al"] = "@loop.outer",
-        ["il"] = "@loop.inner",
-        ["ap"] = "@parameter.outer",
-        ["ip"] = "@parameter.inner",
-        ["as"] = "@statement.outer",
-        ["is"] = "@scopename.inner",
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
+            ["ac"] = "@class.outer",
+            ["ic"] = "@class.inner",
+            ["ao"] = "@block.outer",
+            ["io"] = "@block.inner",
+            ["aCa"] = "@call.outer",
+            ["iCa"] = "@call.inner",
+            ["aCo"] = "@conditional.outer",
+            ["iCo"] = "@conditional.inner",
+            ["aCm"] = "@comment.outer",
+            ["aF"] = "@frame.outer",
+            ["iF"] = "@frame.inner",
+            ["al"] = "@loop.outer",
+            ["il"] = "@loop.inner",
+            ["ap"] = "@parameter.outer",
+            ["ip"] = "@parameter.inner",
+            ["as"] = "@statement.outer",
+            ["is"] = "@scopename.inner",
       },
     },
     swap = {
@@ -361,8 +361,8 @@ SafeRequire 'nvim-treesitter.configs'.setup {
       goto_next_start = { ["]m"] = "@function.outer",["]]"] = "@class.outer" },
       goto_next_end = { ["]M"] = "@function.outer",["]["] = "@class.outer" },
       goto_previous_start = {
-        ["[m"] = "@function.outer",
-        ["[["] = "@class.outer",
+            ["[m"] = "@function.outer",
+            ["[["] = "@class.outer",
       },
       goto_previous_end = { ["[M"] = "@function.outer",["[]"] = "@class.outer" },
     },
@@ -447,7 +447,6 @@ SafeRequireCallback('lualine', function(lualine)
       lualine_x = { 'filetype' },
       lualine_y = { 'progress' },
       lualine_z = { 'location' },
-
     },
     inactive_sections = { lualine_c = { floatermInfo }, lualine_z = { 'location' } },
     filetypes = { 'floaterm' },
@@ -514,7 +513,7 @@ SafeRequireCallback('lualine', function(lualine)
         {
           require("noice").api.status.mode.get,
           cond = require("noice") ~= nil and
-          require("noice").api.status.mode.has,
+              require("noice").api.status.mode.has,
           color = { fg = "#ff9e64" },
         }, 'encoding', 'fileformat', 'filetype',
       },
@@ -747,7 +746,9 @@ SafeRequireCallback("cmp", function()
           "^%s*$") == nil
   end
 
-  SafeRequire('').configure({ filetypes_denylist = { 'dirvish', 'fugitive', 'floaterm' } })
+  SafeRequire('').configure({
+    filetypes_denylist = { 'dirvish', 'fugitive', 'floaterm' },
+  })
 
   cmp.setup({
     snippet = {
@@ -759,16 +760,16 @@ SafeRequireCallback("cmp", function()
       documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
-      ['<C-g>'] = cmp.mapping(function(fallback)
+          ['<C-g>'] = cmp.mapping(function(fallback)
         if isEmptyTable(luasnip) then
           fallback()
-        elseif luasnip.jumpable( -1) then
-          luasnip.jump( -1)
+        elseif luasnip.jumpable(-1) then
+          luasnip.jump(-1)
         else
           fallback()
         end
       end, { "i", "s" --[[ "c" (to enable the mapping in command mode) ]] }),
-      ['<C-f>'] = cmp.mapping(function(fallback)
+          ['<C-f>'] = cmp.mapping(function(fallback)
         if isEmptyTable(luasnip) then
           fallback()
         elseif luasnip.expand_or_jumpable() then
@@ -779,13 +780,13 @@ SafeRequireCallback("cmp", function()
           fallback()
         end
       end, { "i", "s" --[[ "c" (to enable the mapping in command mode) ]] }),
-      ['<m-/>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({
+          ['<m-/>'] = cmp.mapping.complete(),
+          ['<C-e>'] = cmp.mapping.abort(),
+          ['<CR>'] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
         select = false,
       }),
-      ["<Tab>"] = vim.schedule_wrap(function(fallback)
+          ["<Tab>"] = vim.schedule_wrap(function(fallback)
         if cmp.visible() and has_words_before() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
         else
@@ -820,7 +821,7 @@ SafeRequireCallback("cmp", function()
     cmp.setup.cmdline(cmd_type, {
       formatting = { format = custom_format },
       mapping = cmp.mapping.preset.cmdline({
-        ['<C-n>'] = {
+            ['<C-n>'] = {
           c = function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -829,7 +830,7 @@ SafeRequireCallback("cmp", function()
             end
           end,
         },
-        ['<C-p>'] = {
+            ['<C-p>'] = {
           c = function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
@@ -838,7 +839,7 @@ SafeRequireCallback("cmp", function()
             end
           end,
         },
-        ['<CR>'] = function(fallback) fallback() end,
+            ['<CR>'] = function(fallback) fallback() end,
       }),
       view = { entries = { name = 'custom', selection_order = 'near_cursor' } },
       sources = sources,
@@ -854,8 +855,8 @@ SafeRequireCallback("cmp", function()
 
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
-  .protocol
-  .make_client_capabilities())
+    .protocol
+    .make_client_capabilities())
   capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
     lineFoldingOnly = true,
@@ -1060,7 +1061,7 @@ function FzfBuffer()
     end, {
       previewer = "builtin.buffer_or_file",
       actions = {
-        ["default"] = function(selected)
+            ["default"] = function(selected)
           Dump(selected)
           vim.schedule(function()
             local a = string.find(selected[1], ":")
@@ -1128,11 +1129,11 @@ function DelaySetup2()
     SafeRequire("noice").setup({
       health = { checker = false },
       messages = {
-        enabled = true, -- enables the Noice messages UI
-        view = "mini", -- default view for messages
-        view_error = "notify", -- view for errors
-        view_warn = "mini", -- view for warnings
-        view_history = "messages", -- view for :messages
+        enabled = true,              -- enables the Noice messages UI
+        view = "mini",               -- default view for messages
+        view_error = "notify",       -- view for errors
+        view_warn = "mini",          -- view for warnings
+        view_history = "messages",   -- view for :messages
         view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
       },
       notify = { enabled = false },
@@ -1281,8 +1282,8 @@ function DelaySetup2()
       defaults = {
         mappings = {
           i = {
-            ["<esc>"] = require('telescope.actions').close,
-            ["<cr>"] = fzf_multi_select,
+                ["<esc>"] = require('telescope.actions').close,
+                ["<cr>"] = fzf_multi_select,
           },
           n = { ["<cr>"] = fzf_multi_select },
         },
@@ -1291,8 +1292,20 @@ function DelaySetup2()
   end)
 
   SafeRequire("copilot").setup({
-    suggestion = { enabled = false },
-    panel = { enabled = false },
+    panel = { enabled = true },
+    suggestion = {
+      enabled = true,
+      auto_trigger = true,
+      debounce = 75,
+      keymap = {
+        accept = "<tab>",
+        accept_word = false,
+        accept_line = false,
+        next = "<c-x>n",
+        prev = "<c-x>p",
+        dismiss = "<C-]>",
+      },
+    },
   })
   SafeRequire("copilot_cmp").setup({ method = "getCompletionsCycling" })
 end
@@ -1304,8 +1317,8 @@ function DelaySetup1()
       max_width = 25,
       min_width = 25,
       mappings = {
-        ["s"] = "none",
-        ["<cr>"] = function(state)
+            ["s"] = "none",
+            ["<cr>"] = function(state)
           GotoMainWindow()
           local node = state.tree:get_node()
           if node.type == 'directory' then
@@ -1577,7 +1590,7 @@ function RunBuffer(opts)
   local result = vim.fn.searchpos('--- output ---')
   local bufID = vim.fn.bufnr()
   vim.api.nvim_buf_set_name(bufID, command .. '-' ..
-  os.date('%Y-%m-%d-%H-%M-%S') .. '.log')
+    os.date('%Y-%m-%d-%H-%M-%S') .. '.log')
   if result[1] ~= 0 then
     vim.defer_fn(function()
       vim.cmd((result[1]) .. ',$d')
@@ -1756,7 +1769,7 @@ end
 function RegistersInsert()
   require('fzf-lua').registers({
     actions = {
-      ["default"] = function(entry)
+          ["default"] = function(entry)
         local s = entry[1]
         local i = string.find(s, "[", 0, true)
         local j = string.find(s, "]", i, true)
@@ -1782,8 +1795,5 @@ end
 
 function SendSystemNotification(message)
   local Job = require 'plenary.job'
-  Job:new({
-    command = 'hterm-notify',
-    args = { 'nvim', message },
-  }):start()
+  Job:new({ command = 'hterm-notify', args = { 'nvim', message } }):start()
 end
