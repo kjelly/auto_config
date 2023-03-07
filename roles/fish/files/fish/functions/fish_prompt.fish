@@ -67,6 +67,12 @@ function fish_prompt
     else
         echo -n -s '$ ' $normal
     end
+
+    set -l now (date +%s)
+    if test -n "$notify_done"; and test (math "($now - $command_endtime)") -gt 15; and type -q hterm-notify
+      hterm-notify "command done" "$history[1] $last_status"
+    end
+    set -gx command_endtime (date +%s)
 end
 
 

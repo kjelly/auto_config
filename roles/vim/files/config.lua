@@ -1779,3 +1779,11 @@ function ToggleDark()
     vim.o.background = 'dark'
   end
 end
+
+function SendSystemNotification(message)
+  local Job = require 'plenary.job'
+  Job:new({
+    command = 'hterm-notify',
+    args = { 'nvim', message },
+  }):start()
+end
