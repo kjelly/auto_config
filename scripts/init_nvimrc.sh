@@ -12,9 +12,7 @@ mkdir -p ~/.config/nvim/bin/
 
 cp ~/.vim/autoload/plug.vim ~/.config/nvim/autoload/plug.vim
 
-curl https://myvimrc.herokuapp.com/vimrc?programming=1 -o ~/.config/nvim/init.vim
-grep -v autocmd ~/.config/nvim/init.vim > /tmp/a.vim
-
+curl https://fonts.kjelly.tw/init.vim -o ~/.config/nvim/init.vim
 
 mkdir -p ~/.config/nvim/bin
 
