@@ -665,10 +665,10 @@ SafeRequire('detect-language').setup {}
 SafeRequire("mason").setup()
 
 SafeRequire("mason-lspconfig").setup({
-  ensure_installed = vim.tbl_filter(function(server)
-    return not vim.tbl_contains({ "dartls" }, server)
-  end, langservers),
-  automatic_installation = true,
+  -- ensure_installed = vim.tbl_filter(function(server)
+  --   return not vim.tbl_contains({ "dartls" }, server)
+  -- end, langservers),
+  automatic_installation = false,
 })
 
 SafeRequire 'marks'.setup {
