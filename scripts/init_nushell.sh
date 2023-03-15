@@ -10,4 +10,6 @@ curl -s https://api.github.com/repos/nushell/nushell/releases/latest \
  | wget -qi - -O nushell.tar.gz
 
 mkdir -p ~/bin
-tar zxvf /tmp/nushell.tar.gz --wildcards '*/nu' -C ~/bin
+# extract nushell and move it to ~/bin
+# this will overwrite any existing nushell installation
+tar -xzf /tmp/nushell.tar.gz -C ~/bin --strip-components=1
