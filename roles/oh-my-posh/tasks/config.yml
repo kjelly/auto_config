@@ -1,0 +1,21 @@
+---
+- name: Render posh config
+  ansible.builtin.copy:
+    src: theme.omp.json
+    dest: ~/.posh.omp.json
+    mode: '0600'
+
+
+- name: Render nu config
+  ansible.builtin.shell: oh-my-posh init nu --config ~/.posh.omp.json
+  args:
+    chdir: ~
+
+- name: Update config.nu
+  ansible.builtin.lineinfile:
+    path: ~/.config/nushell/config.nu
+    line: "{{ item }}"
+  with_items:
+    - "source ~/.oh-my-posh.nu"
+  ignore_errors: true
+
