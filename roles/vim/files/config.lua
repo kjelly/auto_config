@@ -786,13 +786,6 @@ SafeRequireCallback("cmp", function()
         behavior = cmp.ConfirmBehavior.Replace,
         select = false,
       }),
-          ["<Tab>"] = vim.schedule_wrap(function(fallback)
-        if cmp.visible() and has_words_before() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          fallback()
-        end
-      end),
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp', keyword_length = 2 }, { name = 'path' },
@@ -1112,6 +1105,15 @@ function DelaySetup2()
     vim.diagnostic.config({ virtual_text = false })
   end)
 
+  vim.diagnostic.config({ virtual_text = false })
+
+  vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+    callback = function() vim.diagnostic.config({ virtual_text = false }) end,
+  })
+  vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+    callback = function() vim.diagnostic.config({ virtual_text = true }) end,
+  })
+
   UpdateEnv()
   SafeRequire("prettier").setup({
     bin = 'prettier', -- or `'prettierd'` (v0.22+)
@@ -1339,6 +1341,7 @@ function DelaySetup1()
       show_file = true,
       folder_level = 1,
     },
+    lightbulb = { enable = false, virtual_text = false },
   })
   SafeRequire('fzf_lsp').setup()
   SafeRequireCallback("ufo", function(ufo)

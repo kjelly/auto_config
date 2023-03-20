@@ -1,10 +1,17 @@
 ---
+- name: Update env.nu
+  blockinfile:
+    path: ~/.config/nushell/env.nu
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    block: |
+      let-env PATH = ($env.PATH | prepend {{ NUSHELL_EXTRA_PATH }})
+
 
 - name: Update config.nu
-  ansible.builtin.lineinfile:
+  blockinfile:
     path: ~/.config/nushell/config.nu
-    line: "{{ item }}"
-  with_items:
-    - "source ~/.oh-my-posh.nu"
-    - "alias vim = nvim"
-
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    block: |
+      let-env config = ($env.config | upsert show_banner false)
+      alias vim = nvim
+      source ~/.oh-my-posh.nu

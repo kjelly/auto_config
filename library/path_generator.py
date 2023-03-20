@@ -59,6 +59,8 @@ def main():
 
     if module.params['shell'] == 'fish':
         module.exit_json(changed=False, ENV_PATH=' '.join(env_path))
+    if module.params['shell'] == 'nushell':
+        module.exit_json(changed=False, ENV_PATH=env_path)
     else:
         module.exit_json(changed=False, ENV_PATH=':'.join(env_path))
 

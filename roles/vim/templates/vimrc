@@ -89,7 +89,9 @@ endfunction
 
 set background=light
 
-if executable("fish") == 1
+if executable("nu") == 1
+  set shell=nu
+elseif executable("fish") == 1
   set shell=fish
 elseif executable("zsh") == 1
   set shell=zsh
@@ -535,8 +537,6 @@ augroup basic
   au! BufRead *.yaml,*.yml if search('hosts:\|tasks:\|roles:', 'nw') | set ft=yaml.ansible | endif
   autocmd! BufWritePost *.py if executable("isort") && exists("g:isort") | execute "silent !isort %" | endif
   auto WinEnter * silent lua UpdateTitleString()
-  autocmd! InsertEnter * set nocursorline
-  autocmd! InsertLeave * set cursorline
 augroup end
 
 augroup rest_nvim
