@@ -89,9 +89,7 @@ endfunction
 
 set background=light
 
-if executable("nu") == 1
-  set shell=nu
-elseif executable("fish") == 1
+if executable("fish") == 1
   set shell=fish
 elseif executable("zsh") == 1
   set shell=zsh
