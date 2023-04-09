@@ -162,7 +162,7 @@ local disabled_lsp_caps = {
 local langservers = {
   'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'efm', 'emmet_ls',
   'gopls', 'graphql', 'html', 'jsonls', 'marksman', 'pylsp', 'pyright',
-  'rust_analyzer', 'sqlls', 'sqls', 'lua_ls', 'terraformls', 'tsserver',
+  'rust_analyzer', 'sqlls', 'lua_ls', 'terraformls', 'tsserver',
   'vimls', 'yamlls', 'ruff_lsp',
 }
 
@@ -855,13 +855,11 @@ SafeRequireCallback("cmp", function()
     lineFoldingOnly = true,
   }
 
-  local lsp_on_attach = { sqls = SafeRequire('sqls').on_attach }
 
   -- Use a loop to conveniently call 'setup' on multiple servers and
   -- map buffer local keybindings when the language server attaches
   for _, lsp in pairs(langservers) do
     local on_attach = function(client, bufnr)
-      if lsp_on_attach[lsp] then lsp_on_attach[lsp](client, bufnr) end
       SafeRequire('virtualtypes').on_attach(client, bufnr)
       SafeRequire('illuminate').on_attach(client)
       -- Enable completion triggered by <c-x><c-o>

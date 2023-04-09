@@ -166,7 +166,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'https://github.com/nvim-neo-tree/neo-tree.nvim', {'branch': 'v2.x'}
 Plug 'https://github.com/folke/noice.nvim'
-Plug 'https://github.com/miversen33/netman.nvim/', {'branch': 'v1.1'}
+Plug 'https://github.com/miversen33/netman.nvim/', {'branch': 'main'}
 
 " Change cursor based on mode
 Plug 'https://github.com/melkster/modicator.nvim'

@@ -6,7 +6,6 @@
     block: |
       let-env PATH = ($env.PATH | prepend {{ NUSHELL_EXTRA_PATH }})
 
-
 - name: Update config.nu
   blockinfile:
     path: ~/.config/nushell/config.nu
@@ -14,8 +13,40 @@
     block: |
       let-env config = ($env.config | upsert show_banner false)
       alias vim = nvim
-      source ~/.oh-my-posh.nu
+      alias e = enter
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_l mode: [emacs vi_normal vi_insert]  event: { until: [{ send: menu name: completion_menu } { send: menunext } ]} }] ))
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { send: menuprevious } }] ))
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_j mode: [emacs vi_normal vi_insert]  event: { send: down } }] ))
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_k mode: [emacs vi_normal vi_insert]  event: { send: up } }] ))
+
+- name: Check if starship exists
+  shell: which starship
+  register: starship_result
+
+- name: Render config if starship exists
+  blockinfile:
+    path: ~/.config/nushell/config.nu
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - starship"
+    block: |
+      def create_left_prompt [] {
+          starship prompt --cmd-duration $env.CMD_DURATION_MS $'--status=($env.LAST_EXIT_CODE)'
+      }
+
+      # Use nushell functions to define your right and left prompt
+      let-env PROMPT_COMMAND = { || create_left_prompt }
+      let-env PROMPT_COMMAND_RIGHT = ""
+  when: starship_result.rc == 0
+
+- name: Check if file exists
+  stat:
+    path: ~/.oh-my-posh.nu
+  register: file_status
+
+
+- name: Update config.nu
+  blockinfile:
+    path: ~/.config/nushell/config.nu
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - oh-my-posh"
+    block: |
+      source ~/.oh-my-posh.nu
+  when: file_status.stat.exists and starship_result.rc > 0

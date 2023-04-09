@@ -1,7 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
-   "console_title_template": "{{ .HostName }}@ {{.Folder}} ({{ .Code }})",
-
+  "console_title_template": "{{ .HostName }}@ {{.Folder}} ({{ .Code }})",
   "blocks": [
     {
       "alignment": "left",
@@ -12,6 +11,12 @@
           "style": "diamond",
           "template": "<parentBackground>\ue0b0</> \uf292 ",
           "type": "root"
+        },
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "#E06C75",
+          "template": "{{ .HostName }}"
         },
         {
           "background": "#FF9248",
@@ -228,4 +233,3 @@
   ],
   "version": 2
 }
-
