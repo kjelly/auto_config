@@ -129,7 +129,6 @@ Plug 'https://github.com/David-Kunz/treesitter-unit'
 "Yet another tree-sitter powered indent plugin for Neovim.
 Plug 'https://github.com/yioneko/nvim-yati'
 Plug 'SmiteshP/nvim-gps'
-Plug 'spywhere/detect-language.nvim'
 Plug 'm-demare/hlargs.nvim'
 Plug 'https://github.com/kylechui/nvim-surround'
 Plug 'https://github.com/smjonas/live-command.nvim'
