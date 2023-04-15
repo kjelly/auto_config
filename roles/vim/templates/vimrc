@@ -145,7 +145,7 @@ Plug 'https://github.com/nvim-lualine/lualine.nvim'
 " A search panel for neovim.
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '*' }
 Plug 'kkharji/sqlite.lua'
 
 Plug 'windwp/nvim-spectre'
@@ -163,8 +163,8 @@ Plug 'kyazdani42/nvim-tree.lua'
 
 " neo-tree requires nui
 Plug 'MunifTanjim/nui.nvim'
-Plug 'https://github.com/nvim-neo-tree/neo-tree.nvim', {'branch': 'v2.x'}
-Plug 'https://github.com/folke/noice.nvim'
+Plug 'https://github.com/nvim-neo-tree/neo-tree.nvim', {'tag': '*'}
+Plug 'https://github.com/folke/noice.nvim', {'tag': '*'}
 Plug 'https://github.com/miversen33/netman.nvim/', {'branch': 'main'}
 
 " Change cursor based on mode

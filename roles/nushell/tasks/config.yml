@@ -13,7 +13,8 @@
     block: |
       let-env config = ($env.config | upsert show_banner false)
       alias vim = nvim
-      alias e = enter
+      alias in = enter
+      alias s = shells
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_l mode: [emacs vi_normal vi_insert]  event: { until: [{ send: menu name: completion_menu } { send: menunext } ]} }] ))
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { send: menuprevious } }] ))
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_j mode: [emacs vi_normal vi_insert]  event: { send: down } }] ))

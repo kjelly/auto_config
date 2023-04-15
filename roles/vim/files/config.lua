@@ -1,3 +1,4 @@
+vim.loader.enable()
 local api = vim.api
 
 function SafeBufGetVar(bufnr, key)
