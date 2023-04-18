@@ -1191,6 +1191,7 @@ function DelaySetup2()
   end)
 
   SafeRequire('colorizer').setup()
+  SafeRequire("nu").setup()
   SafeRequire('neo-zoom').setup({
     left_ratio = 0.2,
     top_ratio = 0.03,
@@ -1798,4 +1799,7 @@ end
 function SendSystemNotification(message)
   local Job = require 'plenary.job'
   Job:new({ command = 'hterm-notify', args = { 'nvim', message } }):start()
+end
+
+function HookPwdChanged(after, before)
 end
