@@ -24,6 +24,7 @@ set -gx GOROOT "{{ HOME_PATH }}/go"
 set -gx GOPATH "{{ HOME_PATH }}/gohome"
 set -gx GOBIN $GOPATH/bin
 set -gx EDITOR nvim
+set -gx XDG_RUNTIME_DIR /run/user/$(id -u)
 set -gx CDPATH . ~ ~/nfs/
 set -gx __fish_git_prompt_showdirtystate 1
 set -gx VIM_CONFIG "{{ HOME_PATH }}/.config/nvim/init.vim"
