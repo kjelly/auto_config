@@ -1,0 +1,5 @@
+---
+
+- name: Update /etc/default/keyboard
+  ansible.builtin.lineinfile:
+    line: 'XKBOPTIONS="caps:{{ new_key }}"'
