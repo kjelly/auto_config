@@ -1,0 +1,24 @@
+---
+
+- name: Download pueue
+  ansible.builtin.get_url:
+    url: "https://github.com/Nukesor/pueue/releases/download/{{ pueue_version }}/{{ item }}-linux-x86_64"
+    dest: "/bin/{{ item }}"
+    mode: 0755
+  become: true
+  with_items:
+    - pueue
+    - pueued
+
+- name: Copy systemd config
+  ansible.builtin.template:
+    src: "pueued.service"
+    dest: "/etc/systemd/user/pueued.service"
+    mode: "0664"
+  become: true
+
+- name: Start systemd
+  ansible.builtin.systemd:
+    name: pueued
+    scope: user
+    enabled: true

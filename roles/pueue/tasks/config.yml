@@ -1,0 +1,11 @@
+- name: Create ~/bin
+  ansible.builtin.file:
+    path: ~/bin/
+    state: directory
+    mode: 0755
+
+- name: Copy p.py
+  ansible.builtin.copy:
+    src: p.py
+    dest: ~/bin/p
+    mode: 0755
