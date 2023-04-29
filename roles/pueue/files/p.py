@@ -102,9 +102,10 @@ def main():
         shell(history)
     else:
         config["history"].append(rest)
-        p = Popen(["pueue", "add", *rest], stdout=PIPE, stderr=PIPE)
+        p = Popen(["pueue", "add", "-p", *rest], stdout=PIPE, stderr=PIPE)
         p.wait()
-        task_id = p.stdout.readline().decode("utf-8")[19:-3]
+        task_id = p.stdout.readline().decode("utf-8")
+        print(task_id)
         tasks = pueue_status()["tasks"]
         if task_id in tasks and tasks[task_id]["start"]:
             os.system(f"pueue follow {task_id}")
