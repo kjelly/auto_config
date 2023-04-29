@@ -1,0 +1,94 @@
+- name: Get the latest version
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/ajeetdsouza/zoxide/releases/latest"
+    return_content: yes
+  register: json_data
+
+- name: Get the latest version
+  set_fact:
+    version: "{{ json_data['json'] | json_query('tag_name') | replace('v', '') }}"
+
+- name: Download the latest version of the zoxide
+  ansible.builtin.apt:
+    deb: "https://github.com/ajeetdsouza/zoxide/releases/download/v{{ version }}/zoxide_{{ version }}_amd64.deb"
+  become: true
+
+- name: Update fish for zoxide
+  ansible.builtin.lineinfile:
+    path: ~/.config/fish/config.fish
+    line: zoxide init fish | source
+  ignore_errors: true
+
+- name: Create zoxide for nushell
+  ansible.builtin.shell: zoxide init nushell > ~/.zoxide.nu
+
+- name: Update nushell config
+  ansible.builtin.lineinfile:
+    path: ~/.config/nushell/config.nu
+    line: source ~/.zoxide.nu
+  ignore_errors: true
+
+- name: Get the latest version
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/rsteube/carapace-bin/releases/latest"
+    return_content: yes
+  register: json_data
+
+- name: Get the latest version
+  set_fact:
+    version: "{{ json_data['json'] | json_query('tag_name') | replace('v', '') }}"
+
+- name: Download the latest version of the carapace
+  ansible.builtin.apt:
+    deb: "https://github.com/rsteube/carapace-bin/releases/download/v{{ version }}/carapace-bin_{{ version }}_linux_amd64.deb"
+  become: true
+
+- name: Update fish for carapace
+  ansible.builtin.lineinfile:
+    path: ~/.config/fish/config.fish
+    line: carapace _carapace | source
+  ignore_errors: true
+
+- name: Create carapace for nushell
+  ansible.builtin.shell: carapace init nushell > ~/.carapace.nu
+
+- name: Update nushell config
+  ansible.builtin.lineinfile:
+    path: ~/.config/nushell/config.nu
+    line: source ~/.carapace.nu
+  ignore_errors: true
+
+- name: Get the latest version
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/sharkdp/bat/releases/latest"
+    return_content: yes
+  register: json_data
+
+- name: Get the latest version
+  set_fact:
+    version: "{{ json_data['json'] | json_query('tag_name') | replace('v', '') }}"
+
+- name: Download the latest version of the carapace
+  ansible.builtin.apt:
+    deb: "https://github.com/sharkdp/bat/releases/download/v{{version}}/bat_{{version}}_amd64.deb"
+  become: true
+
+
+- name: Get the latest version
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/sharkdp/fd/releases/latest"
+    return_content: yes
+  register: json_data
+
+- name: Get the latest version
+  set_fact:
+    version: "{{ json_data['json'] | json_query('tag_name') | replace('v', '') }}"
+
+- name: Download the latest version of the carapace
+  ansible.builtin.apt:
+    deb: "https://github.com/sharkdp/fd/releases/download/v{{version}}/fd_{{version}}_amd64.deb"
+  become: true
+
+
+
+
