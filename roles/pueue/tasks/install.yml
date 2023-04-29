@@ -1,15 +1,13 @@
 ---
-
-- name: Download latest pueue version
-  ansible.builtin.get_url:
+- name: Get the latest pueue version
+  ansible.builtin.uri:
     url: "https://api.github.com/repos/Nukesor/pueue/releases/latest"
-    dest: "/tmp/pueue.json"
-    mode: 0755
+    return_content: yes
+  register: json_data
 
 - name: Get pueue version
   ansible.builtin.set_fact:
-    pueue_version: "{{ lookup('file', '/tmp/pueue.json') | from_json | json_query('tag_name') }}"
-
+    pueue_version: "{{ json_data['json'] | json_query('tag_name') }}"
 - name: Download pueue
   ansible.builtin.get_url:
     url: "https://github.com/Nukesor/pueue/releases/download/{{ pueue_version }}/{{ item }}-linux-x86_64"

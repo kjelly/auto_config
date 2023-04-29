@@ -7,5 +7,8 @@
 - name: Copy p.py
   ansible.builtin.copy:
     src: p.py
-    dest: ~/bin/p
+    dest: "~/bin/{{ item }}"
     mode: 0755
+  with_items:
+    - p
+    - job
