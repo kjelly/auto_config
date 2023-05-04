@@ -5,6 +5,7 @@ import os
 from subprocess import Popen, PIPE, check_output
 import json
 import readline
+from itertools import groupby
 import atexit
 
 histfile = os.path.join(os.path.expanduser("~"), ".python_history")
@@ -101,14 +102,23 @@ def main():
         history = [' '.join(i) for i in config["history"]]
         shell(history)
     else:
-        config["history"].append(rest)
-        p = Popen(["pueue", "add", "-p", *rest], stdout=PIPE, stderr=PIPE)
+        print(rest)
+        commands = [list(group) for k, group in groupby(rest, lambda x: x == "--") if not k]
+        print(commands)
+        config["history"].append(commands[0])
+        p = Popen(["pueue", "add", "-p", *commands[0]], stdout=PIPE, stderr=PIPE)
         p.wait()
-        task_id = p.stdout.readline().decode("utf-8")
-        print(task_id)
+        task_id = p.stdout.readline().decode("utf-8").strip()
+        first_task_id = task_id
+        for command in commands[1:]:
+            print(p)
+            p = Popen(["pueue", "add", "-a", task_id, "-p",
+                       *command], stdout=PIPE, stderr=PIPE)
+            p.wait()
+            task_id = p.stdout.readline().decode("utf-8").strip()
         tasks = pueue_status()["tasks"]
-        if task_id in tasks and tasks[task_id]["start"]:
-            os.system(f"pueue follow {task_id}")
+        if first_task_id in tasks and tasks[first_task_id]["start"]:
+            os.system(f"pueue follow {first_task_id}")
 
     with open(config_path, "w") as f:
         json.dump(config, f)

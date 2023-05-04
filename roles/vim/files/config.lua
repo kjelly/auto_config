@@ -304,11 +304,6 @@ end)
 
 SafeRequire "nvim-treesitter.configs".setup {
   ensure_installed = "all",
-  refactor = {
-    highlight_definitions = { enable = false },
-    highlight_current_scope = { enable = false },
-    smart_rename = { enable = true, keymaps = { smart_rename = "grr" } },
-  },
   autopairs = { enable = true },
   iswap = { enable = true },
   incremental_selection = {
@@ -324,31 +319,44 @@ SafeRequire "nvim-treesitter.configs".setup {
   highlight = { enable = true, disable = {} },
   rainbow = { enable = true, extended_mode = true, max_file_lines = 1000 },
   yati = { enable = true },
-}
-SafeRequire 'nvim-treesitter.configs'.setup {
+  refactor = {
+    highlight_definitions = { enable = false },
+    highlight_current_scope = { enable = false },
+    smart_rename = { enable = true, keymaps = { smart_rename = "grr" } },
+    navigation = {
+      enable = true,
+      keymaps = {
+        goto_definition = "gnd",
+        list_definitions = "gnD",
+        list_definitions_toc = "gO",
+        goto_next_usage = "gnu",
+        goto_previous_usage = "gnU",
+      },
+    },
+  },
   textobjects = {
     select = {
       enable = true,
       keymaps = {
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = "@class.inner",
-            ["ao"] = "@block.outer",
-            ["io"] = "@block.inner",
-            ["aCa"] = "@call.outer",
-            ["iCa"] = "@call.inner",
-            ["aCo"] = "@conditional.outer",
-            ["iCo"] = "@conditional.inner",
-            ["aCm"] = "@comment.outer",
-            ["aF"] = "@frame.outer",
-            ["iF"] = "@frame.inner",
-            ["al"] = "@loop.outer",
-            ["il"] = "@loop.inner",
-            ["ap"] = "@parameter.outer",
-            ["ip"] = "@parameter.inner",
-            ["as"] = "@statement.outer",
-            ["is"] = "@scopename.inner",
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+        ["ao"] = "@block.outer",
+        ["io"] = "@block.inner",
+        ["aCa"] = "@call.outer",
+        ["iCa"] = "@call.inner",
+        ["aCo"] = "@conditional.outer",
+        ["iCo"] = "@conditional.inner",
+        ["aCm"] = "@comment.outer",
+        ["aF"] = "@frame.outer",
+        ["iF"] = "@frame.inner",
+        ["al"] = "@loop.outer",
+        ["il"] = "@loop.inner",
+        ["ap"] = "@parameter.outer",
+        ["ip"] = "@parameter.inner",
+        ["as"] = "@statement.outer",
+        ["is"] = "@scopename.inner",
       },
     },
     swap = {
@@ -362,15 +370,12 @@ SafeRequire 'nvim-treesitter.configs'.setup {
       goto_next_start = { ["]m"] = "@function.outer",["]]"] = "@class.outer" },
       goto_next_end = { ["]M"] = "@function.outer",["]["] = "@class.outer" },
       goto_previous_start = {
-            ["[m"] = "@function.outer",
-            ["[["] = "@class.outer",
+        ["[m"] = "@function.outer",
+        ["[["] = "@class.outer",
       },
       goto_previous_end = { ["[M"] = "@function.outer",["[]"] = "@class.outer" },
     },
   },
-}
-
-SafeRequire "nvim-treesitter.configs".setup {
   playground = {
     enable = true,
     disable = {},
@@ -389,26 +394,12 @@ SafeRequire "nvim-treesitter.configs".setup {
       show_help = '?',
     },
   },
-}
 
-SafeRequire 'nvim-treesitter.configs'.setup {
-  refactor = {
-    navigation = {
-      enable = true,
-      keymaps = {
-        goto_definition = "gnd",
-        list_definitions = "gnD",
-        list_definitions_toc = "gO",
-        goto_next_usage = "gnu",
-        goto_previous_usage = "gnU",
-      },
-    },
-  },
 }
 
 function HasTerminal()
-  --- Get any terminal including hidding.
-  local buffers = api.nvim_eval("floaterm#buflist#gather()")
+  local ok, buffers = pcall(vim.api.nvim_eval, "floaterm#buflist#gather()")
+  if not ok then return false end
   if #buffers > 0 then return true end
   return false
 end
@@ -651,8 +642,8 @@ function MySort(buffer_a, buffer_b)
     return buffer_a.id > buffer_b.id
   end
 
-  local status, retval = pcall(_sort)
-  if status then
+  local ok, retval = pcall(_sort)
+  if ok then
     return retval
   else
     return buffer_a.id > buffer_b.id
@@ -1803,3 +1794,5 @@ end
 
 function HookPwdChanged(after, before)
 end
+
+vim.g.editconfig = true
