@@ -44,6 +44,15 @@ end
 
 function FileBaseName(file) return file:match("^.+/(.+)$") end
 
+function Defer(...)
+  local t = 100
+  local args = { ... }
+  for _, v in ipairs(args) do
+    vim.defer_fn(v, t)
+    t = t + 10
+  end
+end
+
 function RandomScheme()
   local schemes = vim.api.nvim_get_runtime_file("colors/*", true)
   local excludedPatterns = { 'day', 'light' }
@@ -71,6 +80,7 @@ function CheckOutput(command)
   local f = assert(io.popen(command .. ' 2>&1', 'r'))
   local s = assert(f:read('*a'))
   f:close()
+  s = string.gsub(s, '%s+', '')
   return s
 end
 
@@ -162,9 +172,8 @@ local disabled_lsp_caps = {
 
 local langservers = {
   'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'efm', 'emmet_ls',
-  'gopls', 'graphql', 'html', 'jsonls', 'marksman', 'pylsp', 'pyright',
-  'rust_analyzer', 'sqlls', 'lua_ls', 'terraformls', 'tsserver',
-  'vimls', 'yamlls', 'ruff_lsp',
+  'gopls', 'graphql', 'html', 'jsonls', 'marksman', 'pyright', 'rust_analyzer',
+  'sqlls', 'lua_ls', 'terraformls', 'tsserver', 'vimls', 'yamlls', 'ruff_lsp',
 }
 
 for _, v in ipairs({ "node", "go" }) do
@@ -752,7 +761,7 @@ SafeRequireCallback("cmp", function()
       documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
-          ['<C-g>'] = cmp.mapping(function(fallback)
+      ['<C-g>'] = cmp.mapping(function(fallback)
         if isEmptyTable(luasnip) then
           fallback()
         elseif luasnip.jumpable(-1) then
@@ -761,7 +770,7 @@ SafeRequireCallback("cmp", function()
           fallback()
         end
       end, { "i", "s" --[[ "c" (to enable the mapping in command mode) ]] }),
-          ['<C-f>'] = cmp.mapping(function(fallback)
+      ['<C-f>'] = cmp.mapping(function(fallback)
         if isEmptyTable(luasnip) then
           fallback()
         elseif luasnip.expand_or_jumpable() then
@@ -772,9 +781,9 @@ SafeRequireCallback("cmp", function()
           fallback()
         end
       end, { "i", "s" --[[ "c" (to enable the mapping in command mode) ]] }),
-          ['<m-/>'] = cmp.mapping.complete(),
-          ['<C-e>'] = cmp.mapping.abort(),
-          ['<CR>'] = cmp.mapping.confirm({
+      ['<m-/>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
         select = false,
       }),
@@ -806,7 +815,7 @@ SafeRequireCallback("cmp", function()
     cmp.setup.cmdline(cmd_type, {
       formatting = { format = custom_format },
       mapping = cmp.mapping.preset.cmdline({
-            ['<C-n>'] = {
+        ['<C-n>'] = {
           c = function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -815,7 +824,7 @@ SafeRequireCallback("cmp", function()
             end
           end,
         },
-            ['<C-p>'] = {
+        ['<C-p>'] = {
           c = function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
@@ -824,7 +833,7 @@ SafeRequireCallback("cmp", function()
             end
           end,
         },
-            ['<CR>'] = function(fallback) fallback() end,
+        ['<CR>'] = function(fallback) fallback() end,
       }),
       view = { entries = { name = 'custom', selection_order = 'near_cursor' } },
       sources = sources,
@@ -846,7 +855,6 @@ SafeRequireCallback("cmp", function()
     dynamicRegistration = false,
     lineFoldingOnly = true,
   }
-
 
   -- Use a loop to conveniently call 'setup' on multiple servers and
   -- map buffer local keybindings when the language server attaches
@@ -885,7 +893,7 @@ SafeRequireCallback("cmp", function()
     require('lspconfig')[lsp].setup(lspconfig_setup_opts)
   end
 
-  SafeRequire("cmp_tabnine.config").setup({
+  SafeRequire("cmp_tabnine.config"):setup({
     max_lines = 100,
     max_num_results = 10,
     sort = true,
@@ -1008,12 +1016,16 @@ function TermToggle()
       return
     end
   end
-  if vim.bo.filetype ~= 'floaterm' then GotoMainWindow() end
-  if HasTerminal() then
-    vim.cmd("FloatermShow")
-  else
-    vim.cmd("FloatermToggle")
-  end
+
+  Defer(
+    function() if vim.bo.filetype ~= 'floaterm' then GotoMainWindow() end end,
+    function()
+      if HasTerminal() then
+        vim.cmd("FloatermShow")
+      else
+        vim.cmd("FloatermToggle")
+      end
+    end)
 end
 
 function FzfBuffer()
@@ -1044,7 +1056,7 @@ function FzfBuffer()
     end, {
       previewer = "builtin.buffer_or_file",
       actions = {
-            ["default"] = function(selected)
+        ["default"] = function(selected)
           Dump(selected)
           vim.schedule(function()
             local a = string.find(selected[1], ":")
@@ -1090,6 +1102,21 @@ function UpdateEnv()
 end
 
 function DelaySetup2()
+  SafeRequireCallback("null-ls", function(null_ls)
+    null_ls.setup({
+      sources = {
+        null_ls.builtins.formatting.lua_format,
+        null_ls.builtins.code_actions.refactoring,
+        null_ls.builtins.formatting.ruff, null_ls.builtins.diagnostics.ruff,
+        null_ls.builtins.diagnostics.pylint.with({
+          command = CheckOutput("which pylint"),
+          diagnostics_postprocess = function(diagnostic)
+            diagnostic.code = diagnostic.message_id
+          end,
+        }),
+      },
+    })
+  end)
   SafeRequireCallback("lsp_lines", function(lines)
     lines.setup()
     vim.diagnostic.config({ virtual_text = false })
@@ -1275,8 +1302,8 @@ function DelaySetup2()
       defaults = {
         mappings = {
           i = {
-                ["<esc>"] = require('telescope.actions').close,
-                ["<cr>"] = fzf_multi_select,
+            ["<esc>"] = require('telescope.actions').close,
+            ["<cr>"] = fzf_multi_select,
           },
           n = { ["<cr>"] = fzf_multi_select },
         },
@@ -1310,8 +1337,8 @@ function DelaySetup1()
       max_width = 25,
       min_width = 25,
       mappings = {
-            ["s"] = "none",
-            ["<cr>"] = function(state)
+        ["s"] = "none",
+        ["<cr>"] = function(state)
           GotoMainWindow()
           local node = state.tree:get_node()
           if node.type == 'directory' then
@@ -1377,49 +1404,41 @@ function GetBuffers()
 end
 
 function RunPreviousCommandFunc()
-  if HasTerminal() == false then vim.cmd("FloatermNew") end
-  local mode = vim.fn.mode()
-  if mode == 't' then
-    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true, true),
-      't')
-    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true, true),
-      't')
-  elseif mode == 'n' then
-    vim.cmd("FloatermShow")
-    vim.fn.feedkeys('i', 't')
-    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true, true),
-      't')
-    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true, true),
-      't')
-  elseif mode == 'i' then
-    vim.cmd("stopinsert")
-    vim.cmd("FloatermShow")
-    vim.fn.feedkeys('i', 't')
-    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true, true),
-      't')
-    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true, true),
-      't')
-  end
-end
-
-function LspFormat()
-  local hasDocumentFormattingProvider = false
-  for _, server in pairs(vim.lsp.get_active_clients()) do
-    if server.server_capabilities.documentFormattingProvider == true then
-      hasDocumentFormattingProvider = true
-    end
-  end
-  if hasDocumentFormattingProvider then
-    vim.lsp.buf.format { async = true }
-  else
-    vim.cmd("Prettier")
-  end
+  Defer(
+    function() if HasTerminal() == false then vim.cmd("FloatermNew") end end,
+    function()
+      local mode = vim.fn.mode()
+      if mode == 't' then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true,
+          true), 't')
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true,
+          true), 't')
+      elseif mode == 'n' then
+        Defer(function() vim.cmd("FloatermShow") end, function()
+          vim.fn.feedkeys('i', 't')
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true,
+            true), 't')
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true,
+            true), 't')
+        end)
+      elseif mode == 'i' then
+        Defer(function() vim.cmd("stopinsert") end,
+          function() vim.cmd("FloatermShow") end, function()
+            vim.fn.feedkeys('i', 't')
+            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true,
+              true), 't')
+            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true,
+              true), 't')
+          end)
+      end
+    end)
 end
 
 function RunShellAndShow(command)
-  if HasTerminal() == false then vim.cmd("FloatermNew") end
-  vim.cmd("FloatermShow")
-  vim.cmd("FloatermSend " .. command)
+  Defer(
+    function() if HasTerminal() == false then vim.cmd("FloatermNew") end end,
+    function() vim.cmd("FloatermShow") end,
+    function() vim.cmd("FloatermSend " .. command) end)
 end
 
 function NextItem(offset)
@@ -1763,7 +1782,7 @@ end
 function RegistersInsert()
   require('fzf-lua').registers({
     actions = {
-          ["default"] = function(entry)
+      ["default"] = function(entry)
         local s = entry[1]
         local i = string.find(s, "[", 0, true)
         local j = string.find(s, "]", i, true)

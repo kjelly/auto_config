@@ -256,7 +256,7 @@ nnoremap <silent> <leader>ldp <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <silent> <leader>lrn <cmd>Lspsaga rename<cr>
 nnoremap <silent> <leader>la <cmd>lua vim.lsp.buf.code_action()<cr>
 nnoremap <silent> <leader>lre <cmd>lua vim.lsp.buf.references()<cr>
-nnoremap <silent> <leader>lf <cmd>lua LspFormat()<cr>
+nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.format { async = true }<cr>
 vnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.range_formatting()<cr>
 vnoremap <silent> f <cmd>lua vim.lsp.buf.range_formatting()<cr>
 nnoremap <silent> <leader>li <cmd>lua require'fzf_lsp'.implementation_call()<cr>
