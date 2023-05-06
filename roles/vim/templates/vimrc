@@ -221,7 +221,6 @@ Plug 'https://github.com/simrat39/symbols-outline.nvim'
 Plug 'https://github.com/folke/lsp-colors.nvim'
 Plug 'https://github.com/RRethy/vim-illuminate'
 Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'https://github.com/MunifTanjim/prettier.nvim'
 
 Plug 'https://github.com/dstein64/vim-startuptime'
 Plug 'folke/persistence.nvim'
