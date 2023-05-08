@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
-import time
 import argparse
 import os
 from subprocess import Popen, PIPE, check_output
 import json
 import readline
 from itertools import groupby
-import atexit
 
 histfile = os.path.join(os.path.expanduser("~"), ".python_history")
 script_path = os.path.realpath(__file__)
@@ -20,8 +18,8 @@ def pueue_status():
 def get_latest_task_id():
     latest_date = ''
     latest_id = ''
-    dict = pueue_status()
-    tasks = dict["tasks"]
+    dct = pueue_status()
+    tasks = dct["tasks"]
     for i in tasks:
         obj = tasks[i]
         if obj["start"] is None:
@@ -33,10 +31,10 @@ def get_latest_task_id():
 
 
 def fzf(items):
-    p = Popen(["fzf"], stdin=PIPE, stdout=PIPE)
-    stdout, _ = p.communicate("\n".join(items).encode("utf-8"))
-    p.wait()
-    return stdout.decode("utf-8").strip()
+    with Popen(["fzf"], stdin=PIPE, stdout=PIPE) as proc:
+        stdout, _ = proc.communicate("\n".join(items).encode("utf-8"))
+        proc.wait()
+        return stdout.decode("utf-8").strip()
 
 
 def shell(history):
@@ -57,7 +55,9 @@ def shell(history):
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument("--p-delay", type=str, default="1")
     args, rest = parser.parse_known_args()
+    delay = args.p_delay
     if not rest:
         os.system("pueue")
         return
@@ -66,9 +66,9 @@ def main():
     config = {}
     if os.path.exists(config_path):
         try:
-            with open(config_path, "r") as f:
-                config = json.load(f)
-        except Exception:
+            with open(config_path, "r", encoding='utf-8') as ftr:
+                config = json.load(ftr)
+        except ValueError:
             pass
     if "history" not in config:
         config["history"] = []
@@ -102,26 +102,28 @@ def main():
         history = [' '.join(i) for i in config["history"]]
         shell(history)
     else:
-        print(rest)
-        commands = [list(group) for k, group in groupby(rest, lambda x: x == "--") if not k]
-        print(commands)
+        commands = [list(group) for k, group in groupby(rest, lambda x: x == "--")
+            if not k]
         config["history"].append(commands[0])
-        p = Popen(["pueue", "add", "-p", *commands[0]], stdout=PIPE, stderr=PIPE)
-        p.wait()
-        task_id = p.stdout.readline().decode("utf-8").strip()
+        with Popen(["pueue", "add", "-p", "-d", delay,*commands[0]],
+                   stdout=PIPE, stderr=PIPE) as proc:
+            proc.wait()
+            # assert proc.stdout is not None
+            stdout, _ = proc.communicate()
+            task_id = stdout.decode("utf-8").strip()
         first_task_id = task_id
         for command in commands[1:]:
-            print(p)
-            p = Popen(["pueue", "add", "-a", task_id, "-p",
-                       *command], stdout=PIPE, stderr=PIPE)
-            p.wait()
-            task_id = p.stdout.readline().decode("utf-8").strip()
+            with Popen(["pueue", "add", "-a", task_id, "-p",
+                        *command], stdout=PIPE, stderr=PIPE) as proc:
+                proc.wait()
+                assert proc.stdout is not None
+                task_id = proc.stdout.readline().decode("utf-8").strip()
         tasks = pueue_status()["tasks"]
         if first_task_id in tasks and tasks[first_task_id]["start"]:
             os.system(f"pueue follow {first_task_id}")
 
-    with open(config_path, "w") as f:
-        json.dump(config, f)
+    with open(config_path, "w", encoding='utf=8') as ftr:
+        json.dump(config, ftr)
 
 
 if __name__ == "__main__":
