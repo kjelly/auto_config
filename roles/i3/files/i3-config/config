@@ -197,8 +197,7 @@ bindsym $mod+Shift+quotedbl exec ~/.i3/move_container_right.py
 
 bindsym $mod+n workspace next_on_output
 bindsym $mod+p workspace prev_on_output
-bindsym Mod1+Tab focus right
-bindsym Mod1+Shift+Tab focus left
+bindsym mod1+Tab workspace back_and_forth
 
 bindsym $mod+Shift+N workspace next
 bindsym $mod+Shift+P workspace prev

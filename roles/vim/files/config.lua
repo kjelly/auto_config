@@ -74,7 +74,16 @@ function RandomScheme()
   if #schemes > 0 then vim.cmd("colorscheme " .. schemes[Random(1, #schemes)]) end
 end
 
--- RandomScheme()
+function SetBackground()
+  local d = os.date('!*t')
+  if (d.hour > 0 and d.hour < 10) and d.wday < 7 then
+    vim.opt.background = "light"
+  else
+    vim.opt.background = "dark"
+  end
+end
+
+SetBackground()
 
 function CheckOutput(command)
   local f = assert(io.popen(command .. ' 2>&1', 'r'))
