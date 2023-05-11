@@ -656,8 +656,6 @@ let g:fzf_floaterm_newentries = {
   \ }
 let g:mkdx#settings = { 'map': { 'enable': 1, 'prefix': '<leader>md' }, 'checkbox': { 'toggles': [' ', 'x'] } }
 
-" Yank to tmux normally
-set clipboard=unnamed
 set title
 
 if has("nvim-0.9.0")

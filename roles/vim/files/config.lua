@@ -1823,4 +1823,6 @@ end
 function HookPwdChanged(after, before)
 end
 
+SafeRequire('nvim-web-devicons').setup({})
+
 vim.g.editconfig = true
