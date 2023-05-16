@@ -20,6 +20,24 @@
       alias cd3 = cd ../../../
       alias cd4 = cd ../../../../
       alias cd5 = cd ../../../../../
+      alias z1 = cd ..
+      alias z2 = cd ../../
+      alias z3 = cd ../../../
+      alias z4 = cd ../../../../
+      alias z5 = cd ../../../../../
+      let-env config.hooks.pre_prompt = ( $env.config.hooks.pre_prompt | append [{ ||
+            let direnv = (direnv export json | from json)
+            let direnv = if ($direnv | length) == 1 { $direnv } else { {} }
+            $direnv | load-env
+          }] )
+      let-env config.hooks.env_change.cloud = [{ |before, after|
+        if ( $env.cloud == 1 ) {
+            let-env PROMPT_COMMAND = { || create_left_prompt }
+        } else {
+          source ~/.oh-my-posh.nu
+        }
+      }]
+
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_l mode: [emacs vi_normal vi_insert]  event: { until: [{ send: menu name: completion_menu } { send: menunext } ]} }] ))
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { send: menuprevious } }] ))
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_j mode: [emacs vi_normal vi_insert]  event: { send: down } }] ))
@@ -37,10 +55,6 @@
       def create_left_prompt [] {
           starship prompt --cmd-duration $env.CMD_DURATION_MS $'--status=($env.LAST_EXIT_CODE)'
       }
-
-      # Use nushell functions to define your right and left prompt
-      let-env PROMPT_COMMAND = { || create_left_prompt }
-      let-env PROMPT_COMMAND_RIGHT = ""
   when: starship_result.rc == 0
 
 - name: Check if file exists
