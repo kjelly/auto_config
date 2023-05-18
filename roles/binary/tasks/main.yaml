@@ -49,13 +49,25 @@
     line: carapace _carapace | source
   ignore_errors: true
 
-- name: Create carapace for nushell
-  ansible.builtin.shell: carapace init nushell > ~/.carapace.nu
-
-- name: Update nushell config
-  ansible.builtin.lineinfile:
+- name: Update nushell config for carapace
+  ansible.builtin.blockinfile:
     path: ~/.config/nushell/config.nu
-    line: source ~/.carapace.nu
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - carapace"
+    block: |
+      let carapace_completer = {|spans|
+          carapace $spans.0 nushell $spans | from json
+      }
+      let-env config = ($env.config | upsert completions  {
+          case_sensitive: false
+          quick: true
+          partial: true
+          algorithm: "fuzzy"
+          external: {
+            enable: true
+            max_results: 100
+            completer: $carapace_completer
+          }
+      })
   ignore_errors: true
 
 - name: Get the latest version
@@ -84,7 +96,7 @@
   set_fact:
     version: "{{ json_data['json'] | json_query('tag_name') | replace('v', '') }}"
 
-- name: Download the latest version of the carapace
+- name: Download the latest version of the fd
   ansible.builtin.apt:
     deb: "https://github.com/sharkdp/fd/releases/download/v{{version}}/fd_{{version}}_amd64.deb"
   become: true
@@ -95,11 +107,11 @@
 - name: Update fish for atuin
   ansible.builtin.lineinfile:
     path: ~/.config/fish/config.fish
-    line: atuin init fish | source
+    line: atuin init fish --disable-up-arrow | source
   ignore_errors: true
 
 - name: Create atuin for nushell
-  ansible.builtin.shell: atuin init nu > ~/.atuin.nu
+  ansible.builtin.shell: atuin init nu --disable-up-arrow > ~/.atuin.nu
 
 - name: Update nushell config for atuin
   ansible.builtin.lineinfile:

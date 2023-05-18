@@ -76,7 +76,8 @@ end
 
 function SetBackground()
   local d = os.date('!*t')
-  if (d.hour > 0 and d.hour < 10) and d.wday < 7 then
+  if (d.hour > 0 and d.hour < 10) and d.wday < 7 and d.wday > 1 and
+      vim.fn.filereadable(vim.fn.expand("$HOME/.force-dark")) == 0 then
     vim.opt.background = "light"
   else
     vim.opt.background = "dark"

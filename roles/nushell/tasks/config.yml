@@ -9,7 +9,7 @@
 - name: Update config.nu
   blockinfile:
     path: ~/.config/nushell/config.nu
-    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - nushell config"
     block: |
       let-env config = ($env.config | upsert show_banner false)
       alias vim = nvim
@@ -37,6 +37,13 @@
           source ~/.oh-my-posh.nu
         }
       }]
+
+
+      use ~/nu_scripts/modules/kubernetes/kubernetes.nu *
+      use ~/nu_scripts/modules/git/git-v2.nu *
+      use ~/nu_scripts/modules/network/ssh.nu *
+      use ~/nu_scripts/modules/docker/docker.nu *
+      use ~/nu_scripts/modules/nvim/nvim.nu *
 
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_l mode: [emacs vi_normal vi_insert]  event: { until: [{ send: menu name: completion_menu } { send: menunext } ]} }] ))
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { send: menuprevious } }] ))
