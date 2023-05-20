@@ -12,7 +12,7 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK - nushell config"
     block: |
       let-env config = ($env.config | upsert show_banner false)
-      let-env config = ($env.config | upsert editor vi)
+      let-env config = ($env.config | upsert editor_mode vi)
       alias vim = nvim
       alias in = enter
       alias s = shells
