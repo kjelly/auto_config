@@ -33,7 +33,7 @@ def fzf(data: bytes, multi: bool = False, filepath: bool = False,
 
     fzf = subprocess.Popen(
         command, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    stdout_bytes, stderr_bytes = fzf.communicate(data)
+    stdout_bytes, _ = fzf.communicate(data)
     stdout = stdout_bytes.decode('utf-8').strip()
     return stdout
 
@@ -47,7 +47,7 @@ def choose_one(text: str) -> typing.Tuple[str, str]:
     else:
         fzf = subprocess.Popen(
             ["fzf-tmux"] + fzf_args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    stdout_bytes, stderr_bytes = fzf.communicate(
+    stdout_bytes, _ = fzf.communicate(
         text.encode('utf-8'))
     stdout = stdout_bytes.decode('utf-8')
     if len(stdout) == 0:
@@ -61,10 +61,14 @@ def choose_one(text: str) -> typing.Tuple[str, str]:
 
 
 def list_tmux_window() -> str:
-    cmd = 'tmux list-windows -F "#{pane_current_path} #{window_id} ' \
-          '#{window_name} #{window_index} #"'
-    o = subprocess.check_output(cmd, shell=True)
-    return o.decode('utf-8')
+    cmd = ('tmux list-windows -F "#{pane_current_path} #{window_id} '
+    '#{window_name} #{window_index} #{window_activity} aaa:#{window_active} "')
+    o = [i.strip() for i in subprocess.check_output(cmd, shell=True).decode("utf-8").strip().split("\n")]
+    ret = sorted(o, key=lambda x: x.split(" ")[-1], reverse=True)[1:]
+    ret = [' '.join(i.split(' ')[:-2]) for i in ret if 'aaa:1' not in i]
+    ret = "\n".join(ret)
+    ret = ret.replace("&&:0", "")
+    return ret.strip()
 
 
 def cd(a: str, b: str):
@@ -120,7 +124,7 @@ if __name__ == '__main__':
         else:
             chooses.append(i)
 
-    text = '>new\n>choose\n>cd\n>kill\n'
+    text = '\n>new\n>choose\n>cd\n>kill\n'
     if in_tmux():
         tmux_window = list_tmux_window()
         for i in chooses:
@@ -129,7 +133,7 @@ if __name__ == '__main__':
         text = tmux_window + text
     else:
         text = '\n'.join(chooses)
-    query, result = choose_one(text)
+    query, result = choose_one(text.strip())
     result = os.path.expanduser(result)
     command = {
         'new': lambda a, b: os.system('tmux new-window'),

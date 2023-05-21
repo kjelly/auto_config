@@ -2,7 +2,7 @@
 - name: Update env.nu
   blockinfile:
     path: ~/.config/nushell/env.nu
-    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK PATH"
     block: |
       let-env PATH = ($env.PATH | prepend {{ NUSHELL_EXTRA_PATH }})
 
@@ -16,7 +16,6 @@
       let-env EDITOR = nvim
       alias vim = nvim
       alias in = enter
-      alias s = shells
       alias cd1 = cd ..
       alias cd2 = cd ../../
       alias cd3 = cd ../../../
@@ -90,6 +89,16 @@
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_k mode: [emacs vi_normal vi_insert]  event: { send: up } }] ))
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:control keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintComplete } }] ))
       let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintWordComplete } }] ))
+      let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_q mode: [emacs vi_normal vi_insert]  event: [{edit: Clear}, {edit: InsertString, value: "workspace"}, {send: Enter}] }] ))
+      def-env s [ ] {
+        let path = (zoxide query -i)
+        let id = (shells|enumerate | par-each -t 2 {|it| if ($it.item.path == $path) {$it.index} else {-1}} | reduce {|a, b| if ( $a > $b) {$a} else {$b}})
+        if ( ($id |into int) >= 0) {
+          g ($id |into int)
+        } else {
+          enter $path
+        }
+      }
 
 
 - name: Check if starship exists

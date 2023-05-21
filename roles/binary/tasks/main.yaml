@@ -22,10 +22,18 @@
 - name: Create zoxide for nushell
   ansible.builtin.shell: zoxide init nushell > ~/.zoxide.nu
 
-- name: Update nushell config
-  ansible.builtin.lineinfile:
+- name: Update nushell config for zoxide
+  ansible.builtin.blockinfile:
     path: ~/.config/nushell/config.nu
-    line: source ~/.zoxide.nu
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - nushell zoxide config"
+    block: |
+      let-env __zoxide_hooked = true
+      let-env config = ($env.config | update hooks.env_change.PWD ($env.config.hooks.env_change.PWD | append {|_, dir|
+        zoxide add -- $dir
+      }))
+      source ~/.zoxide.nu
+
+
   ignore_errors: true
 
 - name: Get the latest version

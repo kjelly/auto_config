@@ -21,6 +21,7 @@ def get_real_path(path):
     path_list = glob.glob(path)
     if len(path_list) == 0:
         return ''
+    path_list = sorted(path_list, reverse=True)
     return os.path.realpath(path_list[0])
 
 
@@ -54,8 +55,9 @@ def main():
         env_path.append(goroot_bin)
 
     for i in fuzzy_path:
-        if i:
-            env_path.append(i)
+        path = get_real_path(i)
+        if path:
+            env_path.append(path)
 
     if module.params['shell'] == 'fish':
         module.exit_json(changed=False, ENV_PATH=' '.join(env_path))
