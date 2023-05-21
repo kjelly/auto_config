@@ -19,9 +19,6 @@
     line: zoxide init fish | source
   ignore_errors: true
 
-- name: Create zoxide for nushell
-  ansible.builtin.shell: zoxide init nushell > ~/.zoxide.nu
-
 - name: Update nushell config for zoxide
   ansible.builtin.blockinfile:
     path: ~/.config/nushell/config.nu
