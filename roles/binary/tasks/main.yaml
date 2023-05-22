@@ -19,6 +19,8 @@
     line: zoxide init fish | source
   ignore_errors: true
 
+- name: Create nu script for zoxide
+  ansible.builtin.shell: zoxide init nushell > ~/.config/zoxide.nu
 - name: Update nushell config for zoxide
   ansible.builtin.blockinfile:
     path: ~/.config/nushell/config.nu
@@ -28,8 +30,7 @@
       let-env config = ($env.config | update hooks.env_change.PWD ($env.config.hooks.env_change.PWD | append {|_, dir|
         zoxide add -- $dir
       }))
-      source ~/.zoxide.nu
-
+      source ~/.config/zoxide.nu
 
   ignore_errors: true
 
@@ -116,10 +117,10 @@
   ignore_errors: true
 
 - name: Create atuin for nushell
-  ansible.builtin.shell: atuin init nu --disable-up-arrow > ~/.atuin.nu
+  ansible.builtin.shell: atuin init nu --disable-up-arrow > ~/.config/atuin.nu
 
 - name: Update nushell config for atuin
   ansible.builtin.lineinfile:
     path: ~/.config/nushell/config.nu
-    line: source ~/.atuin.nu
+    line: source ~/.config/atuin.nu
   ignore_errors: true

@@ -44,8 +44,6 @@
             { |before, after|
               if ( $env.cloud == 1 ) {
                   let-env PROMPT_COMMAND = { || create_left_prompt }
-              } else {
-                source ~/.oh-my-posh.nu
               }
             }
           ]}
