@@ -74,18 +74,6 @@ function RandomScheme()
   if #schemes > 0 then vim.cmd("colorscheme " .. schemes[Random(1, #schemes)]) end
 end
 
-function SetBackground()
-  local d = os.date('!*t')
-  if (d.hour > 0 and d.hour < 10) and d.wday < 7 and d.wday > 1 and
-      vim.fn.filereadable(vim.fn.expand("$HOME/.force-dark")) == 0 then
-    vim.opt.background = "light"
-  else
-    vim.opt.background = "dark"
-  end
-end
-
-SetBackground()
-
 function CheckOutput(command)
   local f = assert(io.popen(command .. ' 2>&1', 'r'))
   local s = assert(f:read('*a'))
@@ -1112,6 +1100,12 @@ function UpdateEnv()
 end
 
 function DelaySetup2()
+  SafeRequire("oil").setup({
+    buf_options = {
+      buflisted = true,
+      bufhidden = "unload",
+    },
+  })
   SafeRequireCallback("null-ls", function(null_ls)
     null_ls.setup({
       sources = {
@@ -1827,3 +1821,18 @@ end
 SafeRequire('nvim-web-devicons').setup({})
 
 vim.g.editconfig = true
+
+function checkIsEink()
+  if(vim.o.columns ==  137) then
+    vim.schedule(function()
+      vim.o.background = 'light'
+    end)
+  else
+    vim.schedule(function()
+      vim.o.background = 'dark'
+    end)
+  end
+  vim.defer_fn(checkIsEink, 100)
+end
+vim.defer_fn(checkIsEink, 300)
+

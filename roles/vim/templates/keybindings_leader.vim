@@ -70,7 +70,7 @@ nnoremap <leader>cc :lua RunShellAndShow('')<left><left>
 "nnoremap <leader>co  " for rnadom colorscheme
 
 nnoremap <leader>fx :Explore<space>
-nnoremap <leader>fr :Explore scp://
+nnoremap <leader>fr :e oil-ssh://
 nnoremap <silent> <leader>fb :Rexplore<CR>
 nnoremap <silent> <leader>fv :Vaffle<CR>
 nnoremap <silent> <leader>fs :w<CR>
