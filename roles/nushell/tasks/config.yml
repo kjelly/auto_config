@@ -34,7 +34,7 @@
       let-env config = ($env.config | merge {
         history: {
           file_format: "sqlite"
-          history_isolation: false
+          history_isolation: true
           sync_on_enter: true
         }
         hooks: {
