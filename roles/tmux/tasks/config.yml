@@ -18,4 +18,4 @@
     mode: 0755
   with_items:
     - t.py
-    - tmux-set-background
+    - tmux-set-background.sh
