@@ -3,6 +3,44 @@
 import argparse
 import os
 import subprocess
+import glob
+
+
+def get_real_path(path):
+    if path[0] == '~':
+        home = os.path.expanduser("~")
+        path = os.path.join(home, path[2:])
+
+    path_list = glob.glob(path)
+    if len(path_list) == 0:
+        return ''
+    path_list = sorted(path_list, reverse=True)
+    return os.path.realpath(path_list[0])
+
+
+def update_env():
+    path_list = ['~/gohome/bin', '~/bin', '~/mybin', '~/dark-sdk/bin',
+                 '~/swif/usr/bin', '/usr/local/mercury-14.01.1/bin',
+                 '/usr/lib/dart/bin/', '~/.cargo/bin/', '~/sbt/bin',
+                 '~/.pub-cache/bin', '~/dart-sdk/bin', '~/activator/bin/',
+                 '~/google-cloud-sdk/bin/', '~/kotlinc/bin/', '~/.rvm/bin',
+                 '/snap/bin/', '~/flutter/bin/', '~/.local/bin', '~/.deno/bin/',
+                 '~/flutter/bin/cache/dart-sdk/bin',
+                 '~/nfs/bin/', '~/.pub-cache/bin', '~/anaconda3/bin/']
+
+    fuzzy_path = ['~/node*/bin', '~/.asdf/installs/python/*/bin', '~/pypy*/bin/',
+                  '~/go*/bin/']
+    env_path = []
+    for path in path_list:
+        real_path = os.path.abspath(os.path.expanduser(path))
+        if os.path.exists(real_path):
+            env_path.append(real_path)
+
+    for i in fuzzy_path:
+        path = get_real_path(i)
+        if path:
+            env_path.append(path)
+    os.environ["PATH"] = ":".join(env_path) + os.environ["PATH"]
 
 
 def list_all_sessions():
