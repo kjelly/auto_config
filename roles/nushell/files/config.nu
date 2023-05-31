@@ -1,4 +1,11 @@
-let-env config = ($env.config? | default {} | upsert show_banner false)
+let-env config = ($env.config? | default {
+  hooks: {
+    pre_prompt: []
+    pre_execution: []
+  }
+  keybindings: []
+})
+let-env config = ($env.config | upsert show_banner false)
 let-env config = ($env.config | upsert edit_mode vi)
 let-env EDITOR = nvim
 alias vim = nvim
@@ -109,15 +116,19 @@ def-env zi  [...rest:string] {
   cd $'(zoxide query --interactive -- $rest | str trim -r -c "\n")'
 }
 
-
-let-env PROMPT_COMMAND = { ||
-let segment = ([
-  (prompt --exit_code $env.LAST_EXIT_CODE --duration $env.CMD_DURATION_MS)
-  "\n"
-  ->
-  ] |str join)
-  $segment
+def my-prompt [ ] {
+  try {
+    return (prompt)
+  } catch {}
+  try {
+    return (starship prompt)
+  } catch {}
+  try {
+    return ([$"(hostname) (pwd)"] | str join)
+  } catch {}
 }
+
+let-env PROMPT_COMMAND = ([(my-prompt) "\n" ->] | str join)
 let-env PROMPT_COMMAND_RIGHT = ""
 
 use ~/nu_scripts/modules/kubernetes/kubernetes.nu *
@@ -148,5 +159,4 @@ def-env s [ ] {
     enter $path
   }
 }
-
 
