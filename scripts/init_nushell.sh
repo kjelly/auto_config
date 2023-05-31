@@ -13,3 +13,11 @@ mkdir -p ~/bin
 # extract nushell and move it to ~/bin
 # this will overwrite any existing nushell installation
 tar -xzf /tmp/nushell.tar.gz -C ~/bin --strip-components=1
+
+mkdir -p ~/.config/nushell
+
+wget -O ~/.config/nushell/config.nu https://raw.githubusercontent.com/nushell/nushell/main/crates/nu-utils/src/sample_config/default_config.nu
+
+wget -O ~/.config/nushell/env.nu https://raw.githubusercontent.com/nushell/nushell/main/crates/nu-utils/src/sample_config/default_env.nu
+
+wget -O- https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/config.nu | tee -a ~/.config/nushell/config.nu
