@@ -18,7 +18,7 @@ tar -xzf /tmp/nushell.tar.gz -C ~/bin --strip-components=1
 
 mkdir -p ~/.config/nushell
 
-git clone https://github.com/nushell/nu_scripts
+git clone https://github.com/nushell/nu_scripts ~/nu_scripts/
 
 wget -O ~/.config/nushell/config.nu https://raw.githubusercontent.com/nushell/nushell/main/crates/nu-utils/src/sample_config/default_config.nu
 
