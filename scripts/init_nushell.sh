@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt update;sudo apt install -y git
+
 cd /tmp
 
 # get the latest version of nushell version
@@ -16,8 +18,12 @@ tar -xzf /tmp/nushell.tar.gz -C ~/bin --strip-components=1
 
 mkdir -p ~/.config/nushell
 
+git clone https://github.com/nushell/nu_scripts
+
 wget -O ~/.config/nushell/config.nu https://raw.githubusercontent.com/nushell/nushell/main/crates/nu-utils/src/sample_config/default_config.nu
 
 wget -O ~/.config/nushell/env.nu https://raw.githubusercontent.com/nushell/nushell/main/crates/nu-utils/src/sample_config/default_env.nu
+
+touch ~/.atuin.nu ~/.zoxide.nu ~/.carapace.nu
 
 wget -O- https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/config.nu | tee -a ~/.config/nushell/config.nu
