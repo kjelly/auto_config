@@ -128,7 +128,7 @@ def my-prompt [ ] {
   } catch {}
 }
 
-let-env PROMPT_COMMAND = ([(my-prompt) "\n" ->] | str join)
+let-env PROMPT_COMMAND = {|| ([(my-prompt) "\n" ->] | str join) }
 let-env PROMPT_COMMAND_RIGHT = ""
 
 use ~/nu_scripts/modules/kubernetes/kubernetes.nu *
@@ -158,5 +158,9 @@ def-env s [ ] {
   } else {
     enter $path
   }
+}
+
+def h [ pattern ] {
+  help commands | where name =~ $pattern or category =~ $pattern
 }
 
