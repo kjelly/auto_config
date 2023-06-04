@@ -321,6 +321,8 @@ Plug 'rebelot/kanagawa.nvim'
 Plug 'https://github.com/Almo7aya/neogruvbox.nvim'
 Plug 'https://github.com/bluz71/vim-nightfly-guicolors'
 Plug 'https://github.com/cranberry-clockworks/coal.nvim'
+
+" file explorer for ssh
 Plug 'https://github.com/stevearc/oil.nvim'
 
 if executable("fcitx") == 1
@@ -525,7 +527,6 @@ endfunction
 
 augroup basic
   autocmd!
-  autocmd! BufWritePre * %s/\s\+$//e
   autocmd! TermOpen * setlocal nonu norelativenumber | setlocal signcolumn=no
   autocmd! WinLeave * call WinLeaveAction()
   autocmd! BufWritePost worksapce.vim source workspace.vim
