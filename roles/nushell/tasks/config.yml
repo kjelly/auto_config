@@ -31,7 +31,6 @@
     path: ~/.oh-my-posh.nu
   register: file_status
 
-
 - name: Update config.nu
   blockinfile:
     path: ~/.config/nushell/config.nu
@@ -39,3 +38,21 @@
     block: |
       source ~/.oh-my-posh.nu
   when: file_status.stat.exists and starship_result.rc > 0
+
+- name: Check if nu_scripts exists
+  stat:
+    path: ~/nu_scripts/
+  register: file_status
+
+- name: Update config.nu
+  blockinfile:
+    path: ~/.config/nushell/config.nu
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - modules"
+    block: |
+      use ~/nu_scripts/modules/kubernetes/kubernetes.nu *
+      use ~/nu_scripts/modules/git/git-v2.nu *
+      use ~/nu_scripts/modules/network/ssh.nu *
+      use ~/nu_scripts/modules/docker/docker.nu *
+      use ~/nu_scripts/modules/nvim/nvim.nu *
+      use ~/nu_scripts/modules/after/after.nu *
+  when: file_status.stat.exists

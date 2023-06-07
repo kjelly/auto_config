@@ -137,12 +137,6 @@ use ~/nu_scripts/modules/network/ssh.nu *
 use ~/nu_scripts/modules/docker/docker.nu *
 use ~/nu_scripts/modules/nvim/nvim.nu *
 
-use std 'log debug'
-use std 'log info'
-use std 'log warning'
-use std 'log error'
-use std 'log critical'
-
 let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_l mode: [emacs vi_normal vi_insert]  event: { until: [{ send: menu name: completion_menu } { send: menunext } ]} }] ))
 let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { send: menuprevious } }] ))
 let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_j mode: [emacs vi_normal vi_insert]  event: { send: down } }] ))
