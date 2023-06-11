@@ -26,4 +26,5 @@ wget -O ~/.config/nushell/env.nu https://raw.githubusercontent.com/nushell/nushe
 
 touch ~/.atuin.nu ~/.zoxide.nu ~/.carapace.nu
 
+touch ~/.config/custom.nu
 wget -O- https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/config.nu | tee -a ~/.config/nushell/config.nu

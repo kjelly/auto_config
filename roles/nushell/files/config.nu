@@ -158,3 +158,4 @@ def h [ pattern ] {
   help commands | where name =~ $pattern or category =~ $pattern
 }
 
+source ~/.config/custom.nu
