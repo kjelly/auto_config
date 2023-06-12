@@ -28,8 +28,8 @@ let-env config.hooks.pre_prompt = ( $env.config.hooks.pre_prompt | append [{ ||
 let-env config = ($env.config | merge {
   history: {
     file_format: "sqlite"
-    history_isolation: true
-    sync_on_enter: true
+    history_isolation: false
+    sync_on_enter: false
   }
   hooks: {
     pre_prompt: $env.config.hooks.pre_prompt,
@@ -159,3 +159,21 @@ def h [ pattern ] {
 }
 
 source ~/.config/custom.nu
+
+let-env config = ($env.config | upsert hooks.env_change.PWD {
+    [
+        {
+            condition: {|before, after|
+                ($after | path join local.nu | path exists)
+            }
+            code: "overlay use local.nu"
+        },
+        {
+            condition: {|before, after|
+                (($after| path join local.nu | path exists) == false ) and 
+                 ($before| path join local.nu | path exists)
+            }
+            code: "overlay hide local"
+        }
+    ]
+})
