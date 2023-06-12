@@ -167,13 +167,6 @@ let-env config = ($env.config | upsert hooks.env_change.PWD {
                 ($after | path join local.nu | path exists)
             }
             code: "overlay use local.nu"
-        },
-        {
-            condition: {|before, after|
-                (($after| path join local.nu | path exists) == false ) and 
-                 ($before| path join local.nu | path exists)
-            }
-            code: "overlay hide local"
         }
     ]
 })
