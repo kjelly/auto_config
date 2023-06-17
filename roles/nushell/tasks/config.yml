@@ -15,6 +15,7 @@
 - name: Check if starship exists
   shell: which starship
   register: starship_result
+  ignore_errors: true
 
 - name: Render config if starship exists
   blockinfile:

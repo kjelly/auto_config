@@ -133,6 +133,7 @@ Plug 'SmiteshP/nvim-gps'
 Plug 'm-demare/hlargs.nvim'
 Plug 'https://github.com/kylechui/nvim-surround'
 Plug 'https://github.com/smjonas/live-command.nvim'
+Plug 'https://github.com/LhKipp/nvim-nu', {'do': ':TSInstall nu'}
 
 " Seamlessly jump between matched instances.
 Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}

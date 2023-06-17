@@ -108,7 +108,7 @@
   become: true
 
 - name: Install atuin
-  ansible.builtin.shell: curl https://raw.githubusercontent.com/ellie/atuin/main/install.sh
+  ansible.builtin.shell: curl https://raw.githubusercontent.com/ellie/atuin/main/install.sh | bash
 
 - name: Update fish for atuin
   ansible.builtin.lineinfile:
