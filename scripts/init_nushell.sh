@@ -20,9 +20,9 @@ mkdir -p ~/.config/nushell
 
 git clone https://github.com/nushell/nu_scripts ~/nu_scripts/
 
-wget -O ~/.config/nushell/config.nu https://raw.githubusercontent.com/nushell/nushell/main/crates/nu-utils/src/sample_config/default_config.nu
+wget -O ~/.config/nushell/config.nu https://fonts.kjelly.tw/default_config.nu
 
-wget -O ~/.config/nushell/env.nu https://raw.githubusercontent.com/nushell/nushell/main/crates/nu-utils/src/sample_config/default_env.nu
+wget -O ~/.config/nushell/env.nu https://fonts.kjelly.tw/default_env.nu
 
 touch ~/.atuin.nu ~/.zoxide.nu ~/.carapace.nu
 
