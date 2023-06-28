@@ -28,7 +28,7 @@ let-env config.hooks.pre_prompt = ( $env.config.hooks.pre_prompt | append [{ ||
 let-env config = ($env.config | merge {
   history: {
     file_format: "sqlite"
-    history_isolation: false
+    isolation: false
     sync_on_enter: false
   }
   hooks: {
@@ -170,3 +170,45 @@ let-env config = ($env.config | upsert hooks.env_change.PWD {
         }
     ]
 })
+
+let-env NU_LIB_DIRS = [~/nu_scripts/]
+let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
+    name: fuzzy_module
+    modifier: control
+    keycode: char_g
+    mode: [emacs, vi_normal, vi_insert]
+    event: {
+        send: executehostcommand
+        cmd: '
+            let cmd = (commandline)
+            let t = (pueue add -p -- $cmd)
+            sleep 1sec
+            pueue follow $t
+            commandline -r ''
+        '
+    }
+}] ))
+
+let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
+    name: fuzzy_module
+    modifier: alt
+    keycode: char_m
+    mode: [emacs, vi_normal, vi_insert]
+    event: {
+        send: executehostcommand
+        cmd: '
+            commandline --replace "use "
+            commandline --insert (
+                $env.NU_LIB_DIRS
+                | each {|dir|
+                    ls ($dir | path join "**" "*.nu")
+                    | get name
+                    | str replace $dir ""
+                }
+                | flatten
+                | input list --fuzzy
+                    $"Please choose a (ansi magenta)module(ansi reset) to (ansi cyan_underline)load(ansi reset):"
+                )
+        '
+    }
+}] ))
