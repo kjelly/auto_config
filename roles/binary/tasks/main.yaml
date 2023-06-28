@@ -79,7 +79,7 @@
 - name: Get the latest version
   ansible.builtin.uri:
     url: "https://api.github.com/repos/sharkdp/bat/releases/latest"
-    return_content: yes
+    return_content: true
   register: json_data
 
 - name: Get the latest version
