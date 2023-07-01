@@ -171,24 +171,24 @@ let-env config = ($env.config | upsert hooks.env_change.PWD {
     ]
 })
 
-let-env NU_LIB_DIRS = [~/nu_scripts/]
 let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
     name: fuzzy_module
-    modifier: control
-    keycode: char_g
+    modifier: alt
+    keycode: Enter
     mode: [emacs, vi_normal, vi_insert]
     event: {
         send: executehostcommand
         cmd: '
             let cmd = (commandline)
-            let t = (pueue add -p -- $cmd)
-            sleep 1sec
-            pueue follow $t
-            commandline -r ''
+            if ( $cmd | is-empty ) {
+            } else {
+              commandline -r $"pueue follow \(pueue add -p -- ($cmd)\)"
+            }
         '
     }
 }] ))
 
+let-env NU_LIB_DIRS = [~/nu_scripts/]
 let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
     name: fuzzy_module
     modifier: alt
@@ -212,3 +212,22 @@ let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | a
         '
     }
 }] ))
+
+let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
+    name: fuzzy_module
+    modifier: alt
+    keycode: char_h
+    mode: [emacs, vi_normal, vi_insert]
+    event: {
+        send: executehostcommand
+        cmd: '
+          let cmd = (commandline)
+          m ($cmd|split row " "|get 0)
+        '
+    }
+}] ))
+
+def m [ cmd ] {
+  [$"https://raw.githubusercontent.com/tldr-pages/tldr/main/pages/linux/($cmd).md",
+   $"https://raw.githubusercontent.com/tldr-pages/tldr/main/pages/common/($cmd).md"] | par-each -t 2 {|it| try { http get $it } } kkjj
+}

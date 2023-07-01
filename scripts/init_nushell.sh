@@ -15,16 +15,3 @@ mkdir -p ~/bin
 # extract nushell and move it to ~/bin
 # this will overwrite any existing nushell installation
 tar -xzf /tmp/nushell.tar.gz -C ~/bin --strip-components=1
-
-mkdir -p ~/.config/nushell
-
-git clone https://github.com/nushell/nu_scripts ~/nu_scripts/
-
-wget -O ~/.config/nushell/config.nu https://fonts.kjelly.tw/default_config.nu
-
-wget -O ~/.config/nushell/env.nu https://fonts.kjelly.tw/default_env.nu
-
-touch ~/.atuin.nu ~/.zoxide.nu ~/.carapace.nu
-
-touch ~/.config/custom.nu
-wget -O- https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/config.nu | tee -a ~/.config/nushell/config.nu
