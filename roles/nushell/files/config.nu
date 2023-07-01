@@ -28,7 +28,7 @@ let-env config.hooks.pre_prompt = ( $env.config.hooks.pre_prompt | append [{ ||
 let-env config = ($env.config | merge {
   history: {
     file_format: "sqlite"
-    isolation: false
+    isolation: true
     sync_on_enter: false
   }
   hooks: {
