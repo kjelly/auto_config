@@ -229,5 +229,5 @@ let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | a
 
 def m [ cmd ] {
   [$"https://raw.githubusercontent.com/tldr-pages/tldr/main/pages/linux/($cmd).md",
-   $"https://raw.githubusercontent.com/tldr-pages/tldr/main/pages/common/($cmd).md"] | par-each -t 2 {|it| try { http get $it } } kkjj
+   $"https://raw.githubusercontent.com/tldr-pages/tldr/main/pages/common/($cmd).md"] | par-each -t 2 {|it| try { http get $it } }
 }
