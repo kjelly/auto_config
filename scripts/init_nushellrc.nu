@@ -8,8 +8,11 @@ if (echo ~/nu_scripts/ | path exists) {
 }
 
 mkdir ~/.config/nushell
-let commit = (http get https://api.github.com/repos/nushell/nushell/releases/latest|get target_commitish)
+let commit = (http get https://api.github.com/repos/nushell/nushell/tags|get 0.commit.sha )
 
 http get $"https://raw.githubusercontent.com/nushell/nushell/($commit)/crates/nu-utils/src/sample_config/default_config.nu" | save -f ~/.config/nushell/config.nu
 http get $"https://raw.githubusercontent.com/nushell/nushell/($commit)/crates/nu-utils/src/sample_config/default_env.nu" | save -f ~/.config/nushell/env.nu
 
+touch ~/.config/custom.nu
+
+http get https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/config.nu | tee -a ~/.config/nushell/config.nu
