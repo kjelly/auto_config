@@ -78,6 +78,29 @@ def download-appimage [ repo ] {
 
 }
 
+def repo [ ] {
+  ["nushell/nushell"]
+}
+
+def github-link [context: string] {
+  let rows = ($context | str trim|split row ' ')
+  let repo = (if (($rows|length) == 3) { $rows|get 1 } else { $rows | last })
+  http get $"https://api.github.com/repos/($repo)/releases/latest"|get assets |get browser_download_url
+}
+
+def download-github [ repo: string@repo, link: string@github-link ] {
+  let name = (http get $"https://api.github.com/repos/($repo)/releases/latest"|get assets |get name|get 0)
+  wget $link -O $name
+  if ( $name | str ends-with '.gz' ) {
+    tar zxvf $name -C /tmp/aa
+  } else if ( $name | str ends-with '.zip' ) {
+    unzip $name -d /tmp/aa
+  } else {
+    tar xvf $name -C /tmp/aa
+  }
+  ^find /tmp/aa/ -type f -executable|lines|each {|it| cp $it ~/bin/ }
+
+} 
 
 def main [ ] {
   # download nushell/nushell
@@ -94,4 +117,3 @@ def main [ ] {
   # download-binary YesSeri/xny-cli
   # download-binary-url https://github.com/hush-shell/hush/releases/download/v0.1.4-alpha/hush-0.1.4-static-x86_64.tar.gz
 }
-
