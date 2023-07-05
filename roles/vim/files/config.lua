@@ -1135,6 +1135,12 @@ function UpdateEnv()
 end
 
 function DelaySetup2()
+    SafeRequire('illuminate').configure({
+        filetypes_denylist = {
+            'floaterm',
+            'neo-tree',
+        },
+    })
     SafeRequire("nu").setup()
     SafeRequire("oil").setup({
         buf_options = {buflisted = true, bufhidden = "unload"}
