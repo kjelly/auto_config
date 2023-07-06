@@ -232,28 +232,72 @@ def m [ cmd ] {
    $"https://raw.githubusercontent.com/tldr-pages/tldr/main/pages/common/($cmd).md"] | par-each -t 2 {|it| try { http get $it } }
 }
 
+let repo_list = ["nushell/nushell", "casey/just", "ajeetdsouza/zoxide", "Ryooooooga/croque",
+ "denoland/deno", "Nukesor/pueue", "ellie/atuin", "ducaale/xh", "YesSeri/xny-cli", "denisidoro/navi",
+ "orhun/halp", "starship/starship", "sharkdp/bat", "sharkdp/fd", "sharkdp/lscolors",
+ "sharkdp/ripgrep", "xo/usql", "ogham/dog", "derailed/k9s", "ahmetb/kubectx", "helm/helm",
+ "rclone/rclone", "restic/restic", "kopia/kopia", "Genivia/ugrep", "junegunn/fzf", "open-policy-agent/conftest",
+ "jqlang/jq", "tomnomnom/gron", "zyedidia/micro", "helix-editor/helix", "kovidgoyal/kitty", "tmux/tmux",
+ "theryangeary/choose", "direnv/direnv", "loft-sh/devpod", "tsl0922/ttyd", "aristocratos/btop", "moncho/dry",
+ "xxxserxxx/gotop", "orhun/kmon", "browsh-org/browsh", "htop-dev/htop", "mrusme/planor", "jesseduffield/lazydocker",
+ "tsenart/vegeta",
+]
 
 def repo [ ] {
-  ["nushell/nushell", "casey/just", "ajeetdsouza/zoxide", "Ryooooooga/croque",
-  "denoland/deno", "Nukesor/pueue", "ellie/atuin", "ducaale/xh", "YesSeri/xny-cli", "denisidoro/navi",
-  "orhun/halp"]
+  $repo_list | append ($repo_list|each {|it| $it|split row '/'|last })
+}
+
+def real_repo [ repo ] {
+  let repo = ($repo | str replace 'https://github.com/' '')
+  if ($repo | str contains '/') {
+    $repo
+  } else {
+    $repo_list | filter {|it| ($it|split row '/'|last) == $repo } | get 0
+  }
 }
 
 def github-link [context: string] {
   let rows = ($context | str trim|split row ' ')
   let repo = (if (($rows|length) == 3) { $rows|get 1 } else { $rows | last })
-  http get $"https://api.github.com/repos/($repo)/releases/latest"|get assets |get browser_download_url
+  # let repo = ($repo | str replace 'https://github.com/' '')
+  let repo = (real_repo $repo)
+  mut links = (http get $"https://api.github.com/repos/($repo)/releases/latest"|get assets |get browser_download_url)
+  let os = {
+    "Ubuntu": "linux",
+  }
+  let arch = (uname -m)
+  let filtered = ($links|filter {|it| $it|str contains -i ($os|get -i (sys|get host.name)) })
+  if (not ($filtered|is-empty)) {
+    $links = $filtered
+  }
+  let filtered = ($links|filter {|it| $it|str contains -i $arch })
+  if (not ($filtered|is-empty)) {
+    $links = $filtered
+  }
+  $links
 }
 
 def download-github [ repo: string@repo, link: string@github-link ] {
-  let name = (http get $"https://api.github.com/repos/($repo)/releases/latest"|get assets |get name|get 0)
+  # let repo = ($repo | str replace 'https://github.com/' '')
+  let repo = (real_repo $repo)
+  let name = (http get $"https://api.github.com/repos/($repo)/releases/latest"|get assets |filter {$in.browser_download_url == $link } |get name|get 0)
   wget $link -O $name
+  mkdir /tmp/aa
   if ( $name | str ends-with '.gz' ) {
     tar zxvf $name -C /tmp/aa
   } else if ( $name | str ends-with '.zip' ) {
     unzip $name -d /tmp/aa
-  } else {
+  } else if ( $name | str ends-with '.tar') {
     tar xvf $name -C /tmp/aa
+  } else {
+    chmod +x $name
+    let new = ($name|str replace -a - _|split column -c _ name|get 0.name)
+    mv $name $"/tmp/aa/($new)"
   }
   ^find /tmp/aa/ -type f -executable|lines|each {|it| cp $it ~/bin/ }
+}
+
+def github-readme [ repo ] {
+  let repo = ($repo | str replace 'https://github.com/' '')
+  http get $"https://raw.githubusercontent.com/($repo)/master/README.md" | glow
 }
