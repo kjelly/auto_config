@@ -239,8 +239,8 @@ let repo_list = ["nushell/nushell", "casey/just", "ajeetdsouza/zoxide", "Ryooooo
  "rclone/rclone", "restic/restic", "kopia/kopia", "Genivia/ugrep", "junegunn/fzf", "open-policy-agent/conftest",
  "jqlang/jq", "tomnomnom/gron", "zyedidia/micro", "helix-editor/helix", "kovidgoyal/kitty", "tmux/tmux",
  "theryangeary/choose", "direnv/direnv", "loft-sh/devpod", "tsl0922/ttyd", "aristocratos/btop", "moncho/dry",
- "xxxserxxx/gotop", "orhun/kmon", "browsh-org/browsh", "htop-dev/htop", "mrusme/planor", "jesseduffield/lazydocker",
- "tsenart/vegeta",
+ "xxxserxxx/gotop", "orhun/kmon", "browsh-org/browsh", "mrusme/planor", "jesseduffield/lazydocker",
+ "tsenart/vegeta", "nicolas-van/multirun"
 ]
 
 def repo [ ] {
@@ -289,6 +289,11 @@ def download-github [ repo: string@repo, link: string@github-link ] {
     unzip $name -d /tmp/aa
   } else if ( $name | str ends-with '.tar') {
     tar xvf $name -C /tmp/aa
+  } else if ( $name | str ends-with '.xz') {
+    tar xvf $name -C /tmp/aa
+  } else if ( $name | str ends-with '.deb') {
+    sudo dpkg -i $name
+    return
   } else {
     chmod +x $name
     let new = ($name|str replace -a - _|split column -c _ name|get 0.name)
