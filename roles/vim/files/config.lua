@@ -156,11 +156,14 @@ LSP_CONFIG = DefaultTable({}, {
                         formatCommand = "lua-format -i --indent-width=2 --break-after-table-lb  --extra-sep-at-table-end",
                         formatStdin = true
                     }
+                },
+                python = {
+                    {formatCommand = "black --quiet -", formatStdin = true}
                 }
             }
         }
     },
-    filetypes = {efm = {"lua"}},
+    filetypes = {efm = {"lua", "python"}},
     init_options = {efm = {documentFormatting = true}}
 })
 
@@ -1136,31 +1139,28 @@ end
 
 function DelaySetup2()
     SafeRequire('illuminate').configure({
-        filetypes_denylist = {
-            'floaterm',
-            'neo-tree',
-        },
+        filetypes_denylist = {'floaterm', 'neo-tree'}
     })
     SafeRequire("nu").setup()
     SafeRequire("oil").setup({
         buf_options = {buflisted = true, bufhidden = "unload"}
     })
-    SafeRequireCallback("null-ls", function(null_ls)
-        null_ls.setup({
-            sources = {
-                null_ls.builtins.formatting.lua_format,
-                null_ls.builtins.code_actions.refactoring,
-                null_ls.builtins.formatting.ruff,
-                null_ls.builtins.diagnostics.ruff,
-                null_ls.builtins.diagnostics.pylint.with({
-                    command = CheckOutput("which pylint"),
-                    diagnostics_postprocess = function(diagnostic)
-                        diagnostic.code = diagnostic.message_id
-                    end
-                })
-            }
-        })
-    end)
+    -- SafeRequireCallback("null-ls", function(null_ls)
+    --     null_ls.setup({
+    --         sources = {
+    --             null_ls.builtins.formatting.lua_format,
+    --             null_ls.builtins.code_actions.refactoring,
+    --             null_ls.builtins.formatting.ruff,
+    --             null_ls.builtins.diagnostics.ruff,
+    --             null_ls.builtins.diagnostics.pylint.with({
+    --                 command = CheckOutput("which pylint"),
+    --                 diagnostics_postprocess = function(diagnostic)
+    --                     diagnostic.code = diagnostic.message_id
+    --                 end
+    --             })
+    --         }
+    --     })
+    -- end)
     SafeRequireCallback("lsp_lines", function(lines)
         lines.setup()
         vim.diagnostic.config({virtual_text = false})
