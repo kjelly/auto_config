@@ -61,7 +61,9 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK - carapace"
     block: |
       let carapace_completer = {|spans|
-          carapace $spans.0 nushell $spans | from json
+          carapace $spans.0 nushell $spans | from json | mrege (fish --command $'complete "--do-complete=($spans | str join " ")"'
+          | $"value(char tab)description(char newline)" + $in
+          | from tsv --flexible --no-infer)
       }
       let-env config = ($env.config | upsert completions  {
           case_sensitive: false
