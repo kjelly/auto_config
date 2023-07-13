@@ -61,7 +61,7 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK - carapace"
     block: |
       let carapace_completer = {|spans|
-          carapace $spans.0 nushell $spans | from json | mrege (fish --command $'complete "--do-complete=($spans | str join " ")"'
+          carapace $spans.0 nushell $spans | from json | append (fish --command $'complete "--do-complete=($spans | str join " ")"'
           | $"value(char tab)description(char newline)" + $in
           | from tsv --flexible --no-infer)
       }
