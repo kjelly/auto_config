@@ -99,7 +99,6 @@ def download-github [ repo: string@repo, link: string@github-link ] {
     tar xvf $name -C /tmp/aa
   }
   ^find /tmp/aa/ -type f -executable|lines|each {|it| cp $it ~/bin/ }
-
 } 
 
 def main [ ] {
@@ -108,7 +107,7 @@ def main [ ] {
   # download-binary ajeetdsouza/zoxide
   # download-binary Ryooooooga/croque
   # download-binary denoland/deno
-  download-all Nukesor/pueue
+  # download-all Nukesor/pueue
   # download-binary ellie/atuin
   # download-binary ducaale/xh
   # download-binary-url https://github.com/orhun/halp/releases/download/v0.1.6/halp-0.1.6-x86_64-unknown-linux-gnu.tar.gz
