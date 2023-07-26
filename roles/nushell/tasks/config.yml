@@ -4,7 +4,7 @@
     path: ~/.config/nushell/env.nu
     marker: "# {mark} ANSIBLE MANAGED BLOCK PATH"
     block: |
-      let-env PATH = ($env.PATH | prepend {{ NUSHELL_EXTRA_PATH }})
+      $env.PATH = ($env.PATH | prepend {{ NUSHELL_EXTRA_PATH }})
 
 - name: Update config.nu
   blockinfile:

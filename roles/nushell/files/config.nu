@@ -1,13 +1,13 @@
-let-env config = ($env.config? | default {
+$env.config = ($env.config? | default {
   hooks: {
     pre_prompt: []
     pre_execution: []
   }
   keybindings: []
 })
-let-env config = ($env.config | upsert show_banner false)
-let-env config = ($env.config | upsert edit_mode vi)
-let-env EDITOR = nvim
+$env.config = ($env.config | upsert show_banner false)
+$env.config = ($env.config | upsert edit_mode vi)
+$env.EDITOR = nvim
 alias vim = nvim
 alias in = enter
 alias cd1 = cd ..
@@ -20,12 +20,12 @@ alias z2 = cd ../../
 alias z3 = cd ../../../
 alias z4 = cd ../../../../
 alias z5 = cd ../../../../../
-let-env config.hooks.pre_prompt = ( $env.config.hooks.pre_prompt | append [{ ||
+$env.config.hooks.pre_prompt = ( $env.config.hooks.pre_prompt | append [{ ||
       let direnv = (direnv export json | from json)
       let direnv = if ($direnv | length) == 1 { $direnv } else { {} }
       $direnv | load-env
     }] )
-let-env config = ($env.config | merge {
+$env.config = ($env.config | merge {
   history: {
     file_format: "sqlite"
     isolation: true
@@ -37,7 +37,7 @@ let-env config = ($env.config | merge {
     env_change: {cloud: [
       { |before, after|
         if ( $env.cloud == 1 ) {
-            let-env PROMPT_COMMAND = { || create_left_prompt }
+            $env.PROMPT_COMMAND = { || create_left_prompt }
         }
       }
     ]}
@@ -102,10 +102,10 @@ def "zoxide-path" [cmd: string, offset: int] {
 
 def-env z [...rest:string@zoxide-path] {
   let arg0 = ($rest | append '~').0
-  let path = if (($rest | length) <= 1) and ($arg0 == '-' or ($arg0 | path expand | path type) == dir) {
+  let path = if (($rest | $in | length) <= 1) and ($arg0 == '-' or ($arg0 | path expand | path type) == dir) {
     $arg0
-  } else if ( $rest | last | path exists ) {
-    $rest | last
+  } else if ( $rest | $in | last | path exists ) {
+    $rest | $in | last
   } else {
     (zoxide query --exclude $env.PWD -- $rest | str trim -r -c "\n")
   }
@@ -128,8 +128,8 @@ def my-prompt [ ] {
   } catch {}
 }
 
-let-env PROMPT_COMMAND = {|| ([(my-prompt) "\n" ->] | str join) }
-let-env PROMPT_COMMAND_RIGHT = ""
+$env.PROMPT_COMMAND = {|| ([(my-prompt) "\n" ->] | str join) }
+$env.PROMPT_COMMAND_RIGHT = ""
 
 use ~/nu_scripts/modules/kubernetes/kubernetes.nu *
 use ~/nu_scripts/modules/git/git-v2.nu *
@@ -137,13 +137,13 @@ use ~/nu_scripts/modules/network/ssh.nu *
 use ~/nu_scripts/modules/docker/docker.nu *
 use ~/nu_scripts/modules/nvim/nvim.nu *
 
-let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_l mode: [emacs vi_normal vi_insert]  event: { until: [{ send: menu name: completion_menu } { send: menunext } ]} }] ))
-let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { send: menuprevious } }] ))
-let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_j mode: [emacs vi_normal vi_insert]  event: { send: down } }] ))
-let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_k mode: [emacs vi_normal vi_insert]  event: { send: up } }] ))
-let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:control keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintComplete } }] ))
-let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintWordComplete } }] ))
-let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_q mode: [emacs vi_normal vi_insert]  event: [{edit: Clear}, {edit: InsertString, value: "workspace"}, {send: Enter}] }] ))
+$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_l mode: [emacs vi_normal vi_insert]  event: { until: [{ send: menu name: completion_menu } { send: menunext } ]} }] ))
+$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { send: menuprevious } }] ))
+$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_j mode: [emacs vi_normal vi_insert]  event: { send: down } }] ))
+$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_k mode: [emacs vi_normal vi_insert]  event: { send: up } }] ))
+$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:control keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintComplete } }] ))
+$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintWordComplete } }] ))
+$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_q mode: [emacs vi_normal vi_insert]  event: [{edit: Clear}, {edit: InsertString, value: "workspace"}, {send: Enter}] }] ))
 def-env s [ ] {
   let path = (zoxide query -i)
   let id = (shells|enumerate | par-each -t 2 {|it| if ($it.item.path == $path) {$it.index} else {-1}} | reduce {|a, b| if ( $a > $b) {$a} else {$b}})
@@ -160,7 +160,7 @@ def h [ pattern ] {
 
 source ~/.config/custom.nu
 
-let-env config = ($env.config | upsert hooks.env_change.PWD {
+$env.config = ($env.config | upsert hooks.env_change.PWD {
     [
         {
             condition: {|before, after|
@@ -171,7 +171,7 @@ let-env config = ($env.config | upsert hooks.env_change.PWD {
     ]
 })
 
-let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
+$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
     name: fuzzy_module
     modifier: alt
     keycode: Enter
@@ -188,8 +188,8 @@ let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | a
     }
 }] ))
 
-let-env NU_LIB_DIRS = [~/nu_scripts/]
-let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
+$env.NU_LIB_DIRS = [~/nu_scripts/]
+$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
     name: fuzzy_module
     modifier: alt
     keycode: char_m
@@ -213,7 +213,7 @@ let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | a
     }
 }] ))
 
-let-env config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
+$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
     name: fuzzy_module
     modifier: alt
     keycode: char_h
