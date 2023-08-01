@@ -138,9 +138,7 @@ LSP_CONFIG = DefaultTable({}, {
           autoSearchPaths = true,
           diagnosticMode = "workspace",
           useLibraryCodeForTypes = true,
-          diagnosticSeverityOverrides = {
-            reportGeneralTypeIssues = "none",
-          },
+          diagnosticSeverityOverrides = { reportGeneralTypeIssues = "none" },
         },
       },
     },
@@ -1110,6 +1108,15 @@ function UpdateEnv()
 end
 
 function DelaySetup2()
+  vim.api.nvim_create_autocmd('ModeChanged', {
+    callback = function()
+      if vim.fn.mode() == 'n' then
+        vim.cmd('setlocal cursorline')
+      else
+        vim.cmd('setlocal nocursorline')
+      end
+    end,
+  })
   SafeRequire('illuminate').configure({
     filetypes_denylist = { 'floaterm', 'neo-tree' },
   })

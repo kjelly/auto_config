@@ -1,11 +1,11 @@
 #!/usr/bin/env nu
 
-if (echo ~/nu_scripts/ | path exists) {
-  cd ~/nu_scripts/
-  git pull
-} else {
-  git clone https://github.com/nushell/nu_scripts ~/nu_scripts/
-}
+# if (echo ~/nu_scripts/ | path exists) {
+#   cd ~/nu_scripts/
+#   git pull
+# } else {
+#   git clone https://github.com/nushell/nu_scripts ~/nu_scripts/
+# }
 
 mkdir ~/.config/nushell
 let commit = (http get https://api.github.com/repos/nushell/nushell/tags|get 0.commit.sha )

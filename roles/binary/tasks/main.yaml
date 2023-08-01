@@ -26,18 +26,21 @@
     path: ~/.config/nushell/config.nu
     marker: "# {mark} ANSIBLE MANAGED BLOCK - nushell zoxide config"
     block: |
-      let-env __zoxide_hooked = true
-      let-env config = ($env.config | update hooks.env_change.PWD ($env.config.hooks.env_change.PWD | append {|_, dir|
+      $env.__zoxide_hooked = true
+      $env.config = ($env | default {} config).config
+      $env.config = ($env.config | default {} hooks)
+      $env.config = ($env.config | update hooks ($env.config.hooks | default {} env_change))
+      $env.config = ($env.config | update hooks.env_change ($env.config.hooks.env_change | default [] PWD))
+      $env.config = ($env.config | update hooks.env_change.PWD ($env.config.hooks.env_change.PWD | append {|_, dir|
         zoxide add -- $dir
       }))
-      source ~/.config/zoxide.nu
 
   ignore_errors: true
 
 - name: Get the latest version
   ansible.builtin.uri:
     url: "https://api.github.com/repos/rsteube/carapace-bin/releases/latest"
-    return_content: yes
+    return_content: true
   register: json_data
 
 - name: Get the latest version
@@ -63,9 +66,9 @@
       let carapace_completer = {|spans|
           carapace $spans.0 nushell $spans | from json | append (fish --command $'complete "--do-complete=($spans | str join " ")"'
           | $"value(char tab)description(char newline)" + $in
-          | from tsv --flexible --no-infer)
+          | from tsv --flexible --no-infer) |uniq
       }
-      let-env config = ($env.config | upsert completions  {
+      $env.config = ($env.config | upsert completions  {
           case_sensitive: false
           quick: true
           partial: true
@@ -121,8 +124,8 @@
 - name: Create atuin for nushell
   ansible.builtin.shell: atuin init nu --disable-up-arrow > ~/.config/atuin.nu
 
-- name: Update nushell config for atuin
-  ansible.builtin.lineinfile:
-    path: ~/.config/nushell/config.nu
-    line: source ~/.config/atuin.nu
-  ignore_errors: true
+    #- name: Update nushell config for atuin
+    #  ansible.builtin.lineinfile:
+    #    path: ~/.config/nushell/config.nu
+    #    line: source ~/.config/atuin.nu
+    #  ignore_errors: true

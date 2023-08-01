@@ -227,6 +227,86 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
     }
 }] ))
 
+$env.config.color_config = {
+    separator: blue_bold
+    leading_trailing_space_bg: { attr: n } # no fg, no bg, attr none effectively turns this off
+    header: green_bold
+    empty: blue
+    bool: {|| if $in { 'dark_cyan' } else { 'cyan' } }
+    int: cyan
+    filesize: {|e|
+        if $e == 0b {
+            'cyan'
+        } else if $e < 1mb {
+            'cyan_bold'
+        } else { 'blue_bold' }
+    }
+    duration: cyan
+    date: {|| (date now) - $in |
+        if $in < 1hr {
+            'purple'
+        } else if $in < 6hr {
+            'red'
+        } else if $in < 1day {
+            'yellow'
+        } else if $in < 3day {
+            'green'
+        } else if $in < 1wk {
+            'light_green'
+        } else if $in < 6wk {
+            'cyan'
+        } else if $in < 52wk {
+            'blue'
+        } else { 'cyan' }
+    }
+    range: cyan
+    float: cyan
+    string: cyan
+    nothing: cyan
+    binary: cyan
+    cellpath: cyan
+    row_index: green_bold
+    record: yellow_bold
+    list: yellow_bold
+    block: yellow_bold
+    hints: cyan
+    search_result: {fg: yellow_bold bg: red}    
+    shape_and: purple_bold
+    shape_binary: purple_bold
+    shape_block: blue_bold
+    shape_bool: light_cyan
+    shape_closure: green_bold
+    shape_custom: green
+    shape_datetime: cyan_bold
+    shape_directory: cyan
+    shape_external: cyan
+    shape_externalarg: green_bold
+    shape_filepath: cyan
+    shape_flag: blue_bold
+    shape_float: purple_bold
+    shape_garbage: { fg: yellow_bold bg: red attr: b}
+    shape_globpattern: cyan_bold
+    shape_int: purple_bold
+    shape_internalcall: cyan_bold
+    shape_list: cyan_bold
+    shape_literal: blue
+    shape_match_pattern: green
+    shape_matching_brackets: { attr: u }
+    shape_nothing: light_cyan
+    shape_operator: yellow
+    shape_or: purple_bold
+    shape_pipe: purple_bold
+    shape_range: yellow_bold
+    shape_record: cyan_bold
+    shape_redirection: purple_bold
+    shape_signature: green_bold
+    shape_string: green
+    shape_string_interpolation: cyan_bold
+    shape_table: blue_bold
+    shape_variable: purple
+    shape_vardecl: purple
+}
+
 def m [ cmd ] {
   [$"https://raw.githubusercontent.com/tldr-pages/tldr/main/pages/linux/($cmd).md",
    $"https://raw.githubusercontent.com/tldr-pages/tldr/main/pages/common/($cmd).md"] | par-each -t 2 {|it| try { http get $it } }
