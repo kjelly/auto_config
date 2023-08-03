@@ -1868,7 +1868,7 @@ function StartPueueJob(name, cmd)
       vim.schedule(function()
         vim.notify(vim.inspect(data))
         vim.cmd(string.format(
-          "FloatermNew --autoclose=0 --name=%s --title=%s --border=rounded pueue follow %s",
+          "FloatermNew --autoclose=0 --name=%s --title=%s pueue follow %s",
           name, name, data[1]))
       end)
     end,

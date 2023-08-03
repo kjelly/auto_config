@@ -1,4 +1,4 @@
-let-env _clipboard = ( try { $env._clipboard } catch { [ ] })
+$env._clipboard = ( try { $env._clipboard } catch { [ ] })
 
 def pretty [  ] {
   let it = $in
@@ -19,7 +19,7 @@ def-env cb [ command = "" ] {
     let stdin = $in
     if ( $stdin | is-empty ) {
     } else {
-      let-env _clipboard = ( $env._clipboard | append [$stdin] | last 10)
+      $env._clipboard = ( $env._clipboard | append [$stdin] | last 10)
     }
     return ($env._clipboard | last)
   } else {
@@ -33,7 +33,7 @@ def-env cb [ command = "" ] {
           $it |pretty
         }|reverse)
       } else if ( $command == "clear" ) {
-        let-env _clipboard = [ ]
+        $env._clipboard = [ ]
         return $env._clipboard
       } else if ( $command == "fzf" ) {
         $env._clipboard | fzf_list

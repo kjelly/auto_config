@@ -9,8 +9,12 @@
 - name: Update config.nu
   blockinfile:
     path: ~/.config/nushell/config.nu
-    marker: "# {mark} ANSIBLE MANAGED BLOCK - nushell config"
-    block: "{{ lookup('ansible.builtin.file', 'config.nu') }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - nushell {{ item }}"
+    block: "{{ lookup('ansible.builtin.file', item) }}"
+  with_items:
+    - config.nu
+    - clipboard.nu
+    - pueue.nu
 
 - name: Check if starship exists
   shell: which starship
