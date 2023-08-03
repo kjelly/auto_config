@@ -1857,6 +1857,7 @@ function StartPueueJob(name, cmd)
   os.execute("pueue group add " .. name)
   os.execute("pueue kill -g " .. name)
   os.execute("pueue clean -g " .. name)
+  os.execute("pueue start -g " .. name)
 
   local Job = require 'plenary.job'
   Job:new({
