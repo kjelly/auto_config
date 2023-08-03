@@ -1852,3 +1852,24 @@ local function checkIsEink()
   vim.defer_fn(checkIsEink, 100)
 end
 vim.defer_fn(checkIsEink, 300)
+
+function StartPueueJob(name, cmd)
+  os.execute("pueue group add " .. name)
+  os.execute("pueue kill -g " .. name)
+  os.execute("pueue clean -g " .. name)
+
+  local Job = require 'plenary.job'
+  Job:new({
+    command = 'pueue',
+    args = { "add", "-p", "-i", "-g", name, "--", cmd },
+    on_exit = function(j, exitcode)
+      local data = j:result()
+      vim.schedule(function()
+        vim.notify(vim.inspect(data))
+        vim.cmd(string.format(
+          "FloatermNew --autoclose=0 --name=%s --title=%s --border=rounded pueue follow %s",
+          name, name, data[1]))
+      end)
+    end,
+  }):start()
+end
