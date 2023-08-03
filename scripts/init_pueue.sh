@@ -27,4 +27,4 @@ curl -s https://api.github.com/repos/Nukesor/pueue/releases/latest \
  | tr -d \" \
  | wget -qi - -O $HOME/.config/systemd/user/pueue.service
 
-
+mv /tmp/pueue /tmp/pueued ~/bin/
