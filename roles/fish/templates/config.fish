@@ -46,6 +46,10 @@ end
 
 {% if is_wsl.value %}export DISPLAY=127.0.0.1:0.0{% endif %}
 
+if type -q direnv
+    direnv hook fish | source
+end
+
 function vagrant
   docker run -it --rm \
     -e LIBVIRT_DEFAULT_URI \
