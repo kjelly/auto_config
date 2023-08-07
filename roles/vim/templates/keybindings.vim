@@ -169,13 +169,9 @@ imap <m-n> <c-n>
 tmap <m-n> <c-n>
 cmap <m-n> <c-n>
 
-inoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("FzfLua buffers")<cr>
-nnoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("FzfLua buffers")<cr>
-tnoremap <m-o> <cmd>lua GoToMainWindowAndRunCommand("FzfLua buffers")<cr>
-
-inoremap <m-O> <cmd>lua FzfBuffer()<cr>
-nnoremap <m-O> <cmd>lua FzfBuffer()<cr>
-tnoremap <m-O> <cmd>lua FzfBuffer()<cr>
+inoremap <m-o> <cmd>lua FzfBuffer()<cr>
+nnoremap <m-o> <cmd>lua FzfBuffer()<cr>
+tnoremap <m-o> <cmd>lua FzfBuffer()<cr>
 
 inoremap <m-y> <cmd>lua GoToMainWindowAndRunCommand("FzfLua jumps")<cr>
 nnoremap <m-y> <cmd>lua GoToMainWindowAndRunCommand("FzfLua jumps")<cr>

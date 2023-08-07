@@ -1035,45 +1035,15 @@ function TermToggle()
 end
 
 function FzfBuffer()
-  local filetype = vim.api.nvim_eval("&filetype")
+local filetype = vim.api.nvim_eval("&filetype")
   local fzf = require('fzf-lua')
   if filetype == "floaterm" then
-    local previewers = require "fzf-lua.previewer"
-    fzf.fzf_exec(function(fzf_cb)
-      coroutine.wrap(function()
-        local co = coroutine.running()
-        for _, b in ipairs(vim.api.nvim_list_bufs()) do
-          vim.schedule(function()
-            local filetype = vim.bo[b].filetype
-            if filetype == 'floaterm' then
-              local name = vim.api.nvim_buf_get_name(b)
-              name = #name > 0 and name or "[No Name]"
-              fzf_cb(b .. ":" .. name, function()
-                coroutine.resume(co)
-              end)
-            else
-              coroutine.resume(co)
-            end
-          end)
-          coroutine.yield()
-        end
-        fzf_cb()
-      end)()
-    end, {
-      previewer = "builtin.buffer_or_file",
-      actions = {
-        ["default"] = function(selected)
-          Dump(selected)
-          vim.schedule(function()
-            local a = string.find(selected[1], ":")
-            local bufnr = string.sub(selected[1], 1, a - 1)
-            vim.cmd("buffer " .. bufnr)
-          end)
-        end,
-      },
-    })
+    SafeRequire("telescope._extensions.floaterm.floaterm").search()
   else
-    fzf.buffers()
+    GotoMainWindow()
+    if SafeRequire('telescope.builtin').buffers() == nil then
+      FindFileCwd()
+    end
   end
 end
 
@@ -1321,7 +1291,7 @@ function DelaySetup2()
 
   SafeRequireCallback("telescope", function(telescope)
     telescope.setup({
-      pickers = { buffers = { sort_lastused = true } },
+      pickers = { buffers = { sort_mru = true, ignore_current_buffer = true } },
       defaults = {
         mappings = {
           i = {
@@ -1332,6 +1302,7 @@ function DelaySetup2()
         },
       },
     })
+    telescope.load_extension("floaterm")
   end)
 
   SafeRequire("copilot").setup({
