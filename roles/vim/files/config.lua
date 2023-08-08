@@ -1364,7 +1364,6 @@ function DelaySetup1()
   end)
   SafeRequire("cybu").setup()
   SafeRequire("fidget").setup()
-  SafeRequire("focus").setup({ signcolumn = false })
 
   SafeRequireCallback('fzf-lua', function(fzf)
     local disable_icons = {

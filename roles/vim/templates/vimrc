@@ -198,8 +198,6 @@ Plug 'towolf/vim-helm'
 " markdown support with some fetures
 " Plug 'https://github.com/SidOfc/mkdx'
 
-Plug 'https://github.com/beauwilliams/focus.nvim'
-
 " notify ui
 Plug 'rcarriga/nvim-notify'
 
@@ -270,7 +268,6 @@ Plug 'https://github.com/NvChad/nvim-colorizer.lua'
 Plug 'https://github.com/NTBBloodbath/rest.nvim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'https://github.com/ibhagwan/fzf-lua'
 
 
