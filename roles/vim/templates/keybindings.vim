@@ -225,6 +225,11 @@ tnoremap <m-r> <cmd>lua RunPreviousCommandFunc()<cr>
 nnoremap <m-r> <cmd>lua RunPreviousCommandFunc()<cr>
 inoremap <m-r> <cmd>lua RunPreviousCommandFunc()<cr>
 
+tnoremap <m-v> <c-v>
+nnoremap <m-v> <c-v>
+inoremap <m-v> <c-v>
+cnoremap <m-v> <c-v>
+
 function! EnterShellFunc()
   let mod = mode()
   if mod == 'n'
