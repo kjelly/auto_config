@@ -154,11 +154,6 @@ Plug 'kkharji/sqlite.lua'
 Plug 'windwp/nvim-spectre'
 Plug 'https://github.com/sindrets/diffview.nvim'
 
-" Jump to any definition and
-" references IDE madness without overhead
-Plug 'pechorin/any-jump.nvim'
-" Plug 'noib3/nvim-cokeline'
-
 " Easymotion-like
 Plug 'https://github.com/phaazon/hop.nvim'
 Plug 'monaqa/dial.nvim', {'on': ['DialIncrement', 'DialDecrement']}
@@ -175,7 +170,6 @@ Plug 'https://github.com/melkster/modicator.nvim'
 
 " Indent guides for Neovim
 Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'master', 'on': 'IndentBlanklineEnable'}
-Plug 'tveskag/nvim-blame-line'
 Plug 'https://github.com/tveskag/nvim-blame-line'
 
 " Due date
@@ -204,7 +198,8 @@ Plug 'rcarriga/nvim-notify'
 " Disable scrollbar. Not useful for me.
 " Plug 'https://github.com/petertriho/nvim-scrollbar'
 Plug 'https://github.com/Chaitanyabsprip/present.nvim'
-Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+
+Plug 'https://github.com/ojroques/nvim-osc52'
 
 Plug 'jdhao/better-escape.vim'
 
@@ -530,7 +525,6 @@ augroup basic
   autocmd! WinLeave * call WinLeaveAction()
   autocmd! BufWritePost worksapce.vim source workspace.vim
 
-  autocmd! TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankRegister +' | endif
   au! BufRead */tasks/*.yaml,*/tasks/*.yml set ft=yaml.ansible
   au! BufRead *.yaml,*.yml if search('hosts:\|tasks:\|roles:', 'nw') | set ft=yaml.ansible | endif
   autocmd! BufWritePost *.py if executable("isort") && exists("g:isort") | execute "silent !isort %" | endif
@@ -657,8 +651,6 @@ let g:fzf_floaterm_newentries = {
   \ }
 let g:mkdx#settings = { 'map': { 'enable': 1, 'prefix': '<leader>md' }, 'checkbox': { 'toggles': [' ', 'x'] } }
 
-" set clipboard will make nvim failed to start in ttyd
-set clipboard=unnamed
 set title
 
 if has("nvim-0.9.0")

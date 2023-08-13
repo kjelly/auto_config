@@ -1078,6 +1078,13 @@ function UpdateEnv()
 end
 
 function DelaySetup2()
+  function Copy()
+    if vim.v.event.operator == 'y' and vim.v.event.regname == '+' then
+      require('osc52').copy_register('+')
+    end
+  end
+  vim.api.nvim_create_autocmd('TextYankPost', {callback = Copy})
+
   vim.api.nvim_create_autocmd('ModeChanged', {
     callback = function()
       if vim.fn.mode() == 'n' then
