@@ -53,6 +53,12 @@ nnoremap <silent> <leader>gp <cmd>lua KillAndRerunTermWrapper("git push", {shell
 nnoremap <silent> <leader>gs <cmd>FzfLua git_status<cr>
 nnoremap <silent> <leader>gu <cmd>Git pull --rebase<CR>
 nnoremap <silent> <leader>gw <cmd>Gwrite<CR>
+nnoremap <silent> <leader>ggpl <cmd>Octo pr list<cr>
+nnoremap <silent> <leader>ggpc <cmd>Octo pr create<cr>
+nnoremap <silent> <leader>ggpm <cmd>Octo pr merge<cr>
+nnoremap <silent> <leader>ggpe <cmd>Octo pr edit<cr>
+nnoremap <silent> <leader>ggpu <cmd>Octo pr url<cr>
+nnoremap <silent> <leader>ggpo <cmd>Octo pr checkout<cr>
 
 nnoremap <silent> <leader>id :put =strftime('%Y-%m-%d')<cr>
 nnoremap <silent> <leader>it :put =strftime('%H:%M:%S')<cr>

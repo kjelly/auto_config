@@ -258,6 +258,7 @@ Plug 'simeji/winresizer', { 'on': ['WinResizerStartResize', 'WinResizerStartMove
 Plug 't9md/vim-choosewin'
 Plug 'metakirby5/codi.vim'
 Plug 'https://github.com/NvChad/nvim-colorizer.lua'
+
 " Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 Plug 'https://github.com/NTBBloodbath/rest.nvim'
@@ -327,6 +328,7 @@ endif
 
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
+Plug 'https://github.com/pwntester/octo.nvim'
 
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle']}
 
@@ -349,6 +351,7 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'lukas-reineke/cmp-rg'
+Plug 'https://github.com/petertriho/cmp-git'
 Plug 'https://github.com/mtoohey31/cmp-fish', { 'for': 'fish'}
 Plug 'https://github.com/dmitmel/cmp-cmdline-history'
 Plug 'https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol'

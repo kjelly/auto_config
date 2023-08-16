@@ -807,6 +807,8 @@ SafeRequireCallback("cmp", function()
     formatting = { format = custom_format },
   })
 
+  SafeRequire("cmp_git").setup()
+
   -- Set configuration for specific filetype.
   cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
@@ -1041,7 +1043,9 @@ local filetype = vim.api.nvim_eval("&filetype")
     SafeRequire("telescope._extensions.floaterm.floaterm").search()
   else
     GotoMainWindow()
-    if SafeRequire('telescope.builtin').buffers() == nil then
+    if #GetBuffers() > 1 then 
+      SafeRequire('telescope.builtin').buffers()
+    else
       FindFileCwd()
     end
   end
@@ -1078,6 +1082,8 @@ function UpdateEnv()
 end
 
 function DelaySetup2()
+  SafeRequire("netman")
+  SafeRequire("octo").setup()
   function Copy()
     if vim.v.event.operator == 'y' and vim.v.event.regname == '+' then
       require('osc52').copy_register('+')
@@ -1392,15 +1398,27 @@ end
 vim.schedule(DelaySetup1)
 
 function GetBuffers()
-  local buffers = {}
-  local len = 0
-  local vim_fn = vim.fn
-
-  for buffer = 1, vim_fn.bufnr('$') do
-    len = len + 1
-    buffers[len] = vim.fn.bufname(buffer)
+  if opts == nil then
+    opts = {}
   end
-  return buffers
+  local filter = vim.tbl_filter
+  local bufnrs = filter(function(b)
+    if 1 ~= vim.fn.buflisted(b) then
+      return false
+    end
+    -- only hide unloaded buffers if opts.show_all_buffers is false, keep them listed if true or nil
+    if opts.show_all_buffers == false and not vim.api.nvim_buf_is_loaded(b) then
+      return false
+    end
+    if opts.ignore_current_buffer and b == vim.api.nvim_get_current_buf() then
+      return false
+    end
+    if opts.cwd_only and not string.find(vim.api.nvim_buf_get_name(b), vim.loop.cwd(), 1, true) then
+      return false
+    end
+    return true
+  end, vim.api.nvim_list_bufs())
+  return bufnrs
 end
 
 function RunPreviousCommandFunc()
@@ -1850,4 +1868,21 @@ function StartPueueJob(name, cmd)
       end)
     end,
   }):start()
+end
+
+function GetBuffers(options)
+    local buffers = {}
+    local len = 0
+    local options_listed = options.listed
+    local vim_fn = vim.fn
+    local buflisted = vim_fn.buflisted
+
+    for buffer = 1, vim_fn.bufnr('$') do
+        if not options_listed or buflisted(buffer) ~= 1 then
+            len = len + 1
+            buffers[len] = buffer
+        end
+    end
+
+    return buffers
 end
