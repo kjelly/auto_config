@@ -115,6 +115,7 @@ silent! call plug#begin('~/.config/nvim/plugged')
 {% else %}
 silent! call plug#begin('~/.vim/plugged')
 {% endif %}
+if executable("gcc")
 Plug 'https://github.com/lewis6991/impatient.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate all'}
 Plug 'LhKipp/nvim-nu', {'do': ':TSInstall nu'}
@@ -134,6 +135,8 @@ Plug 'm-demare/hlargs.nvim'
 Plug 'https://github.com/kylechui/nvim-surround'
 Plug 'https://github.com/smjonas/live-command.nvim'
 Plug 'https://github.com/LhKipp/nvim-nu', {'do': ':TSInstall nu'}
+Plug 'https://github.com/bennypowers/nvim-regexplainer'
+endif
 
 " Seamlessly jump between matched instances.
 Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
@@ -186,7 +189,6 @@ Plug 'kevinhwang91/promise-async'
 " Fold
 Plug 'https://github.com/kevinhwang91/nvim-ufo'
 
-Plug 'https://github.com/bennypowers/nvim-regexplainer'
 Plug 'towolf/vim-helm'
 
 " markdown support with some fetures
