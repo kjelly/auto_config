@@ -1397,7 +1397,7 @@ end
 
 vim.schedule(DelaySetup1)
 
-function GetBuffers()
+function GetBuffers(opts)
   if opts == nil then
     opts = {}
   end
