@@ -1,6 +1,9 @@
 #!/bin/bash
 
-sudo apt update;sudo apt install -y git curl
+if ! command -v git &> /dev/null
+then
+  sudo apt update;sudo apt install -y git curl
+fi
 
 cd /tmp
 
