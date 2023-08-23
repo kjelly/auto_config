@@ -1154,18 +1154,24 @@ function DelaySetup2()
     SafeRequire("noice").setup({
       health = { checker = false },
       messages = {
-        enabled = true,              -- enables the Noice messages UI
-        view = "mini",               -- default view for messages
-        view_error = "notify",       -- view for errors
-        view_warn = "mini",          -- view for warnings
-        view_history = "messages",   -- view for :messages
-        view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+        enabled = true,              
+        view = "mini",              
+        view_error = "notify",     
+        view_warn = "mini",       
+        view_history = "messages", 
+        view_search = "virtualtext", 
       },
-      notify = { enabled = false },
+      notify = { enabled = true },
       lsp = {
-        hover = { enabled = false },
+        hover = { enabled = true },
         signature = { enabled = false },
-        message = { enabled = false },
+        message = { enabled = true },
+        progress = { enabled = true },
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
       },
     })
   end
