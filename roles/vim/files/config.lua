@@ -1043,7 +1043,7 @@ local filetype = vim.api.nvim_eval("&filetype")
     SafeRequire("telescope._extensions.floaterm.floaterm").search()
   else
     GotoMainWindow()
-    if #GetBuffers() > 1 then 
+    if #GetBuffers({}) > 1 then 
       SafeRequire('telescope.builtin').buffers()
     else
       FindFileCwd()
@@ -1874,21 +1874,4 @@ function StartPueueJob(name, cmd)
       end)
     end,
   }):start()
-end
-
-function GetBuffers(options)
-    local buffers = {}
-    local len = 0
-    local options_listed = options.listed
-    local vim_fn = vim.fn
-    local buflisted = vim_fn.buflisted
-
-    for buffer = 1, vim_fn.bufnr('$') do
-        if not options_listed or buflisted(buffer) ~= 1 then
-            len = len + 1
-            buffers[len] = buffer
-        end
-    end
-
-    return buffers
 end
