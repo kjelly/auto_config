@@ -149,4 +149,11 @@ def-env s [ ] {
   }
 }
 
-
+$env.config.hooks.pre_prompt = ( $env.config.hooks.pre_prompt | append [{ ||
+  mut output = ""
+  if ( $env.TMUX? | is-empty) {
+    $output += "@" + (hostname) + " "
+  }
+  $output += (pwd|str replace $env.HOME ~)
+  print $"(ansi title) ($output) (ansi reset)"
+}] )

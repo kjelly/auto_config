@@ -1875,3 +1875,15 @@ function StartPueueJob(name, cmd)
     end,
   }):start()
 end
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  callback = function()
+    local is_tmux = vim.fn.exists('$TMUX') == 1
+    local cwd = vim.fn.getcwd()
+    if is_tmux then
+      vim.opt.titlestring = vim.fn.getcwd()
+    else
+      vim.opt.titlestring = "@" .. vim.fn.hostname() .. " " .. "%t"
+    end
+  end
+})
