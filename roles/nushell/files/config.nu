@@ -160,8 +160,7 @@ def h [ pattern ] {
 
 source ~/.config/custom.nu
 
-$env.config = ($env.config | upsert hooks.env_change.PWD {
-    [
+$env.config.hooks.env_change.PWD = ($env.config.hooks.env_change.PWD | append [
         {
             condition: {|before, after|
                 ($after | path join local.nu | path exists)
@@ -169,7 +168,7 @@ $env.config = ($env.config | upsert hooks.env_change.PWD {
             code: "overlay use local.nu"
         }
     ]
-})
+)
 
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
     name: fuzzy_module
