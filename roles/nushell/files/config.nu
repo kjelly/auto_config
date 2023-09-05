@@ -31,17 +31,15 @@ $env.config = ($env.config | merge {
     isolation: true
     sync_on_enter: false
   }
-  hooks: {
-    pre_prompt: $env.config.hooks.pre_prompt,
-    pre_execution: $env.config.hooks.pre_execution,
-    env_change: {cloud: [
+})
+
+$env.config.hooks.env_change.cloud = [
       { |before, after|
         if ( $env.cloud == 1 ) {
             $env.PROMPT_COMMAND = { || create_left_prompt }
         }
       }
-    ]}
-}})
+]
 
 def update-z [ path ] {
   ls -f $path | where type == dir | par-each { |it|
