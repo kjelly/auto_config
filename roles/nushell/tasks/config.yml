@@ -1,4 +1,32 @@
 ---
+- name: Get the latest version
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/nushell/nushell/tags"
+    return_content: yes
+  register: json_data
+
+- name: Get the latest version
+  set_fact:
+    data: "{{ json_data['content']|from_json }}"
+
+- name: Get the latest version
+  set_fact:
+    version: "{{ data[0].commit.sha}}"
+
+
+- name: Download config.nu
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/nushell/nushell/{{ version }}/crates/nu-utils/src/sample_config/default_config.nu"
+    dest: ~/.config/nushell/config.nu
+    mode: '0755'
+
+
+- name: Download env.nu
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/nushell/nushell/{{ version }}/crates/nu-utils/src/sample_config/default_env.nu"
+    dest: ~/.config/nushell/env.nu
+    mode: '0755'
+
 - name: Update env.nu
   blockinfile:
     path: ~/.config/nushell/env.nu

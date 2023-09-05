@@ -124,8 +124,8 @@
 - name: Create atuin for nushell
   ansible.builtin.shell: atuin init nu --disable-up-arrow > ~/.config/atuin.nu
 
-    #- name: Update nushell config for atuin
-    #  ansible.builtin.lineinfile:
-    #    path: ~/.config/nushell/config.nu
-    #    line: source ~/.config/atuin.nu
-    #  ignore_errors: true
+- name: Update nushell config for atuin
+  ansible.builtin.lineinfile:
+    path: ~/.config/nushell/config.nu
+    line: source ~/.config/atuin.nu
+  ignore_errors: true
