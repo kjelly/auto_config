@@ -21,6 +21,7 @@ alias z3 = cd ../../../
 alias z4 = cd ../../../../
 alias z5 = cd ../../../../../
 $env.config.hooks.pre_prompt = ( $env.config.hooks.pre_prompt | append [{ ||
+      if (which direnv|is-empty) { return }
       let direnv = (direnv export json | from json)
       let direnv = if ($direnv | length) == 1 { $direnv } else { {} }
       $direnv | load-env
@@ -383,4 +384,28 @@ def download-github [ repo: string@repo, link: string@github-link ] {
 def github-readme [ repo ] {
   let repo = ($repo | str replace 'https://github.com/' '')
   http get $"https://raw.githubusercontent.com/($repo)/master/README.md" | glow
+}
+
+def retry [ count:int, block:closure ] {
+  mut _count = $count
+  mut out = {}
+  while $_count > 0 {
+    $_count = $_count - 1
+    let c = $_count
+    try {
+      return {
+        "result": (do $block),
+        "retries": ($count - $c - 1),
+        "error": null
+      }
+    } catch {
+      if $c == 0 {
+        return {
+          "result": null,
+          "retries": ($count - $c),
+          "error": $in.debug
+        }
+      }
+    }
+  }
 }

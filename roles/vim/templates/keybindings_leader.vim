@@ -36,7 +36,7 @@ nnoremap <silent> <leader>gag <cmd>Agit<CR>
 nnoremap <silent> <leader>gam <cmd>FloatermNew git commit --amend<CR>
 nnoremap <silent> <leader>gbl <cmd>Git blame<CR>
 nnoremap <silent> <leader>gbr <cmd>FzfLua git_branches<cr>
-nnoremap <silent> <leader>gc <cmd>FloatermNew git commit<CR>
+nnoremap <silent> <leader>gc <cmd>FloatermNew git commit -S<CR>
 nnoremap <silent> <leader>gdc <cmd>Git diff %<CR>
 nnoremap <silent> <leader>gdi <cmd>Git diff<CR>
 nnoremap <silent> <leader>gdl <cmd>Git diff @~..@<CR>
@@ -303,13 +303,14 @@ nnoremap <silent> <localleader>l :wincmd l<cr>
 nnoremap <silent> <localleader>y <cmd>lua GoToMainWindowAndRunCommand("FzfLua jumps")<cr>
 nnoremap <silent> <localleader>o <cmd>lua GoToMainWindowAndRunCommand("FzfLua buffers")<cr>
 nnoremap <silent> <localleader>p <cmd>lua FindFileCwd()<cr>
-nnoremap <silent> <localleader>q :q!<cr>
+nnoremap <silent> <localleader>qq :q!<cr>
+nnoremap <silent> <localleader>qs :wq!<cr>
 nnoremap <silent> <localleader>n <cmd>call TreeToggle()<cr>
 nnoremap <silent> <localleader>tt <cmd>lua TermToggle()<cr>
 nnoremap <silent> <localleader>tj <cmd>lua FloatermNext(1)<cr>
 nnoremap <silent> <localleader>tk <cmd>lua FloatermNext(-1)<cr>
 nnoremap <silent> <localleader>tn <cmd>FloatermNew<cr>
-nnoremap <silent> <localleader>rp <cmd>RunPreviousCommandFunc()<cr>
+nnoremap <silent> <localleader>rp <cmd>lua RunPreviousCommandFunc()<cr>
 nnoremap <silent> <localleader>; <cmd>lua TermToggle()<cr>
 nnoremap <silent> <localleader>' <cmd>lua FloatermNext(1)<cr>
 nnoremap <localleader>rr :lua KillAndRerunTermWrapper('')<left><left>
