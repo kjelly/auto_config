@@ -2,6 +2,7 @@
 	email = kjellytw@gmail.com
 	name = Kuo-tung Kao
 	user  = Kuo-tung Kao
+	signingkey = /home/ubuntu/.ssh/id_rsa.pub
 [core]
 	editor = nvr
 	eol = lf
@@ -19,3 +20,5 @@
 	last = log -1 HEAD
 [pull]
 	rebase = true
+[gpg]
+	format = ssh

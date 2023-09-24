@@ -479,6 +479,8 @@ set shortmess=sTWAIFS
 " always show signcolumns
 set signcolumn=yes
 set noshowmode
+set spell
+set spelloptions=camel
 {% if nvim %}
 set inccommand=split
 set winblend=0
