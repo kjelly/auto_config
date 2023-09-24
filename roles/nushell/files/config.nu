@@ -20,12 +20,7 @@ alias z2 = cd ../../
 alias z3 = cd ../../../
 alias z4 = cd ../../../../
 alias z5 = cd ../../../../../
-$env.config.hooks.pre_prompt = ( $env.config.hooks.pre_prompt | append [{ ||
-      if (which direnv|is-empty) { return }
-      let direnv = (direnv export json | from json)
-      let direnv = if ($direnv | length) == 1 { $direnv } else { {} }
-      $direnv | load-env
-    }] )
+
 $env.config = ($env.config | merge {
   history: {
     file_format: "sqlite"
@@ -409,3 +404,72 @@ def retry [ count:int, block:closure ] {
     }
   }
 }
+
+bash -c $"source ($env.HOME)/.profile && env"
+    | lines
+    | parse "{n}={v}"
+    | filter { |x| (not $x.n in $env) or $x.v != ($env | get $x.n) }
+    | where not n in ["_", "LAST_EXIT_CODE", "DIRS_POSITION"]
+    | transpose --header-row
+    | into record
+    | load-env
+
+def contains [lst ele] {
+  $lst | each {|it| $it == $ele}|reduce {|a, b| $a or $b}
+}
+
+def list-diff [a b] {
+  $a | filter {|it| not (contains $b $it) }
+}
+
+def direnv_nu [] {
+    [
+        {
+            condition: {|before, after| ($before != $after) and ($after | path join .env.yaml | path exists) }
+            code: "
+                open .env.yaml | load-env
+            "
+        }
+        {
+            condition: {|before, after| ($before != $after) and ($after | path join '.env' | path exists) }
+            code: "
+                open .env
+                | lines
+                | parse -r '(?P<k>.+?)=(?P<v>.+)'
+                | reduce -f {} {|x, acc| $acc | upsert $x.k $x.v}
+                | load-env
+            "
+        }
+        {
+            condition: {|before, after| ($before != $after) and ($after | path join '.envrc' | path exists) }
+            code: "
+                if (which direnv|is-empty) { return }
+                direnv exec . sh -c env | lines
+                | parse "{n}={v}"
+                | filter { |x| (not $x.n in $env) or $x.v != ($env | get $x.n) }
+                | where not n in ["_", "LAST_EXIT_CODE", "DIRS_POSITION"]
+                | transpose --header-row
+                | into record
+                | load-env
+            "
+        }
+        {
+            condition: {|before, after| ($before != $after) and ($"~/.secrets/nushell/($after|str replace -a / _).yaml"| path exists) }
+            code: "
+                open $"~/.secrets/nushell/(pwd|str replace -a / _).yaml" | load-env
+                "
+        }
+
+    ]
+}
+
+$env.config = ( $env.config | upsert hooks.env_change.PWD { |config|
+    let o = ($config | get -i hooks.env_change.PWD)
+    let val = (direnv_nu)
+    if $o == $nothing {
+        $val
+    } else {
+        $o | append $val
+    }
+})
+
