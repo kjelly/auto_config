@@ -75,9 +75,18 @@
 
 - name: Create ~/.config
   ansible.builtin.file:
-    path: "~/.config"
+    path: "{{ item }}"
     state: directory
     mode: 0755
+  with_items:
+    - ~/.config
+    - ~/.config/i3/
+
+- name: Create a symbolic link
+  ansible.builtin.file:
+    src: ~/.i3/config
+    dest: ~/.config/i3/config
+    state: link
 
 - name: Copy directory
   ansible.builtin.file:
