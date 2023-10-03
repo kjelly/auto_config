@@ -473,3 +473,31 @@ $env.config = ( $env.config | upsert hooks.env_change.PWD { |config|
     }
 })
 
+let carapace_completer = {|spans|
+    mut lst = []
+    if (not (which carapace|is-empty)) {
+      $lst = ($lst | append (carapace $spans.0 nushell $spans | from json))
+    }
+    if (not (which fish|is-empty)) {
+      $lst = ($lst | append (fish --command $'complete "--do-complete=($spans | str join " ")"'
+      | $"value(char tab)description(char newline)" + $in
+      | from tsv --flexible --no-infer))
+    }
+    $lst |each {|it| $it|str trim} |uniq
+    if ($lst|is-empty) {
+      $lst = (ls|get name)
+    }
+    $lst
+}
+
+$env.config = ($env.config | upsert completions  {
+    case_sensitive: false
+    quick: true
+    partial: true
+    algorithm: "prefix"
+    external: {
+      enable: true
+      max_results: 100
+      completer: $carapace_completer
+    }
+})

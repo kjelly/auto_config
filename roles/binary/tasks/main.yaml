@@ -58,29 +58,6 @@
     line: carapace _carapace | source
   ignore_errors: true
 
-- name: Update nushell config for carapace
-  ansible.builtin.blockinfile:
-    path: ~/.config/nushell/config.nu
-    marker: "# {mark} ANSIBLE MANAGED BLOCK - carapace"
-    block: |
-      let carapace_completer = {|spans|
-          carapace $spans.0 nushell $spans | from json | append (fish --command $'complete "--do-complete=($spans | str join " ")"'
-          | $"value(char tab)description(char newline)" + $in
-          | from tsv --flexible --no-infer) |each {|it| $it|str trim} |uniq
-      }
-      $env.config = ($env.config | upsert completions  {
-          case_sensitive: false
-          quick: true
-          partial: true
-          algorithm: "prefix"
-          external: {
-            enable: true
-            max_results: 100
-            completer: $carapace_completer
-          }
-      })
-  ignore_errors: true
-
 - name: Get the latest version
   ansible.builtin.uri:
     url: "https://api.github.com/repos/sharkdp/bat/releases/latest"
