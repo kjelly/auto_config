@@ -159,7 +159,7 @@ $env.config.hooks.env_change.PWD = ($env.config.hooks.env_change.PWD | append [
             condition: {|before, after|
                 ($after | path join local.nu | path exists)
             }
-            code: "overlay use local.nu"
+            code: "overlay use --reload local.nu"
         }
     ]
 )
@@ -422,58 +422,19 @@ def list-diff [a b] {
   $a | filter {|it| not (contains $b $it) }
 }
 
-def direnv_nu [] {
-    [
-        {
-            condition: {|before, after| ($before != $after) and ($after | path join .env.yaml | path exists) }
-            code: "
-                open .env.yaml | load-env
-            "
-        }
-        {
-            condition: {|before, after| ($before != $after) and ($after | path join '.env' | path exists) }
-            code: "
-                open .env
-                | lines
-                | parse -r '(?P<k>.+?)=(?P<v>.+)'
-                | reduce -f {} {|x, acc| $acc | upsert $x.k $x.v}
-                | load-env
-            "
-        }
-        {
-            condition: {|before, after| ($before != $after) and ($after | path join '.envrc' | path exists) }
-            code: "
-                if (which direnv|is-empty) { return }
-                direnv exec . sh -c env | lines
-                | parse "{n}={v}"
-                | filter { |x| (not $x.n in $env) or $x.v != ($env | get $x.n) }
-                | where not n in ["_", "LAST_EXIT_CODE", "DIRS_POSITION"]
-                | transpose --header-row
-                | into record
-                | load-env
-            "
-        }
-        {
-            condition: {|before, after| ($before != $after) and ($"~/.secrets/nushell/($after|str replace -a / _).yaml"| path exists) }
-            code: "
-                open $"~/.secrets/nushell/(pwd|str replace -a / _).yaml" | load-env
-                "
-        }
-
-    ]
-}
-
-$env.config = ( $env.config | upsert hooks.env_change.PWD { |config|
-    let o = ($config | get -i hooks.env_change.PWD)
-    let val = (direnv_nu)
-    if $o == $nothing {
-        $val
-    } else {
-        $o | append $val
-    }
-})
-
 let carapace_completer = {|spans|
+    let expanded_alias = scope alias-completions
+    | where name == $spans.0
+    | get -i 0.expansion
+
+    let spans = if $expanded_alias != null {
+        $spans
+        | skip 1
+        | prepend ($expanded_alias | split row ' ')
+    } else {
+        $spans
+    }
+
     mut lst = []
     if (not (which carapace|is-empty)) {
       $lst = ($lst | append (carapace $spans.0 nushell $spans | from json))
@@ -483,7 +444,8 @@ let carapace_completer = {|spans|
       | $"value(char tab)description(char newline)" + $in
       | from tsv --flexible --no-infer))
     }
-    $lst |each {|it| $it|str trim} |uniq
+    $lst = ($lst |each {|it| $it|str trim} |uniq)
+
     if ($lst|is-empty) {
       $lst = (ls|get name)
     }
@@ -501,3 +463,47 @@ $env.config = ($env.config | upsert completions  {
       completer: $carapace_completer
     }
 })
+
+def auto [ --strip (-s) ] {
+  let input = $in
+  mut data = null
+  try {
+    $data = (echo $input|from json)
+  } catch {
+  }
+  if ($data == null ) {
+    try {
+      $data = (echo $input|from yaml)
+    } catch {
+    }
+  }
+  if ($data == null) {
+    return $input
+  } else {
+    if (not $strip) {
+      return $data
+    }
+    try {
+      mut values = (echo $data|values)
+      if (($values|length) == 1) {
+        return ($values|first)
+      }
+    }
+    let lst = ([ ] | append $data)
+    if (($lst|length) == 1) {
+      return ($lst|first)
+    }
+    return $data
+  }
+  return $input
+}
+
+$env.config.hooks.env_change.PWD = ($env.config.hooks.env_change.PWD | append [
+        {
+            code: "
+              let direnv = (direnv export json | from json)
+              let direnv = if not ($direnv | is-empty) { $direnv } else { {} }
+              $direnv | load-env
+            "
+        }
+])
