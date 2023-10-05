@@ -423,18 +423,6 @@ def list-diff [a b] {
 }
 
 let carapace_completer = {|spans|
-    let expanded_alias = scope alias-completions
-    | where name == $spans.0
-    | get -i 0.expansion
-
-    let spans = if $expanded_alias != null {
-        $spans
-        | skip 1
-        | prepend ($expanded_alias | split row ' ')
-    } else {
-        $spans
-    }
-
     mut lst = []
     if (not (which carapace|is-empty)) {
       $lst = ($lst | append (carapace $spans.0 nushell $spans | from json))
