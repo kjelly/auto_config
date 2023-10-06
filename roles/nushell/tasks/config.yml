@@ -77,6 +77,12 @@
     path: ~/nu_scripts/
   register: file_status
 
+- name: Create ~/.config/custom.nu
+  ansible.builtin.file:
+    path: ~/.config/custom.nu
+    state: touch
+    mode: u=rw,g=r,o=r
+
 - name: Update config.nu
   blockinfile:
     path: ~/.config/nushell/config.nu
