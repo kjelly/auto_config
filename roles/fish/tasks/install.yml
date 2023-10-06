@@ -30,6 +30,12 @@
   when: not need_install
   ignore_errors: true
 
+- name: Add nginx stable repository from PPA and install its signing key on Ubuntu target
+  ansible.builtin.apt_repository:
+    repo: ppa:fish-shell/release-3
+  become: true
+  when: (ansible_distribution == 'Ubuntu' or ansible_os_family == "\"elementary\"")
+
 - name: Install fish shell
   apt: name={{ item }} state=present
   with_items:
