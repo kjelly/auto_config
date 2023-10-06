@@ -87,26 +87,33 @@ def fzf [ ] {
   $userSelect | from nuon
 }
 
-def "zoxide-path" [cmd: string, offset: int] {
-  let argv = ($cmd | str substring ..$offset | split row ' '| get 1)
-  let r1 = (zoxide query -l $argv |lines)
-  let r2 = (glob --no-file --depth 1 $argv)
-  [$r1 $r2] | flatten
+def "z-complete" [ context: string ] {
+  let pattern = ($context | split words | drop nth 0)
+  mut lst = (zoxide query -l $pattern |lines|first 15 | each {|it| { value: ($it), description: "" } } )
+  let len = ($pattern | length)
+  if ( $len == 0) {
+    $lst = ($lst | append (ls |where type == dir|get name|each {|it| { value: $it, description: $env.PWD } } ) )
+  }
+  if ( $len == 1) {
+    $lst = ($lst | append (glob --no-file --depth 1 ($pattern|get 0)) )
+  }
+  $lst
 }
 
-def-env z [...rest:string@zoxide-path] {
-  let arg0 = ($rest | append '~').0
-  let path = if (($rest | $in | length) <= 1) and ($arg0 == '-' or ($arg0 | path expand | path type) == dir) {
+def-env z [ arg0?:string@"z-complete", ...rest:string ] {
+  if ($arg0 == null ) {
+    cd
+    return
+  }
+  let path = if (($rest | length) <= 2) and ($arg0 == '-' or ($arg0 | path expand | path type) == dir) {
     $arg0
-  } else if ( $rest | $in | last | path exists ) {
-    $rest | $in | last
   } else {
-    (zoxide query --exclude $env.PWD -- $rest | str trim -r -c "\n")
+    (zoxide query --exclude $env.PWD -- $arg0 $rest | str trim -r -c "\n")
   }
   cd $path
 }
 
-def-env zi  [...rest:string] {
+def-env zi [...rest:string] {
   cd $'(zoxide query --interactive -- $rest | str trim -r -c "\n")'
 }
 
@@ -489,9 +496,15 @@ def auto [ --strip (-s) ] {
 $env.config.hooks.env_change.PWD = ($env.config.hooks.env_change.PWD | append [
         {
             code: "
-              let direnv = (direnv export json | from json)
-              let direnv = if not ($direnv | is-empty) { $direnv } else { {} }
-              $direnv | load-env
+              if (not (which direnv | is-empty)) {
+                let direnv = (direnv export json | from json)
+                let direnv = if not ($direnv | is-empty) { $direnv } else { {} }
+                $direnv | load-env
+              }
+              if (not (which zoxide | is-empty)) {
+                zoxide add -- $env.PWD
+              }
+
             "
         }
 ])
