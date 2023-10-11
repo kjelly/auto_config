@@ -88,16 +88,20 @@ def fzf [ ] {
 }
 
 def "z-complete" [ context: string ] {
-  let pattern = ($context | split words | drop nth 0)
-  mut lst = (zoxide query -l $pattern |lines|first 15 | each {|it| { value: ($it), description: "" } } )
+  let pattern = ($context | split row ' '| drop nth 0)
+  mut lst = (zoxide query -l $pattern |lines|first 15 )
+  $lst = ($lst | append (zoxide query -l ($context | split words | last) |lines|first 15  ))
   let len = ($pattern | length)
   if ( $len == 0) {
-    $lst = ($lst | append (ls |where type == dir|get name|each {|it| { value: $it, description: $env.PWD } } ) )
+    $lst = ($lst | append (ls -f $env.PWD|where type == directory|get name )) 
   }
   if ( $len == 1) {
-    $lst = ($lst | append (glob --no-file --depth 1 ($pattern|get 0)) )
+    try {
+      $lst = ($lst | append (ls -f $"($pattern|get 0)*" |where type == dir |get name ))
+    } catch {
+    }
   }
-  $lst
+  $lst | uniq
 }
 
 def-env z [ arg0?:string@"z-complete", ...rest:string ] {
@@ -451,7 +455,7 @@ $env.config = ($env.config | upsert completions  {
     case_sensitive: false
     quick: true
     partial: true
-    algorithm: "prefix"
+    algorithm: "fuzzy"
     external: {
       enable: true
       max_results: 100
@@ -508,3 +512,29 @@ $env.config.hooks.env_change.PWD = ($env.config.hooks.env_change.PWD | append [
             "
         }
 ])
+
+$env._out = []
+$env.config.hooks.display_output = {
+  let stdin  = $in
+  $env._out = ($env._out | prepend [$stdin])
+  let l = ($env._out | length)
+  if ( $l > 10) {
+    $env._out = ($env._out | first 10)
+  }
+  echo $stdin | if (term size).columns >= 100 { table -e } else { table }
+}
+
+$env.reg = { }
+def-env reg [ name?: string ] {
+  let stdin = $in
+  if ($name == null ) {
+    return $env.reg
+  } else {
+    if ($stdin == null) {
+      return ($env.reg | get $name)
+    } else {
+      $env.reg = ($env.reg | upsert $name $stdin)
+      return $stdin
+    }
+  }
+}
