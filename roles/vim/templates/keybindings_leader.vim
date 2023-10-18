@@ -117,7 +117,7 @@ nnoremap <silent> <leader>qw :q<cr>
 nnoremap <silent> <leader>qb :Bclose<cr>
 nnoremap <silent> <leader>qt :tabclose<cr>
 nnoremap <silent> <leader>qa :qa!<cr>
-nnoremap <silent> <leader>qx ::%bd|e#<cr>
+nnoremap <silent> <leader>qx <cmd>bufdo bd<cr>
 nnoremap <silent> <leader>qs <cmd>lua require("persistence").load()<cr>
 
 " State / Switch
