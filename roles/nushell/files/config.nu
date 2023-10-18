@@ -104,7 +104,7 @@ def "z-complete" [ context: string ] {
   $lst | uniq
 }
 
-def-env z [ arg0?:string@"z-complete", ...rest:string ] {
+def --env z [ arg0?:string@"z-complete", ...rest:string ] {
   if ($arg0 == null ) {
     cd
     return
@@ -117,7 +117,7 @@ def-env z [ arg0?:string@"z-complete", ...rest:string ] {
   cd $path
 }
 
-def-env zi [...rest:string] {
+def --env zi [...rest:string] {
   cd $'(zoxide query --interactive -- $rest | str trim -r -c "\n")'
 }
 
@@ -149,7 +149,7 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:control keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintComplete } }] ))
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintWordComplete } }] ))
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_q mode: [emacs vi_normal vi_insert]  event: [{edit: Clear}, {edit: InsertString, value: "workspace"}, {send: Enter}] }] ))
-def-env s [ ] {
+def --env s [ ] {
   let path = (zoxide query -i)
   let id = (shells|enumerate | par-each -t 2 {|it| if ($it.item.path == $path) {$it.index} else {-1}} | reduce {|a, b| if ( $a > $b) {$a} else {$b}})
   if ( ($id |into int) >= 0) {
@@ -525,7 +525,7 @@ $env.config.hooks.display_output = {
 }
 
 $env.reg = { }
-def-env reg [ name?: string ] {
+def --env reg [ name?: string ] {
   let stdin = $in
   if ($name == null ) {
     return $env.reg

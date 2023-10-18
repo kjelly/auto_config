@@ -1433,6 +1433,8 @@ function RunPreviousCommandFunc()
     function()
       local mode = vim.fn.mode()
       if mode == 't' then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-c>", true, true,
+          true), 't')
         vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true,
           true), 't')
         vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true,
