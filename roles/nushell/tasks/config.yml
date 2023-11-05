@@ -82,16 +82,3 @@
     path: ~/.config/custom.nu
     state: touch
     mode: u=rw,g=r,o=r
-
-- name: Update config.nu
-  blockinfile:
-    path: ~/.config/nushell/config.nu
-    marker: "# {mark} ANSIBLE MANAGED BLOCK - modules"
-    block: |
-      use ~/nu_scripts/modules/kubernetes/kubernetes.nu *
-      use ~/nu_scripts/modules/git/git-v2.nu *
-      use ~/nu_scripts/modules/network/ssh.nu *
-      use ~/nu_scripts/modules/docker/docker.nu *
-      use ~/nu_scripts/modules/nvim/nvim.nu *
-      use ~/nu_scripts/modules/after/after.nu *
-  when: file_status.stat.exists

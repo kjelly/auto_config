@@ -138,7 +138,6 @@ $env.PROMPT_COMMAND_RIGHT = ""
 
 use ~/nu_scripts/modules/kubernetes/kubernetes.nu *
 use ~/nu_scripts/modules/git/git-v2.nu *
-use ~/nu_scripts/modules/network/ssh.nu *
 use ~/nu_scripts/modules/docker/docker.nu *
 use ~/nu_scripts/modules/nvim/nvim.nu *
 
@@ -434,6 +433,9 @@ def list-diff [a b] {
 }
 
 let carapace_completer = {|spans|
+    if (($spans|length) <= 1) {
+      return []
+    }
     mut lst = []
     if (not (which carapace|is-empty)) {
       $lst = ($lst | append (carapace $spans.0 nushell $spans | from json))

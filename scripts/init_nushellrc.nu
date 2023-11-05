@@ -15,4 +15,8 @@ http get $"https://raw.githubusercontent.com/nushell/nushell/($commit)/crates/nu
 
 touch ~/.config/custom.nu
 
-http get https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/config.nu | tee -a ~/.config/nushell/config.nu
+cd /tmp
+wget https://github.com/nushell/nu_scripts/archive/refs/heads/main.zip
+unzip main.zip
+rm -rf ~/nu_scripts
+mv nu_scripts-main ~/nu_scripts
