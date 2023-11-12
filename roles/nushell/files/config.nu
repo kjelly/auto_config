@@ -433,24 +433,28 @@ def list-diff [a b] {
 }
 
 let carapace_completer = {|spans|
-    if (($spans|length) <= 1) {
-      return []
-    }
-    mut lst = []
-    if (not (which carapace|is-empty)) {
-      $lst = ($lst | append (carapace $spans.0 nushell $spans | from json))
-    }
-    if (not (which fish|is-empty)) {
-      $lst = ($lst | append (fish --command $'complete "--do-complete=($spans | str join " ")"'
-      | $"value(char tab)description(char newline)" + $in
-      | from tsv --flexible --no-infer))
-    }
-    $lst = ($lst |each {|it| $it|str trim} |uniq)
+    carapace $spans.0 nushell $spans | from json
+}
 
-    if ($lst|is-empty) {
-      $lst = (ls|get name)
-    }
-    $lst
+let fish_completer = {|spans|
+    fish --command $'complete "--do-complete=($spans | str join " ")"'
+    | $"value(char tab)description(char newline)" + $in
+    | from tsv --flexible --no-infer
+}
+
+let zoxide_completer = {|spans|
+    $spans | skip 1 | zoxide query -l $in | lines | where {|x| $x != $env.PWD}
+}
+
+let external_completer = {|spans|
+    match $spans.0 {
+        nu => $fish_completer
+        git => $fish_completer
+        asdf => $fish_completer
+        z => $zoxide_completer
+        zi => $zoxide_completer
+        _ => $carapace_completer
+    } | do $in $spans
 }
 
 $env.config = ($env.config | upsert completions  {
@@ -461,7 +465,7 @@ $env.config = ($env.config | upsert completions  {
     external: {
       enable: true
       max_results: 100
-      completer: $carapace_completer
+      completer: $external_completer
     }
 })
 
