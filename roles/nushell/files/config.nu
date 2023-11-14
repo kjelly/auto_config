@@ -123,9 +123,6 @@ def --env zi [...rest:string] {
 
 def my-prompt [ ] {
   try {
-    return (prompt)
-  } catch {}
-  try {
     return (starship prompt)
   } catch {}
   try {
