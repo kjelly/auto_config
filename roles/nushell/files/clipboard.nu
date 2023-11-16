@@ -14,7 +14,7 @@ def pretty [  ] {
   }
 }
 
-def-env cb [ command = "" ] {
+def --env cb [ command = "" ] {
   if ( $command | is-empty ) {
     let stdin = $in
     if ( $stdin | is-empty ) {

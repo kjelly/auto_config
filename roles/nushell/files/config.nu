@@ -1,10 +1,3 @@
-$env.config = ($env.config? | default {
-  hooks: {
-    pre_prompt: []
-    pre_execution: []
-  }
-  keybindings: []
-})
 $env.config = ($env.config | upsert show_banner false)
 $env.config = ($env.config | upsert edit_mode vi)
 $env.EDITOR = nvim
@@ -346,12 +339,16 @@ def github-link [context: string] {
   let os = {
     "Ubuntu": "linux",
   }
-  let arch = (uname -m)
+  mut archs = [(uname -m)]
+  if (($archs|get 0) == "x86_64") {
+    $archs = ($archs | append ["amd64" "x64"])
+  }
+  let $archs = $archs
   let filtered = ($links|filter {|it| $it|str contains -i ($os|get -i (sys|get host.name)) })
   if (not ($filtered|is-empty)) {
     $links = $filtered
   }
-  let filtered = ($links|filter {|it| $it|str contains -i $arch })
+  let filtered = ($links|filter {|it| ($archs | each {|a| $it|str contains -i $a}|any {|it| $it}) })
   if (not ($filtered|is-empty)) {
     $links = $filtered
   }
