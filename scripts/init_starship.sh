@@ -29,5 +29,7 @@ disabled = true
 disabled = true
 [java]
 disabled = true
+[hostname]
+ssh_only = false
 EOF
 
