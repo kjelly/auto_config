@@ -19,3 +19,4 @@
   with_items:
     - t.py
     - tmux-set-background.sh
+    - _tmux_duplicate_pane
