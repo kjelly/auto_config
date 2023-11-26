@@ -65,6 +65,7 @@ def main():
     args = parser.parse_args()
     session_list = list_all_sessions()
     tmux = 'tmux'
+    os.chdir(os.path.expanduser("~"))
     if args.list:
         print(session_list)
         return

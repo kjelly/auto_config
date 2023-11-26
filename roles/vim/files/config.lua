@@ -795,9 +795,9 @@ SafeRequireCallback("cmp", function()
       }),
     }),
     sources = cmp.config.sources({
-      { name = 'nvim_lsp', keyword_length = 2 }, { name = 'path' },
-      { name = "copilot" }, -- { name = 'luasnip' }, -- For luasnip users.
-      { name = 'copilot' }, { name = 'cmp_tabnine', keyword_length = 3 }, {
+      { name = 'nvim_lsp', keyword_length = 0 }, { name = 'path' },
+      { name = "copilot"}, { name = 'luasnip' }, -- For luasnip users.
+      { name = 'cmp_tabnine', keyword_length = 3 }, {
       name = 'rg',
       max_item_count = 10,
       keyword_length = 5,
@@ -805,6 +805,18 @@ SafeRequireCallback("cmp", function()
     }, { name = 'fish' }, { name = 'buffer', keyword_length = 4 },
     }),
     formatting = { format = custom_format },
+    sorting = {
+      priority_weight = 2,
+      comparators = {
+        require("copilot_cmp.comparators").prioritize,
+        cmp.config.compare.offset, cmp.config.compare.exact,
+        cmp.config.compare.score, cmp.config.compare.recently_used,
+        cmp.config.compare.locality, cmp.config.compare.kind,
+        cmp.config.compare.sort_text, cmp.config.compare.length,
+        cmp.config.compare.order,
+      },
+    },
+
   })
 
   SafeRequire("cmp_git").setup()
@@ -1037,13 +1049,13 @@ function TermToggle()
 end
 
 function FzfBuffer()
-local filetype = vim.api.nvim_eval("&filetype")
+  local filetype = vim.api.nvim_eval("&filetype")
   local fzf = require('fzf-lua')
   if filetype == "floaterm" then
     SafeRequire("telescope._extensions.floaterm.floaterm").search()
   else
     GotoMainWindow()
-    if #GetBuffers({}) > 1 then 
+    if #GetBuffers({}) > 1 then
       SafeRequire('telescope.builtin').buffers()
     else
       FindFileCwd()
@@ -1089,7 +1101,8 @@ function DelaySetup2()
       require('osc52').copy_register('+')
     end
   end
-  vim.api.nvim_create_autocmd('TextYankPost', {callback = Copy})
+
+  vim.api.nvim_create_autocmd('TextYankPost', { callback = Copy })
 
   vim.api.nvim_create_autocmd('ModeChanged', {
     callback = function()
@@ -1154,12 +1167,12 @@ function DelaySetup2()
     SafeRequire("noice").setup({
       health = { checker = false },
       messages = {
-        enabled = true,              
-        view = "mini",              
-        view_error = "notify",     
-        view_warn = "mini",       
-        view_history = "messages", 
-        view_search = "virtualtext", 
+        enabled = true,
+        view = "mini",
+        view_error = "notify",
+        view_warn = "mini",
+        view_history = "messages",
+        view_search = "virtualtext",
       },
       notify = { enabled = true },
       lsp = {
@@ -1404,14 +1417,10 @@ end
 vim.schedule(DelaySetup1)
 
 function GetBuffers(opts)
-  if opts == nil then
-    opts = {}
-  end
+  if opts == nil then opts = {} end
   local filter = vim.tbl_filter
   local bufnrs = filter(function(b)
-    if 1 ~= vim.fn.buflisted(b) then
-      return false
-    end
+    if 1 ~= vim.fn.buflisted(b) then return false end
     -- only hide unloaded buffers if opts.show_all_buffers is false, keep them listed if true or nil
     if opts.show_all_buffers == false and not vim.api.nvim_buf_is_loaded(b) then
       return false
@@ -1419,7 +1428,8 @@ function GetBuffers(opts)
     if opts.ignore_current_buffer and b == vim.api.nvim_get_current_buf() then
       return false
     end
-    if opts.cwd_only and not string.find(vim.api.nvim_buf_get_name(b), vim.loop.cwd(), 1, true) then
+    if opts.cwd_only and
+        not string.find(vim.api.nvim_buf_get_name(b), vim.loop.cwd(), 1, true) then
       return false
     end
     return true
@@ -1887,5 +1897,5 @@ vim.api.nvim_create_autocmd('BufEnter', {
     else
       vim.opt.titlestring = "@" .. vim.fn.hostname() .. " " .. "%t"
     end
-  end
+  end,
 })

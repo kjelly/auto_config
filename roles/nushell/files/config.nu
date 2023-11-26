@@ -131,13 +131,27 @@ use ~/nu_scripts/modules/git/git-v2.nu *
 use ~/nu_scripts/modules/docker/docker.nu *
 use ~/nu_scripts/modules/nvim/nvim.nu *
 
-$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_l mode: [emacs vi_normal vi_insert]  event: { until: [{ send: menu name: completion_menu } { send: menunext } ]} }] ))
-$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { send: menuprevious } }] ))
-$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_j mode: [emacs vi_normal vi_insert]  event: { send: down } }] ))
-$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_k mode: [emacs vi_normal vi_insert]  event: { send: up } }] ))
-$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:control keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintComplete } }] ))
-$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintWordComplete } }] ))
-$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{ name: custom modifier:alt keycode: char_q mode: [emacs vi_normal vi_insert]  event: [{edit: Clear}, {edit: InsertString, value: "workspace"}, {send: Enter}] }] ))
+$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [
+  { name: custom modifier: control keycode: char_h mode: [emacs vi_normal vi_insert]  event: { until: [
+    { send: menuprevious }
+    { send: Left }
+  ]}}
+  { name: custom modifier: control keycode: char_l mode: [emacs vi_normal vi_insert]  event: {  until: [
+    { send: menunext }
+    { send: Right }
+  ] } }
+  { name: custom modifier: control keycode: char_j mode: [emacs vi_normal vi_insert]  event: { until: [
+    { send: menudown }
+    { send: menu name: completion_menu }
+  ]}}
+  { name: custom modifier: alt keycode: char_k mode: [emacs vi_normal vi_insert]  event: { until: [
+    { send: menuup }
+  ]}}
+  { name: custom modifier:control keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintComplete } }
+  { name: custom modifier:alt keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintWordComplete } }
+  { name: custom modifier:alt keycode: char_q mode: [emacs vi_normal vi_insert]  event: [{edit: Clear}, {edit: InsertString, value: "workspace"}, {send: Enter}] }
+]))
+
 def --env s [ ] {
   let path = (zoxide query -i)
   let id = (shells|enumerate | par-each -t 2 {|it| if ($it.item.path == $path) {$it.index} else {-1}} | reduce {|a, b| if ( $a > $b) {$a} else {$b}})
