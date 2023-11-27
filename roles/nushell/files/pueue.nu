@@ -16,19 +16,19 @@ def complete-groups [ ] {
   pueue status --json|from json|get groups|items {|key, value| $key}
 }
 
-def "jobs follow" [ id: string@complete-jobs ] {
+def "job follow" [ id: string@complete-jobs ] {
   pueue follow $id
 }
 
-def "jobs kill" [ id: string@complete-jobs ] {
+def "job kill" [ id: string@complete-jobs ] {
   pueue kill $id
 }
 
-def "jobs wait" [ id: string@complete-jobs ] {
+def "job wait" [ id: string@complete-jobs ] {
   pueue wait $id
 }
 
-def "jobs clean" [ gid?: string@complete-groups ] {
+def "job clean" [ gid?: string@complete-groups ] {
   if ($gid|is-empty) {
     pueue clean
   } else {
@@ -37,7 +37,7 @@ def "jobs clean" [ gid?: string@complete-groups ] {
 }
 
 
-def "jobs add" [ command: any, --gid: string@complete-groups ] {
+def "job add" [ command: any, --gid: string@complete-groups ] {
   mut source_code = ""
   let type = $command|describe
   if ($type == closure) {
