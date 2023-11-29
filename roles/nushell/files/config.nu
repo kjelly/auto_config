@@ -126,10 +126,10 @@ def my-prompt [ ] {
 $env.PROMPT_COMMAND = {|| ([(my-prompt) "\n" ->] | str join) }
 $env.PROMPT_COMMAND_RIGHT = ""
 
-use ~/nu_scripts/modules/kubernetes/kubernetes.nu *
-use ~/nu_scripts/modules/git/git-v2.nu *
-use ~/nu_scripts/modules/docker/docker.nu *
-use ~/nu_scripts/modules/nvim/nvim.nu *
+use kubernetes.nu *
+use git-v2.nu *
+use docker.nu *
+use nvim.nu *
 
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [
   { name: custom modifier: control keycode: char_h mode: [emacs vi_normal vi_insert]  event: { until: [
