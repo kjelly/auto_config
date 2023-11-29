@@ -195,7 +195,6 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
     }
 }] ))
 
-$env.NU_LIB_DIRS = [~/nu_scripts/]
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
     name: fuzzy_module
     modifier: alt
