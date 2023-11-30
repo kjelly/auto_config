@@ -132,19 +132,19 @@ use docker.nu *
 use nvim.nu *
 
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [
-  { name: custom modifier: control keycode: char_h mode: [emacs vi_normal vi_insert]  event: { until: [
+  { name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { until: [
     { send: menuprevious }
     { send: Left }
   ]}}
-  { name: custom modifier: control keycode: char_l mode: [emacs vi_normal vi_insert]  event: {  until: [
+  { name: custom modifier: alt keycode: char_l mode: [emacs vi_normal vi_insert]  event: {  until: [
     { send: menunext }
     { send: Right }
   ] } }
-  { name: custom modifier: control keycode: char_j mode: [emacs vi_normal vi_insert]  event: { until: [
+  { name: custom modifier: alt keycode: char_j mode: [emacs vi_normal vi_insert]  event: { until: [
     { send: menudown }
     { send: menu name: completion_menu }
   ]}}
-  { name: custom modifier: control keycode: char_k mode: [emacs vi_normal vi_insert]  event: { until: [
+  { name: custom modifier: alt keycode: char_k mode: [emacs vi_normal vi_insert]  event: { until: [
     { send: menuup }
   ]}}
   { name: custom modifier:control keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintComplete } }
