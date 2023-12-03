@@ -152,15 +152,6 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
   { name: custom modifier:alt keycode: char_q mode: [emacs vi_normal vi_insert]  event: [{edit: Clear}, {edit: InsertString, value: "workspace"}, {send: Enter}] }
 ]))
 
-def --env s [ ] {
-  let path = (zoxide query -i)
-  let id = (shells|enumerate | par-each -t 2 {|it| if ($it.item.path == $path) {$it.index} else {-1}} | reduce {|a, b| if ( $a > $b) {$a} else {$b}})
-  if ( ($id |into int) >= 0) {
-    g ($id |into int)
-  } else {
-    enter $path
-  }
-}
 
 def h [ pattern ] {
   help commands | where name =~ $pattern or category =~ $pattern
@@ -327,7 +318,8 @@ let repo_list = ["nushell/nushell", "casey/just", "ajeetdsouza/zoxide", "Ryooooo
  "theryangeary/choose", "direnv/direnv", "loft-sh/devpod", "tsl0922/ttyd", "aristocratos/btop", "moncho/dry",
  "xxxserxxx/gotop", "orhun/kmon", "browsh-org/browsh", "mrusme/planor", "jesseduffield/lazydocker",
  "tsenart/vegeta", "nicolas-van/multirun", "rsteube/carapace-bin", "urbanogilson/lineselect",
- "ast-grep/ast-grep", "jirutka/tty-copy", "theimpostor/osc", "d-kuro/kubectl-fuzzy"
+ "ast-grep/ast-grep", "jirutka/tty-copy", "theimpostor/osc", "d-kuro/kubectl-fuzzy",
+ "nektos/act",
 ]
 
 def repo [ ] {
@@ -472,7 +464,7 @@ $env.config = ($env.config | upsert completions  {
     external: {
       enable: true
       max_results: 100
-      completer: $external_completer
+      completer: $carapace_completer
     }
 })
 
