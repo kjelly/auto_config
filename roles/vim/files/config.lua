@@ -1899,3 +1899,15 @@ vim.api.nvim_create_autocmd('BufEnter', {
     end
   end,
 })
+
+if vim.fn.executable("nu") == 1 then
+  local lsp = require 'lspconfig'
+  vim.tbl_deep_extend('keep', lsp, {
+    nushell = {
+      cmd = { 'nu', '--lsp' },
+      filetypes = 'nu',
+      name = 'nushell',
+    }
+  })
+  lsp.nushell.setup {}
+end
