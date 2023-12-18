@@ -120,7 +120,6 @@ if __name__ == '__main__':
         with open(path_file) as ftr:
             paths = [i.strip() for i in ftr.readlines() if len(i.strip()) > 0]
 
-    paths += zoxide_list()
     chooses = []
 
     for i in paths:
@@ -133,6 +132,7 @@ if __name__ == '__main__':
                     chooses.append(real_path)
         else:
             chooses.append(i)
+    chooses += zoxide_list()
 
     text = '\n>new\n>choose\n>cd\n>kill\n'
     if in_tmux():
