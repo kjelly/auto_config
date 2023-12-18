@@ -210,20 +210,6 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
     }
 }] ))
 
-$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
-    name: fuzzy_module
-    modifier: alt
-    keycode: char_h
-    mode: [emacs, vi_normal, vi_insert]
-    event: {
-        send: executehostcommand
-        cmd: '
-          let cmd = (commandline)
-          m ($cmd|split row " "|get 0)
-        '
-    }
-}] ))
-
 $env.config.color_config = {
     separator: blue_bold
     leading_trailing_space_bg: { attr: n } # no fg, no bg, attr none effectively turns this off
