@@ -94,6 +94,15 @@ def kill_window(a: str, b: str):
             os.system("tmux kill-window -t %s " % win_id)
 
 
+def zoxide_list() -> list:
+    try:
+        output = subprocess.check_output("zoxide query -l", shell=True)
+        output = output.decode("utf-8").strip()
+        return output.split("\n")
+    except Exception:
+        return []
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('-p', '--print', action='store_true')
@@ -111,6 +120,7 @@ if __name__ == '__main__':
         with open(path_file) as ftr:
             paths = [i.strip() for i in ftr.readlines() if len(i.strip()) > 0]
 
+    paths += zoxide_list()
     chooses = []
 
     for i in paths:
@@ -151,14 +161,7 @@ if __name__ == '__main__':
         if args.print:
             print(result)
             sys.exit(0)
-        if in_vim():
-            os.system("tmux new-window -c %s -n vim vim" % result)
-        else:
-            if os.path.isdir(result):
-                os.chdir(result)
-                os.system("vim")
-            else:
-                os.system("vim '%s'" % result)
+        os.system("tmux new-window -c %s -n vim" % result)
     elif '@' in result:
         win = re.findall(r'@\d+', result)[0]
         os.system("tmux select-window -t %s" % win)
