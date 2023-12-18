@@ -25,7 +25,7 @@ def in_vim():
 
 def fzf(data: bytes, multi: bool = False, filepath: bool = False,
         prompt: str = '>') -> str:
-    command = ["fzf", '--prompt=%s' % prompt]
+    command = ["fzf", '--prompt=%s' % prompt, "-e"]
     if multi:
         command.append("-m")
     if filepath:
@@ -39,7 +39,7 @@ def fzf(data: bytes, multi: bool = False, filepath: bool = False,
 
 
 def choose_one(text: str) -> typing.Tuple[str, str]:
-    fzf_args = ['--print-query', '--filepath-word']
+    fzf_args = ['--print-query', '--filepath-word', '-e', '--tiebreak=index']
     fzf = None
     if not in_tmux():
         fzf = subprocess.Popen(
@@ -64,7 +64,7 @@ def list_tmux_window() -> str:
     cmd = ('tmux list-windows -F "#{pane_current_path} #{window_id} '
     '#{window_name} ###{window_index} #{window_activity} aaa:#{window_active} "')
     o = [i.strip() for i in subprocess.check_output(cmd, shell=True).decode("utf-8").strip().split("\n")]
-    ret = sorted(o, key=lambda x: x.split(" ")[-1], reverse=True)[1:]
+    ret = sorted(o, key=lambda x: x.split(" ")[-2], reverse=True)
     ret = [' '.join(i.split(' ')[:-2]) for i in ret if 'aaa:1' not in i]
     ret = "\n".join(ret)
     ret = ret.replace("&&:0", "")
