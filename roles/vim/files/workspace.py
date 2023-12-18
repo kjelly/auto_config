@@ -25,7 +25,7 @@ def in_vim():
 
 def fzf(data: bytes, multi: bool = False, filepath: bool = False,
         prompt: str = '>') -> str:
-    command = ["fzf", '--prompt=%s' % prompt, "-e"]
+    command = ["fzf", '--prompt=%s' % prompt]
     if multi:
         command.append("-m")
     if filepath:
@@ -39,7 +39,7 @@ def fzf(data: bytes, multi: bool = False, filepath: bool = False,
 
 
 def choose_one(text: str) -> typing.Tuple[str, str]:
-    fzf_args = ['--print-query', '--filepath-word', '-e', '--tiebreak=index']
+    fzf_args = ['--print-query', '--filepath-word', '--tiebreak=index']
     fzf = None
     if not in_tmux():
         fzf = subprocess.Popen(
