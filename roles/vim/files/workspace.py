@@ -62,7 +62,7 @@ def choose_one(text: str) -> typing.Tuple[str, str]:
 
 def list_tmux_window() -> str:
     cmd = ('tmux list-windows -F "#{pane_current_path} #{window_id} '
-    '#{window_name} #{window_index} #{window_activity} aaa:#{window_active} "')
+    '#{window_name} ###{window_index} #{window_activity} aaa:#{window_active} "')
     o = [i.strip() for i in subprocess.check_output(cmd, shell=True).decode("utf-8").strip().split("\n")]
     ret = sorted(o, key=lambda x: x.split(" ")[-1], reverse=True)[1:]
     ret = [' '.join(i.split(' ')[:-2]) for i in ret if 'aaa:1' not in i]
@@ -161,7 +161,7 @@ if __name__ == '__main__':
         if args.print:
             print(result)
             sys.exit(0)
-        os.system("tmux new-window -c %s -n vim" % result)
+        os.system("tmux new-window -c %s" % result)
     elif '@' in result:
         win = re.findall(r'@\d+', result)[0]
         os.system("tmux select-window -t %s" % win)
