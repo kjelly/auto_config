@@ -507,12 +507,36 @@ $env.config.hooks.env_change.PWD = ($env.config.hooks.env_change.PWD | append [
 $env._out = []
 $env.config.hooks.display_output = {
   let stdin  = $in
-  $env._out = ($env._out | prepend [$stdin])
-  let l = ($env._out | length)
-  if ( $l > 10) {
-    $env._out = ($env._out | first 10)
+  if (($stdin|get out?) == "out") {
+    $stdin |get stdout | if (term size).columns >= 100 { table -e } else { table }
+  } else {
+    $env._out = ($env._out | prepend [$stdin] | uniq)
+    let l = ($env._out | length)
+    if ( $l > 10) {
+      $env._out = ($env._out | first 10)
+    }
+    $stdin | if (term size).columns >= 100 { table -e } else { table }
   }
-  echo $stdin | if (term size).columns >= 100 { table -e } else { table }
+}
+
+def out [ index?: int ] {
+  let stdin = $in
+  if ($index == null) {
+    return {
+      out: out
+      stdout: $env._out
+    }
+  } else {
+    try {
+      return ($env._out | get ($index - 1))
+    } catch {
+      return {
+        out: out
+        stdout: null
+      }
+
+    }
+  }
 }
 
 $env.reg = { }
@@ -543,3 +567,11 @@ let path_list = ($path_list | prepend (
 ))
 
 $env.PATH = ($env.PATH | prepend ($path_list | filter {|it| not (glob $it | is-empty)}) | uniq )
+
+export def r-nu [ host: string, command:string ] {
+  let code = $in
+  $code | ssh -t $host tee /tmp/tmp.nu
+  ssh $host nu --config /tmp/tmp.nu -c $command
+}
+
+

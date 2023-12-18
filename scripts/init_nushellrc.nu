@@ -30,6 +30,6 @@ def download-module [ name: string ] {
   }
 }
 
-[kubernetes git docker nvim] | par-each -t 2 {|it|
+[kubernetes git docker nvim argx] | par-each -t 2 {|it|
   download-module $it
 }

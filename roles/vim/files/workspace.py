@@ -161,7 +161,6 @@ if __name__ == '__main__':
                 os.system("vim '%s'" % result)
     elif '@' in result:
         win = re.findall(r'@\d+', result)[0]
-        print(win)
         os.system("tmux select-window -t %s" % win)
     else:
         sys.exit(0)
