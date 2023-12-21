@@ -507,16 +507,19 @@ $env.config.hooks.env_change.PWD = ($env.config.hooks.env_change.PWD | append [
 $env._out = []
 $env.config.hooks.display_output = {
   let stdin  = $in
-  if (($stdin|get out?) == "out") {
-    $stdin |get stdout | if (term size).columns >= 100 { table -e } else { table }
-  } else {
-    $env._out = ($env._out | prepend [$stdin] | uniq)
-    let l = ($env._out | length)
-    if ( $l > 10) {
-      $env._out = ($env._out | first 10)
+  try {
+    if (($stdin|get out?) == "out") {
+      $stdin |get stdout | if (term size).columns >= 100 { table -e } else { table }
     }
-    $stdin | if (term size).columns >= 100 { table -e } else { table }
+  } catch {
+
   }
+  $env._out = ($env._out | prepend [$stdin] | uniq)
+  let l = ($env._out | length)
+  if ( $l > 10) {
+    $env._out = ($env._out | first 10)
+  }
+  $stdin | if (term size).columns >= 100 { table -e } else { table }
 }
 
 def out [ index?: int ] {
@@ -534,7 +537,6 @@ def out [ index?: int ] {
         out: out
         stdout: null
       }
-
     }
   }
 }
@@ -574,4 +576,17 @@ export def r-nu [ host: string, command:string ] {
   ssh $host nu --config /tmp/tmp.nu -c $command
 }
 
-
+$env.config.hooks.pre_execution = ($env.config.hooks.pre_execution | append [
+        {
+            code: '
+              print $"(ansi title)(pwd)> (history | last | get command)(ansi st)"
+            '
+        }
+])
+$env.config.hooks.pre_prompt = ($env.config.hooks.pre_prompt | append [
+        {
+            code: '
+              print $"(ansi title)(pwd)> nu (ansi st)"
+            '
+        }
+])

@@ -1893,7 +1893,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
     local is_tmux = vim.fn.exists('$TMUX') == 1
     local cwd = vim.fn.getcwd()
     if is_tmux then
-      vim.opt.titlestring = vim.fn.getcwd()
+      vim.opt.titlestring = vim.fn.getcwd() .. " > vim"
     else
       vim.opt.titlestring = "@" .. vim.fn.hostname() .. " " .. "%t"
     end
