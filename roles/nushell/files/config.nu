@@ -590,3 +590,7 @@ $env.config.hooks.pre_prompt = ($env.config.hooks.pre_prompt | append [
             '
         }
 ])
+
+export def --wrapped tr [ ...args ] {
+  tmux new-window -b -c (pwd) $args
+}
