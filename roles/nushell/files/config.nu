@@ -180,6 +180,23 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
             let cmd = (commandline)
             if ( $cmd | is-empty ) {
             } else {
+              commandline -r $"tmux new-window -b -c (pwd) ($cmd)"
+            }
+        '
+    }
+}] ))
+
+$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
+    name: fuzzy_module
+    modifier: shift_alt
+    keycode: Enter
+    mode: [emacs, vi_normal, vi_insert]
+    event: {
+        send: executehostcommand
+        cmd: '
+            let cmd = (commandline)
+            if ( $cmd | is-empty ) {
+            } else {
               commandline -r $"pueue follow \(pueue add -p -- ($cmd)\)"
             }
         '
