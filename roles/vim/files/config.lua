@@ -409,8 +409,20 @@ SafeRequire "nvim-treesitter.configs".setup {
       show_help = '?',
     },
   },
-
 }
+
+SafeRequireCallback("nvim-treesitter.parsers", function(_)
+  local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+  parser_config.nu = {
+    install_info = {
+      url = "https://github.com/nushell/tree-sitter-nu",
+      files = { "src/parser.c" },
+      branch = "main",
+    },
+    filetype = "nu",
+  }
+end)
+
 
 function HasTerminal()
   local ok, buffers = pcall(vim.api.nvim_eval, "floaterm#buflist#gather()")

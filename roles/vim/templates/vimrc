@@ -118,7 +118,6 @@ silent! call plug#begin('~/.vim/plugged')
 if executable("gcc")
 Plug 'https://github.com/lewis6991/impatient.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate all'}
-Plug 'LhKipp/nvim-nu', {'do': ':TSInstall nu'}
 Plug 'https://github.com/danymat/neogen'
 Plug 'https://github.com/p00f/nvim-ts-rainbow'
 Plug 'mizlan/iswap.nvim'
@@ -134,7 +133,7 @@ Plug 'SmiteshP/nvim-gps'
 Plug 'm-demare/hlargs.nvim'
 Plug 'https://github.com/kylechui/nvim-surround'
 Plug 'https://github.com/smjonas/live-command.nvim'
-Plug 'https://github.com/LhKipp/nvim-nu', {'do': ':TSInstall nu'}
+" Plug 'https://github.com/LhKipp/nvim-nu', {'do': ':TSInstall nu'}
 Plug 'https://github.com/bennypowers/nvim-regexplainer'
 endif
 
