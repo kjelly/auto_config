@@ -609,5 +609,6 @@ $env.config.hooks.pre_prompt = ($env.config.hooks.pre_prompt | append [
 ])
 
 export def --wrapped tr [ ...args ] {
+  let path = (pwd)
   tmux new-window -b -c ($path) direnv exec ($path) bash -c $'"($command)"'
 }
