@@ -123,7 +123,7 @@ def my-prompt [ ] {
   } catch {}
 }
 
-$env.PROMPT_COMMAND = {|| ([(my-prompt) $env.note "\n" ->] | str join) }
+$env.PROMPT_COMMAND = {|| ([(my-prompt) $env.note? "\n" ->] | str join) }
 $env.PROMPT_COMMAND_RIGHT = ""
 
 use kubernetes.nu *
