@@ -572,20 +572,6 @@ def --env reg [ name?: string ] {
   }
 }
 
-let path_list = ['~/gohome/bin', '~/bin', '~/mybin', '~/dark-sdk/bin',
-                 '~/swif/usr/bin', '/usr/local/mercury*/bin',
-                 '/usr/lib/dart/bin/', '~/.cargo/bin/', '~/sbt/bin',
-                 '~/.pub-cache/bin', '~/dart-sdk/bin', '~/activator/bin/',
-                 '~/google-cloud-sdk/bin/', '~/kotlinc/bin/', '~/.rvm/bin',
-                 '/snap/bin/', '~/flutter/bin/', '~/.local/bin', '~/.deno/bin/',
-                 '~/flutter/bin/cache/dart-sdk/bin',
-                 '~/nfs/bin/', '~/.pub-cache/bin', '~/anaconda3/bin/']
-let path_list = ($path_list | prepend (
-  ['~/node*/bin', '~/.asdf/installs/python/*/bin', '~/pypy*/bin/']
-))
-
-$env.PATH = ($env.PATH | prepend ($path_list | filter {|it| not (glob $it | is-empty)}) | uniq )
-
 export def r-nu [ host: string, command:string ] {
   let code = $in
   $code | ssh -t $host tee /tmp/tmp.nu

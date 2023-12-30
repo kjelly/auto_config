@@ -153,12 +153,6 @@ LSP_CONFIG = DefaultTable({}, {
           },
         },
         python = { { formatCommand = "black --quiet -", formatStdin = true } },
-        nu = {
-          {
-            hoverCommand = "nu -c 'help ${INPUT}|ansi strip'",
-            hoverStdin = false,
-          },
-        },
       },
     },
   },
@@ -421,6 +415,11 @@ SafeRequireCallback("nvim-treesitter.parsers", function(_)
     },
     filetype = "nu",
   }
+  vim.filetype.add({
+      extension = {
+          nu = "nu"
+      }
+  })
 end)
 
 
