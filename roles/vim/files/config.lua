@@ -1369,9 +1369,9 @@ function DelaySetup2()
       auto_trigger = true,
       debounce = 75,
       keymap = {
-        accept = "<tab>",
-        accept_word = false,
-        accept_line = false,
+        accept = "<c-x>a",
+        accept_word = "<tab>",
+        accept_line = "<c-x>l",
         next = "<c-x>n",
         prev = "<c-x>p",
         dismiss = "<C-]>",
