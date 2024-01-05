@@ -39,5 +39,4 @@ def main () {
     let winid = ($target|first|get winid)
     tmux select-window -t $"($winid)"
   }
-  tmux-sort 100ms
 }
