@@ -447,6 +447,20 @@ let zoxide_completer = {|spans|
     $spans | skip 1 | zoxide query -l $in | lines | where {|x| $x != $env.PWD}
 }
 
+let fish_with_carapace_completer = {|spans|
+  [
+    (
+      carapace $spans.0 nushell $spans | from json
+    ),
+    (
+      fish --command $'complete "--do-complete=($spans | str join " ")"'
+      | $"value(char tab)description(char newline)" + $in
+      | from tsv --flexible --no-infer
+    )
+
+  ] | flatten
+}
+
 let external_completer = {|spans|
     match $spans.0 {
         nu => $fish_completer
@@ -466,7 +480,7 @@ $env.config = ($env.config | upsert completions  {
     external: {
       enable: true
       max_results: 100
-      completer: $carapace_completer
+      completer: $fish_with_carapace_completer
     }
 })
 
@@ -597,3 +611,12 @@ export def --wrapped tr [ ...args ] {
   let path = (pwd)
   tmux new-window -b -c $path direnv exec $path bash -c $'"($command)"'
 }
+
+def "nu-complete just" [] {
+    (^just --dump --unstable --dump-format json | from json).recipes | transpose recipe data | flatten | where {|row| $row.private == false } | select recipe doc parameters | rename value description
+}
+
+# Just: A Command Runner
+export extern "just" [
+    ...recipe: string@"nu-complete just", # Recipe(s) to run, may be with argument(s)
+]

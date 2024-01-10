@@ -273,6 +273,7 @@ nnoremap <silent> <leader>lsy <cmd>lua require'fzf_lsp'.document_symbol_call()<c
 nnoremap <silent> <leader>lsY <cmd>lua require'fzf_lsp'.workspace_symbol_call()<cr>
 nnoremap <silent> <leader>lsc <cmd>lua require'fzf_lsp'.incoming_calls_call()<cr>
 nnoremap <silent> <leader>lsC <cmd>lua require'fzf_lsp'.outcoming_calls_call()<cr>
+nnoremap <silent> <leader>lc <cmd>lua SwitchWordCase()<cr>
 
 nnoremap <leader>lsg :FloatermNew! curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
 nnoremap <silent> <leader>lsw :ISwap<cr>
