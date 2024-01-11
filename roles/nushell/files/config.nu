@@ -434,7 +434,7 @@ def list-diff [a b] {
 }
 
 let carapace_completer = {|spans|
-    carapace $spans.0 nushell $spans | from json
+    carapace $spans.0 nushell ...$spans | from json
 }
 
 let fish_completer = {|spans|
@@ -458,7 +458,7 @@ let fish_with_carapace_completer = {|spans|
       | from tsv --flexible --no-infer
     )
 
-  ] | flatten
+  ] | flatten | uniq
 }
 
 let external_completer = {|spans|
