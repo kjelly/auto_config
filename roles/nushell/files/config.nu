@@ -56,14 +56,14 @@ def vim [...file: string] {
   }
   if ( $editor == "nvim" ) {
     if ( $env.IN_VIM? == null ) {
-      nvim $af
+      nvim ...$af
     } else {
       let action = "edit"
       let cmd = $"<cmd>($action) ($af|str join ' ')<cr>"
       nvim --headless --noplugin --server $env.NVIM --remote-send $cmd
     }
   } else {
-    /usr/bin/vim $af
+    /usr/bin/vim ...$af
   }
 }
 
@@ -105,13 +105,13 @@ def --env z [ arg0?:string@"z-complete", ...rest:string ] {
   let path = if (($rest | length) <= 2) and ($arg0 == '-' or ($arg0 | path expand | path type) == dir) {
     $arg0
   } else {
-    (zoxide query --exclude $env.PWD -- $arg0 $rest | str trim -r -c "\n")
+    (zoxide query --exclude $env.PWD -- $arg0 ...$rest | str trim -r -c "\n")
   }
   cd $path
 }
 
 def --env zi [...rest:string] {
-  cd $'(zoxide query --interactive -- $rest | str trim -r -c "\n")'
+  cd $'(zoxide query --interactive -- ...$rest | str trim -r -c "\n")'
 }
 
 def my-prompt [ ] {

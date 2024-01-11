@@ -136,6 +136,7 @@ Plug 'https://github.com/smjonas/live-command.nvim'
 " Plug 'https://github.com/LhKipp/nvim-nu', {'do': ':TSInstall nu'}
 Plug 'https://github.com/bennypowers/nvim-regexplainer'
 Plug 'IndianBoy42/tree-sitter-just'
+Plug 'https://github.com/nushell/tree-sitter-nu'
 endif
 
 " Seamlessly jump between matched instances.
