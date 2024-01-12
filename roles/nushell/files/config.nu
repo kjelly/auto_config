@@ -450,7 +450,7 @@ let zoxide_completer = {|spans|
 let fish_with_carapace_completer = {|spans|
   [
     (
-      carapace $spans.0 nushell $spans | from json
+      carapace $spans.0 nushell ...$spans | from json
     ),
     (
       fish --command $'complete "--do-complete=($spans | str join " ")"'
