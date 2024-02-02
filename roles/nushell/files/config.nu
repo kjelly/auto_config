@@ -82,7 +82,7 @@ def fzf [ ] {
 
 def "z-complete" [ context: string ] {
   let pattern = ($context | split row ' '| drop nth 0)
-  mut lst = (zoxide query -l $pattern |lines|first 15 )
+  mut lst = (zoxide query -l ...$pattern |lines|first 15 )
   $lst = ($lst | append (zoxide query -l ($context | split words | last) |lines|first 15  ))
   let len = ($pattern | length)
   if ( $len == 0) {

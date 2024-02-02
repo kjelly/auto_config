@@ -1,4 +1,4 @@
-let all_path = ['~/gohome/bin', '~/bin', '~/mybin', '~/dark-sdk/bin',
+let all_path = ['~/gohome/bin', '~/go/bin/', '~/bin', '~/mybin', '~/dark-sdk/bin',
                  '~/swif/usr/bin', '/usr/local/mercury*/bin',
                  '/usr/lib/dart/bin/', '~/.cargo/bin/', '~/sbt/bin',
                  '~/.pub-cache/bin', '~/dart-sdk/bin', '~/activator/bin/',
