@@ -419,8 +419,8 @@ def retry [ count:int, block:closure ] {
 bash -c $"source ($env.HOME)/.profile && env"
     | lines
     | parse "{n}={v}"
-    | filter { |x| (not $x.n in $env) or $x.v != ($env | get $x.n) }
-    | where not n in ["_", "LAST_EXIT_CODE", "DIRS_POSITION"]
+    | filter { |x| ($x.n not-in $env) or $x.v != ($env | get $x.n) }
+    | where n not-in ["_", "LAST_EXIT_CODE", "DIRS_POSITION"]
     | transpose --header-row
     | into record
     | load-env
