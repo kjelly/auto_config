@@ -20,7 +20,6 @@
     - automake # for neovim
     - luarocks # for neovim
     - m4 # for neovim
-    - python-virtualenv # for neovim
     - ncurses-dev  # for neovim
 
   become: true

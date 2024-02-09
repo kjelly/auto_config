@@ -189,10 +189,3 @@
     regexp: "g:leetcode_hide_paid_only"
     line: "let g:leetcode_hide_paid_only='1'"
   ignore_errors: true
-
-
-- name: Install lang server by pip
-  ansible.builtin.pip:
-    name: "{{ item }}"
-  with_items:
-    - python-lsp-server[all]
