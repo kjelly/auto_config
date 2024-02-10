@@ -343,15 +343,12 @@ def github-link [context: string] {
   # let repo = ($repo | str replace 'https://github.com/' '')
   let repo = (real_repo $repo)
   mut links = (http get $"https://api.github.com/repos/($repo)/releases/latest"|get assets |get browser_download_url)
-  let os = {
-    "Ubuntu": "linux",
-  }
   mut archs = [(uname -m)]
   if (($archs|get 0) == "x86_64") {
     $archs = ($archs | append ["amd64" "x64"])
   }
   let $archs = $archs
-  let filtered = ($links|filter {|it| $it|str contains -i ($os|get -i (sys|get host.name)) })
+  let filtered = ($links|filter {|it| $it|str contains -i (uname) })
   if (not ($filtered|is-empty)) {
     $links = $filtered
   }
