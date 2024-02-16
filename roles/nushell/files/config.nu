@@ -455,7 +455,7 @@ let fish_with_carapace_completer = {|spans|
       | from tsv --flexible --no-infer
     )
 
-  ] | flatten | uniq
+  ] | flatten | each {|it| $it | str trim } | uniq
 }
 
 let external_completer = {|spans|
