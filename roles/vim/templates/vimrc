@@ -169,7 +169,6 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'https://github.com/nvim-neo-tree/neo-tree.nvim', {'tag': '*'}
 Plug 'https://github.com/folke/noice.nvim', {'tag': '*'}
-Plug 'https://github.com/miversen33/netman.nvim/', {'branch': 'main'}
 
 " Change cursor based on mode
 Plug 'https://github.com/melkster/modicator.nvim'
@@ -212,9 +211,9 @@ Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-tree/nvim-web-devicons'
-Plug 'https://github.com/glepnir/lspsaga.nvim'
+" Plug 'https://github.com/glepnir/lspsaga.nvim'
 " Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
-Plug 'kosayoda/nvim-lightbulb'
+" Plug 'kosayoda/nvim-lightbulb'
 Plug 'nanotee/sqls.nvim'
 " Plug 'jubnzv/virtual-types.nvim'
 Plug 'https://github.com/simrat39/symbols-outline.nvim'
@@ -335,7 +334,9 @@ endif
 
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
-Plug 'https://github.com/pwntester/octo.nvim'
+if executable("gh") == 1
+  Plug 'https://github.com/pwntester/octo.nvim'
+endif
 
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle']}
 
@@ -361,7 +362,7 @@ Plug 'lukas-reineke/cmp-rg'
 Plug 'https://github.com/petertriho/cmp-git'
 Plug 'https://github.com/mtoohey31/cmp-fish', { 'for': 'fish'}
 Plug 'https://github.com/dmitmel/cmp-cmdline-history'
-Plug 'https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol'
+Plug 'https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol'  "use /@
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'saadparwaiz1/cmp_luasnip'
 
@@ -369,11 +370,10 @@ Plug 'https://github.com/windwp/nvim-autopairs'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'https://github.com/L3MON4D3/LuaSnip'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-" Plug 'https://github.com/hrsh7th/cmp-copilot'
 Plug 'https://github.com/gfanto/fzf-lsp.nvim'
 Plug 'https://github.com/stevearc/aerial.nvim'
 Plug 'https://github.com/onsails/lspkind.nvim'
-Plug 'https://github.com/gaoDean/autolist.nvim'
+Plug 'https://github.com/gaoDean/autolist.nvim' " for markdown
 Plug 'https://github.com/gbrlsnchs/winpick.nvim'
 
 {% else %}

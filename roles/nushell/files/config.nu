@@ -384,6 +384,29 @@ def download-github [ repo: string@repo, link: string@github-link ] {
   ^find /tmp/aa/ -type f -executable|lines|each {|it| cp $it ~/bin/ }
 }
 
+def download-link [ link: string ] {
+  rm /tmp/a
+  mkdir /tmp/a
+  mkdir /tmp/a/a
+  cd /tmp/a
+  wget $link
+  let name = (ls | get 0.name)
+  if ( $name | str ends-with 'tar.gz' ) {
+    tar zxvf $name -C /tmp/aa
+  } else if ( $name | str ends-with '.zip' ) {
+    unzip $name -d /tmp/aa
+  } else if ( $name | str ends-with '.tar') {
+    tar xvf $name -C /tmp/aa
+  } else if ( $name | str ends-with '.xz') {
+    tar xvf $name -C /tmp/aa
+  } else if ( $name | str ends-with '.gz' ) {
+    mv $name aa/
+    gzip -d $name
+    chmod +x aa/*
+  }
+  ^find /tmp/aa/ -type f -executable|lines|each {|it| cp $it ~/bin/ }
+}
+
 def github-readme [ repo ] {
   let repo = ($repo | str replace 'https://github.com/' '')
   http get $"https://raw.githubusercontent.com/($repo)/master/README.md" | glow

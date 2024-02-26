@@ -1129,7 +1129,6 @@ function DelaySetup2()
       lsp_fallback = true,
     },
   })
-  SafeRequire("netman")
   SafeRequire("octo").setup()
   function Copy()
     if vim.v.event.operator == 'y' and vim.v.event.regname == '+' then
