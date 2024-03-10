@@ -649,7 +649,16 @@ def --wrapped "run" [ --doc="", ...command ] {
     $desc = $doc
   }
   let _unit = (not-used-units|first)
-  systemd-run --user -u $_unit --service-type=oneshot -d --no-block --description $desc ...$command
+  mut _command = $command
+  if (echo 'local.nu' | path exists) {
+    $_command = ($_command | prepend "source local.nu;\n")
+  }
+  mut binary = ["nu"]
+  if (which direnv|is-not-empty) {
+    $binary = ($binary | prepend ["direnv", "exec", "."])
+  }
+
+  systemd-run --user -u $_unit --service-type=oneshot -d --no-block --description $desc ...$binary -c ($_command | str join ' ')
   $_unit
 }
 
@@ -667,28 +676,30 @@ def note [ -t="infinity", --after (-a): string="", text ] {
     $extra = [--on-active $after]
   }
   systemd-run --user -u $_unit --service-type=oneshot -d --no-block --description $"📓($text)" -G ...$extra sleep $t 
+
 }
 
 def log [ $unit?:string@all-unit-name , --follow (-f)] {
   let stdin = $in
   mut extra = [ ]
   mut _unit = $unit
-  if $follow {
-    $extra = ($extra | append ["-f"])
-  }
-  if ($_unit == null) {
-    $_unit = $stdin
-    $extra = ($extra | append ["-f"])
-  }
-  if ($env.IN_VIM? == "1") {
-    journalctl --user -u $_unit -e --no-hostname --no-pager ...$extra
-  } else {
+  if ($follow or $_unit == null ) {
+    $extra = ($extra | append ["-f", "--since=now"])
+    if ($_unit == null) {
+      $_unit = $stdin
+    }
+    if ($env.IN_VIM? == "1") {
+      $extra = ($extra | append ["--no-pager"])
+    }
     journalctl --user -u $_unit -e --no-hostname ...$extra
+
+  } else {
+    journalctl --user -u $_unit --no-hostname -r --no-pager|lines|take until {|it| ('systemd' in $it and 'Starting' in $it)}|reverse | str join "\n"
   }
 }
 
 def all-log [ -n:int=5 ] {
-  all-unit-name | par-each -t 4 {|it| {name: $it, log: (journalctl --user -u $it -n $n --no-hostname)} }|sort-by name
+  all-unit-name | par-each -t 4 {|it| {name: $it, log: (log $it|lines|first 5|str join "\n")} }|sort-by name
 }
 
 def show [ unit:string@running-units-complete ] {
@@ -714,6 +725,7 @@ def stop [ ...units:string@running-units-complete ] {
 
 def clean [ ] {
   running-units | par-each {|it| stop $it.Id }
+  running-units | par-each {|it| stop $it.Id }
   null
 }
 
@@ -738,4 +750,15 @@ def running-units-complete [ ] {
 
 def bg-running [ ] {
   running-units | each {|it| $"[($it.Id|str replace '.service' ''|str replace 'run' ''):(if ($it.ActiveState == "inactive") {"⏰"})(if ($it.ActiveState == "failed") {"❌"})($it.Description)]"} | str join ' '|str trim
+}
+
+
+def --wrapped cc [ ...command ] {
+# journalctl --user -u run|lines|par-each -t 24 {|it| {text: ($it|split row (hostname)|get 0), good: (($it|find 'Start'|is-not-empty) and ($it|find systemd|is-not-empty))}}|filter {|it| $it.good}
+  let data = (journalctl --user -u run)
+  for $it in $data {
+    if (($it|find 'Start'|is-not-empty) and ($it|find systemd|is-not-empty)) {
+      break
+    }
+  }
 }
