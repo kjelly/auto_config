@@ -650,6 +650,7 @@ def --wrapped "run" [ --doc="", ...command ] {
   }
   let _unit = (not-used-units|first)
   systemd-run --user -u $_unit --service-type=oneshot -d --no-block --description $desc ...$command
+  $_unit
 }
 
 def not-used-units [ ] {
@@ -659,27 +660,35 @@ def not-used-units [ ] {
   all-unit-name |filter {|it| $it not-in $running_unit_names}
 }
 
-def note [ -t="infinity", -a="", text ] {
+def note [ -t="infinity", --after (-a): string="", text ] {
   let _unit = (not-used-units|first)
   mut extra = []
-  if ($a != "") {
-    $extra = [--on-active $a]
+  if ($after != "") {
+    $extra = [--on-active $after]
   }
   systemd-run --user -u $_unit --service-type=oneshot -d --no-block --description $"📓($text)" -G ...$extra sleep $t 
-
 }
 
-def log [ $unit:string@all-unit-name ] {
+def log [ $unit?:string@all-unit-name , --follow (-f)] {
+  let stdin = $in
+  mut extra = [ ]
+  mut _unit = $unit
+  if $follow {
+    $extra = ($extra | append ["-f"])
+  }
+  if ($_unit == null) {
+    $_unit = $stdin
+    $extra = ($extra | append ["-f"])
+  }
   if ($env.IN_VIM? == "1") {
-    journalctl --user -u $unit -e --no-hostname --no-pager
+    journalctl --user -u $_unit -e --no-hostname --no-pager ...$extra
   } else {
-    journalctl --user -u $unit -e --no-hostname
+    journalctl --user -u $_unit -e --no-hostname ...$extra
   }
 }
 
 def all-log [ -n:int=5 ] {
   all-unit-name | par-each -t 4 {|it| {name: $it, log: (journalctl --user -u $it -n $n --no-hostname)} }|sort-by name
-
 }
 
 def show [ unit:string@running-units-complete ] {
