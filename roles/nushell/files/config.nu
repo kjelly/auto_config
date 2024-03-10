@@ -123,7 +123,7 @@ def my-prompt [ ] {
   } catch {}
 }
 
-$env.PROMPT_COMMAND = {|| ([(my-prompt) $env.note? "\n" ->] | str join ' ') }
+$env.PROMPT_COMMAND = {|| ([(my-prompt) $"($env.note?) (bg-running)" "\n" ->] | str join ' ') }
 $env.PROMPT_COMMAND_RIGHT = ""
 
 use kubernetes.nu *
@@ -179,7 +179,7 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
             let cmd = (commandline)
             if ( $cmd | is-empty ) {
             } else {
-              commandline -r $"tmux new-window -b -c (pwd) ($cmd)"
+              commandline edit -r $"run ($cmd)"
             }
         '
     }
@@ -640,3 +640,93 @@ def "nu-complete just" [] {
 export extern "just" [
     ...recipe: string@"nu-complete just", # Recipe(s) to run, may be with argument(s)
 ]
+
+$env.max_jobs = 9
+
+def --wrapped "run" [ --doc="", ...command ] {
+  mut desc = ($command | str join ' ')
+  if ($doc != "") {
+    $desc = $doc
+  }
+  let _unit = (not-used-units|first)
+  systemd-run --user -u $_unit --service-type=oneshot -d --no-block --description $desc ...$command
+}
+
+def not-used-units [ ] {
+  let running_unit_names = (all-unit-info|filter {|it|
+    $it.ExecStart? != null
+  }|get Id|each {|it| $it|str replace '.service' ''})
+  all-unit-name |filter {|it| $it not-in $running_unit_names}
+}
+
+def note [ -t="infinity", -a="", text ] {
+  let _unit = (not-used-units|first)
+  mut extra = []
+  if ($a != "") {
+    $extra = [--on-active $a]
+  }
+  systemd-run --user -u $_unit --service-type=oneshot -d --no-block --description $"📓($text)" -G ...$extra sleep $t 
+
+}
+
+def log [ $unit:string@all-unit-name ] {
+  if ($env.IN_VIM? == "1") {
+    journalctl --user -u $unit -e --no-hostname --no-pager
+  } else {
+    journalctl --user -u $unit -e --no-hostname
+  }
+}
+
+def all-log [ -n:int=5 ] {
+  all-unit-name | par-each -t 4 {|it| {name: $it, log: (journalctl --user -u $it -n $n --no-hostname)} }|sort-by name
+
+}
+
+def show [ unit:string@running-units-complete ] {
+  systemctl --user status $unit
+}
+
+def get-systemd-info [ unit: string ] {
+  systemctl --user show $unit|lines|each {|it| split row '=' -n 2|{ $in.0 : $in.1 }}|reduce {|a, b| $a | merge $b}
+}
+
+def stop [ ...units:string@running-units-complete ] {
+  $units | par-each -t 2 {|unit|
+    if (systemctl --user show $unit|find 'ActiveState=inactive'|is-not-empty) {
+      systemctl --user stop $"($unit|str replace '.service' '').timer"
+    } else  if (systemctl --user show $unit|find 'ActiveState=failed'|is-not-empty) {
+      systemctl --user reset-failed $unit
+    } else {
+      systemctl --user stop $unit
+    }
+  }
+  null
+}
+
+def clean [ ] {
+  running-units | par-each {|it| stop $it.Id }
+  null
+}
+
+def all-unit-name [ ] {
+  ["run"] | append (seq 1 $env.max_jobs|each {|it| $"run($it)"})
+}
+
+def all-unit-info [ ] {
+  all-unit-name | par-each -t 4 {|it| get-systemd-info $it}
+}
+
+
+def running-units [ ] {
+  all-unit-info|filter {|it|
+    $it.ExecStart? != null
+  } | sort-by Id
+}
+
+def running-units-complete [ ] {
+  running-units | each {|it| {value: $in.Id , description: $in.Description}}
+}
+
+def bg-running [ ] {
+  running-units | each {|it| $"[($it.Id|str replace '.service' ''|str replace 'run' ''):(if ($it.ActiveState == "inactive") {"⏰"})(if ($it.ActiveState == "failed") {"❌"})($it.Description)]"} | str join ' '|str trim
+}
