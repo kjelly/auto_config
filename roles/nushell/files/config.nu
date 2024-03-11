@@ -641,6 +641,11 @@ export extern "just" [
     ...recipe: string@"nu-complete just", # Recipe(s) to run, may be with argument(s)
 ]
 
+
+def notica [ text:string ] {
+  curl --data $"d:($text)" $"https://notica.us/($env.notica_key?)" ;
+}
+
 $env.max_jobs = 9
 
 def --wrapped "run" [ --doc="", ...command ] {
