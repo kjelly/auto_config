@@ -684,7 +684,7 @@ def log [ $unit?:string@all-unit-name , --follow (-f)] {
   mut extra = [ ]
   mut _unit = $unit
   if ($follow or $_unit == null ) {
-    $extra = ($extra | append ["-f", "--since=now"])
+    $extra = ($extra | append ["-f", "--since=now", "--output=cat"])
     if ($_unit == null) {
       $_unit = $stdin
     }
@@ -749,7 +749,8 @@ def running-units-complete [ ] {
 }
 
 def bg-running [ ] {
-  running-units | each {|it| $"[($it.Id|str replace '.service' ''|str replace 'run' ''):(if ($it.ActiveState == "inactive") {"⏰"})(if ($it.ActiveState == "failed") {"❌"})($it.Description)]"} | str join ' '|str trim
+  let icon_map = { activating: "🟢", inactive: "⏰", failed: "❌" }
+  running-units | each {|it| $"[($it.Id|str replace '.service' ''|str replace 'run' ''):($icon_map | get -i $it.ActiveState)($it.Description)]"} | str join ' '|str trim
 }
 
 

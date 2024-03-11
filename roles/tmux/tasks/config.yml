@@ -21,3 +21,4 @@
     - tmux-set-background.sh
     - _tmux_duplicate_window
     - tmux-sort.nu
+    - systemd-jobs.py
