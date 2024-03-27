@@ -1,5 +1,7 @@
-$env.config = ($env.config | upsert show_banner false)
-$env.config = ($env.config | upsert edit_mode vi)
+$env.config.show_banner = false
+$env.config.cursor_shape.emacs = "block"
+$env.config.edit_mode = "emacs"
+
 $env.EDITOR = nvim
 alias vim = nvim
 alias in = enter

@@ -17,7 +17,7 @@ def main():
         for i in units
     ]
     # info = [i for i in info if i.get("ExecStart", "") != ""]
-    icon_map = {"activating": "🟢", "inactive": "🟪", "failed": "❌"}
+    icon_map = {"activating": "🟢", "inactive": "🟦", "failed": "❌"}
     info = [f"{icon_map.get(i.get('ActiveState'))}" for i in info]
     info = "".join(info)
     step = 5

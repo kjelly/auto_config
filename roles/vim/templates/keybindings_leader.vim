@@ -317,6 +317,7 @@ nnoremap <silent> <localleader>rp <cmd>lua RunPreviousCommandFunc()<cr>
 nnoremap <silent> <localleader>; <cmd>lua TermToggle()<cr>
 nnoremap <silent> <localleader>' <cmd>lua FloatermNext(1)<cr>
 nnoremap <localleader>rr :lua KillAndRerunTermWrapper('')<left><left>
+nnoremap <localleader>rn <cmd>exec 'FloatermNew --autoclose=1 '. getline('.')<cr>
 nnoremap <localleader>re :lua KillAndRerunTermWrapper<up>
 nnoremap <localleader>e <cmd>lua RunBuffer()<cr>
 
