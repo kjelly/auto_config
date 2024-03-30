@@ -761,12 +761,6 @@ def bg-running [ ] {
 }
 
 
-def --wrapped cc [ ...command ] {
-# journalctl --user -u run|lines|par-each -t 24 {|it| {text: ($it|split row (hostname)|get 0), good: (($it|find 'Start'|is-not-empty) and ($it|find systemd|is-not-empty))}}|filter {|it| $it.good}
-  let data = (journalctl --user -u run)
-  for $it in $data {
-    if (($it|find 'Start'|is-not-empty) and ($it|find systemd|is-not-empty)) {
-      break
-    }
-  }
+def --wrapped sr [ ...command ] {
+  systemd-run --user -t -P -G ...$command
 }

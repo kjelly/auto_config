@@ -141,6 +141,7 @@ endif
 
 " Seamlessly jump between matched instances.
 Plug 'kevinhwang91/nvim-hlslens', {'branch': 'main'}
+Plug 'https://github.com/nvim-neotest/nvim-nio'
 Plug 'mfussenegger/nvim-dap'
 Plug 'mfussenegger/nvim-dap-python'
 Plug 'rcarriga/nvim-dap-ui'
