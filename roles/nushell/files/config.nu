@@ -130,7 +130,6 @@ $env.PROMPT_COMMAND_RIGHT = ""
 
 use kubernetes *
 use docker *
-use nvim *
 
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [
   { name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { until: [
