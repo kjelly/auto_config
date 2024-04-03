@@ -21,11 +21,10 @@ http get https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushe
 touch ~/.config/custom.nu
 
 def download-module [ name: string ] {
-  let path = ($nu.default-config-dir | path join 'scripts')
+  let path = ($nu.default-config-dir | path join 'scripts' $name)
+  print $path
   mkdir $path
   cd $path
-  mkdir $name
-  cd $name
   let files = (http get $"https://api.github.com/repos/nushell/nu_scripts/contents/modules/($name)/")
   $files | par-each -t 2 {|it|
     http get $it.download_url | save -f $it.name
