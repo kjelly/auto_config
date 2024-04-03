@@ -345,12 +345,12 @@ def github-link [context: string] {
   # let repo = ($repo | str replace 'https://github.com/' '')
   let repo = (real_repo $repo)
   mut links = (http get $"https://api.github.com/repos/($repo)/releases/latest"|get assets |get browser_download_url)
-  mut archs = [(uname -m)]
+  mut archs = [(^uname -m)]
   if (($archs|get 0) == "x86_64") {
     $archs = ($archs | append ["amd64" "x64"])
   }
   let $archs = $archs
-  let filtered = ($links|filter {|it| $it|str contains -i (uname) })
+  let filtered = ($links|filter {|it| $it|str contains -i (^uname) })
   if (not ($filtered|is-empty)) {
     $links = $filtered
   }
@@ -762,5 +762,6 @@ def bg-running [ ] {
 
 
 def --wrapped sr [ ...command ] {
+  let unit = $"sr-(date now | format date '%m%d-%H%M%S')"
   systemd-run --user -t -P -G ...$command
 }
