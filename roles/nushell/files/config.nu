@@ -764,3 +764,18 @@ def --wrapped sr [ ...command ] {
   let unit = $"sr-(date now | format date '%m%d-%H%M%S')"
   systemd-run --user -t -P -G ...$command
 }
+
+$env.config.keybindings = ($env.config.keybindings | filter {|it| $it.name !~ "completion_menu"})
+$env.config.keybindings = ($env.config.keybindings | append {
+  name: completion_menu
+  modifier: none
+  keycode: tab
+  mode: [emacs vi_normal vi_insert]
+  event: {
+      until: [
+          { send: menu name: ide_completion_menu }
+          { send: menunext }
+          { edit: complete }
+      ]
+  }
+})
