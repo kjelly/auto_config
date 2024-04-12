@@ -341,7 +341,6 @@ def real_repo [ repo ] {
 def github-link [context: string] {
   let rows = ($context | str trim|split row ' ')
   let repo = (if (($rows|length) == 3) { $rows|get 1 } else { $rows | last })
-  # let repo = ($repo | str replace 'https://github.com/' '')
   let repo = (real_repo $repo)
   mut links = (http get $"https://api.github.com/repos/($repo)/releases/latest"|get assets |get browser_download_url)
   mut archs = [(^uname -m)]
@@ -360,9 +359,9 @@ def github-link [context: string] {
   $links
 }
 
-def download-github [ repo: string@repo, link: string@github-link ] {
-  # let repo = ($repo | str replace 'https://github.com/' '')
+def download-github [ repo: string@repo ] {
   let repo = (real_repo $repo)
+  let link = (github-link $repo | input list|str trim)
   let name = (http get $"https://api.github.com/repos/($repo)/releases/latest"|get assets |filter {$in.browser_download_url == $link } |get name|get 0)
   wget $link -O $name
   mkdir /tmp/aa

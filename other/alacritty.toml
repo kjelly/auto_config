@@ -1,0 +1,23 @@
+import = ["/home/kjelly/.config/alacritty/themes/themes/ayu_light.toml"]
+
+[font]
+size = 15
+
+[font.bold]
+family = "CaskaydiaCove Nerd Font Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "monospace"
+style = "Bold Italic"
+
+[font.italic]
+family = "CaskaydiaCove Nerd Font Mono"
+style = "Italic"
+
+[font.normal]
+family = "CaskaydiaCove Nerd Font Mono"
+style = "Bold"
+
+[shell]
+program = "nu"
