@@ -361,7 +361,9 @@ def github-link [context: string] {
 
 def download-github [ repo: string@repo ] {
   let repo = (real_repo $repo)
-  let link = (github-link $repo | input list|str trim)
+  let link_list = (github-link $repo | filter {|it| $it !~ '.*sha256'} )
+  let link = ($link_list | get ($link_list | each {|it| $it |split row '/' | last} | input list --fuzzy --index))
+
   let name = (http get $"https://api.github.com/repos/($repo)/releases/latest"|get assets |filter {$in.browser_download_url == $link } |get name|get 0)
   wget $link -O $name
   mkdir /tmp/aa
