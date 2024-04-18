@@ -128,8 +128,8 @@ def my-prompt [ ] {
 $env.PROMPT_COMMAND = {|| ([(my-prompt) $"($env.note?) (bg-running)" "\n" ->] | str join ' ') }
 $env.PROMPT_COMMAND_RIGHT = ""
 
-use kubernetes *
-use docker *
+use ($nu.default-config-dir | path join 'scripts' 'kubernetes') *
+use ($nu.default-config-dir | path join 'scripts' 'docker') *
 
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [
   { name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { until: [
@@ -322,7 +322,7 @@ let repo_list = ["nushell/nushell", "casey/just", "ajeetdsouza/zoxide", "Ryooooo
  "xxxserxxx/gotop", "orhun/kmon", "browsh-org/browsh", "mrusme/planor", "jesseduffield/lazydocker",
  "tsenart/vegeta", "nicolas-van/multirun", "rsteube/carapace-bin", "urbanogilson/lineselect",
  "ast-grep/ast-grep", "jirutka/tty-copy", "theimpostor/osc", "d-kuro/kubectl-fuzzy",
- "nektos/act",
+ "nektos/act", "FiloSottile/age"
 ]
 
 def repo [ ] {
@@ -366,6 +366,7 @@ def download-github [ repo: string@repo ] {
 
   let name = (http get $"https://api.github.com/repos/($repo)/releases/latest"|get assets |filter {$in.browser_download_url == $link } |get name|get 0)
   wget $link -O $name
+  rm -rf /tmp/aa
   mkdir /tmp/aa
   if ( $name | str ends-with '.gz' ) {
     tar zxvf $name -C /tmp/aa
