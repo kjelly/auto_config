@@ -322,7 +322,7 @@ let repo_list = ["nushell/nushell", "casey/just", "ajeetdsouza/zoxide", "Ryooooo
  "xxxserxxx/gotop", "orhun/kmon", "browsh-org/browsh", "mrusme/planor", "jesseduffield/lazydocker",
  "tsenart/vegeta", "nicolas-van/multirun", "rsteube/carapace-bin", "urbanogilson/lineselect",
  "ast-grep/ast-grep", "jirutka/tty-copy", "theimpostor/osc", "d-kuro/kubectl-fuzzy",
- "nektos/act", "FiloSottile/age"
+ "nektos/act", "FiloSottile/age", "marcosnils/bin", "chezmoi"
 ]
 
 def repo [ ] {
@@ -780,4 +780,12 @@ $env.config.keybindings = ($env.config.keybindings | append {
           { edit: complete }
       ]
   }
+})
+
+$env.config.keybindings = ($env.config.keybindings | append {
+      name: another_esc_command
+      modifier: control
+      keycode: char_s
+      mode: [emacs, vi_normal, vi_insert]
+      event: { send: esc }
 })

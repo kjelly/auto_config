@@ -43,10 +43,6 @@ def main () {
 
   let lst = (tmux list-windows -F "#{pane_current_path} #{pane_current_command} #{window_id}"|lines|split column ' ' path command winid)
 
-  $all_path = ($all_path|append (par-each -t 4 {|it|
-    $"($it.path|path expand) @ ($it.command)"
-  }))
-
   mut input = ($all_path|str join "\n"|fzf-tmux -- --filepath-word --tiebreak=length,end --scheme=path|str trim|str replace ';' '~')
   if ($input == "") {
     return
