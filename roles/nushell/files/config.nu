@@ -787,3 +787,7 @@ $env.config.keybindings = ($env.config.keybindings | append {
       mode: [emacs, vi_normal, vi_insert]
       event: { send: esc }
 })
+
+if (($env.IN_VIM? == "1") and (which nvr | is-not-empty)) {
+  $env.EDITOR = [nvr --remote-wait-silent -cc vsplit]
+}

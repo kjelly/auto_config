@@ -537,6 +537,7 @@ augroup basic
   autocmd! TermOpen * setlocal nonu norelativenumber | setlocal signcolumn=no
   autocmd! WinLeave * call WinLeaveAction()
   autocmd! BufWritePost worksapce.vim source workspace.vim
+  autocmd! BufWritePost /tmp/*.nu set bufhidden=delete
 
   au! BufRead */tasks/*.yaml,*/tasks/*.yml set ft=yaml.ansible
   au! BufRead *.yaml,*.yml if search('hosts:\|tasks:\|roles:', 'nw') | set ft=yaml.ansible | endif
