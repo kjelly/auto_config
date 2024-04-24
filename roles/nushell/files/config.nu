@@ -147,8 +147,6 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
   { name: custom modifier: alt keycode: char_k mode: [emacs vi_normal vi_insert]  event: { until: [
     { send: menuup }
   ]}}
-  { name: custom modifier:control keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintComplete } }
-  { name: custom modifier:alt keycode: char_f mode: [emacs vi_normal vi_insert]  event: { send: HistoryHintWordComplete } }
   { name: custom modifier:alt keycode: char_q mode: [emacs vi_normal vi_insert]  event: [{edit: Clear}, {edit: InsertString, value: "workspace"}, {send: Enter}] }
 ]))
 
