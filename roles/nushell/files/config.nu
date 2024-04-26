@@ -3,6 +3,8 @@ $env.config.cursor_shape.emacs = "block"
 $env.config.edit_mode = "emacs"
 
 $env.EDITOR = nvim
+$env.SHELL = nu
+
 alias vim = nvim
 alias in = enter
 alias cd1 = cd ..
@@ -320,7 +322,7 @@ let repo_list = ["nushell/nushell", "casey/just", "ajeetdsouza/zoxide", "Ryooooo
  "xxxserxxx/gotop", "orhun/kmon", "browsh-org/browsh", "mrusme/planor", "jesseduffield/lazydocker",
  "tsenart/vegeta", "nicolas-van/multirun", "rsteube/carapace-bin", "urbanogilson/lineselect",
  "ast-grep/ast-grep", "jirutka/tty-copy", "theimpostor/osc", "d-kuro/kubectl-fuzzy",
- "nektos/act", "FiloSottile/age", "marcosnils/bin", "twpayne/chezmoi"
+ "nektos/act", "FiloSottile/age", "marcosnils/bin", "twpayne/chezmoi", "bitrise-io/envman", "guyfedwards/nom"
 ]
 
 def repo [ ] {
@@ -501,7 +503,7 @@ $env.config = ($env.config | upsert completions  {
     external: {
       enable: true
       max_results: 100
-      completer: $carapace_completer
+      completer: $fish_with_carapace_completer
     }
 })
 

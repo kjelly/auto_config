@@ -28,9 +28,6 @@ set -gx CDPATH . ~ ~/nfs/
 set -gx __fish_git_prompt_showdirtystate 1
 set -gx VIM_CONFIG "{{ HOME_PATH }}/.config/nvim/init.vim"
 set -gx XDG_RUNTIME_DIR /run/user/(id -u)
-if test -z "$IN_VIM"
-  set -gx HTERM_TTY (tty)
-end
 if test -z "$FISH_INIT_PATH"
   set -gx PATH {{ FISH_EXTRA_PATH }} $PATH
 end

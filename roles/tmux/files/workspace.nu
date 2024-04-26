@@ -41,6 +41,11 @@ def main () {
     }
   })
 
+  let tmp = ($all_path|str join "\n")
+  let extra  = (tmux list-windows -F "#{pane_current_path} @ #{pane_current_command}*"|lines|filter {|it| ($tmp|str contains $it | not $in) })
+
+  $all_path = ($all_path|append $extra)
+
   let lst = (tmux list-windows -F "#{pane_current_path} #{pane_current_command} #{window_id}"|lines|split column ' ' path command winid)
 
   mut input = ($all_path|str join "\n"|fzf-tmux -- --filepath-word --tiebreak=length,end --scheme=path|str trim|str replace ';' '~')
