@@ -13,7 +13,7 @@ def tmux_list_window [ ] {
   tmux list-windows -F "#{pane_current_path} #{pane_current_command} #{window_id}"|lines|split column ' ' path command winid
 }
 
-def main () {
+def simple_workspace [ ] {
   mut all_path = (zoxide query -l|lines|first 20)
   let all_windows = (tmux_list_window)
   $all_path = ($all_path | append ( $all_windows | each {|it| $it.path }) | uniq )
@@ -65,5 +65,29 @@ def main () {
   } else {
     let winid = ($target|first|get winid)
     tmux select-window -t $"($winid)"
+  }
+}
+
+def include [item, lst ] {
+  if (($lst | length) == 0) {
+    return false
+  }
+  $lst | each {|it| $item | str contains $it } | reduce {|a, b| $a or $b}
+}
+
+def sesh_workspace [ ] {
+  let dirs = (zoxide query -l | lines| first 120)
+  let sessions = (tmux list-sessions -F '#S'|lines | filter {|it| ($it | str length) > 8 })
+  let dirs = ($dirs | each {|it| if (include $it $sessions) { $"($it)*" } else { $it } })
+  let target = ($dirs | str join "\n" | fzf-tmux | str replace '*' '' | str trim)
+  sesh connect $target
+}
+
+
+def main [ ] {
+  if (which sesh | is-empty) {
+    simple_workspace
+  } else {
+    sesh_workspace
   }
 }
