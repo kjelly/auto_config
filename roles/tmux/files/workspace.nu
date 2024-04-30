@@ -77,6 +77,7 @@ def include [item, lst ] {
 
 def sesh_workspace [ ] {
   let dirs = (zoxide query -l | lines| first 120)
+  let dirs = (sesh list | lines| first 120)
   let sessions = (tmux list-sessions -F '#S'|lines | filter {|it| ($it | str length) > 8 })
   let dirs = ($dirs | each {|it| if (include $it $sessions) { $"($it)*" } else { $it } })
   let target = ($dirs | str join "\n" | fzf-tmux | str replace '*' '' | str trim)
@@ -88,6 +89,16 @@ def main [ ] {
   if (which sesh | is-empty) {
     simple_workspace
   } else {
-    sesh_workspace
+    # sesh_workspace
+    sesh connect (sesh list | fzf-tmux  -p 55%,60% --no-sort --border-label ' sesh ' --prompt '⚡  ' 
+                                        --header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' 
+                                        --bind 'tab:down,btab:up'
+                                        --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list)'
+                                        --bind 'ctrl-s:change-prompt(🪟  )+reload(sesh list -t)'
+                                        --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c)'
+                                        --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z)'
+                                        --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)'
+                                        --bind 'ctrl-d:execute(tmux kill-session -t {})+change-prompt(⚡  )+reload(sesh list)'
+                                        -- --filepath-word --tiebreak=length,end --scheme=path)
   }
 }
