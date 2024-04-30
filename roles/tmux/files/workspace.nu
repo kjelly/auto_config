@@ -90,9 +90,10 @@ def main [ ] {
     simple_workspace
   } else {
     # sesh_workspace
-    sesh connect (sesh list | fzf-tmux  -p 55%,60% --no-sort --border-label ' sesh ' --prompt '⚡  ' 
+    sesh connect -c "direnv exec . nu -i -c '$env.cmd'" (sesh list | fzf-tmux  -p 55%,60% --no-sort --border-label ' sesh ' --prompt '⚡  ' 
                                         --header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' 
                                         --bind 'tab:down,btab:up'
+                                        --bind 'alt-n:down,alt-p:up'
                                         --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list)'
                                         --bind 'ctrl-s:change-prompt(🪟  )+reload(sesh list -t)'
                                         --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c)'
