@@ -89,20 +89,20 @@
     deb: "https://github.com/sharkdp/fd/releases/download/v{{version}}/fd_{{version}}_amd64.deb"
   become: true
 
-- name: Install atuin
-  ansible.builtin.shell: curl https://raw.githubusercontent.com/ellie/atuin/main/install.sh | bash
-
-- name: Update fish for atuin
-  ansible.builtin.lineinfile:
-    path: ~/.config/fish/config.fish
-    line: atuin init fish --disable-up-arrow | source
-  ignore_errors: true
-
-- name: Create atuin for nushell
-  ansible.builtin.shell: atuin init nu --disable-up-arrow > ~/.config/atuin.nu
-
-- name: Update nushell config for atuin
-  ansible.builtin.lineinfile:
-    path: ~/.config/nushell/config.nu
-    line: source ~/.config/atuin.nu
-  ignore_errors: true
+# - name: Install atuin
+#   ansible.builtin.shell: curl https://raw.githubusercontent.com/ellie/atuin/main/install.sh | bash
+#
+# - name: Update fish for atuin
+#   ansible.builtin.lineinfile:
+#     path: ~/.config/fish/config.fish
+#     line: atuin init fish --disable-up-arrow | source
+#   ignore_errors: true
+#
+# - name: Create atuin for nushell
+#   ansible.builtin.shell: atuin init nu --disable-up-arrow > ~/.config/atuin.nu
+#
+# - name: Update nushell config for atuin
+#   ansible.builtin.lineinfile:
+#     path: ~/.config/nushell/config.nu
+#     line: source ~/.config/atuin.nu
+#   ignore_errors: true
