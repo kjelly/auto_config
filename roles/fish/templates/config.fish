@@ -1,12 +1,6 @@
 # Path to Oh My Fish install.
 set -gx OMF_PATH "{{ HOME_PATH }}/.local/share/omf"
 
-# Customize Oh My Fish configuration path.
-set -gx OMF_CONFIG "{{ HOME_PATH }}/.config/omf"
-
-# Load oh-my-fish configuration.
-source $OMF_PATH/init.fish
-
 alias cd1 "cd .."
 alias cd2 "cd ../.."
 alias cd3 "cd ../../.."

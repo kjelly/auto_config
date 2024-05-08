@@ -472,17 +472,27 @@ let zoxide_completer = {|spans|
 }
 
 let fish_with_carapace_completer = {|spans|
-  [
-    (
+  mut $ret = [ ]
+  if (which carapace | is-not-empty ) {
+    $ret = ($ret | append (
       carapace $spans.0 nushell ...$spans | from json
-    ),
-    (
+    ))
+  }
+  if (which fish | is-not-empty ) {
+    $ret = ($ret | append (
       fish --command $'complete "--do-complete=($spans | str join " ")"'
       | $"value(char tab)description(char newline)" + $in
       | from tsv --flexible --no-infer
-    )
-
-  ] | flatten | each {|it| $it | str trim } | uniq
+    ))
+  }
+  if (which argc | is-not-empty ) {
+    $ret = ($ret | append (
+      argc --argc-compgen nushell "" ...$spans
+      | split row "\n" | range 0..-2
+      | each { |line| $line | split column "\t" value description } | flatten
+    ))
+  }
+  $ret | flatten | each {|it| $it | str trim } | uniq
 }
 
 let external_completer = {|spans|
@@ -500,7 +510,7 @@ $env.config = ($env.config | upsert completions  {
     case_sensitive: false
     quick: true
     partial: true
-    algorithm: "fuzzy"
+    algorithm: "prefix"
     external: {
       enable: true
       max_results: 100
