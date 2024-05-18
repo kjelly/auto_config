@@ -281,7 +281,10 @@ mode "mark" {
 
 
 bindsym $mod+t exec ~/.i3/name_workspace.py
-bindsym $mod+period exec ~/.i3/noteit.py
+bindsym $mod+comma workspace prev_on_output
+bindsym $mod+period workspace next_on_output
+bindsym $mod+slash exec bash ~/.i3/rofi-wrapper
+
 exec --no-startup-id i3-msg 'workspace number 1;workspace 1:Web; exec sensible-browser'
 exec --no-startup-id ~/bin/pcloud
 exec --no-startup-id ibus-daemon -drxR

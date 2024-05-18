@@ -181,11 +181,9 @@ Plug 'https://github.com/tveskag/nvim-blame-line'
 " Due date
 Plug 'NFrid/due.nvim'
 
-" Comment
-Plug 'https://github.com/numToStr/Comment.nvim'
-
 Plug 'https://github.com/folke/which-key.nvim'
-Plug 'https://github.com/romainl/vim-cool'
+Plug 'https://github.com/romainl/vim-cool' " show hightlight in search mode
+
 
 Plug 'kevinhwang91/promise-async'
 
@@ -193,9 +191,6 @@ Plug 'kevinhwang91/promise-async'
 Plug 'https://github.com/kevinhwang91/nvim-ufo'
 
 Plug 'towolf/vim-helm'
-
-" markdown support with some fetures
-" Plug 'https://github.com/SidOfc/mkdx'
 
 " notify ui
 Plug 'rcarriga/nvim-notify'
@@ -206,13 +201,12 @@ Plug 'https://github.com/Chaitanyabsprip/present.nvim'
 
 Plug 'https://github.com/ojroques/nvim-osc52'
 
-Plug 'jdhao/better-escape.vim'
-
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'ray-x/lsp_signature.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
-" Plug 'https://github.com/glepnir/lspsaga.nvim'
+Plug 'https://github.com/glepnir/lspsaga.nvim'
 " Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 " Plug 'kosayoda/nvim-lightbulb'
 Plug 'nanotee/sqls.nvim'
@@ -224,15 +218,12 @@ Plug 'https://github.com/folke/lsp-colors.nvim'
 
 Plug 'stevearc/conform.nvim'
 
-Plug 'https://github.com/dstein64/vim-startuptime'
 Plug 'folke/persistence.nvim'
 
 if empty($SSH_CLIENT)
   " Plug 'blueyed/vim-diminactive' " use different background color for inactive window
 else
 endif
-
-Plug 'https://github.com/nyngwang/NeoZoom.lua'
 
 " Markdown table formaater
 Plug 'https://github.com/junegunn/vim-easy-align'
@@ -268,7 +259,7 @@ Plug 'https://github.com/NvChad/nvim-colorizer.lua'
 
 " Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
-Plug 'https://github.com/NTBBloodbath/rest.nvim'
+" Plug 'https://github.com/NTBBloodbath/rest.nvim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'https://github.com/ibhagwan/fzf-lua'
@@ -364,7 +355,6 @@ Plug 'https://github.com/petertriho/cmp-git'
 Plug 'https://github.com/mtoohey31/cmp-fish', { 'for': 'fish'}
 Plug 'https://github.com/dmitmel/cmp-cmdline-history'
 Plug 'https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol'  "use /@
-Plug 'ray-x/lsp_signature.nvim'
 Plug 'saadparwaiz1/cmp_luasnip'
 
 Plug 'https://github.com/windwp/nvim-autopairs'
@@ -657,7 +647,6 @@ command! DisableTmuxKey
          \ })
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-let g:better_escape_shortcut = 'jk'
 let g:fzf_colors = {'gutter': ['bg', 'Normal']}
 let g:fzf_floaterm_newentries = {
   \ '+root' : {

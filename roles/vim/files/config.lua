@@ -278,10 +278,10 @@ function Append(t, value)
   return t
 end
 
-feedback_info = { package_not_found = {} }
+local feedback_info = { package_not_found = {} }
 vim.api.nvim_create_user_command("ShowInfo", function() Dump(feedback_info) end,
   {})
-package_loadded = {}
+local package_loadded = {}
 function SafeRequire(name)
   if package_loadded[name] ~= nil then return package_loadded[name] end
   if IsModuleAvailable(name) then
@@ -424,12 +424,11 @@ SafeRequireCallback("nvim-treesitter.parsers", function(_)
     maintainers = { "@IndianBoy42" },
   }
   vim.filetype.add({
-      extension = {
-          nu = "nu",
-          just = "just"
-      }
+    extension = {
+      nu = "nu",
+      just = "just"
+    }
   })
-
 end)
 
 
@@ -451,13 +450,6 @@ function GetTerminalBufnr()
 end
 
 SafeRequireCallback('lualine', function(lualine)
-  local function showCWD()
-    local path = vim.fn.getcwd()
-    local home = vim.env.HOME
-    path = path:gsub(home, '~')
-    return path
-  end
-
   local function floatermInfo()
     local bufid = GetTerminalBufnr()
     local buffers = api.nvim_eval("floaterm#buflist#gather()")
@@ -696,8 +688,15 @@ SafeRequire("mason-lspconfig").setup({
   -- ensure_installed = vim.tbl_filter(function(server)
   --   return not vim.tbl_contains({ "dartls" }, server)
   -- end, langservers),
-  automatic_installation = false,
+  automatic_installation = true,
 })
+
+SafeRequireCallback("lspconfig", function(lspconfig)
+  for _, lsp in pairs(langservers) do
+    lspconfig[lsp].setup({})
+  end
+end)
+
 
 SafeRequire 'marks'.setup {
   default_mappings = true,
@@ -740,13 +739,6 @@ SafeRequireCallback("cmp", function()
     return vim_item
   end
 
-  local has_words_before = function()
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and
-        vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col,
-          col)
-        :match("%s") == nil
-  end
   local luasnip = SafeRequire("luasnip")
   if not isEmptyTable(luasnip) then
     require("luasnip.loaders.from_vscode").lazy_load({
@@ -817,7 +809,7 @@ SafeRequireCallback("cmp", function()
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp', keyword_length = 0 }, { name = 'path' },
-      { name = "copilot"}, { name = 'luasnip' }, -- For luasnip users.
+      { name = "copilot" }, { name = 'luasnip' }, -- For luasnip users.
       { name = 'cmp_tabnine', keyword_length = 3 }, {
       name = 'rg',
       max_item_count = 10,
@@ -888,51 +880,50 @@ SafeRequireCallback("cmp", function()
   setup_cmdline('/', search_sources)
   setup_cmdline('?', search_sources)
 
-  -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
-    .protocol
-    .make_client_capabilities())
-  capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true,
-  }
-
-  -- Use a loop to conveniently call 'setup' on multiple servers and
-  -- map buffer local keybindings when the language server attaches
-  for _, lsp in pairs(langservers) do
-    local on_attach = function(client, bufnr)
-      SafeRequire('virtualtypes').on_attach(client, bufnr)
-      SafeRequire('illuminate').on_attach(client)
-      -- Enable completion triggered by <c-x><c-o>
-      vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-      if disabled_lsp_caps[lsp] then
-        for _, cap in ipairs(disabled_lsp_caps[lsp]) do
-          client.server_capabilities[cap] = false
-        end
-      end
-    end
-
-    local lspconfig_setup_opts = {
-      init_options = { documentFormatting = true },
-      capabilities = capabilities,
-      on_attach = on_attach,
-      flags = { debounce_text_changes = 150 },
-      root_dir = function(fname)
-        return SafeRequire('lspconfig').util.find_git_ancestor(fname) or
-            vim.fn.getcwd()
-      end,
-      settings = LSP_CONFIG["settings"][lsp] or {},
-      autostart = not vim.tbl_contains(lsp_autostart_disabled, lsp),
-    }
-    for _, v in pairs(vim.tbl_keys(LSP_CONFIG)) do
-      if LSP_CONFIG[v][lsp] ~= nil then
-        lspconfig_setup_opts[v] = vim.tbl_extend("force",
-          lspconfig_setup_opts[v] or {},
-          LSP_CONFIG[v][lsp])
-      end
-    end
-    require('lspconfig')[lsp].setup(lspconfig_setup_opts)
-  end
+  -- -- Setup lspconfig.
+  -- local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
+  --   .protocol
+  --   .make_client_capabilities())
+  -- capabilities.textDocument.foldingRange = {
+  --   dynamicRegistration = false,
+  --   lineFoldingOnly = true,
+  -- }
+  --
+  -- -- Use a loop to conveniently call 'setup' on multiple servers and
+  -- -- map buffer local keybindings when the language server attaches
+  -- for _, lsp in pairs(langservers) do
+  --   local on_attach = function(client, bufnr)
+  --     SafeRequire('illuminate').on_attach(client)
+  --     -- Enable completion triggered by <c-x><c-o>
+  --     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  --     if disabled_lsp_caps[lsp] then
+  --       for _, cap in ipairs(disabled_lsp_caps[lsp]) do
+  --         client.server_capabilities[cap] = false
+  --       end
+  --     end
+  --   end
+  --
+  --   local lspconfig_setup_opts = {
+  --     init_options = { documentFormatting = true },
+  --     capabilities = capabilities,
+  --     on_attach = on_attach,
+  --     flags = { debounce_text_changes = 150 },
+  --     root_dir = function(fname)
+  --       return SafeRequire('lspconfig').util.find_git_ancestor(fname) or
+  --           vim.fn.getcwd()
+  --     end,
+  --     settings = LSP_CONFIG["settings"][lsp] or {},
+  --     autostart = not vim.tbl_contains(lsp_autostart_disabled, lsp),
+  --   }
+  --   for _, v in pairs(vim.tbl_keys(LSP_CONFIG)) do
+  --     if LSP_CONFIG[v][lsp] ~= nil then
+  --       lspconfig_setup_opts[v] = vim.tbl_extend("force",
+  --         lspconfig_setup_opts[v] or {},
+  --         LSP_CONFIG[v][lsp])
+  --     end
+  --   end
+  --   require('lspconfig')[lsp].setup(lspconfig_setup_opts)
+  -- end
 
   SafeRequire("cmp_tabnine.config"):setup({
     max_lines = 100,
@@ -1369,6 +1360,9 @@ function DelaySetup2()
       },
     })
     telescope.load_extension("floaterm")
+    SafeRequireCallback("telescope.frecency", function(_)
+      telescope.load_extension("frecency")
+    end)
   end)
 
   SafeRequire("copilot").setup({
