@@ -1106,6 +1106,7 @@ function UpdateEnv()
 end
 
 function DelaySetup2()
+  SafeRequire("CopilotChat").setup({})
   SafeRequire("conform").setup({
     formatters_by_ft = {
       lua = { "stylua" },
