@@ -101,20 +101,7 @@ def "z-complete" [ context: string ] {
   $lst | uniq
 }
 
-def --env z [ arg0?:string@"z-complete", ...rest:string ] {
-  if ($arg0 == null ) {
-    cd
-    return
-  }
-  let path = if (($rest | length) <= 2) and ($arg0 == '-' or ($arg0 | path expand | path type) == dir) {
-    $arg0
-  } else {
-    (zoxide query --exclude $env.PWD -- $arg0 ...$rest | str trim -r -c "\n")
-  }
-  cd $path
-}
-
-def --env zi [...rest:string] {
+def --env z [...rest:string] {
   cd $'(zoxide query --interactive -- ...$rest | str trim -r -c "\n")'
 }
 
@@ -472,27 +459,21 @@ let zoxide_completer = {|spans|
 }
 
 let fish_with_carapace_completer = {|spans|
-  mut $ret = [ ]
-  if (which carapace | is-not-empty ) {
-    $ret = ($ret | append (
-      carapace $spans.0 nushell ...$spans | from json
-    ))
-  }
-  if (which fish | is-not-empty ) {
-    $ret = ($ret | append (
-      fish --command $'complete "--do-complete=($spans | str join " ")"'
-      | $"value(char tab)description(char newline)" + $in
-      | from tsv --flexible --no-infer
-    ))
-  }
-  if (which argc | is-not-empty ) {
-    $ret = ($ret | append (
+  [{||
+    if (which carapace | is-not-empty ) {
+        carapace $spans.0 nushell ...$spans | from json
+    } else {
+      [ ]
+    }
+  },{||
+    if (which argc | is-not-empty ) {
       argc --argc-compgen nushell "" ...$spans
       | split row "\n" | range 0..-2
       | each { |line| $line | split column "\t" value description } | flatten
-    ))
-  }
-  $ret | flatten | each {|it| $it | str trim } | uniq
+    } else {
+      [ ]
+    }
+  }] | par-each -t 8 {|it| do -i $it } | flatten | each {|it| $it | str trim } | uniq
 }
 
 let external_completer = {|spans|
@@ -786,7 +767,7 @@ $env.config.keybindings = ($env.config.keybindings | append {
   mode: [emacs vi_normal vi_insert]
   event: {
       until: [
-          { send: menu name: ide_completion_menu }
+          { send: menu name: completion_menu }
           { send: menunext }
           { edit: complete }
       ]

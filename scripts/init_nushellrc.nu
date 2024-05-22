@@ -17,6 +17,7 @@ http get https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushe
 http get https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/clipboard.nu | save -a $nu.config-path
 http get https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/pueue.nu | save -a $nu.config-path
 http get https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/env.nu | save -a $nu.env-path
+http get https://raw.githubusercontent.com/ddanier/nur/main/scripts/nur-completions.nu | save -a $nu.config-path
 
 touch ~/.config/custom.nu
 
