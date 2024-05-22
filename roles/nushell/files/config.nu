@@ -465,7 +465,17 @@ let fish_with_carapace_completer = {|spans|
     } else {
       [ ]
     }
-  },{||
+  },
+  {||
+    if (which fish | is-not-empty ) {
+      fish --command $'complete "--do-complete=($spans | str join " ")"'
+      | $"value(char tab)description(char newline)" + $in
+      | from tsv --flexible --no-infer
+    } else {
+      [ ]
+    }
+  },
+  {||
     if (which argc | is-not-empty ) {
       argc --argc-compgen nushell "" ...$spans
       | split row "\n" | range 0..-2
