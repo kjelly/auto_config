@@ -467,6 +467,7 @@ let fish_with_carapace_completer = {|spans|
     }
   },
   {||
+    # for local file
     if (which fish | is-not-empty ) {
       fish --command $'complete "--do-complete=($spans | str join " ")"'
       | $"value(char tab)description(char newline)" + $in
@@ -490,6 +491,8 @@ let external_completer = {|spans|
     match $spans.0 {
         nu => $fish_completer
         git => $fish_completer
+        vim => $fish_completer
+        nvim => $fish_completer
         asdf => $fish_completer
         z => $zoxide_completer
         zi => $zoxide_completer
@@ -505,7 +508,7 @@ $env.config = ($env.config | upsert completions  {
     external: {
       enable: true
       max_results: 100
-      completer: $fish_with_carapace_completer
+      completer: $external_completer
     }
 })
 
@@ -795,3 +798,8 @@ $env.config.keybindings = ($env.config.keybindings | append {
 if (($env.IN_VIM? == "1") and (which nvr | is-not-empty)) {
   $env.EDITOR = [nvr --remote-wait-silent -cc vsplit]
 }
+
+def "nu-complete t" [ ] {
+  tmux list-sessions -F '#S'|lines
+}
+export extern t [ sessions:string@"nu-complete t" ]
