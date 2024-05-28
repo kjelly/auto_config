@@ -803,3 +803,7 @@ def "nu-complete t" [ ] {
   tmux list-sessions -F '#S'|lines
 }
 export extern t [ sessions:string@"nu-complete t" ]
+
+def --wrapped bg [ ...command  ] {
+  tmux new-window -c . -t popup: -d ...$command
+}
