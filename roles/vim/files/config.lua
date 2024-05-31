@@ -719,10 +719,12 @@ SafeRequireCallback("cmp", function()
     nvim_lua = "[Lua] 🐖",
     cmp_tabnine = "[TN] 📝",
     path = "[Path] 📁",
-    copilot = "[Copilot] ",
+    copilot = "[Copilot] 🚀",
     fish = "[fish] 🐠",
     rg = "[rg] 🔎",
     luasnip = "[luasnip] 🐍",
+    cmdline = "[cmdline] 📜",
+    cmdline_history = "[history] 📜",
   }
 
   local function custom_format(entry, vim_item)
