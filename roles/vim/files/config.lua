@@ -724,7 +724,6 @@ SafeRequireCallback("cmp", function()
     rg = "[rg] 🔎",
     luasnip = "[luasnip] 🐍",
     cmdline = "[cmdline] 📜",
-    cmdline_history = "[history] 📜",
   }
 
   local function custom_format(entry, vim_item)
