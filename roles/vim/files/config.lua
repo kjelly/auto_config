@@ -876,7 +876,6 @@ SafeRequireCallback("cmp", function()
 
   setup_cmdline(':', {
     { name = 'cmdline',         group_index = 1 },
-    { name = 'cmdline_history', group_index = 2, max_item_count = 5 },
   })
   setup_cmdline('/', search_sources)
   setup_cmdline('?', search_sources)
