@@ -726,20 +726,6 @@ SafeRequireCallback("cmp", function()
     cmdline = "[cmdline] 📜",
   }
 
-  local function custom_format(entry, vim_item)
-    vim_item.kind = lspkind.presets.default[vim_item.kind]
-    vim_item.abbr = vim.trim(string.sub(vim_item.abbr, 1, 60))
-    local source_name = entry.source.name
-    if (vim_item.menu ~= nil and entry.completion_item.data ~= nil and
-          entry.completion_item.data.detail ~= nil) then
-      vim_item.menu = entry.completion_item.data.detail .. ' ' .. vim_item.menu
-    end
-    if source_mapping[source_name] then
-      vim_item.kind = source_mapping[source_name]
-    end
-    return vim_item
-  end
-
   local luasnip = SafeRequire("luasnip")
   if not isEmptyTable(luasnip) then
     require("luasnip.loaders.from_vscode").lazy_load({
@@ -818,7 +804,28 @@ SafeRequireCallback("cmp", function()
       option = { additional_arguments = "--max-depth 5" },
     }, { name = 'fish' }, { name = 'buffer', keyword_length = 4 },
     }),
-    formatting = { format = custom_format },
+    formatting = { format = lspkind.cmp_format({
+      mode = 'symbol', -- show only symbol annotations
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+                     -- can also be a function to dynamically calculate max width such as 
+                     -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+      show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+
+      before = function (entry, vim_item)
+        vim_item.kind = lspkind.presets.default[vim_item.kind]
+        vim_item.abbr = vim.trim(string.sub(vim_item.abbr, 1, 60))
+        local source_name = entry.source.name
+        if (vim_item.menu ~= nil and entry.completion_item.data ~= nil and
+              entry.completion_item.data.detail ~= nil) then
+          vim_item.menu = entry.completion_item.data.detail .. ' ' .. vim_item.menu
+        end
+        if source_mapping[source_name] then
+          vim_item.kind = source_mapping[source_name]
+        end
+        return vim_item
+      end
+     })},
     sorting = {
       priority_weight = 2,
       comparators = {
@@ -1106,6 +1113,10 @@ function UpdateEnv()
 end
 
 function DelaySetup2()
+  SafeRequire('gitblame').setup {
+    enabled = false,
+  }
+  SafeRequire('lspfuzzy').setup({})
   SafeRequire("CopilotChat").setup({})
   SafeRequire("conform").setup({
     formatters_by_ft = {
@@ -1122,13 +1133,6 @@ function DelaySetup2()
     },
   })
   SafeRequire("octo").setup()
-  function Copy()
-    if vim.v.event.operator == 'y' and vim.v.event.regname == '+' then
-      require('osc52').copy_register('+')
-    end
-  end
-
-  vim.api.nvim_create_autocmd('TextYankPost', { callback = Copy })
 
   vim.api.nvim_create_autocmd('ModeChanged', {
     callback = function()
@@ -1139,29 +1143,10 @@ function DelaySetup2()
       end
     end,
   })
-  SafeRequire('illuminate').configure({
-    filetypes_denylist = { 'floaterm', 'neo-tree' },
-  })
-  SafeRequire("nu").setup()
   SafeRequire("oil").setup({
     buf_options = { buflisted = true, bufhidden = "unload" },
   })
-  -- SafeRequireCallback("null-ls", function(null_ls)
-  --     null_ls.setup({
-  --         sources = {
-  --             null_ls.builtins.formatting.lua_format,
-  --             null_ls.builtins.code_actions.refactoring,
-  --             null_ls.builtins.formatting.ruff,
-  --             null_ls.builtins.diagnostics.ruff,
-  --             null_ls.builtins.diagnostics.pylint.with({
-  --                 command = CheckOutput("which pylint"),
-  --                 diagnostics_postprocess = function(diagnostic)
-  --                     diagnostic.code = diagnostic.message_id
-  --                 end
-  --             })
-  --         }
-  --     })
-  -- end)
+
   SafeRequireCallback("lsp_lines", function(lines)
     lines.setup()
     vim.diagnostic.config({ virtual_text = false })
@@ -1189,31 +1174,29 @@ function DelaySetup2()
     pcall(vim.api.nvim_command, 'source ' .. WorkspaceVimPath)
   end
 
-  if vim.fn.has("nvim-0.9.0") == 1 then
-    SafeRequire("noice").setup({
-      health = { checker = false },
-      messages = {
-        enabled = true,
-        view = "mini",
-        view_error = "notify",
-        view_warn = "mini",
-        view_history = "messages",
-        view_search = "virtualtext",
+  SafeRequire("noice").setup({
+    health = { checker = false },
+    messages = {
+      enabled = true,
+      view = "mini",
+      view_error = "notify",
+      view_warn = "mini",
+      view_history = "messages",
+      view_search = "virtualtext",
+    },
+    notify = { enabled = true },
+    lsp = {
+      hover = { enabled = true },
+      signature = { enabled = false },
+      message = { enabled = true },
+      progress = { enabled = true },
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
       },
-      notify = { enabled = true },
-      lsp = {
-        hover = { enabled = true },
-        signature = { enabled = false },
-        message = { enabled = true },
-        progress = { enabled = true },
-        override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
-        },
-      },
-    })
-  end
+    },
+  })
 
   SafeRequire("modicator").setup()
   SafeRequireCallback("dap", function(dap)
@@ -1234,11 +1217,6 @@ function DelaySetup2()
   end)
   SafeRequire("dapui").setup {}
   SafeRequire('neogen').setup {}
-  SafeRequire('rest-nvim').setup {
-    jump_to_request = true,
-    env_file = '.env',
-    skip_ssl_verification = true,
-  }
   SafeRequireCallback("hop", function(hop)
     hop.setup {
       winblend = 10,
@@ -1260,7 +1238,6 @@ function DelaySetup2()
   end)
 
   SafeRequire('colorizer').setup()
-  SafeRequire("nu").setup()
   SafeRequire('neo-zoom').setup({
     left_ratio = 0.2,
     top_ratio = 0.03,
@@ -1308,28 +1285,6 @@ function DelaySetup2()
 
   if Random(1, 100) < 0 then UpdatePlug() end
 
-  SafeRequire('winbar').setup({
-    enabled = true,
-    show_file_path = true,
-    show_symbols = true,
-    colors = {
-      path = '', -- You can customize colors like #c946fd
-      file_name = '',
-      symbols = '',
-    },
-    icons = {
-      file_icon_default = '',
-      seperator = '>',
-      editor_state = '●',
-      lock_icon = '',
-    },
-    exclude_filetype = {
-      'help', 'startify', 'dashboard', 'packer', 'neogitstatus', 'NvimTree',
-      'Trouble', 'alpha', 'lir', 'Outline', 'spectre_panel', 'toggleterm', 'qf',
-    },
-  })
-  SafeRequire("Comment").setup()
-
   function fzf_multi_select(prompt_bufnr)
     local actions = require("telescope.actions")
     local action_state = require("telescope.actions.state")
@@ -1338,8 +1293,6 @@ function DelaySetup2()
     local num_selections = table.getn(picker:get_multi_selection())
 
     if num_selections > 1 then
-      -- actions.file_edit throws - context of picker seems to change
-      -- actions.file_edit(prompt_bufnr)
       actions.send_selected_to_qflist(prompt_bufnr)
       actions.open_qflist()
     else
@@ -1360,7 +1313,6 @@ function DelaySetup2()
         },
       },
     })
-    telescope.load_extension("floaterm")
     SafeRequireCallback("telescope.frecency", function(_)
       telescope.load_extension("frecency")
     end)
@@ -1775,23 +1727,7 @@ end
 
 local symbolLock = false
 function SymbolToggle()
-  if symbolLock then return end
-  symbolLock = true
-  if #ListCurrentWindow({ filetype = "Outline" }) > 0 then
-    vim.cmd("SymbolsOutlineClose")
-  else
-    vim.cmd("SymbolsOutlineOpen")
-  end
-  vim.defer_fn(function()
-    symbolLock = false
-    vim.wait(300, function()
-      return #ListCurrentWindow({ filetype = "Outline" }) > 0
-    end, 1000)
-    for _, v in ipairs(ListCurrentWindow({ filetype = "Outline" })) do
-      pcall(vim.api.nvim_win_set_option, v, "foldcolumn", "0")
-      pcall(vim.api.nvim_win_set_option, v, "signcolumn", "no")
-    end
-  end, 300)
+  vim.cmd("Lspsaga outline")
 end
 
 function EditFile(path)

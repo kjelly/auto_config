@@ -116,20 +116,16 @@ silent! call plug#begin('~/.config/nvim/plugged')
 silent! call plug#begin('~/.vim/plugged')
 {% endif %}
 if executable("gcc")
-Plug 'https://github.com/lewis6991/impatient.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate all'}
 Plug 'https://github.com/danymat/neogen'
-Plug 'https://github.com/p00f/nvim-ts-rainbow'
 Plug 'mizlan/iswap.nvim'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'https://github.com/theHamsta/nvim-treesitter-pairs'
 Plug 'romgrk/nvim-treesitter-context'
-Plug 'nvim-treesitter/playground'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
-Plug 'https://github.com/David-Kunz/treesitter-unit'
 "Yet another tree-sitter powered indent plugin for Neovim.
-Plug 'https://github.com/yioneko/nvim-yati'
-Plug 'SmiteshP/nvim-gps'
+"Plug 'SmiteshP/nvim-gps'
+Plug 'https://github.com/SmiteshP/nvim-navic'
 Plug 'm-demare/hlargs.nvim'
 Plug 'https://github.com/kylechui/nvim-surround'
 Plug 'https://github.com/smjonas/live-command.nvim'
@@ -147,13 +143,11 @@ Plug 'mfussenegger/nvim-dap-python'
 Plug 'rcarriga/nvim-dap-ui'
 " status line
 Plug 'https://github.com/nvim-lualine/lualine.nvim'
-" Plug 'https://github.com/fgheng/winbar.nvim'
 
 " A search panel for neovim.
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '*' }
-Plug 'dawsers/telescope-floaterm.nvim'
 Plug 'kkharji/sqlite.lua'
 
 Plug 'nanotee/zoxide.vim'
@@ -176,7 +170,7 @@ Plug 'https://github.com/melkster/modicator.nvim'
 
 " Indent guides for Neovim
 Plug 'https://github.com/lukas-reineke/indent-blankline.nvim', {'branch': 'master', 'on': 'IndentBlanklineEnable'}
-Plug 'https://github.com/tveskag/nvim-blame-line'
+Plug 'https://github.com/f-person/git-blame.nvim'
 
 " Due date
 Plug 'NFrid/due.nvim'
@@ -199,22 +193,13 @@ Plug 'rcarriga/nvim-notify'
 " Plug 'https://github.com/petertriho/nvim-scrollbar'
 Plug 'https://github.com/Chaitanyabsprip/present.nvim'
 
-Plug 'https://github.com/ojroques/nvim-osc52'
-
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'https://github.com/glepnir/lspsaga.nvim'
-" Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
-" Plug 'kosayoda/nvim-lightbulb'
-Plug 'nanotee/sqls.nvim'
-" Plug 'jubnzv/virtual-types.nvim'
-Plug 'https://github.com/simrat39/symbols-outline.nvim'
-Plug 'https://github.com/folke/lsp-colors.nvim'
-" Plug 'https://github.com/RRethy/vim-illuminate'
-" Plug 'https://github.com/nvimtools/none-ls.nvim'
+"Plug 'https://github.com/hedyhli/outline.nvim'
 
 Plug 'stevearc/conform.nvim'
 
@@ -228,16 +213,8 @@ endif
 " Markdown table formaater
 Plug 'https://github.com/junegunn/vim-easy-align'
 
-" Emoji"
-Plug 'yazgoo/unicodemoji'
-
 " Git
-Plug 'https://github.com/lambdalisue/gina.vim'
 Plug 'https://github.com/akinsho/git-conflict.nvim'
-
-" DB
-Plug 'tpope/vim-dadbod', { 'on': ['DB']}
-Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DB']}
 
 Plug 'https://github.com/kjelly/kube-nvim'
 Plug 'voldikss/vim-floaterm'
@@ -248,13 +225,8 @@ Plug 'AndrewRadev/switch.vim'
 " An always-on highlight for a unique character in every word on a line
 " to help you use f, F and family.
 Plug 'unblevable/quick-scope'
-Plug 'itchyny/calendar.vim', { 'on': 'Calendar'}
-Plug 'vimwiki/vimwiki', { 'on': 'VimwikiIndex' }
-Plug 'janko-m/vim-test', { 'on': ['TestFile','TestLast','TestNearest','TestSuite','TestVisit']}
 
 Plug 'simeji/winresizer', { 'on': ['WinResizerStartResize', 'WinResizerStartMove']}
-Plug 't9md/vim-choosewin'
-Plug 'metakirby5/codi.vim'
 Plug 'https://github.com/NvChad/nvim-colorizer.lua'
 
 " Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -272,7 +244,7 @@ Plug 'https://codeberg.org/esensar/nvim-dev-container'
 Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
 
 " sudo pip3 install keyring browser-cookie3
-Plug 'ianding1/leetcode.vim'
+Plug 'https://github.com/kawre/leetcode.nvim'
 
 Plug 'https://github.com/m-gail/escape.nvim'
 
@@ -280,40 +252,31 @@ Plug 'https://github.com/m-gail/escape.nvim'
 Plug 'rktjmp/lush.nvim'
 
 " colorscheme
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'sainnhe/gruvbox-material'
 Plug 'gruvbox-community/gruvbox'
 Plug 'folke/tokyonight.nvim'
 Plug 'marko-cerovac/material.nvim'
-Plug 'briones-gabriel/darcula-solid.nvim'
 Plug 'rktjmp/lush.nvim'
-Plug 'eddyekofo94/gruvbox-flat.nvim'
 Plug 'https://github.com/Mofiqul/dracula.nvim'
 Plug 'projekt0n/github-nvim-theme'
-Plug 'yong1le/darkplus.nvim'
 Plug 'ray-x/aurora'
 Plug 'https://github.com/Pocco81/Catppuccino.nvim'
-Plug 'frenzyexists/aquarium-vim', { 'branch': 'develop' }
 Plug 'https://github.com/sainnhe/edge'
-Plug 'yashguptaz/calvera-dark.nvim'
 Plug 'https://github.com/sainnhe/everforest'
 Plug 'https://github.com/navarasu/onedark.nvim'
 Plug 'lourenci/github-colors'
-Plug 'shaunsingh/moonlight.nvim'
 Plug 'https://github.com/savq/melange'
 Plug 'https://github.com/rmehri01/onenord.nvim'
 Plug 'https://github.com/luisiacc/gruvbox-baby'
 Plug 'https://github.com/Shatur/neovim-ayu'
 Plug 'https://github.com/NTBBloodbath/doom-one.nvim'
 Plug 'https://github.com/rockerBOO/boo-colorscheme-nvim'
-Plug 'https://github.com/Everblush/everblush.nvim'
-Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'shaunsingh/nord.nvim'
-Plug 'titanzero/zephyrium'
 Plug 'rockyzhang24/arctic.nvim'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'https://github.com/Almo7aya/neogruvbox.nvim'
 Plug 'https://github.com/bluz71/vim-nightfly-guicolors'
-Plug 'https://github.com/cranberry-clockworks/coal.nvim'
 
 " file explorer for ssh
 Plug 'https://github.com/stevearc/oil.nvim'
@@ -324,8 +287,7 @@ endif
 
 {% if programming %}
 
-Plug 'tpope/vim-fugitive'
-Plug 'cohama/agit.vim', { 'on':  ['Agit', 'AgitFile'] }
+Plug 'tpope/vim-fugitive' " for git
 if executable("gh") == 1
   Plug 'https://github.com/pwntester/octo.nvim'
 endif
@@ -361,7 +323,7 @@ Plug 'https://github.com/windwp/nvim-autopairs'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'https://github.com/L3MON4D3/LuaSnip'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-Plug 'https://github.com/gfanto/fzf-lsp.nvim'
+Plug 'https://github.com/ojroques/nvim-lspfuzzy'
 Plug 'https://github.com/stevearc/aerial.nvim'
 Plug 'https://github.com/onsails/lspkind.nvim'
 Plug 'https://github.com/gaoDean/autolist.nvim' " for markdown
@@ -497,7 +459,6 @@ let $IN_VIM=1
 
 {% if nvim %}let g:test#strategy = "neovim" {% endif %}
 
-let g:leetcode_solution_filetype='python3'
 let g:floaterm_wintype='split'
 let g:floaterm_position='top'
 let g:floaterm_width=1.0
@@ -625,6 +586,8 @@ let g:switch_custom_definitions =
     \   ['ON', 'OFF'],
     \   ['[ ]', '[x]'],
     \   ['TODO', 'WORKING','DONE'],
+    \   ['enabled', 'disabled'],
+    \   ['Enabled', 'Disabled'],
     \ ]
 
 let g:any_jump_disable_default_keybindings = 1

@@ -32,7 +32,6 @@ nnoremap <silent> <leader>zr <cmd>FzfLua live_grep<cr>
 
 xmap ga <Plug>(EasyAlign)
 
-nnoremap <silent> <leader>gag <cmd>Agit<CR>
 nnoremap <silent> <leader>gam <cmd>FloatermNew git commit --amend<CR>
 nnoremap <silent> <leader>gbl <cmd>Git blame<CR>
 nnoremap <silent> <leader>gbr <cmd>FzfLua git_branches<cr>
