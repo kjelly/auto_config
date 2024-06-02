@@ -243,7 +243,6 @@ Plug 'https://codeberg.org/esensar/nvim-dev-container'
 " :w suda://%
 Plug 'lambdalisue/suda.vim', {'on': ['SudaRead', 'SudaWrite']}
 
-" sudo pip3 install keyring browser-cookie3
 Plug 'https://github.com/kawre/leetcode.nvim'
 
 Plug 'https://github.com/m-gail/escape.nvim'
@@ -281,10 +280,6 @@ Plug 'https://github.com/bluz71/vim-nightfly-guicolors'
 " file explorer for ssh
 Plug 'https://github.com/stevearc/oil.nvim'
 
-if executable("fcitx") == 1
-  Plug 'vim-scripts/fcitx.vim'
-endif
-
 {% if programming %}
 
 Plug 'tpope/vim-fugitive' " for git
@@ -299,10 +294,6 @@ Plug 'mbbill/undotree', { 'on': ['UndotreeToggle']}
 Plug 'https://github.com/chentoast/marks.nvim'
 
 {% if nvim %}
-
-if has('python3')
-  Plug 'vim-vdebug/vdebug', { 'on': 'VdebugStart'}
-endif
 
 Plug 'https://github.com/zbirenbaum/copilot.lua'
 Plug 'https://github.com/zbirenbaum/copilot-cmp'
@@ -322,7 +313,7 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'https://github.com/windwp/nvim-autopairs'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'https://github.com/L3MON4D3/LuaSnip'
-Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+"Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'https://github.com/ojroques/nvim-lspfuzzy'
 Plug 'https://github.com/stevearc/aerial.nvim'
 Plug 'https://github.com/onsails/lspkind.nvim'

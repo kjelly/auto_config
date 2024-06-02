@@ -965,6 +965,8 @@ function GotoMainWindow()
   if wid ~= nil then vim.api.nvim_set_current_win(wid) end
 end
 
+WorkspacePath = vim.g.MYVIMRC_DIR .. '/workspaces/'
+
 local function getWorkspaceVimPath(type)
   local function convertName(name)
     local firstChar = string.sub(name, 1, 1)
@@ -978,7 +980,7 @@ local function getWorkspaceVimPath(type)
     return name
   end
 
-  local workspace_path = vim.g.MYVIMRC_DIR .. '/workspaces/'
+  local workspace_path = WorkspacePath
   os.execute('mkdir -p ' .. workspace_path)
   local workspaceConfigPath = workspace_path .. convertName(vim.fn.getcwd()) ..
       '.' .. type
@@ -998,6 +1000,13 @@ vim.api.nvim_set_keymap('n', '<Leader>esn', '', {
   desc = 'Edit workspace note',
   callback = function() pcall(EditFile, getWorkspaceVimPath('md')) end,
 })
+
+vim.api.nvim_set_keymap('n', '<Leader>ess', '', {
+  noremap = true,
+  desc = 'Search the workspace',
+  callback = function() require'fzf-lua'.live_grep({cwd=WorkspacePath}) end,
+})
+
 
 function FindFileCwd()
   local cwd = vim.fn.getcwd()
@@ -1285,21 +1294,6 @@ function DelaySetup2()
 
   if Random(1, 100) < 0 then UpdatePlug() end
 
-  function fzf_multi_select(prompt_bufnr)
-    local actions = require("telescope.actions")
-    local action_state = require("telescope.actions.state")
-
-    local picker = action_state.get_current_picker(prompt_bufnr)
-    local num_selections = table.getn(picker:get_multi_selection())
-
-    if num_selections > 1 then
-      actions.send_selected_to_qflist(prompt_bufnr)
-      actions.open_qflist()
-    else
-      actions.file_edit(prompt_bufnr)
-    end
-  end
-
   SafeRequireCallback("telescope", function(telescope)
     telescope.setup({
       pickers = { buffers = { sort_mru = true, ignore_current_buffer = true } },
@@ -1307,9 +1301,9 @@ function DelaySetup2()
         mappings = {
           i = {
             ["<esc>"] = require('telescope.actions').close,
-            ["<cr>"] = fzf_multi_select,
+            -- ["<cr>"] = fzf_multi_select,
           },
-          n = { ["<cr>"] = fzf_multi_select },
+          -- n = { ["<cr>"] = fzf_multi_select },
         },
       },
     })
