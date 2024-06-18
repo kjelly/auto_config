@@ -191,6 +191,7 @@ nnoremap <silent> <leader>esi <cmd>lua EditFile(vim.env.MYVIMRC)<cr>
 nnoremap <silent> <leader>esl <cmd>lua EditFile('~/.vim_custom.vim')<cr>
 nnoremap <silent> <leader>esc <cmd>lua EditFile('~/.config/nvim/config.lua')<cr>
 nnoremap <silent> <leader>esj <cmd>call EditTodayNote()<cr>
+nnoremap <silent> <leader>esd <cmd>e .<cr>
 nnoremap <silent> <leader>er :registers<cr>
 nnoremap <leader>ef :set filetype=
 nnoremap <leader>ea :filetype detect<cr>

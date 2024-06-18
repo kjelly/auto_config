@@ -65,7 +65,6 @@ nnoremap <m-s> <cmd>lua SymbolToggle()<cr>
 " save
 nnoremap <c-s> <cmd>w<cr>
 inoremap <c-s> <cmd>w<cr><esc>
-tnoremap <c-s> <C-\><C-n> " exit terminal
 
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"

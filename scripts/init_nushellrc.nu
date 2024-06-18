@@ -40,6 +40,12 @@ def download-module [ name: string ] {
   }
 }
 
+if (which pueue | is-not-empty ) {
+  let path = ($nu.default-config-dir | path join 'scripts' pueue.nu)
+  pueue completions nushell| save -f $path
+  "\nuse ($nu.default-config-dir | path join 'scripts' 'pueue.nu') *\n" | save -f -a $nu.config-path
+}
+
 [kubernetes git docker nvim argx lg] | par-each -t 2 {|it|
   download-module $it
   null
