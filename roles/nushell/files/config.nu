@@ -807,3 +807,42 @@ export extern t [ sessions:string@"nu-complete t" ]
 def --wrapped bg [ ...command  ] {
   tmux new-window -c . -t popup: -d ...$command
 }
+
+def kaniko-build [ dockerfile: string, context: string, image: string, ...args:string  ] {
+  let build_args = ($args | each {|it| ["--build-arg",  $it]}|flatten)
+  let dct = {
+    "apiVersion": "v1",
+    "spec": {
+      "containers": [
+        {
+          "name": "kaniko",
+          "image": "gcr.io/kaniko-project/executor:latest",
+          "stdin": true,
+          "stdinOnce": true,
+          "args": [
+            "--dockerfile=Dockerfile",
+            "--context=tar://stdin",
+            "--cache-dir=/workspace/cache",
+            $"--destination=($image)",
+            ...$build_args
+          ],
+          "volumeMounts": [
+            {
+              "name": "docker-config",
+              "mountPath": "/kaniko/.docker/"
+            }
+          ]
+        }
+      ],
+      "volumes": [
+        {
+          "name": "docker-config",
+          "configMap": {
+            "name": "docker-config"
+          }
+        }
+      ]
+    }
+  }
+  tar zcvf - $context | kubectl run kaniko --rm --stdin=true --image=gcr.io/kaniko-project/executor:latest --restart=Never $"--overrides=($dct|to json --raw|str trim)"
+}
