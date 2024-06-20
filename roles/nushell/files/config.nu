@@ -348,6 +348,8 @@ def github-link [context: string] {
 }
 
 def download-github [ repo: string@repo ] {
+  let tmpdir = (mktemp -t -d download-github.XXXXX)
+  cd $tmpdir
   let repo = (real_repo $repo)
   let link_list = (github-link $repo | filter {|it| $it !~ '.*sha256'} )
   let link = ($link_list | get ($link_list | each {|it| $it |split row '/' | last} | input list --fuzzy --index)|str trim)
