@@ -105,6 +105,23 @@ def --env z [...rest:string] {
   cd $'(zoxide query --interactive -- ...$rest | str trim -r -c "\n")'
 }
 
+def --env zl [ ] {
+  cd (zoxide query -l|lines|filter {|it| $it starts-with (pwd)}|each {|it| $it | str replace (pwd) '.'}|input list --fuzzy)
+}
+
+def --env gg [ ] {
+  mut p = (pwd)
+  while ($p != "/") {
+    if ($p | path join ".git"|path exists) {
+      break
+    }
+    $p = ($p | path join ".."|path expand)
+  }
+  if ($p != "/") {
+    cd $p
+  }
+}
+
 def my-prompt [ ] {
   try {
     return (starship prompt)
@@ -137,6 +154,17 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
     { send: menuup }
   ]}}
   { name: custom modifier:alt keycode: char_q mode: [emacs vi_normal vi_insert]  event: [{edit: Clear}, {edit: InsertString, value: "workspace"}, {send: Enter}] }
+  {
+      name: "Run zoxide"
+      modifier: Alt
+      keycode: char_c
+      mode: [emacs, vi_normal, vi_insert]
+      event: {
+        send: executehostcommand,
+        cmd: "zl"
+      }
+  }
+
 ]))
 
 
