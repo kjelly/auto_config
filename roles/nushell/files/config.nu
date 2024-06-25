@@ -71,19 +71,6 @@ def vim [...file: string] {
   }
 }
 
-def fzf [ ] {
-  let stdin = $in
-  let a = ($stdin | detect columns)
-  let start = (if ( $a | is-empty ) {
-    $stdin
-  } else {
-    $a
-  })
-  let userSelect = (($start | par-each -t 8 {|it| $it|to nuon }|str join "\n" |^fzf) | str trim)
-  echo $userSelect
-  $userSelect | from nuon
-}
-
 def "z-complete" [ context: string ] {
   let pattern = ($context | split row ' '| drop nth 0)
   mut lst = (zoxide query -l ...$pattern |lines|first 15 )
