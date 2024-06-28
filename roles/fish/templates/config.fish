@@ -1,6 +1,4 @@
 # Path to Oh My Fish install.
-set -gx OMF_PATH "{{ HOME_PATH }}/.local/share/omf"
-
 alias cd1 "cd .."
 alias cd2 "cd ../.."
 alias cd3 "cd ../../.."
