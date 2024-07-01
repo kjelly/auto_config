@@ -866,5 +866,6 @@ def kaniko-build [ dockerfile: string, context: string, image: string, ...args:s
 
 def r [ task:string@"nu-complete nur task-names" ] {
   let code = "import os\nos.system('nur " + $task + "')"
-  echo $code|python3
+  python3 -c $code
+
 }
