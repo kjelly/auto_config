@@ -863,3 +863,8 @@ def kaniko-build [ dockerfile: string, context: string, image: string, ...args:s
   }
   tar zcvf - $context | kubectl run kaniko --rm --stdin=true --image=gcr.io/kaniko-project/executor:latest --restart=Never $"--overrides=($dct|to json --raw|str trim)"
 }
+
+def r [ task:string@"nu-complete nur task-names" ] {
+  let code = "import os\nos.system('nur " + $task + "')"
+  echo $code|python3
+}
