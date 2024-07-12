@@ -1122,6 +1122,7 @@ function UpdateEnv()
 end
 
 function DelaySetup2()
+  SafeRequire('present').setup {}
   SafeRequire('gitblame').setup {
     enabled = false,
   }
@@ -1814,7 +1815,7 @@ vim.g.editconfig = true
 
 local function checkIsEink()
   if (vim.g.fullWidth ~= vim.o.columns) then
-    if (vim.o.columns > 130 and vim.o.columns < 146) then
+    if (tostring(vim.o.columns) == vim.env.EINK_WIDTH ) then
       vim.schedule(function() vim.o.background = 'light' end)
     else
       vim.schedule(function() vim.o.background = 'dark' end)

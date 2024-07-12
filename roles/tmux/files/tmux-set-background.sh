@@ -1,7 +1,7 @@
 #!/bin/bash
 
 width=$(tmux display -p '#{client_width}')
-if [ $width -gt 130 ] && [ $width -le 146 ]; then
+if [[ $width == "$EINK_WIDTH" ]]; then
     tmux set -g window-style 'fg=#171421,bg=#ffffff'
     tmux set -g status-style 'fg=#171421,bg=#cccccc'
 else

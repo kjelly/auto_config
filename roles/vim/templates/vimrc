@@ -191,7 +191,7 @@ Plug 'rcarriga/nvim-notify'
 
 " Disable scrollbar. Not useful for me.
 " Plug 'https://github.com/petertriho/nvim-scrollbar'
-Plug 'https://github.com/Chaitanyabsprip/present.nvim'
+"Plug 'https://github.com/Chaitanyabsprip/present.nvim'
 
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
@@ -633,7 +633,7 @@ vnoremap Y "+y
 {% if nvim %}
 exec 'luafile' g:MYVIMRC_DIR . '/config.lua'
 {% endif %}
-colorscheme gruvbox
+colorscheme tokyonight
 silent! source ~/.vim_custom.vim
 
 " hightlight
