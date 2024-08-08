@@ -200,6 +200,7 @@ Plug 'ray-x/lsp_signature.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'https://github.com/glepnir/lspsaga.nvim'
 "Plug 'https://github.com/hedyhli/outline.nvim'
+Plug 'zeioth/garbage-day.nvim'
 
 Plug 'stevearc/conform.nvim'
 

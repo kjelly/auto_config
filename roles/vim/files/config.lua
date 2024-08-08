@@ -1122,6 +1122,7 @@ function UpdateEnv()
 end
 
 function DelaySetup2()
+  SafeRequire('garbage-day').setup({})
   SafeRequire('present').setup {}
   SafeRequire('gitblame').setup {
     enabled = false,
