@@ -5,7 +5,6 @@ $env.config.edit_mode = "emacs"
 $env.EDITOR = nvim
 $env.SHELL = nu
 
-alias vim = nvim
 alias in = enter
 alias cd1 = cd ..
 alias cd2 = cd ../../
