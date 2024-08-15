@@ -325,7 +325,7 @@ let repo_list = ["nushell/nushell", "casey/just", "ajeetdsouza/zoxide", "Ryooooo
  "tsenart/vegeta", "nicolas-van/multirun", "rsteube/carapace-bin", "urbanogilson/lineselect",
  "ast-grep/ast-grep", "jirutka/tty-copy", "theimpostor/osc", "d-kuro/kubectl-fuzzy",
  "nektos/act", "FiloSottile/age", "marcosnils/bin", "twpayne/chezmoi", "bitrise-io/envman", "guyfedwards/nom", "joshmedeski/sesh"
- "itchyny/bed", "ddanier/nur",
+ "itchyny/bed", "ddanier/nur", "https://github.com/dbrgn/tealdeer"
 ]
 
 def repo [ ] {
@@ -476,32 +476,27 @@ let zoxide_completer = {|spans|
 }
 
 let fish_with_carapace_completer = {|spans|
-  [{||
-    if (which carapace | is-not-empty ) {
-        carapace $spans.0 nushell ...$spans | from json
-    } else {
-      [ ]
-    }
-  },
-  {||
-    # for local file
-    if (which fish | is-not-empty ) {
-      fish --command $'complete "--do-complete=($spans | str join " ")"'
-      | $"value(char tab)description(char newline)" + $in
-      | from tsv --flexible --no-infer
-    } else {
-      [ ]
-    }
-  },
-  {||
-    if (which argc | is-not-empty ) {
-      argc --argc-compgen nushell "" ...$spans
-      | split row "\n" | range 0..-2
-      | each { |line| $line | split column "\t" value description } | flatten
-    } else {
-      [ ]
-    }
-  }] | par-each -t 8 {|it| do -i $it } | flatten | each {|it| $it | str trim } | uniq
+  let last_part = ($spans|last)
+  if ([./ ~/ ../]|each {|it| $last_part starts-with $it}|reduce {|a, b| $a or $b}) {
+    return null
+  } else {
+    [{||
+      if (which carapace | is-not-empty ) {
+          carapace $spans.0 nushell ...$spans | from json
+      } else {
+        [ ]
+      }
+    },
+    {||
+      if (which argc | is-not-empty ) {
+        argc --argc-compgen nushell "" ...$spans
+        | split row "\n" | range 0..-2
+        | each { |line| $line | split column "\t" value description } | flatten
+      } else {
+        [ ]
+      }
+    }] | par-each -t 8 {|it| do -i $it } | flatten | each {|it| $it | str trim } | uniq
+  }
 }
 
 let external_completer = {|spans|
