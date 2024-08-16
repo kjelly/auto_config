@@ -161,6 +161,12 @@ LSP_CONFIG = DefaultTable({}, {
 })
 
 local disabled_lsp_caps = {
+  ruff = {
+    "documentFormattingProvider",
+  },
+  ruff_lsp = {
+    "documentFormattingProvider",
+  },
   pylsp = {
     'renameProvider', 'referencesProvider', 'hoverProvider',
     'documentSymbolProvider', 'workspaceSymbolProvider', 'completionProvider',
@@ -693,7 +699,17 @@ SafeRequire("mason-lspconfig").setup({
 
 SafeRequireCallback("lspconfig", function(lspconfig)
   for _, lsp in pairs(langservers) do
-    lspconfig[lsp].setup({})
+    local on_attach = function(client, bufnr)
+      if disabled_lsp_caps[lsp] then
+        for _, cap in ipairs(disabled_lsp_caps[lsp]) do
+          client.server_capabilities[cap] = false
+        end
+      end
+    end
+
+    local settings = LSP_CONFIG["settings"][lsp] or {}
+    local init_options = LSP_CONFIG["init_options"][lsp] or {}
+    lspconfig[lsp].setup({ settings = settings, init_options = init_options, on_attach = on_attach })
   end
 end)
 
@@ -804,28 +820,30 @@ SafeRequireCallback("cmp", function()
       option = { additional_arguments = "--max-depth 5" },
     }, { name = 'fish' }, { name = 'buffer', keyword_length = 4 },
     }),
-    formatting = { format = lspkind.cmp_format({
-      mode = 'symbol', -- show only symbol annotations
-      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-                     -- can also be a function to dynamically calculate max width such as 
-                     -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
-      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-      show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+    formatting = {
+      format = lspkind.cmp_format({
+        mode = 'symbol', -- show only symbol annotations
+        maxwidth = 50,   -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+        -- can also be a function to dynamically calculate max width such as
+        -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+        ellipsis_char = '...',    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+        show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 
-      before = function (entry, vim_item)
-        vim_item.kind = lspkind.presets.default[vim_item.kind]
-        vim_item.abbr = vim.trim(string.sub(vim_item.abbr, 1, 60))
-        local source_name = entry.source.name
-        if (vim_item.menu ~= nil and entry.completion_item.data ~= nil and
-              entry.completion_item.data.detail ~= nil) then
-          vim_item.menu = entry.completion_item.data.detail .. ' ' .. vim_item.menu
+        before = function(entry, vim_item)
+          vim_item.kind = lspkind.presets.default[vim_item.kind]
+          vim_item.abbr = vim.trim(string.sub(vim_item.abbr, 1, 60))
+          local source_name = entry.source.name
+          if (vim_item.menu ~= nil and entry.completion_item.data ~= nil and
+                entry.completion_item.data.detail ~= nil) then
+            vim_item.menu = entry.completion_item.data.detail .. ' ' .. vim_item.menu
+          end
+          if source_mapping[source_name] then
+            vim_item.kind = source_mapping[source_name]
+          end
+          return vim_item
         end
-        if source_mapping[source_name] then
-          vim_item.kind = source_mapping[source_name]
-        end
-        return vim_item
-      end
-     })},
+      })
+    },
     sorting = {
       priority_weight = 2,
       comparators = {
@@ -882,55 +900,10 @@ SafeRequireCallback("cmp", function()
   end
 
   setup_cmdline(':', {
-    { name = 'cmdline',         group_index = 1 },
+    { name = 'cmdline', group_index = 1 },
   })
   setup_cmdline('/', search_sources)
   setup_cmdline('?', search_sources)
-
-  -- -- Setup lspconfig.
-  -- local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
-  --   .protocol
-  --   .make_client_capabilities())
-  -- capabilities.textDocument.foldingRange = {
-  --   dynamicRegistration = false,
-  --   lineFoldingOnly = true,
-  -- }
-  --
-  -- -- Use a loop to conveniently call 'setup' on multiple servers and
-  -- -- map buffer local keybindings when the language server attaches
-  -- for _, lsp in pairs(langservers) do
-  --   local on_attach = function(client, bufnr)
-  --     SafeRequire('illuminate').on_attach(client)
-  --     -- Enable completion triggered by <c-x><c-o>
-  --     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  --     if disabled_lsp_caps[lsp] then
-  --       for _, cap in ipairs(disabled_lsp_caps[lsp]) do
-  --         client.server_capabilities[cap] = false
-  --       end
-  --     end
-  --   end
-  --
-  --   local lspconfig_setup_opts = {
-  --     init_options = { documentFormatting = true },
-  --     capabilities = capabilities,
-  --     on_attach = on_attach,
-  --     flags = { debounce_text_changes = 150 },
-  --     root_dir = function(fname)
-  --       return SafeRequire('lspconfig').util.find_git_ancestor(fname) or
-  --           vim.fn.getcwd()
-  --     end,
-  --     settings = LSP_CONFIG["settings"][lsp] or {},
-  --     autostart = not vim.tbl_contains(lsp_autostart_disabled, lsp),
-  --   }
-  --   for _, v in pairs(vim.tbl_keys(LSP_CONFIG)) do
-  --     if LSP_CONFIG[v][lsp] ~= nil then
-  --       lspconfig_setup_opts[v] = vim.tbl_extend("force",
-  --         lspconfig_setup_opts[v] or {},
-  --         LSP_CONFIG[v][lsp])
-  --     end
-  --   end
-  --   require('lspconfig')[lsp].setup(lspconfig_setup_opts)
-  -- end
 
   SafeRequire("cmp_tabnine.config"):setup({
     max_lines = 100,
@@ -1004,7 +977,7 @@ vim.api.nvim_set_keymap('n', '<Leader>esn', '', {
 vim.api.nvim_set_keymap('n', '<Leader>ess', '', {
   noremap = true,
   desc = 'Search the workspace',
-  callback = function() require'fzf-lua'.live_grep({cwd=WorkspacePath}) end,
+  callback = function() require 'fzf-lua'.live_grep({ cwd = WorkspacePath }) end,
 })
 
 
@@ -1816,7 +1789,7 @@ vim.g.editconfig = true
 
 local function checkIsEink()
   if (vim.g.fullWidth ~= vim.o.columns) then
-    if (tostring(vim.o.columns) == vim.env.EINK_WIDTH ) then
+    if (tostring(vim.o.columns) == vim.env.EINK_WIDTH) then
       vim.schedule(function() vim.o.background = 'light' end)
     else
       vim.schedule(function() vim.o.background = 'dark' end)
