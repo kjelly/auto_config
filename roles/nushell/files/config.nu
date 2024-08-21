@@ -2,8 +2,8 @@ $env.config.show_banner = false
 $env.config.cursor_shape.emacs = "block"
 $env.config.edit_mode = "emacs"
 
-$env.EDITOR = nvim
-$env.SHELL = nu
+$env.EDITOR = "nvim"
+$env.SHELL = "nu"
 
 alias in = enter
 alias cd1 = cd ..
