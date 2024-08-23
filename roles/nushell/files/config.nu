@@ -46,7 +46,7 @@ def update-z [ path ] {
 }
 def vim [...file: string] {
   let af = ($file | each {|f|
-            if ($f|str substring ..1) in ['/', '~'] {
+            if ($f|str substring 0..0) in ['/', '~'] {
                 $f | path expand
             } else {
                 $"($env.PWD)/($f)"
