@@ -12,13 +12,13 @@ alias dec "openssl enc -d -aes-256-cbc -a -salt -pass file:$HOME/.ssh/passwd.txt
 alias nsenter-fzf="nsenter -t (ps aux|fzf|choose 1)"
 
 set fish_color_search_match --background=blue
-set -gx GOROOT "{{ HOME_PATH }}/go"
-set -gx GOPATH "{{ HOME_PATH }}/gohome"
+set -gx GOROOT "$HOME/go"
+set -gx GOPATH "$HOME/gohome"
 set -gx GOBIN $GOPATH/bin
 set -gx EDITOR nvim
 set -gx CDPATH . ~ ~/nfs/
 set -gx __fish_git_prompt_showdirtystate 1
-set -gx VIM_CONFIG "{{ HOME_PATH }}/.config/nvim/init.vim"
+set -gx VIM_CONFIG "$HOME/.config/nvim/init.vim"
 set -gx XDG_RUNTIME_DIR /run/user/(id -u)
 if test -z "$FISH_INIT_PATH"
   set -gx PATH {{ FISH_EXTRA_PATH }} $PATH

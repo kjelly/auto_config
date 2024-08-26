@@ -45,13 +45,7 @@ def update-z [ path ] {
   }
 }
 def vim [...file: string] {
-  let af = ($file | each {|f|
-            if ($f|str substring 0..0) in ['/', '~'] {
-                $f | path expand
-            } else {
-                $"($env.PWD)/($f)"
-            }
-        })
+  let af = ($file | each {|f| $f | path expand })
 
   mut editor = "vim"
   if ((which nvim |length ) > 0) {
@@ -59,7 +53,14 @@ def vim [...file: string] {
   }
   if ( $editor == "nvim" ) {
     if ( $env.IN_VIM? == null ) {
-      nvim ...$af
+      for i in [["poetry", "run"], [] ] {
+        try {
+          let cmd = ($i | append "nvim")
+          run-external ($cmd | first) ...($cmd | skip 1) ...$af
+          break
+        } catch {
+        }
+      }
     } else {
       let action = "edit"
       let cmd = $"<cmd>($action) ($af|str join ' ')<cr>"
