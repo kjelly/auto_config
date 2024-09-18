@@ -161,12 +161,8 @@ LSP_CONFIG = DefaultTable({}, {
 })
 
 local disabled_lsp_caps = {
-  ruff = {
-    "documentFormattingProvider",
-  },
-  ruff_lsp = {
-    "documentFormattingProvider",
-  },
+  ruff = { "documentFormattingProvider" },
+  ruff_lsp = { "documentFormattingProvider" },
   pylsp = {
     'renameProvider', 'referencesProvider', 'hoverProvider',
     'documentSymbolProvider', 'workspaceSymbolProvider', 'completionProvider',
@@ -179,7 +175,7 @@ local disabled_lsp_caps = {
 local langservers = {
   'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'efm', 'emmet_ls',
   'gopls', 'graphql', 'html', 'jsonls', 'marksman', 'pyright', 'rust_analyzer',
-  'sqlls', 'lua_ls', 'terraformls', 'tsserver', 'vimls', 'yamlls', 'ruff_lsp',
+  'sqlls', 'lua_ls', 'terraformls', 'tsserver', 'vimls', 'ruff_lsp',
 }
 
 for _, v in ipairs({ "node", "go" }) do
@@ -429,14 +425,8 @@ SafeRequireCallback("nvim-treesitter.parsers", function(_)
     },
     maintainers = { "@IndianBoy42" },
   }
-  vim.filetype.add({
-    extension = {
-      nu = "nu",
-      just = "just"
-    }
-  })
+  vim.filetype.add({ extension = { nu = "nu", just = "just" } })
 end)
-
 
 function HasTerminal()
   local ok, buffers = pcall(vim.api.nvim_eval, "floaterm#buflist#gather()")
@@ -571,97 +561,54 @@ SafeRequireCallback("hlslens", function(hlslens)
 end)
 
 SafeRequireCallback("which-key", function(wk)
-  local function set_kekymap(opts, mapping) wk.register(mapping, opts) end
-
-  set_kekymap(nil, {
-    g = {
-      r = { name = 'rename', r = 'rename' },
-      n = {
-        name = 'navigation',
-        d = 'goto_definition',
-        D = 'list_definitions',
-        u = 'goto_next_usage',
-        U = 'goto_previous_usage',
-      },
-      O = 'list_definitions_toc',
-    },
-    d = {
-      i = {
-        o = 'block',
-        f = 'function',
-        c = 'class',
-        C = {
-          name = 'Call/Comment/Conditional',
-          a = 'call',
-          o = 'conditional',
-          m = 'comment',
-        },
-        F = 'frame',
-        l = 'loop',
-        p = 'parameter',
-        s = 'scopename',
-      },
-      a = {
-        o = 'block',
-        f = 'function',
-        c = 'class',
-        C = {
-          name = 'Call/Comment/Conditional',
-          a = 'call',
-          o = 'conditional',
-          m = 'comment',
-        },
-        F = 'frame',
-        l = 'loop',
-        p = 'parameter',
-        s = 'scopename',
-      },
-    },
+  wk.add({
+    { "daC",  group = "Call/Comment/Conditional" }, { "daCa", desc = "call" },
+    { "daCm", desc = "comment" }, { "daCo", desc = "conditional" },
+    { "daF", desc = "frame" }, { "dac", desc = "class" },
+    { "daf", desc = "function" }, { "dal", desc = "loop" }, { "dao", desc = "block" },
+    { "dap", desc = "parameter" }, { "das", desc = "scopename" },
+    { "diC", group = "Call/Comment/Conditional" }, { "diCa", desc = "call" },
+    { "diCm", desc = "comment" }, { "diCo", desc = "conditional" },
+    { "diF",  desc = "frame" }, { "dic", desc = "class" },
+    { "dif", desc = "function" }, { "dil", desc = "loop" }, { "dio", desc = "block" },
+    { "dip", desc = "parameter" }, { "dis", desc = "scopename" },
+    { "gO",  desc = "list_definitions_toc" }, { "gn", group = "navigation" },
+    { "gnD", desc = "list_definitions" }, { "gnU", desc = "goto_previous_usage" },
+    { "gnd", desc = "goto_definition" }, { "gnu", desc = "goto_next_usage" },
+    { "gr",  group = "rename" }, { "grr", desc = "rename" },
   })
-  set_kekymap({ prefix = "<localleader>" },
-    { r = { name = "+Run" }, d = { name = "+Debug" } })
-  set_kekymap({ prefix = "<leader>" }, {
-    z = { name = "+Grep/Find/FZF" },
-    t = { name = "+Tab" },
-    b = { name = "+Buffer/Bookmark", c = { "Copy file path" } },
-    c = { name = "+Comment/cd" },
-    q = { name = "+Quit" },
-    l = {
-      name = "+Language",
-      d = { "declaration/definition" },
-      e = { "Leetcode" },
-      s = { "Doc/Workspace Symbol" },
-      r = { "Rename/Reference" },
-      t = { "Test" },
-    },
-    f = { name = "+File/esearch" },
-    s = { name = "+Status" },
-    m = { name = "+Mark", p = { 'Previous mark' }, n = { 'Next mark' } },
-    w = { name = "+Wiki/Window", q = { "wqa" }, s = { "split" } },
-    r = { name = "+Run/Test" },
-    o = { name = "+Fold" },
-    e = {
-      name = "+Edit",
-      c = { name = "copy", w = "full file" },
-      s = "setting/notes",
-    },
-    g = {
-      name = "+Git/Paste",
-      d = { name = "git diff", l = { "git diff last commit" } },
-      r = { name = 'restore' },
-      l = { name = 'log' },
-      b = { name = 'blame/branch' },
-      a = { name = 'Agit/amend' },
-    },
-    n = { name = "+Note" },
-    i = { name = "+Insert time/Info" },
-    a = { name = "+AnyJump/CocAction" },
-    v = { name = "+Gina" },
-    p = { name = "+Paste/Plugin" },
-    d = { name = "doc" },
+  wk.add({
+    { "<localleader>d", group = "Debug" }, { "<localleader>r", group = "Run" },
+  })
+  wk.add({
+    { "<leader>a",  group = "AnyJump/CocAction" },
+    { "<leader>b",  group = "Buffer/Bookmark" },
+    { "<leader>bc", desc = "Copy file path" },
+    { "<leader>c",  group = "Comment/cd" }, { "<leader>d", group = "doc" },
+    { "<leader>e",   group = "Edit" },
+    { "<leader>ecw", desc = "full file" }, { "<leader>es", desc = "setting/notes" },
+    { "<leader>f",  group = "File/esearch" }, { "<leader>g", group = "Git/Paste" },
+    { "<leader>ga", group = "Agit/amend" },
+    { "<leader>gb", group = "blame/branch" }, { "<leader>gd", group = "git diff" },
+    { "<leader>gdl", desc = "git diff last commit" },
+    { "<leader>gl",  group = "log" }, { "<leader>gr", group = "restore" },
+    { "<leader>i",  group = "Insert time/Info" },
+    { "<leader>l",  group = "Language" },
+    { "<leader>ld", desc = "declaration/definition" },
+    { "<leader>le", desc = "Leetcode" },
+    { "<leader>lr", desc = "Rename/Reference" },
+    { "<leader>ls", desc = "Doc/Workspace Symbol" },
+    { "<leader>lt", desc = "Test" }, { "<leader>m", group = "Mark" },
+    { "<leader>mn", desc = "Next mark" }, { "<leader>mp", desc = "Previous mark" },
+    { "<leader>n",  group = "Note" }, { "<leader>o", group = "Fold" },
+    { "<leader>p", group = "Paste/Plugin" }, { "<leader>q", group = "Quit" },
+    { "<leader>r", group = "Run/Test" }, { "<leader>s", group = "Status" },
+    { "<leader>t", group = "Tab" }, { "<leader>v", group = "Gina" },
+    { "<leader>w", group = "Wiki/Window" }, { "<leader>wq", desc = "wqa" },
+    { "<leader>ws", desc = "split" }, { "<leader>z", group = "Grep/Find/FZF" },
   })
 
-  wk.setup { plugins = { registers = true } }
+  wk.setup({ plugins = { registers = true } })
 end)
 
 function MySort(buffer_a, buffer_b)
@@ -709,10 +656,13 @@ SafeRequireCallback("lspconfig", function(lspconfig)
 
     local settings = LSP_CONFIG["settings"][lsp] or {}
     local init_options = LSP_CONFIG["init_options"][lsp] or {}
-    lspconfig[lsp].setup({ settings = settings, init_options = init_options, on_attach = on_attach })
+    lspconfig[lsp].setup({
+      settings = settings,
+      init_options = init_options,
+      on_attach = on_attach,
+    })
   end
 end)
-
 
 SafeRequire 'marks'.setup {
   default_mappings = true,
@@ -835,14 +785,15 @@ SafeRequireCallback("cmp", function()
           local source_name = entry.source.name
           if (vim_item.menu ~= nil and entry.completion_item.data ~= nil and
                 entry.completion_item.data.detail ~= nil) then
-            vim_item.menu = entry.completion_item.data.detail .. ' ' .. vim_item.menu
+            vim_item.menu = entry.completion_item.data.detail .. ' ' ..
+                vim_item.menu
           end
           if source_mapping[source_name] then
             vim_item.kind = source_mapping[source_name]
           end
           return vim_item
-        end
-      })
+        end,
+      }),
     },
     sorting = {
       priority_weight = 2,
@@ -899,9 +850,7 @@ SafeRequireCallback("cmp", function()
     })
   end
 
-  setup_cmdline(':', {
-    { name = 'cmdline', group_index = 1 },
-  })
+  setup_cmdline(':', { { name = 'cmdline', group_index = 1 } })
   setup_cmdline('/', search_sources)
   setup_cmdline('?', search_sources)
 
@@ -979,7 +928,6 @@ vim.api.nvim_set_keymap('n', '<Leader>ess', '', {
   desc = 'Search the workspace',
   callback = function() require 'fzf-lua'.live_grep({ cwd = WorkspacePath }) end,
 })
-
 
 function FindFileCwd()
   local cwd = vim.fn.getcwd()
@@ -1097,9 +1045,7 @@ end
 function DelaySetup2()
   SafeRequire('garbage-day').setup({})
   SafeRequire('present').setup {}
-  SafeRequire('gitblame').setup {
-    enabled = false,
-  }
+  SafeRequire('gitblame').setup { enabled = false }
   SafeRequire('lspfuzzy').setup({})
   SafeRequire("CopilotChat").setup({})
   SafeRequire("conform").setup({
@@ -1282,9 +1228,8 @@ function DelaySetup2()
         },
       },
     })
-    SafeRequireCallback("telescope.frecency", function(_)
-      telescope.load_extension("frecency")
-    end)
+    SafeRequireCallback("telescope.frecency",
+      function(_) telescope.load_extension("frecency") end)
   end)
 
   SafeRequire("copilot").setup({
@@ -1695,9 +1640,7 @@ function UpdatePlug()
 end
 
 local symbolLock = false
-function SymbolToggle()
-  vim.cmd("Lspsaga outline")
-end
+function SymbolToggle() vim.cmd("Lspsaga outline") end
 
 function EditFile(path)
   GotoMainWindow()
@@ -1837,11 +1780,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
 if vim.fn.executable("nu") == 1 then
   local lsp = require 'lspconfig'
   vim.tbl_deep_extend('keep', lsp, {
-    nushell = {
-      cmd = { 'nu', '--lsp' },
-      filetypes = 'nu',
-      name = 'nushell',
-    }
+    nushell = { cmd = { 'nu', '--lsp' }, filetypes = 'nu', name = 'nushell' },
   })
   lsp.nushell.setup {}
 end

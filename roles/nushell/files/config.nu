@@ -650,7 +650,7 @@ $env.config.hooks.pre_prompt = ($env.config.hooks.pre_prompt | append [
         }
 ])
 
-export def --wrapped tr [ ...args ] {
+export def --wrapped tr [ ...command] {
   let path = (pwd)
   tmux new-window -b -c $path direnv exec $path bash -c $'"($command)"'
 }
@@ -758,7 +758,7 @@ def clean [ ] {
 }
 
 def all-unit-name [ ] {
-  ["run"] | append (seq 1 $env.max_jobs|each {|it| $"run($it)"})
+  ["run"] | append (seq 1 ($env.max_jobs|into int)|each {|it| $"run($it)"})
 }
 
 def all-unit-info [ ] {
@@ -862,7 +862,7 @@ def kaniko-build [ dockerfile: string, context: string, image: string, ...args:s
   tar zcvf - $context | kubectl run kaniko --rm --stdin=true --image=gcr.io/kaniko-project/executor:latest --restart=Never $"--overrides=($dct|to json --raw|str trim)"
 }
 
-def r [ task:string@"nu-complete nur task-names" ] {
+def r [ task:string ] {
   let code = "import os\nos.system('nur " + $task + "')"
   python3 -c $code
 

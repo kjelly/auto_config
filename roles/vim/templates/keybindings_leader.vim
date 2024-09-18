@@ -27,7 +27,6 @@ nnoremap <silent> <leader>zhs <cmd>FzfLua search_history<cr>
 nnoremap <silent> <leader>zm <cmd>FzfLua Marks<cr>
 nnoremap <silent> <leader>zf <cmd>FzfLua frecency<cr>
 nnoremap <silent> <leader>zo <cmd>FzfLua buffers<cr>
-nnoremap <silent> <leader>zg <cmd>GitFiles<cr>
 nnoremap <silent> <leader>zr <cmd>FzfLua live_grep<cr>
 
 xmap ga <Plug>(EasyAlign)
@@ -41,7 +40,6 @@ nnoremap <silent> <leader>gdi <cmd>Git diff<CR>
 nnoremap <silent> <leader>gdl <cmd>Git diff @~..@<CR>
 nnoremap <silent> <leader>gds <cmd>Git diff --cached<CR>
 nnoremap <silent> <leader>ge <cmd>Gedit<CR>
-nnoremap <silent> <leader>gg <cmd>SignifyToggle<CR>
 nnoremap <silent> <leader>gi <cmd>Git add -p %<CR>
 nnoremap <silent> <leader>glb <cmd>FzfLua git_bcommits<cr>
 nnoremap <silent> <leader>glp <cmd>FzfLua git_commits<cr>
