@@ -1,0 +1,111 @@
+def "nur move" [...path, --dir="."] {
+  if ($path | is-empty) {
+    return
+  }
+  let targets = (^find $dir -type d | ^fzf -m|lines)
+  $path | par-each -t 2 {|src|
+    $targets| par-each -t 2 {|dst|
+      ^mv $src $dst
+    }
+  }
+}
+
+
+def "nur tag" [...path, --dir=".", --src_dir="."] {
+  let _path = if ($path | is-empty) {^find $src_dir -type f|^fzf -m|lines} else {$path}
+  if ($_path | is-empty) {
+    return
+  }
+  let targets = (^find $dir -type d | ^fzf -m|lines)
+  $_path | par-each -t 2 {|src|
+    $targets| par-each -t 2 {|dst|
+      ^ln $src $dst
+    }
+  }
+}
+
+
+def "nur note" [ path, --edit(-e) ] {
+  mkdir ($path | path dirname)
+  touch $path
+  if $edit {
+    nvim $path
+  }
+}
+
+def "nur quick-note" [ dir="." ] {
+  if $dir != "." {
+    mkdir $dir
+  }
+  nvim $"(date now|format date "%Y-%m-%d-%H-%m-%S").md"
+}
+
+def "nur link" [ --from=".", --root, --group_base_dir(-g)="links" ] {
+  if $root {
+    cd $nur.project-path
+  }
+  let srcs = (^find $from -type f | ^fzf -m|lines)
+  mut _dir  = (^find $group_base_dir -type d | ^fzf|path basename)
+  $_dir = if $_dir == "" {input "Input the directory name"} else { $_dir }
+  if $_dir == "" {
+    return
+  }
+  let _final_dir = ([$group_base_dir $_dir] | path join)
+  mkdir $_final_dir
+  $srcs | par-each -t 2 {|src|
+    ^ln $src $_final_dir
+  }
+  null
+}
+
+def "nur anno" [ path? ] {
+#  let _path = if path == null {^find $from -type f | ^fzf |lines } else { $path }
+#  let dir_name = ($_path | path dirname)
+#  let file_name ($_path | path basename)
+}
+
+def "nur find" [ --root=".", --pattern? ] {
+  let out = (^rg $root -n | ^fzf)
+  let parts = ($out | split row ':')
+  let file = ($parts | get 0)
+  let line = ($parts | get 1)
+  print $file
+  print $line
+  ^nvim $file $"+($line)"
+}
+
+def "nur find-alias" [ path? ] {
+  let _path = if $path == null {^find $nur.project-path -type f|^fzf} else {$path}
+  let real_path = ($_path |path expand)
+  cd $nur.project-path
+  ^find . -samefile $real_path
+}
+
+def "nur pick" [ dir="." ] {
+  let file = (ls |where type == file)
+  nur move $file
+}
+
+def "nur list-links" [ target?, --link_dir="links" ] {
+  let _target = if $target == null {^find $nur.project-path -type f|^fzf} else {$target}
+  ^find $link_dir -samefile $_target|lines|each {|it|
+    ls ($it|path dirname)
+  }
+}
+
+def "nur list-tags" [ target?, --link_dir="tags" ] {
+  let _target = if $target == null {^find $nur.project-path -type f|^fzf} else {$target}
+  ^find $link_dir -samefile $_target|lines|each {|it|
+    $it|path dirname | str replace $"($link_dir)/" ""
+  } | flatten -a
+}
+
+def "nur loop" [ ] {
+  let cmd_list = (nu -c "nur --list")
+  cd $nur.project-path
+  while true {
+    let cmd = ($cmd_list | ^fzf)
+    nu -c $cmd
+    sleep 3sec
+  }
+}
