@@ -93,7 +93,7 @@ def --env z [...rest:string] {
 }
 
 def --env zl [ ] {
-  cd (zoxide query -l|lines|filter {|it| $it starts-with (pwd)}|each {|it| $it | str replace (pwd) '.'}|input list --fuzzy)
+  cd (zoxide query -l|lines|filter {|it| $it starts-with $"(pwd)/"}|each {|it| $it | str replace (pwd) '.'}|input list --fuzzy)
 }
 
 def --env gg [ ] {
@@ -172,7 +172,7 @@ $env.config.hooks.env_change.PWD = ($env.config.hooks.env_change.PWD | append [
 )
 
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
-    name: fuzzy_module
+    name: run the command in systemd
     modifier: alt
     keycode: Enter
     mode: [emacs, vi_normal, vi_insert]
@@ -189,7 +189,7 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
 }] ))
 
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
-    name: fuzzy_module
+    name: run the command in pueue
     modifier: shift_alt
     keycode: Enter
     mode: [emacs, vi_normal, vi_insert]
@@ -204,6 +204,24 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
         '
     }
 }] ))
+
+$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
+    name: run the command in pueue
+    modifier: shift_alt
+    keycode: Enter
+    mode: [emacs, vi_normal, vi_insert]
+    event: {
+        send: executehostcommand
+        cmd: '
+            let cmd = (commandline)
+            if ( $cmd | is-empty ) {
+            } else {
+              commandline -r $"pueue follow \(pueue add -p -- ($cmd)\)"
+            }
+        '
+    }
+}] ))
+
 
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
     name: fuzzy_module
