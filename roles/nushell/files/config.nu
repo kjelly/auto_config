@@ -172,7 +172,7 @@ $env.config.hooks.env_change.PWD = ($env.config.hooks.env_change.PWD | append [
 )
 
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
-    name: run the command in systemd
+    name: "run the command in systemd"
     modifier: alt
     keycode: Enter
     mode: [emacs, vi_normal, vi_insert]
@@ -189,7 +189,7 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
 }] ))
 
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
-    name: run the command in pueue
+    name: "run the command in pueue"
     modifier: shift_alt
     keycode: Enter
     mode: [emacs, vi_normal, vi_insert]
@@ -206,7 +206,7 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
 }] ))
 
 $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
-    name: run the command in pueue
+    name: "run the command in pueue"
     modifier: shift_alt
     keycode: Enter
     mode: [emacs, vi_normal, vi_insert]
