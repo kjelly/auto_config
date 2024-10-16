@@ -152,7 +152,6 @@ LSP_CONFIG = DefaultTable({}, {
             formatStdin = true,
           },
         },
-        python = { { formatCommand = "black --quiet -", formatStdin = true } },
       },
     },
   },
@@ -161,15 +160,6 @@ LSP_CONFIG = DefaultTable({}, {
 })
 
 local disabled_lsp_caps = {
-  ruff = { "documentFormattingProvider" },
-  ruff_lsp = { "documentFormattingProvider" },
-  pylsp = {
-    'renameProvider', 'referencesProvider', 'hoverProvider',
-    'documentSymbolProvider', 'workspaceSymbolProvider', 'completionProvider',
-  },
-  jedi_language_server = {
-    'renameProvider', 'referencesProvider', 'hoverProvider',
-  },
 }
 
 local langservers = {

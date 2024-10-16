@@ -1,6 +1,7 @@
-$env.config.show_banner = false
-$env.config.cursor_shape.emacs = "block"
-$env.config.edit_mode = "emacs"
+mut $new_config = $env.config
+$new_config.show_banner = false
+$new_config.cursor_shape.emacs = "block"
+$new_config.edit_mode = "emacs"
 
 $env.EDITOR = "nvim"
 $env.SHELL = "nu"
@@ -17,7 +18,7 @@ alias z3 = cd ../../../
 alias z4 = cd ../../../../
 alias z5 = cd ../../../../../
 
-$env.config = ($env.config | merge {
+$new_config = ($new_config | merge {
   history: {
     file_format: "sqlite"
     isolation: true
@@ -25,7 +26,7 @@ $env.config = ($env.config | merge {
   }
 })
 
-$env.config.hooks.env_change.cloud = [
+$new_config.hooks.env_change.cloud = [
       { |before, after|
         if ( $env.cloud == 1 ) {
             $env.PROMPT_COMMAND = { || create_left_prompt }
@@ -124,7 +125,7 @@ $env.PROMPT_COMMAND_RIGHT = ""
 use ($nu.default-config-dir | path join 'scripts' 'kubernetes') *
 use ($nu.default-config-dir | path join 'scripts' 'docker') *
 
-$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [
+$new_config = ($new_config | upsert keybindings ( $new_config.keybindings | append [
   { name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { until: [
     { send: menuprevious }
     { send: Left }
@@ -161,7 +162,7 @@ def h [ pattern ] {
 
 source ~/.config/custom.nu
 
-$env.config.hooks.env_change.PWD = ($env.config.hooks.env_change.PWD | append [
+$new_config.hooks.env_change.PWD = ($new_config.hooks.env_change.PWD | append [
         {
             condition: {|before, after|
                 ($after | path join local.nu | path exists)
@@ -171,7 +172,7 @@ $env.config.hooks.env_change.PWD = ($env.config.hooks.env_change.PWD | append [
     ]
 )
 
-$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
+$new_config = ($new_config | upsert keybindings ( $new_config.keybindings | append [{
     name: "run the command in systemd"
     modifier: alt
     keycode: Enter
@@ -188,7 +189,7 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
     }
 }] ))
 
-$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
+$new_config = ($new_config | upsert keybindings ( $new_config.keybindings | append [{
     name: "run the command in pueue"
     modifier: shift_alt
     keycode: Enter
@@ -205,7 +206,7 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
     }
 }] ))
 
-$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
+$new_config = ($new_config | upsert keybindings ( $new_config.keybindings | append [{
     name: "run the command in pueue"
     modifier: shift_alt
     keycode: Enter
@@ -223,7 +224,7 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
 }] ))
 
 
-$env.config = ($env.config | upsert keybindings ( $env.config.keybindings | append [{
+$new_config = ($new_config | upsert keybindings ( $new_config.keybindings | append [{
     name: fuzzy_module
     modifier: alt
     keycode: char_m
@@ -247,7 +248,7 @@ $env.config = ($env.config | upsert keybindings ( $env.config.keybindings | appe
     }
 }] ))
 
-$env.config.color_config = {
+$new_config.color_config = {
     separator: blue_bold
     leading_trailing_space_bg: { attr: n } # no fg, no bg, attr none effectively turns this off
     header: green_bold
@@ -533,7 +534,7 @@ let external_completer = {|spans|
     } | do $in $spans
 }
 
-$env.config = ($env.config | upsert completions  {
+$new_config = ($new_config | upsert completions  {
     case_sensitive: false
     quick: true
     partial: true
@@ -579,10 +580,11 @@ def auto [ --strip (-s) ] {
   return $input
 }
 
-$env.config.hooks.env_change.PWD = ($env.config.hooks.env_change.PWD | append [
+$new_config.hooks.env_change.PWD = ($new_config.hooks.env_change.PWD | append [
         {
             code: "
               if (not (which direnv | is-empty)) {
+                if ("auto-direnv"|path exists) {direnv allow .}
                 let direnv = (direnv export json | from json)
                 let direnv = if not ($direnv | is-empty) { $direnv } else { {} }
                 $direnv | load-env
@@ -596,7 +598,7 @@ $env.config.hooks.env_change.PWD = ($env.config.hooks.env_change.PWD | append [
 ])
 
 $env._out = []
-$env.config.hooks.display_output = {
+$new_config.hooks.display_output = {
   let stdin  = $in
   try {
     if (($stdin|get out?) == "out") {
@@ -653,14 +655,14 @@ export def r-nu [ host: string, command:string ] {
   ssh $host nu --config /tmp/tmp.nu -c $command
 }
 
-$env.config.hooks.pre_execution = ($env.config.hooks.pre_execution | append [
+$new_config.hooks.pre_execution = ($new_config.hooks.pre_execution | append [
         {
             code: '
               print $"(ansi title)(pwd)> (history | last | get command)(ansi st)"
             '
         }
 ])
-$env.config.hooks.pre_prompt = ($env.config.hooks.pre_prompt | append [
+$new_config.hooks.pre_prompt = ($new_config.hooks.pre_prompt | append [
         {
             code: '
               print $"(ansi title)(pwd)> nu (ansi st)"
@@ -805,8 +807,8 @@ def --wrapped sr [ ...command ] {
   systemd-run --user -t -P -G ...$command
 }
 
-$env.config.keybindings = ($env.config.keybindings | filter {|it| $it.name !~ "completion_menu"})
-$env.config.keybindings = ($env.config.keybindings | append {
+#$new_config.keybindings = ($new_config.keybindings | filter {|it| $it.name !~ "completion_menu"})
+$new_config.keybindings = ($new_config.keybindings | append {
   name: completion_menu
   modifier: none
   keycode: tab
@@ -820,7 +822,7 @@ $env.config.keybindings = ($env.config.keybindings | append {
   }
 })
 
-$env.config.keybindings = ($env.config.keybindings | append {
+$new_config.keybindings = ($new_config.keybindings | append {
       name: another_esc_command
       modifier: control
       keycode: char_s
@@ -885,3 +887,6 @@ def r [ task:string ] {
   python3 -c $code
 
 }
+
+def vimcopy [ ] { $in | tee { nvim - } }
+$env.config = $new_config

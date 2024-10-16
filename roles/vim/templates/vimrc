@@ -255,6 +255,7 @@ Plug 'rktjmp/lush.nvim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'sainnhe/gruvbox-material'
 Plug 'gruvbox-community/gruvbox'
+Plug 'Mofiqul/vscode.nvim'
 Plug 'folke/tokyonight.nvim'
 Plug 'marko-cerovac/material.nvim'
 Plug 'rktjmp/lush.nvim'
@@ -634,7 +635,7 @@ vnoremap Y "+y
 {% if nvim %}
 exec 'luafile' g:MYVIMRC_DIR . '/config.lua'
 {% endif %}
-colorscheme tokyonight
+colorscheme vscode
 silent! source ~/.vim_custom.vim
 
 " hightlight
