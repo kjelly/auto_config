@@ -45,7 +45,14 @@ def update-z [ path ] {
     }
   }
 }
+
+def --env update-eink-env [ width? ] {
+  if ($width != null) { tmux set-environment -g EINK_WIDTH $width }
+  $env.EINK_WIDTH = (tmux show-environment -g EINK_WIDTH|str replace "EINK_WIDTH=" "")
+}
+
 def vim [...file: string] {
+  update-eink-env
   let af = ($file | each {|f| $f | path expand })
 
   mut editor = "vim"
