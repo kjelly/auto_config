@@ -6,7 +6,6 @@ $new_config.edit_mode = "emacs"
 $env.EDITOR = "nvim"
 $env.SHELL = "nu"
 
-alias in = enter
 alias cd1 = cd ..
 alias cd2 = cd ../../
 alias cd3 = cd ../../../
@@ -46,9 +45,12 @@ def update-z [ path ] {
   }
 }
 
-def --env update-eink-env [ width? ] {
-  if ($width != null) { tmux set-environment -g EINK_WIDTH $width }
-  $env.EINK_WIDTH = (tmux show-environment -g EINK_WIDTH|str replace "EINK_WIDTH=" "")
+def --env update-eink-env [ width?, --auto ] {
+  try {
+    if ($width != null) { tmux set-environment -g EINK_WIDTH $width }
+    if ($auto) { tmux set-environment -g EINK_WIDTH (tput cols) }
+    $env.EINK_WIDTH = (tmux show-environment -g EINK_WIDTH|str replace "EINK_WIDTH=" "")
+  } catch {}
 }
 
 def vim [...file: string] {
@@ -403,6 +405,8 @@ def download-github [ repo: string@repo ] {
     tar zxvf $name -C /tmp/aa
   } else if ( $name | str ends-with '.zip' ) {
     unzip $name -d /tmp/aa
+  } else if ( $name | str ends-with '.tar.bz2') {
+    tar xvf $name -C /tmp/aa
   } else if ( $name | str ends-with '.tar') {
     tar xvf $name -C /tmp/aa
   } else if ( $name | str ends-with '.xz') {
@@ -897,3 +901,8 @@ def r [ task:string ] {
 
 def vimcopy [ ] { $in | tee { nvim - } }
 $env.config = $new_config
+
+def sops-age [ file, --key="~/.ssh/age-key.txt" ] {
+  let key = ($env.SOPS_AGE_KEY_FILE | path expand )
+  with-env {SOPS_AGE_KEY_FILE: $key} { sops edit --age (cat $key | grep public | split row ': '|last) $file }
+}
