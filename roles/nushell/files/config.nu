@@ -808,8 +808,10 @@ def running-units-complete [ ] {
 }
 
 def bg-running [ ] {
-  let icon_map = { activating: "🟢", inactive: "⏰", failed: "❌" }
-  running-units | each {|it| $"[($it.Id|str replace '.service' ''|str replace 'run' ''):($icon_map | get -i $it.ActiveState)($it.Description)]"} | str join ' '|str trim
+  try {
+    let icon_map = { activating: "🟢", inactive: "⏰", failed: "❌" }
+    running-units | each {|it| $"[($it.Id|str replace '.service' ''|str replace 'run' ''):($icon_map | get -i $it.ActiveState)($it.Description)]"} | str join ' '|str trim
+  } catch { "" }
 }
 
 
@@ -905,4 +907,14 @@ $env.config = $new_config
 def sops-age [ file, --key="~/.ssh/age-key.txt" ] {
   let key = ($env.SOPS_AGE_KEY_FILE | path expand )
   with-env {SOPS_AGE_KEY_FILE: $key} { sops edit --age (cat $key | grep public | split row ': '|last) $file }
+}
+
+def init-daytona-workspaces [ ] {
+  docker ps --filter ancestor=daytonaio/workspace-project:latest --format "{{.ID}}"|lines| each {|target|
+    docker exec $target bash -c "sudo apt update;sudo apt install -y fuse3;touch ~/.config/custom.nu"
+    docker cp ~/.config/nvim/ $"($target):/home/daytona/.config/"
+    docker cp ~/.config/nushell/ $"($target):/home/daytona/.config/"
+    docker cp ~/bin/nvim $"($target):/bin"
+    docker cp ~/bin/nu $"($target):/bin"
+  }
 }

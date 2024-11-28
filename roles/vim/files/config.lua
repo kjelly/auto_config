@@ -165,7 +165,7 @@ local disabled_lsp_caps = {
 local langservers = {
   'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'efm', 'emmet_ls',
   'gopls', 'graphql', 'html', 'jsonls', 'marksman', 'pyright', 'rust_analyzer',
-  'sqlls', 'lua_ls', 'terraformls', 'tsserver', 'vimls', 'ruff_lsp',
+  'sqlls', 'lua_ls', 'terraformls', 'ts_ls', 'vimls'
 }
 
 for _, v in ipairs({ "node", "go" }) do
@@ -1164,7 +1164,6 @@ function DelaySetup2()
     width_ratio = 0.67,
     height_ratio = 0.9,
   })
-  SafeRequire('regexplainer').setup()
   SafeRequire('winpick').setup({
     filter = function(winid, burnr, _)
       local win_info = vim.fn.getwininfo(winid)[1]

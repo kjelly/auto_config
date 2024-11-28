@@ -49,3 +49,7 @@ if (which pueue | is-not-empty ) {
   download-module $it
   null
 }
+
+if ("~/.asdf/asdf.nu" | path exists) {
+  "\n$env.ASDF_DIR = ($env.HOME | path join '.asdf')\nsource " + ($env.HOME | path join '.asdf/asdf.nu') | save --append $nu.config-path  
+}

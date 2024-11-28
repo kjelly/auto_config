@@ -130,7 +130,7 @@ Plug 'm-demare/hlargs.nvim'
 Plug 'https://github.com/kylechui/nvim-surround'
 Plug 'https://github.com/smjonas/live-command.nvim'
 " Plug 'https://github.com/LhKipp/nvim-nu', {'do': ':TSInstall nu'}
-Plug 'https://github.com/bennypowers/nvim-regexplainer'
+"Plug 'https://github.com/bennypowers/nvim-regexplainer'
 Plug 'IndianBoy42/tree-sitter-just'
 Plug 'https://github.com/nushell/tree-sitter-nu'
 endif
@@ -222,10 +222,6 @@ Plug 'voldikss/vim-floaterm'
 
 " Switch true/flase
 Plug 'AndrewRadev/switch.vim'
-
-" An always-on highlight for a unique character in every word on a line
-" to help you use f, F and family.
-Plug 'unblevable/quick-scope'
 
 Plug 'simeji/winresizer', { 'on': ['WinResizerStartResize', 'WinResizerStartMove']}
 Plug 'https://github.com/NvChad/nvim-colorizer.lua'
@@ -563,8 +559,6 @@ command! FFF FloatermNew fff
 
 let g:MYVIMRC_DIR = fnamemodify(expand('$MYVIMRC'), ':h')
 let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/bin'
-let $GIT_PAGER='tac'
-let $PAGER='tac'
 
 let g:switch_mapping = ""
 let g:switch_custom_definitions =
