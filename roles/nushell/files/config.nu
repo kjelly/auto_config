@@ -171,12 +171,26 @@ def h [ pattern ] {
 
 source ~/.config/custom.nu
 
-$new_config.hooks.env_change.PWD = ($new_config.hooks.env_change.PWD | append [
+$new_config.hooks.env_change.PWD = ([ ] | append [
         {
             condition: {|before, after|
                 ($after | path join local.nu | path exists)
             }
             code: "overlay use --reload local.nu"
+        }
+        {
+            code: "
+              if (not (which direnv | is-empty)) {
+                if ("auto-direnv"|path exists) {direnv allow .}
+                let direnv = (direnv export json | from json)
+                let direnv = if not ($direnv | is-empty) { $direnv } else { {} }
+                $direnv | load-env
+              }
+              if (not (which zoxide | is-empty)) {
+                zoxide add -- $env.PWD
+              }
+
+            "
         }
     ]
 )
@@ -353,7 +367,7 @@ let repo_list = ["nushell/nushell", "casey/just", "ajeetdsouza/zoxide", "Ryooooo
  "tsenart/vegeta", "nicolas-van/multirun", "rsteube/carapace-bin", "urbanogilson/lineselect",
  "ast-grep/ast-grep", "jirutka/tty-copy", "theimpostor/osc", "d-kuro/kubectl-fuzzy",
  "nektos/act", "FiloSottile/age", "marcosnils/bin", "twpayne/chezmoi", "bitrise-io/envman", "guyfedwards/nom", "joshmedeski/sesh"
- "itchyny/bed", "ddanier/nur", "https://github.com/dbrgn/tealdeer"
+ "itchyny/bed", "ddanier/nur", "https://github.com/dbrgn/tealdeer", "dundee/gdu", "tstack/lnav", "stern/stern"
 ]
 
 def repo [ ] {
@@ -591,23 +605,6 @@ def auto [ --strip (-s) ] {
   return $input
 }
 
-$new_config.hooks.env_change.PWD = ($new_config.hooks.env_change.PWD | append [
-        {
-            code: "
-              if (not (which direnv | is-empty)) {
-                if ("auto-direnv"|path exists) {direnv allow .}
-                let direnv = (direnv export json | from json)
-                let direnv = if not ($direnv | is-empty) { $direnv } else { {} }
-                $direnv | load-env
-              }
-              if (not (which zoxide | is-empty)) {
-                zoxide add -- $env.PWD
-              }
-
-            "
-        }
-])
-
 $env._out = []
 $new_config.hooks.display_output = {
   let stdin  = $in
@@ -666,20 +663,20 @@ export def r-nu [ host: string, command:string ] {
   ssh $host nu --config /tmp/tmp.nu -c $command
 }
 
-$new_config.hooks.pre_execution = ($new_config.hooks.pre_execution | append [
-        {
-            code: '
-              print $"(ansi title)(pwd)> (history | last | get command)(ansi st)"
-            '
-        }
-])
-$new_config.hooks.pre_prompt = ($new_config.hooks.pre_prompt | append [
-        {
-            code: '
-              print $"(ansi title)(pwd)> nu (ansi st)"
-            '
-        }
-])
+# $new_config.hooks.pre_execution = ($new_config.hooks.pre_execution | append [
+#         {
+#             code: '
+#               print $"(ansi title)(pwd)> (history | last | get command)(ansi st)"
+#             '
+#         }
+# ])
+# $new_config.hooks.pre_prompt = ($new_config.hooks.pre_prompt | append [
+#         {
+#             code: '
+#               print $"(ansi title)(pwd)> nu (ansi st)"
+#             '
+#         }
+# ])
 
 export def --wrapped tr [ ...command] {
   let path = (pwd)
