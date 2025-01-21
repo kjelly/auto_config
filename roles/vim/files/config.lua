@@ -159,13 +159,12 @@ LSP_CONFIG = DefaultTable({}, {
   init_options = { efm = { documentFormatting = true, hover = true } },
 })
 
-local disabled_lsp_caps = {
-}
+local disabled_lsp_caps = {}
 
 local langservers = {
   'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'efm', 'emmet_ls',
   'gopls', 'graphql', 'html', 'jsonls', 'marksman', 'pyright', 'rust_analyzer',
-  'sqlls', 'lua_ls', 'terraformls', 'ts_ls', 'vimls'
+  'sqlls', 'lua_ls', 'terraformls', 'ts_ls', 'vimls',
 }
 
 for _, v in ipairs({ "node", "go" }) do
@@ -304,6 +303,7 @@ SafeRequireCallback("notify", function(notify)
 end)
 
 SafeRequire "nvim-treesitter.configs".setup {
+  dependencies = { { "nushell/tree-sitter-nu" } },
   ensure_installed = "all",
   autopairs = { enable = true },
   iswap = { enable = true },
@@ -398,15 +398,6 @@ SafeRequire "nvim-treesitter.configs".setup {
 }
 
 SafeRequireCallback("nvim-treesitter.parsers", function(_)
-  local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-  parser_config.nu = {
-    install_info = {
-      url = "https://github.com/nushell/tree-sitter-nu",
-      files = { "src/parser.c" },
-      branch = "main",
-    },
-    filetype = "nu",
-  }
   parser_config.just = {
     install_info = {
       url = "https://github.com/IndianBoy42/tree-sitter-just", -- local path or git repo
@@ -575,8 +566,8 @@ SafeRequireCallback("which-key", function(wk)
     { "<leader>b",  group = "Buffer/Bookmark" },
     { "<leader>bc", desc = "Copy file path" },
     { "<leader>c",  group = "Comment/cd" }, { "<leader>d", group = "doc" },
-    { "<leader>e",   group = "Edit" },
-    { "<leader>ecw", desc = "full file" }, { "<leader>es", desc = "setting/notes" },
+    { "<leader>e",  group = "Edit" }, { "<leader>ecw", desc = "full file" },
+    { "<leader>es", desc = "setting/notes" },
     { "<leader>f",  group = "File/esearch" }, { "<leader>g", group = "Git/Paste" },
     { "<leader>ga", group = "Agit/amend" },
     { "<leader>gb", group = "blame/branch" }, { "<leader>gd", group = "git diff" },

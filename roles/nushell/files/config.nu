@@ -367,7 +367,9 @@ let repo_list = ["nushell/nushell", "casey/just", "ajeetdsouza/zoxide", "Ryooooo
  "tsenart/vegeta", "nicolas-van/multirun", "rsteube/carapace-bin", "urbanogilson/lineselect",
  "ast-grep/ast-grep", "jirutka/tty-copy", "theimpostor/osc", "d-kuro/kubectl-fuzzy",
  "nektos/act", "FiloSottile/age", "marcosnils/bin", "twpayne/chezmoi", "bitrise-io/envman", "guyfedwards/nom", "joshmedeski/sesh"
- "itchyny/bed", "ddanier/nur", "https://github.com/dbrgn/tealdeer", "dundee/gdu", "tstack/lnav", "stern/stern"
+ "itchyny/bed", "ddanier/nur", "https://github.com/dbrgn/tealdeer", "dundee/gdu", "tstack/lnav", "stern/stern",
+ "pouriyajamshidi/tcping",
+
 ]
 
 def repo [ ] {
