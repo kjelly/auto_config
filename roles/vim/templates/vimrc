@@ -248,7 +248,6 @@ Plug 'https://github.com/m-gail/escape.nvim'
 Plug 'rktjmp/lush.nvim'
 
 " colorscheme
-Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'sainnhe/gruvbox-material'
 Plug 'gruvbox-community/gruvbox'
 Plug 'Mofiqul/vscode.nvim'

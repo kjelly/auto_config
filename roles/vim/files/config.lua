@@ -397,18 +397,6 @@ SafeRequire "nvim-treesitter.configs".setup {
   },
 }
 
-SafeRequireCallback("nvim-treesitter.parsers", function(_)
-  parser_config.just = {
-    install_info = {
-      url = "https://github.com/IndianBoy42/tree-sitter-just", -- local path or git repo
-      files = { "src/parser.c", "src/scanner.c" },
-      branch = "main",
-    },
-    maintainers = { "@IndianBoy42" },
-  }
-  vim.filetype.add({ extension = { nu = "nu", just = "just" } })
-end)
-
 function HasTerminal()
   local ok, buffers = pcall(vim.api.nvim_eval, "floaterm#buflist#gather()")
   if not ok then return false end

@@ -368,7 +368,7 @@ let repo_list = ["nushell/nushell", "casey/just", "ajeetdsouza/zoxide", "Ryooooo
  "ast-grep/ast-grep", "jirutka/tty-copy", "theimpostor/osc", "d-kuro/kubectl-fuzzy",
  "nektos/act", "FiloSottile/age", "marcosnils/bin", "twpayne/chezmoi", "bitrise-io/envman", "guyfedwards/nom", "joshmedeski/sesh"
  "itchyny/bed", "ddanier/nur", "https://github.com/dbrgn/tealdeer", "dundee/gdu", "tstack/lnav", "stern/stern",
- "pouriyajamshidi/tcping",
+ "pouriyajamshidi/tcping", "sharkdp/hyperfine"
 
 ]
 
