@@ -7,5 +7,5 @@ version=$(git -c 'versionsort.suffix=-' \
 echo $version
 
 
-sudo curl -L https://github.com/neovim/neovim/releases/download/$version/nvim.appimage --output /usr/local/bin/nvim
+sudo curl -L https://github.com/neovim/neovim/releases/download/$version/nvim-linux-$(uname -p).appimage --output /usr/local/bin/nvim
 sudo chmod +x /usr/local/bin/nvim
