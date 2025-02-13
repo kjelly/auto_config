@@ -522,10 +522,6 @@ let zoxide_completer = {|spans|
 }
 
 let fish_with_carapace_completer = {|spans|
-  let last_part = ($spans|last)
-  if ([./ ~/ ../]|each {|it| $last_part starts-with $it}|reduce {|a, b| $a or $b}) {
-    return null
-  } 
   let ret = ([{||
     if (which carapace | is-not-empty ) {
         carapace $spans.0 nushell ...$spans | from json
@@ -536,15 +532,19 @@ let fish_with_carapace_completer = {|spans|
   {||
     if (which argc | is-not-empty ) {
       argc --argc-compgen nushell "" ...$spans
-      | split row "\n" | range 0..-2
+      | split row "\n" | slice 0..-2
       | each { |line| $line | split column "\t" value description } | flatten
     } else {
       [ ]
     }
-  }] | par-each -t 8 {|it| do -i $it } | flatten | each {|it| $it | str trim } | uniq)
+  }
+  {||
+    do $fish_completer $spans
+  }
+  ] | par-each -t 8 {|it| do -i $it } | flatten | each {|it| $it | str trim } |filter {|it| $it != ""} | uniq)
   if ($ret | is-empty) {
     return null
-  } 
+  }
   $ret
 }
 
