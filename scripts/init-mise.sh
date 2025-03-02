@@ -4,6 +4,7 @@ curl https://mise.run | sh
 
 mkdir -p ~/.config/nushell/autoload/
 mise activate nu | tee ~/.config/nushell/autoload/mise.nu
+mkdir -p ~/.config/mise/
 
 cat <<EOF > ~/.config/mise/config.toml
 
