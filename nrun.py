@@ -9,15 +9,6 @@ import sys
 import tempfile
 from contextlib import suppress
 
-import jinja2
-
-
-def get_template():
-    templateLoader = jinja2.FileSystemLoader(searchpath="./playbook")
-    templateEnv = jinja2.Environment(loader=templateLoader)
-    TEMPLATE_FILE = "playbook.j2"
-    return templateEnv.get_template(TEMPLATE_FILE)
-
 
 def find_base_dir():
     return os.path.realpath(os.path.dirname(__file__))
@@ -67,12 +58,20 @@ def main():
             stdin_data = json.loads(sys.stdin.read())
 
     data.update(stdin_data)
+    print(data)
 
-    template = get_template()
-    outputText = template.render(**data)
+    playbook_dict = [
+        {
+            "name": "install",
+            "remote_user": data["user"],
+            "hosts": data["group"],
+            "vars": {"programming": data["programming"], "group": data["group"]},
+            "roles": data["roles"],
+        }
+    ]
 
     f = tempfile.NamedTemporaryFile(delete=False, prefix="auto_config")
-    f.write(outputText.encode("utf-8"))
+    f.write(json.dumps(playbook_dict).encode("utf-8"))
     f.flush()
 
     data["playbook"] = f.name
@@ -89,8 +88,6 @@ def main():
 
     f.close()
     return
-    os.remove(f.name)
-    a = xyz
 
 
 if __name__ == "__main__":
