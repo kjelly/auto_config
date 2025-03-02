@@ -53,3 +53,9 @@ if (which pueue | is-not-empty ) {
 if ("~/.asdf/asdf.nu" | path exists) {
   "\n$env.ASDF_DIR = ($env.HOME | path join '.asdf')\nsource " + ($env.HOME | path join '.asdf/asdf.nu') | save --append $nu.config-path  
 }
+
+mkdir ~/.config/nushell/autoload
+if (which mise | is-not-empty) {
+  ^mise activate nu | save -f ~/.config/nushell/autoload/mise.nu
+
+}
