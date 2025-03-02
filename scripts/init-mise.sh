@@ -27,7 +27,6 @@ act = "latest"
 mprocs = "latest"
 btop = "latest"
 direnv = "latest"
-tmux = "latest"
 
 EOF
 
