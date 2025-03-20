@@ -75,9 +75,9 @@ download-github-module "kubernetes" "fj0r/kubernetes.nu" "kubernetes"
 download-github-module "argx" "fj0r/argx.nu" "argx"
 
 
-`
+"
 use ($nu.default-config-dir | path join 'scripts' 'kubernetes') *
 use ($nu.default-config-dir | path join 'scripts' 'kubernetes' 'shortcut.nu') *
 use ($nu.default-config-dir | path join 'scripts' 'docker') *
 use ($nu.default-config-dir | path join 'scripts' 'pueue.nu') *
-` | save -f $"($nu.default-config-dir)/autoload/my-modules.nu"
+" | save -f $"($nu.default-config-dir)/autoload/my-modules.nu"
