@@ -2,7 +2,7 @@
 
 curl -fsSL https://starship.rs/install.sh | sh
 
-cat << EOF > ~/.config/starship.toml
+cat << 'EOF' > ~/.config/starship.toml
 [directory]
 format = '📁[$path]($style)[$read_only]($read_only_style) '
 [character]
@@ -33,5 +33,5 @@ disabled = true
 disabled = true
 [hostname]
 ssh_only = false
-EOF
+'EOF'
 

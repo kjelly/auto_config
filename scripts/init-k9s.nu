@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-let skin_name = "gruvbox-light"
+let skin_name = "solarized-light"
 wget $"https://raw.githubusercontent.com/derailed/k9s/refs/heads/master/skins/($skin_name).yaml"
 ^mv $"($skin_name).yaml" ~/.config/k9s/skins/
 

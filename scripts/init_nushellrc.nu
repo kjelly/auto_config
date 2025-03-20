@@ -59,3 +59,25 @@ if (which mise | is-not-empty) {
   ^mise activate nu | save -f ~/.config/nushell/autoload/mise.nu
 
 }
+
+def download-github-module [ name: string, repo: string, repo_path: string ] {
+  let path = ($nu.default-config-dir | path join 'scripts' $name)
+  print $path
+  mkdir $path
+  cd $path
+  let files = (http get $"https://api.github.com/repos/($repo)/contents/($repo_path)/"|filter {|it| $it.type == "file"})
+  $files | par-each -t 2 {|it|
+    http get $it.download_url | save -f $it.name
+  }
+}
+
+download-github-module "kubernetes" "fj0r/kubernetes.nu" "kubernetes"
+download-github-module "argx" "fj0r/argx.nu" "argx"
+
+
+`
+use ($nu.default-config-dir | path join 'scripts' 'kubernetes') *
+use ($nu.default-config-dir | path join 'scripts' 'kubernetes' 'shortcut.nu') *
+use ($nu.default-config-dir | path join 'scripts' 'docker') *
+use ($nu.default-config-dir | path join 'scripts' 'pueue.nu') *
+` | save -f $"($nu.default-config-dir)/autoload/my-modules.nu"

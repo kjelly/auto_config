@@ -63,10 +63,20 @@ def vim [...file: string] {
   }
   if ( $editor == "nvim" ) {
     if ( $env.IN_VIM? == null ) {
-      for i in [["poetry", "run"], [] ] {
+      let file_list = ["pyproject.toml", ""]
+      let command_dict = {
+        "pyproject.toml": ["poetry", "run"]
+        "": []
+      }
+      for i in ($command_dict | items {|a, b| $a}) {
         try {
-          let cmd = ($i | append "nvim")
-          run-external ($cmd | first) ...($cmd | skip 1) ...$af
+          if ($i != "") and ($i | path exists | not $in) {
+            continue
+          }
+          let cmds = (($command_dict | get $i)|append [firejail  --noprofile --caps.drop=all --nonewprivs --seccomp --noroot --disable-mnt $"--read-only=($env.HOME)" $"--read-write=($env.HOME)/.local/state/nvim" $"--read-write=./*" $"--read-write=($env.HOME)/.config/nvim" $"--read-write=($env.HOME)/.vim_cache" ...($af|each {|it| $"--read-write=($it)"}) --appimage /usr/local/bin/nvim ...$af])
+          let cmds = (($command_dict | get $i)|append [nvim  ...$af])
+          run-external ($cmds | first) ...($cmds | skip 1)
+          # firejail  --noprofile --caps.drop=all --nonewprivs --seccomp --noroot --disable-mnt --appimage /usr/local/bin/nvim ...$cmd ...$af
           break
         } catch {
         }
@@ -130,9 +140,6 @@ def my-prompt [ ] {
 
 $env.PROMPT_COMMAND = {|| ([(my-prompt) $"($env.note?) (bg-running)" "\n" ->] | str join ' ') }
 $env.PROMPT_COMMAND_RIGHT = ""
-
-use ($nu.default-config-dir | path join 'scripts' 'kubernetes') *
-use ($nu.default-config-dir | path join 'scripts' 'docker') *
 
 $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | append [
   { name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { until: [
@@ -917,3 +924,11 @@ def init-daytona-workspaces [ ] {
     docker cp ~/bin/nu $"($target):/bin"
   }
 }
+
+def age-edit [file, --key="simple"] {
+  let tmp = $"/tmp/(random uuid)"
+  age -d -i $"($env.HOME)/.ssh/($key)" $file | save -f $tmp
+  nvim $tmp
+  age -R $"($env.HOME)/.ssh/($key).pub" $tmp | save -f $file
+}
+
