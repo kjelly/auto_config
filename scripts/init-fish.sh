@@ -7,4 +7,7 @@ mkdir -p /tmp/fish/ ~/bin/
 tar xvf /tmp/fish.tar.xz -C /tmp/fish
 cp /tmp/fish/* ~/bin
 
+if command -v carapace 2>&1 >/dev/null; then
+  echo "carapace _carapace fish | source" > ~/.config/fish/conf.d/carapace.fish
+fi
 
