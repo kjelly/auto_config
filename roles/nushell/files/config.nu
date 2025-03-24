@@ -17,6 +17,9 @@ alias z3 = cd ../../../
 alias z4 = cd ../../../../
 alias z5 = cd ../../../../../
 
+use std-rfc *;
+use std *;
+
 $new_config = ($new_config | merge {
   history: {
     file_format: "sqlite"
@@ -617,6 +620,15 @@ def auto [ --strip (-s) ] {
 $env._out = []
 $new_config.hooks.display_output = {
   let stdin  = $in
+
+  let EINK_WIDTH = (try {tmux show-environment -g EINK_WIDTH|str replace "EINK_WIDTH=" ""} catch {})
+  use std;
+  if ((term size) | get columns) == $EINK_WIDTH {
+    $env.config.color_config = (std config light-theme)
+  } else {
+    $env.config.color_config = (std config dark-theme)
+  }
+
   try {
     if (($stdin|get out?) == "out") {
       $stdin |get stdout | if (term size).columns >= 100 { table -e } else { table }
@@ -932,3 +944,7 @@ def age-edit [file, --key="simple"] {
   age -R $"($env.HOME)/.ssh/($key).pub" $tmp | save -f $file
 }
 
+def freeze-to-bg [ id ] {
+  job spawn {|| job unfreeze $id}
+
+}
