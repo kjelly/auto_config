@@ -496,11 +496,6 @@ $new_config = ($new_config | upsert completions  {
     quick: true
     partial: true
     algorithm: "prefix"
-    external: {
-      enable: true
-      max_results: 100
-      completer: $fish_with_carapace_completer
-    }
 })
 
 def auto [ --strip (-s) ] {
@@ -537,30 +532,38 @@ def auto [ --strip (-s) ] {
   return $input
 }
 
+def --env update-nushell-theme [ ] {
+  let columns = ((term size) | get columns)
+  if ($env.previous_columns? | default "0") != columns {
+    let EINK_WIDTH = (try {tmux show-environment -g EINK_WIDTH|str replace "EINK_WIDTH=" ""} catch {})
+    use std;
+    if $columns  == $EINK_WIDTH {
+      $env.config.color_config = (std config light-theme | upsert hint "dark_gray_bold")
+    } else {
+      $env.config.color_config = (std config dark-theme | upsert hints cyan)
+    }
+    $env.previous_columns = columns
+  }
+}
+
 $env._out = []
 $new_config.hooks.display_output = {
   let stdin  = $in
 
-  let EINK_WIDTH = (try {tmux show-environment -g EINK_WIDTH|str replace "EINK_WIDTH=" ""} catch {})
-  use std;
-  if ((term size) | get columns) == $EINK_WIDTH {
-    $env.config.color_config = (std config light-theme)
-  } else {
-    $env.config.color_config = (std config dark-theme | upsert hints cyan)
-  }
-
-  try {
-    if (($stdin|get out?) == "out") {
-      $stdin |get stdout | if (term size).columns >= 100 { table -e } else { table }
-    }
-  } catch {
-
-  }
-  $env._out = ($env._out | prepend [$stdin] | uniq)
-  let l = ($env._out | length)
-  if ( $l > 10) {
-    $env._out = ($env._out | first 10)
-  }
+  update-nushell-theme
+  #
+  # try {
+  #   if (($stdin|get out?) == "out") {
+  #     $stdin |get stdout | if (term size).columns >= 100 { table -e } else { table }
+  #   }
+  # } catch {
+  #
+  # }
+  # $env._out = ($env._out | prepend [$stdin] | uniq)
+  # let l = ($env._out | length)
+  # if ( $l > 10) {
+  #   $env._out = ($env._out | first 10)
+  # }
   $stdin | if (term size).columns >= 100 { table -e } else { table }
 }
 

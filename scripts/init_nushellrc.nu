@@ -81,3 +81,8 @@ use ($nu.default-config-dir | path join 'scripts' 'kubernetes' 'shortcut.nu') *
 use ($nu.default-config-dir | path join 'scripts' 'docker') *
 use ($nu.default-config-dir | path join 'scripts' 'pueue.nu') *
 " | save -f $"($nu.default-config-dir)/autoload/my-modules.nu"
+
+
+if (which carapace | is-not-empty) {
+  ^carapace _carapace nushell | save -f ~/.config/nushell/autoload/carapace.nu
+}
