@@ -564,7 +564,7 @@ def --env update-nushell-theme [ ] {
     } else {
       $env.config.color_config = (std config dark-theme | upsert hints cyan)
     }
-    $env.previous_columns = columns
+    $env.previous_columns = $columns
   }
 }
 
