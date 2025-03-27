@@ -158,12 +158,6 @@
     dest: ~/.config/nvim/config.lua
     mode: '0640'
 
-- name: Copy workspace
-  ansible.builtin.copy:
-    src: workspace.py
-    dest: ~/bin/workspace
-    mode: 0755
-
 - name: Create efm config directory
   ansible.builtin.file:
     path: "~/.config/efm-langserver/"
