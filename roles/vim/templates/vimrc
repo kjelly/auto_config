@@ -337,7 +337,6 @@ set keywordprg=sdcvh.sh
 set cursorline
 set showcmd
 set mouse=a
-set mousemodel="extend"
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -414,7 +413,7 @@ set laststatus=3
 " a mapped sequence to complete.
 set timeoutlen=500
 set updatetime=300
-set completeopt=menu,menuone,noselect
+set completeopt=menuone,noselect,fuzzy,popup
 set listchars=tab:►\ ,trail:~,extends:>,precedes:<
 set list
 set sessionoptions=buffers,curdir,tabpages,winsize,globals
