@@ -141,7 +141,7 @@ def my-prompt [ ] {
   } catch {}
 }
 
-$env.PROMPT_COMMAND = {|| ([(my-prompt) $"($env.note?) (bg-running)" "\n" ->] | str join ' ') }
+$env.PROMPT_COMMAND = {|| ([(my-prompt) $"($env.note?) " "\n" ->] | str join ' ') }
 $env.PROMPT_COMMAND_RIGHT = ""
 
 $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | append [
@@ -892,4 +892,9 @@ def age-edit [file, --key="simple"] {
 def freeze-to-bg [ id ] {
   job spawn {|| job unfreeze $id}
 
+}
+
+def --env  gm [ ] {
+  git checkout (git remote show origin|lines|filter {|it| $it =~ 'HEAD'}|get 0|split row ':'|get 1|str trim)
+  git pull
 }

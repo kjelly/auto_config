@@ -33,6 +33,7 @@ def main [ ] {
     }
   }
 
+  mkdir ~/.config/nushell/scripts
   if (which pueue | is-not-empty ) {
     let path = ($nu.default-config-dir | path join 'scripts' pueue.nu)
     pueue completions nushell| save -f $path
@@ -70,10 +71,10 @@ def main [ ] {
 
 
   "
+  use std-rfc clip;
   use ($nu.default-config-dir | path join 'scripts' 'kubernetes') *
   use ($nu.default-config-dir | path join 'scripts' 'kubernetes' 'shortcut.nu') *
   use ($nu.default-config-dir | path join 'scripts' 'docker') *
-  use ($nu.default-config-dir | path join 'scripts' 'pueue.nu') *
   " | save -f $"($nu.default-config-dir)/autoload/my-modules.nu"
 
 
