@@ -611,26 +611,6 @@ SafeRequire("mason-lspconfig").setup({
   automatic_installation = true,
 })
 
-SafeRequireCallback("lspconfig", function(lspconfig)
-  for _, lsp in pairs(langservers) do
-    local on_attach = function(client, bufnr)
-      if disabled_lsp_caps[lsp] then
-        for _, cap in ipairs(disabled_lsp_caps[lsp]) do
-          client.server_capabilities[cap] = false
-        end
-      end
-    end
-
-    local settings = LSP_CONFIG["settings"][lsp] or {}
-    local init_options = LSP_CONFIG["init_options"][lsp] or {}
-    lspconfig[lsp].setup({
-      settings = settings,
-      init_options = init_options,
-      on_attach = on_attach,
-    })
-  end
-end)
-
 SafeRequire'marks'.setup {
   default_mappings = true,
   builtin_marks = {".", "<", ">", "^"},
