@@ -46,7 +46,7 @@ function FileBaseName(file) return file:match("^.+/(.+)$") end
 
 function Defer(...)
   local t = 100
-  local args = { ... }
+  local args = {...}
   for _, v in ipairs(args) do
     vim.defer_fn(v, t)
     t = t + 10
@@ -55,7 +55,7 @@ end
 
 function RandomScheme()
   local schemes = vim.api.nvim_get_runtime_file("colors/*", true)
-  local excludedPatterns = { 'day', 'light' }
+  local excludedPatterns = {'day', 'light'}
   schemes = vim.tbl_filter(function(v)
     if string.find(v, 'plugged') == nil then return false end
     for _, p in ipairs(excludedPatterns) do
@@ -85,9 +85,9 @@ end
 vim.diagnostic.config({
   virtual_text = {
     source = true,
-    severity = { min = vim.diagnostic.severity.INFO },
+    severity = {min = vim.diagnostic.severity.INFO},
   },
-  float = { source = true },
+  float = {source = true},
   update_in_insert = true,
 })
 
@@ -107,15 +107,15 @@ function DefaultTable(a, b)
   if type(a) == 'table' then
     if type(b) == "table" then
       if vim.tbl_count(a) > vim.tbl_count(b) then
-        return setmetatable(a, { __newindex = function() return b end })
+        return setmetatable(a, {__newindex = function() return b end})
       else
-        return setmetatable(b, { __newindex = function() return a end })
+        return setmetatable(b, {__newindex = function() return a end})
       end
     else
-      return setmetatable(a, { __newindex = function() return b end })
+      return setmetatable(a, {__newindex = function() return b end})
     end
   else
-    return setmetatable(b, { __newindex = function() return a end })
+    return setmetatable(b, {__newindex = function() return a end})
   end
 end
 
@@ -123,12 +123,12 @@ LSP_CONFIG = DefaultTable({}, {
   settings = {
     lua_ls = {
       Lua = {
-        runtime = { version = 'LuaJIT' },
-        diagnostics = { globals = { 'vim' } },
+        runtime = {version = 'LuaJIT'},
+        diagnostics = {globals = {'vim'}},
         workspace = {
           -- library = vim.api.nvim_get_runtime_file("lua/", true),
         },
-        telemetry = { enable = false },
+        telemetry = {enable = false},
       },
     },
     pyright = {
@@ -138,13 +138,13 @@ LSP_CONFIG = DefaultTable({}, {
           autoSearchPaths = true,
           diagnosticMode = "workspace",
           useLibraryCodeForTypes = true,
-          diagnosticSeverityOverrides = { reportGeneralTypeIssues = "none" },
+          diagnosticSeverityOverrides = {reportGeneralTypeIssues = "none"},
         },
       },
     },
-    pylsp = { plugin = { pylint = { enabled = true } } },
+    pylsp = {plugin = {pylint = {enabled = true}}},
     efm = {
-      rootMarkers = { ".git/" },
+      rootMarkers = {".git/"},
       languages = {
         lua = {
           {
@@ -155,8 +155,8 @@ LSP_CONFIG = DefaultTable({}, {
       },
     },
   },
-  filetypes = { efm = { "lua", "python", "nu" } },
-  init_options = { efm = { documentFormatting = true, hover = true } },
+  filetypes = {efm = {"lua", "python", "nu"}},
+  init_options = {efm = {documentFormatting = true, hover = true}},
 })
 
 local disabled_lsp_caps = {}
@@ -167,7 +167,7 @@ local langservers = {
   'sqlls', 'lua_ls', 'terraformls', 'ts_ls', 'vimls',
 }
 
-for _, v in ipairs({ "node", "go" }) do
+for _, v in ipairs({"node", "go"}) do
   if vim.fn.executable(v) == 0 then langservers = {} end
 end
 
@@ -187,8 +187,8 @@ local function termTitle()
       return title
     end
   else
-    local parts = vim.split(title, ' ', { trimempty = true })
-    parts = { table.unpack(parts, 1, #parts - 1) }
+    local parts = vim.split(title, ' ', {trimempty = true})
+    parts = {table.unpack(parts, 1, #parts - 1)}
     return table.concat(parts, ' ')
   end
 end
@@ -201,7 +201,7 @@ local function smart_dd()
   end
 end
 
-vim.keymap.set("n", "dd", smart_dd, { noremap = true, expr = true })
+vim.keymap.set("n", "dd", smart_dd, {noremap = true, expr = true})
 
 local function indexOf(array, value)
   for i, v in ipairs(array) do if v == value then return i end end
@@ -241,7 +241,7 @@ function ListCurrentWindow(opts)
 end
 
 function GlobalFloatermIndex()
-  local term_list = ListCurrentBuffer({ filetype = 'floaterm' })
+  local term_list = ListCurrentBuffer({filetype = 'floaterm'})
   local buffers = api.nvim_eval("floaterm#buflist#gather()")
   if #term_list == 0 then return '0/' .. #buffers end
   local bufid = term_list[1]
@@ -269,9 +269,9 @@ function Append(t, value)
   return t
 end
 
-local feedback_info = { package_not_found = {} }
+local feedback_info = {package_not_found = {}}
 vim.api.nvim_create_user_command("ShowInfo", function() Dump(feedback_info) end,
-  {})
+                                 {})
 local package_loadded = {}
 function SafeRequire(name)
   if package_loadded[name] ~= nil then return package_loadded[name] end
@@ -299,14 +299,14 @@ SafeRequire("impatient")
 
 SafeRequireCallback("notify", function(notify)
   vim.notify = notify
-  notify.setup({ background_colour = "#F000000" })
+  notify.setup({background_colour = "#F000000"})
 end)
 
-SafeRequire "nvim-treesitter.configs".setup {
-  dependencies = { { "nushell/tree-sitter-nu" } },
+SafeRequire"nvim-treesitter.configs".setup {
+  dependencies = {{"nushell/tree-sitter-nu"}},
   ensure_installed = "all",
-  autopairs = { enable = true },
-  iswap = { enable = true },
+  autopairs = {enable = true},
+  iswap = {enable = true},
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -316,14 +316,14 @@ SafeRequire "nvim-treesitter.configs".setup {
       node_decremental = "_",
     },
   },
-  indent = { enable = false },
-  highlight = { enable = true, disable = {} },
-  rainbow = { enable = true, extended_mode = true, max_file_lines = 1000 },
-  yati = { enable = true },
+  indent = {enable = false},
+  highlight = {enable = true, disable = {}},
+  rainbow = {enable = true, extended_mode = true, max_file_lines = 1000},
+  yati = {enable = true},
   refactor = {
-    highlight_definitions = { enable = false },
-    highlight_current_scope = { enable = false },
-    smart_rename = { enable = true, keymaps = { smart_rename = "grr" } },
+    highlight_definitions = {enable = false},
+    highlight_current_scope = {enable = false},
+    smart_rename = {enable = true, keymaps = {smart_rename = "grr"}},
     navigation = {
       enable = true,
       keymaps = {
@@ -362,19 +362,19 @@ SafeRequire "nvim-treesitter.configs".setup {
     },
     swap = {
       enable = true,
-      swap_next = { ["<leader>lsa"] = "@parameter.inner" },
-      swap_previous = { ["<leader>lsA"] = "@parameter.inner" },
+      swap_next = {["<leader>lsa"] = "@parameter.inner"},
+      swap_previous = {["<leader>lsA"] = "@parameter.inner"},
     },
     move = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = { ["]m"] = "@function.outer", ["]]"] = "@class.outer" },
-      goto_next_end = { ["]M"] = "@function.outer", ["]["] = "@class.outer" },
+      goto_next_start = {["]m"] = "@function.outer", ["]]"] = "@class.outer"},
+      goto_next_end = {["]M"] = "@function.outer", ["]["] = "@class.outer"},
       goto_previous_start = {
         ["[m"] = "@function.outer",
         ["[["] = "@class.outer",
       },
-      goto_previous_end = { ["[M"] = "@function.outer", ["[]"] = "@class.outer" },
+      goto_previous_end = {["[M"] = "@function.outer", ["[]"] = "@class.outer"},
     },
   },
   playground = {
@@ -426,15 +426,15 @@ SafeRequireCallback('lualine', function(lualine)
 
   local floaterm_lualine = {
     sections = {
-      lualine_a = { 'mode', tab_num },
-      lualine_b = { 'branch', 'diff' },
-      lualine_c = { 'hostname', floatermInfo, termTitle },
-      lualine_x = { 'filetype' },
-      lualine_y = { 'progress' },
-      lualine_z = { 'location' },
+      lualine_a = {'mode', tab_num},
+      lualine_b = {'branch', 'diff'},
+      lualine_c = {'hostname', floatermInfo, termTitle},
+      lualine_x = {'filetype'},
+      lualine_y = {'progress'},
+      lualine_z = {'location'},
     },
-    inactive_sections = { lualine_c = { floatermInfo }, lualine_z = { 'location' } },
-    filetypes = { 'floaterm' },
+    inactive_sections = {lualine_c = {floatermInfo}, lualine_z = {'location'}},
+    filetypes = {'floaterm'},
   }
 
   local function getModified()
@@ -450,7 +450,7 @@ SafeRequireCallback('lualine', function(lualine)
   function GetCurrentDiagnostic()
     local bufnr = 0
     local line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
-    local opts = { ["lnum"] = line_nr }
+    local opts = {["lnum"] = line_nr}
 
     local line_diagnostics = vim.diagnostic.get(bufnr, opts)
     if vim.tbl_isempty(line_diagnostics) then return end
@@ -459,9 +459,7 @@ SafeRequireCallback('lualine', function(lualine)
 
     for _, diagnostic in ipairs(line_diagnostics) do
       if best_diagnostic == nil or diagnostic.severity <
-          best_diagnostic.severity then
-        best_diagnostic = diagnostic
-      end
+          best_diagnostic.severity then best_diagnostic = diagnostic end
     end
 
     return best_diagnostic
@@ -485,44 +483,44 @@ SafeRequireCallback('lualine', function(lualine)
   lualine.setup {
     options = {
       theme = 'auto',
-      section_separators = { '', '' },
-      component_separators = { '', '' },
+      section_separators = {'', ''},
+      component_separators = {'', ''},
     },
     sections = {
-      lualine_a = { 'mode', tab_num },
+      lualine_a = {'mode', tab_num},
       lualine_b = {
-        { getModified, color = { fg = 'red' } }, 'diagnostics', 'branch', 'diff',
+        {getModified, color = {fg = 'red'}}, 'diagnostics', 'branch', 'diff',
       },
-      lualine_c = { { floatermInfo, cond = HasTerminal }, { 'filename', path = 1 } },
+      lualine_c = {{floatermInfo, cond = HasTerminal}, {'filename', path = 1}},
       lualine_x = {
         {
           require("noice").api.status.mode.get,
           cond = require("noice") ~= nil and
               require("noice").api.status.mode.has,
-          color = { fg = "#ff9e64" },
+          color = {fg = "#ff9e64"},
         }, 'encoding', 'fileformat', 'filetype',
       },
-      lualine_y = { 'progress' },
-      lualine_z = { 'location' },
+      lualine_y = {'progress'},
+      lualine_z = {'location'},
     },
     inactive_sections = {
-      lualine_a = { 'mode' },
-      lualine_b = { { getModified, color = { fg = 'red' } } },
-      lualine_c = { 'filename' },
-      lualine_x = { 'location' },
+      lualine_a = {'mode'},
+      lualine_b = {{getModified, color = {fg = 'red'}}},
+      lualine_c = {'filename'},
+      lualine_x = {'location'},
       lualine_y = {},
       lualine_z = {},
     },
-    extensions = { floaterm_lualine },
+    extensions = {floaterm_lualine},
   }
 end)
 
 SafeRequireCallback("hlslens", function(hlslens)
   hlslens.setup()
   api.nvim_command(
-    "noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>")
+      "noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>")
   api.nvim_command(
-    "noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>")
+      "noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>")
   api.nvim_command("noremap * *<Cmd>lua require('hlslens').start()<CR>")
   api.nvim_command("noremap # #<Cmd>lua require('hlslens').start()<CR>")
   api.nvim_command("noremap g* g*<Cmd>lua require('hlslens').start()<CR>")
@@ -531,53 +529,53 @@ end)
 
 SafeRequireCallback("which-key", function(wk)
   wk.add({
-    { "daC",  group = "Call/Comment/Conditional" }, { "daCa", desc = "call" },
-    { "daCm", desc = "comment" }, { "daCo", desc = "conditional" },
-    { "daF", desc = "frame" }, { "dac", desc = "class" },
-    { "daf", desc = "function" }, { "dal", desc = "loop" }, { "dao", desc = "block" },
-    { "dap", desc = "parameter" }, { "das", desc = "scopename" },
-    { "diC", group = "Call/Comment/Conditional" }, { "diCa", desc = "call" },
-    { "diCm", desc = "comment" }, { "diCo", desc = "conditional" },
-    { "diF",  desc = "frame" }, { "dic", desc = "class" },
-    { "dif", desc = "function" }, { "dil", desc = "loop" }, { "dio", desc = "block" },
-    { "dip", desc = "parameter" }, { "dis", desc = "scopename" },
-    { "gO",  desc = "list_definitions_toc" }, { "gn", group = "navigation" },
-    { "gnD", desc = "list_definitions" }, { "gnU", desc = "goto_previous_usage" },
-    { "gnd", desc = "goto_definition" }, { "gnu", desc = "goto_next_usage" },
-    { "gr",  group = "rename" }, { "grr", desc = "rename" },
+    {"daC", group = "Call/Comment/Conditional"}, {"daCa", desc = "call"},
+    {"daCm", desc = "comment"}, {"daCo", desc = "conditional"},
+    {"daF", desc = "frame"}, {"dac", desc = "class"},
+    {"daf", desc = "function"}, {"dal", desc = "loop"}, {"dao", desc = "block"},
+    {"dap", desc = "parameter"}, {"das", desc = "scopename"},
+    {"diC", group = "Call/Comment/Conditional"}, {"diCa", desc = "call"},
+    {"diCm", desc = "comment"}, {"diCo", desc = "conditional"},
+    {"diF", desc = "frame"}, {"dic", desc = "class"},
+    {"dif", desc = "function"}, {"dil", desc = "loop"}, {"dio", desc = "block"},
+    {"dip", desc = "parameter"}, {"dis", desc = "scopename"},
+    {"gO", desc = "list_definitions_toc"}, {"gn", group = "navigation"},
+    {"gnD", desc = "list_definitions"}, {"gnU", desc = "goto_previous_usage"},
+    {"gnd", desc = "goto_definition"}, {"gnu", desc = "goto_next_usage"},
+    {"gr", group = "rename"}, {"grr", desc = "rename"},
   })
   wk.add({
-    { "<localleader>d", group = "Debug" }, { "<localleader>r", group = "Run" },
+    {"<localleader>d", group = "Debug"}, {"<localleader>r", group = "Run"},
   })
   wk.add({
-    { "<leader>a",  group = "AnyJump/CocAction" },
-    { "<leader>b",  group = "Buffer/Bookmark" },
-    { "<leader>bc", desc = "Copy file path" },
-    { "<leader>c",  group = "Comment/cd" }, { "<leader>d", group = "doc" },
-    { "<leader>e",  group = "Edit" }, { "<leader>ecw", desc = "full file" },
-    { "<leader>es", desc = "setting/notes" },
-    { "<leader>f",  group = "File/esearch" }, { "<leader>g", group = "Git/Paste" },
-    { "<leader>ga", group = "Agit/amend" },
-    { "<leader>gb", group = "blame/branch" }, { "<leader>gd", group = "git diff" },
-    { "<leader>gdl", desc = "git diff last commit" },
-    { "<leader>gl",  group = "log" }, { "<leader>gr", group = "restore" },
-    { "<leader>i",  group = "Insert time/Info" },
-    { "<leader>l",  group = "Language" },
-    { "<leader>ld", desc = "declaration/definition" },
-    { "<leader>le", desc = "Leetcode" },
-    { "<leader>lr", desc = "Rename/Reference" },
-    { "<leader>ls", desc = "Doc/Workspace Symbol" },
-    { "<leader>lt", desc = "Test" }, { "<leader>m", group = "Mark" },
-    { "<leader>mn", desc = "Next mark" }, { "<leader>mp", desc = "Previous mark" },
-    { "<leader>n",  group = "Note" }, { "<leader>o", group = "Fold" },
-    { "<leader>p", group = "Paste/Plugin" }, { "<leader>q", group = "Quit" },
-    { "<leader>r", group = "Run/Test" }, { "<leader>s", group = "Status" },
-    { "<leader>t", group = "Tab" }, { "<leader>v", group = "Gina" },
-    { "<leader>w", group = "Wiki/Window" }, { "<leader>wq", desc = "wqa" },
-    { "<leader>ws", desc = "split" }, { "<leader>z", group = "Grep/Find/FZF" },
+    {"<leader>a", group = "AnyJump/CocAction"},
+    {"<leader>b", group = "Buffer/Bookmark"},
+    {"<leader>bc", desc = "Copy file path"},
+    {"<leader>c", group = "Comment/cd"}, {"<leader>d", group = "doc"},
+    {"<leader>e", group = "Edit"}, {"<leader>ecw", desc = "full file"},
+    {"<leader>es", desc = "setting/notes"},
+    {"<leader>f", group = "File/esearch"}, {"<leader>g", group = "Git/Paste"},
+    {"<leader>ga", group = "Agit/amend"},
+    {"<leader>gb", group = "blame/branch"}, {"<leader>gd", group = "git diff"},
+    {"<leader>gdl", desc = "git diff last commit"},
+    {"<leader>gl", group = "log"}, {"<leader>gr", group = "restore"},
+    {"<leader>i", group = "Insert time/Info"},
+    {"<leader>l", group = "Language"},
+    {"<leader>ld", desc = "declaration/definition"},
+    {"<leader>le", desc = "Leetcode"},
+    {"<leader>lr", desc = "Rename/Reference"},
+    {"<leader>ls", desc = "Doc/Workspace Symbol"},
+    {"<leader>lt", desc = "Test"}, {"<leader>m", group = "Mark"},
+    {"<leader>mn", desc = "Next mark"}, {"<leader>mp", desc = "Previous mark"},
+    {"<leader>n", group = "Note"}, {"<leader>o", group = "Fold"},
+    {"<leader>p", group = "Paste/Plugin"}, {"<leader>q", group = "Quit"},
+    {"<leader>r", group = "Run/Test"}, {"<leader>s", group = "Status"},
+    {"<leader>t", group = "Tab"}, {"<leader>v", group = "Gina"},
+    {"<leader>w", group = "Wiki/Window"}, {"<leader>wq", desc = "wqa"},
+    {"<leader>ws", desc = "split"}, {"<leader>z", group = "Grep/Find/FZF"},
   })
 
-  wk.setup({ plugins = { registers = true } })
+  wk.setup({plugins = {registers = true}})
 end)
 
 function MySort(buffer_a, buffer_b)
@@ -633,15 +631,15 @@ SafeRequireCallback("lspconfig", function(lspconfig)
   end
 end)
 
-SafeRequire 'marks'.setup {
+SafeRequire'marks'.setup {
   default_mappings = true,
-  builtin_marks = { ".", "<", ">", "^" },
+  builtin_marks = {".", "<", ">", "^"},
   cyclic = true,
   force_write_shada = false,
   refresh_interval = 250,
-  excluded_filetypes = { 'floaterm', '' },
-  sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
-  bookmark_0 = { sign = "⚑", virt_text = "hello world" },
+  excluded_filetypes = {'floaterm', ''},
+  sign_priority = {lower = 10, upper = 15, builtin = 8, bookmark = 20},
+  bookmark_0 = {sign = "⚑", virt_text = "hello world"},
   mappings = {},
 }
 
@@ -684,12 +682,12 @@ SafeRequireCallback("cmp", function()
     end
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and
-        vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match(
-          "^%s*$") == nil
+               vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match(
+                   "^%s*$") == nil
   end
 
   SafeRequire('').configure({
-    filetypes_denylist = { 'dirvish', 'fugitive', 'floaterm' },
+    filetypes_denylist = {'dirvish', 'fugitive', 'floaterm'},
   })
 
   cmp.setup({
@@ -710,7 +708,7 @@ SafeRequireCallback("cmp", function()
         else
           fallback()
         end
-      end, { "i", "s" --[[ "c" (to enable the mapping in command mode) ]] }),
+      end, {"i", "s" --[[ "c" (to enable the mapping in command mode) ]] }),
       ['<C-f>'] = cmp.mapping(function(fallback)
         if isEmptyTable(luasnip) then
           fallback()
@@ -721,7 +719,7 @@ SafeRequireCallback("cmp", function()
         else
           fallback()
         end
-      end, { "i", "s" --[[ "c" (to enable the mapping in command mode) ]] }),
+      end, {"i", "s" --[[ "c" (to enable the mapping in command mode) ]] }),
       ['<m-/>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
       ['<CR>'] = cmp.mapping.confirm({
@@ -730,22 +728,22 @@ SafeRequireCallback("cmp", function()
       }),
     }),
     sources = cmp.config.sources({
-      { name = 'nvim_lsp', keyword_length = 0 }, { name = 'path' },
-      { name = "copilot" }, { name = 'luasnip' }, -- For luasnip users.
-      { name = 'cmp_tabnine', keyword_length = 3 }, {
-      name = 'rg',
-      max_item_count = 10,
-      keyword_length = 5,
-      option = { additional_arguments = "--max-depth 5" },
-    }, { name = 'fish' }, { name = 'buffer', keyword_length = 4 },
+      {name = 'nvim_lsp', keyword_length = 0}, {name = 'path'},
+      {name = "copilot"}, {name = 'luasnip'}, -- For luasnip users.
+      {name = 'cmp_tabnine', keyword_length = 3}, {
+        name = 'rg',
+        max_item_count = 10,
+        keyword_length = 5,
+        option = {additional_arguments = "--max-depth 5"},
+      }, {name = 'fish'}, {name = 'buffer', keyword_length = 4},
     }),
     formatting = {
       format = lspkind.cmp_format({
         mode = 'symbol', -- show only symbol annotations
-        maxwidth = 50,   -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+        maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
         -- can also be a function to dynamically calculate max width such as
         -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
-        ellipsis_char = '...',    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+        ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
         show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 
         before = function(entry, vim_item)
@@ -753,9 +751,9 @@ SafeRequireCallback("cmp", function()
           vim_item.abbr = vim.trim(string.sub(vim_item.abbr, 1, 60))
           local source_name = entry.source.name
           if (vim_item.menu ~= nil and entry.completion_item.data ~= nil and
-                entry.completion_item.data.detail ~= nil) then
+              entry.completion_item.data.detail ~= nil) then
             vim_item.menu = entry.completion_item.data.detail .. ' ' ..
-                vim_item.menu
+                                vim_item.menu
           end
           if source_mapping[source_name] then
             vim_item.kind = source_mapping[source_name]
@@ -783,16 +781,16 @@ SafeRequireCallback("cmp", function()
   -- Set configuration for specific filetype.
   cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
-      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-    }, { { name = 'buffer' } }),
+      {name = 'cmp_git'}, -- You can specify the `cmp_git` source if you were installed it.
+    }, {{name = 'buffer'}}),
   })
 
   local search_sources = {
-    { name = 'nvim_lsp_document_symbol' }, { name = 'buffer' },
+    {name = 'nvim_lsp_document_symbol'}, {name = 'buffer'},
   }
   local function setup_cmdline(cmd_type, sources)
     cmp.setup.cmdline(cmd_type, {
-      formatting = { format = custom_format },
+      formatting = {format = custom_format},
       mapping = cmp.mapping.preset.cmdline({
         ['<C-n>'] = {
           c = function(fallback)
@@ -814,12 +812,12 @@ SafeRequireCallback("cmp", function()
         },
         ['<CR>'] = function(fallback) fallback() end,
       }),
-      view = { entries = { name = 'custom', selection_order = 'near_cursor' } },
+      view = {entries = {name = 'custom', selection_order = 'near_cursor'}},
       sources = sources,
     })
   end
 
-  setup_cmdline(':', { { name = 'cmdline', group_index = 1 } })
+  setup_cmdline(':', {{name = 'cmdline', group_index = 1}})
   setup_cmdline('/', search_sources)
   setup_cmdline('?', search_sources)
 
@@ -874,7 +872,7 @@ local function getWorkspaceVimPath(type)
   local workspace_path = WorkspacePath
   os.execute('mkdir -p ' .. workspace_path)
   local workspaceConfigPath = workspace_path .. convertName(vim.fn.getcwd()) ..
-      '.' .. type
+                                  '.' .. type
   return workspaceConfigPath
 end
 
@@ -895,7 +893,7 @@ vim.api.nvim_set_keymap('n', '<Leader>esn', '', {
 vim.api.nvim_set_keymap('n', '<Leader>ess', '', {
   noremap = true,
   desc = 'Search the workspace',
-  callback = function() require 'fzf-lua'.live_grep({ cwd = WorkspacePath }) end,
+  callback = function() require'fzf-lua'.live_grep({cwd = WorkspacePath}) end,
 })
 
 function FindFileCwd()
@@ -956,14 +954,14 @@ function TermToggle()
   end
 
   Defer(
-    function() if vim.bo.filetype ~= 'floaterm' then GotoMainWindow() end end,
-    function()
-      if HasTerminal() then
-        vim.cmd("FloatermShow")
-      else
-        vim.cmd("FloatermToggle")
-      end
-    end)
+      function() if vim.bo.filetype ~= 'floaterm' then GotoMainWindow() end end,
+      function()
+        if HasTerminal() then
+          vim.cmd("FloatermShow")
+        else
+          vim.cmd("FloatermToggle")
+        end
+      end)
 end
 
 function FzfBuffer()
@@ -985,7 +983,7 @@ function RunBashCallback(command, callback)
   local Job = require 'plenary.job'
   Job:new({
     command = 'bash',
-    args = { '-c', command },
+    args = {'-c', command},
     on_exit = function(j, exitcode)
       local data = j:result()
       if #data > 0 then
@@ -998,32 +996,32 @@ end
 function UpdateEnv()
   if vim.fn.filereadable('poetry.lock') > 0 then
     RunBashCallback("poetry run bash -c 'echo $VIRTUAL_ENV' 2>/dev/null",
-      function(data, exitcode)
-        vim.env.VIRTUAL_ENV = data[1]
-        SafeRequire('dap-python').setup(data[1] .. "/bin/python3")
-      end)
+                    function(data, exitcode)
+      vim.env.VIRTUAL_ENV = data[1]
+      SafeRequire('dap-python').setup(data[1] .. "/bin/python3")
+    end)
     RunBashCallback("poetry run bash -c 'echo $PATH' 2>/dev/null",
-      function(data, exitcode)
-        vim.env.PATH = data[1]
-        local lst = vim.fn.getcompletion('LspRestart ', 'cmdline')
-        for _, v in pairs(lst) do vim.cmd('LspRestart ' .. v) end
-      end)
+                    function(data, exitcode)
+      vim.env.PATH = data[1]
+      local lst = vim.fn.getcompletion('LspRestart ', 'cmdline')
+      for _, v in pairs(lst) do vim.cmd('LspRestart ' .. v) end
+    end)
   end
 end
 
 function DelaySetup2()
   SafeRequire('garbage-day').setup({})
   SafeRequire('present').setup {}
-  SafeRequire('gitblame').setup { enabled = false }
+  SafeRequire('gitblame').setup {enabled = false}
   SafeRequire('lspfuzzy').setup({})
   SafeRequire("CopilotChat").setup({})
   SafeRequire("conform").setup({
     formatters_by_ft = {
-      lua = { "stylua" },
+      lua = {"stylua"},
       -- Conform will run multiple formatters sequentially
-      python = { "isort", "black" },
+      python = {"isort", "black"},
       -- Use a sub-list to run only the first available formatter
-      javascript = { { "prettierd", "prettier" } },
+      javascript = {{"prettierd", "prettier"}},
     },
     format_on_save = {
       -- These options will be passed to conform.format()
@@ -1043,21 +1041,21 @@ function DelaySetup2()
     end,
   })
   SafeRequire("oil").setup({
-    buf_options = { buflisted = true, bufhidden = "unload" },
+    buf_options = {buflisted = true, bufhidden = "unload"},
   })
 
   SafeRequireCallback("lsp_lines", function(lines)
     lines.setup()
-    vim.diagnostic.config({ virtual_text = false })
+    vim.diagnostic.config({virtual_text = false})
   end)
 
-  vim.diagnostic.config({ virtual_text = false })
+  vim.diagnostic.config({virtual_text = false})
 
-  vim.api.nvim_create_autocmd({ "InsertEnter" }, {
-    callback = function() vim.diagnostic.config({ virtual_text = false }) end,
+  vim.api.nvim_create_autocmd({"InsertEnter"}, {
+    callback = function() vim.diagnostic.config({virtual_text = false}) end,
   })
-  vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-    callback = function() vim.diagnostic.config({ virtual_text = true }) end,
+  vim.api.nvim_create_autocmd({"InsertLeave"}, {
+    callback = function() vim.diagnostic.config({virtual_text = true}) end,
   })
 
   UpdateEnv()
@@ -1074,7 +1072,7 @@ function DelaySetup2()
   end
 
   SafeRequire("noice").setup({
-    health = { checker = false },
+    health = {checker = false},
     messages = {
       enabled = true,
       view = "mini",
@@ -1083,12 +1081,12 @@ function DelaySetup2()
       view_history = "messages",
       view_search = "virtualtext",
     },
-    notify = { enabled = true },
+    notify = {enabled = true},
     lsp = {
-      hover = { enabled = true },
-      signature = { enabled = false },
-      message = { enabled = true },
-      progress = { enabled = true },
+      hover = {enabled = true},
+      signature = {enabled = false},
+      message = {enabled = true},
+      progress = {enabled = true},
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
         ["vim.lsp.util.stylize_markdown"] = true,
@@ -1102,7 +1100,7 @@ function DelaySetup2()
     dap.adapters.dart = {
       type = "executable",
       command = "dart",
-      args = { "debug_adapter" },
+      args = {"debug_adapter"},
     }
     dap.configurations.dart = {
       {
@@ -1150,7 +1148,7 @@ function DelaySetup2()
       if win_info.height < 2 then return false end
       print(vim.bo[burnr].filetype)
       if #vim.bo[burnr].filetype == 0 then return false end
-      if vim.tbl_contains({ 'fidget', 'notify' }, vim.bo[burnr].filetype) then
+      if vim.tbl_contains({'fidget', 'notify'}, vim.bo[burnr].filetype) then
         return false
       end
       return true
@@ -1185,7 +1183,7 @@ function DelaySetup2()
 
   SafeRequireCallback("telescope", function(telescope)
     telescope.setup({
-      pickers = { buffers = { sort_mru = true, ignore_current_buffer = true } },
+      pickers = {buffers = {sort_mru = true, ignore_current_buffer = true}},
       defaults = {
         mappings = {
           i = {
@@ -1197,11 +1195,11 @@ function DelaySetup2()
       },
     })
     SafeRequireCallback("telescope.frecency",
-      function(_) telescope.load_extension("frecency") end)
+                        function(_) telescope.load_extension("frecency") end)
   end)
 
   SafeRequire("copilot").setup({
-    panel = { enabled = true },
+    panel = {enabled = true},
     suggestion = {
       enabled = true,
       auto_trigger = true,
@@ -1216,7 +1214,7 @@ function DelaySetup2()
       },
     },
   })
-  SafeRequire("copilot_cmp").setup({ method = "getCompletionsCycling" })
+  SafeRequire("copilot_cmp").setup({method = "getCompletionsCycling"})
 end
 
 function DelaySetup1()
@@ -1248,7 +1246,7 @@ function DelaySetup1()
       show_file = true,
       folder_level = 1,
     },
-    lightbulb = { enable = false, virtual_text = false },
+    lightbulb = {enable = false, virtual_text = false},
   })
   SafeRequire('fzf_lsp').setup()
   SafeRequireCallback("ufo", function(ufo)
@@ -1270,7 +1268,7 @@ function DelaySetup1()
       files = disable_icons,
       buffers = disable_icons,
       grep = disable_icons,
-      git = { files = disable_icons },
+      git = {files = disable_icons},
     })
   end)
   vim.cmd('FzfLua register_ui_select')
@@ -1302,47 +1300,47 @@ end
 
 function RunPreviousCommandFunc()
   Defer(
-    function() if HasTerminal() == false then vim.cmd("FloatermNew") end end,
-    function()
-      local mode = vim.fn.mode()
-      if mode == 't' then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-c>", true, true,
-          true), 't')
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true,
-          true), 't')
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true,
-          true), 't')
-      elseif mode == 'n' then
-        Defer(function() vim.cmd("FloatermShow") end, function()
-          vim.fn.feedkeys('i', 't')
+      function() if HasTerminal() == false then vim.cmd("FloatermNew") end end,
+      function()
+        local mode = vim.fn.mode()
+        if mode == 't' then
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-c>", true, true,
+                                                         true), 't')
           vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true,
-            true), 't')
+                                                         true), 't')
           vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true,
-            true), 't')
-        end)
-      elseif mode == 'i' then
-        Defer(function() vim.cmd("stopinsert") end,
-          function() vim.cmd("FloatermShow") end, function()
+                                                         true), 't')
+        elseif mode == 'n' then
+          Defer(function() vim.cmd("FloatermShow") end, function()
             vim.fn.feedkeys('i', 't')
             vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true,
-              true), 't')
+                                                           true), 't')
             vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true,
-              true), 't')
+                                                           true), 't')
           end)
-      end
-    end)
+        elseif mode == 'i' then
+          Defer(function() vim.cmd("stopinsert") end,
+                function() vim.cmd("FloatermShow") end, function()
+            vim.fn.feedkeys('i', 't')
+            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true,
+                                                           true), 't')
+            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true,
+                                                           true), 't')
+          end)
+        end
+      end)
 end
 
 function RunShellAndShow(command)
   Defer(
-    function() if HasTerminal() == false then vim.cmd("FloatermNew") end end,
-    function() vim.cmd("FloatermShow") end,
-    function() vim.cmd("FloatermSend " .. command) end)
+      function() if HasTerminal() == false then vim.cmd("FloatermNew") end end,
+      function() vim.cmd("FloatermShow") end,
+      function() vim.cmd("FloatermSend " .. command) end)
 end
 
 function NextItem(offset)
   local function inner()
-    if vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 then
+    if vim.fn.getloclist(0, {winid = 0}).winid ~= 0 then
       if offset > 0 then
         vim.cmd("ln")
       else
@@ -1430,7 +1428,7 @@ SafeRequire('cokeline').setup({
   },
   sidebar = {
     filetype = 'neo-tree',
-    components = { { text = '  neo-tree', style = 'bold' } },
+    components = {{text = '  neo-tree', style = 'bold'}},
   },
 })
 
@@ -1440,9 +1438,9 @@ function SSH(command, hosts)
   for _, v in pairs(hosts) do
     local job = Job:new({
       command = 'ssh',
-      args = { 'v1', '-t', command },
+      args = {'v1', '-t', command},
       cwd = '/usr/bin',
-      env = { ['a'] = 'b' },
+      env = {['a'] = 'b'},
     })
     job:start()
     job:after_success(function()
@@ -1459,7 +1457,7 @@ function RunInBuffer(command, filename)
   local Job = require 'plenary.job'
   local job = Job:new({
     command = 'bash',
-    args = { '-c', command },
+    args = {'-c', command},
     on_exit = function(j, _)
       vim.defer_fn(function()
         vim.cmd('enew')
@@ -1502,7 +1500,7 @@ function RunBuffer(opts)
   local result = vim.fn.searchpos('--- output ---')
   local bufID = vim.fn.bufnr()
   vim.api.nvim_buf_set_name(bufID, command .. '-' ..
-    os.date('%Y-%m-%d-%H-%M-%S') .. '.log')
+                                os.date('%Y-%m-%d-%H-%M-%S') .. '.log')
   if result[1] ~= 0 then
     vim.defer_fn(function()
       vim.cmd((result[1]) .. ',$d')
@@ -1514,7 +1512,7 @@ function RunBuffer(opts)
   local Job = require 'plenary.job'
   local job = Job:new({
     command = 'bash',
-    args = { '-c', command },
+    args = {'-c', command},
     on_stderr = function(_, data)
       vim.defer_fn(function() vim.fn.appendbufline(bufID, '$', data) end, 100)
     end,
@@ -1525,7 +1523,7 @@ function RunBuffer(opts)
       vim.defer_fn(function()
         result = vim.fn.searchpos('--- output ---', 'n')
         vim.fn.setbufline(bufID, result[1],
-          string.format('--- output --- [%d]', exitcode))
+                          string.format('--- output --- [%d]', exitcode))
       end, 100)
     end,
   })
@@ -1533,14 +1531,14 @@ function RunBuffer(opts)
   job:start()
 end
 
-SafeRequire('due_nvim').setup { use_clock_time = true }
+SafeRequire('due_nvim').setup {use_clock_time = true}
 
 SafeRequire('nvim-lightbulb').setup({})
-SafeRequire("symbols-outline").setup({ auto_preview = true, width = 20 })
+SafeRequire("symbols-outline").setup({auto_preview = true, width = 20})
 SafeRequire('git-conflict').setup()
 
 function KillAndRerunTerm(name, command, opts)
-  if opts == nil then opts = { notify = "", autoclose = false, shell = true } end
+  if opts == nil then opts = {notify = "", autoclose = false, shell = true} end
   local notify_command = ""
   if opts.notify ~= "" or opts.notify ~= nil then
     opts.shell = true
@@ -1554,11 +1552,11 @@ function KillAndRerunTerm(name, command, opts)
   end
   if opts.shell then
     vim.cmd(string.format(
-      'FloatermNew --autoclose=%d --name=%s sh -c "%s%s;exit 0"',
-      autoclose, name, command, notify_command))
+                'FloatermNew --autoclose=%d --name=%s sh -c "%s%s;exit 0"',
+                autoclose, name, command, notify_command))
   else
     vim.cmd(string.format('FloatermNew --autoclose=%d --name=%s %s', autoclose,
-      name, command, notify_command))
+                          name, command, notify_command))
   end
 end
 
@@ -1580,26 +1578,26 @@ function UpdatePlug()
   local scan = require 'plenary.scandir'
   local Job = require 'plenary.job'
   local all_dir = scan.scan_dir(vim.fn.expand("$HOME/.config/nvim/plugged/"),
-    { hidden = false, depth = 1, only_dirs = true })
+                                {hidden = false, depth = 1, only_dirs = true})
   local total = #all_dir
   local count = 0
 
   for _, v in pairs(all_dir) do
     Job:new({
       command = 'bash',
-      args = { '-c', string.format("cd %s;git pull;git gc --prune=all", v) },
+      args = {'-c', string.format("cd %s;git pull;git gc --prune=all", v)},
       on_exit = function(j, return_val)
         if return_val ~= 0 then
           SafeRequireCallback("notify", function(notify)
             notify('pull failed,' .. v, vim.log.levels.ERROR,
-              { title = 'error to update plugin', hide_from_history = true })
+                   {title = 'error to update plugin', hide_from_history = true})
           end)
         end
         count = count + 1
         if count % 50 == 0 or count == total then
           SafeRequireCallback("notify", function(notify)
             notify(count .. '-' .. total, vim.log.levels.INFO,
-              { title = 'update', hide_from_history = true })
+                   {title = 'update', hide_from_history = true})
           end)
         end
       end,
@@ -1689,7 +1687,7 @@ end
 
 function SendSystemNotification(message)
   local Job = require 'plenary.job'
-  Job:new({ command = 'hterm-notify', args = { 'nvim', message } }):start()
+  Job:new({command = 'hterm-notify', args = {'nvim', message}}):start()
 end
 
 function HookPwdChanged(after, before) end
@@ -1698,18 +1696,35 @@ SafeRequire('nvim-web-devicons').setup({})
 
 vim.g.editconfig = true
 
+vim.g.EINK_WIDTH = 0
 local function checkIsEink()
-  if (vim.g.fullWidth ~= vim.o.columns) then
-    if (tostring(vim.o.columns) == vim.env.EINK_WIDTH) then
-      vim.schedule(function() vim.o.background = 'light' end)
+  if vim.g.fullWidth ~= vim.o.columns then
+    if tostring(vim.o.columns) == vim.g.EINK_WIDTH then
+      vim.schedule(function() vim.o.background = "light" end)
     else
-      vim.schedule(function() vim.o.background = 'dark' end)
+      vim.schedule(function() vim.o.background = "dark" end)
     end
     vim.g.fullWidth = vim.o.columns
   end
-  vim.defer_fn(checkIsEink, 100)
 end
-vim.defer_fn(checkIsEink, 300)
+local function updateEinkWidth()
+  local Job = require("plenary.job")
+  local job = Job:new({
+    command = "tmux",
+    args = {"show-environment", "-g", "EINK_WIDTH"},
+    on_stderr = function(_, _) end,
+    on_stdout = function(_, data)
+      local width = data:gsub("EINK_WIDTH=", ""):gsub("\n", "")
+      vim.g.EINK_WIDTH = width
+    end,
+    on_exit = function(_, _) vim.schedule(checkIsEink) end,
+  })
+  job:start()
+end
+vim.api.nvim_create_autocmd("VimResized", {
+  callback = function() vim.schedule(updateEinkWidth) end,
+})
+vim.schedule(updateEinkWidth)
 
 function StartPueueJob(name, cmd)
   os.execute("pueue group add " .. name)
@@ -1720,14 +1735,14 @@ function StartPueueJob(name, cmd)
   local Job = require 'plenary.job'
   Job:new({
     command = 'pueue',
-    args = { "add", "-p", "-i", "-g", name, "--", cmd },
+    args = {"add", "-p", "-i", "-g", name, "--", cmd},
     on_exit = function(j, exitcode)
       local data = j:result()
       vim.schedule(function()
         vim.notify(vim.inspect(data))
         vim.cmd(string.format(
-          "FloatermNew --autoclose=0 --name=%s --title=%s pueue follow %s",
-          name, name, data[1]))
+                    "FloatermNew --autoclose=0 --name=%s --title=%s pueue follow %s",
+                    name, name, data[1]))
       end)
     end,
   }):start()
@@ -1748,7 +1763,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
 if vim.fn.executable("nu") == 1 then
   local lsp = require 'lspconfig'
   vim.tbl_deep_extend('keep', lsp, {
-    nushell = { cmd = { 'nu', '--lsp' }, filetypes = 'nu', name = 'nushell' },
+    nushell = {cmd = {'nu', '--lsp'}, filetypes = 'nu', name = 'nushell'},
   })
   lsp.nushell.setup {}
 end
@@ -1757,29 +1772,27 @@ function SwitchWordCase()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   local word = vim.fn.expand('<cword>')
   local word_start = vim.fn.matchstrpos(vim.fn.getline('.'),
-    '\\k*\\%' .. (col + 1) .. 'c\\k*')[2]
+                                        '\\k*\\%' .. (col + 1) .. 'c\\k*')[2]
 
   -- Detect camelCase
   if word:find('[a-z][A-Z]') then
     -- Convert camelCase to snake_case
     local snake_case_word = word:gsub('([a-z])([A-Z])', '%1_%2'):lower()
     vim.api.nvim_buf_set_text(0, line - 1, word_start, line - 1,
-      word_start + #word, { snake_case_word })
+                              word_start + #word, {snake_case_word})
     -- Detect snake_case
   elseif word:find('_[a-z]') then
     -- Convert snake_case to camelCase
     local camel_case_word = word:gsub('(_)([a-z])',
-      function(_, l) return l:upper() end)
+                                      function(_, l) return l:upper() end)
     vim.api.nvim_buf_set_text(0, line - 1, word_start, line - 1,
-      word_start + #word, { camel_case_word })
+                              word_start + #word, {camel_case_word})
   else
     print("Not a snake_case or camelCase word")
   end
 end
 
-vim.api.nvim_create_autocmd('TermOpen', {
-  command = 'setlocal signcolumn=auto',
-})
+vim.api.nvim_create_autocmd('TermOpen', {command = 'setlocal signcolumn=auto'})
 local ns = vim.api.nvim_create_namespace('my.terminal.prompt')
 vim.api.nvim_create_autocmd('TermRequest', {
   callback = function(args)
@@ -1792,3 +1805,14 @@ vim.api.nvim_create_autocmd('TermRequest', {
     end
   end,
 })
+
+local function enableFold()
+  vim.o.foldenable = true
+  vim.o.foldlevel = 99
+  vim.o.foldmethod = "expr"
+  vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+  vim.o.foldtext = ""
+  vim.opt.foldcolumn = "0"
+  vim.opt.fillchars:append({fold = " "})
+end
+vim.schedule(enableFold)

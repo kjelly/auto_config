@@ -106,10 +106,10 @@ def main [ ] {
         return
       }
       let target_name = ($target_name | path expand)
-      if ((sesh root|path expand) != ($target_name | path expand)) {
+      if ((sesh root|path expand) != $target_name) {
         let panes = (tmux list-panes -s -F '#{window_id} #{pane_id} #{pane_current_path} #{pane_current_command}'|lines) 
         let target_panes = ($panes |filter {|it| $it =~ $target_name and (($it|split row ' '|last) in ['nu', 'nvim', 'fish'])})
-        if (($target_panes|is-empty) and ($target_name | path exists)) {
+        if ($target_panes|is-empty) {
           # print $target_name
           tmux new-window -c $target_name
         } else {

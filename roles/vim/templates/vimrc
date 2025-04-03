@@ -182,7 +182,7 @@ Plug 'https://github.com/romainl/vim-cool' " show hightlight in search mode
 Plug 'kevinhwang91/promise-async'
 
 " Fold
-Plug 'https://github.com/kevinhwang91/nvim-ufo'
+"Plug 'https://github.com/kevinhwang91/nvim-ufo'
 
 Plug 'towolf/vim-helm'
 
