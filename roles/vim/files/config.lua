@@ -142,7 +142,11 @@ LSP_CONFIG = DefaultTable({}, {
         },
       },
     },
-    pylsp = {plugin = {pylint = {enabled = true}}},
+    pylsp = {
+      pylsp = {
+        plugins = {pylint = {enabled = true}, pycodestyle = {enabled = false}},
+      },
+    },
     efm = {
       rootMarkers = {".git/"},
       languages = {
@@ -163,8 +167,10 @@ local disabled_lsp_caps = {}
 
 local langservers = {
   'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'efm', 'emmet_ls',
-  'gopls', 'graphql', 'html', 'jsonls', 'marksman', 'pyright', 'rust_analyzer',
-  'sqlls', 'lua_ls', 'terraformls', 'ts_ls', 'vimls',
+  'gopls', 'graphql', 'html', 'jsonls', 'marksman', 'pyright', 'pylsp',
+  'rust_analyzer', 'sqlls', 'lua_ls', 'terraformls', 'ts_ls', 'vimls', "ruff",
+  "nushell", "fish_lsp", "gh_actions_ls", "yamlls",
+
 }
 
 for _, v in ipairs({"node", "go"}) do
@@ -626,7 +632,7 @@ SafeRequireCallback("lspconfig", function(lspconfig)
     lspconfig[lsp].setup({
       settings = settings,
       init_options = init_options,
-      on_attach = on_attach,
+      -- on_attach = on_attach,
     })
   end
 end)

@@ -8,4 +8,4 @@ let all_path = ['~/bin', '~/mybin', '~/dark-sdk/bin',
                  '~/node*/bin', '~/.asdf/installs/python/*/bin', '~/pypy*/bin/',
                  '~/.fzf/bin/', '~/.asdf/bin/', '~/.asdf/shims/',
                  ]
-$env.PATH = ($env.PATH | prepend ($all_path | each {|it| glob $it}|flatten -a |uniq))
+$env.PATH = ($env.PATH | append ($all_path | each {|it| glob $it}|flatten -a |uniq) | uniq)
