@@ -86,6 +86,7 @@ def sesh_workspace [ ] {
 
 
 def main [ ] {
+      # sesh_workspace
     let target = (sesh list |tail -n +2| fzf-tmux  -p 55%,60% --no-sort --border-label ' sesh -d' --prompt '⚡  ' 
                                         --header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' 
                                         --bind 'tab:down,btab:up'
@@ -101,11 +102,13 @@ def main [ ] {
 
     if $target.exit_code == 0 {
       let target_name = ($target.stdout|str trim)
-      sesh connect --root $target_name
       if ($target_name in (sesh list -t |lines)) {
+        sesh connect $target_name
         return
       }
+
       let target_name = ($target_name | path expand)
+      sesh connect --root $target_name
       if ((sesh root|path expand) != $target_name) {
         let panes = (tmux list-panes -s -F '#{window_id} #{pane_id} #{pane_current_path} #{pane_current_command}'|lines) 
         let target_panes = ($panes |filter {|it| $it =~ $target_name and (($it|split row ' '|last) in ['nu', 'nvim', 'fish'])})

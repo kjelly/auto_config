@@ -156,7 +156,7 @@ Plug 'windwp/nvim-spectre'
 Plug 'https://github.com/sindrets/diffview.nvim'
 
 " Easymotion-like
-Plug 'https://github.com/phaazon/hop.nvim'
+Plug 'https://github.com/yehuohan/hop.nvim'
 Plug 'monaqa/dial.nvim', {'on': ['DialIncrement', 'DialDecrement']}
 Plug 'kyazdani42/nvim-tree.lua'
 
@@ -226,15 +226,13 @@ Plug 'AndrewRadev/switch.vim'
 Plug 'simeji/winresizer', { 'on': ['WinResizerStartResize', 'WinResizerStartMove']}
 Plug 'https://github.com/NvChad/nvim-colorizer.lua'
 
-" Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-
 " Plug 'https://github.com/NTBBloodbath/rest.nvim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'https://github.com/ibhagwan/fzf-lua'
 
 
-Plug 'https://codeberg.org/esensar/nvim-dev-container'
+"Plug 'https://codeberg.org/esensar/nvim-dev-container'
 
 " For sudo
 " :w suda://%
