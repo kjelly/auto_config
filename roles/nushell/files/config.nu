@@ -894,7 +894,22 @@ def freeze-to-bg [ id ] {
 
 }
 
-def --env  gm [ ] {
+def --env gm [ ] {
   git checkout (git remote show origin|lines|filter {|it| $it =~ 'HEAD'}|get 0|split row ':'|get 1|str trim)
   git pull
+}
+
+def "complete act path" [ ] {
+  gg
+  ls $".github/workflows/"|get name
+}
+
+def --wrapped "act-wrapper" [ path?:string@"complete act path", ...args] {
+  gg
+  let all_file = (ls $".github/workflows/"|get name)
+  let _path = ( if ($path == null) { (ls .github/workflows/|get name|input list --fuzzy) } else { ($all_file | filter {|it| $it =~ $path}|get 0)})
+  let args = ($args ++ ($env.act_args? | default []))
+  print $args
+  mut act_args = []
+  act --container-options "--privileged -v /home/linuxbrew/:/home/linuxbrew/ -v /tmp/docker-cache/:/tmp/docker-cache/" -s $"SSH_KEY=(cat ~/.ssh/id_rsa|base64 -w 0)" ...$act_args --detect-event -W $_path --insecure-secrets ...$args
 }

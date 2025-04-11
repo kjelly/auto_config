@@ -311,7 +311,6 @@ Plug 'https://github.com/L3MON4D3/LuaSnip'
 "Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'https://github.com/ojroques/nvim-lspfuzzy'
 Plug 'https://github.com/stevearc/aerial.nvim'
-Plug 'https://github.com/onsails/lspkind.nvim'
 Plug 'https://github.com/gaoDean/autolist.nvim' " for markdown
 Plug 'https://github.com/gbrlsnchs/winpick.nvim'
 
