@@ -441,6 +441,10 @@ endif
 let $BROWSER='w3m'
 let $IN_VIM=1
 
+let g:MYVIMRC_DIR = fnamemodify(expand('$MYVIMRC'), ':h')
+let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/bin'
+exec 'luafile' g:MYVIMRC_DIR . '/config.lua'
+
 {% if nvim %}let g:test#strategy = "neovim" {% endif %}
 
 let g:floaterm_wintype='split'
@@ -552,9 +556,6 @@ command! FFF FloatermNew fff
 {% include './templates/keybindings.vim' %}
 {% include './templates/keybindings_leader.vim' %}
 
-let g:MYVIMRC_DIR = fnamemodify(expand('$MYVIMRC'), ':h')
-let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/bin'
-
 let g:switch_mapping = ""
 let g:switch_custom_definitions =
     \ [
@@ -621,9 +622,6 @@ nnoremap YY "+yy
 nnoremap Y "+y
 vnoremap Y "+y
 
-{% if nvim %}
-exec 'luafile' g:MYVIMRC_DIR . '/config.lua'
-{% endif %}
 colorscheme vscode
 silent! source ~/.vim_custom.vim
 

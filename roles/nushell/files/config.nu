@@ -913,3 +913,20 @@ def --wrapped "act-wrapper" [ path?:string@"complete act path", ...args] {
   mut act_args = []
   act --container-options "--privileged -v /home/linuxbrew/:/home/linuxbrew/ -v /tmp/docker-cache/:/tmp/docker-cache/" -s $"SSH_KEY=(cat ~/.ssh/id_rsa|base64 -w 0)" ...$act_args --detect-event -W $_path --insecure-secrets ...$args
 }
+
+def allow-direnv [ ] {
+  direnv allow .
+  let direnv = (direnv export json | from json)
+  let direnv = if not ($direnv | is-empty) { $direnv } else { {} }
+  $direnv | load-env
+}
+
+def wait-for-ready [ code ] {
+  loop {
+    let result = (do $code | complete)
+    if ($result.exit_code == 0) {
+      return
+    }
+    sleep 1sec
+  }
+}
