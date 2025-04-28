@@ -116,6 +116,10 @@ silent! call plug#begin('~/.config/nvim/plugged')
 silent! call plug#begin('~/.vim/plugged')
 {% endif %}
 if executable("gcc")
+Plug 'ravitemer/mcphub.nvim'
+Plug 'https://github.com/yetone/avante.nvim'
+Plug 'https://github.com/olimorris/codecompanion.nvim'
+
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate all'}
 Plug 'https://github.com/danymat/neogen'
 Plug 'mizlan/iswap.nvim'
@@ -227,6 +231,7 @@ Plug 'simeji/winresizer', { 'on': ['WinResizerStartResize', 'WinResizerStartMove
 Plug 'https://github.com/NvChad/nvim-colorizer.lua'
 
 " Plug 'https://github.com/NTBBloodbath/rest.nvim'
+Plug 'https://github.com/mistweaverco/kulala.nvim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'https://github.com/ibhagwan/fzf-lua'
