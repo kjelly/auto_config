@@ -45,6 +45,13 @@ function Append(t, value)
   return t
 end
 
+function TableConcat(t1, t2)
+  for i = 1, #t2 do
+    t1[#t1 + 1] = t2[i]
+  end
+  return t1
+end
+
 local package_loadded = {}
 function SafeRequire(name)
   if package_loadded[name] ~= nil then return package_loadded[name] end
@@ -109,9 +116,9 @@ end
 
 
 
-require("lazy").setup({
-  { 'https://github.com/danymat/neogen', opts = {} },
-  { 'mizlan/iswap.nvim', event = "VeryLazy" },
+local lazyPackages = {
+  { 'https://github.com/danymat/neogen',               opts = {} },
+  { 'mizlan/iswap.nvim',                               event = "VeryLazy" },
   { 'https://github.com/SmiteshP/nvim-navic' },
   { 'm-demare/hlargs.nvim' },
   { 'https://github.com/kylechui/nvim-surround' },
@@ -453,26 +460,6 @@ require("lazy").setup({
     }
   },
   {
-    'https://github.com/zbirenbaum/copilot.lua',
-    event = "InsertEnter",
-    opts = {
-      panel = { enabled = true },
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        debounce = 75,
-        keymap = {
-          accept = "<c-x>a",
-          accept_word = "<tab>",
-          accept_line = "<c-x>l",
-          next = "<c-x>n",
-          prev = "<c-x>p",
-          dismiss = "<C-]>",
-        },
-      },
-    }
-  },
-  {
     "folke/lazydev.nvim",
     ft = "lua",
     opts = {
@@ -481,8 +468,6 @@ require("lazy").setup({
       },
     },
   },
-  { 'https://github.com/zbirenbaum/copilot-cmp',               event = { "InsertEnter", "CmdlineEnter" } },
-  { 'https://github.com/CopilotC-Nvim/CopilotChat.nvim',       event = { "InsertEnter", "CmdlineEnter" }, opts = {} },
   { 'hrsh7th/cmp-nvim-lsp',                                    event = { "InsertEnter", "CmdlineEnter" } },
   { 'hrsh7th/cmp-buffer',                                      event = { "InsertEnter", "CmdlineEnter" } },
   { 'hrsh7th/cmp-path',                                        event = { "InsertEnter", "CmdlineEnter" } },
@@ -498,7 +483,6 @@ require("lazy").setup({
     'hrsh7th/nvim-cmp',
     event = { "InsertEnter", "CmdlineEnter" },
     dependencys = {
-      { 'https://github.com/zbirenbaum/copilot-cmp' },
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-buffer' },
       { 'hrsh7th/cmp-path' },
@@ -612,7 +596,7 @@ require("lazy").setup({
         sorting = {
           priority_weight = 2,
           comparators = {
-            require("copilot_cmp.comparators").prioritize,
+            -- SafeRequire("copilot_cmp.comparators").prioritize,
             cmp.config.compare.offset, cmp.config.compare.exact,
             cmp.config.compare.score, cmp.config.compare.recently_used,
             cmp.config.compare.locality, cmp.config.compare.kind,
@@ -748,11 +732,34 @@ require("lazy").setup({
       global_keymaps = false,
     },
   },
-}, {})
+}
 
 if not isEmptyTable(langservers) then
-  require("lazy").setup(
+  lazyPackages = TableConcat(lazyPackages,
     {
+      { 'https://github.com/zbirenbaum/copilot-cmp',         event = { "InsertEnter", "CmdlineEnter" }, opts = {} },
+      { 'https://github.com/CopilotC-Nvim/CopilotChat.nvim', event = { "InsertEnter", "CmdlineEnter" }, opts = {} },
+      {
+        'https://github.com/zbirenbaum/copilot.lua',
+        event = "InsertEnter",
+        opts = {
+          panel = { enabled = true },
+          suggestion = {
+            enabled = true,
+            auto_trigger = true,
+            debounce = 75,
+            keymap = {
+              accept = "<c-x>a",
+              accept_word = "<tab>",
+              accept_line = "<c-x>l",
+              next = "<c-x>n",
+              prev = "<c-x>p",
+              dismiss = "<C-]>",
+            },
+          },
+        }
+      },
+
       { 'ravitemer/mcphub.nvim' },
       {
         'https://github.com/yetone/avante.nvim',
@@ -871,9 +878,10 @@ if not isEmptyTable(langservers) then
       { 'https://github.com/David-Kunz/treesitter-unit' },
       { 'https://github.com/nushell/tree-sitter-nu' },
       { 'IndianBoy42/tree-sitter-just' },
-    }
-    , {})
+    })
 end
+
+require("lazy").setup(lazyPackages, {})
 
 vim.cmd.source(vim.fn.stdpath("config") .. "/nvim.vim")
 
