@@ -110,103 +110,8 @@ end
 
 
 require("lazy").setup({
-  {
-    'nvim-treesitter/nvim-treesitter',
-    dependencys = {
-      { 'nvim-treesitter/nvim-treesitter-textobjects' },
-      { 'nvim-treesitter/nvim-treesitter-refactor' },
-      { 'https://github.com/theHamsta/nvim-treesitter-pairs' },
-      { 'romgrk/nvim-treesitter-context' },
-    },
-    config = function()
-      local configs = require("nvim-treesitter.configs")
-      configs.setup({
-        dependencies = { { "nushell/tree-sitter-nu" } },
-        ensure_installed = "all",
-        autopairs = { enable = true },
-        iswap = { enable = true },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "+",
-            node_incremental = "+",
-            scope_incremental = "grc",
-            node_decremental = "_",
-          },
-        },
-        indent = { enable = false },
-        highlight = { enable = true, disable = {} },
-        refactor = {
-          highlight_definitions = { enable = false },
-          highlight_current_scope = { enable = false },
-          smart_rename = { enable = true, keymaps = { smart_rename = "grr" } },
-          navigation = {
-            enable = true,
-            keymaps = {
-              goto_definition = "gnd",
-              list_definitions = "gnD",
-              list_definitions_toc = "gO",
-              goto_next_usage = "gnu",
-              goto_previous_usage = "gnU",
-            },
-          },
-        },
-        textobjects = {
-          select = {
-            enable = true,
-            keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner",
-              ["ao"] = "@block.outer",
-              ["io"] = "@block.inner",
-              ["aCa"] = "@call.outer",
-              ["iCa"] = "@call.inner",
-              ["aCo"] = "@conditional.outer",
-              ["iCo"] = "@conditional.inner",
-              ["aCm"] = "@comment.outer",
-              ["aF"] = "@frame.outer",
-              ["iF"] = "@frame.inner",
-              ["al"] = "@loop.outer",
-              ["il"] = "@loop.inner",
-              ["ap"] = "@parameter.outer",
-              ["ip"] = "@parameter.inner",
-              ["as"] = "@statement.outer",
-              ["is"] = "@scopename.inner",
-            },
-          },
-          swap = {
-            enable = true,
-            swap_next = { ["<leader>lsa"] = "@parameter.inner" },
-            swap_previous = { ["<leader>lsA"] = "@parameter.inner" },
-          },
-          move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = { ["]m"] = "@function.outer", ["]]"] = "@class.outer" },
-            goto_next_end = { ["]M"] = "@function.outer", ["]["] = "@class.outer" },
-            goto_previous_start = {
-              ["[m"] = "@function.outer",
-              ["[["] = "@class.outer",
-            },
-            goto_previous_end = { ["[M"] = "@function.outer", ["[]"] = "@class.outer" },
-          },
-        },
-      })
-    end
-  },
-  { 'nvim-treesitter/nvim-treesitter-textobjects' },
-  { 'nvim-treesitter/nvim-treesitter-refactor' },
-  { 'https://github.com/theHamsta/nvim-treesitter-pairs' },
-  { 'romgrk/nvim-treesitter-context' },
-  { 'https://github.com/David-Kunz/treesitter-unit' },
-  { 'https://github.com/nushell/tree-sitter-nu' },
-
-  { 'IndianBoy42/tree-sitter-just' },
-  { 'https://github.com/danymat/neogen',                 opts = {} },
-  { 'mizlan/iswap.nvim',                                 event = "VeryLazy" },
-  -- {'https://github.com/yioneko/nvim-yati'},
+  { 'https://github.com/danymat/neogen', opts = {} },
+  { 'mizlan/iswap.nvim', event = "VeryLazy" },
   { 'https://github.com/SmiteshP/nvim-navic' },
   { 'm-demare/hlargs.nvim' },
   { 'https://github.com/kylechui/nvim-surround' },
@@ -830,29 +735,6 @@ require("lazy").setup({
     }
   },
   { 'mhinz/neovim-remote' },
-  { 'ravitemer/mcphub.nvim' },
-  {
-    'https://github.com/yetone/avante.nvim',
-    opts = {
-      provider = "copilot"
-    }
-  },
-  {
-    'https://github.com/olimorris/codecompanion.nvim',
-    opts = {
-      strategies = {
-        chat = {
-          adapter = "copilot",
-        },
-        inline = {
-          adapter = "copilot",
-        },
-        cmd = {
-          adapter = "copilot",
-        }
-      },
-    }
-  },
   {
     "mistweaverco/kulala.nvim",
     keys = {
@@ -867,6 +749,131 @@ require("lazy").setup({
     },
   },
 }, {})
+
+if not isEmptyTable(langservers) then
+  require("lazy").setup(
+    {
+      { 'ravitemer/mcphub.nvim' },
+      {
+        'https://github.com/yetone/avante.nvim',
+        opts = {
+          provider = "copilot"
+        }
+      },
+      {
+        'https://github.com/olimorris/codecompanion.nvim',
+        opts = {
+          strategies = {
+            chat = {
+              adapter = "copilot",
+            },
+            inline = {
+              adapter = "copilot",
+            },
+            cmd = {
+              adapter = "copilot",
+            }
+          },
+        }
+      },
+
+
+      {
+        'nvim-treesitter/nvim-treesitter',
+        dependencys = {
+          { 'nvim-treesitter/nvim-treesitter-textobjects' },
+          { 'nvim-treesitter/nvim-treesitter-refactor' },
+          { 'https://github.com/theHamsta/nvim-treesitter-pairs' },
+          { 'romgrk/nvim-treesitter-context' },
+        },
+        config = function()
+          local configs = require("nvim-treesitter.configs")
+          configs.setup({
+            dependencies = { { "nushell/tree-sitter-nu" } },
+            ensure_installed = "all",
+            autopairs = { enable = true },
+            iswap = { enable = true },
+            incremental_selection = {
+              enable = true,
+              keymaps = {
+                init_selection = "+",
+                node_incremental = "+",
+                scope_incremental = "grc",
+                node_decremental = "_",
+              },
+            },
+            indent = { enable = false },
+            highlight = { enable = true, disable = {} },
+            refactor = {
+              highlight_definitions = { enable = false },
+              highlight_current_scope = { enable = false },
+              smart_rename = { enable = true, keymaps = { smart_rename = "grr" } },
+              navigation = {
+                enable = true,
+                keymaps = {
+                  goto_definition = "gnd",
+                  list_definitions = "gnD",
+                  list_definitions_toc = "gO",
+                  goto_next_usage = "gnu",
+                  goto_previous_usage = "gnU",
+                },
+              },
+            },
+            textobjects = {
+              select = {
+                enable = true,
+                keymaps = {
+                  ["af"] = "@function.outer",
+                  ["if"] = "@function.inner",
+                  ["ac"] = "@class.outer",
+                  ["ic"] = "@class.inner",
+                  ["ao"] = "@block.outer",
+                  ["io"] = "@block.inner",
+                  ["aCa"] = "@call.outer",
+                  ["iCa"] = "@call.inner",
+                  ["aCo"] = "@conditional.outer",
+                  ["iCo"] = "@conditional.inner",
+                  ["aCm"] = "@comment.outer",
+                  ["aF"] = "@frame.outer",
+                  ["iF"] = "@frame.inner",
+                  ["al"] = "@loop.outer",
+                  ["il"] = "@loop.inner",
+                  ["ap"] = "@parameter.outer",
+                  ["ip"] = "@parameter.inner",
+                  ["as"] = "@statement.outer",
+                  ["is"] = "@scopename.inner",
+                },
+              },
+              swap = {
+                enable = true,
+                swap_next = { ["<leader>lsa"] = "@parameter.inner" },
+                swap_previous = { ["<leader>lsA"] = "@parameter.inner" },
+              },
+              move = {
+                enable = true,
+                set_jumps = true, -- whether to set jumps in the jumplist
+                goto_next_start = { ["]m"] = "@function.outer", ["]]"] = "@class.outer" },
+                goto_next_end = { ["]M"] = "@function.outer", ["]["] = "@class.outer" },
+                goto_previous_start = {
+                  ["[m"] = "@function.outer",
+                  ["[["] = "@class.outer",
+                },
+                goto_previous_end = { ["[M"] = "@function.outer", ["[]"] = "@class.outer" },
+              },
+            },
+          })
+        end
+      },
+      { 'nvim-treesitter/nvim-treesitter-textobjects' },
+      { 'nvim-treesitter/nvim-treesitter-refactor' },
+      { 'https://github.com/theHamsta/nvim-treesitter-pairs' },
+      { 'romgrk/nvim-treesitter-context' },
+      { 'https://github.com/David-Kunz/treesitter-unit' },
+      { 'https://github.com/nushell/tree-sitter-nu' },
+      { 'IndianBoy42/tree-sitter-just' },
+    }
+    , {})
+end
 
 vim.cmd.source(vim.fn.stdpath("config") .. "/nvim.vim")
 
