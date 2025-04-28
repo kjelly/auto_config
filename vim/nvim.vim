@@ -163,6 +163,12 @@ set inccommand=split
 set winblend=0
 set pumblend=0
 
+if executable('nu') == 1
+  set shell=nu
+elseif executable('fish') == 1
+  set shell=fish
+endif
+
 " Let fzf ignore the files which is ignored by gitignore or hgignore
 if executable("ag") == 1
   let $FZF_DEFAULT_COMMAND='ag -g ""'
