@@ -1807,10 +1807,13 @@ local function updateEinkWidth()
   })
   job:start()
 end
-vim.api.nvim_create_autocmd("VimResized", {
-  callback = function() vim.schedule(updateEinkWidth) end,
-})
-vim.schedule(updateEinkWidth)
+
+if vim.fn.executable("tmux") == 1 then
+  vim.api.nvim_create_autocmd("VimResized", {
+    callback = function() vim.schedule(updateEinkWidth) end,
+  })
+  vim.schedule(updateEinkWidth)
+end
 
 function StartPueueJob(name, cmd)
   os.execute("pueue group add " .. name)
