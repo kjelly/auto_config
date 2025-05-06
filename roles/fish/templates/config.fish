@@ -26,7 +26,7 @@ end
 set -gx FISH_INIT_PATH 1
 
 #set -g __fish_vi_mode 1
-set -g fish_key_bindings fish_user_key_bindings
+set -g fish_key_bindings fish_default_key_bindings
 
 if test -z "$VIRTUAL_ENV" ; test -e "$HOME/.asdf/asdf.fish"
   source ~/.asdf/asdf.fish

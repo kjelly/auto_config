@@ -916,13 +916,23 @@ def --wrapped "act-wrapper" [ path?:string@"complete act path", ...args] {
 
 def allow-direnv [ ] {
   direnv allow .
-  let direnv = (direnv export json | from json)
-  let direnv = if not ($direnv | is-empty) { $direnv } else { {} }
-  $direnv | load-env
+  exec nu
 }
 
 def wait-for-ready [ code ] {
   loop {
+    let result = (do $code | complete)
+    if ($result.exit_code == 0) {
+      return
+    }
+    sleep 1sec
+  }
+}
+
+def wait-or-timeout [ code, --timeout=300 ] {
+  mut t = $timeout
+  while $t > 0 {
+    $t = $t - 1
     let result = (do $code | complete)
     if ($result.exit_code == 0) {
       return
