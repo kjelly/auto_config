@@ -940,3 +940,28 @@ def wait-or-timeout [ code, --timeout=300 ] {
     sleep 1sec
   }
 }
+
+const ctrl_r = {
+  name: history_menu
+  modifier: control
+  keycode: char_r
+  mode: [emacs, vi_insert, vi_normal]
+  event: [
+    {
+      send: executehostcommand
+      cmd: "
+        let result = history
+          | get command |each {|it| $it | str trim } |uniq
+          | str replace --all (char newline) ' '
+          | to text
+          | fzf ;
+        commandline edit --replace $result;
+        commandline set-cursor --end
+      "
+    }
+  ]
+}
+
+if (which fzf | is-not-empty) {
+  $env.config.keybindings = $env.config.keybindings | append $ctrl_r
+}
