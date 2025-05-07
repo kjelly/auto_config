@@ -513,7 +513,7 @@ $new_config = ($new_config | upsert completions  {
     case_sensitive: false
     quick: true
     partial: true
-    algorithm: "prefix"
+    algorithm: "fuzzy"
     external: {
         enable: true
         completer: $carapace_completer
@@ -783,7 +783,7 @@ def --wrapped sr [ ...command ] {
   systemd-run --user -t -P -G ...$command
 }
 
-#$new_config.keybindings = ($new_config.keybindings | filter {|it| $it.name !~ "completion_menu"})
+$new_config.keybindings = ($new_config.keybindings | filter {|it| $it.name !~ "completion_menu"})
 $new_config.keybindings = ($new_config.keybindings | append {
   name: completion_menu
   modifier: none
@@ -791,7 +791,7 @@ $new_config.keybindings = ($new_config.keybindings | append {
   mode: [emacs vi_normal vi_insert]
   event: {
       until: [
-          { send: menu name: completion_menu }
+          { send: menu name: ide_completion_menu }
           { send: menunext }
           { edit: complete }
       ]
