@@ -373,9 +373,9 @@ local lazyPackages = {
   -- {'towolf/vim-helm'},
   { 'rcarriga/nvim-notify' },
   { 'https://github.com/Chaitanyabsprip/present.nvim',        opts = {} },
-  { 'williamboman/mason.nvim',                                opts = {} },
+  { 'mason-org/mason.nvim',                                 opts = {} },
   {
-    'williamboman/mason-lspconfig.nvim',
+    'mason-org/mason-lspconfig.nvim',
     dependencys = { 'williamboman/mason.nvim' },
     opts = {
       ensure_installed = vim.tbl_filter(function(server)

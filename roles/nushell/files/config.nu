@@ -941,6 +941,29 @@ def wait-or-timeout [ code, --timeout=300 ] {
   }
 }
 
+def FzfHistory [ ] {
+  let prefix = (commandline)
+  let result = history | filter {|it| ($it.exit_status == 0) and ($it.command starts-with $prefix)}
+    | get command |each {|it| $it | str trim } |uniq
+    | str replace --all (char newline) ' '
+    | to text
+    | fzf ;
+  commandline edit --replace $result;
+  commandline set-cursor --end
+}
+
+def FzfHistoryPwd [ ] {
+  let prefix = (commandline)
+    let p = (pwd)
+    let result = history | filter {|it| ($it.exit_status == 0) and ($it.command starts-with $prefix) and $it.cwd == $p}
+      | get command |each {|it| $it | str trim } |uniq
+      | str replace --all (char newline) ' '
+      | to text
+      | fzf ;
+    commandline edit --replace $result;
+    commandline set-cursor --end
+}
+
 const ctrl_r = {
   name: history_menu
   modifier: control
@@ -949,19 +972,25 @@ const ctrl_r = {
   event: [
     {
       send: executehostcommand
-      cmd: "
-        let result = history
-          | get command |each {|it| $it | str trim } |uniq
-          | str replace --all (char newline) ' '
-          | to text
-          | fzf ;
-        commandline edit --replace $result;
-        commandline set-cursor --end
-      "
+      cmd: "FzfHistory"
+    }
+  ]
+}
+
+const alt_c = {
+  name: history_pwd_menu
+  modifier: alt
+  keycode: char_c
+  mode: [emacs, vi_insert, vi_normal]
+  event: [
+    {
+      send: executehostcommand
+      cmd: "FzfHistoryPwd"
     }
   ]
 }
 
 if (which fzf | is-not-empty) {
-  $env.config.keybindings = $env.config.keybindings | append $ctrl_r
+  $env.config.keybindings = $env.config.keybindings | append [$ctrl_r $alt_c]
 }
+
