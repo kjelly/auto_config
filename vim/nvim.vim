@@ -752,7 +752,7 @@ nnoremap <silent> <leader>sl <cmd>lua ToggleIndentLine()<cr>
 nnoremap <silent> <leader>si :source Session.vim<cr>
 nnoremap <silent> <leader>se :mksession!<cr>
 nnoremap <silent> <leader>sc <cmd>lua ToggleForCopy()<cr>
-nnoremap <silent> <leader>st :Switch<cr>
+nnoremap <silent> <leader>st <cmd>Boole increment<cr>
 nnoremap <silent> <leader>sk :DisableTmuxKey<cr>
 nnoremap <silent> <leader>so :TSContextToggle<cr>
 nnoremap <silent> <leader>sg :set guicursor=<cr>
@@ -872,7 +872,7 @@ nnoremap <silent> <leader>ldf <cmd>lua vim.diagnostic.open_float()<CR>
 nnoremap <silent> <leader>ldl <cmd>lua vim.diagnostic.setqflist()<CR>
 nnoremap <silent> <leader>ldn <cmd>lua vim.diagnostic.goto_next()<CR>
 nnoremap <silent> <leader>ldp <cmd>lua vim.diagnostic.goto_prev()<CR>
-nnoremap <silent> <leader>lrn <cmd>Lspsaga rename<cr>
+nnoremap <silent> <leader>lrn <cmd>lua vim.lsp.buf.rename()<cr>
 nnoremap <silent> <leader>la <cmd>lua vim.lsp.buf.code_action()<cr>
 nnoremap <silent> <leader>lre <cmd>lua vim.lsp.buf.references()<cr>
 nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.format { async = true }<cr>

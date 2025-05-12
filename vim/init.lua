@@ -322,16 +322,6 @@ local lazyPackages = {
         min_width = 25,
         mappings = {
           ["s"] = "none",
-          ["<cr>"] = function(state)
-            GotoMainWindow()
-            local node = state.tree:get_node()
-            if node.type == 'directory' then
-              require('neo-tree.sources.filesystem.commands').toggle_node(state)
-              vim.cmd('NeoTreeFocus')
-            else
-              require('neo-tree.sources.filesystem.commands').open(state)
-            end
-          end,
         },
       },
     }
@@ -373,7 +363,7 @@ local lazyPackages = {
   -- {'towolf/vim-helm'},
   { 'rcarriga/nvim-notify' },
   { 'https://github.com/Chaitanyabsprip/present.nvim',        opts = {} },
-  { 'mason-org/mason.nvim',                                 opts = {} },
+  { 'mason-org/mason.nvim',                                   opts = {} },
   {
     'mason-org/mason-lspconfig.nvim',
     dependencys = { 'williamboman/mason.nvim' },
