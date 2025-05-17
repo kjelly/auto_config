@@ -78,11 +78,10 @@ end
 local isEmptyTable = function(v) return next(v) == nil end
 
 local langservers = {
-  'ansiblels', 'bashls', 'cssls', 'dartls', 'dockerls', 'efm', 'emmet_ls',
-  'gopls', 'graphql', 'html', 'jsonls', 'marksman', 'pyright', 'pylsp',
+  'bashls', 'dartls', 'dockerls', 'efm', 'emmet_ls',
+  'gopls', "golangci_lint_ls", 'graphql', 'html-lsp', 'jsonls', 'marksman', 'pyright', 'pylsp',
   'rust_analyzer', 'sqlls', 'lua_ls', 'terraformls', 'ts_ls', 'vimls', "ruff",
-  "nushell", "fish_lsp", "gh_actions_ls", "yamlls",
-
+  "nushell", "fish_lsp", "yamlls",
 }
 
 for _, v in ipairs({ "node", "go" }) do
@@ -1150,7 +1149,7 @@ function GotoMainWindow()
   if wid ~= nil then vim.api.nvim_set_current_win(wid) end
 end
 
-WorkspacePath = vim.g.MYVIMRC_DIR .. '/workspaces/'
+WorkspacePath = vim.env.HOME .. '/vim-notes/'
 local function getWorkspaceVimPath(type)
   local function convertName(name)
     local firstChar = string.sub(name, 1, 1)

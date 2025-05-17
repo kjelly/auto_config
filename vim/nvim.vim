@@ -207,7 +207,6 @@ augroup basic
 
   au! BufRead */tasks/*.yaml,*/tasks/*.yml set ft=yaml.ansible
   au! BufRead *.yaml,*.yml if search('hosts:\|tasks:\|roles:', 'nw') | set ft=yaml.ansible | endif
-  auto WinEnter * silent lua UpdateTitleString()
 augroup end
 
 augroup Binary

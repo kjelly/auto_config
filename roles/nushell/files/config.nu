@@ -112,7 +112,16 @@ def "z-complete" [ context: string ] {
 }
 
 def --env z [...rest:string] {
-  cd $'(zoxide query --interactive -- ...$rest | str trim -r -c "\n")'
+  let lst = (zoxide query -l -- ...$rest|lines)
+  if ($lst | is-empty) {
+    print "not found"
+    return
+  }
+  if ($lst | length) == 1 {
+    cd ($lst | get 0)
+    return
+  }
+  cd $'($lst|input list --fuzzy | str trim -r -c "\n")'
 }
 
 def --env zl [ ] {
@@ -994,3 +1003,6 @@ if (which fzf | is-not-empty) {
   $env.config.keybindings = $env.config.keybindings | append [$ctrl_r $alt_c]
 }
 
+def --env source-envrc [ path ] {
+  open ($path | path expand)| lines | filter {|it| $it starts-with "export" }|each {|it| $it |str replace 'export ' '' | split row "=" -n 2 }|reduce -f {} {|it, acc| $acc | upsert $it.0 $it.1 }| load-env
+}
