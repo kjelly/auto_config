@@ -553,7 +553,8 @@ local lazyPackages = {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
         },
-        mapping = cmp.mapping.preset.insert({
+        mapping = {
+
           ['<C-g>'] = cmp.mapping(function(fallback)
             if isEmptyTable(luasnip) then
               fallback()
@@ -576,11 +577,18 @@ local lazyPackages = {
           end, { "i", "s" --[[ "c" (to enable the mapping in command mode) ]] }),
           ['<m-/>'] = cmp.mapping.complete(),
           ['<C-e>'] = cmp.mapping.abort(),
-          ['<CR>'] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = false,
+          ["<CR>"] = cmp.mapping({
+            i = function(fallback)
+              if cmp.visible() and cmp.get_active_entry() then
+                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+              else
+                fallback()
+              end
+            end,
+            s = cmp.mapping.confirm({ select = true }),
+            c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
           }),
-        }),
+        },
         sources = cmp.config.sources(cmp_sources),
         sorting = {
           priority_weight = 2,
@@ -748,10 +756,16 @@ if not isEmptyTable(langservers) then
           },
         }
       },
-
-      { 'ravitemer/mcphub.nvim' },
+      {
+        'ravitemer/mcphub.nvim',
+        build = "npm install -g mcp-hub@latest",
+        config = function()
+          require("mcphub").setup()
+        end
+      },
       {
         'https://github.com/yetone/avante.nvim',
+        build = "make",
         opts = {
           provider = "copilot"
         }
