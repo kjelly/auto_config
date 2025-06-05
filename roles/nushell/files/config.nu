@@ -100,7 +100,7 @@ def "z-complete" [ context: string ] {
   $lst = ($lst | append (zoxide query -l ($context | split words | last) |lines|first 15  ))
   let len = ($pattern | length)
   if ( $len == 0) {
-    $lst = ($lst | append (ls -f $env.PWD|where type == directory|get name )) 
+    $lst = ($lst | append (ls -f $env.PWD|where type == directory|get name ))
   }
   if ( $len == 1) {
     try {
@@ -461,10 +461,11 @@ let carapace_completer = {|spans|
   let ret = (carapace $spans.0 nushell ...$spans
   | from json)
   if ($ret | is-empty) {
-    return null
+    carapace ls nushell ...($spans | skip 1) | from json
   } else {
     $ret
   }
+  $ret
 }
 
 
@@ -706,7 +707,7 @@ def note [ -t="infinity", --after (-a): string="", text ] {
   if ($after != "") {
     $extra = [--on-active $after]
   }
-  systemd-run --user -u $_unit --service-type=oneshot -d --no-block --description $"📓($text)" -G ...$extra sleep $t 
+  systemd-run --user -u $_unit --service-type=oneshot -d --no-block --description $"📓($text)" -G ...$extra sleep $t
 
 }
 

@@ -93,7 +93,7 @@ local langservers = {
 	"gopls",
 	"golangci_lint_ls",
 	"graphql",
-	"html-lsp",
+	"html",
 	"jsonls",
 	"marksman",
 	"pyright",
@@ -764,7 +764,9 @@ local lazyPackages = {
 	},
 	{
 		"ray-x/lsp_signature.nvim",
+		event = "InsertEnter",
 		opts = {
+			bind = true,
 			toggle_key = "<a-f>lt",
 			select_signature_key = "<a-f>ln",
 			timer_interval = 800,
