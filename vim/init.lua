@@ -826,28 +826,28 @@ local lazyPackages = {
 
 if not isEmptyTable(langservers) then
 	lazyPackages = TableConcat(lazyPackages, {
-		{ "https://github.com/zbirenbaum/copilot-cmp", event = { "InsertEnter", "CmdlineEnter" }, opts = {} },
+		-- { "https://github.com/zbirenbaum/copilot-cmp", event = { "InsertEnter", "CmdlineEnter" }, opts = {} },
 		{ "https://github.com/CopilotC-Nvim/CopilotChat.nvim", event = { "InsertEnter", "CmdlineEnter" }, opts = {} },
-		{
-			"https://github.com/zbirenbaum/copilot.lua",
-			event = "InsertEnter",
-			opts = {
-				panel = { enabled = true },
-				suggestion = {
-					enabled = true,
-					auto_trigger = true,
-					debounce = 75,
-					keymap = {
-						accept = "<c-x>a",
-						accept_word = "<tab>",
-						accept_line = "<c-x>l",
-						next = "<c-x>n",
-						prev = "<c-x>p",
-						dismiss = "<C-]>",
-					},
-				},
-			},
-		},
+		-- {
+		-- 	"https://github.com/zbirenbaum/copilot.lua",
+		-- 	event = "InsertEnter",
+		-- 	opts = {
+		-- 		panel = { enabled = true },
+		-- 		suggestion = {
+		-- 			enabled = true,
+		-- 			auto_trigger = true,
+		-- 			debounce = 75,
+		-- 			keymap = {
+		-- 				accept = "<c-x>a",
+		-- 				accept_word = "<tab>",
+		-- 				accept_line = "<c-x>l",
+		-- 				next = "<c-x>n",
+		-- 				prev = "<c-x>p",
+		-- 				dismiss = "<C-]>",
+		-- 			},
+		-- 		},
+		-- 	},
+		-- },
 		{
 			"ravitemer/mcphub.nvim",
 			build = "npm install -g mcp-hub@latest",
@@ -1513,6 +1513,7 @@ function UpdateEnv()
 end
 
 function DelaySetup2()
+	SetupFileType()
 	vim.api.nvim_create_autocmd("ModeChanged", {
 		callback = function()
 			if vim.fn.mode() == "n" then
@@ -2140,3 +2141,13 @@ local function enableFold()
 	vim.opt.fillchars:append({ fold = " " })
 end
 vim.schedule(enableFold)
+
+local function SetupFileType()
+	vim.filetype.add({
+		pattern = {
+			[".*/templates/.*yaml"] = "helm",
+			[".*/templates/.*yml"] = "helm",
+			["_helpers.tpl"] = "helm",
+		},
+	})
+end
