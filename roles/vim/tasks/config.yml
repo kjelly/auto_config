@@ -40,11 +40,6 @@
         path: "~/.config/nvim"
         state: directory
         mode: '0750'
-    - name: Generate nvim config
-      ansible.builtin.template:
-        src: "vimrc"
-        dest: "~/.config/nvim/init.vim"
-        mode: "0640"
     - name: Copy hterm-copy.vim
       ansible.builtin.template:
         src: hterm-copy.vim
@@ -154,9 +149,12 @@
 
 - name: Copy config.lua
   ansible.builtin.copy:
-    src: config.lua
-    dest: ~/.config/nvim/config.lua
+    src: "{{ item }}"
+    dest: "~/.config/nvim/{{ item }}"
     mode: '0640'
+  with_items:
+    - "init.lua"
+    - "vimrc.vim"
 
 - name: Create efm config directory
   ansible.builtin.file:

@@ -598,6 +598,7 @@ local lazyPackages = {
 			})
 
 			cmp.setup({
+				preselect = cmp.PreselectMode.None,
 				snippet = {
 					expand = function(args)
 						SafeRequire("luasnip").lsp_expand(args.body)
@@ -856,10 +857,27 @@ if not isEmptyTable(langservers) then
 			end,
 		},
 		{
+			"milanglacier/minuet-ai.nvim",
+			config = function()
+				require("minuet").setup({
+					provider = "gemini",
+					virtualtext = {
+						auto_trigger_ft = { "nu", "lua", "python", "helm", "go" },
+						keymap = {
+							accept = "<tab>",
+							accept_line = "<s-tab>",
+							prev = "<c-x>k",
+							next = "<c-x>j",
+						},
+					},
+				})
+			end,
+		},
+		{
 			"https://github.com/yetone/avante.nvim",
 			build = "make",
 			opts = {
-				provider = "copilot",
+				provider = "gemini",
 			},
 		},
 		{
