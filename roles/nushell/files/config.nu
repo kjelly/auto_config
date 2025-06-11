@@ -125,7 +125,7 @@ def --env z [...rest:string] {
 }
 
 def --env zl [ ] {
-  cd (zoxide query -l|lines|filter {|it| $it starts-with $"(pwd)/"}|each {|it| $it | str replace (pwd) '.'}|input list --fuzzy)
+  cd (zoxide query -l|lines|where {|it| $it starts-with $"(pwd)/"}|each {|it| $it | str replace (pwd) '.'}|input list --fuzzy)
 }
 
 def --env gg [ ] {
@@ -320,7 +320,7 @@ def real_repo [ repo ] {
   if ($repo | str contains '/') {
     $repo
   } else {
-    $repo_list | filter {|it| ($it|split row '/'|last) == $repo } | get 0
+    $repo_list | where {|it| ($it|split row '/'|last) == $repo } | get 0
   }
 }
 
@@ -334,11 +334,11 @@ def github-link [context: string] {
     $archs = ($archs | append ["amd64" "x64"])
   }
   let $archs = $archs
-  let filtered = ($links|filter {|it| $it|str contains -i (^uname) })
+  let filtered = ($links|where {|it| $it|str contains -i (^uname) })
   if (not ($filtered|is-empty)) {
     $links = $filtered
   }
-  let filtered = ($links|filter {|it| ($archs | each {|a| $it|str contains -i $a}|any {|it| $it}) })
+  let filtered = ($links|where {|it| ($archs | each {|a| $it|str contains -i $a}|any {|it| $it}) })
   if (not ($filtered|is-empty)) {
     $links = $filtered
   }
@@ -349,10 +349,10 @@ def download-github [ repo: string@repo ] {
   let tmpdir = (mktemp -t -d download-github.XXXXX)
   cd $tmpdir
   let repo = (real_repo $repo)
-  let link_list = (github-link $repo | filter {|it| $it !~ '.*sha256'} )
+  let link_list = (github-link $repo | where {|it| $it !~ '.*sha256'} )
   let link = ($link_list | get ($link_list | each {|it| $it |split row '/' | last} | input list --fuzzy --index)|str trim)
 
-  let name = (http get $"https://api.github.com/repos/($repo)/releases/latest"|get assets |filter {$in.browser_download_url == $link } |get name|get 0)
+  let name = (http get $"https://api.github.com/repos/($repo)/releases/latest"|get assets |where {$in.browser_download_url == $link } |get name|get 0)
   wget $link -O $name
   rm -rf /tmp/aa
   mkdir /tmp/aa
@@ -432,7 +432,7 @@ def retry [ count:int, block:closure ] {
 bash -c $"source ($env.HOME)/.profile && env"
     | lines
     | parse "{n}={v}"
-    | filter { |x| ($x.n not-in $env) or $x.v != ($env | get $x.n) }
+    | where { |x| ($x.n not-in $env) or $x.v != ($env | get $x.n) }
     | where n not-in ["_", "LAST_EXIT_CODE", "DIRS_POSITION"]
     | transpose --header-row
     | into record
@@ -443,7 +443,7 @@ def contains [lst ele] {
 }
 
 def list-diff [a b] {
-  $a | filter {|it| not (contains $b $it) }
+  $a | where {|it| not (contains $b $it) }
 }
 
 let carapace_completer = {|spans|
@@ -499,7 +499,7 @@ let fish_with_carapace_completer = {|spans|
   {||
     do $fish_completer $spans
   }
-  ] | par-each -t 8 {|it| do -i $it } | flatten | each {|it| $it | str trim } |filter {|it| $it != ""} | uniq)
+  ] | par-each -t 8 {|it| do -i $it } | flatten | each {|it| $it | str trim } |where {|it| $it != ""} | uniq)
   if ($ret | is-empty) {
     return null
   }
@@ -695,10 +695,10 @@ def --wrapped "run" [ --doc="", ...command ] {
 }
 
 def not-used-units [ ] {
-  let running_unit_names = (all-unit-info|filter {|it|
+  let running_unit_names = (all-unit-info|where {|it|
     $it.ExecStart? != null
   }|get Id|each {|it| $it|str replace '.service' ''})
-  all-unit-name |filter {|it| $it not-in $running_unit_names}
+  all-unit-name |where {|it| $it not-in $running_unit_names}
 }
 
 def note [ -t="infinity", --after (-a): string="", text ] {
@@ -771,7 +771,7 @@ def all-unit-info [ ] {
 
 
 def running-units [ ] {
-  all-unit-info|filter {|it|
+  all-unit-info|where {|it|
     $it.ExecStart? != null
   } | sort-by Id
 }
@@ -793,7 +793,7 @@ def --wrapped sr [ ...command ] {
   systemd-run --user -t -P -G ...$command
 }
 
-$new_config.keybindings = ($new_config.keybindings | filter {|it| $it.name !~ "completion_menu"})
+$new_config.keybindings = ($new_config.keybindings | where {|it| $it.name !~ "completion_menu"})
 $new_config.keybindings = ($new_config.keybindings | append {
   name: completion_menu
   modifier: none
@@ -883,7 +883,7 @@ def sops-age [ file, --key="~/.ssh/age-key.txt" ] {
 }
 
 def init-daytona-workspaces [ ] {
-  docker ps --filter ancestor=daytonaio/workspace-project:latest --format "{{.ID}}"|lines| each {|target|
+  docker ps --where ancestor=daytonaio/workspace-project:latest --format "{{.ID}}"|lines| each {|target|
     docker exec $target bash -c "sudo apt update;sudo apt install -y fuse3;touch ~/.config/custom.nu"
     docker cp ~/.config/nvim/ $"($target):/home/daytona/.config/"
     docker cp ~/.config/nushell/ $"($target):/home/daytona/.config/"
@@ -905,7 +905,7 @@ def freeze-to-bg [ id ] {
 }
 
 def --env gm [ ] {
-  git checkout (git remote show origin|lines|filter {|it| $it =~ 'HEAD'}|get 0|split row ':'|get 1|str trim)
+  git checkout (git remote show origin|lines|where {|it| $it =~ 'HEAD'}|get 0|split row ':'|get 1|str trim)
   git pull
 }
 
@@ -917,7 +917,7 @@ def "complete act path" [ ] {
 def --wrapped "act-wrapper" [ path?:string@"complete act path", ...args] {
   gg
   let all_file = (ls $".github/workflows/"|get name)
-  let _path = ( if ($path == null) { (ls .github/workflows/|get name|input list --fuzzy) } else { ($all_file | filter {|it| $it =~ $path}|get 0)})
+  let _path = ( if ($path == null) { (ls .github/workflows/|get name|input list --fuzzy) } else { ($all_file | where {|it| $it =~ $path}|get 0)})
   let args = ($args ++ ($env.act_args? | default []))
   print $args
   mut act_args = []
@@ -953,7 +953,7 @@ def wait-or-timeout [ code, --timeout=300 ] {
 
 def FzfHistory [ ] {
   let prefix = (commandline)
-  let result = history | filter {|it| ($it.exit_status == 0) and ($it.command starts-with $prefix)}
+  let result = history | where {|it| ($it.exit_status == 0) and ($it.command starts-with $prefix)}
     | get command |each {|it| $it | str trim } |uniq
     | str replace --all (char newline) ' '
     | to text
@@ -965,7 +965,7 @@ def FzfHistory [ ] {
 def FzfHistoryPwd [ ] {
   let prefix = (commandline)
     let p = (pwd)
-    let result = history | filter {|it| ($it.exit_status == 0) and ($it.command starts-with $prefix) and $it.cwd == $p}
+    let result = history | where {|it| ($it.exit_status == 0) and ($it.command starts-with $prefix) and $it.cwd == $p}
       | get command |each {|it| $it | str trim } |uniq
       | str replace --all (char newline) ' '
       | to text
@@ -1005,5 +1005,5 @@ if (which fzf | is-not-empty) {
 }
 
 def --env source-envrc [ path ] {
-  open ($path | path expand)| lines | filter {|it| $it starts-with "export" }|each {|it| $it |str replace 'export ' '' | split row "=" -n 2 }|reduce -f {} {|it, acc| $acc | upsert $it.0 $it.1 }| load-env
+  open ($path | path expand)| lines | where {|it| $it starts-with "export" }|each {|it| $it |str replace 'export ' '' | split row "=" -n 2 }|reduce -f {} {|it, acc| $acc | upsert $it.0 $it.1 }| load-env
 }
