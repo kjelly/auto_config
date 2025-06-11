@@ -46,13 +46,13 @@ def --env cb [ command = "" ] {
 
 def fzf_list [ ] {
   let stdin = $in
-  let map_list = ($stdin | enumerate | each {|it| 
+  let map_list = ($stdin | enumerate | each {|it|
     let index = ($it |get index)
     let value = ($it |get item )
     { index : $index, value: $value}
   })
   $map_list
-  let selected = ($map_list|each {|it| 
+  let selected = ($map_list|each {|it|
     { index: $it.index, value: ($it.value |pretty| str replace -a "\n" "")}|to nuon
   }|str join "\n"|^fzf|str trim)
 
@@ -61,7 +61,7 @@ def fzf_list [ ] {
     return
   }
 
-  $map_list | filter {|it| 
+  $map_list | where {|it|
     ($it.index == $selectedIndex)
   } | get 0 |get value
 }
