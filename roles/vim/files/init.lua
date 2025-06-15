@@ -1530,6 +1530,16 @@ function UpdateEnv()
 	end
 end
 
+local function SetupFileType()
+	vim.filetype.add({
+		pattern = {
+			[".*/templates/.*yaml"] = "helm",
+			[".*/templates/.*yml"] = "helm",
+			["_helpers.tpl"] = "helm",
+		},
+	})
+end
+
 function DelaySetup2()
 	SetupFileType()
 	vim.api.nvim_create_autocmd("ModeChanged", {
@@ -2159,13 +2169,3 @@ local function enableFold()
 	vim.opt.fillchars:append({ fold = " " })
 end
 vim.schedule(enableFold)
-
-local function SetupFileType()
-	vim.filetype.add({
-		pattern = {
-			[".*/templates/.*yaml"] = "helm",
-			[".*/templates/.*yml"] = "helm",
-			["_helpers.tpl"] = "helm",
-		},
-	})
-end
