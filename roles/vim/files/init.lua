@@ -661,15 +661,13 @@ local lazyPackages = {
 						end
 					end),
 					["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-					["<CR>"] = cmp.mapping({
-						i = function(fallback)
-							if cmp.visible() and cmp.get_active_entry() then
-								cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-							else
-								fallback()
-							end
-						end,
-					}),
+					["<CR>"] = cmp.mapping(function(fallback)
+						if cmp.visible() and cmp.get_active_entry() then
+							cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+						else
+							fallback()
+						end
+					end, { "i", "s", "c" }),
 				},
 				sources = cmp.config.sources(cmp_sources),
 				sorting = {
@@ -723,9 +721,6 @@ local lazyPackages = {
 								end
 							end,
 						},
-						["<CR>"] = function(fallback)
-							fallback()
-						end,
 					}),
 					view = { entries = { name = "custom", selection_order = "near_cursor" } },
 					sources = sources,
