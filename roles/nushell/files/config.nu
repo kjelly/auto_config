@@ -470,9 +470,12 @@ let carapace_completer = {|spans|
 
 
 let fish_completer = {|spans|
-    fish --command $'complete "--do-complete=($spans | str join " ")"'
-    | $"value(char tab)description(char newline)" + $in
-    | from tsv --flexible --no-infer
+  if (which fish|is-empty) {
+    return null
+  }
+  fish --command $'complete "--do-complete=($spans | str join " ")"'
+  | $"value(char tab)description(char newline)" + $in
+  | from tsv --flexible --no-infer
 }
 
 let zoxide_completer = {|spans|
@@ -526,7 +529,7 @@ $new_config = ($new_config | upsert completions  {
     algorithm: "fuzzy"
     external: {
         enable: true
-        completer: $carapace_completer
+        completer: $fish_completer
     }
 })
 
