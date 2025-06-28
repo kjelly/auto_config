@@ -542,6 +542,7 @@ local lazyPackages = {
 			local cmp = require("cmp")
 
 			local cmp_sources = {
+				{ name = "minuet", keyword_length = 0 },
 				{ name = "nvim_lsp", keyword_length = 0 },
 				{ name = "path" },
 				{ name = "luasnip" },
@@ -856,13 +857,13 @@ if not isEmptyTable(langservers) then
 			config = function()
 				require("minuet").setup({
 					provider = "gemini",
+					throttle = 1500,
 					virtualtext = {
 						auto_trigger_ft = { "nu", "lua", "python", "helm", "go" },
 						keymap = {
-							accept = "<tab>",
-							accept_line = "<s-tab>",
-							prev = "<c-x>k",
-							next = "<c-x>j",
+							accept = "<s-tab>",
+							accept_line = "<tab>",
+							next = "<a-z>",
 						},
 					},
 				})

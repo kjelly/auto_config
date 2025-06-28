@@ -154,6 +154,15 @@ $env.PROMPT_COMMAND = {|| ([(my-prompt) $"($env.note?) " "\n" ->] | str join ' '
 $env.PROMPT_COMMAND_RIGHT = ""
 
 $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | append [
+  { name: custom modifier: control keycode: char_g mode: [emacs vi_normal vi_insert]  event: { until: [
+    {
+      send: menu
+      name: completion_menu
+    }
+    { send: menunext }
+    { send: Down }
+  ]}}
+
   { name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { until: [
     { send: menuprevious }
     { send: Left }
@@ -1009,4 +1018,47 @@ if (which fzf | is-not-empty) {
 
 def --env source-envrc [ path ] {
   open ($path | path expand)| lines | where {|it| $it starts-with "export" }|each {|it| $it |str replace 'export ' '' | split row "=" -n 2 }|reduce -f {} {|it, acc| $acc | upsert $it.0 $it.1 }| load-env
+}
+
+
+def "kube-node" [ ] {
+  kubectl get node -o name | str replace -a "node/" ""|lines
+}
+
+def kube-node-usage [ node:string@"kube-node" ] {
+  def cpu_to_int [ v ] {
+    let v = ($v | into string)
+    if "m" in $v {
+      return ($v | str replace "m" "" -a|into int)
+    }
+    return (($v | into int) * 1000)
+
+  }
+  def memory_to_int [ v ] {
+    let v = (echo $v | into filesize |into int)
+    return $v
+  }
+
+  let pod_list = (kubectl get pods --all-namespaces --field-selector $"spec.nodeName=($node)" -o json|from yaml|get items)
+  let resources = ($pod_list |each {|it|
+    let cpu_limit = $it.spec.containers| each {|c| $c| get -i resources.limits.cpu |default 0} | reduce --fold 0 {|i, acc| $acc + (cpu_to_int $i)}
+    let cpu_request = $it.spec.containers| each {|c| $c| get -i resources.requests.cpu |default 0} | reduce --fold 0 {|i, acc| $acc + (cpu_to_int  $i)}
+    let memory_limit = $it.spec.containers| each {|c| $c| get -i resources.limits.memory |default 0} | reduce --fold 0 {|i, acc| $acc + (memory_to_int $i)}
+    let memory_request = $it.spec.containers| each {|c| $c| get -i resources.requests.memory |default 0} | reduce --fold 0 {|i, acc| $acc + (memory_to_int  $i)}
+
+    [$cpu_request, $cpu_limit, $memory_request, $memory_limit]
+  }) | reduce --fold {node: $node,cpu_request: 0, cpu_limit: 0, memory_request: 0, memory_limit: 0} {|it, acc|
+    $acc | upsert cpu_request ($acc.cpu_request + $it.0) | upsert cpu_limit ($acc.cpu_limit + $it.1) | upsert memory_request ($acc.memory_request + $it.2) | upsert memory_limit ($acc.memory_limit + $it.3)
+  }
+  let node_info = (kubectl get node $node -o json|from json)
+  let top = (kubectl top node|from ssv|where NAME == $node|get -i 0|default {"CPU%": -1, "MEMORY%": -1})
+
+  let resources = ($resources | upsert cpu_total (cpu_to_int $node_info.status.allocatable.cpu))
+  let resources = ($resources | upsert memory_total (memory_to_int $node_info.status.allocatable.memory))
+  let resources = ($resources | upsert cpu_usage ($resources.cpu_request * 100 / $resources.cpu_total))
+  let resources = ($resources | upsert CPU% ($top|get "CPU%"))
+  let resources = ($resources | upsert memory_usage ($resources.memory_request * 100 / $resources.memory_total))
+  let resources = ($resources | upsert MEMORY% ($top|get "MEMORY%"))
+  let resources = ($resources | reject cpu_limit memory_limit cpu_request )
+  $resources
 }

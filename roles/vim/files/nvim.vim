@@ -203,7 +203,7 @@ augroup basic
   autocmd! WinLeave * call WinLeaveAction()
   autocmd! BufWritePost worksapce.vim source workspace.vim
   autocmd! BufWritePost /tmp/*.nu set bufhidden=delete
-  autocmd! BufRead /tmp/*.nu nnoremap <buffer> <c-s> <cmd>wq<cr> | inoremap <buffer> <c-s> <cmd>wq<cr> 
+  autocmd! BufRead /tmp/*.nu nnoremap <buffer> <c-s> <cmd>wq<cr> | inoremap <buffer> <c-s> <cmd>wq<cr>
 
   au! BufRead */tasks/*.yaml,*/tasks/*.yml set ft=yaml.ansible
   au! BufRead *.yaml,*.yml if search('hosts:\|tasks:\|roles:', 'nw') | set ft=yaml.ansible | endif
@@ -392,6 +392,8 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+imap <c-x>j <cmd>lua require('minuet.virtualtext').action.next()<cr>
+imap <c-x>k <cmd>lua require('minuet.virtualtext').action.prev()<cr>
 
 cnoremap <c-s> e oil-ssh://
 
