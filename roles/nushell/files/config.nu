@@ -204,7 +204,7 @@ $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | appe
 
 ]))
 
-$new_config = ($env.config.menus | append [
+$new_config.menus = ($env.config.menus? | default [ ] | append [
         {
             name: ide_completion_menu
             only_buffer_difference: false
