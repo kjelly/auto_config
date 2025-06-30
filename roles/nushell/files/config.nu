@@ -154,15 +154,27 @@ $env.PROMPT_COMMAND = {|| ([(my-prompt) $"($env.note?) " "\n" ->] | str join ' '
 $env.PROMPT_COMMAND_RIGHT = ""
 
 $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | append [
-  { name: custom modifier: control keycode: char_g mode: [emacs vi_normal vi_insert]  event: { until: [
-    {
-      send: menu
-      name: completion_menu
-    }
+  { name: custom modifier: alt keycode: char_n mode: [emacs vi_normal vi_insert]  event: { until: [
     { send: menunext }
     { send: Down }
   ]}}
-
+  { name: custom modifier: alt keycode: char_p mode: [emacs vi_normal vi_insert]  event: { until: [
+    { send: menuprevious }
+    { send: Up }
+  ]}}
+  {
+        name: another_esc_command
+        modifier: control
+        keycode: char_s
+        mode: [emacs, vi_normal, vi_insert]
+        event: { until: [
+            {
+              send: menu
+              name: ide_completion_menu
+            }
+            { send: esc }
+        ]}
+  }
   { name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { until: [
     { send: menuprevious }
     { send: Left }
@@ -191,6 +203,36 @@ $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | appe
   }
 
 ]))
+
+$new_config = ($env.config.menus | append [
+        {
+            name: ide_completion_menu
+            only_buffer_difference: false
+            marker: "| "
+            type: {
+                layout: ide
+                min_completion_width: 0,
+                max_completion_width: 150,
+                max_completion_height: 10, # will be limited by the available lines in the terminal
+                padding: 0,
+                border: true,
+                cursor_offset: 0,
+                description_mode: "prefer_right"
+                min_description_width: 0
+                max_description_width: 50
+                max_description_height: 10
+                description_offset: 1
+                correct_cursor_pos: true
+            }
+            style: {
+                text: green
+                selected_text: { attr: r }
+                description_text: yellow
+                match_text: { attr: u }
+                selected_match_text: { attr: ur }
+            }
+        }
+])
 
 
 def h [ pattern ] {
@@ -366,6 +408,8 @@ def download-github [ repo: string@repo ] {
   rm -rf /tmp/aa
   mkdir /tmp/aa
   if ( $name | str ends-with '.gz' ) {
+    tar zxvf $name -C /tmp/aa
+  } else if ( $name | str ends-with '.tgz' ) {
     tar zxvf $name -C /tmp/aa
   } else if ( $name | str ends-with '.zip' ) {
     unzip $name -d /tmp/aa
@@ -820,14 +864,6 @@ $new_config.keybindings = ($new_config.keybindings | append {
   }
 })
 
-$new_config.keybindings = ($new_config.keybindings | append {
-      name: another_esc_command
-      modifier: control
-      keycode: char_s
-      mode: [emacs, vi_normal, vi_insert]
-      event: { send: esc }
-})
-
 if (($env.IN_VIM? == "1") and (which nvr | is-not-empty)) {
   $env.EDITOR = [nvr --remote-wait-silent -cc vsplit]
 }
@@ -1061,4 +1097,9 @@ def kube-node-usage [ node:string@"kube-node" ] {
   let resources = ($resources | upsert MEMORY% ($top|get "MEMORY%"))
   let resources = ($resources | reject cpu_limit memory_limit cpu_request )
   $resources
+}
+
+def --wrapped run-k8s-in-docker [ name:string=k0s, ...args ] {
+  docker run -d --name $name --hostname $name --privileged --device /dev/kmsg --tmpfs /run -v /var/log/pods -v $"k0s-($name):/var/lib/k0s" ...$args -p 6443:6443 --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw docker.io/k0sproject/k0s:latest k0s server --single
+  docker exec -i $name k0s kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.31/deploy/local-path-storage.yaml
 }

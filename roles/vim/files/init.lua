@@ -1,6 +1,26 @@
 vim.loader.enable()
 local api = vim.api
 
+local function initBackground()
+	local ok, s = pcall(vim.fn.system, { "tmux1", "show-environment", "-g", "EINK_WIDTH" })
+	if ok then
+		local width = tonumber(string.gsub(s, "EINK_WIDTH=", ""), 10)
+		if vim.o.columns == width then
+			vim.o.background = "light"
+		else
+			vim.o.background = "dark"
+		end
+	else
+		local hour = tonumber(os.date("!%H"))
+		if hour > 1 and hour < 10 then
+			vim.o.background = "light"
+		else
+			vim.o.background = "dark"
+		end
+	end
+end
+initBackground()
+
 vim.cmd.source(vim.fn.stdpath("config") .. "/nvim.vim")
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
