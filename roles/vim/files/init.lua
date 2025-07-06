@@ -489,6 +489,16 @@ local lazyPackages = {
 	{ "https://github.com/NvChad/nvim-colorizer.lua", opts = {} },
 	{ "junegunn/fzf" },
 	{ "https://github.com/ibhagwan/fzf-lua" },
+	{
+		"otavioschwanck/fzf-lua-enchanted-files",
+		dependencies = { "ibhagwan/fzf-lua" },
+		config = function()
+			-- Modern configuration using vim.g
+			vim.g.fzf_lua_enchanted_files = {
+				max_history_per_cwd = 50,
+			}
+		end,
+	},
 	{ "lambdalisue/suda.vim" },
 	{ "ianding1/leetcode.vim" },
 	{
@@ -1432,11 +1442,11 @@ function FindFileCwd()
 		on_exit = function(_, exitcode)
 			if exitcode == 0 then
 				vim.defer_fn(function()
-					SafeRequire("fzf-lua").git_files()
+					SafeRequire("fzf-lua-enchanted-files").files()
 				end, 100)
 			else
 				vim.defer_fn(function()
-					SafeRequire("fzf-lua").files()
+					SafeRequire("fzf-lua-enchanted-files").files()
 				end, 100)
 			end
 		end,
