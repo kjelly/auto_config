@@ -217,7 +217,7 @@ $new_config.menus = ($env.config.menus? | default [ ] | append [
                 padding: 0,
                 border: true,
                 cursor_offset: 0,
-                description_mode: "prefer_right"
+                description_mode: "right"
                 min_description_width: 0
                 max_description_width: 150
                 max_description_height: 110
