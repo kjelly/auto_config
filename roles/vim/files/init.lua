@@ -642,7 +642,7 @@ local lazyPackages = {
 				mapping = {
 					["<Space>"] = cmp.mapping(function(fallback)
 						if cmp.visible() and cmp.get_active_entry() then
-							cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+							cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true })
 						else
 							fallback()
 						end
@@ -932,6 +932,9 @@ if not isEmptyTable(langservers) then
 				{ "romgrk/nvim-treesitter-context" },
 			},
 			config = function()
+				local function disable_treesitter_function()
+					return not vim.tbl_contains({ "cmp_doc", "cmp_menu" }, vim.bo.filetype)
+				end
 				local configs = require("nvim-treesitter.configs")
 				configs.setup({
 					dependencies = { { "nushell/tree-sitter-nu" } },
@@ -948,7 +951,7 @@ if not isEmptyTable(langservers) then
 						},
 					},
 					indent = { enable = false },
-					highlight = { enable = true, disable = {} },
+					highlight = { enable = true, disable = disable_treesitter_function },
 					refactor = {
 						highlight_definitions = { enable = false },
 						highlight_current_scope = { enable = false },

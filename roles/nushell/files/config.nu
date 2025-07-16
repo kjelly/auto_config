@@ -213,14 +213,14 @@ $new_config.menus = ($env.config.menus? | default [ ] | append [
                 layout: ide
                 min_completion_width: 0,
                 max_completion_width: 150,
-                max_completion_height: 10, # will be limited by the available lines in the terminal
+                max_completion_height: 110,
                 padding: 0,
                 border: true,
                 cursor_offset: 0,
                 description_mode: "prefer_right"
                 min_description_width: 0
-                max_description_width: 50
-                max_description_height: 10
+                max_description_width: 150
+                max_description_height: 110
                 description_offset: 1
                 correct_cursor_pos: true
             }
