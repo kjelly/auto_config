@@ -581,10 +581,22 @@ $new_config = ($new_config | upsert completions  {
     partial: true
     algorithm: "fuzzy"
     external: {
-        enable: true
+        enable: false
         completer: $fish_completer
     }
 })
+
+if (which carapace | is-not-empty) {
+  $new_config.completions.external = {
+    enable: true
+    completer: $carapace_completer
+  }
+} else if (which fish | is-not-empty) {
+  $new_config.completions.external = {
+    enable: true
+    completer: $fish_completer
+  }
+}
 
 def auto [ --strip (-s) ] {
   let input = $in
@@ -1103,3 +1115,5 @@ def --wrapped run-k8s-in-docker [ name:string=k0s, ...args ] {
   docker run -d --name $name --hostname $name --privileged --device /dev/kmsg --tmpfs /run -v /var/log/pods -v $"k0s-($name):/var/lib/k0s" ...$args -p 6443:6443 --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw docker.io/k0sproject/k0s:latest k0s server --single
   docker exec -i $name k0s kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.31/deploy/local-path-storage.yaml
 }
+
+def pod-last-reason [ pod ] {kubectl get pod $pod -o json |from json|get status.containerStatuses |each {|it| $it.lastState}}

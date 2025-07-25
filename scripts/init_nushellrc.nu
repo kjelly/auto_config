@@ -10,13 +10,13 @@ def main [ ] {
     "https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/clipboard.nu",
     "https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/pueue.nu",
     "https://raw.githubusercontent.com/ddanier/nur/main/scripts/nur-completions.nu",
-  ] | par-each -t 2 {|it|
+  ] | par-each -t 1 {|it|
     "\n" + (http get $it)
   } | str join "\n" | save -a $nu.config-path
 
   [
     "https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/env.nu",
-  ] | par-each -t 2 {|it|
+  ] | par-each -t 1 {|it|
     "\n" + (http get $it)
   } | str join "\n" | save -a $nu.env-path
 
@@ -28,7 +28,7 @@ def main [ ] {
     mkdir $path
     cd $path
     let files = (http get $"https://api.github.com/repos/nushell/nu_scripts/contents/modules/($name)/")
-    $files | par-each -t 2 {|it|
+    $files | par-each -t 1 {|it|
       http get $it.download_url | save -f $it.name
     }
   }
@@ -46,7 +46,7 @@ def main [ ] {
   }
 
   if ("~/.asdf/asdf.nu" | path exists) {
-    "\n$env.ASDF_DIR = ($env.HOME | path join '.asdf')\nsource " + ($env.HOME | path join '.asdf/asdf.nu') | save --append $nu.config-path  
+    "\n$env.ASDF_DIR = ($env.HOME | path join '.asdf')\nsource " + ($env.HOME | path join '.asdf/asdf.nu') | save --append $nu.config-path
   }
 
   mkdir ~/.config/nushell/autoload
@@ -61,7 +61,7 @@ def main [ ] {
     mkdir $path
     cd $path
     let files = (http get $"https://api.github.com/repos/($repo)/contents/($repo_path)/"|filter {|it| $it.type == "file"})
-    $files | par-each -t 2 {|it|
+    $files | par-each -t 1 {|it|
       http get $it.download_url | save -f $it.name
     }
   }
@@ -77,8 +77,4 @@ def main [ ] {
   use ($nu.default-config-dir | path join 'scripts' 'docker') *
   " | save -f $"($nu.default-config-dir)/autoload/my-modules.nu"
 
-
-  if (which carapace | is-not-empty) {
-    ^carapace _carapace nushell | save -f ~/.config/nushell/autoload/carapace.nu
-  }
 }
