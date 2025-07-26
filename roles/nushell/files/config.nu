@@ -1117,3 +1117,9 @@ def --wrapped run-k8s-in-docker [ name:string=k0s, ...args ] {
 }
 
 def pod-last-reason [ pod ] {kubectl get pod $pod -o json |from json|get status.containerStatuses |each {|it| $it.lastState}}
+
+def "scp-binary" [ --host:string@"ssh-host", ...args ] {
+  $args | par-each -t 2 {|it| which $it | get 0.path | path expand } |each {|it|
+    scp $it $"($host):~/"
+  }
+}
