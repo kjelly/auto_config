@@ -358,7 +358,7 @@ let repo_list = ["nushell/nushell", "casey/just", "ajeetdsouza/zoxide", "Ryooooo
  "ast-grep/ast-grep", "jirutka/tty-copy", "theimpostor/osc", "d-kuro/kubectl-fuzzy",
  "nektos/act", "FiloSottile/age", "marcosnils/bin", "twpayne/chezmoi", "bitrise-io/envman", "guyfedwards/nom", "joshmedeski/sesh"
  "itchyny/bed", "ddanier/nur", "https://github.com/dbrgn/tealdeer", "dundee/gdu", "tstack/lnav", "stern/stern",
- "pouriyajamshidi/tcping", "sharkdp/hyperfine", "pvolok/mprocs"
+ "pouriyajamshidi/tcping", "sharkdp/hyperfine", "pvolok/mprocs", "GoogleCloudPlatform/kubectl-ai"
 
 ]
 
@@ -1118,8 +1118,18 @@ def --wrapped run-k8s-in-docker [ name:string=k0s, ...args ] {
 
 def pod-last-reason [ pod ] {kubectl get pod $pod -o json |from json|get status.containerStatuses |each {|it| $it.lastState}}
 
-def "scp-binary" [ --host:string@"ssh-host", ...args ] {
-  $args | par-each -t 2 {|it| which $it | get 0.path | path expand } |each {|it|
-    scp $it $"($host):~/"
+def ssh-host [ ] {
+  carapace ssh nushell ""|from json|get value|where {|it| "|" not-in $it}
+}
+
+def "scp-wrapper" [ --host:string@"ssh-host", ...args ] {
+  ssh $"ubuntu@($host)" mkdir -p jelly
+  $args | each {|it|
+    if ($it | path exists ) {
+      scp $it $"ubuntu@($host):jelly/"
+    } else {
+      let p = (which $it|get 0.path)
+      scp $p $"ubuntu@($host):jelly/"
+    }
   }
 }

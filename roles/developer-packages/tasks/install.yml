@@ -51,7 +51,7 @@
 - name: Unarchive golang
   ansible.builtin.unarchive:
       src: "~/golang.tar.gz"
-      dest: "~"
+      dest: "~/.local/"
       remote_src: true
       mode: "0755"
 

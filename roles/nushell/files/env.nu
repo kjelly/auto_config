@@ -1,3 +1,4 @@
+$env.GOROOT = "~/.local/go/" | path expand
 let all_path = ['~/bin', '~/mybin', '~/dark-sdk/bin',
                  '~/swif/usr/bin', '/usr/local/mercury*/bin',
                  '~/.cargo/bin/', '~/sbt/bin',
@@ -6,6 +7,7 @@ let all_path = ['~/bin', '~/mybin', '~/dark-sdk/bin',
                  '/snap/bin/', '~/flutter/bin/', '~/.local/bin', '~/.deno/bin/',
                  '~/nfs/bin/', '~/.pub-cache/bin', '~/anaconda3/bin/',
                  '~/node*/bin', '~/.asdf/installs/python/*/bin', '~/pypy*/bin/',
-                 '~/.fzf/bin/', '~/.asdf/bin/', '~/.asdf/shims/', "/home/linuxbrew/.linuxbrew/bin/"
+                 '~/.fzf/bin/', '~/.asdf/bin/', '~/.asdf/shims/', "/home/linuxbrew/.linuxbrew/bin/",
+                 "~/.local/go/bin",
                  ]
 $env.PATH = ($env.PATH | append ($all_path | each {|it| glob $it}|flatten -a |uniq) | uniq)
