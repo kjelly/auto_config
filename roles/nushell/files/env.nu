@@ -1,4 +1,3 @@
-$env.GOROOT = "~/.local/go/" | path expand
 let all_path = ['~/bin', '~/mybin', '~/dark-sdk/bin',
                  '~/swif/usr/bin', '/usr/local/mercury*/bin',
                  '~/.cargo/bin/', '~/sbt/bin',
