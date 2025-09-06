@@ -1061,7 +1061,7 @@ const alt_c = {
 }
 
 if (which fzf | is-not-empty) {
-  $env.config.keybindings = $env.config.keybindings | append [$ctrl_r $alt_c]
+  $env.config.keybindings = $env.config.keybindings | append [$alt_c]
 }
 
 def --env source-envrc [ path ] {
@@ -1132,4 +1132,8 @@ def "scp-wrapper" [ --host:string@"ssh-host", ...args ] {
       scp $p $"ubuntu@($host):jelly/"
     }
   }
+}
+
+def --wrapped tmux-run [ ...args ] {
+  tmux new-window -a -c . ...$args
 }
