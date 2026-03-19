@@ -486,8 +486,9 @@ local lazyPackages = {
 	{
 		"ramilito/kubectl.nvim",
 		version = "2.*",
-			require("kubectl").setup()
-		end,
+    config = function()
+      require("kubectl").setup()
+    end,
 	},
 	{ "junegunn/fzf" },
 	{ "https://github.com/ibhagwan/fzf-lua" },
