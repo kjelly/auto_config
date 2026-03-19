@@ -173,13 +173,14 @@ local lazyPackages = {
 	{ "m-demare/hlargs.nvim" },
 	{ "https://github.com/kylechui/nvim-surround" },
 	{
-	  "smjonas/live-command.nvim",
-	main = "live-command",
-	opts = {
-	  commands = {
-	    Norm = { cmd = "norm" },
-	  },
-	}}
+		"smjonas/live-command.nvim",
+		main = "live-command",
+		opts = {
+			commands = {
+				Norm = { cmd = "norm" },
+			},
+		},
+	},
 	{ "https://github.com/bennypowers/nvim-regexplainer" },
 	{
 		"kevinhwang91/nvim-hlslens",
@@ -486,9 +487,9 @@ local lazyPackages = {
 	{
 		"ramilito/kubectl.nvim",
 		version = "2.*",
-    config = function()
-      require("kubectl").setup()
-    end,
+		config = function()
+			require("kubectl").setup()
+		end,
 	},
 	{ "junegunn/fzf" },
 	{ "https://github.com/ibhagwan/fzf-lua" },
