@@ -499,29 +499,6 @@ def list-diff [a b] {
   $a | where {|it| not (contains $b $it) }
 }
 
-let carapace_completer = {|spans|
-  # if the current command is an alias, get it's expansion
-  let expanded_alias = (scope aliases | where name == $spans.0 | get -i 0 | get -i expansion)
-
-  # overwrite
-  let spans = (if $expanded_alias != null  {
-    # put the first word of the expanded alias first in the span
-    $spans | skip 1 | prepend ($expanded_alias | split row " " | take 1)
-  } else {
-    $spans
-  })
-
-  let ret = (carapace $spans.0 nushell ...$spans
-  | from json)
-  if ($ret | is-empty) {
-    carapace ls nushell ...($spans | skip 1) | from json
-  } else {
-    $ret
-  }
-  $ret
-}
-
-
 let fish_completer = {|spans|
   if (which fish|is-empty) {
     return null
@@ -531,77 +508,10 @@ let fish_completer = {|spans|
   | from tsv --flexible --no-infer
 }
 
-let zoxide_completer = {|spans|
-    $spans | skip 1 | zoxide query -l $in | lines | where {|x| $x != $env.PWD}
-}
-
-let fish_with_carapace_completer = {|spans|
-  let ret = ([{||
-    if (which carapace | is-not-empty ) {
-        carapace $spans.0 nushell ...$spans | from json
-    } else {
-      [ ]
-    }
-  },
-  {||
-    if (which argc | is-not-empty ) {
-      argc --argc-compgen nushell "" ...$spans
-      | split row "\n" | slice 0..-2
-      | each { |line| $line | split column "\t" value description } | flatten
-    } else {
-      [ ]
-    }
-  }
-  {||
-    do $fish_completer $spans
-  }
-  ] | par-each -t 8 {|it| do -i $it } | flatten | each {|it| $it | str trim } |where {|it| $it != ""} | uniq)
-  if ($ret | is-empty) {
-    return null
-  }
-  $ret
-}
-
-let external_completer = {|spans|
-    match $spans.0 {
-        nu => $fish_completer
-        git => $fish_completer
-        vim => $fish_completer
-        nvim => $fish_completer
-        asdf => $fish_completer
-        z => $zoxide_completer
-        zi => $zoxide_completer
-        _ => $carapace_completer
-    } | do $in $spans
-}
-
 $new_config = ($new_config | upsert completions  {
     case_sensitive: false
     quick: true
     partial: true
-    algorithm: "fuzzy"
-    external: {
-        enable: false
-        completer: $fish_completer
-    }
-})
-
-if (which carapace | is-not-empty) {
-  $new_config.completions.external = {
-    enable: true
-    completer: $carapace_completer
-  }
-} else if (which fish | is-not-empty) {
-  $new_config.completions.external = {
-    enable: true
-    completer: $fish_completer
-  }
-}
-
-def auto [ --strip (-s) ] {
-  let input = $in
-  mut data = null
-  try {
     $data = (echo $input|from json)
   } catch {
   }
@@ -851,7 +761,7 @@ def running-units-complete [ ] {
 def bg-running [ ] {
   try {
     let icon_map = { activating: "🟢", inactive: "⏰", failed: "❌" }
-    running-units | each {|it| $"[($it.Id|str replace '.service' ''|str replace 'run' ''):($icon_map | get -i $it.ActiveState)($it.Description)]"} | str join ' '|str trim
+    running-units | each {|it| $"[($it.Id|str replace '.service' ''|str replace 'run' ''):($icon_map | get -o $it.ActiveState)($it.Description)]"} | str join ' '|str trim
   } catch { "" }
 }
 
@@ -1089,17 +999,17 @@ def kube-node-usage [ node:string@"kube-node" ] {
 
   let pod_list = (kubectl get pods --all-namespaces --field-selector $"spec.nodeName=($node)" -o json|from yaml|get items)
   let resources = ($pod_list |each {|it|
-    let cpu_limit = $it.spec.containers| each {|c| $c| get -i resources.limits.cpu |default 0} | reduce --fold 0 {|i, acc| $acc + (cpu_to_int $i)}
-    let cpu_request = $it.spec.containers| each {|c| $c| get -i resources.requests.cpu |default 0} | reduce --fold 0 {|i, acc| $acc + (cpu_to_int  $i)}
-    let memory_limit = $it.spec.containers| each {|c| $c| get -i resources.limits.memory |default 0} | reduce --fold 0 {|i, acc| $acc + (memory_to_int $i)}
-    let memory_request = $it.spec.containers| each {|c| $c| get -i resources.requests.memory |default 0} | reduce --fold 0 {|i, acc| $acc + (memory_to_int  $i)}
+    let cpu_limit = $it.spec.containers| each {|c| $c| get -o resources.limits.cpu |default 0} | reduce --fold 0 {|i, acc| $acc + (cpu_to_int $i)}
+    let cpu_request = $it.spec.containers| each {|c| $c| get -o resources.requests.cpu |default 0} | reduce --fold 0 {|i, acc| $acc + (cpu_to_int  $i)}
+    let memory_limit = $it.spec.containers| each {|c| $c| get -o resources.limits.memory |default 0} | reduce --fold 0 {|i, acc| $acc + (memory_to_int $i)}
+    let memory_request = $it.spec.containers| each {|c| $c| get -o resources.requests.memory |default 0} | reduce --fold 0 {|i, acc| $acc + (memory_to_int  $i)}
 
     [$cpu_request, $cpu_limit, $memory_request, $memory_limit]
   }) | reduce --fold {node: $node,cpu_request: 0, cpu_limit: 0, memory_request: 0, memory_limit: 0} {|it, acc|
     $acc | upsert cpu_request ($acc.cpu_request + $it.0) | upsert cpu_limit ($acc.cpu_limit + $it.1) | upsert memory_request ($acc.memory_request + $it.2) | upsert memory_limit ($acc.memory_limit + $it.3)
   }
   let node_info = (kubectl get node $node -o json|from json)
-  let top = (kubectl top node|from ssv|where NAME == $node|get -i 0|default {"CPU%": -1, "MEMORY%": -1})
+  let top = (kubectl top node|from ssv|where NAME == $node|get -o 0|default {"CPU%": -1, "MEMORY%": -1})
 
   let resources = ($resources | upsert cpu_total (cpu_to_int $node_info.status.allocatable.cpu))
   let resources = ($resources | upsert memory_total (memory_to_int $node_info.status.allocatable.memory))
@@ -1136,4 +1046,26 @@ def "scp-wrapper" [ --host:string@"ssh-host", ...args ] {
 
 def --wrapped tmux-run [ ...args ] {
   tmux new-window -a -c . ...$args
+}
+
+$env._s = [ ]
+def --env "s log" [ text ] {
+  $env._s = $env._s | append $text
+}
+
+def --env "s clear" [ ] {
+  $env._s = [ ]
+}
+
+def --env "s show" [ ] {
+  $env._s |str join '\n'
+}
+
+def --env "s delete" [ ] {
+  $env._s | drop ($env._s |input list -m -f -i)
+}
+
+def --wrapped ask-vlm [ prompt, --model="gemma3:27b", ...args ] {
+  let ip = "localhost"
+  http post -t application/json $"http://($ip):11434/api/generate" {"model": $model, "prompt": $prompt, "stream": false, "images": ($args | each {|it| base64 $it})} | get response
 }

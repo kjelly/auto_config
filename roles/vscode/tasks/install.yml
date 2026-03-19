@@ -1,8 +1,8 @@
 ---
-- include: "install_rpm_family.yml"
+- include_tasks: "install_rpm_family.yml"
   when: ansible_os_family == 'RedHat'
 
-- include: "install_deb_family.yml"
+- include_tasks: "install_deb_family.yml"
   when: ansible_os_family == 'Debian' or ansible_os_family == "\"elementary\""
 
 - copy: src=ext_list dest='/tmp/ext_list'

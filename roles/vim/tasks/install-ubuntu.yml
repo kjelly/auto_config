@@ -41,4 +41,4 @@
   become: true
   when: programming == false
 
-- include: "install-nvim-appimage.yml"
+- include_tasks: "install-nvim-appimage.yml"

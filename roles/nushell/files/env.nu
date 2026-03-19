@@ -9,4 +9,4 @@ let all_path = ['~/bin', '~/mybin', '~/dark-sdk/bin',
                  '~/.fzf/bin/', '~/.asdf/bin/', '~/.asdf/shims/', "/home/linuxbrew/.linuxbrew/bin/",
                  "~/.local/go/bin",
                  ]
-$env.PATH = ($env.PATH | append ($all_path | each {|it| glob $it}|flatten -a |uniq) | uniq)
+$env.PATH = ($env.PATH | command | prepend row($all_path | each {|it| glob $it}|flatten -a |uniq) | uniq)

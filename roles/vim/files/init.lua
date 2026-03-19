@@ -2,26 +2,19 @@ vim.loader.enable()
 local api = vim.api
 
 local function initBackground()
-	local ok, s = pcall(vim.fn.system, { "tmux1", "show-environment", "-g", "EINK_WIDTH" })
-	if ok then
-		local width = tonumber(string.gsub(s, "EINK_WIDTH=", ""), 10)
-		if vim.o.columns == width then
-			vim.o.background = "light"
-		else
-			vim.o.background = "dark"
-		end
+	local hour = tonumber(os.date("!%H"))
+	if hour > 1 and hour < 10 then
+		vim.o.background = "light"
 	else
-		local hour = tonumber(os.date("!%H"))
-		if hour > 1 and hour < 10 then
-			vim.o.background = "light"
-		else
-			vim.o.background = "dark"
-		end
+		vim.o.background = "dark"
 	end
 end
+
 initBackground()
 
-vim.cmd.source(vim.fn.stdpath("config") .. "/nvim.vim")
+vim.schedule(function()
+	vim.cmd.source(vim.fn.stdpath("config") .. "/nvim.vim")
+end)
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -38,6 +31,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.g._ts_force_sync_parsing = true
 vim.g.editconfig = true
 vim.g.clipboard = "osc52"
 
@@ -167,12 +161,25 @@ local function termTitle()
 end
 
 local lazyPackages = {
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		---@module "ibl"
+		---@type ibl.config
+		opts = {},
+	},
 	{ "https://github.com/danymat/neogen", opts = {} },
-	{ "mizlan/iswap.nvim", event = "VeryLazy" },
 	{ "https://github.com/SmiteshP/nvim-navic" },
 	{ "m-demare/hlargs.nvim" },
 	{ "https://github.com/kylechui/nvim-surround" },
-	{ "https://github.com/smjonas/live-command.nvim" },
+	{
+	  "smjonas/live-command.nvim",
+	main = "live-command",
+	opts = {
+	  commands = {
+	    Norm = { cmd = "norm" },
+	  },
+	}}
 	{ "https://github.com/bennypowers/nvim-regexplainer" },
 	{
 		"kevinhwang91/nvim-hlslens",
@@ -304,7 +311,7 @@ local lazyPackages = {
 					component_separators = { "", "" },
 				},
 				sections = {
-					lualine_a = { "mode", tab_num },
+					lualine_a = { "mode", tab_num, { require("minuet.lualine"), display_on_idle = false } },
 					lualine_b = {
 						{ getModified, color = { fg = "red" } },
 						"diagnostics",
@@ -362,7 +369,6 @@ local lazyPackages = {
 			end)
 		end,
 	},
-	{ "kkharji/sqlite.lua" },
 	{ "windwp/nvim-spectre" },
 	{
 		"https://github.com/yehuohan/hop.nvim",
@@ -415,20 +421,11 @@ local lazyPackages = {
 		},
 	},
 	{ "https://github.com/melkster/modicator.nvim", opts = {} },
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		---@module "ibl"
-		---@type ibl.config
-		opts = {},
-	},
 	{ "https://github.com/tveskag/nvim-blame-line" },
 	{ "https://github.com/numToStr/Comment.nvim" },
 	{ "https://github.com/folke/which-key.nvim" },
 	{ "https://github.com/romainl/vim-cool" },
 	{ "kevinhwang91/promise-async" },
-	-- {'https://github.com/kevinhwang91/nvim-ufo'},
-	-- {'towolf/vim-helm'},
 	{ "rcarriga/nvim-notify" },
 	{ "https://github.com/Chaitanyabsprip/present.nvim", opts = {} },
 	{ "mason-org/mason.nvim", opts = {} },
@@ -461,7 +458,6 @@ local lazyPackages = {
 	},
 	{ "https://github.com/dstein64/vim-startuptime" },
 	{ "folke/persistence.nvim" },
-	-- {'https://github.com/nyngwang/NeoZoom.lua'},
 	{
 		"https://github.com/akinsho/git-conflict.nvim",
 		version = "*",
@@ -487,6 +483,12 @@ local lazyPackages = {
 	},
 	{ "unblevable/quick-scope" },
 	{ "https://github.com/NvChad/nvim-colorizer.lua", opts = {} },
+	{
+		"ramilito/kubectl.nvim",
+		version = "2.*",
+			require("kubectl").setup()
+		end,
+	},
 	{ "junegunn/fzf" },
 	{ "https://github.com/ibhagwan/fzf-lua" },
 	{
@@ -567,12 +569,13 @@ local lazyPackages = {
 			{ "rafamadriz/friendly-snippets" },
 			{ "neovim/nvim-lspconfig" },
 			{ "williamboman/mason-lspconfig.nvim" },
+			{ "dmitmel/cmp-cmdline-history" },
 		},
 		config = function()
 			local cmp = require("cmp")
 
 			local cmp_sources = {
-				{ name = "minuet", keyword_length = 0 },
+				{ name = "minuet" },
 				{ name = "nvim_lsp", keyword_length = 0 },
 				{ name = "path" },
 				{ name = "luasnip" },
@@ -642,7 +645,7 @@ local lazyPackages = {
 				mapping = {
 					["<Space>"] = cmp.mapping(function(fallback)
 						if cmp.visible() and cmp.get_active_entry() then
-							cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true })
+							cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
 						else
 							fallback()
 						end
@@ -760,7 +763,7 @@ local lazyPackages = {
 
 			setup_cmdline(":", {
 				{ name = "cmdline", group_index = 1 },
-				{ name = "cmdline_history", group_index = 2, max_item_count = 5 },
+				{ name = "cmdline_history", group_index = 1, max_item_count = 5 },
 			})
 			setup_cmdline("/", search_sources)
 			setup_cmdline("?", search_sources)
@@ -853,28 +856,13 @@ local lazyPackages = {
 
 if not isEmptyTable(langservers) then
 	lazyPackages = TableConcat(lazyPackages, {
-		-- { "https://github.com/zbirenbaum/copilot-cmp", event = { "InsertEnter", "CmdlineEnter" }, opts = {} },
-		{ "https://github.com/CopilotC-Nvim/CopilotChat.nvim", event = { "InsertEnter", "CmdlineEnter" }, opts = {} },
-		-- {
-		-- 	"https://github.com/zbirenbaum/copilot.lua",
-		-- 	event = "InsertEnter",
-		-- 	opts = {
-		-- 		panel = { enabled = true },
-		-- 		suggestion = {
-		-- 			enabled = true,
-		-- 			auto_trigger = true,
-		-- 			debounce = 75,
-		-- 			keymap = {
-		-- 				accept = "<c-x>a",
-		-- 				accept_word = "<tab>",
-		-- 				accept_line = "<c-x>l",
-		-- 				next = "<c-x>n",
-		-- 				prev = "<c-x>p",
-		-- 				dismiss = "<C-]>",
-		-- 			},
-		-- 		},
-		-- 	},
-		-- },
+		{
+			"lukas-reineke/indent-blankline.nvim",
+			main = "ibl",
+			---@module "ibl"
+			---@type ibl.config
+			opts = {},
+		},
 		{
 			"ravitemer/mcphub.nvim",
 			build = "npm install -g mcp-hub@latest",
@@ -886,14 +874,28 @@ if not isEmptyTable(langservers) then
 			"milanglacier/minuet-ai.nvim",
 			config = function()
 				require("minuet").setup({
-					provider = "gemini",
-					throttle = 1500,
+					provider = "openai_fim_compatible",
+					n_completions = 1,
+					context_window = 1024,
+					provider_options = {
+						openai_fim_compatible = {
+							api_key = "TERM",
+							name = "Ollama",
+							end_point = "http://localhost:11434/v1/completions",
+							model = "qwen2.5-coder:7b",
+							optional = {
+								max_tokens = 56,
+								top_p = 0.9,
+							},
+						},
+					},
 					virtualtext = {
 						auto_trigger_ft = { "nu", "lua", "python", "helm", "go" },
 						keymap = {
-							accept = "<s-tab>",
-							accept_line = "<tab>",
-							next = "<a-z>",
+							accept = "<tab>",
+							accept_line = "<s-tab>",
+							prev = "<c-x>k",
+							next = "<c-x>j",
 						},
 					},
 				})
@@ -922,7 +924,6 @@ if not isEmptyTable(langservers) then
 				},
 			},
 		},
-
 		{
 			"nvim-treesitter/nvim-treesitter",
 			dependencys = {
@@ -937,7 +938,6 @@ if not isEmptyTable(langservers) then
 				end
 				local configs = require("nvim-treesitter.configs")
 				configs.setup({
-					dependencies = { { "nushell/tree-sitter-nu" } },
 					ensure_installed = "all",
 					autopairs = { enable = true },
 					iswap = { enable = true },
@@ -1012,12 +1012,6 @@ if not isEmptyTable(langservers) then
 				})
 			end,
 		},
-		{ "nvim-treesitter/nvim-treesitter-textobjects" },
-		{ "nvim-treesitter/nvim-treesitter-refactor" },
-		{ "https://github.com/theHamsta/nvim-treesitter-pairs" },
-		{ "romgrk/nvim-treesitter-context" },
-		{ "https://github.com/David-Kunz/treesitter-unit" },
-		{ "https://github.com/nushell/tree-sitter-nu" },
 		{ "IndianBoy42/tree-sitter-just" },
 	})
 end
@@ -1449,6 +1443,7 @@ function FindFileCwd()
 				end, 100)
 			else
 				vim.defer_fn(function()
+					-- SafeRequire("fzf-lua").files()
 					SafeRequire("fzf-lua-enchanted-files").files()
 				end, 100)
 			end
@@ -1559,18 +1554,7 @@ function UpdateEnv()
 	end
 end
 
-local function SetupFileType()
-	vim.filetype.add({
-		pattern = {
-			[".*/templates/.*yaml"] = "helm",
-			[".*/templates/.*yml"] = "helm",
-			["_helpers.tpl"] = "helm",
-		},
-	})
-end
-
 function DelaySetup2()
-	SetupFileType()
 	vim.api.nvim_create_autocmd("ModeChanged", {
 		callback = function()
 			if vim.fn.mode() == "n" then
@@ -2069,7 +2053,7 @@ function HookPwdChanged(after, before) end
 
 SafeRequire("nvim-web-devicons").setup({})
 
-vim.g.EINK_WIDTH = 0
+vim.g.EINK_WIDTH = vim.env.EINK_WIDTH
 local function checkIsEink()
 	if vim.g.fullWidth ~= vim.o.columns then
 		if tostring(vim.o.columns) == vim.g.EINK_WIDTH then
@@ -2085,30 +2069,32 @@ local function checkIsEink()
 	end
 end
 local function updateEinkWidth()
-	local Job = require("plenary.job")
-	local job = Job:new({
-		command = "tmux",
-		args = { "show-environment", "-g", "EINK_WIDTH" },
-		on_stderr = function(_, _) end,
-		on_stdout = function(_, data)
-			local width = data:gsub("EINK_WIDTH=", ""):gsub("\n", "")
-			vim.g.EINK_WIDTH = width
-		end,
-		on_exit = function(_, _)
-			vim.schedule(checkIsEink)
-		end,
-	})
-	job:start()
+	if vim.env.TMUX == nil then
+		vim.schedule(checkIsEink)
+	else
+		local Job = require("plenary.job")
+		local job = Job:new({
+			command = "tmux",
+			args = { "show-environment", "-g", "EINK_WIDTH" },
+			on_stderr = function(_, _) end,
+			on_stdout = function(_, data)
+				local width = data:gsub("EINK_WIDTH=", ""):gsub("\n", "")
+				vim.g.EINK_WIDTH = width
+			end,
+			on_exit = function(_, _)
+				vim.schedule(checkIsEink)
+			end,
+		})
+		job:start()
+	end
 end
 
-if vim.fn.executable("tmux") == 1 then
-	vim.api.nvim_create_autocmd("VimResized", {
-		callback = function()
-			vim.schedule(updateEinkWidth)
-		end,
-	})
-	vim.schedule(updateEinkWidth)
-end
+vim.api.nvim_create_autocmd("VimResized", {
+	callback = function()
+		vim.schedule(updateEinkWidth)
+	end,
+})
+vim.schedule(updateEinkWidth)
 
 function StartPueueJob(name, cmd)
 	os.execute("pueue group add " .. name)
