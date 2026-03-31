@@ -512,35 +512,7 @@ $new_config = ($new_config | upsert completions  {
     case_sensitive: false
     quick: true
     partial: true
-    $data = (echo $input|from json)
-  } catch {
-  }
-  if ($data == null ) {
-    try {
-      $data = (echo $input|from yaml)
-    } catch {
-    }
-  }
-  if ($data == null) {
-    return $input
-  } else {
-    if (not $strip) {
-      return $data
-    }
-    try {
-      mut values = (echo $data|values)
-      if (($values|length) == 1) {
-        return ($values|first)
-      }
-    }
-    let lst = ([ ] | append $data)
-    if (($lst|length) == 1) {
-      return ($lst|first)
-    }
-    return $data
-  }
-  return $input
-}
+})
 
 def --env update-nushell-theme [ ] {
   let columns = ((term size) | get columns)

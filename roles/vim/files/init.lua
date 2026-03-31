@@ -33,7 +33,19 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.g._ts_force_sync_parsing = true
 vim.g.editconfig = true
-vim.g.clipboard = "osc52"
+
+vim.g.clipboard = {
+	name = "OSC 52",
+	copy = {
+		["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+	},
+	paste = {
+		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+	},
+}
+vim.opt.clipboard = "unnamedplus"
 
 vim.g.mapleader = ","
 vim.g.maplocalleader = " "
