@@ -45,7 +45,6 @@ vim.g.clipboard = {
 		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
 	},
 }
-vim.opt.clipboard = "unnamedplus"
 
 vim.g.mapleader = ","
 vim.g.maplocalleader = " "

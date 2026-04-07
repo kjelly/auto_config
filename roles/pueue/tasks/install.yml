@@ -10,7 +10,7 @@
     pueue_version: "{{ json_data['json'] | json_query('tag_name') }}"
 - name: Download pueue
   ansible.builtin.get_url:
-    url: "https://github.com/Nukesor/pueue/releases/download/{{ pueue_version }}/{{ item }}-linux-x86_64"
+    url: "https://github.com/Nukesor/pueue/releases/download/{{ pueue_version }}/{{ item }}-x86_64-unknown-linux-musl"
     dest: "/bin/{{ item }}"
     mode: 0755
   become: true
