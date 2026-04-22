@@ -841,11 +841,6 @@ def age-edit [file, --key="simple"] {
   age -R $"($env.HOME)/.ssh/($key).pub" $tmp | save -f $file
 }
 
-def freeze-to-bg [ id ] {
-  job spawn {|| job unfreeze $id}
-
-}
-
 def --env gm [ ] {
   git checkout (git remote show origin|lines|where {|it| $it =~ 'HEAD'}|get 0|split row ':'|get 1|str trim)
   git pull
