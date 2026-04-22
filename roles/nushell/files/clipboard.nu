@@ -1,16 +1,16 @@
 $env._clipboard = ( try { $env._clipboard } catch { [ ] })
 
 def pretty [  ] {
-  let it = $in
-  let type = ( $it | describe )
+  let indata = $in
+  let type = ( $indata | describe )
   if ( $type == "string" ) {
-    $it | lines|first 5|str join "\n"
+    $indata | lines|first 5|str join "\n"
   } else if ( $type == "int" ) {
-    $it |into string
+    $indata |into string
   } else if ( $type | str contains "list" ) {
-    $it | first 5 | to nuon
+    $indata | first 5 | to nuon
   } else {
-    $it | describe
+    $indata | describe
   }
 }
 
