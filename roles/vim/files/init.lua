@@ -383,15 +383,28 @@ local lazyPackages = {
 	},
 	{ "windwp/nvim-spectre" },
 	{
-		"https://github.com/yehuohan/hop.nvim",
-		opts = {
-			winblend = 10,
-			jump_on_sole_occurrence = true,
-			create_hl_autocmd = true,
-			reverse_distribution = false,
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		opts = {},
+		keys = {
+			{
+				"s",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").jump()
+				end,
+				desc = "Flash",
+			},
+			{
+				"S",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").treesitter()
+				end,
+				desc = "Flash Treesitter",
+			},
 		},
 	},
-	{ "nvim-tree/nvim-web-devicons" },
 	{ "MunifTanjim/nui.nvim" },
 	{
 		"https://github.com/nvim-neo-tree/neo-tree.nvim",
@@ -402,6 +415,59 @@ local lazyPackages = {
 				min_width = 25,
 				mappings = {
 					["s"] = "none",
+				},
+			},
+			default_component_configs = {
+				indent = {
+					with_markers = true,
+					indent_marker = "│", -- Unicode 直線
+					last_indent_marker = "└", -- Unicode L型線
+					indent_size = 2,
+					padding = 1,
+					with_expanders = true,
+					expander_collapsed = "▶", -- Unicode 折疊箭頭
+					expander_expanded = "▼", -- Unicode 展開箭頭
+					expander_highlight = "NeoTreeExpander",
+				},
+				icon = {
+					folder_closed = "📁",
+					folder_open = "📂",
+					folder_empty = "🗀", -- 或使用 "📁"
+					default = "📄", -- 預設檔案圖示
+					symlink = "🔗", -- 捷徑圖示
+					symlink_arrow = " ➡ ", -- 捷徑箭頭
+				},
+				modified = {
+					symbol = "✏️ ", -- 檔案修改標記
+					highlight = "NeoTreeModified",
+				},
+				name = {
+					trailing_slash = false,
+					use_git_status_colors = true,
+					highlight = "NeoTreeFileName",
+				},
+				git_status = {
+					symbols = {
+						-- Git 變更類型
+						added = "✚",
+						modified = "✹",
+						deleted = "✖",
+						renamed = "➜",
+						-- Git 狀態
+						untracked = "❓",
+						ignored = "◌",
+						unstaged = "☐",
+						staged = "☑",
+						conflict = "⚠️",
+					},
+				},
+				diagnostics = {
+					symbols = {
+						hint = "💡",
+						info = "ℹ️ ",
+						warn = "⚠️ ",
+						error = "❌",
+					},
 				},
 			},
 		},

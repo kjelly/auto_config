@@ -18,8 +18,8 @@ def simple_workspace [ ] {
   let all_windows = (tmux_list_window)
   $all_path = ($all_path | append ( $all_windows | each {|it| $it.path }) | uniq )
 
-  $all_path = ($all_path | append [ '~' ';']|par-each -t 4 {|it| 
-        mut ret = [ {path: $it, cmd: "nu"}, {path: $it, cmd: "nvim"}] 
+  $all_path = ($all_path | append [ '~' ';']|par-each -t 4 {|it|
+        mut ret = [ {path: $it, cmd: "nu"}, {path: $it, cmd: "nvim"}]
 
         if ($it|path join kubeconfig|path exists) {
             $ret = ($ret | append [ {path: $it, cmd: "k9s"}])
@@ -86,39 +86,42 @@ def sesh_workspace [ ] {
 
 
 def main [ ] {
-      # sesh_workspace
-    let target = (sesh list |tail -n +2| fzf-tmux  -p 55%,60% --no-sort --border-label ' sesh -d' --prompt '⚡  ' 
-                                        --header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' 
-                                        --bind 'tab:down,btab:up'
-                                        --bind 'alt-n:down,alt-p:up'
-                                        --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list)'
-                                        --bind 'ctrl-s:change-prompt(🪟  )+reload(sesh list -t)'
-                                        --bind 'ctrl-r:change-prompt(🪟  )+reload(sesh list -z|grep $(sesh root))'
-                                        --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c)'
-                                        --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z)'
-                                        --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)'
-                                        --bind 'ctrl-d:execute(tmux kill-session -t {})+change-prompt(⚡  )+reload(sesh list)'
-                                        -- --filepath-word --tiebreak=length,end --scheme=path|complete)
+  let session_name = (tmux display-message -p '#S')
+  if ($session_name == "popup") {
+    tmux detach-client
+  }
+  let target = (sesh list |tail -n +2|grep -e "^popup$" -v| fzf-tmux  -p 55%,60% --no-sort --border-label ' sesh -d' --prompt '⚡  '
+                                      --header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find'
+                                      --bind 'tab:down,btab:up'
+                                      --bind 'alt-n:down,alt-p:up'
+                                      --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list)'
+                                      --bind 'ctrl-s:change-prompt(🪟  )+reload(sesh list -t)'
+                                      --bind 'ctrl-r:change-prompt(🪟  )+reload(sesh list -z|grep $(sesh root))'
+                                      --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c)'
+                                      --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z)'
+                                      --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)'
+                                      --bind 'ctrl-d:execute(tmux kill-session -t {})+change-prompt(⚡  )+reload(sesh list)'
+                                      -- --filepath-word --tiebreak=length,end --scheme=path|complete)
 
-    if $target.exit_code == 0 {
-      let target_name = ($target.stdout|str trim)
-      if ($target_name in (sesh list -t |lines)) {
-        sesh connect $target_name
-        return
-      }
+  if $target.exit_code == 0 {
+    let target_name = ($target.stdout|str trim)
+    if ($target_name in (sesh list -t |lines)) {
+      sesh connect $target_name
+      return
+    }
 
-      let target_name = ($target_name | path expand)
-      sesh connect --root $target_name
-      if ((sesh root|path expand) != $target_name) {
-        let panes = (tmux list-panes -s -F '#{window_id} #{pane_id} #{pane_current_path} #{pane_current_command}'|lines) 
-        let target_panes = ($panes |filter {|it| $it =~ $target_name and (($it|split row ' '|last) in ['nu', 'nvim', 'fish'])})
-        if ($target_panes|is-empty) {
-          # print $target_name
-          tmux new-window -c $target_name
-        } else {
-          let parts = ($target_panes | first | split row ' ')
-          tmux select-pane -t ($parts | get 0)
-        }
+    let target_name = ($target_name | path expand)
+    sesh connect --root $target_name
+    if ((sesh root|path expand) != $target_name) {
+      let panes = (tmux list-panes -s -F '#{window_id} #{pane_id} #{pane_current_path} #{pane_current_command}'|lines)
+      let target_panes = ($panes |filter {|it| $it =~ $target_name and (($it|split row ' '|last) in ['nu', 'nvim', 'fish'])})
+      if ($target_panes|is-empty) {
+        # print $target_name
+        tmux new-window -c $target_name
+      } else {
+        let parts = ($target_panes | first | split row ' ')
+        tmux select-pane -t ($parts | get 0)
       }
     }
+  }
 }
