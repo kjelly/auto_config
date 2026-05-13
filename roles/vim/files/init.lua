@@ -11,6 +11,7 @@ local function initBackground()
 end
 
 initBackground()
+vim.opt.termguicolors = true
 
 vim.schedule(function()
 	vim.cmd.source(vim.fn.stdpath("config") .. "/nvim.vim")
@@ -398,9 +399,7 @@ local lazyPackages = {
 			{
 				"S",
 				mode = { "n", "x", "o" },
-				function()
-					require("flash").treesitter()
-				end,
+				function() end,
 				desc = "Flash Treesitter",
 			},
 		},
@@ -498,9 +497,8 @@ local lazyPackages = {
 			},
 		},
 	},
-	{ "https://github.com/melkster/modicator.nvim", opts = {} },
-	{ "https://github.com/tveskag/nvim-blame-line" },
-	{ "https://github.com/numToStr/Comment.nvim" },
+	{ "https://github.com/mawkler/modicator.nvim", opts = {} },
+	{ "https://github.com/FabijanZulj/blame.nvim", opts = {} },
 	{ "https://github.com/folke/which-key.nvim" },
 	{ "https://github.com/romainl/vim-cool" },
 	{ "kevinhwang91/promise-async" },
@@ -509,7 +507,7 @@ local lazyPackages = {
 	{ "mason-org/mason.nvim", opts = {} },
 	{
 		"mason-org/mason-lspconfig.nvim",
-		dependencys = { "williamboman/mason.nvim" },
+		dependencies = { "mason-org/mason.nvim" },
 		opts = {
 			ensure_installed = vim.tbl_filter(function(server)
 				return not vim.tbl_contains({ "dartls", "nushell", "fish_lsp", "gh_actions_ls" }, server)
@@ -517,7 +515,49 @@ local lazyPackages = {
 			automatic_installation = false,
 		},
 	},
-	{ "neovim/nvim-lspconfig", dependencys = { "williamboman/mason-lspconfig.nvim" } },
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = { "mason-org/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
+		config = function()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities(
+				vim.lsp.protocol.make_client_capabilities()
+			)
+			capabilities.textDocument.foldingRange = {
+				dynamicRegistration = false,
+				lineFoldingOnly = true,
+			}
+
+			local disabled_lsp_caps = {}
+
+			if vim.fn.executable("nu") == 1 then
+				vim.lsp.config("nushell", {
+					cmd = { "nu", "--lsp" },
+					filetypes = { "nu" },
+					root_markers = { ".git" },
+				})
+			end
+
+			vim.lsp.config("*", { capabilities = capabilities })
+			vim.lsp.enable(langservers)
+
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(args)
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					if client and disabled_lsp_caps[client.name] then
+						for _, cap in ipairs(disabled_lsp_caps[client.name]) do
+							client.server_capabilities[cap] = false
+						end
+					end
+					local bufnr = args.buf
+					local map = function(mode, lhs, rhs, desc)
+						vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, noremap = true, silent = true, desc = desc })
+					end
+					map("n", "gy", vim.lsp.buf.type_definition, "Go to type definition")
+					map({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, "LSP code action")
+				end,
+			})
+		end,
+	},
 	{
 		"stevearc/conform.nvim",
 		opts = {
@@ -530,7 +570,7 @@ local lazyPackages = {
 			format_on_save = {
 				-- These options will be passed to conform.format()
 				timeout_ms = 500,
-				lsp_fallback = true,
+				lsp_format = "fallback",
 			},
 		},
 	},
@@ -634,7 +674,7 @@ local lazyPackages = {
 	{
 		"hrsh7th/nvim-cmp",
 		event = { "InsertEnter", "CmdlineEnter" },
-		dependencys = {
+		dependencies = {
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "hrsh7th/cmp-buffer" },
 			{ "hrsh7th/cmp-path" },
@@ -647,7 +687,7 @@ local lazyPackages = {
 			{ "saadparwaiz1/cmp_luasnip" },
 			{ "rafamadriz/friendly-snippets" },
 			{ "neovim/nvim-lspconfig" },
-			{ "williamboman/mason-lspconfig.nvim" },
+			{ "mason-org/mason-lspconfig.nvim" },
 			{ "dmitmel/cmp-cmdline-history" },
 		},
 		config = function()
@@ -698,7 +738,7 @@ local lazyPackages = {
 			end
 
 			local has_words_before = function()
-				if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+				if vim.bo[0].buftype == "prompt" then
 					return false
 				end
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -847,28 +887,6 @@ local lazyPackages = {
 			setup_cmdline("/", search_sources)
 			setup_cmdline("?", search_sources)
 
-			-- Setup lspconfig.
-			local capabilities =
-				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-			capabilities.textDocument.foldingRange = {
-				dynamicRegistration = false,
-				lineFoldingOnly = true,
-			}
-
-			-- Use a loop to conveniently call 'setup' on multiple servers and
-			-- map buffer local keybindings when the language server attaches
-			local lspconfig = require("lspconfig")
-			for _, lsp in ipairs(langservers) do
-				local on_attach = function(client, bufnr)
-					if disabled_lsp_caps[lsp] then
-						for _, cap in ipairs(disabled_lsp_caps[lsp]) do
-							client.server_capabilities[cap] = false
-						end
-					end
-				end
-
-				lspconfig[lsp].setup({})
-			end
 		end,
 	},
 	{
@@ -886,11 +904,9 @@ local lazyPackages = {
 	},
 	{ "https://github.com/windwp/nvim-autopairs" },
 	{ "https://github.com/L3MON4D3/LuaSnip", version = "v2.*" },
-	{ "https://github.com/gfanto/fzf-lsp.nvim" },
 	{
 		"https://github.com/stevearc/aerial.nvim",
 		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
 			"nvim-tree/nvim-web-devicons",
 		},
 		opts = {},
@@ -917,7 +933,6 @@ local lazyPackages = {
 			end,
 		},
 	},
-	{ "mhinz/neovim-remote" },
 	{
 		"mistweaverco/kulala.nvim",
 		keys = {
@@ -935,13 +950,6 @@ local lazyPackages = {
 
 if not isEmptyTable(langservers) then
 	lazyPackages = TableConcat(lazyPackages, {
-		{
-			"lukas-reineke/indent-blankline.nvim",
-			main = "ibl",
-			---@module "ibl"
-			---@type ibl.config
-			opts = {},
-		},
 		{
 			"ravitemer/mcphub.nvim",
 			build = "npm install -g mcp-hub@latest",
@@ -1004,94 +1012,10 @@ if not isEmptyTable(langservers) then
 			},
 		},
 		{
-			"nvim-treesitter/nvim-treesitter",
-			dependencys = {
-				{ "nvim-treesitter/nvim-treesitter-textobjects" },
-				{ "nvim-treesitter/nvim-treesitter-refactor" },
-				{ "https://github.com/theHamsta/nvim-treesitter-pairs" },
-				{ "romgrk/nvim-treesitter-context" },
-			},
-			config = function()
-				local function disable_treesitter_function()
-					return not vim.tbl_contains({ "cmp_doc", "cmp_menu" }, vim.bo.filetype)
-				end
-				local configs = require("nvim-treesitter.configs")
-				configs.setup({
-					ensure_installed = "all",
-					autopairs = { enable = true },
-					iswap = { enable = true },
-					incremental_selection = {
-						enable = true,
-						keymaps = {
-							init_selection = "+",
-							node_incremental = "+",
-							scope_incremental = "grc",
-							node_decremental = "_",
-						},
-					},
-					indent = { enable = false },
-					highlight = { enable = true, disable = disable_treesitter_function },
-					refactor = {
-						highlight_definitions = { enable = false },
-						highlight_current_scope = { enable = false },
-						smart_rename = { enable = true, keymaps = { smart_rename = "grr" } },
-						navigation = {
-							enable = true,
-							keymaps = {
-								goto_definition = "gnd",
-								list_definitions = "gnD",
-								list_definitions_toc = "gO",
-								goto_next_usage = "gnu",
-								goto_previous_usage = "gnU",
-							},
-						},
-					},
-					textobjects = {
-						select = {
-							enable = true,
-							keymaps = {
-								["af"] = "@function.outer",
-								["if"] = "@function.inner",
-								["ac"] = "@class.outer",
-								["ic"] = "@class.inner",
-								["ao"] = "@block.outer",
-								["io"] = "@block.inner",
-								["aCa"] = "@call.outer",
-								["iCa"] = "@call.inner",
-								["aCo"] = "@conditional.outer",
-								["iCo"] = "@conditional.inner",
-								["aCm"] = "@comment.outer",
-								["aF"] = "@frame.outer",
-								["iF"] = "@frame.inner",
-								["al"] = "@loop.outer",
-								["il"] = "@loop.inner",
-								["ap"] = "@parameter.outer",
-								["ip"] = "@parameter.inner",
-								["as"] = "@statement.outer",
-								["is"] = "@scopename.inner",
-							},
-						},
-						swap = {
-							enable = true,
-							swap_next = { ["<leader>lsa"] = "@parameter.inner" },
-							swap_previous = { ["<leader>lsA"] = "@parameter.inner" },
-						},
-						move = {
-							enable = true,
-							set_jumps = true, -- whether to set jumps in the jumplist
-							goto_next_start = { ["]m"] = "@function.outer", ["]]"] = "@class.outer" },
-							goto_next_end = { ["]M"] = "@function.outer", ["]["] = "@class.outer" },
-							goto_previous_start = {
-								["[m"] = "@function.outer",
-								["[["] = "@class.outer",
-							},
-							goto_previous_end = { ["[M"] = "@function.outer", ["[]"] = "@class.outer" },
-						},
-					},
-				})
-			end,
+			"https://github.com/arborist-ts/arborist.nvim",
+			branch = "main",
+			config = function() end,
 		},
-		{ "IndianBoy42/tree-sitter-just" },
 	})
 end
 
@@ -1202,11 +1126,8 @@ function Dump(o)
 end
 
 function FileExists(name)
-	local uv = vim.loop
-	local function file_exists(path)
-		local stat = uv.fs_stat(path)
-		return stat and stat.type == "file"
-	end
+	local stat = vim.uv.fs_stat(name)
+	return stat ~= nil and stat.type == "file"
 end
 
 function DefaultTable(a, b)
@@ -1503,8 +1424,8 @@ vim.api.nvim_set_keymap("n", "<Leader>ess", "", {
 function FindFileCwd()
 	local cwd = vim.fn.getcwd()
 	local currentFile = vim.fn.expand("%:p")
-	local path = vim.loop.cwd() .. "/.git"
-	local isGit, _ = vim.loop.fs_stat(path)
+	local path = vim.uv.cwd() .. "/.git"
+	local isGit, _ = vim.uv.fs_stat(path)
 	GotoMainWindow()
 	if currentFile ~= "" and string.find(currentFile, cwd) == nil then
 		SafeRequire("fzf-lua").files()
@@ -1726,7 +1647,7 @@ function GetBuffers(opts)
 		if opts.ignore_current_buffer and b == vim.api.nvim_get_current_buf() then
 			return false
 		end
-		if opts.cwd_only and not string.find(vim.api.nvim_buf_get_name(b), vim.loop.cwd(), 1, true) then
+		if opts.cwd_only and not string.find(vim.api.nvim_buf_get_name(b), vim.uv.cwd(), 1, true) then
 			return false
 		end
 		return true
@@ -1804,9 +1725,9 @@ function NextItem(offset)
 				vim.cmd("wincmd w")
 			else
 				if offset > 0 then
-					vim.diagnostic.goto_next()
+					vim.diagnostic.jump({ count = 1 })
 				else
-					vim.diagnostic.goto_prev()
+					vim.diagnostic.jump({ count = -1 })
 				end
 			end
 		end
@@ -2209,13 +2130,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	end,
 })
 
-if vim.fn.executable("nu") == 1 then
-	local lsp = require("lspconfig")
-	vim.tbl_deep_extend("keep", lsp, {
-		nushell = { cmd = { "nu", "--lsp" }, filetypes = "nu", name = "nushell" },
-	})
-	lsp.nushell.setup({})
-end
 
 function SwitchWordCase()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))

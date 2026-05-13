@@ -346,20 +346,21 @@ def m [ cmd ] {
    $"https://raw.githubusercontent.com/tldr-pages/tldr/main/pages/common/($cmd).md"] | par-each -t 2 {|it| try { http get $it } }
 }
 
-let repo_list = ["nushell/nushell", "casey/just", "ajeetdsouza/zoxide", "Ryooooooga/croque",
- "denoland/deno", "Nukesor/pueue", "ellie/atuin", "ducaale/xh", "YesSeri/xny-cli", "denisidoro/navi",
- "orhun/halp", "starship/starship", "sharkdp/bat", "sharkdp/fd", "sharkdp/lscolors",
- "BurntSushi/ripgrep", "xo/usql", "ogham/dog", "derailed/k9s", "ahmetb/kubectx", "helm/helm",
- "rclone/rclone", "restic/restic", "kopia/kopia", "Genivia/ugrep", "junegunn/fzf", "open-policy-agent/conftest",
- "jqlang/jq", "tomnomnom/gron", "zyedidia/micro", "helix-editor/helix", "kovidgoyal/kitty", "tmux/tmux",
- "theryangeary/choose", "direnv/direnv", "loft-sh/devpod", "tsl0922/ttyd", "aristocratos/btop", "moncho/dry",
- "xxxserxxx/gotop", "orhun/kmon", "browsh-org/browsh", "mrusme/planor", "jesseduffield/lazydocker",
- "tsenart/vegeta", "nicolas-van/multirun", "rsteube/carapace-bin", "urbanogilson/lineselect",
- "ast-grep/ast-grep", "jirutka/tty-copy", "theimpostor/osc", "d-kuro/kubectl-fuzzy",
- "nektos/act", "FiloSottile/age", "marcosnils/bin", "twpayne/chezmoi", "bitrise-io/envman", "guyfedwards/nom", "joshmedeski/sesh"
- "itchyny/bed", "ddanier/nur", "https://github.com/dbrgn/tealdeer", "dundee/gdu", "tstack/lnav", "stern/stern",
- "pouriyajamshidi/tcping", "sharkdp/hyperfine", "pvolok/mprocs", "GoogleCloudPlatform/kubectl-ai", "mark3labs/kit"
-
+let repo_list = [
+  "nushell/nushell", "casey/just", "ajeetdsouza/zoxide", "Ryooooooga/croque",
+  "denoland/deno", "Nukesor/pueue", "ellie/atuin", "ducaale/xh", "YesSeri/xny-cli", "denisidoro/navi",
+  "orhun/halp", "starship/starship", "sharkdp/bat", "sharkdp/fd", "sharkdp/lscolors",
+  "BurntSushi/ripgrep", "xo/usql", "ogham/dog", "derailed/k9s", "ahmetb/kubectx", "helm/helm",
+  "rclone/rclone", "restic/restic", "kopia/kopia", "Genivia/ugrep", "junegunn/fzf", "open-policy-agent/conftest",
+  "jqlang/jq", "tomnomnom/gron", "zyedidia/micro", "helix-editor/helix", "kovidgoyal/kitty", "tmux/tmux",
+  "theryangeary/choose", "direnv/direnv", "loft-sh/devpod", "tsl0922/ttyd", "aristocratos/btop", "moncho/dry",
+  "xxxserxxx/gotop", "orhun/kmon", "browsh-org/browsh", "mrusme/planor", "jesseduffield/lazydocker",
+  "tsenart/vegeta", "nicolas-van/multirun", "rsteube/carapace-bin", "urbanogilson/lineselect",
+  "ast-grep/ast-grep", "jirutka/tty-copy", "theimpostor/osc", "d-kuro/kubectl-fuzzy",
+  "nektos/act", "FiloSottile/age", "marcosnils/bin", "twpayne/chezmoi", "bitrise-io/envman", "guyfedwards/nom", "joshmedeski/sesh"
+  "itchyny/bed", "ddanier/nur", "https://github.com/dbrgn/tealdeer", "dundee/gdu", "tstack/lnav", "stern/stern",
+  "pouriyajamshidi/tcping", "sharkdp/hyperfine", "pvolok/mprocs", "GoogleCloudPlatform/kubectl-ai", "mark3labs/kit",
+  "charmbracelet/crush", "aaif-goose/goose"
 ]
 
 def repo [ ] {

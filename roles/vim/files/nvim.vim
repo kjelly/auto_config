@@ -373,7 +373,7 @@ nnoremap <c-n> :call TreeToggle()<cr>
 nnoremap <c-t> :tabnew %<CR>
 inoremap <c-t> <Esc>:tabnew %<CR>
 
-nnoremap <c-e> <cmd> lua FzfLua.commands()<cr>
+nnoremap <c-e> <cmd>lua FzfLua.commands()<cr>
 
 nnoremap <m-s> <cmd>AerialToggle<cr>
 
@@ -612,8 +612,8 @@ nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> [d <cmd>lua vim.diagnostic.goto_prev({severity=vim.diagnostic.severity.INFO})<CR>
-nnoremap <silent> ]d <cmd>lua vim.diagnostic.goto_next({severity=vim.diagnostic.severity.INFO})<CR>
+nnoremap <silent> [d <cmd>lua vim.diagnostic.jump({count=-1, severity=vim.diagnostic.severity.INFO})<CR>
+nnoremap <silent> ]d <cmd>lua vim.diagnostic.jump({count=1, severity=vim.diagnostic.severity.INFO})<CR>
 
 lua <<EOF
 function SetKeymap(modes, key, cmd, desc)
@@ -868,23 +868,23 @@ nnoremap <silent> <leader>lwr <cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>
 nnoremap <silent> <leader>lwl <cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>
 nnoremap <silent> <leader>ldt <cmd>lua vim.lsp.buf.type_definition()<cr>
 nnoremap <silent> <leader>lde <cmd>lua vim.lsp.buf.definition()<cr>
-nnoremap <silent> <leader>ldE <cmd>lua vim.lsp.buf.declaration_call()<cr>
+nnoremap <silent> <leader>ldE <cmd>lua vim.lsp.buf.declaration()<cr>
 nnoremap <silent> <leader>ldf <cmd>lua vim.diagnostic.open_float()<CR>
 nnoremap <silent> <leader>ldl <cmd>lua vim.diagnostic.setqflist()<CR>
-nnoremap <silent> <leader>ldn <cmd>lua vim.diagnostic.goto_next()<CR>
-nnoremap <silent> <leader>ldp <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent> <leader>ldn <cmd>lua vim.diagnostic.jump({count=1})<CR>
+nnoremap <silent> <leader>ldp <cmd>lua vim.diagnostic.jump({count=-1})<CR>
 nnoremap <silent> <leader>lrn <cmd>lua vim.lsp.buf.rename()<cr>
 nnoremap <silent> <leader>la <cmd>lua vim.lsp.buf.code_action()<cr>
 nnoremap <silent> <leader>lre <cmd>lua vim.lsp.buf.references()<cr>
 nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.format { async = true }<cr>
-vnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.range_formatting()<cr>
-vnoremap <silent> f <cmd>lua vim.lsp.buf.range_formatting()<cr>
-nnoremap <silent> <leader>li <cmd>lua require'fzf_lsp'.implementation_call()<cr>
+vnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.format()<cr>
+vnoremap <silent> f <cmd>lua vim.lsp.buf.format()<cr>
+nnoremap <silent> <leader>li <cmd>lua require('fzf-lua').lsp_implementations()<cr>
 nnoremap <silent> <leader>lsa <cmd>lua vim.lsp.buf.signature_help()<cr>
-nnoremap <silent> <leader>lsy <cmd>lua require'fzf_lsp'.document_symbol_call()<cr>
-nnoremap <silent> <leader>lsY <cmd>lua require'fzf_lsp'.workspace_symbol_call()<cr>
-nnoremap <silent> <leader>lsc <cmd>lua require'fzf_lsp'.incoming_calls_call()<cr>
-nnoremap <silent> <leader>lsC <cmd>lua require'fzf_lsp'.outcoming_calls_call()<cr>
+nnoremap <silent> <leader>lsy <cmd>lua require('fzf-lua').lsp_document_symbols()<cr>
+nnoremap <silent> <leader>lsY <cmd>lua require('fzf-lua').lsp_live_workspace_symbols()<cr>
+nnoremap <silent> <leader>lsc <cmd>lua require('fzf-lua').lsp_incoming_calls()<cr>
+nnoremap <silent> <leader>lsC <cmd>lua require('fzf-lua').lsp_outgoing_calls()<cr>
 nnoremap <silent> <leader>lc <cmd>lua SwitchWordCase()<cr>
 
 nnoremap <leader>lsg :FloatermNew! curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
