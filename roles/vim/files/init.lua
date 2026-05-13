@@ -236,6 +236,7 @@ local lazyPackages = {
 	{ "rcarriga/nvim-dap-ui", opts = {} },
 	{
 		"https://github.com/nvim-lualine/lualine.nvim",
+		event = "VeryLazy",
 		config = function()
 			local lualine = require("lualine")
 			local function showCWD()
@@ -361,6 +362,7 @@ local lazyPackages = {
 	{ "dawsers/telescope-floaterm.nvim" },
 	{
 		"nvim-telescope/telescope.nvim",
+		event = "VeryLazy",
 		dependencies = { "dawsers/telescope-floaterm.nvim" },
 		config = function()
 			local telescope = require("telescope")
@@ -503,7 +505,7 @@ local lazyPackages = {
 	{ "https://github.com/romainl/vim-cool" },
 	{ "kevinhwang91/promise-async" },
 	{ "rcarriga/nvim-notify" },
-	{ "https://github.com/Chaitanyabsprip/present.nvim", opts = {} },
+	{ "https://github.com/Chaitanyabsprip/present.nvim", cmd = { "Present" }, opts = {} },
 	{ "mason-org/mason.nvim", opts = {} },
 	{
 		"mason-org/mason-lspconfig.nvim",
@@ -686,8 +688,6 @@ local lazyPackages = {
 			{ "https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol" },
 			{ "saadparwaiz1/cmp_luasnip" },
 			{ "rafamadriz/friendly-snippets" },
-			{ "neovim/nvim-lspconfig" },
-			{ "mason-org/mason-lspconfig.nvim" },
 			{ "dmitmel/cmp-cmdline-history" },
 		},
 		config = function()
@@ -990,6 +990,7 @@ if not isEmptyTable(langservers) then
 		},
 		{
 			"https://github.com/yetone/avante.nvim",
+			event = "VeryLazy",
 			build = "make",
 			opts = {
 				provider = "gemini",
@@ -997,6 +998,7 @@ if not isEmptyTable(langservers) then
 		},
 		{
 			"https://github.com/olimorris/codecompanion.nvim",
+			event = "VeryLazy",
 			opts = {
 				strategies = {
 					chat = {
