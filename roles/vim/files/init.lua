@@ -553,6 +553,18 @@ local lazyPackages = {
 				automatic_installation = false,
 			})
 
+			-- Ensure external linters/formatters for EFM are installed
+			local registry = require("mason-registry")
+			local efm_tools = { "hadolint", "shellcheck", "shfmt", "yamllint" }
+			for _, name in ipairs(efm_tools) do
+				if registry.has_package(name) then
+					local p = registry.get_package(name)
+					if not p:is_installed() then
+						p:install()
+					end
+				end
+			end
+
 			vim.lsp.config("bashls", {
 				cmd = { "bash-language-server", "start" },
 				filetypes = { "bash", "sh" },
@@ -570,8 +582,12 @@ local lazyPackages = {
 			})
 			vim.lsp.config("efm", {
 				cmd = { "efm-langserver" },
-				filetypes = { "*" },
+				filetypes = { "sh", "yaml", "dockerfile" },
 				root_markers = { ".git" },
+				init_options = {
+					documentFormatting = true,
+					documentRangeFormatting = true,
+				},
 			})
 			vim.lsp.config("emmet_ls", {
 				cmd = { "emmet-language-server", "--stdio" },
@@ -1151,11 +1167,11 @@ if not isEmptyTable(langservers) then
 			opts = {
 				provider = "gemini",
 				auto_suggestions_provider = "gemini",
-				gemini = {
-					model = "gemini-2.5-flash",
-					max_tokens = 4096,
-				},
 				providers = {
+					gemini = {
+						model = "gemini-2.5-flash",
+						max_tokens = 4096,
+					},
 					ollama = {
 						model = vim.g.ollama_agent_model or "gemma2:9b",
 						endpoint = "http://localhost:11434",
@@ -1189,16 +1205,39 @@ if not isEmptyTable(langservers) then
 			opts = {
 				strategies = {
 					chat = {
-						adapter = "ollama",
+						adapter = "gemini",
+						tools = {
+							["mcp"] = {
+								callback = function()
+									return require("mcphub.extensions.codecompanion")
+								end,
+								description = "Call tools and resources from the MCP Servers",
+								opts = {
+									requires_approval = true,
+									show_result_in_chat = true,
+									make_vars = true,
+									make_slash_commands = true,
+								},
+							},
+						},
 					},
 					inline = {
-						adapter = "ollama",
+						adapter = "gemini",
 					},
 					cmd = {
-						adapter = "ollama",
+						adapter = "gemini",
 					},
 				},
 				adapters = {
+					gemini = function()
+						return require("codecompanion.adapters").extend("gemini", {
+							schema = {
+								model = {
+									default = "gemini-2.5-flash",
+								},
+							},
+						})
+					end,
 					ollama = function()
 						return require("codecompanion.adapters").extend("ollama", {
 							schema = {
@@ -1973,11 +2012,25 @@ end
 
 function ToggleMaximize()
 	local win_height = vim.api.nvim_win_get_height(0)
+	local win_width = vim.api.nvim_win_get_width(0)
 	local max_height = vim.o.lines - vim.o.cmdheight - 1
-	if win_height >= max_height - 1 then
+	local max_width = vim.o.columns
+
+	if win_height >= max_height - 1 and win_width >= max_width - 1 then
 		vim.cmd("wincmd =")
+		for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+			local buf = vim.api.nvim_win_get_buf(win)
+			local buf_name = vim.api.nvim_buf_get_name(buf)
+			local ft = vim.bo[buf].filetype
+			if string.match(buf_name, "crush") then
+				vim.api.nvim_win_set_width(win, 80)
+			elseif ft == "neo-tree" then
+				vim.api.nvim_win_set_width(win, 25)
+			end
+		end
 	else
 		vim.cmd("wincmd _")
+		vim.cmd("wincmd |")
 	end
 end
 
@@ -2376,3 +2429,39 @@ local function enableFold()
 	vim.opt.fillchars:append({ fold = " " })
 end
 vim.schedule(enableFold)
+
+-- Crush Agent Native Toggle (Pure Lua)
+local crush_buf = nil
+local crush_win = nil
+
+local function toggle_crush()
+	-- If window is open and valid, close it
+	if crush_win and vim.api.nvim_win_is_valid(crush_win) then
+		vim.api.nvim_win_close(crush_win, true)
+		crush_win = nil
+		return
+	end
+
+	-- If buffer is valid, split and show
+	if crush_buf and vim.api.nvim_buf_is_valid(crush_buf) then
+		vim.cmd("vertical split")
+		crush_win = vim.api.nvim_get_current_win()
+		vim.api.nvim_win_set_width(crush_win, 80)
+		vim.api.nvim_win_set_buf(crush_win, crush_buf)
+		vim.cmd("startinsert")
+		return
+	end
+
+	-- Create split and open terminal
+	vim.cmd("vertical split")
+	crush_win = vim.api.nvim_get_current_win()
+	vim.api.nvim_win_set_width(crush_win, 80)
+	
+	vim.cmd("terminal crush")
+	crush_buf = vim.api.nvim_get_current_buf()
+	
+	vim.bo[crush_buf].buflisted = false
+	vim.cmd("startinsert")
+end
+
+vim.keymap.set("n", "<leader>cr", toggle_crush, { desc = "Toggle Crush Agent" })
