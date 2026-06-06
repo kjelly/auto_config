@@ -1,160 +1,18 @@
 ---
-- name: Download vim-plug
-  ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    dest: /tmp/plug.vim
-    mode: '0640'
-
-
-- name: Create autoload folder
+- name: Create nvim config directory
   ansible.builtin.file:
-    path: "{{ item }}"
+    path: "~/.config/nvim"
     state: directory
-    recurse: true
-  with_items:
-    - "~/.vim/autoload/"
-    - "~/.config/nvim/autoload/"
+    mode: '0750'
 
-- name: Copy vim config
-  ansible.builtin.copy:
-    src: /tmp/plug.vim
-    dest: "{{ item }}"
-    remote_src: true
-    mode: '0640'
-  with_items:
-    - "~/.vim/autoload/plug.vim"
-    - "~/.config/nvim/autoload/plug.vim"
-
-- name: Get python path
-  get_executable_path:
-    name: python3
-  register: python3_exec
-
-- name: For nvim
-  block:
-    - name: Set fact
-      ansible.builtin.set_fact:
-        nvim: true
-    - name: Create nvim config directory
-      ansible.builtin.file:
-        path: "~/.config/nvim"
-        state: directory
-        mode: '0750'
-    - name: Copy hterm-copy.vim
-      ansible.builtin.template:
-        src: hterm-copy.vim
-        dest: "{{ item }}"
-        mode: "0640"
-      with_items:
-        - ~/.vim/hterm-copy.vim
-        - ~/.config/nvim/hterm-copy.vim
-    - name: Copy coc setting
-      ansible.builtin.template:
-        src: coc-settings.json
-        dest: ~/.config/nvim/coc-settings.json
-        mode: '0640'
-
-  always:
-    - name: Set nvim to false
-      ansible.builtin.set_fact:
-        nvim: false
-
-- name: Create ~/bin
-  ansible.builtin.file:
-    path: "~/bin"
-    state: directory
-    mode: 0755
-
-- name: Copy vit
-  ansible.builtin.template:
-    src: "vit"
-    dest: "~/bin/vit"
-    mode: 0755
-
-- name: Copy navim
-  ansible.builtin.copy:
-    src: "navim"
-    dest: "~/bin/navim"
-    mode: 0755
-
-- name: Copy vimt
-  ansible.builtin.template:
-    src: "vimt"
-    dest: "~/bin/vimt"
-    mode: 0755
-
-- name: Copy wiki.py
-  ansible.builtin.template:
-    src: "wiki.py"
-    dest: "~/bin/wiki"
-    mode: 0755
-
-- name: Copy vimrc
-  ansible.builtin.template:
-    src: "vimrc"
-    dest: "~/.vimrc"
-    mode: '0640'
-
-- name: Create vim_custom
-  ansible.builtin.file:
-    path: "~/.vim_custom.vim"
-    state: touch
-    mode: '0640'
-
-- name: Create stylua
-  ansible.builtin.file:
-    path: "~/.config/nvim/.stylua.toml"
-    state: touch
-    mode: '0640'
-
-- name: Create nvim git
-  ansible.builtin.file:
-    path: "~/.config/nvim/.git/"
-    state: directory
-    recurse: true
-
-- name: Get passwd
-  ansible.builtin.shell: "getent passwd $LOGNAME | cut -d: -f7"
-  register: default_shell
-
-- name: Change default shell
-  ansible.builtin.lineinfile:
-    dest: "~/.vimrc"
-    regexp: "set shell"
-    line: "set shell={{ default_shell.stdout }}"
-
-- name: Create nvim ftplugin
-  ansible.builtin.file:
-    path: "~/.config/nvim/ftplugin"
-    state: directory
-    recurse: true
-
-- name: Copy ctags
-  ansible.builtin.copy:
-    src: "ctags"
-    dest: "~/.ctags"
-    mode: "0640"
-
-- name: Copy clipboard-provider
-  ansible.builtin.copy:
-    src: clipboard-provider
-    dest: "~/.config/nvim/bin/"
-    mode: 0755
-
-- name: Copy format_json
-  ansible.builtin.copy:
-    src: format_json.py
-    dest: "~/.config/nvim/bin/"
-    mode: 0755
-
-- name: Copy config.lua
+- name: Copy nvim config files
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: "~/.config/nvim/{{ item }}"
     mode: '0640'
   with_items:
-    - "init.lua"
-    - "nvim.vim"
+    - init.lua
+    - nvim.vim
 
 - name: Copy LSP configurations
   ansible.builtin.copy:
@@ -175,16 +33,8 @@
     dest: ~/.config/efm-langserver/config.yaml
     mode: '0640'
 
-- name: Add leetcode browser
-  ansible.builtin.lineinfile:
-    dest: "~/.vim_custom.vim"
-    regexp: "g:leetcode_browser"
-    line: "let g:leetcode_browser='firefox'"
-  ignore_errors: true
-
-- name: Update vim_custom
-  ansible.builtin.lineinfile:
-    dest: "~/.vim_custom.vim"
-    regexp: "g:leetcode_hide_paid_only"
-    line: "let g:leetcode_hide_paid_only='1'"
-  ignore_errors: true
+- name: Create stylua config
+  ansible.builtin.file:
+    path: "~/.config/nvim/.stylua.toml"
+    state: touch
+    mode: '0640'
