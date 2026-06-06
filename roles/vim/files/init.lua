@@ -1150,6 +1150,37 @@ if not isEmptyTable(langservers) then
 			build = "make",
 			opts = {
 				provider = "gemini",
+				auto_suggestions_provider = "gemini",
+				gemini = {
+					model = "gemini-2.5-flash",
+					max_tokens = 4096,
+				},
+				providers = {
+					ollama = {
+						model = vim.g.ollama_agent_model or "gemma2:9b",
+						endpoint = "http://localhost:11434",
+						is_env_set = function()
+							local handle = io.popen("curl -s -o /dev/null -w '%{http_code}' http://localhost:11434")
+							if handle then
+								local result = handle:read("*a")
+								handle:close()
+								return result == "200" or result == "404"
+							end
+							return false
+						end,
+					},
+				},
+			},
+			dependencies = {
+				"stevearc/dressing.nvim",
+				"nvim-lua/plenary.nvim",
+				"MunifTanjim/nui.nvim",
+				"nvim-tree/nvim-web-devicons",
+				{
+					"MeanderingProgrammer/render-markdown.nvim",
+					opts = { file_types = { "markdown", "Avante" } },
+					ft = { "markdown", "Avante" },
+				},
 			},
 		},
 		{
@@ -1158,14 +1189,25 @@ if not isEmptyTable(langservers) then
 			opts = {
 				strategies = {
 					chat = {
-						adapter = "copilot",
+						adapter = "ollama",
 					},
 					inline = {
-						adapter = "copilot",
+						adapter = "ollama",
 					},
 					cmd = {
-						adapter = "copilot",
+						adapter = "ollama",
 					},
+				},
+				adapters = {
+					ollama = function()
+						return require("codecompanion.adapters").extend("ollama", {
+							schema = {
+								model = {
+									default = vim.g.ollama_agent_model or "gemma2:9b",
+								},
+							},
+						})
+					end,
 				},
 			},
 		},
