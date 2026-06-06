@@ -164,9 +164,11 @@ local lazyPackages = {
 	{ "m-demare/hlargs.nvim" },
 	{ "kylechui/nvim-surround", opts = {} },
 	{ "numToStr/Comment.nvim", opts = {} },
-	{ "nvim-neotest/nvim-nio" },
+	{ "nvim-neotest/nvim-nio", lazy = true },
 	{
 		"mfussenegger/nvim-dap",
+		lazy = true,
+		keys = { "<localleader>dc", "<localleader>dt", "<localleader>di", "<localleader>do", "<localleader>dr" },
 		config = function()
 			local dap = require("dap")
 			dap.adapters.dart = {
@@ -185,8 +187,8 @@ local lazyPackages = {
 			}
 		end,
 	},
-	{ "mfussenegger/nvim-dap-python" },
-	{ "rcarriga/nvim-dap-ui", opts = {} },
+	{ "mfussenegger/nvim-dap-python", lazy = true },
+	{ "rcarriga/nvim-dap-ui", lazy = true, keys = { "<localleader>du" }, opts = {} },
 	{
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
@@ -465,10 +467,6 @@ local lazyPackages = {
 		cmd = "Trouble",
 		opts = {},
 	},
-	{
-		"nvim-treesitter/nvim-treesitter-context",
-		opts = { max_lines = 3 },
-	},
 	{ "folke/which-key.nvim" },
 	{ "rcarriga/nvim-notify" },
 	{ "Chaitanyabsprip/present.nvim", cmd = { "Present" }, opts = {} },
@@ -642,6 +640,8 @@ local lazyPackages = {
 	{ "voldikss/vim-floaterm" },
 	{
 		"nat-418/boole.nvim",
+		lazy = true,
+		keys = { "<C-a>", "<C-x>", "<leader>st" },
 		opts = {
 			mappings = {
 				increment = "<C-a>",
@@ -656,10 +656,12 @@ local lazyPackages = {
 			},
 		},
 	},
-	{ "unblevable/quick-scope" },
-	{ "NvChad/nvim-colorizer.lua", opts = {} },
+	{ "unblevable/quick-scope", lazy = true, event = "BufReadPost" },
+	{ "NvChad/nvim-colorizer.lua", lazy = true, event = "BufReadPost", opts = {} },
 	{
 		"ramilito/kubectl.nvim",
+		lazy = true,
+		cmd = "Kubectl",
 		version = "2.*",
 		config = function()
 			require("kubectl").setup()
@@ -696,6 +698,8 @@ local lazyPackages = {
 	{ "tpope/vim-fugitive" },
 	{
 		"chentoast/marks.nvim",
+		lazy = true,
+		event = "BufReadPost",
 		opts = {
 			default_mappings = true,
 			builtin_marks = { ".", "<", ">", "^" },

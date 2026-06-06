@@ -424,8 +424,8 @@ nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 nnoremap zz za
 nnoremap Q :qa<cr>
 
-" Exit vim quickly
-nnoremap <c-c> :qa!<cr>
+" First <c-c> opens cmdline with :qa! pre-filled; second <c-c> cancels (default cmdline behavior)
+nnoremap <c-c> :qa!
 
 " Since I use hterm in tab, I need another key for <c-w>
 imap <m-bs> <c-w>
@@ -732,7 +732,6 @@ nnoremap <silent> <leader>se :mksession!<cr>
 nnoremap <silent> <leader>sc <cmd>lua ToggleForCopy()<cr>
 nnoremap <silent> <leader>st <cmd>Boole increment<cr>
 nnoremap <silent> <leader>sk :DisableTmuxKey<cr>
-nnoremap <silent> <leader>so <cmd>TSContextToggle<cr>
 nnoremap <silent> <leader>sg :set guicursor=<cr>
 nnoremap <silent> <expr> <leader>sb &background=='light' ? ":set background=dark<cr>" : ":set background=light<cr>"
 
