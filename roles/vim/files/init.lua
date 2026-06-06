@@ -13,9 +13,6 @@ end
 initBackground()
 vim.opt.termguicolors = true
 
-vim.schedule(function()
-	vim.cmd.source(vim.fn.stdpath("config") .. "/nvim.vim")
-end)
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -49,61 +46,26 @@ vim.g.clipboard = {
 
 vim.g.mapleader = ","
 vim.g.maplocalleader = " "
-feedback_info = { package_not_found = {} }
-function IsModuleAvailable(name)
-	if package.loaded[name] then
-		return true
-	else
-		for _, searcher in ipairs(package.loaders) do
-			local loader = searcher(name)
-			if type(loader) == "function" then
-				package.preload[name] = loader
-				return true
-			end
-		end
-		return false
-	end
-end
-
-function Append(t, value)
-	t[#t + 1] = value
-	return t
-end
-
-function TableConcat(t1, t2)
+local function TableConcat(t1, t2)
 	for i = 1, #t2 do
 		t1[#t1 + 1] = t2[i]
 	end
 	return t1
 end
 
-local package_loadded = {}
-function SafeRequire(name)
-	if package_loadded[name] ~= nil then
-		return package_loadded[name]
-	end
-	if IsModuleAvailable(name) then
-		package_loadded[name] = require(name)
-		return package_loadded[name]
-	end
+local function SafeRequire(name)
+	local ok, mod = pcall(require, name)
+	if ok then return mod end
 	return setmetatable({}, {
-		__index = function(t, key)
-			return function()
-				Append(feedback_info.package_not_found, name)
-			end
+		__index = function(_, _)
+			return function() end
 		end,
 	})
 end
 
-function SafeRequireCallback(name, func)
-	if package_loadded[name] ~= nil then
-		return func(package_loadded[name])
-	end
-
-	if IsModuleAvailable(name) then
-		package_loadded[name] = require(name)
-		return func(package_loadded[name])
-	end
+local function SafeRequireCallback(name, func)
+	local ok, mod = pcall(require, name)
+	if ok then func(mod) end
 end
 
 local isEmptyTable = function(v)
@@ -135,10 +97,15 @@ local langservers = {
 	"yamlls",
 }
 
-for _, v in ipairs({ "node", "go" }) do
-	if vim.fn.executable(v) == 0 then
-		langservers = {}
-	end
+if vim.fn.executable("node") == 0 then
+	langservers = vim.tbl_filter(function(s)
+		return not vim.tbl_contains({ "ts_ls", "html", "jsonls", "graphql", "emmet_ls" }, s)
+	end, langservers)
+end
+if vim.fn.executable("go") == 0 then
+	langservers = vim.tbl_filter(function(s)
+		return not vim.tbl_contains({ "gopls", "golangci_lint_ls" }, s)
+	end, langservers)
 end
 
 local function indexOf(array, value)
@@ -148,6 +115,15 @@ local function indexOf(array, value)
 		end
 	end
 	return nil
+end
+
+local function SafeBufGetVar(bufnr, key)
+	local ok, value = pcall(vim.api.nvim_buf_get_var, bufnr, key)
+	if ok then
+		return value, nil
+	else
+		return nil, value
+	end
 end
 
 local function termTitle()
@@ -172,6 +148,23 @@ local function termTitle()
 	end
 end
 
+local fzf_multi_select = function(prompt_bufnr)
+	local actions = require("telescope.actions")
+	local action_state = require("telescope.actions.state")
+	local picker = action_state.get_current_picker(prompt_bufnr)
+	local multi = picker:get_multi_selection()
+	if not vim.tbl_isempty(multi) then
+		actions.close(prompt_bufnr)
+		for _, j in pairs(multi) do
+			if j.path ~= nil then
+				vim.cmd(string.format("edit %s", j.path))
+			end
+		end
+	else
+		actions.select_default(prompt_bufnr)
+	end
+end
+
 local lazyPackages = {
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -183,7 +176,7 @@ local lazyPackages = {
 	{ "https://github.com/danymat/neogen", opts = {} },
 	{ "https://github.com/SmiteshP/nvim-navic" },
 	{ "m-demare/hlargs.nvim" },
-	{ "https://github.com/kylechui/nvim-surround" },
+	{ "https://github.com/kylechui/nvim-surround", opts = {} },
 	{
 		"smjonas/live-command.nvim",
 		main = "live-command",
@@ -239,13 +232,6 @@ local lazyPackages = {
 		event = "VeryLazy",
 		config = function()
 			local lualine = require("lualine")
-			local function showCWD()
-				local path = vim.fn.getcwd()
-				local home = vim.env.HOME
-				path = path:gsub(home, "~")
-				return path
-			end
-
 			local function floatermInfo()
 				local bufid = GetTerminalBufnr()
 				local buffers = api.nvim_eval("floaterm#buflist#gather()")
@@ -271,16 +257,16 @@ local lazyPackages = {
 			}
 
 			local function getModified()
-				if api.nvim_eval("&modified") == 1 then
+				if vim.bo.modified then
 					return "📖"
-				elseif api.nvim_eval("&readonly") == 1 then
+				elseif vim.bo.readonly then
 					return "🔒"
 				else
 					return "📗"
 				end
 			end
 
-			function GetCurrentDiagnostic()
+			local function GetCurrentDiagnostic()
 				local bufnr = 0
 				local line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
 				local opts = { ["lnum"] = line_nr }
@@ -301,7 +287,7 @@ local lazyPackages = {
 				return best_diagnostic
 			end
 
-			function GetCurrentDiagnosticString()
+			local function GetCurrentDiagnosticString()
 				local diagnostic = GetCurrentDiagnostic()
 
 				if not diagnostic or not diagnostic.message then
@@ -401,7 +387,9 @@ local lazyPackages = {
 			{
 				"S",
 				mode = { "n", "x", "o" },
-				function() end,
+				function()
+					require("flash").treesitter()
+				end,
 				desc = "Flash Treesitter",
 			},
 		},
@@ -503,7 +491,6 @@ local lazyPackages = {
 	{ "https://github.com/FabijanZulj/blame.nvim", opts = {} },
 	{ "https://github.com/folke/which-key.nvim" },
 	{ "https://github.com/romainl/vim-cool" },
-	{ "kevinhwang91/promise-async" },
 	{ "rcarriga/nvim-notify" },
 	{ "https://github.com/Chaitanyabsprip/present.nvim", cmd = { "Present" }, opts = {} },
 	{ "mason-org/mason.nvim", opts = {} },
@@ -662,17 +649,6 @@ local lazyPackages = {
 			},
 		},
 	},
-	{ "hrsh7th/cmp-nvim-lsp", event = { "InsertEnter", "CmdlineEnter" } },
-	{ "hrsh7th/cmp-buffer", event = { "InsertEnter", "CmdlineEnter" } },
-	{ "hrsh7th/cmp-path", event = { "InsertEnter", "CmdlineEnter" } },
-	{ "hrsh7th/cmp-cmdline", event = { "InsertEnter", "CmdlineEnter" } },
-	{ "lukas-reineke/cmp-rg", event = { "InsertEnter", "CmdlineEnter" } },
-	{ "https://github.com/petertriho/cmp-git", event = { "InsertEnter", "CmdlineEnter" } },
-	{ "https://github.com/mtoohey31/cmp-fish", event = { "InsertEnter", "CmdlineEnter" } },
-	{ "https://github.com/dmitmel/cmp-cmdline-history", event = { "InsertEnter", "CmdlineEnter" } },
-	{ "https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol", event = { "InsertEnter", "CmdlineEnter" } },
-	{ "saadparwaiz1/cmp_luasnip", event = { "InsertEnter", "CmdlineEnter" } },
-	{ "rafamadriz/friendly-snippets", event = { "InsertEnter", "CmdlineEnter" } },
 	{
 		"hrsh7th/nvim-cmp",
 		event = { "InsertEnter", "CmdlineEnter" },
@@ -688,7 +664,6 @@ local lazyPackages = {
 			{ "https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol" },
 			{ "saadparwaiz1/cmp_luasnip" },
 			{ "rafamadriz/friendly-snippets" },
-			{ "dmitmel/cmp-cmdline-history" },
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -711,22 +686,6 @@ local lazyPackages = {
 				table.insert(cmp_sources, { name = "copilot" })
 			end
 
-			local source_mapping = {
-				buffer = "[Buffer] 📦",
-				nvim_lua = "[Lua] 🐖",
-				cmp_tabnine = "[TN] 📝",
-				path = "[Path] 📁",
-				copilot = "[Copilot] ",
-				fish = "[fish] 🐠",
-				rg = "[rg] 🔎",
-				luasnip = "[luasnip] 🐍",
-			}
-
-			local has_words_before = function()
-				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				return col ~= 0
-					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-			end
 			local luasnip = SafeRequire("luasnip")
 			if not isEmptyTable(luasnip) then
 				require("luasnip.loaders.from_vscode").lazy_load({
@@ -745,10 +704,6 @@ local lazyPackages = {
 				return col ~= 0
 					and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 			end
-
-			SafeRequire("").configure({
-				filetypes_denylist = { "dirvish", "fugitive", "floaterm" },
-			})
 
 			cmp.setup({
 				preselect = cmp.PreselectMode.None,
@@ -803,14 +758,7 @@ local lazyPackages = {
 						if cmp.visible() then
 							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 						else
-							cmp.mapping.complete()
-						end
-					end),
-					["<C-p>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-						else
-							cmp.mapping.complete()
+							cmp.complete()
 						end
 					end),
 					["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
@@ -902,7 +850,7 @@ local lazyPackages = {
 			max_height = 9,
 		},
 	},
-	{ "https://github.com/windwp/nvim-autopairs" },
+	{ "https://github.com/windwp/nvim-autopairs", opts = {} },
 	{ "https://github.com/L3MON4D3/LuaSnip", version = "v2.*" },
 	{
 		"https://github.com/stevearc/aerial.nvim",
@@ -922,7 +870,6 @@ local lazyPackages = {
 				if win_info.height < 2 then
 					return false
 				end
-				print(vim.bo[burnr].filetype)
 				if #vim.bo[burnr].filetype == 0 then
 					return false
 				end
@@ -1016,7 +963,6 @@ if not isEmptyTable(langservers) then
 		{
 			"https://github.com/arborist-ts/arborist.nvim",
 			branch = "main",
-			config = function() end,
 		},
 	})
 end
@@ -1024,15 +970,6 @@ end
 require("lazy").setup(lazyPackages, {})
 
 vim.cmd.source(vim.fn.stdpath("config") .. "/nvim.vim")
-
-function SafeBufGetVar(bufnr, key)
-	local ok, value = pcall(vim.api.nvim_buf_get_var, bufnr, key)
-	if ok then
-		return value, nil
-	else
-		return nil, value
-	end
-end
 
 if vim.fn.filereadable("/dev/urandom") then
 	function Random(min, max)
@@ -1132,37 +1069,6 @@ function FileExists(name)
 	return stat ~= nil and stat.type == "file"
 end
 
-function DefaultTable(a, b)
-	if type(a) == "table" then
-		if type(b) == "table" then
-			if vim.tbl_count(a) > vim.tbl_count(b) then
-				return setmetatable(a, {
-					__newindex = function()
-						return b
-					end,
-				})
-			else
-				return setmetatable(b, {
-					__newindex = function()
-						return a
-					end,
-				})
-			end
-		else
-			return setmetatable(a, {
-				__newindex = function()
-					return b
-				end,
-			})
-		end
-	else
-		return setmetatable(b, {
-			__newindex = function()
-				return a
-			end,
-		})
-	end
-end
 
 local function smart_dd()
 	if vim.api.nvim_get_current_line():match("^%s*$") then
@@ -1426,31 +1332,14 @@ vim.api.nvim_set_keymap("n", "<Leader>ess", "", {
 function FindFileCwd()
 	local cwd = vim.fn.getcwd()
 	local currentFile = vim.fn.expand("%:p")
-	local path = vim.uv.cwd() .. "/.git"
-	local isGit, _ = vim.uv.fs_stat(path)
 	GotoMainWindow()
 	if currentFile ~= "" and string.find(currentFile, cwd) == nil then
 		SafeRequire("fzf-lua").files()
 		return
 	end
-	local Job = require("plenary.job")
-
-	Job:new({
-		command = "bash",
-		args = { "-c", "git rev-parse --is-inside-work-tree" },
-		on_exit = function(_, exitcode)
-			if exitcode == 0 then
-				vim.defer_fn(function()
-					SafeRequire("fzf-lua-enchanted-files").files()
-				end, 100)
-			else
-				vim.defer_fn(function()
-					-- SafeRequire("fzf-lua").files()
-					SafeRequire("fzf-lua-enchanted-files").files()
-				end, 100)
-			end
-		end,
-	}):start()
+	vim.defer_fn(function()
+		SafeRequire("fzf-lua-enchanted-files").files()
+	end, 100)
 end
 
 vim.api.nvim_set_keymap("n", "<c-p>", "", {
@@ -1510,8 +1399,7 @@ function TermToggle()
 end
 
 function FzfBuffer()
-	local filetype = vim.api.nvim_eval("&filetype")
-	local fzf = require("fzf-lua")
+	local filetype = vim.bo.filetype
 	if filetype == "floaterm" then
 		SafeRequire("telescope._extensions.floaterm.floaterm").search()
 	else
@@ -1556,64 +1444,16 @@ function UpdateEnv()
 	end
 end
 
-function DelaySetup2()
-	vim.api.nvim_create_autocmd("ModeChanged", {
-		callback = function()
-			if vim.fn.mode() == "n" then
-				vim.cmd("setlocal cursorline")
-			else
-				vim.cmd("setlocal nocursorline")
-			end
-		end,
-	})
-	vim.diagnostic.config({ virtual_text = false })
-	vim.api.nvim_create_autocmd({ "InsertEnter" }, {
-		callback = function()
-			vim.diagnostic.config({ virtual_text = false })
-		end,
-	})
-	vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-		callback = function()
-			vim.diagnostic.config({ virtual_text = true })
-		end,
-	})
-
-	UpdateEnv()
-	if FileExists(WorkspaceVimPath) then
-		pcall(vim.api.nvim_command, "source " .. WorkspaceVimPath)
-	end
-
-	function MoveToWindow()
-		SafeRequireCallback("winpick", function(winpick)
-			local winid = winpick.select()
-			if winid then
-				vim.api.nvim_set_current_win(winid)
-			end
-		end)
-	end
-
-	vim.api.nvim_set_keymap("i", "<m-g>", "", {
-		noremap = true,
-		desc = "Move to Window",
-		callback = MoveToWindow,
-	})
-
-	vim.api.nvim_set_keymap("n", "<m-g>", "", {
-		noremap = true,
-		desc = "Move to Window",
-		callback = MoveToWindow,
-	})
-
-	vim.api.nvim_set_keymap("t", "<m-g>", "", {
-		noremap = true,
-		desc = "Move to Window",
-		callback = MoveToWindow,
-	})
-
-	SafeRequire("copilot_cmp").setup({ method = "getCompletionsCycling" })
+local function MoveToWindow()
+	SafeRequireCallback("winpick", function(winpick)
+		local winid = winpick.select()
+		if winid then
+			vim.api.nvim_set_current_win(winid)
+		end
+	end)
 end
 
-function DelaySetup1()
+vim.schedule(function()
 	SafeRequireCallback("fzf-lua", function(fzf)
 		local disable_icons = {
 			git_icons = false,
@@ -1628,10 +1468,44 @@ function DelaySetup1()
 		})
 	end)
 	vim.cmd("FzfLua register_ui_select")
-	vim.schedule(DelaySetup2)
-end
+	vim.schedule(function()
+		vim.api.nvim_create_autocmd("ModeChanged", {
+			callback = function()
+				if vim.fn.mode() == "n" then
+					vim.cmd("setlocal cursorline")
+				else
+					vim.cmd("setlocal nocursorline")
+				end
+			end,
+		})
+		vim.diagnostic.config({ virtual_text = false })
+		vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+			callback = function()
+				vim.diagnostic.config({ virtual_text = false })
+			end,
+		})
+		vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+			callback = function()
+				vim.diagnostic.config({ virtual_text = true })
+			end,
+		})
 
-vim.schedule(DelaySetup1)
+		UpdateEnv()
+		if FileExists(WorkspaceVimPath) then
+			pcall(vim.api.nvim_command, "source " .. WorkspaceVimPath)
+		end
+
+		for _, mode in ipairs({ "i", "n", "t" }) do
+			vim.api.nvim_set_keymap(mode, "<m-g>", "", {
+				noremap = true,
+				desc = "Move to Window",
+				callback = MoveToWindow,
+			})
+		end
+
+		SafeRequire("copilot_cmp").setup({ method = "getCompletionsCycling" })
+	end)
+end)
 
 function GetBuffers(opts)
 	if opts == nil then
@@ -1718,7 +1592,7 @@ function NextItem(offset)
 			end
 		else
 			vim.cmd("wincmd j")
-			if vim.api.nvim_eval("&filetype") == "Trouble" then
+			if vim.bo.filetype == "Trouble" then
 				if offset > 0 then
 					vim.cmd("normal j")
 				else
@@ -1739,23 +1613,15 @@ function NextItem(offset)
 end
 
 function ToggleMouse()
-	if vim.api.nvim_eval("&mouse") == "a" then
-		vim.cmd("set mouse=")
-	else
-		vim.cmd("set mouse=a")
-	end
+	vim.o.mouse = vim.o.mouse == "a" and "" or "a"
 end
 
 function ToggleStatusLine()
-	if vim.api.nvim_eval("&laststatus") == 0 then
-		vim.cmd("set laststatus=2")
-	else
-		vim.cmd("set laststatus=0")
-	end
+	vim.o.laststatus = vim.o.laststatus == 0 and 2 or 0
 end
 
 function ToggleForCopy()
-	if vim.api.nvim_eval("&nu") == 0 then
+	if not vim.o.number then
 		vim.cmd("set nu!")
 		vim.cmd("set signcolumn=yes")
 	else
@@ -1765,7 +1631,7 @@ function ToggleForCopy()
 end
 
 function ResizeWin()
-	local screenHeight = vim.api.nvim_eval("&lines")
+	local screenHeight = vim.o.lines
 	if vim.fn.winheight(0) < (screenHeight - 10) then
 		vim.cmd("resize " .. screenHeight - 5)
 		print("max")
@@ -1779,26 +1645,6 @@ function ResizeWin()
 	end
 end
 
-function SSH(command, hosts)
-	local Job = require("plenary.job")
-
-	for _, v in pairs(hosts) do
-		local job = Job:new({
-			command = "ssh",
-			args = { "v1", "-t", command },
-			cwd = "/usr/bin",
-			env = { ["a"] = "b" },
-		})
-		job:start()
-		job:after_success(function()
-			vim.defer_fn(function()
-				vim.cmd("enew")
-				vim.cmd("file! " .. v .. "-" .. command .. ".log")
-				vim.fn.append("$", job:result())
-			end, 100)
-		end)
-	end
-end
 
 function RunInBuffer(command, filename)
 	local Job = require("plenary.job")
@@ -1887,7 +1733,7 @@ function KillAndRerunTerm(name, command, opts)
 		opts = { notify = "", autoclose = false, shell = true }
 	end
 	local notify_command = ""
-	if opts.notify ~= "" or opts.notify ~= nil then
+	if opts.notify ~= "" and opts.notify ~= nil then
 		opts.shell = true
 		notify_command = string.format(";hterm-notify '%s' '%s'", opts.notify, name)
 	end
@@ -1925,45 +1771,8 @@ end
 function RunCurrentLine()
 	local cmd = tostring(vim.api.nvim_get_current_line())
 	KillAndRerunTermWrapper(cmd)
-	vim.fn.feedkeys("i")
 end
 
-function UpdatePlug()
-	local scan = require("plenary.scandir")
-	local Job = require("plenary.job")
-	local all_dir =
-		scan.scan_dir(vim.fn.expand("$HOME/.config/nvim/plugged/"), { hidden = false, depth = 1, only_dirs = true })
-	local total = #all_dir
-	local count = 0
-
-	for _, v in pairs(all_dir) do
-		Job:new({
-			command = "bash",
-			args = { "-c", string.format("cd %s;git pull;git gc --prune=all", v) },
-			on_exit = function(j, return_val)
-				if return_val ~= 0 then
-					SafeRequireCallback("notify", function(notify)
-						notify(
-							"pull failed," .. v,
-							vim.log.levels.ERROR,
-							{ title = "error to update plugin", hide_from_history = true }
-						)
-					end)
-				end
-				count = count + 1
-				if count % 50 == 0 or count == total then
-					SafeRequireCallback("notify", function(notify)
-						notify(
-							count .. "-" .. total,
-							vim.log.levels.INFO,
-							{ title = "update", hide_from_history = true }
-						)
-					end)
-				end
-			end,
-		}):start()
-	end
-end
 
 function EditFile(path)
 	GotoMainWindow()
@@ -1990,7 +1799,7 @@ end
 function UpdateTitleString()
 	local hostname = vim.fn.hostname()
 	local name = vim.fn.expand("%")
-	if vim.api.nvim_eval("&filetype") == "floaterm" then
+	if vim.bo.filetype == "floaterm" then
 		name = vim.fn.escape(termTitle(), "|")
 	end
 	pcall(vim.cmd, string.format("let &titlestring='%s - %s'", hostname, name))
@@ -2039,11 +1848,7 @@ function GoToMainWindowAndRunCommand(cmd)
 end
 
 function ToggleDark()
-	if vim.o.background == "dark" then
-		vim.o.background = "light"
-	else
-		vim.o.background = "dark"
-	end
+	vim.o.background = vim.o.background == "dark" and "light" or "dark"
 end
 
 function SendSystemNotification(message)
@@ -2051,7 +1856,6 @@ function SendSystemNotification(message)
 	Job:new({ command = "hterm-notify", args = { "nvim", message } }):start()
 end
 
-function HookPwdChanged(after, before) end
 
 SafeRequire("nvim-web-devicons").setup({})
 
@@ -2155,7 +1959,6 @@ function SwitchWordCase()
 	end
 end
 
-vim.api.nvim_create_autocmd("TermOpen", { command = "setlocal signcolumn=auto" })
 local ns = vim.api.nvim_create_namespace("my.terminal.prompt")
 vim.api.nvim_create_autocmd("TermRequest", {
 	callback = function(args)

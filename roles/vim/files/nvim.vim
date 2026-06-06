@@ -62,7 +62,6 @@ function! EditTodayNote() abort
   endif
 endfunction
 
-set background=light
 set splitkeep=screen
 set title
 set nu
@@ -201,7 +200,7 @@ augroup basic
   autocmd!
   autocmd! TermOpen * setlocal nonu norelativenumber | setlocal signcolumn=no
   autocmd! WinLeave * call WinLeaveAction()
-  autocmd! BufWritePost worksapce.vim source workspace.vim
+  autocmd! BufWritePost workspace.vim source workspace.vim
   autocmd! BufWritePost /tmp/*.nu set bufhidden=delete
   autocmd! BufRead /tmp/*.nu nnoremap <buffer> <c-s> <cmd>wq<cr> | inoremap <buffer> <c-s> <cmd>wq<cr>
 
@@ -318,15 +317,6 @@ nnoremap H :tabprevious<cr>
 nnoremap L :tabnext<cr>
 nnoremap ; :
 
-function GoHint()
-  if &filetype == 'neo-tree'
-    execute 'HopLine'
-  else
-    execute 'HopWord'
-  endif
-endfunction
-nnoremap <silent> s <cmd>call GoHint()<cr>
-
 "bash like keybinding
 " <c-a> for <home>, <c-e> for <end>
 " <c-d> for <delete>,
@@ -418,7 +408,6 @@ vnoremap <C-c> y:new ~/.vimbuffer<CR>VGp:x<CR> \| :!cat ~/.vimbuffer \| clip.exe
 " Bash-like movement
 inoremap <c-d> <Delete>
 
-nmap  -  <Plug>(choosewin)
 nnoremap <leader>et :tabnew<cr>:read !grep # -P -e<space>
 
 cnoremap <m-h> <Left>
@@ -441,7 +430,7 @@ nnoremap zz za
 nnoremap Q :qa<cr>
 
 " Exit vim quickly
-nnoremap <c-c> :qa!
+nnoremap <c-c> :qa!<cr>
 
 " Since I use hterm in tab, I need another key for <c-w>
 imap <m-bs> <c-w>
@@ -520,10 +509,6 @@ tmap <m-w> <c-w>
 cmap <m-w> <c-w>
 vmap <m-w> <c-w>
 
-" Paste text
-tnoremap <m-v> <C-\><C-n>pi
-inoremap <m-v> <Esc>pi
-
 tnoremap <m-r> <cmd>lua RunPreviousCommandFunc()<cr>
 nnoremap <m-r> <cmd>lua RunPreviousCommandFunc()<cr>
 inoremap <m-r> <cmd>lua RunPreviousCommandFunc()<cr>
@@ -569,10 +554,6 @@ inoremap <silent> <m-'> <cmd>lua FloatermNext(1)<cr>
 nnoremap <silent> <m-'> <cmd>lua FloatermNext(1)<cr>
 tnoremap <silent> <m-'> <cmd>lua FloatermNext(1)<cr>
 
-inoremap <silent> <m-"> <cmd>lua FloatermNext(-1)<cr>
-nnoremap <silent> <m-"> <cmd>lua FloatermNext(-1)<cr>
-tnoremap <silent> <m-"> <cmd>lua FloatermNext(-1)<cr>
-
 inoremap <expr> <silent> <m-"> &filetype=='floaterm' ? '<cmd>FloatermPrev<cr>' : '<cmd>FloatermPrev<cr><cmd>wincmd w<cr>'
 nnoremap <expr> <silent> <m-"> &filetype=='floaterm' ? '<cmd>FloatermPrev<cr>' : '<cmd>FloatermPrev<cr><cmd>wincmd w<cr>'
 tnoremap <silent> <m-"> <c-\><c-n>:FloatermPrev<cr>
@@ -614,10 +595,6 @@ tnoremap <m-\> <cmd>lua NextItem(1)<cr>
 inoremap <c-\> <cmd>lua NextItem(-1)<cr>
 nnoremap <c-\> <cmd>lua NextItem(-1)<cr>
 tnoremap <c-\> <cmd>lua NextItem(-1)<cr>
-
-function ResizeWin()
-  resize +2000
-endfunction
 
 inoremap <m-q> <cmd>call jobstart('workspace')<cr>
 nnoremap <m-q> <cmd>call jobstart('workspace')<cr>
@@ -663,7 +640,6 @@ nnoremap <silent> <leader>zf <cmd>FzfLua frecency<cr>
 nnoremap <silent> <leader>zo <cmd>FzfLua buffers<cr>
 nnoremap <silent> <leader>zr <cmd>FzfLua live_grep<cr>
 
-xmap ga <Plug>(EasyAlign)
 
 nnoremap <silent> <leader>gam <cmd>FloatermNew git commit --amend<CR>
 nnoremap <silent> <leader>gbl <cmd>Git blame<CR>
@@ -684,12 +660,6 @@ nnoremap <silent> <leader>gp <cmd>lua KillAndRerunTermWrapper("git push", {shell
 nnoremap <silent> <leader>gs <cmd>FzfLua git_status<cr>
 nnoremap <silent> <leader>gu <cmd>Git pull --rebase<CR>
 nnoremap <silent> <leader>gw <cmd>Gwrite<CR>
-nnoremap <silent> <leader>ggpl <cmd>Octo pr list<cr>
-nnoremap <silent> <leader>ggpc <cmd>Octo pr create<cr>
-nnoremap <silent> <leader>ggpm <cmd>Octo pr merge<cr>
-nnoremap <silent> <leader>ggpe <cmd>Octo pr edit<cr>
-nnoremap <silent> <leader>ggpu <cmd>Octo pr url<cr>
-nnoremap <silent> <leader>ggpo <cmd>Octo pr checkout<cr>
 
 nnoremap <silent> <leader>id :put =strftime('%Y-%m-%d')<cr>
 nnoremap <silent> <leader>it :put =strftime('%H:%M:%S')<cr>
@@ -704,13 +674,11 @@ function TabCD()
 endfunction
 nnoremap <Leader>cd :call TabCD()<cr>
 nnoremap <leader>cc :lua RunShellAndShow('')<left><left>
-nnoremap <leader>cz <cmd>Zi<cr>
 "nnoremap <leader>co  " for rnadom colorscheme
 
 nnoremap <leader>fx :Explore<space>
 nnoremap <leader>fr :e oil-ssh://
 nnoremap <silent> <leader>fb :Rexplore<CR>
-nnoremap <silent> <leader>fv :Vaffle<CR>
 nnoremap <silent> <leader>fs :w<CR>
 nnoremap <silent> <leader>fi :call FindFileInTree()<CR>
 nnoremap <leader>fe :edit <c-r>=expand("%:p:h")<cr>/
@@ -753,10 +721,8 @@ nnoremap <silent> <leader>qs <cmd>lua require("persistence").load()<cr>
 
 " State / Switch
 function ToggleIndentLine()
-  if exists(":IndentLinesToggle")
-    execute "IndentLinesToggle"
-  elseif exists(":IndentBlanklineToggle")
-    execute ":IndentBlanklineToggle"
+  if exists(":IBLToggle")
+    execute "IBLToggle"
   endif
 endfunction
 
@@ -788,24 +754,7 @@ nnoremap <silent> <leader>mg `.
 nnoremap <silent> <leader>nl :Note<cr>
 nnoremap <silent> <leader>ns :NoteSearch<cr>
 
-" Gina
-nnoremap <leader>vs :Gina status<cr>
-nnoremap <leader>vu :Gina pull<cr>
-nnoremap <leader>vp :Gina push<cr>
-nnoremap <leader>vf :Gina fetch<cr>
-nnoremap <leader>vd :Gina diff<cr>
-nnoremap <leader>vl :Gina log<cr>
-nnoremap <leader>vc :Gina commit<cr>
-nnoremap <leader>va :Gina add<space>
-nnoremap <leader>vt :Gina tag<cr>
-nnoremap <leader>vb :Gina branch<cr>
-nnoremap <leader>vv :Gina<space>
-nnoremap <leader>vi :lua RunShellAndShow('git add -p %:p')<cr>
 
-nnoremap <silent> <leader>wt :ToggleWorkspace<CR>
-nnoremap <silent> <leader>wr :WinResizerStartResize<cr>
-nnoremap <silent> <leader>wm :WinResizerStartMove<cr>
-nnoremap <silent> <leader>wf :WinResizerStartFocus<cr>
 nnoremap <silent> <leader>wsh :split<cr>
 nnoremap <silent> <leader>wsv :vsplit<cr>
 nnoremap <silent> <leader>wqa :wqa<cr>
@@ -818,7 +767,6 @@ nnoremap <silent> <leader>wl :wincmd l<cr>
 vnoremap <leader>e <cmd>lua require("escape").escape()<cr>
 nnoremap <leader>ecw ggVG"+y
 nnoremap <silent> <leader>ed :e <c-r>=expand("%:p:h")<cr>/<cr>
-nnoremap <silent> <leader>eu :UndotreeToggle<cr>
 nnoremap <silent> <leader>esi <cmd>lua EditFile(vim.env.MYVIMRC)<cr>
 nnoremap <silent> <leader>esl <cmd>lua EditFile('~/.vim_custom.vim')<cr>
 nnoremap <silent> <leader>esc <cmd>lua EditFile('~/.config/nvim/nvim.vim')<cr>
@@ -827,7 +775,6 @@ nnoremap <silent> <leader>esd <cmd>e .<cr>
 nnoremap <silent> <leader>er :registers<cr>
 nnoremap <leader>ef :set filetype=
 nnoremap <leader>ea :filetype detect<cr>
-nnoremap <silent> <leader>eg :Grepper<cr>
 nnoremap <silent> <leader>ej ::%!jq '.'<cr>
 nnoremap <leader>ee :terminal<space>
 nnoremap <leader>ec <cmd>FzfLua changes<cr>
@@ -842,13 +789,7 @@ nnoremap <silent> <leader>ecd :let @a=expand("%:p:h")<cr>
 
 nnoremap <silent> <leader>pp :put<cr>
 nnoremap <silent> <leader>pr :put<cr>G$a<cr>
-nnoremap <leader>pi :lua KillAndRerunTerm("PlugInstall", "nvim '+silent! PlugInstall' '+silent! TSUpdateSync' +qall")<cr>
-nnoremap <leader>pu :lua KillAndRerunTerm("PlugUpdate", "nvim '+silent! PlugUpgrade' '+silent! PlugUpdate' '+silent! TSUpdateSync' +qall")<cr>
 
-" Run/Test
-nnoremap <silent> <leader>rt :TestNearest<cr>
-nnoremap <silent> <leader>rs :TestSuite<cr>
-nnoremap <silent> <leader>rf :TestFile<cr>
 nnoremap <silent> <leader>rr :History:<cr>
 nnoremap <silent> <leader>rbc <cmd>lua RunBuffer()<cr>
 nnoremap <silent> <leader>rbv <cmd>lua RunBuffer({new=true})<cr>
@@ -875,10 +816,6 @@ nnoremap <leader>tb :lua KillAndRerunTermWrapper('')<left><left>
 nnoremap <silent> <leader>tv :vsplit<cr><c-w>l:terminal<cr>
 
 
-" Remap for do codeAction of current line
-nnoremap <leader>aj :AnyJump<CR>
-nnoremap <leader>ab :AnyJumpBack<CR>
-nnoremap <leader>al :AnyJumpLastResults<CR>
 
 nnoremap <silent> <leader>lwa <cmd>lua vim.lsp.buf.add_workspace_folder()<cr>
 nnoremap <silent> <leader>lwr <cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>
@@ -905,11 +842,6 @@ nnoremap <silent> <leader>lsC <cmd>lua require('fzf-lua').lsp_outgoing_calls()<c
 nnoremap <silent> <leader>lc <cmd>lua SwitchWordCase()<cr>
 
 nnoremap <leader>lsg :FloatermNew! curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
-nnoremap <silent> <leader>lsw :ISwap<cr>
-nnoremap <silent> <leader>ltf :TestFile<cr>
-nnoremap <silent> <leader>ltn :TestNearest<cr>
-nnoremap <silent> <leader>lts :TestSuite<cr>
-nnoremap <silent> <leader>ltv :TestVisit<cr>
 nnoremap <leader>lg <cmd>Neogen<cr>
 
 nnoremap <silent> <leader>lel :LeetCodeList<cr>
@@ -921,12 +853,11 @@ nnoremap <silent> <localleader>dc <cmd>lua require'dap'.continue()<cr>
 nnoremap <silent> <localleader>di <cmd>lua require'dap'.step_into()<cr>
 nnoremap <silent> <localleader>do <cmd>lua require'dap'.step_over()<cr>
 nnoremap <silent> <localleader>dr <cmd>lua require'dap'.repl.open()<cr>
-nnoremap <silent> <localleader>dr <cmd>lua require("dapui").toggle()<cr>
+nnoremap <silent> <localleader>du <cmd>lua require("dapui").toggle()<cr>
 
 nnoremap <silent> <localleader>a :Ag<cr>
 nnoremap <silent> <localleader>b :b#<cr>
 nnoremap <silent> <localleader>c <cmd>Telescope<cr>
-nnoremap <silent> <localleader>g :ChooseWin<cr>
 nnoremap <silent> <localleader>t :tabnew %<cr>
 nnoremap <silent> <localleader>h :wincmd h<cr>
 nnoremap <silent> <localleader>j :wincmd j<cr>
