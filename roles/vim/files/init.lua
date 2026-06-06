@@ -141,6 +141,7 @@ local function get_valid_term_bufs()
 			table.insert(valid, buf)
 		end
 	end
+	term_bufs = valid
 	return valid
 end
 
@@ -232,7 +233,6 @@ local lazyPackages = {
 	{ "SmiteshP/nvim-navic" },
 	{ "m-demare/hlargs.nvim" },
 	{ "kylechui/nvim-surround", opts = {} },
-	{ "numToStr/Comment.nvim", event = "BufReadPost", opts = {} },
 	{ "nvim-neotest/nvim-nio", lazy = true },
 	{
 		"mfussenegger/nvim-dap",
@@ -1084,16 +1084,45 @@ vim.on_key(function(char)
 	end
 end, vim.api.nvim_create_namespace("auto_hlsearch"))
 
--- Replace persistence.nvim: auto-save/restore session per working directory
-local _session_file = vim.fn.stdpath("state") .. "/session.vim"
+-- Project Session Manager: auto-save/restore session per working directory
+local session_dir = vim.fn.stdpath("state") .. "/sessions/"
+vim.fn.mkdir(session_dir, "p")
+
+local function get_session_file()
+	local name = vim.fn.getcwd():gsub("/", "%%")
+	return session_dir .. name .. ".vim"
+end
+
 vim.api.nvim_create_autocmd("VimLeavePre", {
 	callback = function()
-		vim.cmd("silent! mksession! " .. _session_file)
+		if #vim.fn.getbufinfo({ buflisted = 1 }) > 0 then
+			vim.cmd("silent! mksession! " .. get_session_file())
+		end
 	end,
 })
+
 vim.keymap.set("n", "<leader>qs", function()
-	vim.cmd("source " .. _session_file)
+	local file = get_session_file()
+	if vim.fn.filereadable(file) == 1 then
+		vim.cmd("source " .. file)
+	else
+		print("No session saved for this directory")
+	end
 end, { desc = "Restore session" })
+
+-- Auto-detect external changes and reload files
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+	callback = function()
+		if vim.fn.mode() ~= "c" then
+			vim.cmd("checktime")
+		end
+	end,
+})
+
+-- Git conflict markers navigation
+vim.keymap.set("n", "]x", "/^<<<<<<<\\|^=======\\|^>>>>>>>/e<CR>", { silent = true, desc = "Next Git conflict" })
+vim.keymap.set("n", "[x", "?^<<<<<<<\\|^=======\\|^>>>>>>>?e<CR>", { silent = true, desc = "Prev Git conflict" })
 
 vim.cmd.source(vim.fn.stdpath("config") .. "/nvim.vim")
 
@@ -1460,7 +1489,6 @@ vim.api.nvim_set_keymap("", "<m-P>", "", {
 	desc = "Find file in buffer",
 })
 
-local TermIndex = 0
 function NewTerminal()
 	local win, buf = get_term_win_in_tab()
 	if not win then
@@ -1483,7 +1511,7 @@ function TermToggle()
 		vim.cmd("topleft split")
 		vim.cmd("resize " .. math.floor(vim.o.lines * 0.5))
 
-		local target_buf = term_bufs[last_active_idx]
+		local target_buf = term_bufs[math.min(last_active_idx, #term_bufs)]
 		if target_buf and vim.api.nvim_buf_is_valid(target_buf) then
 			vim.api.nvim_set_current_buf(target_buf)
 		else
