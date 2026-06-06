@@ -1,1 +1,0 @@
--- Nushell LSP is configured inline in init.lua (conditional on nu executable)
