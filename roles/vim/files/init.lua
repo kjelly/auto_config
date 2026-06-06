@@ -29,7 +29,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g._ts_force_sync_parsing = true
 vim.g.editconfig = true
 
 vim.g.clipboard = {
@@ -148,23 +147,6 @@ local function termTitle()
 	end
 end
 
-local fzf_multi_select = function(prompt_bufnr)
-	local actions = require("telescope.actions")
-	local action_state = require("telescope.actions.state")
-	local picker = action_state.get_current_picker(prompt_bufnr)
-	local multi = picker:get_multi_selection()
-	if not vim.tbl_isempty(multi) then
-		actions.close(prompt_bufnr)
-		for _, j in pairs(multi) do
-			if j.path ~= nil then
-				vim.cmd(string.format("edit %s", j.path))
-			end
-		end
-	else
-		actions.select_default(prompt_bufnr)
-	end
-end
-
 local lazyPackages = {
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -177,33 +159,6 @@ local lazyPackages = {
 	{ "https://github.com/SmiteshP/nvim-navic" },
 	{ "m-demare/hlargs.nvim" },
 	{ "https://github.com/kylechui/nvim-surround", opts = {} },
-	{
-		"smjonas/live-command.nvim",
-		main = "live-command",
-		opts = {
-			commands = {
-				Norm = { cmd = "norm" },
-			},
-		},
-	},
-	{ "https://github.com/bennypowers/nvim-regexplainer" },
-	{
-		"kevinhwang91/nvim-hlslens",
-		config = function()
-			local hlslens = require("hlslens")
-			hlslens.setup()
-			api.nvim_command(
-				"noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>"
-			)
-			api.nvim_command(
-				"noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>"
-			)
-			api.nvim_command("noremap * *<Cmd>lua require('hlslens').start()<CR>")
-			api.nvim_command("noremap # #<Cmd>lua require('hlslens').start()<CR>")
-			api.nvim_command("noremap g* g*<Cmd>lua require('hlslens').start()<CR>")
-			api.nvim_command("noremap g# g#<Cmd>lua require('hlslens').start()<CR>")
-		end,
-	},
 	{ "https://github.com/nvim-neotest/nvim-nio" },
 	{
 		"mfussenegger/nvim-dap",
@@ -353,21 +308,11 @@ local lazyPackages = {
 		config = function()
 			local telescope = require("telescope")
 			telescope.setup({
-				pickers = { buffers = { sort_mru = true, ignore_current_buffer = true } },
 				defaults = {
-					mappings = {
-						i = {
-							["<esc>"] = require("telescope.actions").close,
-							["<cr>"] = fzf_multi_select,
-						},
-						n = { ["<cr>"] = fzf_multi_select },
-					},
+					mappings = { i = { ["<esc>"] = require("telescope.actions").close } },
 				},
 			})
 			telescope.load_extension("floaterm")
-			SafeRequireCallback("telescope.frecency", function(_)
-				telescope.load_extension("frecency")
-			end)
 		end,
 	},
 	{ "windwp/nvim-spectre" },
@@ -487,37 +432,118 @@ local lazyPackages = {
 			},
 		},
 	},
-	{ "https://github.com/mawkler/modicator.nvim", opts = {} },
 	{ "https://github.com/FabijanZulj/blame.nvim", opts = {} },
 	{ "https://github.com/folke/which-key.nvim" },
-	{ "https://github.com/romainl/vim-cool" },
 	{ "rcarriga/nvim-notify" },
 	{ "https://github.com/Chaitanyabsprip/present.nvim", cmd = { "Present" }, opts = {} },
 	{ "mason-org/mason.nvim", opts = {} },
 	{
 		"mason-org/mason-lspconfig.nvim",
-		dependencies = { "mason-org/mason.nvim" },
-		opts = {
-			ensure_installed = vim.tbl_filter(function(server)
-				return not vim.tbl_contains({ "dartls", "nushell", "fish_lsp", "gh_actions_ls" }, server)
-			end, langservers),
-			automatic_installation = false,
-		},
-	},
-	{
-		"neovim/nvim-lspconfig",
-		dependencies = { "mason-org/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
+		dependencies = { "mason-org/mason.nvim", "hrsh7th/cmp-nvim-lsp" },
 		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities(
-				vim.lsp.protocol.make_client_capabilities()
-			)
-			capabilities.textDocument.foldingRange = {
-				dynamicRegistration = false,
-				lineFoldingOnly = true,
-			}
+			require("mason-lspconfig").setup({
+				ensure_installed = vim.tbl_filter(function(server)
+					return not vim.tbl_contains({ "dartls", "nushell", "fish_lsp", "gh_actions_ls" }, server)
+				end, langservers),
+				automatic_installation = false,
+			})
 
-			local disabled_lsp_caps = {}
-
+			vim.lsp.config("bashls", {
+				cmd = { "bash-language-server", "start" },
+				filetypes = { "bash", "sh" },
+				root_markers = { ".git" },
+			})
+			vim.lsp.config("dartls", {
+				cmd = { "dart", "language-server", "--protocol=lsp" },
+				filetypes = { "dart" },
+				root_markers = { "pubspec.yaml", ".git" },
+			})
+			vim.lsp.config("dockerls", {
+				cmd = { "docker-langserver", "--stdio" },
+				filetypes = { "dockerfile" },
+				root_markers = { "Dockerfile", ".git" },
+			})
+			vim.lsp.config("efm", {
+				cmd = { "efm-langserver" },
+				filetypes = { "*" },
+				root_markers = { ".git" },
+			})
+			vim.lsp.config("emmet_ls", {
+				cmd = { "emmet-language-server", "--stdio" },
+				filetypes = { "html", "css", "scss", "javascript", "typescript", "javascriptreact", "typescriptreact" },
+				root_markers = { ".git" },
+			})
+			vim.lsp.config("gopls", {
+				cmd = { "gopls" },
+				filetypes = { "go", "gomod", "gowork", "gotmpl" },
+				root_markers = { "go.work", "go.mod", ".git" },
+			})
+			vim.lsp.config("golangci_lint_ls", {
+				cmd = { "golangci-lint-langserver" },
+				filetypes = { "go" },
+				root_markers = { "go.mod", ".git" },
+				init_options = { command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" } },
+			})
+			vim.lsp.config("graphql", {
+				cmd = { "graphql-lsp", "server", "-m", "stream" },
+				filetypes = { "graphql", "typescriptreact", "javascriptreact" },
+				root_markers = { ".graphqlrc", ".graphqlconfig", ".git" },
+			})
+			vim.lsp.config("html", {
+				cmd = { "vscode-html-language-server", "--stdio" },
+				filetypes = { "html" },
+				root_markers = { ".git" },
+			})
+			vim.lsp.config("jsonls", {
+				cmd = { "vscode-json-language-server", "--stdio" },
+				filetypes = { "json", "jsonc" },
+				root_markers = { ".git" },
+			})
+			vim.lsp.config("marksman", {
+				cmd = { "marksman", "server" },
+				filetypes = { "markdown", "markdown.mdx" },
+				root_markers = { ".marksman.toml", ".git" },
+			})
+			vim.lsp.config("pyright", {
+				cmd = { "pyright-langserver", "--stdio" },
+				filetypes = { "python" },
+				root_markers = { "pyproject.toml", "setup.py", "requirements.txt", ".git" },
+			})
+			vim.lsp.config("rust_analyzer", {
+				cmd = { "rust-analyzer" },
+				filetypes = { "rust" },
+				root_markers = { "Cargo.toml", ".git" },
+			})
+			vim.lsp.config("sqlls", {
+				cmd = { "sql-language-server", "up", "--method", "stdio" },
+				filetypes = { "sql", "mysql" },
+				root_markers = { ".sqllsrc.json", ".git" },
+			})
+			vim.lsp.config("terraformls", {
+				cmd = { "terraform-ls", "serve" },
+				filetypes = { "terraform", "tf", "terraform-vars" },
+				root_markers = { ".terraform", ".git" },
+			})
+			vim.lsp.config("ts_ls", {
+				cmd = { "typescript-language-server", "--stdio" },
+				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+				root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
+			})
+			vim.lsp.config("vimls", {
+				cmd = { "vim-language-server", "--stdio" },
+				filetypes = { "vim" },
+				root_markers = { ".git" },
+			})
+			vim.lsp.config("ruff", {
+				cmd = { "ruff", "server" },
+				filetypes = { "python" },
+				root_markers = { "pyproject.toml", "ruff.toml", ".ruff.toml", ".git" },
+			})
+			vim.lsp.config("fish_lsp", {
+				cmd = { "fish-lsp", "start" },
+				filetypes = { "fish" },
+				root_markers = { ".git" },
+			})
 			if vim.fn.executable("nu") == 1 then
 				vim.lsp.config("nushell", {
 					cmd = { "nu", "--lsp" },
@@ -526,23 +552,30 @@ local lazyPackages = {
 				})
 			end
 
+			local capabilities = require("cmp_nvim_lsp").default_capabilities(
+				vim.lsp.protocol.make_client_capabilities()
+			)
+			capabilities.textDocument.foldingRange = {
+				dynamicRegistration = false,
+				lineFoldingOnly = true,
+			}
 			vim.lsp.config("*", { capabilities = capabilities })
 			vim.lsp.enable(langservers)
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)
-					local client = vim.lsp.get_client_by_id(args.data.client_id)
-					if client and disabled_lsp_caps[client.name] then
-						for _, cap in ipairs(disabled_lsp_caps[client.name]) do
-							client.server_capabilities[cap] = false
-						end
-					end
 					local bufnr = args.buf
 					local map = function(mode, lhs, rhs, desc)
 						vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, noremap = true, silent = true, desc = desc })
 					end
 					map("n", "gy", vim.lsp.buf.type_definition, "Go to type definition")
 					map({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, "LSP code action")
+					vim.api.nvim_create_autocmd("CursorHoldI", {
+						buffer = bufnr,
+						callback = function()
+							pcall(vim.lsp.buf.signature_help)
+						end,
+					})
 				end,
 			})
 		end,
@@ -564,7 +597,6 @@ local lazyPackages = {
 		},
 	},
 	{ "https://github.com/dstein64/vim-startuptime" },
-	{ "folke/persistence.nvim" },
 	{
 		"https://github.com/akinsho/git-conflict.nvim",
 		version = "*",
@@ -662,8 +694,6 @@ local lazyPackages = {
 			{ "https://github.com/mtoohey31/cmp-fish" },
 			{ "https://github.com/dmitmel/cmp-cmdline-history" },
 			{ "https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol" },
-			{ "saadparwaiz1/cmp_luasnip" },
-			{ "rafamadriz/friendly-snippets" },
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -672,7 +702,6 @@ local lazyPackages = {
 				{ name = "minuet" },
 				{ name = "nvim_lsp", keyword_length = 0 },
 				{ name = "path" },
-				{ name = "luasnip" },
 				{
 					name = "rg",
 					max_item_count = 10,
@@ -686,12 +715,6 @@ local lazyPackages = {
 				table.insert(cmp_sources, { name = "copilot" })
 			end
 
-			local luasnip = SafeRequire("luasnip")
-			if not isEmptyTable(luasnip) then
-				require("luasnip.loaders.from_vscode").lazy_load({
-					paths = "~/.config/nvim/plugged/friendly-snippets/",
-				})
-			end
 			if cmp == nil then
 				return
 			end
@@ -709,7 +732,7 @@ local lazyPackages = {
 				preselect = cmp.PreselectMode.None,
 				snippet = {
 					expand = function(args)
-						SafeRequire("luasnip").lsp_expand(args.body)
+						vim.snippet.expand(args.body)
 					end,
 				},
 				window = {
@@ -727,31 +750,21 @@ local lazyPackages = {
 					["<C-d>"] = cmp.mapping.scroll_docs(5),
 					["<C-u>"] = cmp.mapping.scroll_docs(-5),
 					["<C-g>"] = cmp.mapping(function(fallback)
-						if isEmptyTable(luasnip) then
-							fallback()
-						elseif luasnip.jumpable(-1) then
-							luasnip.jump(-1)
+						if vim.snippet.active({ direction = -1 }) then
+							vim.snippet.jump(-1)
 						else
 							fallback()
 						end
-					end, {
-						"i",
-						"s" --[[ "c" (to enable the mapping in command mode) ]],
-					}),
+					end, { "i", "s" }),
 					["<C-f>"] = cmp.mapping(function(fallback)
-						if isEmptyTable(luasnip) then
-							fallback()
-						elseif luasnip.expand_or_jumpable() then
-							luasnip.expand_or_jump()
+						if vim.snippet.active({ direction = 1 }) then
+							vim.snippet.jump(1)
 						elseif has_words_before() then
 							cmp.complete()
 						else
 							fallback()
 						end
-					end, {
-						"i",
-						"s" --[[ "c" (to enable the mapping in command mode) ]],
-					}),
+					end, { "i", "s" }),
 					["<m-/>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
 					["<C-n>"] = cmp.mapping(function(fallback)
@@ -837,21 +850,7 @@ local lazyPackages = {
 
 		end,
 	},
-	{
-		"ray-x/lsp_signature.nvim",
-		event = "InsertEnter",
-		opts = {
-			bind = true,
-			toggle_key = "<a-f>lt",
-			select_signature_key = "<a-f>ln",
-			timer_interval = 800,
-			fix_pos = true,
-			floating_window = true,
-			max_height = 9,
-		},
-	},
 	{ "https://github.com/windwp/nvim-autopairs", opts = {} },
-	{ "https://github.com/L3MON4D3/LuaSnip", version = "v2.*" },
 	{
 		"https://github.com/stevearc/aerial.nvim",
 		dependencies = {
@@ -968,6 +967,24 @@ if not isEmptyTable(langservers) then
 end
 
 require("lazy").setup(lazyPackages, {})
+
+-- Replace vim-cool: auto-clear hlsearch when not searching in normal mode
+vim.on_key(function(char)
+	if vim.fn.mode() == "n" then
+		vim.opt.hlsearch = vim.tbl_contains({ "n", "N", "*", "#", "?", "/" }, vim.fn.keytrans(char))
+	end
+end, vim.api.nvim_create_namespace("auto_hlsearch"))
+
+-- Replace persistence.nvim: auto-save/restore session per working directory
+local _session_file = vim.fn.stdpath("state") .. "/session.vim"
+vim.api.nvim_create_autocmd("VimLeavePre", {
+	callback = function()
+		vim.cmd("silent! mksession! " .. _session_file)
+	end,
+})
+vim.keymap.set("n", "<leader>qs", function()
+	vim.cmd("source " .. _session_file)
+end, { desc = "Restore session" })
 
 vim.cmd.source(vim.fn.stdpath("config") .. "/nvim.vim")
 
@@ -1405,7 +1422,7 @@ function FzfBuffer()
 	else
 		GotoMainWindow()
 		if #GetBuffers({}) > 1 then
-			SafeRequire("telescope.builtin").buffers()
+			SafeRequire("fzf-lua").buffers()
 		else
 			FindFileCwd()
 		end

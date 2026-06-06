@@ -77,7 +77,7 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 " Remember info about register, marks. And no highlight when started
-set viminfo=<800,'10,h
+set shada='10,<800,h
 
 " Show tab line if there are more than one tab
 set showtabline=0
@@ -86,8 +86,6 @@ set showtabline=0
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set dir=~/.vim_cache/swapfiles
-set backup
-set backupdir=~/.vim_cache
 set undodir=~/.vim_cache
 set undofile
 
@@ -109,9 +107,6 @@ set backspace=eol,start,indent
 
 " When searching try to be smart about cases
 set smartcase
-
-" Don't redraw while executing macros (good performance config)
-set nolazyredraw
 
 " Show matching brackets when text indicator is over them
 set showmatch
@@ -152,7 +147,7 @@ set sessionoptions=buffers,curdir,tabpages,winsize,globals
 " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
 " found' messages
 " or don't give |ins-completion-menu| messages.
-set shortmess=sTWAIFS
+set shortmess=sTWAIF
 " always show signcolumns
 set signcolumn=yes
 set noshowmode
@@ -717,7 +712,6 @@ nnoremap <silent> <leader>qb :Bclose<cr>
 nnoremap <silent> <leader>qt :tabclose<cr>
 nnoremap <silent> <leader>qa :qa!<cr>
 nnoremap <silent> <leader>qx <cmd>bufdo bd<cr>
-nnoremap <silent> <leader>qs <cmd>lua require("persistence").load()<cr>
 
 " State / Switch
 function ToggleIndentLine()
@@ -738,7 +732,6 @@ nnoremap <silent> <leader>se :mksession!<cr>
 nnoremap <silent> <leader>sc <cmd>lua ToggleForCopy()<cr>
 nnoremap <silent> <leader>st <cmd>Boole increment<cr>
 nnoremap <silent> <leader>sk :DisableTmuxKey<cr>
-nnoremap <silent> <leader>so :TSContextToggle<cr>
 nnoremap <silent> <leader>sg :set guicursor=<cr>
 nnoremap <silent> <expr> <leader>sb &background=='light' ? ":set background=dark<cr>" : ":set background=light<cr>"
 
@@ -857,7 +850,7 @@ nnoremap <silent> <localleader>du <cmd>lua require("dapui").toggle()<cr>
 
 nnoremap <silent> <localleader>a :Ag<cr>
 nnoremap <silent> <localleader>b :b#<cr>
-nnoremap <silent> <localleader>c <cmd>Telescope<cr>
+nnoremap <silent> <localleader>c <cmd>FzfLua<cr>
 nnoremap <silent> <localleader>t :tabnew %<cr>
 nnoremap <silent> <localleader>h :wincmd h<cr>
 nnoremap <silent> <localleader>j :wincmd j<cr>
@@ -881,10 +874,6 @@ nnoremap <localleader>rn <cmd>exec 'FloatermNew --autoclose=1 '. getline('.')<cr
 nnoremap <localleader>re :lua KillAndRerunTermWrapper<up>
 nnoremap <localleader>e <cmd>lua RunBuffer()<cr>
 
-xnoremap iu :lua require"treesitter-unit".select()<CR>
-xnoremap au :lua require"treesitter-unit".select(true)<CR>
-onoremap iu :<c-u>lua require"treesitter-unit".select()<CR>
-onoremap au :<c-u>lua require"treesitter-unit".select(true)<CR>
 
 nnoremap <leader>dg :silent exec '!bb "go <c-r>=&filetype<cr><space>"'<left><left>
 nnoremap <leader>dd :silent exec '!bb "https://devdocs.io/<c-r>=&filetype<cr>"'<cr>
