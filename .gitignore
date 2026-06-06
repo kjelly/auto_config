@@ -41,3 +41,7 @@ i3/data/
 *.retry
 .c9
 .git
+
+.env
+.envrc
+.session.vim

@@ -577,13 +577,30 @@ inoremap <expr> <silent> <m-"> &filetype=='floaterm' ? '<cmd>FloatermPrev<cr>' :
 nnoremap <expr> <silent> <m-"> &filetype=='floaterm' ? '<cmd>FloatermPrev<cr>' : '<cmd>FloatermPrev<cr><cmd>wincmd w<cr>'
 tnoremap <silent> <m-"> <c-\><c-n>:FloatermPrev<cr>
 
-inoremap <silent> <m-Enter> <Esc>:FloatermSend<cr>
-nnoremap <silent> <m-Enter> :FloatermSend<cr>
-" tnoremap <silent> <m-Enter> <c-\><c-n>:FloatermSend<cr> " needed by br
-vnoremap <silent> <m-Enter> :FloatermSend<cr>
+function! s:FloatermSendTrimmed(mode) range
+  if a:mode ==# 'v'
+    let l:lines = getline(getpos("'<")[1], getpos("'>")[1])
+  elseif a:mode ==# 'a'
+    let l:lines = getline(1, '$')
+  else
+    let l:lines = [getline('.')]
+  endif
+  let l:trimmed = map(copy(l:lines), 'trim(v:val)')
+  let l:bufnr = floaterm#buflist#curr()
+  if l:bufnr == -1
+    FloatermNew
+    let l:bufnr = floaterm#buflist#curr()
+  endif
+  call floaterm#terminal#send(l:bufnr, l:trimmed)
+endfunction
 
-inoremap <silent> <s-a-enter> <Esc>:%FloatermSend<cr>
-nnoremap <silent> <s-a-enter> :%FloatermSend<cr>
+inoremap <silent> <m-Enter> <Esc>:call <SID>FloatermSendTrimmed('n')<cr>
+nnoremap <silent> <m-Enter> :call <SID>FloatermSendTrimmed('n')<cr>
+" tnoremap <silent> <m-Enter> <c-\><c-n>:FloatermSend<cr> " needed by br
+vnoremap <silent> <m-Enter> :<c-u>call <SID>FloatermSendTrimmed('v')<cr>
+
+inoremap <silent> <s-a-enter> <Esc>:call <SID>FloatermSendTrimmed('a')<cr>
+nnoremap <silent> <s-a-enter> :call <SID>FloatermSendTrimmed('a')<cr>
 
 inoremap <m-]> <cmd>lua NextItem(1)<cr>
 nnoremap <m-]> <cmd>lua NextItem(1)<cr>
