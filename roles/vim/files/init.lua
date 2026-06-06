@@ -818,6 +818,7 @@ local lazyPackages = {
 			{ "hrsh7th/cmp-path" },
 			{ "lukas-reineke/cmp-rg" },
 			{ "hrsh7th/cmp-nvim-lsp-document-symbol" },
+			{ "hrsh7th/cmp-cmdline" },
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -953,6 +954,10 @@ local lazyPackages = {
 
 			setup_cmdline("/", search_sources)
 			setup_cmdline("?", search_sources)
+			setup_cmdline(":", {
+				{ name = "path" },
+				{ name = "cmdline" },
+			})
 
 		end,
 	},

@@ -11,15 +11,11 @@
     state: directory
     mode: "0755"
 
-- name: Copy t.py
+- name: Copy binary
   ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "~/bin/{{ (item | splitext)[0] }}"
+    dest: "~/bin/{{ item | basename }}"
     mode: 0755
-  with_items:
-    - t.py
-    - tmux-set-background.sh
-    - _tmux_duplicate_window
-    - tmux-sort.nu
-    - systemd-jobs.py
-    - workspace.nu
+  with_fileglob:
+    - "*"
+  when: (item | basename) != 'tmux.conf'
