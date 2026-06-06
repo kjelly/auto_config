@@ -155,6 +155,7 @@ local lazyPackages = {
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
+		event = "BufReadPost",
 		---@module "ibl"
 		---@type ibl.config
 		opts = {},
@@ -163,7 +164,7 @@ local lazyPackages = {
 	{ "SmiteshP/nvim-navic" },
 	{ "m-demare/hlargs.nvim" },
 	{ "kylechui/nvim-surround", opts = {} },
-	{ "numToStr/Comment.nvim", opts = {} },
+	{ "numToStr/Comment.nvim", event = "BufReadPost", opts = {} },
 	{ "nvim-neotest/nvim-nio", lazy = true },
 	{
 		"mfussenegger/nvim-dap",
@@ -617,6 +618,7 @@ local lazyPackages = {
 	},
 	{
 		"stevearc/conform.nvim",
+		event = { "BufReadPost", "BufWritePre" },
 		opts = {
 			formatters_by_ft = {
 				lua = { "stylua" },
@@ -723,7 +725,7 @@ local lazyPackages = {
 	},
 	{
 		"hrsh7th/nvim-cmp",
-		event = { "InsertEnter" },
+		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "hrsh7th/cmp-buffer" },

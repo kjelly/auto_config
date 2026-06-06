@@ -154,7 +154,14 @@
     mode: '0640'
   with_items:
     - "init.lua"
-    - "vimrc.vim"
+    - "nvim.vim"
+
+- name: Copy LSP configurations
+  ansible.builtin.copy:
+    src: lsp
+    dest: ~/.config/nvim/
+    mode: '0640'
+    directory_mode: '0750'
 
 - name: Create efm config directory
   ansible.builtin.file:

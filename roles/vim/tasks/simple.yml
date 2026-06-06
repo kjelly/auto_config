@@ -16,6 +16,6 @@
 
 - name: Copy config.lua
   ansible.builtin.copy:
-    src: config.lua
-    dest: ~/.config/nvim/config.lua
+    src: init.lua
+    dest: ~/.config/nvim/init.lua
     mode: "0640"

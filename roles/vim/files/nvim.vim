@@ -70,9 +70,6 @@ set cursorline
 set showcmd
 set mouse=a
 
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
@@ -100,10 +97,6 @@ set wildignore=*.o,*~,*.pyc
 
 " Height of the command bar
 set cmdheight=1
-
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
-" set whichwrap+=<,>
 
 " When searching try to be smart about cases
 set smartcase
@@ -294,8 +287,6 @@ if executable('ugrep')
 endif
 
 " Yank to system clipboard with Y
-nnoremap yy yy
-vnoremap y y
 nnoremap YY "+yy
 nnoremap Y "+y
 vnoremap Y "+y
@@ -396,9 +387,6 @@ tnoremap <expr> <silent> <Esc> &filetype=='fzf' ? '<C-\><C-n>:close<cr>' : '<C-\
 
 vnoremap > >gv
 vnoremap < <gv
-
-" Copy to clipboard (this is for wsl)
-vnoremap <C-c> y:new ~/.vimbuffer<CR>VGp:x<CR> \| :!cat ~/.vimbuffer \| clip.exe <CR><CR>
 
 " Bash-like movement
 inoremap <c-d> <Delete>
