@@ -457,7 +457,7 @@ function! FuncAltU()
   if mode() == 't' || &filetype=='terminal'
     call CallHistoryShell()
   else
-    lua GoToMainWindowAndRunCommand('lua require("fzf-lua").grep({ search = "",continue_last_search = true,multiprocess=true })')
+    lua GoToMainWindowAndRunCommand('lua require("fzf-lua").grep({ search = "",resume = true,multiprocess=true })')
   end
 endfunction
 
