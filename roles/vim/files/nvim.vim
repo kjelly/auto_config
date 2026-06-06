@@ -501,9 +501,9 @@ endfunction
 nnoremap <m-e> <cmd>lua RunCurrentLine()<cr>
 inoremap <m-e> <cmd>lua RunCurrentLine()<cr>
 
-imap <m-g> <cmd>lua require('winpick').select()<cr>
-nmap <m-g> <cmd>lua require('winpick').select()<cr>
-tmap <m-g> <cmd>lua require('winpick').select()<cr>
+imap <m-g> <cmd>lua WinPick()<cr>
+nmap <m-g> <cmd>lua WinPick()<cr>
+tmap <m-g> <cmd>lua WinPick()<cr>
 
 inoremap <m-m> <Esc>:Marks<cr>
 nnoremap <m-m> :Marks<cr>

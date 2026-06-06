@@ -945,27 +945,7 @@ local lazyPackages = {
 		},
 		opts = {},
 	},
-	{
-		"gbrlsnchs/winpick.nvim",
-		opts = {
-			filter = function(winid, burnr, _)
-				local win_info = vim.fn.getwininfo(winid)[1]
-				if win_info == nil or win_info.height == nil then
-					return false
-				end
-				if win_info.height < 2 then
-					return false
-				end
-				if #vim.bo[burnr].filetype == 0 then
-					return false
-				end
-				if vim.tbl_contains({ "fidget", "notify" }, vim.bo[burnr].filetype) then
-					return false
-				end
-				return true
-			end,
-		},
-	},
+
 	{
 		"mistweaverco/kulala.nvim",
 		keys = {
@@ -1574,13 +1554,81 @@ function UpdateEnv()
 	end
 end
 
-local function MoveToWindow()
-	SafeRequireCallback("winpick", function(winpick)
-		local winid = winpick.select()
-		if winid then
-			vim.api.nvim_set_current_win(winid)
+function WinPick()
+	local tab = vim.api.nvim_get_current_tabpage()
+	local wins = vim.api.nvim_tabpage_list_wins(tab)
+
+	local pickable = {}
+	for _, win in ipairs(wins) do
+		local buf = vim.api.nvim_win_get_buf(win)
+		local win_info = vim.fn.getwininfo(win)[1]
+		local ft = vim.bo[buf].filetype
+
+		local is_valid = true
+		if win_info == nil or win_info.height == nil or win_info.height < 2 then
+			is_valid = false
+		elseif #ft == 0 or vim.tbl_contains({ "fidget", "notify" }, ft) then
+			is_valid = false
 		end
-	end)
+
+		if is_valid then
+			table.insert(pickable, win)
+		end
+	end
+
+	if #pickable == 0 then return end
+	if #pickable == 1 then
+		vim.api.nvim_set_current_win(pickable[1])
+		return
+	end
+
+	local chars = { "A", "S", "D", "F", "G", "H", "J", "K", "L", "Q", "W", "E", "R" }
+	local win_map = {}
+	local floats = {}
+
+	for i, win in ipairs(pickable) do
+		local char = chars[i] or tostring(i)
+		win_map[char] = win
+
+		local width = vim.api.nvim_win_get_width(win)
+		local height = vim.api.nvim_win_get_height(win)
+		local row = math.floor(height / 2)
+		local col = math.floor(width / 2)
+
+		local buf = vim.api.nvim_create_buf(false, true)
+		vim.api.nvim_buf_set_lines(buf, 0, -1, false, { " " .. char .. " " })
+
+		local float = vim.api.nvim_open_win(buf, false, {
+			relative = "win",
+			win = win,
+			row = row,
+			col = col - 1,
+			width = 3,
+			height = 1,
+			style = "minimal",
+			border = "single",
+		})
+		vim.api.nvim_set_option_value("winhl", "Normal:DiffAdd", { scope = "local", win = float })
+		table.insert(floats, float)
+	end
+
+	vim.cmd("redraw")
+
+	local ok, char = pcall(vim.fn.getcharstr)
+	for _, float in ipairs(floats) do
+		pcall(vim.api.nvim_win_close, float, true)
+	end
+
+	if ok then
+		local target = win_map[char:upper()]
+		if target then
+			vim.api.nvim_set_current_win(target)
+		end
+	end
+end
+
+local function MoveToWindow()
+	WinPick()
 end
 
 vim.schedule(function()
