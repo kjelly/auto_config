@@ -9,7 +9,7 @@ autocmd! BufReadPost *
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 command! SearchPanel :lua require('spectre').open()<CR>
-command! Br :FloatermNew --autoclose=1 br<cr>
+command! Br :lua KillAndRerunTerm('br', 'br', {autoclose=true})<cr>
 command! FormatJson :%!format_json.py
 
 function! <SID>BufcloseCloseIt()
@@ -171,11 +171,6 @@ let $IN_VIM=1
 let g:MYVIMRC_DIR = fnamemodify(expand('$MYVIMRC'), ':h')
 let $PATH .= ':' . fnamemodify(expand('$MYVIMRC'), ':h') . '/bin'
 
-let g:floaterm_wintype='split'
-let g:floaterm_position='top'
-let g:floaterm_width=1.0
-let g:floaterm_height=0.5
-let g:floaterm_autoinsert = v:false
 
 " Autocmd
 
@@ -251,9 +246,9 @@ command! Enc1 execute '%!openssl enc -pbkdf2 -a -salt -pass file:$HOME/.ssh/pass
 command! Dec execute '%!openssl enc -d -aes-256-cbc -a -salt -pass file:$HOME/.ssh/passwd.txt'
 command! Dec1 execute '%!openssl enc -d -pbkdf2 -a -salt -pass file:$HOME/.ssh/passwd.txt'
 
-command! Vifm FloatermNew vifm -c only
-command! NNN FloatermNew nnn
-command! FFF FloatermNew fff
+command! Vifm lua KillAndRerunTerm('vifm', 'vifm -c only', {shell=true})
+command! NNN lua KillAndRerunTerm('nnn', 'nnn', {shell=true})
+command! FFF lua KillAndRerunTerm('fff', 'fff', {shell=true})
 
 command! -bang -nargs=* NoteSearch
   \ call fzf#vim#grep(
@@ -271,11 +266,6 @@ command! DisableTmuxKey
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:fzf_colors = {'gutter': ['bg', 'Normal']}
-let g:fzf_floaterm_newentries = {
-  \ '+root' : {
-    \ 'title': 'Root Shell',
-    \ 'cmd': 'sudo sh' },
-  \ }
 let g:mkdx#settings = { 'map': { 'enable': 1, 'prefix': '<leader>md' }, 'checkbox': { 'toggles': [' ', 'x'] } }
 
 " Results:  :copen, :cn, :cp
@@ -464,7 +454,7 @@ function! CallHistoryShell()
   endif
 endfunction
 function! FuncAltU()
-  if mode() == 't' || &filetype=='floaterm'
+  if mode() == 't' || &filetype=='terminal'
     call CallHistoryShell()
   else
     lua GoToMainWindowAndRunCommand('lua require("fzf-lua").grep({ search = "",continue_last_search = true,multiprocess=true })')
@@ -482,9 +472,9 @@ inoremap <m-U> <cmd>FzfLua live_grep_resume<cr>
 nnoremap <m-U> <cmd>FzfLua live_grep_resume<cr>
 
 " buufer switch
-nnoremap <expr> <m-d> &filetype=="floaterm" ? ":FloatermPrev<cr>" : "<c-^>"
+nnoremap <expr> <m-d> &filetype=="terminal" ? ":lua FloatermNext(-1)<cr>" : "<c-^>"
 inoremap <m-d> <Esc><c-^>a
-tnoremap <m-d> <C-\><C-n>:FloatermNext<cr>i
+tnoremap <m-d> <C-\><C-n>:lua FloatermNext(1)<cr>
 
 imap <m-w> <c-w>
 nmap <m-w> <c-w>
@@ -503,15 +493,8 @@ cnoremap <m-v> <c-v>
 
 function! EnterShellFunc()
   let mod = mode()
-  if mod == 'n'
-    execute 'FloatermShow'
-    execute feedkeys("i", "t")
-  elseif mod == 'i'
-    execute 'FloatermShow'
-    if &filetype != 'floaterm'
-      execute "FloatermToggle"
-    endif
-    execute feedkeys("i", "t")
+  if mod == 'n' || mod == 'i'
+    lua TermToggle()
   endif
 endfunction
 
@@ -525,9 +508,9 @@ tmap <m-g> <cmd>lua require('winpick').select()<cr>
 inoremap <m-m> <Esc>:Marks<cr>
 nnoremap <m-m> :Marks<cr>
 
-inoremap <m-:> <cmd>FloatermNew<cr>
-nnoremap <m-:> <cmd>FloatermNew<cr>
-tnoremap <m-:> <cmd>FloatermNew<cr>
+inoremap <m-:> <cmd>lua NewTerminal()<cr>
+nnoremap <m-:> <cmd>lua NewTerminal()<cr>
+tnoremap <m-:> <cmd>lua NewTerminal()<cr>
 
 inoremap <m-;> <cmd>lua TermToggle()<cr>
 nnoremap <m-;> <cmd>lua TermToggle()<cr>
@@ -537,34 +520,16 @@ inoremap <silent> <m-'> <cmd>lua FloatermNext(1)<cr>
 nnoremap <silent> <m-'> <cmd>lua FloatermNext(1)<cr>
 tnoremap <silent> <m-'> <cmd>lua FloatermNext(1)<cr>
 
-inoremap <expr> <silent> <m-"> &filetype=='floaterm' ? '<cmd>FloatermPrev<cr>' : '<cmd>FloatermPrev<cr><cmd>wincmd w<cr>'
-nnoremap <expr> <silent> <m-"> &filetype=='floaterm' ? '<cmd>FloatermPrev<cr>' : '<cmd>FloatermPrev<cr><cmd>wincmd w<cr>'
-tnoremap <silent> <m-"> <c-\><c-n>:FloatermPrev<cr>
+inoremap <expr> <silent> <m-"> &filetype=='terminal' ? '<cmd>lua FloatermNext(-1)<cr>' : '<cmd>lua FloatermNext(-1)<cr><cmd>wincmd w<cr>'
+nnoremap <expr> <silent> <m-"> &filetype=='terminal' ? '<cmd>lua FloatermNext(-1)<cr>' : '<cmd>lua FloatermNext(-1)<cr><cmd>wincmd w<cr>'
+tnoremap <silent> <m-"> <c-\><c-n>:lua FloatermNext(-1)<cr>
 
-function! s:FloatermSendTrimmed(mode) range
-  if a:mode ==# 'v'
-    let l:lines = getline(getpos("'<")[1], getpos("'>")[1])
-  elseif a:mode ==# 'a'
-    let l:lines = getline(1, '$')
-  else
-    let l:lines = [getline('.')]
-  endif
-  let l:trimmed = map(copy(l:lines), 'trim(v:val)')
-  let l:bufnr = floaterm#buflist#curr()
-  if l:bufnr == -1
-    FloatermNew
-    let l:bufnr = floaterm#buflist#curr()
-  endif
-  call floaterm#terminal#send(l:bufnr, l:trimmed)
-endfunction
+inoremap <silent> <m-Enter> <Esc>:lua NativeTermSendTrimmed('n')<cr>
+nnoremap <silent> <m-Enter> :lua NativeTermSendTrimmed('n')<cr>
+vnoremap <silent> <m-Enter> :<c-u>lua NativeTermSendTrimmed('v')<cr>
 
-inoremap <silent> <m-Enter> <Esc>:call <SID>FloatermSendTrimmed('n')<cr>
-nnoremap <silent> <m-Enter> :call <SID>FloatermSendTrimmed('n')<cr>
-" tnoremap <silent> <m-Enter> <c-\><c-n>:FloatermSend<cr> " needed by br
-vnoremap <silent> <m-Enter> :<c-u>call <SID>FloatermSendTrimmed('v')<cr>
-
-inoremap <silent> <s-a-enter> <Esc>:call <SID>FloatermSendTrimmed('a')<cr>
-nnoremap <silent> <s-a-enter> :call <SID>FloatermSendTrimmed('a')<cr>
+inoremap <silent> <s-a-enter> <Esc>:lua NativeTermSendTrimmed('a')<cr>
+nnoremap <silent> <s-a-enter> :lua NativeTermSendTrimmed('a')<cr>
 
 inoremap <m-]> <cmd>lua NextItem(1)<cr>
 nnoremap <m-]> <cmd>lua NextItem(1)<cr>
@@ -624,10 +589,10 @@ nnoremap <silent> <leader>zo <cmd>FzfLua buffers<cr>
 nnoremap <silent> <leader>zr <cmd>FzfLua live_grep<cr>
 
 
-nnoremap <silent> <leader>gam <cmd>FloatermNew git commit --amend<CR>
+nnoremap <silent> <leader>gam <cmd>lua KillAndRerunTerm('git_commit_amend', 'git commit --amend', {shell=true})<CR>
 nnoremap <silent> <leader>gbl <cmd>Git blame<CR>
 nnoremap <silent> <leader>gbr <cmd>FzfLua git_branches<cr>
-nnoremap <silent> <leader>gc <cmd>FloatermNew git commit -S<CR>
+nnoremap <silent> <leader>gc <cmd>lua KillAndRerunTerm('git_commit', 'git commit -S', {shell=true})<CR>
 nnoremap <silent> <leader>gdc <cmd>Git diff %<CR>
 nnoremap <silent> <leader>gdi <cmd>Git diff<CR>
 nnoremap <silent> <leader>gdl <cmd>Git diff @~..@<CR>
@@ -780,7 +745,7 @@ nnoremap <silent> <leader>pr :put<cr>G$a<cr>
 nnoremap <silent> <leader>rr :History:<cr>
 nnoremap <silent> <leader>rbc <cmd>lua RunBuffer()<cr>
 nnoremap <silent> <leader>rbv <cmd>lua RunBuffer({new=true})<cr>
-nnoremap <leader>rc ::%FloatermSend<cr>
+nnoremap <leader>rc <cmd>lua NativeTermSendTrimmed('a')<cr>
 nnoremap <leader>rh :call Ssh('',[])<left><left><left><left><left>
 
 nnoremap <silent> <leader>o0 :set foldlevel=0<CR>
@@ -828,7 +793,7 @@ nnoremap <silent> <leader>lsc <cmd>lua require('fzf-lua').lsp_incoming_calls()<c
 nnoremap <silent> <leader>lsC <cmd>lua require('fzf-lua').lsp_outgoing_calls()<cr>
 nnoremap <silent> <leader>lc <cmd>lua SwitchWordCase()<cr>
 
-nnoremap <leader>lsg :FloatermNew! curl 'cht.sh/<c-r>=&filetype<cr>/'<left>
+nnoremap <leader>lsg :lua KillAndRerunTerm('cht.sh', "curl 'cht.sh/" . &filetype . "/'")<left><left>
 nnoremap <leader>lg <cmd>Neogen<cr>
 
 nnoremap <silent> <leader>lel :LeetCodeList<cr>
@@ -859,12 +824,12 @@ nnoremap <silent> <localleader>n <cmd>call TreeToggle()<cr>
 nnoremap <silent> <localleader>tt <cmd>lua TermToggle()<cr>
 nnoremap <silent> <localleader>tj <cmd>lua FloatermNext(1)<cr>
 nnoremap <silent> <localleader>tk <cmd>lua FloatermNext(-1)<cr>
-nnoremap <silent> <localleader>tn <cmd>FloatermNew<cr>
+nnoremap <silent> <localleader>tn <cmd>lua NewTerminal()<cr>
 nnoremap <silent> <localleader>rp <cmd>lua RunPreviousCommandFunc()<cr>
 nnoremap <silent> <localleader>; <cmd>lua TermToggle()<cr>
 nnoremap <silent> <localleader>' <cmd>lua FloatermNext(1)<cr>
 nnoremap <localleader>rr :lua KillAndRerunTermWrapper('')<left><left>
-nnoremap <localleader>rn <cmd>exec 'FloatermNew --autoclose=1 '. getline('.')<cr>
+nnoremap <localleader>rn <cmd>lua KillAndRerunTerm('run_line', vim.api.nvim_get_current_line(), {autoclose=true})<cr>
 nnoremap <localleader>re :lua KillAndRerunTermWrapper<up>
 nnoremap <localleader>e <cmd>lua RunBuffer()<cr>
 

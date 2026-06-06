@@ -120,6 +120,74 @@ local function indexOf(array, value)
 	return nil
 end
 
+local term_bufs = {}
+local last_active_idx = 1
+local term_names = {}
+
+local function get_term_win_in_tab()
+	for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+		local buf = vim.api.nvim_win_get_buf(win)
+		if vim.bo[buf].buftype == "terminal" then
+			return win, buf
+		end
+	end
+	return nil, nil
+end
+
+local function get_valid_term_bufs()
+	local valid = {}
+	for _, buf in ipairs(term_bufs) do
+		if vim.api.nvim_buf_is_valid(buf) then
+			table.insert(valid, buf)
+		end
+	end
+	return valid
+end
+
+local function setup_terminal_buffer(bufnr, name)
+	term_names[bufnr] = name
+	vim.api.nvim_buf_set_var(bufnr, "floaterm_name", name)
+	vim.bo[bufnr].filetype = "terminal"
+end
+
+local function get_term_by_name(name)
+	for buf, n in pairs(term_names) do
+		if n == name and vim.api.nvim_buf_is_valid(buf) then
+			return buf
+		end
+	end
+	return nil
+end
+
+function NativeTermSendTrimmed(mode)
+	local lines = {}
+	if mode == "v" then
+		local start_line = vim.fn.getpos("'<")[2]
+		local end_line = vim.fn.getpos("'>")[2]
+		lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+	elseif mode == "a" then
+		lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+	else
+		lines = { vim.api.nvim_get_current_line() }
+	end
+
+	local trimmed = {}
+	for _, line in ipairs(lines) do
+		table.insert(trimmed, vim.trim(line))
+	end
+
+	local win, buf = get_term_win_in_tab()
+	if not win then
+		TermToggle()
+		win, buf = get_term_win_in_tab()
+	end
+
+	if win and buf then
+		local chan = vim.bo[buf].channel
+		vim.api.nvim_chan_send(chan, table.concat(trimmed, "\r") .. "\r")
+	end
+end
+
 local function SafeBufGetVar(bufnr, key)
 	local ok, value = pcall(vim.api.nvim_buf_get_var, bufnr, key)
 	if ok then
@@ -196,10 +264,11 @@ local lazyPackages = {
 		config = function()
 			local lualine = require("lualine")
 			local function floatermInfo()
-				local bufid = GetTerminalBufnr()
-				local buffers = api.nvim_eval("floaterm#buflist#gather()")
-				local ret = indexOf(buffers, bufid) .. "/" .. #buffers
-				return ret
+				local win, buf = get_term_win_in_tab()
+				if not buf then return "" end
+				local valid = get_valid_term_bufs()
+				local idx = indexOf(valid, buf) or 0
+				return idx .. "/" .. #valid
 			end
 
 			local function tab_num()
@@ -216,7 +285,7 @@ local lazyPackages = {
 					lualine_z = { "location" },
 				},
 				inactive_sections = { lualine_c = { floatermInfo }, lualine_z = { "location" } },
-				filetypes = { "floaterm" },
+				filetypes = { "terminal" },
 			}
 
 			local function getModified()
@@ -316,7 +385,6 @@ local lazyPackages = {
 	{
 		"nvim-telescope/telescope.nvim",
 		event = "VeryLazy",
-		dependencies = { "dawsers/telescope-floaterm.nvim" },
 		config = function()
 			local telescope = require("telescope")
 			telescope.setup({
@@ -324,7 +392,6 @@ local lazyPackages = {
 					mappings = { i = { ["<esc>"] = require("telescope.actions").close } },
 				},
 			})
-			telescope.load_extension("floaterm")
 		end,
 	},
 	{ "windwp/nvim-spectre" },
@@ -639,7 +706,7 @@ local lazyPackages = {
 		config = true,
 	},
 	{ "kjelly/kube-nvim" },
-	{ "voldikss/vim-floaterm" },
+
 	{
 		"nat-418/boole.nvim",
 		lazy = true,
@@ -708,7 +775,7 @@ local lazyPackages = {
 			cyclic = true,
 			force_write_shada = false,
 			refresh_interval = 250,
-			excluded_filetypes = { "floaterm", "" },
+			excluded_filetypes = { "terminal", "" },
 			sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
 			bookmark_0 = { sign = "⚑", virt_text = "hello world" },
 			mappings = {},
@@ -1176,14 +1243,13 @@ function ListCurrentWindow(opts)
 end
 
 function GlobalFloatermIndex()
-	local term_list = ListCurrentBuffer({ filetype = "floaterm" })
-	local buffers = api.nvim_eval("floaterm#buflist#gather()")
-	if #term_list == 0 then
-		return "0/" .. #buffers
+	local win, buf = get_term_win_in_tab()
+	local valid = get_valid_term_bufs()
+	if not buf then
+		return "0/" .. #valid
 	end
-	local bufid = term_list[1]
-	local ret = indexOf(buffers, bufid) .. "/" .. #buffers
-	return ret
+	local idx = indexOf(valid, buf) or 0
+	return idx .. "/" .. #valid
 end
 
 SafeRequireCallback("notify", function(notify)
@@ -1192,14 +1258,7 @@ SafeRequireCallback("notify", function(notify)
 end)
 
 function HasTerminal()
-	local ok, buffers = pcall(vim.api.nvim_eval, "floaterm#buflist#gather()")
-	if not ok then
-		return false
-	end
-	if #buffers > 0 then
-		return true
-	end
-	return false
+	return #get_valid_term_bufs() > 0
 end
 
 function GetTerminalBufnr()
@@ -1296,7 +1355,7 @@ function FindMainWindow()
 	local tab_num = vim.fn.tabpagenr()
 
 	for _, value in pairs(wininfoTable) do
-		if vim.bo[value.bufnr].filetype == "floaterm" then
+		if vim.bo[value.bufnr].filetype == "terminal" then
 		elseif value.tabnr ~= tab_num then
 		elseif value.width > minMainWidth then
 			minMainWidth = value.width
@@ -1403,38 +1462,48 @@ vim.api.nvim_set_keymap("", "<m-P>", "", {
 
 local TermIndex = 0
 function NewTerminal()
-	local name = "t" .. TermIndex
-	vim.cmd(string.format("FloatermNew --name=%s --title=%s", name, name))
-	TermIndex = TermIndex + 1
+	local win, buf = get_term_win_in_tab()
+	if not win then
+		vim.cmd("topleft split")
+		vim.cmd("resize " .. math.floor(vim.o.lines * 0.5))
+	end
+	vim.cmd("terminal")
+	local new_buf = vim.api.nvim_get_current_buf()
+	table.insert(term_bufs, new_buf)
+	last_active_idx = #term_bufs
+	setup_terminal_buffer(new_buf, "t" .. last_active_idx)
+	vim.cmd("startinsert")
 end
 
 function TermToggle()
-	local bufList = vim.fn.getwininfo()
-	local tab_num = vim.fn.tabpagenr()
-	for _, v in pairs(bufList) do
-		if vim.bo[v.bufnr].filetype == "floaterm" and v.tabnr == tab_num then
-			vim.cmd("FloatermHide!")
-			return
-		end
-	end
+	local win, buf = get_term_win_in_tab()
+	if win then
+		vim.api.nvim_win_close(win, true)
+	else
+		vim.cmd("topleft split")
+		vim.cmd("resize " .. math.floor(vim.o.lines * 0.5))
 
-	Defer(function()
-		if vim.bo.filetype ~= "floaterm" then
-			GotoMainWindow()
-		end
-	end, function()
-		if HasTerminal() then
-			vim.cmd("FloatermShow")
+		local target_buf = term_bufs[last_active_idx]
+		if target_buf and vim.api.nvim_buf_is_valid(target_buf) then
+			vim.api.nvim_set_current_buf(target_buf)
 		else
-			vim.cmd("FloatermToggle")
+			vim.cmd("terminal")
+			local new_buf = vim.api.nvim_get_current_buf()
+			if last_active_idx > 0 then
+				term_bufs[last_active_idx] = new_buf
+			else
+				table.insert(term_bufs, new_buf)
+				last_active_idx = #term_bufs
+			end
+			setup_terminal_buffer(new_buf, "t" .. last_active_idx)
 		end
-	end)
+		vim.cmd("startinsert")
+	end
 end
 
 function FzfBuffer()
-	local filetype = vim.bo.filetype
-	if filetype == "floaterm" then
-		SafeRequire("telescope._extensions.floaterm.floaterm").search()
+	if vim.bo.buftype == "terminal" then
+		SafeRequire("fzf-lua").buffers()
 	else
 		GotoMainWindow()
 		if #GetBuffers({}) > 1 then
@@ -1564,48 +1633,37 @@ function GetBuffers(opts)
 end
 
 function RunPreviousCommandFunc()
-	Defer(function()
-		if HasTerminal() == false then
-			vim.cmd("FloatermNew")
-		end
-	end, function()
+	local win, buf = get_term_win_in_tab()
+	if not win then
+		TermToggle()
+		win, buf = get_term_win_in_tab()
+	end
+	if win then
+		vim.api.nvim_set_current_win(win)
 		local mode = vim.fn.mode()
 		if mode == "t" then
-			vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-c>", true, true, true), "t")
-			vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true, true), "t")
-			vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true, true), "t")
-		elseif mode == "n" then
-			Defer(function()
-				vim.cmd("FloatermShow")
-			end, function()
-				vim.fn.feedkeys("i", "t")
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true, true), "t")
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true, true), "t")
-			end)
-		elseif mode == "i" then
-			Defer(function()
-				vim.cmd("stopinsert")
-			end, function()
-				vim.cmd("FloatermShow")
-			end, function()
-				vim.fn.feedkeys("i", "t")
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p>", true, true, true), "t")
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, true, true), "t")
-			end)
+			vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-c><c-p><cr>", true, true, true), "t")
+		else
+			vim.cmd("startinsert")
+			vim.defer_fn(function()
+				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-p><cr>", true, true, true), "t")
+			end, 50)
 		end
-	end)
+	end
 end
 
 function RunShellAndShow(command)
-	Defer(function()
-		if HasTerminal() == false then
-			vim.cmd("FloatermNew")
-		end
-	end, function()
-		vim.cmd("FloatermShow")
-	end, function()
-		vim.cmd("FloatermSend " .. command)
-	end)
+	local win, buf = get_term_win_in_tab()
+	if not win then
+		TermToggle()
+		win, buf = get_term_win_in_tab()
+	end
+	if win and buf then
+		local chan = vim.bo[buf].channel
+		vim.api.nvim_chan_send(chan, command .. "\r")
+		vim.api.nvim_set_current_win(win)
+		vim.cmd("startinsert")
+	end
 end
 
 function NextItem(offset)
@@ -1769,35 +1827,57 @@ function KillAndRerunTerm(name, command, opts)
 		opts.shell = true
 		notify_command = string.format(";hterm-notify '%s' '%s'", opts.notify, name)
 	end
-	local autoclose = 0
-	if opts.autoclose then
-		autoclose = 1
+	local close_on_exit = opts.autoclose or false
+
+	local old_buf = get_term_by_name(name)
+	if old_buf then
+		pcall(vim.api.nvim_buf_delete, old_buf, { force = true })
 	end
-	local lst = vim.fn.getcompletion("FloatermKill ", "cmdline")
-	for _, v in pairs(lst) do
-		if v == name then
-			vim.cmd("FloatermKill " .. name)
-		end
+
+	local buf = vim.api.nvim_create_buf(false, true)
+	setup_terminal_buffer(buf, name)
+
+	local win, cur_buf = get_term_win_in_tab()
+	if not win then
+		vim.cmd("topleft split")
+		vim.cmd("resize " .. math.floor(vim.o.lines * 0.5))
+		win = vim.api.nvim_get_current_win()
 	end
+	vim.api.nvim_win_set_buf(win, buf)
+
+	local cmd = command
 	if opts.shell then
-		vim.cmd(
-			string.format(
-				'FloatermNew --autoclose=%d --name=%s sh -c "%s%s;exit 0"',
-				autoclose,
-				name,
-				command,
-				notify_command
-			)
-		)
-	else
-		vim.cmd(string.format("FloatermNew --autoclose=%d --name=%s %s", autoclose, name, command, notify_command))
+		cmd = string.format('sh -c "%s%s;exit 0"', command, notify_command)
 	end
+
+	vim.api.nvim_buf_call(buf, function()
+		vim.fn.termopen(cmd, {
+			on_exit = function(job_id, exit_code, event)
+				if close_on_exit or exit_code == 0 then
+					pcall(vim.api.nvim_buf_delete, buf, { force = true })
+				end
+			end
+		})
+	end)
+
+	local found = false
+	for i, b in ipairs(term_bufs) do
+		if b == buf then found = true break end
+	end
+	if not found then
+		table.insert(term_bufs, buf)
+		last_active_idx = #term_bufs
+	end
+
+	vim.cmd("startinsert")
 end
 
 function KillAndRerunTermWrapper(command, opts)
 	local name = string.gsub(command, " ", "_")
 	KillAndRerunTerm(name, command)
-	vim.fn.feedkeys("i")
+	vim.defer_fn(function()
+		vim.cmd("startinsert")
+	end, 50)
 end
 
 function RunCurrentLine()
@@ -1820,9 +1900,9 @@ function FocusNextInputArea()
 			vim.api.nvim_set_current_win(value.winid)
 			vim.fn.feedkeys("i")
 			return
-		elseif vim.bo[value.bufnr].filetype == "floaterm" then
+		elseif vim.bo[value.bufnr].filetype == "terminal" then
 			vim.api.nvim_set_current_win(value.winid)
-			vim.fn.feedkeys("i")
+			vim.cmd("startinsert")
 			return
 		end
 	end
@@ -1831,33 +1911,41 @@ end
 function UpdateTitleString()
 	local hostname = vim.fn.hostname()
 	local name = vim.fn.expand("%")
-	if vim.bo.filetype == "floaterm" then
+	if vim.bo.filetype == "terminal" then
 		name = vim.fn.escape(termTitle(), "|")
 	end
 	pcall(vim.cmd, string.format("let &titlestring='%s - %s'", hostname, name))
 end
 
 function FloatermNext(offset)
-	local current_type = vim.bo.filetype
-	if current_type ~= "floaterm" then
-		GotoMainWindow()
+	local win, buf = get_term_win_in_tab()
+	if not win then
+		TermToggle()
+		return
 	end
-	if not HasTerminal() then
-		vim.cmd("FloatermShow")
+
+	local valid = get_valid_term_bufs()
+	if #valid <= 1 then return end
+
+	local idx = indexOf(valid, buf) or 1
+	local next_idx = idx + offset
+	if next_idx > #valid then
+		next_idx = 1
+	elseif next_idx < 1 then
+		next_idx = #valid
 	end
-	if offset > 0 then
-		vim.cmd("FloatermNext")
-	else
-		vim.cmd("FloatermPrev")
-	end
-	if vim.fn.mode() == "t" then
-		vim.fn.feedkeys("i")
-	else
-		if current_type == "floaterm" then
-		else
-			vim.cmd("wincmd w")
+
+	local next_buf = valid[next_idx]
+	for i, b in ipairs(term_bufs) do
+		if b == next_buf then
+			last_active_idx = i
+			break
 		end
 	end
+
+	vim.api.nvim_win_set_buf(win, next_buf)
+	vim.api.nvim_set_current_win(win)
+	vim.cmd("startinsert")
 end
 
 function RegistersInsert()
@@ -1948,9 +2036,7 @@ function StartPueueJob(name, cmd)
 			local data = j:result()
 			vim.schedule(function()
 				vim.notify(vim.inspect(data))
-				vim.cmd(
-					string.format("FloatermNew --autoclose=0 --name=%s --title=%s pueue follow %s", name, name, data[1])
-				)
+				KillAndRerunTerm(name, "pueue follow " .. data[1], { autoclose = false, shell = true })
 			end)
 		end,
 	}):start()
