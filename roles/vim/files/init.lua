@@ -421,6 +421,9 @@ local lazyPackages = {
 	{ "MunifTanjim/nui.nvim" },
 	{
 		"nvim-neo-tree/neo-tree.nvim",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
 		opts = {
 			window = {
 				width = 25,
@@ -938,6 +941,146 @@ local lazyPackages = {
 		end,
 	},
 	{ "windwp/nvim-autopairs", opts = {} },
+	{
+		"nvim-tree/nvim-web-devicons",
+		opts = {
+			default = true,
+			default_icon = {
+				icon = "📄",
+				color = "#6d8086",
+				name = "Default",
+			},
+		},
+		config = function(_, opts)
+			local devicons = require("nvim-web-devicons")
+			devicons.setup(opts)
+
+			local is_pua = function(char)
+				if not char or char == "" then return false end
+				local cp = vim.fn.char2nr(char)
+				return (cp >= 57344 and cp <= 63743) or (cp >= 983040 and cp <= 1048575) or (cp >= 1048576 and cp <= 1114111)
+			end
+
+			local emoji_extensions = {
+				py = "🐍",
+				go = "🐹",
+				lua = "🌙",
+				c = "⚙️",
+				h = "⚙️",
+				cpp = "🛠️",
+				hpp = "🛠️",
+				cc = "🛠️",
+				cxx = "🛠️",
+				rs = "🦀",
+				js = "📜",
+				ts = "📘",
+				jsx = "⚛️",
+				tsx = "⚛️",
+				html = "🌐",
+				css = "🎨",
+				scss = "🎨",
+				sh = "🐚",
+				bash = "🐚",
+				zsh = "🐚",
+				fish = "🐚",
+				json = "📦",
+				yaml = "⚙️",
+				yml = "⚙️",
+				toml = "🔧",
+				ini = "📝",
+				conf = "📝",
+				sql = "🗄️",
+				db = "🗄️",
+				tf = "🧱",
+				txt = "📄",
+				md = "📝",
+				markdown = "📝",
+				zip = "🤐",
+				tar = "🤐",
+				gz = "🤐",
+				xz = "🤐",
+				rar = "🤐",
+				["7z"] = "🤐",
+				pdf = "📕",
+				png = "🖼️",
+				jpg = "🖼️",
+				jpeg = "🖼️",
+				gif = "🖼️",
+				svg = "🖼️",
+				webp = "🖼️",
+				bmp = "🖼️",
+				ico = "🖼️",
+				mp3 = "🎵",
+				wav = "🎵",
+				flac = "🎵",
+				ogg = "🎵",
+				m4a = "🎵",
+				mp4 = "🎥",
+				mkv = "🎥",
+				avi = "🎥",
+				mov = "🎥",
+				webm = "🎥",
+				log = "📋",
+				java = "☕",
+				class = "☕",
+				jar = "☕",
+				php = "🐘",
+				rb = "💎",
+				swift = "🐦",
+				kt = "🎯",
+				kts = "🎯",
+				pl = "🐪",
+				pm = "🐪",
+				r = "📊",
+			}
+
+			local emoji_filenames = {
+				[".gitignore"] = "🐙",
+				[".gitconfig"] = "🐙",
+				[".gitattributes"] = "🐙",
+				["Makefile"] = "🛠️",
+				["makefile"] = "🛠️",
+				["justfile"] = "🛠️",
+				["Dockerfile"] = "🐳",
+				["dockerfile"] = "🐳",
+				["docker-compose.yml"] = "🐳",
+				["docker-compose.yaml"] = "🐳",
+				["LICENSE"] = "📜",
+				["README.md"] = "📝",
+			}
+
+			local ext_icons = devicons.get_icons()
+			for ext, emoji in pairs(emoji_extensions) do
+				if ext_icons[ext] then
+					ext_icons[ext].icon = emoji
+				else
+					ext_icons[ext] = { icon = emoji, name = ext }
+				end
+			end
+
+			local fn_icons = devicons.get_icons_by_filename()
+			for fn, emoji in pairs(emoji_filenames) do
+				if fn_icons[fn] then
+					fn_icons[fn].icon = emoji
+				else
+					fn_icons[fn] = { icon = emoji, name = fn }
+				end
+			end
+
+			for _, info in pairs(ext_icons) do
+				if is_pua(info.icon) then
+					info.icon = "📄"
+				end
+			end
+			for _, info in pairs(fn_icons) do
+				if is_pua(info.icon) then
+					info.icon = "📄"
+				end
+			end
+
+			devicons.set_up_highlights()
+		end,
+	},
 	{
 		"stevearc/aerial.nvim",
 		dependencies = {
@@ -1472,8 +1615,11 @@ vim.api.nvim_set_keymap("", "<m-P>", "", {
 function NewTerminal()
 	local win, buf = get_term_win_in_tab()
 	if not win then
-		vim.cmd("topleft split")
-		vim.cmd("resize " .. math.floor(vim.o.lines * 0.5))
+		GotoMainWindow()
+		vim.cmd("leftabove split")
+		vim.cmd("resize " .. math.floor(vim.o.lines * 0.4))
+	else
+		vim.api.nvim_set_current_win(win)
 	end
 	vim.cmd("terminal")
 	local new_buf = vim.api.nvim_get_current_buf()
@@ -1488,8 +1634,9 @@ function TermToggle()
 	if win then
 		vim.api.nvim_win_close(win, true)
 	else
-		vim.cmd("topleft split")
-		vim.cmd("resize " .. math.floor(vim.o.lines * 0.5))
+		GotoMainWindow()
+		vim.cmd("leftabove split")
+		vim.cmd("resize " .. math.floor(vim.o.lines * 0.4))
 
 		local target_buf = term_bufs[math.min(last_active_idx, #term_bufs)]
 		if target_buf and vim.api.nvim_buf_is_valid(target_buf) then
@@ -1782,6 +1929,16 @@ function ToggleMouse()
 	vim.o.mouse = vim.o.mouse == "a" and "" or "a"
 end
 
+function ToggleMaximize()
+	local win_height = vim.api.nvim_win_get_height(0)
+	local max_height = vim.o.lines - vim.o.cmdheight - 1
+	if win_height >= max_height - 1 then
+		vim.cmd("wincmd =")
+	else
+		vim.cmd("wincmd _")
+	end
+end
+
 function ToggleStatusLine()
 	vim.o.laststatus = vim.o.laststatus == 0 and 2 or 0
 end
@@ -1915,8 +2072,9 @@ function KillAndRerunTerm(name, command, opts)
 
 	local win, cur_buf = get_term_win_in_tab()
 	if not win then
-		vim.cmd("topleft split")
-		vim.cmd("resize " .. math.floor(vim.o.lines * 0.5))
+		GotoMainWindow()
+		vim.cmd("leftabove split")
+		vim.cmd("resize " .. math.floor(vim.o.lines * 0.4))
 		win = vim.api.nvim_get_current_win()
 	end
 	vim.api.nvim_win_set_buf(win, buf)
@@ -2053,7 +2211,7 @@ function SendSystemNotification(message)
 end
 
 
-SafeRequire("nvim-web-devicons").setup({})
+-- SafeRequire("nvim-web-devicons").setup({}) -- Configured in lazyPackages
 
 vim.g.EINK_WIDTH = vim.env.EINK_WIDTH
 local function checkIsEink()

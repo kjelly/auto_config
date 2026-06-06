@@ -486,6 +486,10 @@ tnoremap <m-r> <cmd>lua RunPreviousCommandFunc()<cr>
 nnoremap <m-r> <cmd>lua RunPreviousCommandFunc()<cr>
 inoremap <m-r> <cmd>lua RunPreviousCommandFunc()<cr>
 
+tnoremap <m-=> <cmd>lua ToggleMaximize()<cr>
+nnoremap <m-=> <cmd>lua ToggleMaximize()<cr>
+inoremap <m-=> <cmd>lua ToggleMaximize()<cr>
+
 tnoremap <m-v> <c-v>
 nnoremap <m-v> <c-v>
 inoremap <m-v> <c-v>
