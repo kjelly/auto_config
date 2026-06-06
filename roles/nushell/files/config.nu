@@ -293,7 +293,7 @@ $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | appe
             let cmd = (commandline)
             if ( $cmd | is-empty ) {
             } else {
-              commandline -r $"pueue follow \(pueue add -p -- ($cmd)\)"
+              commandline edit -r $"pueue follow \(pueue add -p -- ($cmd)\)"
             }
         '
     }
@@ -310,7 +310,7 @@ $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | appe
             let cmd = (commandline)
             if ( $cmd | is-empty ) {
             } else {
-              commandline -r $"pueue follow \(pueue add -p -- ($cmd)\)"
+              commandline edit -r $"pueue follow \(pueue add -p -- ($cmd)\)"
             }
         '
     }
@@ -325,8 +325,8 @@ $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | appe
     event: {
         send: executehostcommand
         cmd: '
-            commandline --replace "use "
-            commandline --insert (
+            commandline edit --replace "use "
+            commandline edit --insert (
                 $env.NU_LIB_DIRS
                 | each {|dir|
                     ls ($dir | path join "**" "*.nu")

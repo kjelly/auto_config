@@ -31,6 +31,10 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.g.editconfig = true
 
+-- Ollama model configuration — change these two lines to switch models globally
+vim.g.ollama_agent_model = "gemma4:12b"           -- used by CopilotChat, avante, codecompanion
+vim.g.ollama_complete_model = "qwen2.5-coder:7b" -- used by minuet (inline completion)
+
 vim.g.clipboard = {
 	name = "OSC 52",
 	copy = {
@@ -155,11 +159,12 @@ local lazyPackages = {
 		---@type ibl.config
 		opts = {},
 	},
-	{ "https://github.com/danymat/neogen", opts = {} },
-	{ "https://github.com/SmiteshP/nvim-navic" },
+	{ "danymat/neogen", opts = {} },
+	{ "SmiteshP/nvim-navic" },
 	{ "m-demare/hlargs.nvim" },
-	{ "https://github.com/kylechui/nvim-surround", opts = {} },
-	{ "https://github.com/nvim-neotest/nvim-nio" },
+	{ "kylechui/nvim-surround", opts = {} },
+	{ "numToStr/Comment.nvim", opts = {} },
+	{ "nvim-neotest/nvim-nio" },
 	{
 		"mfussenegger/nvim-dap",
 		config = function()
@@ -183,7 +188,7 @@ local lazyPackages = {
 	{ "mfussenegger/nvim-dap-python" },
 	{ "rcarriga/nvim-dap-ui", opts = {} },
 	{
-		"https://github.com/nvim-lualine/lualine.nvim",
+		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
 		config = function()
 			local lualine = require("lualine")
@@ -276,8 +281,13 @@ local lazyPackages = {
 					lualine_c = { { floatermInfo, cond = HasTerminal }, { "filename", path = 1 } },
 					lualine_x = {
 						{
-							require("noice").api.status.mode.get,
-							cond = require("noice") ~= nil and require("noice").api.status.mode.has,
+							function()
+								return SafeRequire("noice").api.status.mode.get()
+							end,
+							cond = function()
+								local n = SafeRequire("noice")
+								return n.api ~= nil and n.api.status.mode.has()
+							end,
 							color = { fg = "#ff9e64" },
 						},
 						"encoding",
@@ -300,7 +310,6 @@ local lazyPackages = {
 		end,
 	},
 	{ "nvim-lua/plenary.nvim" },
-	{ "dawsers/telescope-floaterm.nvim" },
 	{
 		"nvim-telescope/telescope.nvim",
 		event = "VeryLazy",
@@ -341,7 +350,7 @@ local lazyPackages = {
 	},
 	{ "MunifTanjim/nui.nvim" },
 	{
-		"https://github.com/nvim-neo-tree/neo-tree.nvim",
+		"nvim-neo-tree/neo-tree.nvim",
 		opts = {
 			window = {
 				width = 25,
@@ -407,7 +416,7 @@ local lazyPackages = {
 		},
 	},
 	{
-		"https://github.com/folke/noice.nvim",
+		"folke/noice.nvim",
 		opts = {
 			health = { checker = false },
 			messages = {
@@ -432,10 +441,37 @@ local lazyPackages = {
 			},
 		},
 	},
-	{ "https://github.com/FabijanZulj/blame.nvim", opts = {} },
-	{ "https://github.com/folke/which-key.nvim" },
+	{ "FabijanZulj/blame.nvim", opts = {} },
+	{
+		"lewis6991/gitsigns.nvim",
+		opts = {
+			on_attach = function(bufnr)
+				local gs = require("gitsigns")
+				local map = function(mode, lhs, rhs, desc)
+					vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, noremap = true, silent = true, desc = desc })
+				end
+				map("n", "]h", gs.next_hunk, "Next hunk")
+				map("n", "[h", gs.prev_hunk, "Prev hunk")
+				map("n", "<leader>ghs", gs.stage_hunk, "Stage hunk")
+				map("n", "<leader>ghr", gs.reset_hunk, "Reset hunk")
+				map("n", "<leader>ghp", gs.preview_hunk, "Preview hunk")
+				map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame line (full)")
+				map("n", "<leader>ghd", gs.diffthis, "Diff this")
+			end,
+		},
+	},
+	{
+		"folke/trouble.nvim",
+		cmd = "Trouble",
+		opts = {},
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		opts = { max_lines = 3 },
+	},
+	{ "folke/which-key.nvim" },
 	{ "rcarriga/nvim-notify" },
-	{ "https://github.com/Chaitanyabsprip/present.nvim", cmd = { "Present" }, opts = {} },
+	{ "Chaitanyabsprip/present.nvim", cmd = { "Present" }, opts = {} },
 	{ "mason-org/mason.nvim", opts = {} },
 	{
 		"mason-org/mason-lspconfig.nvim",
@@ -570,6 +606,7 @@ local lazyPackages = {
 					end
 					map("n", "gy", vim.lsp.buf.type_definition, "Go to type definition")
 					map({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, "LSP code action")
+					pcall(vim.lsp.inlay_hint.enable, true, { bufnr = bufnr })
 					vim.api.nvim_create_autocmd("CursorHoldI", {
 						buffer = bufnr,
 						callback = function()
@@ -596,16 +633,15 @@ local lazyPackages = {
 			},
 		},
 	},
-	{ "https://github.com/dstein64/vim-startuptime" },
+	{ "dstein64/vim-startuptime" },
 	{
-		"https://github.com/akinsho/git-conflict.nvim",
-		version = "*",
+		"akinsho/git-conflict.nvim",
 		config = true,
 	},
-	{ "https://github.com/kjelly/kube-nvim" },
+	{ "kjelly/kube-nvim" },
 	{ "voldikss/vim-floaterm" },
 	{
-		"https://github.com/nat-418/boole.nvim",
+		"nat-418/boole.nvim",
 		opts = {
 			mappings = {
 				increment = "<C-a>",
@@ -621,7 +657,7 @@ local lazyPackages = {
 		},
 	},
 	{ "unblevable/quick-scope" },
-	{ "https://github.com/NvChad/nvim-colorizer.lua", opts = {} },
+	{ "NvChad/nvim-colorizer.lua", opts = {} },
 	{
 		"ramilito/kubectl.nvim",
 		version = "2.*",
@@ -630,7 +666,7 @@ local lazyPackages = {
 		end,
 	},
 	{ "junegunn/fzf" },
-	{ "https://github.com/ibhagwan/fzf-lua" },
+	{ "ibhagwan/fzf-lua" },
 	{
 		"otavioschwanck/fzf-lua-enchanted-files",
 		dependencies = { "ibhagwan/fzf-lua" },
@@ -644,22 +680,22 @@ local lazyPackages = {
 	{ "lambdalisue/suda.vim" },
 	{ "ianding1/leetcode.vim" },
 	{
-		"https://github.com/Mofiqul/vscode.nvim",
+		"Mofiqul/vscode.nvim",
 		config = function()
 			vim.cmd.colorscheme("vscode")
 		end,
 	},
-	{ "https://github.com/m-gail/escape.nvim" },
+	{ "m-gail/escape.nvim" },
 	{ "rktjmp/lush.nvim" },
 	{
-		"https://github.com/stevearc/oil.nvim",
+		"stevearc/oil.nvim",
 		opts = {
 			buf_options = { buflisted = true, bufhidden = "unload" },
 		},
 	},
 	{ "tpope/vim-fugitive" },
 	{
-		"https://github.com/chentoast/marks.nvim",
+		"chentoast/marks.nvim",
 		opts = {
 			default_mappings = true,
 			builtin_marks = { ".", "<", ">", "^" },
@@ -683,17 +719,13 @@ local lazyPackages = {
 	},
 	{
 		"hrsh7th/nvim-cmp",
-		event = { "InsertEnter", "CmdlineEnter" },
+		event = { "InsertEnter" },
 		dependencies = {
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "hrsh7th/cmp-buffer" },
 			{ "hrsh7th/cmp-path" },
-			{ "hrsh7th/cmp-cmdline" },
 			{ "lukas-reineke/cmp-rg" },
-			{ "https://github.com/petertriho/cmp-git" },
-			{ "https://github.com/mtoohey31/cmp-fish" },
-			{ "https://github.com/dmitmel/cmp-cmdline-history" },
-			{ "https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol" },
+			{ "hrsh7th/cmp-nvim-lsp-document-symbol" },
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -708,12 +740,8 @@ local lazyPackages = {
 					keyword_length = 5,
 					option = { additional_arguments = "--max-depth 5" },
 				},
-				{ name = "fish" },
 				{ name = "buffer", keyword_length = 4 },
 			}
-			if vim.fn.executable("node") == 1 then
-				table.insert(cmp_sources, { name = "copilot" })
-			end
 
 			if cmp == nil then
 				return
@@ -787,7 +815,6 @@ local lazyPackages = {
 				sorting = {
 					priority_weight = 2,
 					comparators = {
-						-- SafeRequire("copilot_cmp.comparators").prioritize,
 						cmp.config.compare.offset,
 						cmp.config.compare.exact,
 						cmp.config.compare.score,
@@ -799,15 +826,6 @@ local lazyPackages = {
 						cmp.config.compare.order,
 					},
 				},
-			})
-
-			SafeRequire("cmp_git").setup()
-
-			-- Set configuration for specific filetype.
-			cmp.setup.filetype("gitcommit", {
-				sources = cmp.config.sources({
-					{ name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
-				}, { { name = "buffer" } }),
 			})
 
 			local search_sources = {
@@ -841,25 +859,21 @@ local lazyPackages = {
 				})
 			end
 
-			setup_cmdline(":", {
-				{ name = "cmdline", group_index = 1 },
-				{ name = "cmdline_history", group_index = 1, max_item_count = 5 },
-			})
 			setup_cmdline("/", search_sources)
 			setup_cmdline("?", search_sources)
 
 		end,
 	},
-	{ "https://github.com/windwp/nvim-autopairs", opts = {} },
+	{ "windwp/nvim-autopairs", opts = {} },
 	{
-		"https://github.com/stevearc/aerial.nvim",
+		"stevearc/aerial.nvim",
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
 		},
 		opts = {},
 	},
 	{
-		"https://github.com/gbrlsnchs/winpick.nvim",
+		"gbrlsnchs/winpick.nvim",
 		opts = {
 			filter = function(winid, burnr, _)
 				local win_info = vim.fn.getwininfo(winid)[1]
@@ -915,7 +929,7 @@ if not isEmptyTable(langservers) then
 							api_key = "TERM",
 							name = "Ollama",
 							end_point = "http://localhost:11434/v1/completions",
-							model = "qwen2.5-coder:7b",
+							model = vim.g.ollama_complete_model,
 							optional = {
 								max_tokens = 56,
 								top_p = 0.9,
@@ -935,7 +949,7 @@ if not isEmptyTable(langservers) then
 			end,
 		},
 		{
-			"https://github.com/yetone/avante.nvim",
+			"yetone/avante.nvim",
 			event = "VeryLazy",
 			build = "make",
 			opts = {
@@ -943,7 +957,7 @@ if not isEmptyTable(langservers) then
 			},
 		},
 		{
-			"https://github.com/olimorris/codecompanion.nvim",
+			"olimorris/codecompanion.nvim",
 			event = "VeryLazy",
 			opts = {
 				strategies = {
@@ -960,8 +974,30 @@ if not isEmptyTable(langservers) then
 			},
 		},
 		{
-			"https://github.com/arborist-ts/arborist.nvim",
+			"arborist-ts/arborist.nvim",
 			branch = "main",
+		},
+		{
+			"CopilotC-Nvim/CopilotChat.nvim",
+			event = "VeryLazy",
+			config = function()
+				require("CopilotChat").setup({
+					model = vim.g.ollama_agent_model,
+					provider = "ollama",
+					providers = {
+						ollama = {
+							prepare_input = require("CopilotChat.config.providers").copilot.prepare_input,
+							prepare_output = require("CopilotChat.config.providers").copilot.prepare_output,
+							get_headers = function()
+								return {}
+							end,
+							get_url = function()
+								return "http://localhost:11434/v1/chat/completions"
+							end,
+						},
+					},
+				})
+			end,
 		},
 	})
 end
@@ -1174,34 +1210,6 @@ end
 
 SafeRequireCallback("which-key", function(wk)
 	wk.add({
-		{ "daC", group = "Call/Comment/Conditional" },
-		{ "daCa", desc = "call" },
-		{ "daCm", desc = "comment" },
-		{ "daCo", desc = "conditional" },
-		{ "daF", desc = "frame" },
-		{ "dac", desc = "class" },
-		{ "daf", desc = "function" },
-		{ "dal", desc = "loop" },
-		{ "dao", desc = "block" },
-		{ "dap", desc = "parameter" },
-		{ "das", desc = "scopename" },
-		{ "diC", group = "Call/Comment/Conditional" },
-		{ "diCa", desc = "call" },
-		{ "diCm", desc = "comment" },
-		{ "diCo", desc = "conditional" },
-		{ "diF", desc = "frame" },
-		{ "dic", desc = "class" },
-		{ "dif", desc = "function" },
-		{ "dil", desc = "loop" },
-		{ "dio", desc = "block" },
-		{ "dip", desc = "parameter" },
-		{ "dis", desc = "scopename" },
-		{ "gO", desc = "list_definitions_toc" },
-		{ "gn", group = "navigation" },
-		{ "gnD", desc = "list_definitions" },
-		{ "gnU", desc = "goto_previous_usage" },
-		{ "gnd", desc = "goto_definition" },
-		{ "gnu", desc = "goto_next_usage" },
 		{ "gr", group = "rename" },
 		{ "grr", desc = "rename" },
 	})
@@ -1222,6 +1230,7 @@ SafeRequireCallback("which-key", function(wk)
 		{ "<leader>g", group = "Git/Paste" },
 		{ "<leader>ga", group = "Agit/amend" },
 		{ "<leader>gb", group = "blame/branch" },
+		{ "<leader>gh", group = "hunk (gitsigns)" },
 		{ "<leader>gd", group = "git diff" },
 		{ "<leader>gdl", desc = "git diff last commit" },
 		{ "<leader>gl", group = "log" },
@@ -1247,6 +1256,7 @@ SafeRequireCallback("which-key", function(wk)
 		{ "<leader>w", group = "Wiki/Window" },
 		{ "<leader>wq", desc = "wqa" },
 		{ "<leader>ws", desc = "split" },
+		{ "<leader>x", group = "Trouble" },
 		{ "<leader>z", group = "Grep/Find/FZF" },
 	})
 
@@ -1520,7 +1530,6 @@ vim.schedule(function()
 			})
 		end
 
-		SafeRequire("copilot_cmp").setup({ method = "getCompletionsCycling" })
 	end)
 end)
 

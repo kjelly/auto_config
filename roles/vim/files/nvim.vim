@@ -732,8 +732,15 @@ nnoremap <silent> <leader>se :mksession!<cr>
 nnoremap <silent> <leader>sc <cmd>lua ToggleForCopy()<cr>
 nnoremap <silent> <leader>st <cmd>Boole increment<cr>
 nnoremap <silent> <leader>sk :DisableTmuxKey<cr>
+nnoremap <silent> <leader>so <cmd>TSContextToggle<cr>
 nnoremap <silent> <leader>sg :set guicursor=<cr>
 nnoremap <silent> <expr> <leader>sb &background=='light' ? ":set background=dark<cr>" : ":set background=light<cr>"
+
+nnoremap <silent> <leader>xx <cmd>Trouble diagnostics toggle<cr>
+nnoremap <silent> <leader>xb <cmd>Trouble diagnostics toggle filter.buf=0<cr>
+nnoremap <silent> <leader>xs <cmd>Trouble symbols toggle<cr>
+nnoremap <silent> <leader>xl <cmd>Trouble lsp toggle<cr>
+nnoremap <silent> <leader>xq <cmd>Trouble quickfix toggle<cr>
 
 nnoremap <silent> <leader>br :redraw<cr>
 
