@@ -93,7 +93,13 @@ def main():
         return
     elif args.kill is not None:
         os.system("%s kill-session -t %s" % (tmux, args.kill))
-    elif args.name is None:
+        return
+
+    is_eink = os.environ.get("LC_IS_EINK") in ("1", "true", "TRUE", "yes")
+    if is_eink:
+        os.environ["COLORFGBG"] = "15;0"
+
+    if args.name is None:
         os.system("%s attach #" % (tmux))
     else:
         name = args.name
