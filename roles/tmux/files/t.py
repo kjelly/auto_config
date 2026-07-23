@@ -99,14 +99,34 @@ def main():
     if is_eink:
         os.environ["COLORFGBG"] = "15;0"
 
-    if args.name is None:
-        os.system("%s attach #" % (tmux))
-    else:
-        name = args.name
-        if name in session_list:
-            os.system("%s attach -t %s" % (tmux, name))
+    target_name = args.name
+    if target_name is None:
+        target_name = "qs"
+
+    if is_eink:
+        if not target_name.endswith("-eink"):
+            eink_name = target_name + "-eink"
         else:
-            os.system("%s new -s %s" % (tmux, name))
+            eink_name = target_name
+
+        if eink_name not in session_list:
+            if target_name in session_list:
+                os.system("%s new-session -d -t %s -s %s" % (tmux, target_name, eink_name))
+            else:
+                os.system("%s new-session -d -s %s" % (tmux, target_name))
+                os.system("%s new-session -d -t %s -s %s" % (tmux, target_name, eink_name))
+
+        os.system("%s set-option -t %s status-style 'fg=#000000,bg=#ffffff'" % (tmux, eink_name))
+        os.system("%s set-environment -t %s LC_IS_EINK 1" % (tmux, eink_name))
+        os.system("%s set-environment -t %s COLORFGBG '15;0'" % (tmux, eink_name))
+        target_name = eink_name
+    elif not is_eink and target_name.endswith("-eink"):
+        target_name = target_name[:-5]
+
+    if target_name in list_all_sessions():
+        os.system("%s attach -t %s" % (tmux, target_name))
+    else:
+        os.system("%s new -s %s" % (tmux, target_name))
 
 
 if __name__ == "__main__":

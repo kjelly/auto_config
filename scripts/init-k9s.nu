@@ -1,11 +1,7 @@
 #!/usr/bin/env nu
 
-let skin_name = "solarized-light"
-wget $"https://raw.githubusercontent.com/derailed/k9s/refs/heads/master/skins/($skin_name).yaml"
-^mv $"($skin_name).yaml" ~/.config/k9s/skins/
-
-
-open ~/.config/k9s/config.yaml | upsert k9s.ui.skin $skin_name | save -f ~/.config/k9s/config.yaml
+let script_dir = ($env.FILE_PWD? | default ".")
+nu ($script_dir | path join "setup-k9s-eink.nu")
 
 let url = (http get "https://api.github.com/repos/derailed/k9s/releases/latest"|get assets |filter {$in.browser_download_url =~ "amd64.deb" } | get browser_download_url|get 0)
 
