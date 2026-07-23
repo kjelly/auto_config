@@ -509,10 +509,33 @@ let fish_completer = {|spans|
   | from tsv --flexible --no-infer
 }
 
+let carapace_completer = {|spans|
+  # if the current command is an alias, get it's expansion
+  let expanded_alias = (scope aliases | where name == $spans.0 | $in.0?.expansion?)
+
+  # overwrite
+  let spans = (if $expanded_alias != null  {
+    # put the first word of the expanded alias first in the span
+    $spans | skip 1 | prepend ($expanded_alias | split row " " | take 1)
+  } else {
+    $spans | skip 1 | prepend ($spans.0)
+  })
+
+  let result = (carapace $spans.0 nushell ...$spans | from json)
+  # carapace returns [] (not null) for commands it has no spec for (e.g. unsupported
+  # commands or ./local-scripts) - only a null return triggers nushell's built-in
+  # fallback to file path completion, so translate an empty result into null.
+  if ($result | is-empty) { null } else { $result }
+}
+
 $new_config = ($new_config | upsert completions  {
     case_sensitive: false
     quick: true
     partial: true
+    external: {
+        enable: true
+        completer: $carapace_completer
+    }
 })
 
 def --env update-nushell-theme [ ] {

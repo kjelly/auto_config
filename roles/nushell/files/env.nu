@@ -1,12 +1,21 @@
-let all_path = ['~/bin', '~/mybin', '~/dark-sdk/bin',
-                 '~/swif/usr/bin', '/usr/local/mercury*/bin',
-                 '~/.cargo/bin/', '~/sbt/bin',
-                 '~/.pub-cache/bin', '~/dart-sdk/bin', '~/activator/bin/',
-                 '~/google-cloud-sdk/bin/', '~/kotlinc/bin/', '~/.rvm/bin',
-                 '/snap/bin/', '~/flutter/bin/', '~/.local/bin', '~/.deno/bin/',
-                 '~/nfs/bin/', '~/.pub-cache/bin', '~/anaconda3/bin/',
-                 '~/node*/bin', '~/.asdf/installs/python/*/bin', '~/pypy*/bin/',
-                 '~/.fzf/bin/', '~/.asdf/bin/', '~/.asdf/shims/', "/home/linuxbrew/.linuxbrew/bin/",
-                 "~/.local/go/bin",
-                 ]
-$env.PATH = ($env.PATH | prepend ($all_path | each {|it| glob $it}|flatten -a |uniq|where {|it| $it not-in $env.PATH}) | uniq)
+let path_candidates = [
+  ($env.HOME | path join bin)
+  ($env.HOME | path join mybin)
+  ($env.HOME | path join dark-sdk bin)
+  ($env.HOME | path join .cargo bin)
+  ($env.HOME | path join .local bin)
+  ($env.HOME | path join .deno bin)
+  ($env.HOME | path join .asdf shims)
+  ($env.HOME | path join .asdf bin)
+  "/home/linuxbrew/.linuxbrew/bin"
+  "/snap/bin"
+]
+
+let extra_paths = (
+  $path_candidates
+  | each {|pattern| glob $pattern }
+  | flatten
+  | where {|path| ($path | path type) == dir }
+)
+
+$env.PATH = ($extra_paths | prepend $env.PATH | uniq)
