@@ -39,53 +39,6 @@
   "git.changeRemovedSign.text": "~",
   "json.enable": true,
   "json.format.enable": true,
-  "languageserver": {
-    "efm": {
-      "args": [],
-      "command": "efm-langserver",
-      "filetypes": [
-        "vim",
-        "eruby",
-        "markdown",
-        "yaml"
-      ]
-    },
-    "golang": {
-      "command": "go-langserver",
-      "filetypes": [
-        "go"
-      ],
-      "initializationOptions": {
-        "diagnosticsEnabled": true,
-        "gocodeCompletionEnabled": true,
-        "lintTool": "golint"
-      }
-    },
-    "kotlin": {
-      "command": "~/github/KotlinLanguageServer/server/build/install/server/bin/server",
-      "filetypes": [
-        "kotlin"
-      ],
-      "initializationOptions": {}
-    },
-    "metals": {
-      "command": "metals-vim",
-      "filetypes": [
-        "scala",
-        "sbt"
-      ],
-      "rootPatterns": [
-        "build.sbt"
-      ]
-    },
-    "rust": {
-      "command": "rustup run' nightly rls",
-      "filetypes": [
-        "rust"
-      ],
-      "initializationOptions": {}
-    }
-  },
   "list.insertMappings": {
     "<A-n>": "normal:j",
     "<A-p>": "normal:k",

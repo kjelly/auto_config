@@ -2,6 +2,14 @@ vim.loader.enable()
 local api = vim.api
 
 local function initBackground()
+	if vim.env.LC_IS_EINK == "1" or vim.env.LC_IS_EINK == "true" then
+		vim.o.background = "light"
+		return
+	end
+	if vim.env.COLORFGBG and vim.env.COLORFGBG:sub(1, 3) == "15;" then
+		vim.o.background = "light"
+		return
+	end
 	local hour = tonumber(os.date("!%H"))
 	if hour > 1 and hour < 10 then
 		vim.o.background = "light"
@@ -12,6 +20,25 @@ end
 
 initBackground()
 vim.opt.termguicolors = true
+vim.opt.guicursor = "a:block-blinkon0" -- Disable cursor blinking for E-ink
+
+local function setTransparentBackground()
+	local hl_groups = { "Normal", "NormalFloat", "SignColumn", "LineNr", "Folded", "NonText", "NormalNC" }
+	for _, group in ipairs(hl_groups) do
+		vim.api.nvim_set_hl(0, group, { bg = "NONE" })
+	end
+	if vim.env.LC_IS_EINK == "1" or vim.env.LC_IS_EINK == "true" or vim.o.background == "light" then
+		vim.api.nvim_set_hl(0, "Comment", { fg = "#333333", italic = true, bold = true })
+		vim.api.nvim_set_hl(0, "LineNr", { fg = "#444444", bold = true })
+	end
+end
+
+vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter", "UIEnter" }, {
+	pattern = "*",
+	callback = function()
+		vim.schedule(setTransparentBackground)
+	end,
+})
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -30,10 +57,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.editconfig = true
+-- Autocomplete engine choice: "cmp" or "blink"
+vim.g.completion_engine = "blink"
 
--- Ollama model configuration — change these two lines to switch models globally
-vim.g.ollama_agent_model = "gemma4:12b"           -- used by CopilotChat, avante, codecompanion
-vim.g.ollama_complete_model = "qwen2.5-coder:7b" -- used by minuet (inline completion)
+-- Ollama model configuration — change this line to switch the local chat model globally
+vim.g.ollama_agent_model = "gemma4:12b" -- used by CopilotChat and CodeCompanion
 
 vim.g.clipboard = {
 	name = "OSC 52",
@@ -58,7 +86,9 @@ end
 
 local function SafeRequire(name)
 	local ok, mod = pcall(require, name)
-	if ok then return mod end
+	if ok then
+		return mod
+	end
 	return setmetatable({}, {
 		__index = function(_, _)
 			return function() end
@@ -68,7 +98,9 @@ end
 
 local function SafeRequireCallback(name, func)
 	local ok, mod = pcall(require, name)
-	if ok then func(mod) end
+	if ok then
+		func(mod)
+	end
 end
 
 local isEmptyTable = function(v)
@@ -80,29 +112,21 @@ local langservers = {
 	"dartls",
 	"dockerls",
 	"efm",
-	"emmet_ls",
 	"gopls",
 	"golangci_lint_ls",
-	"graphql",
-	"html",
-	"jsonls",
 	"marksman",
 	"pyright",
-	"pylsp",
 	"rust_analyzer",
-	"sqlls",
 	"terraformls",
 	"ts_ls",
-	"vimls",
 	"ruff",
 	"nushell",
-	"fish_lsp",
 	"yamlls",
 }
 
 if vim.fn.executable("node") == 0 then
 	langservers = vim.tbl_filter(function(s)
-		return not vim.tbl_contains({ "ts_ls", "html", "jsonls", "graphql", "emmet_ls" }, s)
+		return s ~= "ts_ls"
 	end, langservers)
 end
 if vim.fn.executable("go") == 0 then
@@ -220,14 +244,180 @@ local function termTitle()
 	end
 end
 
+package.preload["oil_buf_history"] = function()
+	local M = {}
+	M.stack = {}
+
+	local function is_oil_buf(b)
+		if not vim.api.nvim_buf_is_valid(b) then
+			return false
+		end
+		local ok, ft = pcall(vim.api.nvim_get_option_value, "filetype", { buf = b })
+		if ok and ft == "oil" then
+			return true
+		end
+		local name = vim.api.nvim_buf_get_name(b)
+		return name:match("^oil://")
+			or name:match("^oil%-ssh://")
+			or name:match("^oil%-s3://")
+			or name:match("^oil%-sss://")
+			or name:match("^oil%-trash://")
+	end
+
+	local function push(b)
+		for i = #M.stack, 1, -1 do
+			if M.stack[i] == b then
+				table.remove(M.stack, i)
+			end
+		end
+		if M.stack[#M.stack] == b then
+			return
+		end
+		table.insert(M.stack, b)
+		if #M.stack > 50 then
+			table.remove(M.stack, 1)
+		end
+	end
+
+	function M.record_for_buf(b)
+		if is_oil_buf(b) then
+			push(b)
+		end
+	end
+
+	function M.back()
+		local current = vim.api.nvim_get_current_buf()
+		for i = #M.stack, 1, -1 do
+			if M.stack[i] == current then
+				table.remove(M.stack, i)
+			end
+		end
+		while #M.stack > 0 do
+			local b = table.remove(M.stack)
+			if vim.api.nvim_buf_is_valid(b) and is_oil_buf(b) then
+				local opened = false
+				for _, win in ipairs(vim.api.nvim_list_wins()) do
+					if vim.api.nvim_win_get_buf(win) == b then
+						vim.api.nvim_set_current_win(win)
+						opened = true
+						break
+					end
+				end
+				if not opened then
+					vim.cmd.split()
+					vim.api.nvim_win_set_buf(0, b)
+				end
+				return
+			end
+		end
+		vim.notify("Oil: no previous oil buffer", vim.log.levels.INFO)
+	end
+
+	return M
+end
+
+package.preload["blink_cmdline_history"] = function()
+	local source = {}
+
+	function source.new(opts)
+		return setmetatable({ opts = opts or {} }, { __index = source })
+	end
+
+	function source:enabled()
+		local t = vim.fn.getcmdtype()
+		return t == ":" or t == "/" or t == "?" or t == "@"
+	end
+
+	function source:get_completions(ctx, callback)
+		local t = vim.fn.getcmdtype()
+		local hname = (t == ":" or t == "@") and "cmd" or "search"
+		local count = vim.fn.histnr(hname)
+		local limit = 200
+		local seen, items = {}, {}
+		local from = math.max(1, count - limit + 1)
+		for i = count, from, -1 do
+			local entry = vim.fn.histget(hname, i)
+			if entry and entry ~= "" and not seen[entry] then
+				seen[entry] = true
+				items[#items + 1] = {
+					label = entry,
+					filterText = entry,
+					sortText = string.format("%06d", count - i),
+					insertText = entry,
+					kind = require("blink.cmp.types").CompletionItemKind.Snippet,
+					labelDetails = { description = "history" },
+				}
+			end
+		end
+		callback({ items = items, is_incomplete_backward = false, is_incomplete_forward = false })
+	end
+
+	return source
+end
+
 local lazyPackages = {
 	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		event = "BufReadPost",
-		---@module "ibl"
-		---@type ibl.config
-		opts = {},
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		opts = {
+			bigfile = { enabled = true },
+			dashboard = { enabled = true },
+			indent = { enabled = true },
+			input = { enabled = true },
+			notifier = { enabled = true },
+			picker = { enabled = true },
+			quickfile = { enabled = true },
+			scroll = { enabled = true },
+			statuscolumn = { enabled = false },
+			words = { enabled = true },
+		},
+		keys = {
+			{
+				"<leader>.",
+				function()
+					require("snacks").scratch()
+				end,
+				desc = "Toggle Scratch Buffer",
+			},
+			{
+				"<leader>S",
+				function()
+					require("snacks").scratch.select()
+				end,
+				desc = "Select Scratch Buffer",
+			},
+			{
+				"<leader>un",
+				function()
+					require("snacks").notifier.hide()
+				end,
+				desc = "Dismiss All Notifications",
+			},
+			{
+				"<leader>nh",
+				function()
+					require("snacks").notifier.show_history()
+				end,
+				desc = "Notification History",
+			},
+			{
+				"]]",
+				function()
+					require("snacks").words.jump(vim.v.count1)
+				end,
+				desc = "Next Reference",
+				mode = { "n", "t" },
+			},
+			{
+				"[[",
+				function()
+					require("snacks").words.jump(-vim.v.count1)
+				end,
+				desc = "Prev Reference",
+				mode = { "n", "t" },
+			},
+		},
 	},
 	{ "danymat/neogen", opts = {} },
 	{ "SmiteshP/nvim-navic" },
@@ -265,7 +455,9 @@ local lazyPackages = {
 			local lualine = require("lualine")
 			local function floatermInfo()
 				local win, buf = get_term_win_in_tab()
-				if not buf then return "" end
+				if not buf then
+					return ""
+				end
 				local valid = get_valid_term_bufs()
 				local idx = indexOf(valid, buf) or 0
 				return idx .. "/" .. #valid
@@ -343,7 +535,7 @@ local lazyPackages = {
 					component_separators = { "", "" },
 				},
 				sections = {
-					lualine_a = { "mode", tab_num, { require("minuet.lualine"), display_on_idle = false } },
+					lualine_a = { "mode", tab_num },
 					lualine_b = {
 						{ getModified, color = { fg = "red" } },
 						"diagnostics",
@@ -394,7 +586,21 @@ local lazyPackages = {
 			})
 		end,
 	},
-	{ "windwp/nvim-spectre" },
+	{
+		"MagicDuck/grug-far.nvim",
+		cmd = { "GrugFar" },
+		keys = {
+			{
+				"<leader>zR",
+				function()
+					require("grug-far").open()
+				end,
+				mode = { "n", "x" },
+				desc = "Search and Replace (GrugFar)",
+			},
+		},
+		opts = {},
+	},
 	{
 		"folke/flash.nvim",
 		event = "VeryLazy",
@@ -528,7 +734,9 @@ local lazyPackages = {
 				map("n", "<leader>ghs", gs.stage_hunk, "Stage hunk")
 				map("n", "<leader>ghr", gs.reset_hunk, "Reset hunk")
 				map("n", "<leader>ghp", gs.preview_hunk, "Preview hunk")
-				map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame line (full)")
+				map("n", "<leader>ghb", function()
+					gs.blame_line({ full = true })
+				end, "Blame line (full)")
 				map("n", "<leader>ghd", gs.diffthis, "Diff this")
 			end,
 		},
@@ -538,24 +746,88 @@ local lazyPackages = {
 		cmd = "Trouble",
 		opts = {},
 	},
-	{ "folke/which-key.nvim" },
-	{ "rcarriga/nvim-notify" },
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		config = function()
+			local wk = require("which-key")
+			wk.add({
+				{ "gr", group = "rename" },
+				{ "grr", desc = "rename" },
+			})
+			wk.add({
+				{ "<localleader>d", group = "Debug" },
+				{ "<localleader>r", group = "Run" },
+			})
+			wk.add({
+				{ "<leader>a", group = "AnyJump/CocAction" },
+				{ "<leader>b", group = "Buffer/Bookmark" },
+				{ "<leader>bc", desc = "Copy file path" },
+				{ "<leader>c", group = "Comment/cd" },
+				{ "<leader>d", group = "doc" },
+				{ "<leader>e", group = "Edit" },
+				{ "<leader>ecw", desc = "full file" },
+				{ "<leader>es", desc = "setting/notes" },
+				{ "<leader>f", group = "File/esearch" },
+				{ "<leader>g", group = "Git/Paste" },
+				{ "<leader>ga", group = "Agit/amend" },
+				{ "<leader>gb", group = "blame/branch" },
+				{ "<leader>gh", group = "hunk (gitsigns)" },
+				{ "<leader>gd", group = "git diff" },
+				{ "<leader>gdl", desc = "git diff last commit" },
+				{ "<leader>gl", group = "log" },
+				{ "<leader>gr", group = "restore" },
+				{ "<leader>i", group = "Insert time/Info" },
+				{ "<leader>l", group = "Language" },
+				{ "<leader>ld", desc = "declaration/definition" },
+				{ "<leader>le", desc = "Leetcode" },
+				{ "<leader>lr", desc = "Rename/Reference" },
+				{ "<leader>ls", desc = "Doc/Workspace Symbol" },
+				{ "<leader>lt", desc = "Test" },
+				{ "<leader>m", group = "Mark" },
+				{ "<leader>mn", desc = "Next mark" },
+				{ "<leader>mp", desc = "Previous mark" },
+				{ "<leader>n", group = "Note" },
+				{ "<leader>o", group = "Fold" },
+				{ "<leader>p", group = "Paste/Plugin" },
+				{ "<leader>q", group = "Quit" },
+				{ "<leader>r", group = "Run/Test" },
+				{ "<leader>s", group = "Status" },
+				{ "<leader>t", group = "Tab" },
+				{ "<leader>u", group = "UI" },
+				{ "<leader>v", group = "Gina" },
+				{ "<leader>w", group = "Wiki/Window" },
+				{ "<leader>wq", desc = "wqa" },
+				{ "<leader>ws", desc = "split" },
+				{ "<leader>x", group = "Trouble" },
+				{ "<leader>z", group = "Grep/Find/FZF" },
+			})
+			wk.setup({ plugins = { registers = true } })
+		end,
+	},
 	{ "Chaitanyabsprip/present.nvim", cmd = { "Present" }, opts = {} },
 	{ "mason-org/mason.nvim", opts = {} },
 	{
 		"mason-org/mason-lspconfig.nvim",
-		dependencies = { "mason-org/mason.nvim", "hrsh7th/cmp-nvim-lsp" },
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = (function()
+			if vim.g.completion_engine == "blink" then
+				return { "mason-org/mason.nvim", "saghen/blink.cmp" }
+			else
+				return { "mason-org/mason.nvim", "hrsh7th/cmp-nvim-lsp" }
+			end
+		end)(),
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = vim.tbl_filter(function(server)
-					return not vim.tbl_contains({ "dartls", "nushell", "fish_lsp", "gh_actions_ls" }, server)
+					return not vim.tbl_contains({ "dartls", "nushell" }, server)
 				end, langservers),
 				automatic_installation = false,
 			})
 
 			-- Ensure external linters/formatters for EFM are installed
 			local registry = require("mason-registry")
-			local efm_tools = { "hadolint", "shellcheck", "shfmt", "yamllint" }
+			local efm_tools = { "hadolint", "shellcheck", "shfmt", "yamllint", "actionlint" }
 			for _, name in ipairs(efm_tools) do
 				if registry.has_package(name) then
 					local p = registry.get_package(name)
@@ -582,17 +854,12 @@ local lazyPackages = {
 			})
 			vim.lsp.config("efm", {
 				cmd = { "efm-langserver" },
-				filetypes = { "sh", "yaml", "dockerfile" },
+				filetypes = { "sh", "yaml", "dockerfile", "yaml.github" },
 				root_markers = { ".git" },
 				init_options = {
 					documentFormatting = true,
 					documentRangeFormatting = true,
 				},
-			})
-			vim.lsp.config("emmet_ls", {
-				cmd = { "emmet-language-server", "--stdio" },
-				filetypes = { "html", "css", "scss", "javascript", "typescript", "javascriptreact", "typescriptreact" },
-				root_markers = { ".git" },
 			})
 			vim.lsp.config("gopls", {
 				cmd = { "gopls" },
@@ -603,22 +870,16 @@ local lazyPackages = {
 				cmd = { "golangci-lint-langserver" },
 				filetypes = { "go" },
 				root_markers = { "go.mod", ".git" },
-				init_options = { command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" } },
-			})
-			vim.lsp.config("graphql", {
-				cmd = { "graphql-lsp", "server", "-m", "stream" },
-				filetypes = { "graphql", "typescriptreact", "javascriptreact" },
-				root_markers = { ".graphqlrc", ".graphqlconfig", ".git" },
-			})
-			vim.lsp.config("html", {
-				cmd = { "vscode-html-language-server", "--stdio" },
-				filetypes = { "html" },
-				root_markers = { ".git" },
-			})
-			vim.lsp.config("jsonls", {
-				cmd = { "vscode-json-language-server", "--stdio" },
-				filetypes = { "json", "jsonc" },
-				root_markers = { ".git" },
+				init_options = {
+					command = {
+						"golangci-lint",
+						"run",
+						"--output.json.path",
+						"stdout",
+						"--show-stats=false",
+						"--issues-exit-code=1",
+					},
+				},
 			})
 			vim.lsp.config("marksman", {
 				cmd = { "marksman", "server" },
@@ -635,14 +896,9 @@ local lazyPackages = {
 				filetypes = { "rust" },
 				root_markers = { "Cargo.toml", ".git" },
 			})
-			vim.lsp.config("sqlls", {
-				cmd = { "sql-language-server", "up", "--method", "stdio" },
-				filetypes = { "sql", "mysql" },
-				root_markers = { ".sqllsrc.json", ".git" },
-			})
 			vim.lsp.config("terraformls", {
 				cmd = { "terraform-ls", "serve" },
-				filetypes = { "terraform", "tf", "terraform-vars" },
+				filetypes = { "terraform", "tf", "terraform-vars", "tofu", "hcl" },
 				root_markers = { ".terraform", ".git" },
 			})
 			vim.lsp.config("ts_ls", {
@@ -650,20 +906,10 @@ local lazyPackages = {
 				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 				root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
 			})
-			vim.lsp.config("vimls", {
-				cmd = { "vim-language-server", "--stdio" },
-				filetypes = { "vim" },
-				root_markers = { ".git" },
-			})
 			vim.lsp.config("ruff", {
 				cmd = { "ruff", "server" },
 				filetypes = { "python" },
 				root_markers = { "pyproject.toml", "ruff.toml", ".ruff.toml", ".git" },
-			})
-			vim.lsp.config("fish_lsp", {
-				cmd = { "fish-lsp", "start" },
-				filetypes = { "fish" },
-				root_markers = { ".git" },
 			})
 			if vim.fn.executable("nu") == 1 then
 				vim.lsp.config("nushell", {
@@ -673,9 +919,12 @@ local lazyPackages = {
 				})
 			end
 
-			local capabilities = require("cmp_nvim_lsp").default_capabilities(
-				vim.lsp.protocol.make_client_capabilities()
-			)
+			local capabilities
+			if vim.g.completion_engine == "blink" then
+				capabilities = require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
+			else
+				capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			end
 			capabilities.textDocument.foldingRange = {
 				dynamicRegistration = false,
 				lineFoldingOnly = true,
@@ -710,6 +959,13 @@ local lazyPackages = {
 				lua = { "stylua" },
 				python = { "isort", "black" },
 				javascript = { "prettierd", "prettier", stop_after_first = true },
+				go = { "goimports", "gofmt" },
+				json = { "prettierd", "prettier", stop_after_first = true },
+				yaml = { "prettierd", "prettier", stop_after_first = true },
+				["yaml.github"] = { "prettierd", "prettier", stop_after_first = true },
+				terraform = { "tofu_fmt", "terraform_fmt", stop_after_first = true },
+				hcl = { "tofu_fmt" },
+				sh = { "shfmt" },
 				["_"] = { "trim_whitespace" },
 			},
 			format_on_save = {
@@ -772,15 +1028,96 @@ local lazyPackages = {
 	{
 		"Mofiqul/vscode.nvim",
 		config = function()
-			vim.cmd.colorscheme("vscode")
+			vim.cmd.colorscheme("vscode-eink")
 		end,
 	},
 	{ "m-gail/escape.nvim" },
 	{ "rktjmp/lush.nvim" },
 	{
 		"stevearc/oil.nvim",
+		lazy = false,
 		opts = {
-			buf_options = { buflisted = true, bufhidden = "unload" },
+			cleanup_delay_ms = false,
+			buf_options = { buflisted = true, bufhidden = "hide" },
+			view_options = {
+				sort = {
+					{ "type", "asc" },
+					{ "name", "asc" },
+				},
+				show_hidden = false,
+			},
+			keymaps = {
+				["<BS>"] = function()
+					local cur_name = vim.api.nvim_buf_get_name(0)
+					if not cur_name:match("^oil://") then
+						return
+					end
+					local path = cur_name:gsub("^oil://", ""):gsub("/$", "")
+					if path == "" then
+						return
+					end
+					local parent
+					if path == "/" then
+						parent = "/"
+					else
+						parent = vim.fn.fnamemodify(path, ":h")
+					end
+					OilReuseBuf(parent)
+				end,
+				["<CR>"] = function()
+					local entry = require("oil").get_cursor_entry()
+					if not entry then
+						return
+					end
+					local cur_name = vim.api.nvim_buf_get_name(0)
+					if not cur_name:match("^oil://") then
+						return
+					end
+					local cur_dir = cur_name:gsub("^oil://", ""):gsub("/$", "")
+					local target = cur_dir .. "/" .. entry.name
+					local stat = vim.uv.fs_stat(target)
+					if not stat then
+						return
+					end
+					if stat.type == "directory" then
+						OilReuseBuf(target)
+					else
+						require("oil.actions").select.callback()
+					end
+				end,
+				["-"] = function()
+					local cur_name = vim.api.nvim_buf_get_name(0)
+					if not cur_name:match("^oil://") then
+						return
+					end
+					local path = cur_name:gsub("^oil://", ""):gsub("/$", "")
+					if path == "" then
+						return
+					end
+					local parent
+					if path == "/" then
+						parent = "/"
+					else
+						parent = vim.fn.fnamemodify(path, ":h")
+					end
+					OilReuseBuf(parent)
+				end,
+				["_"] = function()
+					OilReuseBuf(vim.fn.getcwd())
+				end,
+				["`"] = function()
+					local cur_name = vim.api.nvim_buf_get_name(0)
+					if not cur_name:match("^oil://") then
+						return
+					end
+					local path = cur_name:gsub("^oil://", ""):gsub("/$", "")
+					if path == "" or path == "/" then
+						return
+					end
+					OilReuseBuf(path)
+					vim.cmd.cd(path)
+				end,
+			},
 		},
 	},
 	{ "tpope/vim-fugitive" },
@@ -811,6 +1148,9 @@ local lazyPackages = {
 	},
 	{
 		"hrsh7th/nvim-cmp",
+		enabled = function()
+			return vim.g.completion_engine == "cmp"
+		end,
 		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
 			{ "hrsh7th/cmp-nvim-lsp" },
@@ -824,7 +1164,6 @@ local lazyPackages = {
 			local cmp = require("cmp")
 
 			local cmp_sources = {
-				{ name = "minuet" },
 				{ name = "nvim_lsp", keyword_length = 0 },
 				{ name = "path" },
 				{
@@ -851,6 +1190,9 @@ local lazyPackages = {
 
 			cmp.setup({
 				preselect = cmp.PreselectMode.None,
+				completion = {
+					preselect = false,
+				},
 				snippet = {
 					expand = function(args)
 						vim.snippet.expand(args.body)
@@ -863,7 +1205,7 @@ local lazyPackages = {
 				mapping = {
 					["<Space>"] = cmp.mapping(function(fallback)
 						if cmp.visible() and cmp.get_active_entry() then
-							cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+							cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
 						else
 							fallback()
 						end
@@ -946,6 +1288,24 @@ local lazyPackages = {
 								end
 							end,
 						},
+						["<Down>"] = {
+							c = function(fallback)
+								if cmp.visible() then
+									cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+								else
+									fallback()
+								end
+							end,
+						},
+						["<Up>"] = {
+							c = function(fallback)
+								if cmp.visible() then
+									cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+								else
+									fallback()
+								end
+							end,
+						},
 					}),
 					view = { entries = { name = "custom", selection_order = "near_cursor" } },
 					sources = sources,
@@ -958,7 +1318,6 @@ local lazyPackages = {
 				{ name = "path" },
 				{ name = "cmdline" },
 			})
-
 		end,
 	},
 	{ "windwp/nvim-autopairs", opts = {} },
@@ -977,9 +1336,13 @@ local lazyPackages = {
 			devicons.setup(opts)
 
 			local is_pua = function(char)
-				if not char or char == "" then return false end
+				if not char or char == "" then
+					return false
+				end
 				local cp = vim.fn.char2nr(char)
-				return (cp >= 57344 and cp <= 63743) or (cp >= 983040 and cp <= 1048575) or (cp >= 1048576 and cp <= 1114111)
+				return (cp >= 57344 and cp <= 63743)
+					or (cp >= 983040 and cp <= 1048575)
+					or (cp >= 1048576 and cp <= 1114111)
 			end
 
 			local emoji_extensions = {
@@ -1123,87 +1486,267 @@ local lazyPackages = {
 			global_keymaps = false,
 		},
 	},
+	{
+		"echasnovski/mini.indentscope",
+		version = false,
+		event = "BufReadPost",
+		opts = {
+			symbol = "│",
+			options = { try_as_border = true },
+		},
+		init = function()
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = {
+					"help",
+					"alpha",
+					"dashboard",
+					"neo-tree",
+					"Trouble",
+					"lazy",
+					"mason",
+					"notify",
+					"toggleterm",
+					"lazyterm",
+				},
+				callback = function()
+					vim.b.miniindentscope_disable = true
+				end,
+			})
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		event = { "BufReadPost", "BufNewFile" },
+		opts = {
+			highlight = { enable = true },
+			indent = { enable = true },
+			ensure_installed = {
+				"bash",
+				"c",
+				"diff",
+				"html",
+				"javascript",
+				"jsdoc",
+				"json",
+				"lua",
+				"luadoc",
+				"luap",
+				"markdown",
+				"markdown_inline",
+				"printf",
+				"python",
+				"query",
+				"regex",
+				"toml",
+				"tsx",
+				"typescript",
+				"vim",
+				"vimdoc",
+				"xml",
+				"yaml",
+			},
+		},
+		config = function(_, opts)
+			require("nvim-treesitter").setup(opts)
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		event = "BufReadPost",
+		opts = { mode = "cursor", max_lines = 3 },
+	},
+	{
+		"folke/edgy.nvim",
+		event = "VeryLazy",
+		keys = {
+			{
+				"<leader>ue",
+				function()
+					require("edgy").toggle()
+				end,
+				desc = "Edgy Toggle",
+			},
+			{
+				"<leader>uE",
+				function()
+					require("edgy").select()
+				end,
+				desc = "Edgy Select Window",
+			},
+		},
+		opts = {
+			bottom = {
+				{
+					ft = "toggleterm",
+					size = { height = 0.4 },
+					filter = function(buf, win)
+						return vim.api.nvim_win_get_config(win).relative == ""
+					end,
+				},
+				{
+					ft = "noice",
+					size = { height = 0.4 },
+					filter = function(buf, win)
+						return vim.api.nvim_win_get_config(win).relative == ""
+					end,
+				},
+				"Trouble",
+				{ ft = "qf", title = "Quickfix" },
+				{ ft = "help", size = { height = 20 }, only = true },
+			},
+			left = {
+				{
+					ft = "neo-tree",
+					title = "Neo-Tree",
+					size = { width = 25 },
+					filter = function(buf)
+						return vim.b[buf].neo_tree_source == "filesystem"
+					end,
+				},
+				{ ft = "aerial", title = "Aerial", size = { width = 25 } },
+			},
+		},
+	},
+	{
+		"gbprod/yanky.nvim",
+		event = "VeryLazy",
+		opts = {},
+		keys = {
+			{ "<leader>py", "<cmd>YankyRingHistory<cr>", desc = "Open Yank History" },
+			{ "[p", "<Plug>(YankyCycleForward)", desc = "Cycle Forward Through Yank History" },
+			{ "]p", "<Plug>(YankyCycleBackward)", desc = "Cycle Backward Through Yank History" },
+		},
+	},
+	{
+		"folke/todo-comments.nvim",
+		cmd = { "TodoTrouble", "TodoFzfLua" },
+		event = { "BufReadPost", "BufNewFile" },
+		opts = {},
+		keys = {
+			{
+				"]t",
+				function()
+					require("todo-comments").jump_next()
+				end,
+				desc = "Next Todo Comment",
+			},
+			{
+				"[t",
+				function()
+					require("todo-comments").jump_prev()
+				end,
+				desc = "Previous Todo Comment",
+			},
+			{ "<leader>xt", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
+			{ "<leader>zt", "<cmd>TodoFzfLua<cr>", desc = "Todo (FzfLua)" },
+		},
+	},
+	{
+		"saghen/blink.cmp",
+		enabled = function()
+			return vim.g.completion_engine == "blink"
+		end,
+		version = "*",
+		event = { "InsertEnter", "CmdlineEnter" },
+		opts = {
+			keymap = {
+				preset = "none",
+				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+				["<C-e>"] = { "hide", "fallback" },
+				["<CR>"] = { "accept", "fallback" },
+				["<C-n>"] = { "select_next", "show" },
+				["<C-p>"] = { "select_prev", "fallback" },
+				["<C-d>"] = { "scroll_documentation_down", "fallback" },
+				["<C-u>"] = { "scroll_documentation_up", "fallback" },
+				["<C-f>"] = { "snippet_forward", "fallback" },
+				["<C-g>"] = { "snippet_backward", "fallback" },
+				["<m-/>"] = { "show", "fallback" },
+				["<space>"] = {
+					"fallback",
+				},
+			},
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
+				providers = {
+					cmdline_history = {
+						name = "History",
+						module = "blink_cmdline_history",
+						score_offset = -10,
+						opts = {},
+					},
+					path = {
+						opts = {
+							get_cwd = function(_)
+								return vim.fn.getcwd()
+							end,
+						},
+					},
+					buffer = {
+						min_keyword_length = 4,
+					},
+				},
+			},
+			snippets = {
+				preset = "default",
+			},
+			cmdline = {
+				enabled = true,
+				keymap = {
+					["<Tab>"] = { "show_and_insert_or_accept_single", "select_next" },
+					["<S-Tab>"] = { "show_and_insert_or_accept_single", "select_prev" },
+					["<C-n>"] = { "select_next", "fallback" },
+					["<C-p>"] = { "select_prev", "fallback" },
+					["<Down>"] = { "select_next", "fallback" },
+					["<Up>"] = { "select_prev", "fallback" },
+					["<CR>"] = { "accept_and_enter", "fallback" },
+					["<C-y>"] = { "select_and_accept", "fallback" },
+					["<C-e>"] = { "cancel", "fallback" },
+				},
+				sources = function()
+					local t = vim.fn.getcmdtype()
+					if t == ":" or t == "@" then
+						return { "cmdline", "path", "cmdline_history", "buffer" }
+					elseif t == "/" or t == "?" then
+						return { "cmdline_history", "buffer" }
+					end
+					return { "buffer" }
+				end,
+				completion = {
+					menu = { auto_show = true },
+					list = { selection = { preselect = false, auto_insert = true } },
+					ghost_text = { enabled = true },
+				},
+			},
+			completion = {
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 500,
+					window = { border = "single" },
+				},
+				menu = {
+					border = "single",
+				},
+				list = {
+					selection = {
+						preselect = false,
+						auto_insert = false,
+					},
+				},
+			},
+		},
+	},
 }
 
 if not isEmptyTable(langservers) then
 	lazyPackages = TableConcat(lazyPackages, {
-		{
-			"ravitemer/mcphub.nvim",
-			build = "npm install -g mcp-hub@latest",
-			config = function()
-				require("mcphub").setup()
-			end,
-		},
-		{
-			"milanglacier/minuet-ai.nvim",
-			config = function()
-				require("minuet").setup({
-					provider = "openai_fim_compatible",
-					n_completions = 1,
-					context_window = 1024,
-					provider_options = {
-						openai_fim_compatible = {
-							api_key = "TERM",
-							name = "Ollama",
-							end_point = "http://localhost:11434/v1/completions",
-							model = vim.g.ollama_complete_model,
-							optional = {
-								max_tokens = 56,
-								top_p = 0.9,
-							},
-						},
-					},
-					virtualtext = {
-						auto_trigger_ft = { "nu", "lua", "python", "helm", "go" },
-						keymap = {
-							accept = "<tab>",
-							accept_line = "<s-tab>",
-							prev = "<c-x>k",
-							next = "<c-x>j",
-						},
-					},
-				})
-			end,
-		},
-		{
-			"yetone/avante.nvim",
-			event = "VeryLazy",
-			build = "make",
-			opts = {
-				provider = "gemini",
-				auto_suggestions_provider = "gemini",
-				providers = {
-					gemini = {
-						model = "gemini-2.5-flash",
-						max_tokens = 4096,
-					},
-					ollama = {
-						model = vim.g.ollama_agent_model or "gemma2:9b",
-						endpoint = "http://localhost:11434",
-						is_env_set = function()
-							local handle = io.popen("curl -s -o /dev/null -w '%{http_code}' http://localhost:11434")
-							if handle then
-								local result = handle:read("*a")
-								handle:close()
-								return result == "200" or result == "404"
-							end
-							return false
-						end,
-					},
-				},
-			},
-			dependencies = {
-				"stevearc/dressing.nvim",
-				"nvim-lua/plenary.nvim",
-				"MunifTanjim/nui.nvim",
-				"nvim-tree/nvim-web-devicons",
-				{
-					"MeanderingProgrammer/render-markdown.nvim",
-					opts = { file_types = { "markdown", "Avante" } },
-					ft = { "markdown", "Avante" },
-				},
-			},
-		},
+		-- {
+		-- 	"ravitemer/mcphub.nvim",
+		-- 	build = "npm install -g mcp-hub@latest",
+		-- 	config = function()
+		-- 		require("mcphub").setup()
+		-- 	end,
+		-- },
 		{
 			"olimorris/codecompanion.nvim",
 			event = "VeryLazy",
@@ -1433,7 +1976,6 @@ function FileExists(name)
 	return stat ~= nil and stat.type == "file"
 end
 
-
 local function smart_dd()
 	if vim.api.nvim_get_current_line():match("^%s*$") then
 		return '"_dd'
@@ -1490,11 +2032,6 @@ function GlobalFloatermIndex()
 	return idx .. "/" .. #valid
 end
 
-SafeRequireCallback("notify", function(notify)
-	vim.notify = notify
-	notify.setup({ background_colour = "#F000000" })
-end)
-
 function HasTerminal()
 	return #get_valid_term_bufs() > 0
 end
@@ -1510,61 +2047,6 @@ function GetTerminalBufnr()
 	end
 	return -1
 end
-
-SafeRequireCallback("which-key", function(wk)
-	wk.add({
-		{ "gr", group = "rename" },
-		{ "grr", desc = "rename" },
-	})
-	wk.add({
-		{ "<localleader>d", group = "Debug" },
-		{ "<localleader>r", group = "Run" },
-	})
-	wk.add({
-		{ "<leader>a", group = "AnyJump/CocAction" },
-		{ "<leader>b", group = "Buffer/Bookmark" },
-		{ "<leader>bc", desc = "Copy file path" },
-		{ "<leader>c", group = "Comment/cd" },
-		{ "<leader>d", group = "doc" },
-		{ "<leader>e", group = "Edit" },
-		{ "<leader>ecw", desc = "full file" },
-		{ "<leader>es", desc = "setting/notes" },
-		{ "<leader>f", group = "File/esearch" },
-		{ "<leader>g", group = "Git/Paste" },
-		{ "<leader>ga", group = "Agit/amend" },
-		{ "<leader>gb", group = "blame/branch" },
-		{ "<leader>gh", group = "hunk (gitsigns)" },
-		{ "<leader>gd", group = "git diff" },
-		{ "<leader>gdl", desc = "git diff last commit" },
-		{ "<leader>gl", group = "log" },
-		{ "<leader>gr", group = "restore" },
-		{ "<leader>i", group = "Insert time/Info" },
-		{ "<leader>l", group = "Language" },
-		{ "<leader>ld", desc = "declaration/definition" },
-		{ "<leader>le", desc = "Leetcode" },
-		{ "<leader>lr", desc = "Rename/Reference" },
-		{ "<leader>ls", desc = "Doc/Workspace Symbol" },
-		{ "<leader>lt", desc = "Test" },
-		{ "<leader>m", group = "Mark" },
-		{ "<leader>mn", desc = "Next mark" },
-		{ "<leader>mp", desc = "Previous mark" },
-		{ "<leader>n", group = "Note" },
-		{ "<leader>o", group = "Fold" },
-		{ "<leader>p", group = "Paste/Plugin" },
-		{ "<leader>q", group = "Quit" },
-		{ "<leader>r", group = "Run/Test" },
-		{ "<leader>s", group = "Status" },
-		{ "<leader>t", group = "Tab" },
-		{ "<leader>v", group = "Gina" },
-		{ "<leader>w", group = "Wiki/Window" },
-		{ "<leader>wq", desc = "wqa" },
-		{ "<leader>ws", desc = "split" },
-		{ "<leader>x", group = "Trouble" },
-		{ "<leader>z", group = "Grep/Find/FZF" },
-	})
-
-	wk.setup({ plugins = { registers = true } })
-end)
 
 function MySort(buffer_a, buffer_b)
 	local function _sort()
@@ -1809,7 +2291,9 @@ function WinPick()
 		end
 	end
 
-	if #pickable == 0 then return end
+	if #pickable == 0 then
+		return
+	end
 	if #pickable == 1 then
 		vim.api.nvim_set_current_win(pickable[1])
 		return
@@ -1901,6 +2385,13 @@ vim.schedule(function()
 			end,
 		})
 
+		vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+			pattern = "*/.github/workflows/*.y*ml",
+			callback = function()
+				vim.bo.filetype = "yaml.github"
+			end,
+		})
+
 		UpdateEnv()
 		if FileExists(WorkspaceVimPath) then
 			pcall(vim.api.nvim_command, "source " .. WorkspaceVimPath)
@@ -1913,7 +2404,6 @@ vim.schedule(function()
 				callback = MoveToWindow,
 			})
 		end
-
 	end)
 end)
 
@@ -2068,7 +2558,6 @@ function ResizeWin()
 	end
 end
 
-
 function RunInBuffer(command, filename)
 	local Job = require("plenary.job")
 	local job = Job:new({
@@ -2190,13 +2679,16 @@ function KillAndRerunTerm(name, command, opts)
 				if close_on_exit or exit_code == 0 then
 					pcall(vim.api.nvim_buf_delete, buf, { force = true })
 				end
-			end
+			end,
 		})
 	end)
 
 	local found = false
 	for i, b in ipairs(term_bufs) do
-		if b == buf then found = true break end
+		if b == buf then
+			found = true
+			break
+		end
 	end
 	if not found then
 		table.insert(term_bufs, buf)
@@ -2219,10 +2711,66 @@ function RunCurrentLine()
 	KillAndRerunTermWrapper(cmd)
 end
 
-
 function EditFile(path)
+	if path == nil or path == "" then
+		return
+	end
+	local expanded = vim.fn.expand(path)
+	local stat = vim.uv.fs_stat(expanded)
 	GotoMainWindow()
-	pcall(vim.cmd, "e " .. path)
+	if stat and stat.type == "directory" then
+		require("oil").open(expanded)
+	else
+		pcall(vim.cmd, "e " .. vim.fn.fnameescape(expanded))
+	end
+end
+
+function OilReuseBuf(dir)
+	if dir == nil or dir == "" then
+		return
+	end
+	local cur_buf = vim.api.nvim_get_current_buf()
+	local cur_name = vim.api.nvim_buf_get_name(cur_buf)
+	if not cur_name:match("^oil://") then
+		require("oil").open(dir)
+		return
+	end
+	-- 多個 oil buffer 同時存在時，nvim_buf_set_name 對 oil:// URL 重新命名會靜默失敗
+	-- 這時 fallback 走 oil.open 標準路徑（會建立新 buffer）
+	local oil_count = 0
+	for _, b in ipairs(vim.api.nvim_list_bufs()) do
+		if vim.api.nvim_buf_is_loaded(b) and vim.api.nvim_buf_get_name(b):match("^oil://") then
+			oil_count = oil_count + 1
+		end
+	end
+	if oil_count > 1 then
+		require("oil").open(dir)
+		return
+	end
+	local abs
+	if dir:match("^oil://") then
+		abs = dir:gsub("^oil://", ""):gsub("/$", "")
+	else
+		abs = vim.fn.fnamemodify(dir, ":p"):gsub("/$", "")
+	end
+	if abs == "" then
+		abs = "/"
+	end
+	local new_name = "oil://" .. abs .. "/"
+	if cur_name == new_name then
+		return
+	end
+	pcall(vim.api.nvim_buf_set_name, cur_buf, "/tmp/_oil_inter_" .. cur_buf)
+	pcall(vim.api.nvim_buf_set_name, cur_buf, new_name)
+	if vim.api.nvim_buf_get_name(cur_buf) ~= new_name then
+		-- rename 失敗，fallback
+		require("oil").open(dir)
+		return
+	end
+	vim.b[cur_buf].filetype = nil
+	vim.bo[cur_buf].filetype = ""
+	require("oil.loading").set_loading(cur_buf, false)
+	require("oil").load_oil_buffer(cur_buf)
 end
 
 function FocusNextInputArea()
@@ -2259,7 +2807,9 @@ function FloatermNext(offset)
 	end
 
 	local valid = get_valid_term_bufs()
-	if #valid <= 1 then return end
+	if #valid <= 1 then
+		return
+	end
 
 	local idx = indexOf(valid, buf) or 1
 	local next_idx = idx + offset
@@ -2310,19 +2860,26 @@ function SendSystemNotification(message)
 	Job:new({ command = "hterm-notify", args = { "nvim", message } }):start()
 end
 
-
 -- SafeRequire("nvim-web-devicons").setup({}) -- Configured in lazyPackages
 
 vim.g.EINK_WIDTH = vim.env.EINK_WIDTH
 local function checkIsEink()
+	if vim.env.LC_IS_EINK == "1" or vim.env.LC_IS_EINK == "true" then
+		vim.schedule(function()
+			vim.o.background = "light"
+		end)
+		return
+	end
+	if vim.env.COLORFGBG and vim.env.COLORFGBG:sub(1, 3) == "15;" then
+		vim.schedule(function()
+			vim.o.background = "light"
+		end)
+		return
+	end
 	if vim.g.fullWidth ~= vim.o.columns then
-		if tostring(vim.o.columns) == vim.g.EINK_WIDTH then
+		if vim.g.EINK_WIDTH and vim.g.EINK_WIDTH ~= "" and tostring(vim.o.columns) == vim.g.EINK_WIDTH then
 			vim.schedule(function()
 				vim.o.background = "light"
-			end)
-		else
-			vim.schedule(function()
-				vim.o.background = "dark"
 			end)
 		end
 		vim.g.fullWidth = vim.o.columns
@@ -2387,7 +2944,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		end
 	end,
 })
-
 
 function SwitchWordCase()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -2461,10 +3017,10 @@ local function toggle_crush()
 	vim.cmd("vertical split")
 	crush_win = vim.api.nvim_get_current_win()
 	vim.api.nvim_win_set_width(crush_win, 80)
-	
+
 	vim.cmd("terminal crush")
 	crush_buf = vim.api.nvim_get_current_buf()
-	
+
 	vim.bo[crush_buf].buflisted = false
 	vim.cmd("startinsert")
 end

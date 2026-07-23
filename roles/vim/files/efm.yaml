@@ -38,6 +38,12 @@ tools:
   json-jq: &json-jq
     lint-command: 'jq .'
 
+  yaml-github-actionlint: &yaml-github-actionlint
+    lint-command: 'actionlint -oneline -'
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l:%c: %m'
+
 languages:
 
   yaml:
@@ -49,3 +55,7 @@ languages:
   sh:
     - <<: *sh-shellcheck
     - <<: *sh-shfmt
+
+  yaml.github:
+    - <<: *yaml-github-actionlint
+    - <<: *yaml-yamllint

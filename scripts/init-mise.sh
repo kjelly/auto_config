@@ -6,7 +6,7 @@ mkdir -p ~/.config/nushell/autoload/
 mise activate nu | tee ~/.config/nushell/autoload/mise.nu
 mkdir -p ~/.config/mise/
 
-cat <<EOF > ~/.config/mise/config.toml
+cat <<EOF >~/.config/mise/config.toml
 
 [tools]
 age = "latest"
@@ -29,4 +29,3 @@ btop = "latest"
 direnv = "latest"
 
 EOF
-
