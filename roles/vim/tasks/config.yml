@@ -14,6 +14,12 @@
     - init.lua
     - nvim.vim
 
+- name: Copy e-ink theme module
+  ansible.builtin.copy:
+    src: lua/eink_theme.lua
+    dest: ~/.config/nvim/lua/eink_theme.lua
+    mode: '0640'
+
 - name: Copy LSP configurations
   ansible.builtin.copy:
     src: lsp

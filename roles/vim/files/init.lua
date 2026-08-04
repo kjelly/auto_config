@@ -1,24 +1,7 @@
 vim.loader.enable()
 local api = vim.api
 
-local function initBackground()
-	if vim.env.LC_IS_EINK == "1" or vim.env.LC_IS_EINK == "true" then
-		vim.o.background = "light"
-		return
-	end
-	if vim.env.COLORFGBG and vim.env.COLORFGBG:sub(1, 3) == "15;" then
-		vim.o.background = "light"
-		return
-	end
-	local hour = tonumber(os.date("!%H"))
-	if hour > 1 and hour < 10 then
-		vim.o.background = "light"
-	else
-		vim.o.background = "dark"
-	end
-end
-
-initBackground()
+require("eink_theme").apply()
 vim.opt.termguicolors = true
 vim.opt.guicursor = "a:block-blinkon0" -- Disable cursor blinking for E-ink
 
@@ -27,7 +10,7 @@ local function setTransparentBackground()
 	for _, group in ipairs(hl_groups) do
 		vim.api.nvim_set_hl(0, group, { bg = "NONE" })
 	end
-	if vim.env.LC_IS_EINK == "1" or vim.env.LC_IS_EINK == "true" or vim.o.background == "light" then
+	if vim.o.background == "light" then
 		vim.api.nvim_set_hl(0, "Comment", { fg = "#333333", italic = true, bold = true })
 		vim.api.nvim_set_hl(0, "LineNr", { fg = "#444444", bold = true })
 	end
@@ -2895,56 +2878,11 @@ end
 
 -- SafeRequire("nvim-web-devicons").setup({}) -- Configured in lazyPackages
 
-vim.g.EINK_WIDTH = vim.env.EINK_WIDTH
-local function checkIsEink()
-	if vim.env.LC_IS_EINK == "1" or vim.env.LC_IS_EINK == "true" then
-		vim.schedule(function()
-			vim.o.background = "light"
-		end)
-		return
-	end
-	if vim.env.COLORFGBG and vim.env.COLORFGBG:sub(1, 3) == "15;" then
-		vim.schedule(function()
-			vim.o.background = "light"
-		end)
-		return
-	end
-	if vim.g.fullWidth ~= vim.o.columns then
-		if vim.g.EINK_WIDTH and vim.g.EINK_WIDTH ~= "" and tostring(vim.o.columns) == vim.g.EINK_WIDTH then
-			vim.schedule(function()
-				vim.o.background = "light"
-			end)
-		end
-		vim.g.fullWidth = vim.o.columns
-	end
-end
-local function updateEinkWidth()
-	if vim.env.TMUX == nil then
-		vim.schedule(checkIsEink)
-	else
-		local Job = require("plenary.job")
-		local job = Job:new({
-			command = "tmux",
-			args = { "show-environment", "-g", "EINK_WIDTH" },
-			on_stderr = function(_, _) end,
-			on_stdout = function(_, data)
-				local width = data:gsub("EINK_WIDTH=", ""):gsub("\n", "")
-				vim.g.EINK_WIDTH = width
-			end,
-			on_exit = function(_, _)
-				vim.schedule(checkIsEink)
-			end,
-		})
-		job:start()
-	end
-end
-
 vim.api.nvim_create_autocmd("VimResized", {
 	callback = function()
-		vim.schedule(updateEinkWidth)
+		vim.schedule(require("eink_theme").apply)
 	end,
 })
-vim.schedule(updateEinkWidth)
 
 function StartPueueJob(name, cmd)
 	os.execute("pueue group add " .. name)
