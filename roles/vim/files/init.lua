@@ -147,6 +147,7 @@ end
 local term_bufs = {}
 local last_active_idx = 1
 local term_names = {}
+local alt_d_previous_bufs = {}
 
 local function get_term_win_in_tab()
 	for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
@@ -2219,6 +2220,38 @@ function TermToggle()
 				last_active_idx = #term_bufs
 			end
 			setup_terminal_buffer(new_buf, "t" .. last_active_idx)
+		end
+		vim.cmd("startinsert")
+	end
+end
+
+function AltDSwitch()
+	local win = vim.api.nvim_get_current_win()
+	local current_buf = vim.api.nvim_win_get_buf(win)
+	if vim.bo[current_buf].buftype == "terminal" or vim.bo[current_buf].filetype == "terminal" then
+		vim.cmd("stopinsert")
+		local previous_buf = alt_d_previous_bufs[win]
+		if previous_buf and vim.api.nvim_buf_is_valid(previous_buf) then
+			vim.api.nvim_win_set_buf(win, previous_buf)
+			alt_d_previous_bufs[win] = nil
+		else
+			GotoMainWindow()
+		end
+	else
+		local _, term_buf = get_term_win_in_tab()
+		local valid_term_bufs = get_valid_term_bufs()
+		term_buf = term_buf or valid_term_bufs[math.min(last_active_idx, #valid_term_bufs)]
+
+		alt_d_previous_bufs[win] = current_buf
+		if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+			vim.api.nvim_win_set_buf(win, term_buf)
+		else
+			vim.api.nvim_set_current_win(win)
+			vim.cmd("terminal")
+			term_buf = vim.api.nvim_get_current_buf()
+			table.insert(term_bufs, term_buf)
+			last_active_idx = #term_bufs
+			setup_terminal_buffer(term_buf, "t" .. last_active_idx)
 		end
 		vim.cmd("startinsert")
 	end

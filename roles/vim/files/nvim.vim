@@ -472,7 +472,15 @@ nnoremap <m-U> <cmd>FzfLua live_grep_resume<cr>
 " buufer switch
 nnoremap <expr> <m-d> &filetype=="terminal" ? ":lua FloatermNext(-1)<cr>" : "<c-^>"
 inoremap <m-d> <Esc><c-^>a
-tnoremap <m-d> <C-\><C-n>:lua FloatermNext(1)<cr>
+tnoremap <m-d> <C-\><C-n><C-^>
+
+" switch to terminal in the current window
+nnoremap <silent> <m-a> <cmd>lua AltDSwitch()<cr>
+inoremap <silent> <m-a> <Esc><cmd>lua AltDSwitch()<cr>
+tnoremap <silent> <m-a> <C-\><C-n><cmd>lua AltDSwitch()<cr>
+nnoremap <silent> <A-a> <cmd>lua AltDSwitch()<cr>
+inoremap <silent> <A-a> <Esc><cmd>lua AltDSwitch()<cr>
+tnoremap <silent> <A-a> <C-\><C-n><cmd>lua AltDSwitch()<cr>
 
 imap <m-w> <c-w>
 nmap <m-w> <c-w>
