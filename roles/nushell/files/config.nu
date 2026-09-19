@@ -312,6 +312,12 @@ $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | appe
             } else {
               commandline edit -r $"pueue follow \(pueue add -p -- ($cmd)\)"
             }
+            if "TMUX" in $env {
+              print -n $"\ePtmux;\e\e]1337;CurrentDir=($env.PWD)\a\e\\"
+            } else {
+              print -n $"\e]1337;CurrentDir=($env.PWD)\a"
+            }
+
         '
     }
 }] ))
