@@ -105,6 +105,7 @@ local langservers = {
 	"ruff",
 	"nushell",
 	"yamlls",
+	"tombi",
 }
 
 if vim.fn.executable("node") == 0 then
@@ -157,6 +158,32 @@ local function setup_terminal_buffer(bufnr, name)
 	term_names[bufnr] = name
 	vim.api.nvim_buf_set_var(bufnr, "floaterm_name", name)
 	vim.bo[bufnr].filetype = "terminal"
+
+	-- A native terminal writes "[Process exited 0]" into its buffer when its
+	-- job ends normally. Remove that finished buffer instead, so TermToggle
+	-- opens a fresh terminal without leaving the status line visible. Failed
+	-- commands remain open so their output can still be inspected.
+	vim.api.nvim_create_autocmd("TermClose", {
+		buffer = bufnr,
+		once = true,
+		callback = function()
+			if vim.v.event.status ~= 0 then
+				return
+			end
+			vim.schedule(function()
+				if not vim.api.nvim_buf_is_valid(bufnr) then
+					return
+				end
+
+				for _, win in ipairs(vim.fn.win_findbuf(bufnr)) do
+					if vim.api.nvim_win_is_valid(win) and #vim.api.nvim_list_wins() > 1 then
+						vim.api.nvim_win_close(win, true)
+					end
+				end
+				vim.api.nvim_buf_delete(bufnr, { force = true })
+			end)
+		end,
+	})
 end
 
 local function get_term_by_name(name)
@@ -884,6 +911,11 @@ local lazyPackages = {
 				cmd = { "terraform-ls", "serve" },
 				filetypes = { "terraform", "tf", "terraform-vars", "tofu", "hcl" },
 				root_markers = { ".terraform", ".git" },
+			})
+			vim.lsp.config("tombi", {
+				cmd = { "tombi", "lsp" },
+				filetypes = { "toml" },
+				root_markers = { "tombi.toml", "pyproject.toml", ".git" },
 			})
 			vim.lsp.config("ts_ls", {
 				cmd = { "typescript-language-server", "--stdio" },
