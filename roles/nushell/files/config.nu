@@ -154,11 +154,11 @@ $env.PROMPT_COMMAND = {|| ([(my-prompt) $"($env.note?) " "\n" ->] | str join ' '
 $env.PROMPT_COMMAND_RIGHT = ""
 
 $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | append [
-  { name: custom modifier: alt keycode: char_n mode: [emacs vi_normal vi_insert]  event: { until: [
+  { name: completion_next_or_down modifier: alt keycode: char_n mode: [emacs vi_normal vi_insert]  event: { until: [
     { send: menunext }
     { send: Down }
   ]}}
-  { name: custom modifier: alt keycode: char_p mode: [emacs vi_normal vi_insert]  event: { until: [
+  { name: completion_previous_or_up modifier: alt keycode: char_p mode: [emacs vi_normal vi_insert]  event: { until: [
     { send: menuprevious }
     { send: Up }
   ]}}
@@ -175,22 +175,22 @@ $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | appe
             { send: esc }
         ]}
   }
-  { name: custom modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { until: [
+  { name: completion_previous_or_left modifier: alt keycode: char_h mode: [emacs vi_normal vi_insert]  event: { until: [
     { send: menuprevious }
     { send: Left }
   ]}}
-  { name: custom modifier: alt keycode: char_l mode: [emacs vi_normal vi_insert]  event: {  until: [
+  { name: completion_next_or_right modifier: alt keycode: char_l mode: [emacs vi_normal vi_insert]  event: {  until: [
     { send: menunext }
     { send: Right }
   ] } }
-  { name: custom modifier: alt keycode: char_j mode: [emacs vi_normal vi_insert]  event: { until: [
+  { name: completion_menu_down modifier: alt keycode: char_j mode: [emacs vi_normal vi_insert]  event: { until: [
     { send: menudown }
     { send: menu name: completion_menu }
   ]}}
-  { name: custom modifier: alt keycode: char_k mode: [emacs vi_normal vi_insert]  event: { until: [
+  { name: completion_menu_up modifier: alt keycode: char_k mode: [emacs vi_normal vi_insert]  event: { until: [
     { send: menuup }
   ]}}
-  { name: custom modifier:alt keycode: char_q mode: [emacs vi_normal vi_insert]  event: [{edit: Clear}, {edit: InsertString, value: "workspace"}, {send: Enter}] }
+  { name: open_workspace modifier:alt keycode: char_q mode: [emacs vi_normal vi_insert]  event: [{edit: Clear}, {edit: InsertString, value: "workspace"}, {send: Enter}] }
   {
       name: "Run zoxide"
       modifier: Alt
@@ -239,8 +239,6 @@ def h [ pattern ] {
   help commands | where name =~ $pattern or category =~ $pattern
 }
 
-source ~/.config/custom.nu
-
 $new_config.hooks.env_change.PWD = ([ ] | append [
         {
             condition: {|before, after|
@@ -282,22 +280,7 @@ $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | appe
     }
 }] ))
 
-$new_config = ($new_config | upsert keybindings ( $new_config.keybindings | append [{
-    name: "run the command in pueue"
-    modifier: shift_alt
-    keycode: Enter
-    mode: [emacs, vi_normal, vi_insert]
-    event: {
-        send: executehostcommand
-        cmd: '
-            let cmd = (commandline)
-            if ( $cmd | is-empty ) {
-            } else {
-              commandline edit -r $"pueue follow \(pueue add -p -- ($cmd)\)"
-            }
-        '
-    }
-}] ))
+
 
 $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | append [{
     name: "run the command in pueue"
@@ -948,3 +931,6 @@ def --wrapped ask-vlm [ prompt, --model="gemma3:27b", ...args ] {
   let ip = "localhost"
   http post -t application/json $"http://($ip):11434/api/generate" {"model": $model, "prompt": $prompt, "stream": false, "images": ($args | each {|it| base64 $it})} | get response
 }
+
+# Load user overrides after the defaults to allow command redefinitions.
+source ~/.config/custom.nu
