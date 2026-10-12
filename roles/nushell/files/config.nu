@@ -263,6 +263,20 @@ $new_config.hooks.env_change.PWD = ([ ] | append [
     ]
 )
 
+# Report the working directory to the terminal (OSC 1337 CurrentDir) before every prompt,
+# e.g. for Tabby's SFTP panel. Inside tmux it needs DCS passthrough (`allow-passthrough on`).
+$new_config.hooks.pre_prompt = ($new_config.hooks.pre_prompt? | default [] | append [
+        {||
+            let seq = $"\e]1337;CurrentDir=($env.PWD)(char bel)"
+            if "TMUX" in $env {
+              print -n $"\ePtmux;($seq | str replace --all "\e" "\e\e")\e\\"
+            } else {
+              print -n $seq
+            }
+        }
+    ]
+)
+
 $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | append [{
     name: "run the command in systemd"
     modifier: alt
@@ -295,12 +309,6 @@ $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | appe
             } else {
               commandline edit -r $"pueue follow \(pueue add -p -- ($cmd)\)"
             }
-            if "TMUX" in $env {
-              print -n $"\ePtmux;\e\e]1337;CurrentDir=($env.PWD)\a\e\\"
-            } else {
-              print -n $"\e]1337;CurrentDir=($env.PWD)\a"
-            }
-
         '
     }
 }] ))
