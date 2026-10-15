@@ -60,7 +60,6 @@ def main [ ] {
 
 
   "
-  use std-rfc clip;
   use ($nu.default-config-dir | path join 'scripts' 'kubernetes') *
   use ($nu.default-config-dir | path join 'scripts' 'kubernetes' 'shortcut.nu') *
   use ($nu.default-config-dir | path join 'scripts' 'docker') *
