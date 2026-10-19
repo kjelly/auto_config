@@ -17,22 +17,46 @@ function M.is_light_width(width, widths)
 	return widths[tonumber(width)] == true
 end
 
-local function tmux_output(args)
-	if not vim.env.TMUX then
-		return nil
-	end
-	local command = vim.list_extend({ "tmux" }, args)
-	local result = vim.system(command, { text = true }):wait()
+local command = { "tmux", "display-message", "-p", "#{client_width}\t#{@eink-widths}" }
+
+local function apply_result(result)
 	if result.code ~= 0 then
-		return nil
+		return
 	end
-	return vim.trim(result.stdout or "")
+	local width, raw = (result.stdout or ""):match("^(%d+)\t([^\r\n]*)")
+	if width then
+		vim.o.background = M.is_light_width(width, M.parse_widths(raw)) and "light" or "dark"
+	end
 end
 
 function M.apply()
-	local raw = tmux_output({ "show-options", "-gv", "@eink-widths" })
-	local width = tmux_output({ "display-message", "-p", "#{client_width}" })
-	vim.o.background = M.is_light_width(width, M.parse_widths(raw)) and "light" or "dark"
+	if not vim.env.TMUX or vim.fn.executable("tmux") == 0 then
+		return
+	end
+	local ok, result = pcall(function()
+		return vim.system(command, { text = true }):wait(200)
+	end)
+	if ok then
+		apply_result(result)
+	end
+end
+
+local generation = 0
+function M.refresh()
+	if not vim.env.TMUX or vim.fn.executable("tmux") == 0 then
+		return
+	end
+	generation = generation + 1
+	local current = generation
+	vim.system(
+		command,
+		{ text = true, timeout = 200 },
+		vim.schedule_wrap(function(result)
+			if current == generation then
+				apply_result(result)
+			end
+		end)
+	)
 end
 
 return M

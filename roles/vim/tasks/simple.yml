@@ -1,21 +1,3 @@
 ---
-- name: Get python3
-  get_executable_path:
-    name: python3
-  register: python3_exec
-
-- name: Set fact
-  set_fact:
-    nvim: true
-
-- name: Generate init.vim
-  ansible.builtin.template:
-    src: "vimrc"
-    dest: "~/.config/nvim/init.vim"
-    mode: "0640"
-
-- name: Copy config.lua
-  ansible.builtin.copy:
-    src: init.lua
-    dest: ~/.config/nvim/init.lua
-    mode: "0640"
+- name: Configure Neovim
+  ansible.builtin.import_tasks: config.yml

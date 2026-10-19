@@ -10,37 +10,37 @@
     src: "{{ item }}"
     dest: "~/.config/nvim/{{ item }}"
     mode: '0640'
-  with_items:
+  loop:
     - init.lua
     - nvim.vim
+    - lazy-lock.json
+    - .stylua.toml
 
-- name: Copy e-ink theme module
+- name: Copy nvim runtime directories
   ansible.builtin.copy:
-    src: lua/eink_theme.lua
-    dest: ~/.config/nvim/lua/eink_theme.lua
-    mode: '0640'
-
-- name: Copy LSP configurations
-  ansible.builtin.copy:
-    src: lsp
+    src: "{{ item }}"
     dest: ~/.config/nvim/
     mode: '0640'
     directory_mode: '0750'
+  loop:
+    - lua
+    - lsp
+    - colors
+    - tests
+
+- name: Remove obsolete Neovim Vimscript entry point
+  ansible.builtin.file:
+    path: "~/.config/nvim/init.vim"
+    state: absent
 
 - name: Create efm config directory
   ansible.builtin.file:
     path: "~/.config/efm-langserver/"
     state: directory
-    recurse: true
+    mode: '0750'
 
 - name: Copy efm config
   ansible.builtin.copy:
     src: efm.yaml
     dest: ~/.config/efm-langserver/config.yaml
-    mode: '0640'
-
-- name: Create stylua config
-  ansible.builtin.file:
-    path: "~/.config/nvim/.stylua.toml"
-    state: touch
     mode: '0640'
