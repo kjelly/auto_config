@@ -13,6 +13,14 @@
   loop:
     - gamepad.nu
     - gamepad-tools.nu
+    - gamepad-edit.nu
+    - gamepad-workflows.nu
+    - gamepad-tasks.nu
+    - gamepad-task-worker.nu
+    - history-query.nu
+    - shell-integration.nu
+    - secure-edit.nu
+    - login-env.nu
 
 - name: Seed gamepad favorites without replacing user commands
   ansible.builtin.copy:
@@ -20,6 +28,15 @@
     dest: ~/.config/nushell/gamepad-favorites.nuon
     force: false
     mode: '0644'
+
+- name: Import POSIX profile only for login shells
+  ansible.builtin.blockinfile:
+    path: ~/.config/nushell/login.nu
+    create: true
+    mode: '0644'
+    marker: "# {mark} AUTO_CONFIG LOGIN ENV"
+    block: |
+      source ($nu.default-config-dir | path join 'scripts' 'login-env.nu')
 
 - name: Get the latest version
   ansible.builtin.uri:

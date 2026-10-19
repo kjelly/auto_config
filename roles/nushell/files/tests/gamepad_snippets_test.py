@@ -27,11 +27,15 @@ class SnippetTests(unittest.TestCase):
             cursor = len(buffer)
         code = (f"source {literal(SOURCE)}; "
                 f"{json.dumps(rows, ensure_ascii=False)} | "
-                f"gamepad snippet-items {literal(buffer)} {cursor} | to json")
+                f"menu snippet-items {literal(buffer)} {cursor} | to json")
         result = subprocess.run([NU, "-n", "-c", code], cwd=self.cwd,
                                 text=True, capture_output=True)
         self.assertEqual(result.returncode, 0, result.stderr)
         return json.loads(result.stdout)
+
+    def test_cursor_counts_combined_graphemes_including_family_emoji(self):
+        items = self.items([self.row('print "👨‍👩‍👧‍👦é追加尾"')], 'print "👨‍👩‍👧‍👦é尾"', cursor=9)
+        self.assertEqual([item['snippet'] for item in items], ['追加'])
 
     def test_local_priority_recency_and_deduplication(self):
         rows = [self.row("go test -race ./..."),
@@ -68,7 +72,7 @@ class SnippetTests(unittest.TestCase):
         prefix = 'print "中文é😀'
         right = '" | str length'
         items = self.items([self.row(prefix + "追加" + right)],
-                           prefix + right, len(prefix))
+                           prefix + right, len(prefix) - 1)  # e + accent is one cursor position.
         self.assertEqual(items[0]["snippet"], "追加")
 
     def test_existing_right_text_does_not_filter_valid_candidates(self):

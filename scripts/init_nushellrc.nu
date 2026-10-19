@@ -4,7 +4,7 @@ def main [ ] {
   mkdir ~/.config/nushell
   let script_dir = ($nu.default-config-dir | path join 'scripts')
   mkdir $script_dir
-  for name in [gamepad.nu gamepad-tools.nu] {
+  for name in [gamepad.nu gamepad-tools.nu gamepad-edit.nu gamepad-workflows.nu gamepad-tasks.nu gamepad-task-worker.nu history-query.nu shell-integration.nu secure-edit.nu login-env.nu] {
     http get --raw $"https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/scripts/($name)"
     | save --force ($script_dir | path join $name)
   }
@@ -12,6 +12,12 @@ def main [ ] {
   if not ($favorites | path exists) {
     http get --raw 'https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/gamepad-favorites.nuon'
     | save $favorites
+  }
+  let login = ($nu.default-config-dir | path join 'login.nu')
+  let login_source = "source ($nu.default-config-dir | path join 'scripts' 'login-env.nu')"
+  let existing_login = (if ($login | path exists) { open --raw $login } else { '' })
+  if not ($existing_login | str contains $login_source) {
+    $"\n# BEGIN AUTO_CONFIG LOGIN ENV\n($login_source)\n# END AUTO_CONFIG LOGIN ENV\n" | save --append $login
   }
   config nu --default | save -f $nu.config-path
   config env --default|save -f $nu.env-path

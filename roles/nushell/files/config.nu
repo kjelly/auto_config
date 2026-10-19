@@ -1,3 +1,6 @@
+source scripts/shell-integration.nu
+source scripts/secure-edit.nu
+
 mut $new_config = $env.config
 $new_config.show_banner = false
 $new_config.cursor_shape.emacs = "block"
@@ -23,6 +26,7 @@ use std *;
 $new_config = ($new_config | merge {
   history: {
     file_format: "sqlite"
+    # Isolation scopes Up/Down navigation. SQLite always synchronizes history.
     isolation: true
     sync_on_enter: false
   }
@@ -48,12 +52,15 @@ def update-z [ path ] {
   }
 }
 
-def --env update-eink-env [ width?, --auto ] {
-  try {
-    if ($width != null) { tmux set-environment -g EINK_WIDTH $width }
-    if ($auto) { tmux set-environment -g EINK_WIDTH (tput cols) }
-    $env.EINK_WIDTH = (tmux show-environment -g EINK_WIDTH|str replace "EINK_WIDTH=" "")
-  } catch {}
+def --env update-eink-env [width?: int, --auto] {
+  if (which tmux | is-not-empty) and ($env.TMUX? != null) {
+    if $auto { ^tmux set-environment -g EINK_WIDTH ((term size).columns | into string) | complete | ignore } else if $width != null {
+      ^tmux set-environment -g EINK_WIDTH ($width | into string) | complete | ignore
+    }
+  }
+  if $auto { $env.EINK_WIDTH = (term size).columns } else if $width != null { $env.EINK_WIDTH = $width }
+  refresh-eink-env
+  update-nushell-theme
 }
 
 def vim [...file: string] {
@@ -141,17 +148,12 @@ def --env gg [ ] {
   }
 }
 
-def my-prompt [ ] {
-  try {
-    return (starship prompt)
-  } catch {}
-  try {
-    return ([$"(hostname) (pwd)"] | str join)
-  } catch {}
-}
-
 $env.PROMPT_COMMAND = {|| ([(my-prompt) $"($env.note?) " "\n" ->] | str join ' ') }
 $env.PROMPT_COMMAND_RIGHT = ""
+$env.TRANSIENT_PROMPT_COMMAND = {|| '❯ '}
+$env.TRANSIENT_PROMPT_COMMAND_RIGHT = ''
+$env.TRANSIENT_PROMPT_INDICATOR = ''
+$new_config.hooks.pre_prompt = ($new_config.hooks.pre_prompt | append {|| refresh-eink-env; update-nushell-theme })
 
 $new_config = ($new_config | upsert keybindings ( $new_config.keybindings | append [
   { name: completion_next_or_down modifier: alt keycode: char_n mode: [emacs vi_normal vi_insert]  event: { until: [
@@ -239,29 +241,19 @@ def h [ pattern ] {
   help commands | where name =~ $pattern or category =~ $pattern
 }
 
-$new_config.hooks.env_change.PWD = ([ ] | append [
-        {
-            condition: {|before, after|
-                ($after | path join local.nu | path exists)
-            }
-            code: "overlay use --reload local.nu"
-        }
-        {
-            code: "
-              if (not (which direnv | is-empty)) {
-                if ("auto-direnv"|path exists) {direnv allow .}
-                let direnv = (direnv export json | from json)
-                let direnv = if not ($direnv | is-empty) { $direnv } else { {} }
-                $direnv | load-env
-              }
-              if (not (which zoxide | is-empty)) {
-                zoxide add -- $env.PWD
-              }
-
-            "
-        }
-    ]
-)
+# String hooks are parsed after their condition succeeds, allowing the overlay
+# to be hidden only while it exists. Leaving a project restores its environment.
+$new_config.hooks.env_change.PWD = [
+  {
+    condition: {|before, after| 'project_local' in (overlay list | where active | get name) }
+    code: 'overlay hide --keep-env [PWD] project_local'
+  }
+  {
+    condition: {|before, after| $after | path join local.nu | path exists }
+    code: 'overlay use --reload local.nu as project_local'
+  }
+  {code: {|| shell-directory-env }}
+]
 
 # Report the working directory to the terminal (OSC 1337 CurrentDir) before every prompt,
 # e.g. for Tabby's SFTP panel. Inside tmux it needs DCS passthrough (`allow-passthrough on`).
@@ -480,14 +472,7 @@ def retry [ count:int, block:closure ] {
   }
 }
 
-bash -c $"source ($env.HOME)/.profile && env"
-    | lines
-    | parse "{n}={v}"
-    | where { |x| ($x.n not-in $env) or $x.v != ($env | get $x.n) }
-    | where n not-in ["_", "LAST_EXIT_CODE", "DIRS_POSITION"]
-    | transpose --header-row
-    | into record
-    | load-env
+# POSIX profile import runs once per login via login.nu, not in every child shell.
 
 def contains [lst ele] {
   $lst | each {|it| $it == $ele}|reduce {|a, b| $a or $b}
@@ -497,33 +482,7 @@ def list-diff [a b] {
   $a | where {|it| not (contains $b $it) }
 }
 
-let fish_completer = {|spans|
-  if (which fish|is-empty) {
-    return null
-  }
-  fish --command $'complete "--do-complete=($spans | str join " ")"'
-  | $"value(char tab)description(char newline)" + $in
-  | from tsv --flexible --no-infer
-}
-
-let carapace_completer = {|spans|
-  # if the current command is an alias, get it's expansion
-  let expanded_alias = (scope aliases | where name == $spans.0 | $in.0?.expansion?)
-
-  # overwrite
-  let spans = (if $expanded_alias != null  {
-    # put the first word of the expanded alias first in the span
-    $spans | skip 1 | prepend ($expanded_alias | split row " " | take 1)
-  } else {
-    $spans | skip 1 | prepend ($spans.0)
-  })
-
-  let result = (carapace $spans.0 nushell ...$spans | from json)
-  # carapace returns [] (not null) for commands it has no spec for (e.g. unsupported
-  # commands or ./local-scripts) - only a null return triggers nushell's built-in
-  # fallback to file path completion, so translate an empty result into null.
-  if ($result | is-empty) { null } else { $result }
-}
+let carapace_completer = {|place| shell-complete $place }
 
 $new_config = ($new_config | upsert completions  {
     case_sensitive: false
@@ -535,19 +494,6 @@ $new_config = ($new_config | upsert completions  {
     }
 })
 
-def --env update-nushell-theme [ ] {
-  let columns = ((term size) | get columns)
-  if ($env.previous_columns? | default "0") != columns {
-    let EINK_WIDTH = (try {tmux show-environment -g EINK_WIDTH|str replace "EINK_WIDTH=" ""} catch {})
-    use std;
-    if $columns  == $EINK_WIDTH {
-      $env.config.color_config = (std config light-theme | upsert hint "dark_gray_bold")
-    } else {
-      $env.config.color_config = (std config dark-theme | upsert hints cyan)
-    }
-    $env.previous_columns = $columns
-  }
-}
 
 $env._out = []
 $new_config.hooks.display_output = {
@@ -722,10 +668,6 @@ def r [ task:string ] {
 def vimcopy [ ] { $in | tee { nvim - } }
 $env.config = $new_config
 
-def sops-age [ file, --key="~/.ssh/age-key.txt" ] {
-  let key = ($env.SOPS_AGE_KEY_FILE | path expand )
-  with-env {SOPS_AGE_KEY_FILE: $key} { sops edit --age (cat $key | grep public | split row ': '|last) $file }
-}
 
 def init-daytona-workspaces [ ] {
   docker ps --where ancestor=daytonaio/workspace-project:latest --format "{{.ID}}"|lines| each {|target|
@@ -737,12 +679,6 @@ def init-daytona-workspaces [ ] {
   }
 }
 
-def age-edit [file, --key="simple"] {
-  let tmp = $"/tmp/(random uuid)"
-  age -d -i $"($env.HOME)/.ssh/($key)" $file | save -f $tmp
-  nvim $tmp
-  age -R $"($env.HOME)/.ssh/($key).pub" $tmp | save -f $file
-}
 
 def --env gm [ ] {
   git checkout (git remote show origin|lines|where {|it| $it =~ 'HEAD'}|get 0|split row ':'|get 1|str trim)
@@ -791,58 +727,10 @@ def wait-or-timeout [ code, --timeout=300 ] {
   }
 }
 
-def FzfHistory [ ] {
-  let prefix = (commandline)
-  let result = history | where {|it| ($it.exit_status == 0) and ($it.command starts-with $prefix)}
-    | get command |each {|it| $it | str trim } |uniq
-    | str replace --all (char newline) ' '
-    | to text
-    | fzf ;
-  commandline edit --replace $result;
-  commandline set-cursor --end
-}
-
-def FzfHistoryPwd [ ] {
-  let prefix = (commandline)
-    let p = (pwd)
-    let result = history | where {|it| ($it.exit_status == 0) and ($it.command starts-with $prefix) and $it.cwd == $p}
-      | get command |each {|it| $it | str trim } |uniq
-      | str replace --all (char newline) ' '
-      | to text
-      | fzf ;
-    commandline edit --replace $result;
-    commandline set-cursor --end
-}
-
-const ctrl_r = {
-  name: history_menu
-  modifier: control
-  keycode: char_r
-  mode: [emacs, vi_insert, vi_normal]
-  event: [
-    {
-      send: executehostcommand
-      cmd: "FzfHistory"
-    }
-  ]
-}
-
-const alt_c = {
-  name: history_pwd_menu
-  modifier: alt
-  keycode: char_c
-  mode: [emacs, vi_insert, vi_normal]
-  event: [
-    {
-      send: executehostcommand
-      cmd: "FzfHistoryPwd"
-    }
-  ]
-}
-
-if (which fzf | is-not-empty) {
-  $env.config.keybindings = $env.config.keybindings | append [$alt_c]
-}
+# Compatibility names share the controller picker, multiline data and undo.
+# Ctrl-R opens local history; Alt-C remains assigned to directory navigation.
+def --env FzfHistory [] { menu run history_all }
+def --env FzfHistoryPwd [] { menu run history_here }
 
 def --env source-envrc [ path ] {
   open ($path | path expand)| lines | where {|it| $it starts-with "export" }|each {|it| $it |str replace 'export ' '' | split row "=" -n 2 }|reduce -f {} {|it, acc| $acc | upsert $it.0 $it.1 }| load-env
@@ -940,7 +828,7 @@ def --wrapped ask-vlm [ prompt, --model="gemma3:27b", ...args ] {
   http post -t application/json $"http://($ip):11434/api/generate" {"model": $model, "prompt": $prompt, "stream": false, "images": ($args | each {|it| base64 $it})} | get response
 }
 
-# Esc opens the gamepad menu; selections are staged for review before execution.
+# Esc opens the menu menu; selections are staged for review before execution.
 source scripts/gamepad.nu
 
 # Load user overrides after the defaults to allow command redefinitions.

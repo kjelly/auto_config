@@ -61,15 +61,54 @@ class ToolTests(unittest.TestCase):
     def test_command_quoting_round_trip(self):
         args = ["-c", "import json,sys; print(json.dumps(sys.argv[1:]))",
                 "spaces 'quotes' \"double\" $(literal) `backticks`\n中文"]
-        command = self.nu(f"gamepad command python3 {json.dumps(args, ensure_ascii=False)}")
+        command = self.nu(f"menu command python3 {json.dumps(args, ensure_ascii=False)}")
         result = subprocess.run([NU, "-n", "-c", command], env=self.env,
                                 text=True, capture_output=True, check=True)
         self.assertEqual(json.loads(result.stdout), args[2:])
 
+    def test_menu_namespace_and_history_help_are_available(self):
+        names = self.nu('scope commands | get name')
+        self.assertIn('menu', names)
+        self.assertIn('menu history', names)
+        self.assertIn('menu run', names)
+        self.assertIn('menu task-start', names)
+        self.assertFalse(any(name == 'gamepad' or name.startswith('gamepad ') for name in names))
+        help_text = self.nu('help menu history')
+        self.assertIn('--global', help_text)
+
+    def test_history_skips_launchers_and_preserves_actual_commands(self):
+        launchers = ['menu', 'menu history', 'menu history --global', 'menu run main',
+                     'menu run history_here', 'menu run history_all']
+        commands = ['print "menu history"', 'menu task-start "print task"', 'menu history-data']
+        rows = [{'command': command, 'cwd': str(self.root)} for command in launchers + commands]
+        actual = self.nu(json.dumps(rows) + ' | menu history-items --here | get command')
+        self.assertEqual(actual, list(reversed(commands)))
+
+    def test_bash_wrapper_preserves_script_output_and_exit_status(self):
+        env = dict(self.env, BASH_ENV='/dev/null')
+        scripts = [
+            'value="中文 \'quoted\'"; printf "%s\\n" "$value" "$(printf substitution)"',
+            'printf "one\\ntwo\\n" | grep two > result.txt; cat result.txt',
+            'for word in alpha beta; do printf "%s\\n" "$word"; done\n'
+            "cat <<'EOF'\n$HOME $(literal) `literal` 'single' \"double\" 中文\nEOF\n",
+            'printf stdout; printf stderr >&2; exit 7',
+        ]
+        for script in scripts:
+            with self.subTest(script=script):
+                command = self.nu(f'menu bash-command {literal(script)}', env=env)
+                self.assertFalse((self.root / 'result.txt').exists())
+                actual = subprocess.run([NU, '-n', '-c', command], cwd=self.root,
+                                        env=env, text=True, capture_output=True)
+                expected = subprocess.run(['bash', '--noprofile', '--norc', '-c', script],
+                                          cwd=self.root, env=env, text=True, capture_output=True)
+                self.assertEqual((actual.stdout, actual.stderr, actual.returncode),
+                                 (expected.stdout, expected.stderr, expected.returncode))
+                (self.root / 'result.txt').unlink(missing_ok=True)
+
     def test_go_command_runs_in_project_root_from_subdirectory(self):
         (self.root / "go.mod").write_text("module example.test/project\n")
-        self.assertEqual(self.nu("gamepad project-root", cwd=self.child), str(self.root))
-        items = self.nu(f"gamepad project-items {literal(self.root)}", cwd=self.child)
+        self.assertEqual(self.nu("menu project-root", cwd=self.child), str(self.root))
+        items = self.nu(f"menu project-items {literal(self.root)}", cwd=self.child)
         command = next(item["command"] for item in items if item["label"] == "Go：執行本專案")
         env = self.stub("go", "import os,sys,json\nprint(json.dumps({'cwd':os.getcwd(),'args':sys.argv[1:]}))\n")
         result = subprocess.run([NU, "-n", "-c", command], cwd=self.child,
@@ -79,8 +118,8 @@ class ToolTests(unittest.TestCase):
     def test_just_and_make_discovery_does_not_run_recipes(self):
         (self.root / "justfile").write_text("hello:\n    touch UNEXPECTED\n\n[private]\nhidden:\n    touch UNEXPECTED\n")
         (self.root / "Makefile").write_text("build:\n\ttouch UNEXPECTED\n\ntest:\n\ttouch UNEXPECTED\n")
-        just = self.nu(f"gamepad project-tasks {literal(self.root)} just")
-        make = self.nu(f"gamepad project-tasks {literal(self.root)} make")
+        just = self.nu(f"menu project-tasks {literal(self.root)} just")
+        make = self.nu(f"menu project-tasks {literal(self.root)} make")
         self.assertEqual([item["label"] for item in just], ["hello"])
         self.assertEqual([item["label"] for item in make], ["build", "test"])
         self.assertFalse((self.root / "UNEXPECTED").exists())
@@ -89,7 +128,7 @@ class ToolTests(unittest.TestCase):
         (self.root / "nurfile").touch()
         log = self.base / "nur-args.json"
         env = self.stub("nur", f"import sys,json,pathlib,os\nassert sys.argv[1:]==['--list','--quiet'], 'unsupported nur flags'\nassert pathlib.Path('nurfile').is_file()\npathlib.Path({str(log)!r}).write_text(json.dumps({{'args':sys.argv[1:],'cwd':os.getcwd()}}))\nprint('build\\ntest')\n")
-        result = self.nu(f"let items = (gamepad project-tasks {literal(self.root)} nur); {{items: $items, cwd: $env.PWD}}", cwd=self.child, env=env)
+        result = self.nu(f"let items = (menu project-tasks {literal(self.root)} nur); {{items: $items, cwd: $env.PWD}}", cwd=self.child, env=env)
         items = result["items"]
         self.assertEqual([item["label"] for item in items], ["build", "test"])
         self.assertEqual(json.loads(log.read_text()), {"args": ["--list", "--quiet"], "cwd": str(self.root)})
@@ -102,7 +141,7 @@ class ToolTests(unittest.TestCase):
         )
         (self.child / "nurfile").write_text('def "nur child-only" [] {}\n')
         result = self.nu(
-            f"let items = (gamepad project-tasks {literal(self.root)} nur); {{items: $items, cwd: $env.PWD}}",
+            f"let items = (menu project-tasks {literal(self.root)} nur); {{items: $items, cwd: $env.PWD}}",
             cwd=self.child,
         )
         self.assertEqual([item["label"] for item in result["items"]], ["controller-build", "controller-test"])
@@ -118,7 +157,7 @@ class ToolTests(unittest.TestCase):
         fixture.write_text(json.dumps(rows))
         for status, expected in [("all", ["unknown", "interrupted", "failed", "success"]),
                                  ("success", ["success"]), ("failed", ["interrupted", "failed"])]:
-            actual = self.nu(f"open {literal(fixture)} | gamepad history-items --here --status {status} | get command")
+            actual = self.nu(f"open {literal(fixture)} | menu history-items --here --status {status} | get command")
             self.assertEqual(actual, expected)
 
     def test_project_history_preserves_cwd_and_excludes_prefix_sibling(self):
@@ -126,7 +165,7 @@ class ToolTests(unittest.TestCase):
                 {"command": "go build", "cwd": str(self.root) + "-other", "exit_status": 0}]
         fixture = self.base / "history.json"
         fixture.write_text(json.dumps(rows))
-        actual = self.nu(f"open {literal(fixture)} | gamepad history-items --project {literal(self.root)}")
+        actual = self.nu(f"open {literal(fixture)} | menu history-items --project {literal(self.root)}")
         self.assertEqual(len(actual), 1)
         self.assertEqual(actual[0]["cwd"], str(self.child))
 
@@ -137,20 +176,20 @@ class ToolTests(unittest.TestCase):
         self.git("mv", "old.txt", renamed)
         (self.root / untracked).write_text("untracked")
         (self.root / "ignored").write_text("ignored")
-        changed = self.nu(f"gamepad git-files {literal(self.root)}")
+        changed = self.nu(f"menu git-files {literal(self.root)}")
         self.assertEqual(len(changed), 2)
         self.assertTrue(any(renamed in item["label"] for item in changed))
         self.assertTrue(any(untracked in item["label"] for item in changed))
-        files = self.nu(f"gamepad project-files {literal(self.root)}")
+        files = self.nu(f"menu project-files {literal(self.root)}")
         names = {item["label"] for item in files}
         self.assertEqual(names, {".gitignore", renamed, untracked})
-        self.assertEqual(self.nu("gamepad project-root", cwd=self.child), str(self.root))
+        self.assertEqual(self.nu("menu project-root", cwd=self.child), str(self.root))
 
     def test_git_branch_command_switches_selected_literal_branch(self):
         self.repository()
         branch = "feature/$literal"
         self.git("branch", branch)
-        items = self.nu(f"gamepad git-branches {literal(self.root)}")
+        items = self.nu(f"menu git-branches {literal(self.root)}")
         command = next(item["command"] for item in items if item["label"] == branch)
         self.assertEqual(self.git("branch", "--show-current").strip(), "main")
         result = subprocess.run([NU, "-n", "-c", command], env=self.env, text=True, capture_output=True)
@@ -158,9 +197,9 @@ class ToolTests(unittest.TestCase):
         self.assertEqual(self.git("branch", "--show-current").strip(), branch)
 
     def test_git_root_returns_null_outside_repository_and_finds_parent(self):
-        self.assertIsNone(self.nu("gamepad git-root", cwd=self.child))
+        self.assertIsNone(self.nu("menu git-root", cwd=self.child))
         self.repository()
-        self.assertEqual(self.nu("gamepad git-root", cwd=self.child), str(self.root))
+        self.assertEqual(self.nu("menu git-root", cwd=self.child), str(self.root))
 
     def test_git_worktree_is_recognized_from_subdirectory(self):
         self.repository()
@@ -168,15 +207,15 @@ class ToolTests(unittest.TestCase):
         self.git("worktree", "add", "-b", "linked", str(worktree))
         nested = worktree / "nested"
         nested.mkdir()
-        self.assertEqual(self.nu("gamepad git-root", cwd=nested), str(worktree))
+        self.assertEqual(self.nu("menu git-root", cwd=nested), str(worktree))
         self.assertTrue((worktree / ".git").is_file())
-        files = self.nu(f"gamepad project-files {literal(worktree)}", cwd=nested)
+        files = self.nu(f"menu project-files {literal(worktree)}", cwd=nested)
         self.assertIn("old.txt", [item["label"] for item in files])
 
     def test_all_git_view_commands_execute_against_real_repository(self):
         self.repository()
         (self.root / "old.txt").write_text("changed\n")
-        items = self.nu(f"gamepad git-items {literal(self.root)}", cwd=self.child)
+        items = self.nu(f"menu git-items {literal(self.root)}", cwd=self.child)
         commands = [item["command"] for item in items if "command" in item]
         self.assertEqual(len(commands), 5)
         for command in commands:
@@ -191,17 +230,17 @@ class ToolTests(unittest.TestCase):
             (self.root / name / "excluded.txt").touch()
         # .git is not a real repository, so remove it before fallback discovery.
         shutil.rmtree(self.root / ".git")
-        files = self.nu(f"gamepad project-files {literal(self.root)}")
+        files = self.nu(f"menu project-files {literal(self.root)}")
         self.assertEqual([item["label"] for item in files], ["src/normal.txt"])
 
     def test_tmux_commands_target_ids_and_do_not_execute_on_discovery(self):
         env = self.stub("tmux", "import sys\nassert sys.argv[1]=='list-panes'\nprint('$1\\t@2\\t%3\\tworkspace:0.0 editor')\n")
         env.pop("TMUX", None)
-        outside = self.nu("gamepad tmux-items", env=env)
+        outside = self.nu("menu tmux-items", env=env)
         self.assertIn("attach-session", outside[0]["command"])
         for target in ["$1", "@2", "%3"]:
             self.assertIn(target, outside[0]["command"])
-        inside = self.nu("gamepad tmux-items", env=dict(env, TMUX="test"))
+        inside = self.nu("menu tmux-items", env=dict(env, TMUX="test"))
         self.assertIn("switch-client", inside[0]["command"])
         self.assertIn("new-window", inside[-1]["command"])
 
@@ -214,7 +253,7 @@ class ToolTests(unittest.TestCase):
         self.assertEqual(started.returncode, 0, started.stderr)
         try:
             subprocess.run(["tmux", "split-window", "-h", "-t", "controller-test", "sleep 120"], env=env, check=True)
-            items = self.nu("gamepad tmux-items", env=env)
+            items = self.nu("menu tmux-items", env=env)
             self.assertEqual(len(items), 3)  # two panes and new session
             self.assertTrue(all("controller-test" in item["label"] for item in items[:2]))
         finally:

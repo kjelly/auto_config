@@ -9,8 +9,10 @@ import os
 from pathlib import Path
 import pty
 import select
+import shlex
 import shutil
 import signal
+import sqlite3
 import struct
 import subprocess
 import sys
@@ -26,6 +28,7 @@ NU = shutil.which("nu")
 ESC, ENTER, DOWN, LEFT, RIGHT, TAB, BACK = (
     b"\x1b", b"\r", b"\x1b[B", b"\x1b[D", b"\x1b[C", b"\t", b"\x7f"
 )
+HOME, END, SHIFT_TAB, PAGE_UP, PAGE_DOWN = b"\x1b[H", b"\x1b[F", b"\x1b[Z", b"\x1b[5~", b"\x1b[6~"
 
 
 def literal(value):
@@ -43,16 +46,27 @@ class ControllerTests(unittest.TestCase):
         (self.cwd / "ordinary-file").touch()
         self.favorites = self.base / "favorites.nuon"
         self.favorites.write_text('[{label: "TEST FAVORITE", command: "print TEST_EXECUTED"}]')
+        self.sessiontemp = self.base / "sessions 'quoted' (safe) $literal"
+        self.sessiontemp.mkdir()
         self.statefile = self.base / "state.json"
+        self.historydb = self.base / "history.sqlite3"
+        with sqlite3.connect(self.historydb) as db:
+            db.execute("CREATE TABLE history (id INTEGER PRIMARY KEY, command_line TEXT, cwd TEXT, exit_status INTEGER)")
+            db.executemany("INSERT INTO history (command_line, cwd, exit_status) VALUES (?, ?, ?)", [
+                ('print "中文追加" | str length', str(self.cwd), 0),
+                ('go build ./...', str(self.cwd), 1),
+                ('print FIRST\nprint SECOND', str(self.cwd), 0),
+                ('print OTHER', '/elsewhere', 0),
+            ])
+        db.close()
         config = self.base / "test.nu"
         config.write_text("\n".join([
             "$env.config.show_banner = false",
             "$env.PROMPT_COMMAND = {|| 'TEST> '}",
             "$env.PROMPT_COMMAND_RIGHT = ''",
             f"$env.GAMEPAD_FAVORITES_FILE = {literal(self.favorites)}",
+            f"$env.NU_HISTORY_DATABASE = {literal(self.historydb)}",
             f"cd {literal(self.cwd)}",
-            'let test_history_directory = $env.PWD',
-            'def history [--long] { [{command: \'print "中文追加" | str length\', exit_status: 0, cwd: $test_history_directory} {command: "go build ./...", exit_status: 1, cwd: $test_history_directory} {command: "print FIRST\\nprint SECOND", exit_status: 0, cwd: $test_history_directory} {command: "print OTHER", exit_status: 0, cwd: /elsewhere}] }',
             f"source {literal(SOURCE)}",
             # Model config.nu's Tab customization without loading its side effects.
             "$env.config.keybindings ++= [{name: test_tab, modifier: none, keycode: tab, mode: [emacs], event: {until: [{send: menu, name: ide_completion_menu}, {send: menunext}, {edit: complete}]}}]",
@@ -64,11 +78,64 @@ class ControllerTests(unittest.TestCase):
         self.pid, self.fd = pty.fork()
         if self.pid == 0:
             os.environ["TERM"] = "xterm-256color"
+            os.environ["TMPDIR"] = str(self.sessiontemp)
+            os.environ["BASH_ENV"] = "/dev/null"  # Never source private Bash hooks.
             os.execv(NU, [NU, "-n", "--no-history", "-e", f"source {literal(config)}"])
         fcntl.ioctl(self.fd, termios.TIOCSWINSZ, struct.pack("HHHH", 32, 100, 0, 0))
         self.output = b""
         self.read(0.6)
         self.assertIn(b"TEST>", self.output)
+
+    def test_ctrl_r_uses_local_history_and_cancel_preserves_cursor(self):
+        self.send('go ')
+        self.send(b"\x12", 0.35)
+        self.assertIn('歷史：目前目錄'.encode(), self.output)
+        self.send(ESC, 0.35)
+        self.assertEqual(self.state()['buffer'], 'go ')
+        self.send(b"\x12", 0.35)
+        self.choose()
+        self.assertEqual(self.state()['buffer'], 'go build ./...')
+
+    def test_typed_menu_stages_command_and_waits_for_another_enter(self):
+        marker = self.base / 'keyboard-confirmed'
+        command = f'"confirmed" | save {literal(marker)}'
+        self.favorites.write_text(json.dumps([{'label': 'KEYBOARD FAVORITE', 'command': command}]))
+        self.send('menu\r', 0.35)
+        self.choose()  # favorites
+        self.choose()
+        self.assertEqual(self.state()['buffer'], command)
+        self.assertFalse(marker.exists())
+        self.send(ENTER, 0.35)
+        self.assertEqual(marker.read_text(), 'confirmed')
+
+    def test_typed_menu_cancel_returns_to_usable_prompt(self):
+        self.send('menu\r', 0.35)
+        self.send(ESC, 0.35)
+        self.assertEqual(self.state()['buffer'], '')
+
+    def test_typed_menu_history_defaults_to_current_directory(self):
+        self.send('menu history\r', 0.35)
+        self.assertIn('歷史：目前目錄'.encode(), self.output)
+        self.choose()
+        self.assertEqual(self.state()['buffer'], 'print FIRST\nprint SECOND')
+
+    def test_typed_menu_history_global(self):
+        self.send('menu history --global\r', 0.35)
+        self.assertIn('歷史：全域'.encode(), self.output)
+        self.choose()
+        self.assertEqual(self.state()['buffer'], 'print OTHER')
+
+    def test_typed_history_skips_its_pending_launcher_record(self):
+        db = sqlite3.connect(self.historydb)
+        try:
+            db.execute('INSERT INTO history (command_line, cwd, exit_status) VALUES (?, ?, NULL)',
+                       ('menu history', str(self.cwd)))
+            db.commit()
+        finally:
+            db.close()
+        self.send('menu history\r', 0.35)
+        self.choose()
+        self.assertEqual(self.state()['buffer'], 'print FIRST\nprint SECOND')
 
     def tearDown(self):
         if hasattr(self, "pid") and self.pid:
@@ -126,19 +193,318 @@ class ControllerTests(unittest.TestCase):
             self.send(DOWN, 0.03)
         return self.send(ENTER, 0.35)
 
-    def menu(self, action="favorites"):
+    def menu(self, action="favorites", *, stay_open=False):
         if action == "history_all":
             self.menu("history_here")
             return self.send(RIGHT, 0.35)
-        management = {"add_favorite": 0, "remove_favorite": 1, "clear": 2, "undo": 3}
+        management = {"add_favorite": 0, "remove_favorite": 1, "clear": 2, "undo": 3,
+                      "line_start": 4, "line_end": 5, "delete_word": 6,
+                      "previous_char": 7, "next_char": 8, "previous_word": 9, "next_word": 10,
+                      "delete_next_word": 11, "delete_previous_char": 12, "delete_next_char": 13}
         if action in management:
             self.menu("manage")
-            return self.choose(management[action])
+            output = self.choose(management[action])
+            if action in list(management)[4:] and not stay_open:
+                output += self.close_editor()
+            return output
         index = {"favorites": 0, "history_here": 1, "snippets": 2, "project": 3,
                  "files": 4, "git": 5, "tmux": 6, "directories": 7,
-                 "edit": 8, "manage": 9}[action]
+                 "edit": 8, "bash": 9, "insert_paths": 10, "templates": 11, "clipboard": 12,
+                 "history_programs": 13, "drafts": 14, "tasks": 15, "manage": 16}[action]
         self.send(ESC)
         return self.choose(index)
+
+    def stage_fixture_buffer(self, buffer):
+        self.favorites.write_text(json.dumps([{'label': 'FIXTURE', 'command': buffer}], ensure_ascii=False))
+        self.menu('favorites')
+        self.choose()
+        self.assertEqual(self.state()['buffer'], buffer)
+
+    def test_bash_stages_without_execution_and_undo_restores_cursor(self):
+        marker = self.base / 'must not run'
+        script = 'printf "%s" "中文 $(printf value)" > ' + shlex.quote(str(marker))
+        self.stage_fixture_buffer(script)
+        self.send(LEFT * 3)
+        before = self.state()
+        self.menu('bash')
+        staged = self.state()
+        self.assertTrue(staged['buffer'].startswith('^bash '))
+        self.assertIn('--noprofile', staged['buffer'])
+        self.assertEqual(staged['cursor'], len(staged['buffer']))
+        self.assertFalse(marker.exists())
+        self.menu('undo')
+        self.assertEqual(self.state(), before)
+        self.assertFalse(marker.exists())
+
+    def test_bash_empty_buffer_reports_notice_without_changes(self):
+        before = self.state()
+        self.menu('bash')
+        self.assertIn('請先將'.encode(), self.output)
+        self.send(ESC, 0.35)
+        self.assertEqual(self.state(), before)
+
+    def test_bash_missing_executable_reports_notice_without_changes(self):
+        bindir = self.base / 'fzf-only'
+        bindir.mkdir()
+        (bindir / 'fzf').symlink_to(shutil.which('fzf'))
+        self.send(f'$env.PATH = [{literal(bindir)}]\r')
+        self.send('echo keep')
+        before = self.state()
+        self.menu('bash')
+        self.assertIn('找不到 Bash'.encode(), self.output)
+        self.send(ESC, 0.35)
+        self.assertEqual(self.state(), before)
+
+    def test_bash_failure_returns_to_nu_and_keeps_parent_environment(self):
+        witness = self.base / 'bash-status.json'
+        self.send('$env.GAMEPAD_BASH_TEST = "parent"\r')
+        script = f'cd {shlex.quote(str(self.child))}; export GAMEPAD_BASH_TEST=child; exit 7'
+        self.stage_fixture_buffer(script)
+        self.menu('bash')
+        self.send(ENTER, 0.35)
+        self.send('{status: $env.LAST_EXIT_CODE, marker: $env.GAMEPAD_BASH_TEST, pwd: $env.PWD}'
+                  f' | to json | save -f {literal(witness)}\r')
+        self.assertEqual(self.wait_for_json(witness),
+                         {'status': 7, 'marker': 'parent', 'pwd': str(self.cwd)})
+        self.assertEqual(self.state()['buffer'], '')
+
+    def test_bash_reads_from_terminal_and_returns_to_nu(self):
+        marker = self.base / 'interactive answer'
+        self.stage_fixture_buffer('printf BASH_READ_READY; read -r answer; '
+                                  f'printf "%s" "$answer" > {shlex.quote(str(marker))}')
+        self.menu('bash')
+        self.send(ENTER, 0.35)
+        self.assertIn(b'BASH_READ_READY', self.output)
+        self.assertFalse(marker.exists())
+        self.send('controller 中文 input\r', 0.35)
+        self.assertEqual(marker.read_text(), 'controller 中文 input')
+        self.assertEqual(self.state()['buffer'], '')
+
+    def test_bash_ctrl_c_returns_to_nu(self):
+        marker = self.base / 'ready'
+        self.stage_fixture_buffer(f'printf ready > {shlex.quote(str(marker))}; read -r answer')
+        self.menu('bash')
+        self.send(ENTER, 0.35)
+        self.assertTrue(marker.exists())
+        self.send(b'\x03', 0.35)
+        self.assertEqual(self.state()['buffer'], '')
+
+    def test_plain_picker_home_end_select_first_last_with_terminal_variants(self):
+        self.favorites.write_text(json.dumps([{'label': f'ITEM {i}', 'command': f'print ITEM_{i}'} for i in range(30)]))
+        for home, end in [(HOME, END), (b'\x1b[1~', b'\x1b[4~')]:
+            with self.subTest(home=home):
+                self.menu('favorites')
+                self.send(end)
+                self.choose()
+                self.assertEqual(self.state()['buffer'], 'print ITEM_29')
+                self.menu('favorites')
+                self.send(end + home)
+                self.choose()
+                self.assertEqual(self.state()['buffer'], 'print ITEM_0')
+
+    def test_main_home_end_reach_management_and_favorites(self):
+        self.send(ESC)
+        self.send(END)
+        self.choose()
+        self.assertIn('游標移到目前行首'.encode(), self.output)
+        self.send(BACK)
+        self.send(END + HOME)
+        self.choose()
+        self.choose()
+        self.assertEqual(self.state()['buffer'], 'print TEST_EXECUTED')
+
+    def test_search_home_end_edit_query_and_preserve_it_across_scope_change(self):
+        self.menu('history_here')
+        self.send('FIRS')
+        self.send(HOME)
+        self.send('print ')
+        self.send(END)
+        self.send('T')
+        self.send(RIGHT, 0.35)
+        self.choose()
+        self.assertEqual(self.state()['buffer'], 'print FIRST\nprint SECOND')
+
+    def test_empty_search_home_end_keep_selected_row(self):
+        self.menu('history_here')
+        self.send(DOWN)  # go build, between the two print commands.
+        self.send(HOME + END)
+        self.choose()
+        self.assertEqual(self.state()['buffer'], 'go build ./...')
+
+    def test_directory_home_end_navigate_items_without_changing_pwd(self):
+        self.menu('directories')
+        self.send(END)
+        self.choose()  # Last directory is the quoted child.
+        self.send(HOME)
+        self.choose()  # First item stages use-this-directory.
+        state = self.state()
+        self.assertEqual(state['pwd'], str(self.cwd))
+        self.assertTrue(state['buffer'].startswith('cd '))
+        self.send(ENTER)
+        self.assertEqual(self.state()['pwd'], str(self.child))
+
+    def test_shift_tab_moves_back_in_plain_and_search_menus(self):
+        self.favorites.write_text(json.dumps([{'label': f'ITEM {i}', 'command': f'print ITEM_{i}'} for i in range(3)]))
+        self.menu('favorites')
+        self.send(TAB + SHIFT_TAB)
+        self.choose()
+        self.assertEqual(self.state()['buffer'], 'print ITEM_0')
+        self.menu('history_here')
+        self.send(SHIFT_TAB)  # Wrap up from first to last without changing status.
+        self.choose()
+        self.assertEqual(self.state()['buffer'], 'print "中文追加" | str length')
+
+    def test_page_up_down_navigate_long_list(self):
+        self.favorites.write_text(json.dumps([{'label': f'ITEM {i:02}', 'command': f'print ITEM_{i}'} for i in range(40)]))
+        self.menu('favorites')
+        self.send(PAGE_DOWN)
+        self.choose()
+        index = int(self.state()['buffer'].rsplit('_', 1)[1])
+        self.assertGreater(index, 0)
+        self.assertLess(index, 39)
+        self.menu('favorites')
+        self.send(PAGE_DOWN + PAGE_UP)
+        self.choose()
+        self.assertEqual(self.state()['buffer'], 'print ITEM_0')
+
+    def test_line_cursor_actions_respect_unicode_multiline_and_undo(self):
+        buffer = 'print "中文🙂"\nprint "尾巴xyz"\nprint LAST'
+        self.stage_fixture_buffer(buffer)
+        cursor = len('print "中文🙂"\nprint "尾巴')
+        self.send(LEFT * (len(buffer) - cursor))
+        before = self.state()
+        self.menu('line_start')
+        self.assertEqual(self.state(), dict(before, cursor=len('print "中文🙂"\n')))
+        self.menu('undo')
+        self.assertEqual(self.state(), before)
+        self.menu('line_end')
+        self.assertEqual(self.state(), dict(before, cursor=len('print "中文🙂"\nprint "尾巴xyz"')))
+        self.menu('undo')
+        self.assertEqual(self.state(), before)
+
+    def test_cursor_noop_on_empty_buffer_does_not_hide_last_undo(self):
+        self.send('print ORIGINAL')
+        self.menu('clear')
+        self.menu('line_start')
+        self.menu('line_end')
+        self.menu('delete_word')
+        self.assertEqual(self.state()['buffer'], '')
+        self.menu('undo')
+        self.assertEqual(self.state()['buffer'], 'print ORIGINAL')
+
+    def test_delete_word_keeps_right_text_and_can_undo(self):
+        buffer = 'go run 中文🙂 --flag tail'
+        self.stage_fixture_buffer(buffer)
+        self.send(LEFT * len(' tail'))
+        before = self.state()
+        self.menu('delete_word')
+        state = self.state()
+        self.assertEqual(state['buffer'], 'go run 中文🙂  tail')
+        self.assertEqual(state['cursor'], len('go run 中文🙂 '))
+        self.menu('undo')
+        self.assertEqual(self.state(), before)
+
+    def close_editor(self):
+        output = self.send(ESC, 0.15)
+        deadline = time.monotonic() + 4
+        while b'TEST>' not in output and time.monotonic() < deadline:
+            output += self.read(0.05)
+        self.assertIn(b'TEST>', output, self.output[-3000:].decode(errors='replace'))
+        return output
+
+    def choose_edit_action(self, index):
+        self.send(HOME, 0.04)
+        return self.choose(index)
+
+    def test_repeat_delete_word_and_undo_stay_open_and_retain_selection(self):
+        buffer = 'print alpha 中文🙂 --flag tail'
+        self.stage_fixture_buffer(buffer)
+        self.menu('delete_word', stay_open=True)
+        self.send(ENTER * 2, 0.7)
+        self.choose_edit_action(3)  # undo third deletion, staying on Undo.
+        self.send(ENTER)  # undo second deletion.
+        self.close_editor()
+        state = self.state()
+        self.assertEqual(state['buffer'], 'print alpha 中文🙂 --flag ')
+        self.assertEqual(state['cursor'], len(state['buffer']))
+
+    def test_continuous_word_navigation_preserves_buffer_and_right_text(self):
+        buffer = 'go run 中文🙂 --flag tail'
+        self.stage_fixture_buffer(buffer)
+        self.menu('previous_word', stay_open=True)
+        self.send(ENTER)  # Before --flag, after two backward words.
+        self.choose_edit_action(10)  # Next word ends after --flag.
+        self.choose_edit_action(11)  # Delete next word, preserving left text.
+        self.close_editor()
+        state = self.state()
+        self.assertEqual(state['buffer'], 'go run 中文🙂 --flag')
+        self.assertEqual(state['cursor'], len(state['buffer']))
+
+    def test_repeat_character_movement_keeps_combining_and_emoji_clusters(self):
+        family = '👨‍👩‍👧‍👦'
+        buffer = 'a' + family + 'é中b'
+        self.stage_fixture_buffer(buffer)
+        self.menu('previous_char', stay_open=True)
+        self.send(ENTER * 3, 0.8)  # b, 中, e+accent, family.
+        self.choose_edit_action(8)  # Advance across the entire family emoji.
+        self.close_editor()
+        state = self.state()
+        self.assertEqual(state['buffer'], buffer)
+        self.assertEqual(state['cursor'], 2)
+
+    def test_repeat_character_deletion_and_empty_noops_preserve_undo(self):
+        self.stage_fixture_buffer('a👨‍👩‍👧‍👦é中')
+        self.send(LEFT)
+        self.menu('delete_previous_char', stay_open=True)
+        self.send(ENTER * 2, 0.7)  # Remove accent cluster, family, a.
+        self.choose_edit_action(13)  # Delete 中 to the right.
+        self.send(ENTER * 3, 0.7)  # Empty no-ops must retain the Undo history.
+        self.choose_edit_action(3)
+        self.send(ENTER)  # Undo 中, then a.
+        self.close_editor()
+        state = self.state()
+        self.assertEqual(state['buffer'], 'a中')
+        self.assertEqual(state['cursor'], 1)
+
+    def test_back_from_repeated_edit_returns_to_main_without_reverting(self):
+        self.stage_fixture_buffer('print alpha beta')
+        self.menu('delete_word', stay_open=True)
+        output = self.send(BACK, 0.35)
+        self.assertIn('命令選單：'.encode(), output)
+        self.close_editor()
+        self.assertEqual(self.state()['buffer'], 'print alpha ')
+
+    def test_editor_session_is_private_cleans_up_and_does_not_execute_text(self):
+        marker = self.base / 'must-not-exist'
+        buffer = 'print $(touch ' + str(marker) + ') tail'
+        self.stage_fixture_buffer(buffer)
+        self.menu('delete_word', stay_open=True)
+        sessions = list(self.sessiontemp.rglob('state.json'))
+        self.assertEqual(len(sessions), 1)
+        session = sessions[0]
+        self.assertEqual(session.stat().st_mode & 0o777, 0o600)
+        self.assertEqual(session.parent.stat().st_mode & 0o777, 0o700)
+        self.close_editor()
+        self.assertFalse(session.exists())
+        self.assertFalse(marker.exists())
+        self.assertEqual(self.state()['buffer'], buffer[:-len('tail')])
+
+    def test_snippet_insertion_uses_visible_grapheme_cursor_position(self):
+        buffer = 'print "👨‍👩‍👧‍👦é尾"'
+        command = 'print "👨‍👩‍👧‍👦é追加尾"'
+        with sqlite3.connect(self.historydb) as db:
+            db.execute('INSERT INTO history (command_line, cwd, exit_status) VALUES (?, ?, ?)', (command, str(self.cwd), 0))
+        self.stage_fixture_buffer(buffer)
+        self.send(LEFT * 2)
+        before = self.state()
+        self.assertEqual(before['cursor'], 9)
+        self.menu('snippets')
+        self.choose()
+        state = self.state()
+        self.assertEqual(state['buffer'], command)
+        self.assertEqual(state['cursor'], 11)
+        self.menu('undo')
+        self.assertEqual(self.state(), before)
 
     def install_test_editor(self, exit_code=0):
         """Stand-in nvim records its input/TTYs and writes a multiline edit."""
@@ -345,7 +711,7 @@ class ControllerTests(unittest.TestCase):
     def test_clear_with_tab_navigation_and_restore(self):
         self.send('print "keep this"')
         self.send(ESC)
-        for _ in range(9):
+        for _ in range(16):
             self.send(TAB, 0.03)
         self.send(ENTER)
         self.send(TAB * 2)
@@ -609,7 +975,7 @@ class ControllerTests(unittest.TestCase):
           {{command: "print failed", exit_status: 1, cwd: $env.PWD}}
           {{command: "print old", exit_status: 0, cwd: $env.PWD}}
           {{command: "print one\\nprint two", exit_status: 0, cwd: $env.PWD}}
-        ] | gamepad history-items --here --status success | get command | to json'''
+        ] | menu history-items --here --status success | get command | to json'''
         result = subprocess.run([NU, "-n", "-c", code], text=True, capture_output=True, check=True)
         self.assertEqual(json.loads(result.stdout), ["print one\nprint two", "print old"])
 
