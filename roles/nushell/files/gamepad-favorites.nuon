@@ -1,0 +1,7 @@
+[
+  {label: "列出檔案", command: "ls"}
+  {label: "目前目錄", command: "pwd"}
+  {label: "Git 狀態", command: "git status --short"}
+  {label: "回到專案根目錄", command: "gg"}
+  {label: "背景工作狀態", command: "job"}
+]

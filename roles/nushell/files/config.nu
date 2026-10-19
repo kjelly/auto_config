@@ -940,5 +940,8 @@ def --wrapped ask-vlm [ prompt, --model="gemma3:27b", ...args ] {
   http post -t application/json $"http://($ip):11434/api/generate" {"model": $model, "prompt": $prompt, "stream": false, "images": ($args | each {|it| base64 $it})} | get response
 }
 
+# Esc opens the gamepad menu; selections are staged for review before execution.
+source scripts/gamepad.nu
+
 # Load user overrides after the defaults to allow command redefinitions.
 source ~/.config/custom.nu

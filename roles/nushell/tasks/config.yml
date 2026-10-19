@@ -1,4 +1,26 @@
 ---
+- name: Create Nushell scripts directory
+  ansible.builtin.file:
+    path: ~/.config/nushell/scripts
+    state: directory
+    mode: '0755'
+
+- name: Copy gamepad menu scripts
+  ansible.builtin.copy:
+    src: "scripts/{{ item }}"
+    dest: "~/.config/nushell/scripts/{{ item }}"
+    mode: '0644'
+  loop:
+    - gamepad.nu
+    - gamepad-tools.nu
+
+- name: Seed gamepad favorites without replacing user commands
+  ansible.builtin.copy:
+    src: gamepad-favorites.nuon
+    dest: ~/.config/nushell/gamepad-favorites.nuon
+    force: false
+    mode: '0644'
+
 - name: Get the latest version
   ansible.builtin.uri:
     url: "https://api.github.com/repos/nushell/nushell/tags"

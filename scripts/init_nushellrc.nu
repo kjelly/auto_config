@@ -2,6 +2,17 @@
 
 def main [ ] {
   mkdir ~/.config/nushell
+  let script_dir = ($nu.default-config-dir | path join 'scripts')
+  mkdir $script_dir
+  for name in [gamepad.nu gamepad-tools.nu] {
+    http get --raw $"https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/scripts/($name)"
+    | save --force ($script_dir | path join $name)
+  }
+  let favorites = ($nu.default-config-dir | path join 'gamepad-favorites.nuon')
+  if not ($favorites | path exists) {
+    http get --raw 'https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/gamepad-favorites.nuon'
+    | save $favorites
+  }
   config nu --default | save -f $nu.config-path
   config env --default|save -f $nu.env-path
 
