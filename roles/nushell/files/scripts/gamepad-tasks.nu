@@ -210,7 +210,8 @@ def --env "menu tasks-menu" [] {
     if $selected.item.action == view {
       loop {
         let output = (menu task-output $task | lines | each {|line| {label: $line} })
-        let chosen = (menu choose ([{label: '↻ 重新整理輸出', refresh: true}] | append $output) '任務輸出 · Enter 重新整理 · Backspace 返回 · Esc 關閉')
+        let title = (if (menu has-fzf) { '任務輸出 · Enter 重新整理 · Backspace 返回 · Esc 關閉' } else { '任務輸出 · Enter 重新整理' })
+        let chosen = (menu choose ([{label: '↻ 重新整理輸出', refresh: true}] | append $output) $title)
         if $chosen.key == cancel { return $chosen }
         if $chosen.key == back { break }
       }

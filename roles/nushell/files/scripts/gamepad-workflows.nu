@@ -3,6 +3,7 @@
 $env.GAMEPAD_DRAFTS = ($env.GAMEPAD_DRAFTS? | default [])
 
 def "menu choose" [items: list<record>, title: string, --fuzzy] {
+  if not (menu has-fzf) { return (menu pick $items $title --fuzzy=$fuzzy) }
   menu pick $items $"($title)(char newline)↑↓ / Tab 選擇 · Enter 確認 · Backspace 返回 · Esc 關閉(char newline)(menu navigation-hint --fuzzy=$fuzzy)" --fuzzy=$fuzzy
 }
 
@@ -21,7 +22,8 @@ def --env "menu insert-arguments" [values: list<string>] {
   menu insert $"($leading)(menu argument-text $values)($trailing)"
 }
 
-# Multi-select uses Space; Tab switches browsing/project-search modes.
+# fzf uses Space to select and Tab to switch browsing/project-search modes.
+# input list exposes the same actions as selectable rows.
 # In search results Enter toggles a path, so spaces remain available for queries.
 def "menu select-paths" [title: string, --kind: string = 'any', --single] {
   mut directory = $env.PWD
@@ -44,7 +46,10 @@ def "menu select-paths" [title: string, --kind: string = 'any', --single] {
     let items = ($controls | append $paths)
     let mode = (if $search { '專案搜尋' } else { '目錄瀏覽' })
     let hint = (if $search { 'Enter 勾選檔案後返回瀏覽 · Backspace 空白時返回瀏覽' } else { 'Space 勾選 · Enter 進入目錄／選檔 · ← / Backspace 上一層' })
-    let choice = (menu pick $items $"($title)：($directory)(char newline)($mode) · Tab 切換瀏覽／搜尋 · ↑↓ 選擇(char newline)($hint) · 已選 ($selected | length) 項(char newline)(menu navigation-hint --fuzzy=$search --browse=(not $search))" --fuzzy=$search --browse=(not $search) --path-controls=(not $search) --file-controls --query (if $search { $query } else { '' }))
+    let header = (if (menu has-fzf) {
+      $"($title)：($directory)(char newline)($mode) · Tab 切換瀏覽／搜尋 · ↑↓ 選擇(char newline)($hint) · 已選 ($selected | length) 項(char newline)(menu navigation-hint --fuzzy=$search --browse=(not $search))"
+    } else { $"($title)：($directory)(char newline)($mode) · 已選 ($selected | length) 項" })
+    let choice = (menu pick $items $header --fuzzy=$search --browse=(not $search) --path-controls=(not $search) --file-controls --query (if $search { $query } else { '' }))
     if $choice.key == cancel { return {key: cancel} }
     if $search { $query = ($choice.query? | default '') }
     if $choice.key == tab { $search = not $search; continue }
@@ -278,7 +283,10 @@ def "menu history-program-menu" [] {
     } else { $rows | where {|row| ($selected_program == '') or ((menu history-program $row.command) == $selected_program) } })
     let scope = (if $here { '目前目錄' } else { '全域' })
     let state = (match $status { success => { '成功' }, failed => { '失敗或中斷' }, _ => { '全部' } })
-    let choice = (menu pick $items $"免打字歷史：($scope) / ($state) / ($program | default '選程式')(char newline)← 目前目錄 · → 全域 · Tab 切換狀態(char newline)Enter 確認 · Backspace 返回 · Esc 關閉(char newline)(menu navigation-hint)" --history-controls)
+    let title = $"免打字歷史：($scope) / ($state) / ($program | default '選程式')" + (if (menu has-fzf) {
+      $"(char newline)← 目前目錄 · → 全域 · Tab 切換狀態(char newline)Enter 確認 · Backspace 返回 · Esc 關閉(char newline)(menu navigation-hint)"
+    } else { '' })
+    let choice = (menu pick $items $title --history-controls)
     if $choice.key == cancel { return $choice }
     if $choice.key in [left right tab] {
       if $choice.key == tab { $status = (match $status { all => { 'success' }, success => { 'failed' }, _ => { 'all' } }) } else { $here = ($choice.key == left) }

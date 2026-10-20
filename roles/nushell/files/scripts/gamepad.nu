@@ -16,7 +16,7 @@ def --env "menu history" [
 
 # Controller workflow for Nushell 0.116+: Esc -> menu -> choose -> review -> Enter.
 # Favorites live beside config.nu. Override GAMEPAD_FAVORITES_FILE for another file.
-# All interactive controller menus use fzf for consistent Backspace navigation.
+# Prefer fzf; input list supplies explicit navigation options when it is absent.
 # Selecting a command only stages it for review.
 $env.GAMEPAD_FAVORITES_FILE = ($env.GAMEPAD_FAVORITES_FILE? | default (
   $nu.default-config-dir | path join 'gamepad-favorites.nuon'
@@ -43,15 +43,44 @@ def "menu favorites" [] {
   }
 }
 
+def "menu has-fzf" [] { which fzf | is-not-empty }
+
+# Keep events separate from labels, including labels that duplicate controls.
+# input list cannot expose key events or restore/return the search query.
+def "menu native-pick" [items: list<record>, title: string, --fuzzy, --browse, --history-controls, --path-controls, --file-controls] {
+  let rows = ($items | enumerate | each {|row|
+    let result = {key: enter, item: $row.item, index: $row.index, query: ''}
+    let entry = {label: $row.item.label, result: $result}
+    if $path_controls and ($row.item.kind? == directory) {
+      [$entry {label: $"($row.item.label)（勾選／取消勾選）", result: ($result | update key toggle)}]
+    } else { [$entry] }
+  } | flatten | append [
+    {label: (if $browse { '← 返回上一層' } else { '← 返回' }), result: {key: back}}
+  ] | append (if $history_controls { [
+    {label: '切換範圍：目前目錄', result: {key: left, query: ''}}
+    {label: '切換範圍：全域', result: {key: right, query: ''}}
+    {label: '切換狀態：全部／成功／失敗', result: {key: tab, query: ''}}
+  ] } else { [] }) | append (if $file_controls { [
+    {label: '切換搜尋模式：目錄瀏覽／專案搜尋', result: {key: tab, query: ''}}
+  ] } else { [] }))
+  let labels = ($rows | get label | each {|label|
+    $label | ansi strip | str replace --all --regex '[\x00-\x1f\x7f]' ' '
+  })
+  let hint = '↑↓ 選擇 · Enter 確認 · Esc 關閉' + (if $fuzzy {
+    $"(char newline)輸入文字搜尋 · 清空搜尋後可選返回／切換 · 切換後需重新搜尋"
+  } else { '' })
+  let index = ($labels | input list --index --fuzzy=$fuzzy $"($title)(char newline)($hint)")
+  if $index == null { return {key: cancel} }
+  $rows | get $index | get result
+}
+
 # Select by original index so display sanitization never changes stored values.
-# 不使用內建 input list --fuzzy：它沒有自訂按鍵／返回事件的介面，
-# 無法做到「有搜尋文字時 Backspace 刪字，空白時返回上一層」。
-# fzf 的 backward-eof 事件可區分這兩種情況，並保留歷史切換所需的查詢文字。
+# fzf's backward-eof distinguishes deletion from Back and retains search text.
 def "menu pick" [items: list<record>, title: string, --browse, --fuzzy, --history-controls, --path-controls, --file-controls, --query: string = '', --editor-state: path] {
-  if ($items | is-empty) and (not $fuzzy) and (not $history_controls) and (not $file_controls) { return {key: back} }
-  if (which fzf | is-empty) {
-    error make {msg: '命令選單需要 fzf；請確認 fzf 在 PATH 中。'}
+  if not (menu has-fzf) {
+    return (menu native-pick $items $title --browse=$browse --fuzzy=$fuzzy --history-controls=$history_controls --path-controls=$path_controls --file-controls=$file_controls)
   }
+  if ($items | is-empty) and (not $fuzzy) and (not $history_controls) and (not $file_controls) { return {key: back} }
   let rows = ($items | enumerate | each {|row|
     let label = ($row.item.label | ansi strip | str replace --all --regex '[\x00-\x1f\x7f]' ' ')
     $"($row.index)(char tab)($label)"
@@ -223,12 +252,18 @@ def "menu edit-preview" [buffer: string, cursor: int, columns: int] {
 }
 
 def "menu manage-header" [buffer: string, cursor: int, columns: int] {
+  if not (menu has-fzf) { return $"命令： (menu edit-preview $buffer $cursor $columns)" }
   $"命令： (menu edit-preview $buffer $cursor $columns)(char newline)Enter 操作 · Esc 完成 · Backspace 返回(char newline)編輯可連按 Enter · ↑↓ / Tab 選擇(char newline)(menu navigation-hint)"
 }
 
 # The private session lets fzf apply repeated edits without returning to Reedline.
 # Commit its buffer, cursor and undo stack on Esc, Backspace or another action.
 def --env "menu manage-pick" [] {
+  # The caller applies edits in this Nu session and reopens the updated preview.
+  if not (menu has-fzf) {
+    let columns = (try { (term size).columns } catch { 80 })
+    return (menu pick (menu management) (menu manage-header (commandline) (commandline get-cursor) $columns))
+  }
   let directory = (mktemp --directory)
   let file = ($directory | path join 'state.json')
   let columns = (try { (term size).columns } catch { 80 })
@@ -252,6 +287,7 @@ def --env "menu manage-pick" [] {
 }
 
 def "menu navigation-hint" [--fuzzy, --browse] {
+  if not (menu has-fzf) { return '' }
   let endpoints = (if $fuzzy { 'Home/End 搜尋首尾' } else { 'Home/End 首末項' })
   let pages = (if (not $fuzzy) and (not $browse) { '←→ / PgUp/PgDn 分頁' } else { 'PgUp/PgDn 分頁' })
   $"($endpoints) · ($pages)(char newline)Shift-Tab 上一項"
@@ -392,7 +428,8 @@ def --env "menu run" [initial_action: string] {
   mut root = ''
   loop {
     if $action == main {
-      let selected = (menu pick (menu actions) $"($notice)命令選單：↑↓ / Tab 選擇 · Enter 確認 · Backspace / Esc 關閉(char newline)(menu navigation-hint)")
+      let title = (if (menu has-fzf) { $"($notice)命令選單：↑↓ / Tab 選擇 · Enter 確認 · Backspace / Esc 關閉(char newline)(menu navigation-hint)" } else { $"($notice)命令選單：" })
+      let selected = (menu pick (menu actions) $title)
       if $selected.key in [cancel back] { return }
       $action = $selected.item.action
       $notice = ''
@@ -528,7 +565,19 @@ def --env "menu run" [initial_action: string] {
     let context = (if $action == snippets {
       $"插入歷史片段：依游標前文字比對 · 目前目錄優先(char newline)"
     } else if $action =~ '^(project|git|files_project)' { $"專案：($root)(char newline)" } else { '' })
-    let title = (if $action == files_browser {
+    let title = (if not (menu has-fzf) {
+      match $action {
+        files_browser => { $"檔案：目錄瀏覽 · ($directory)" }
+        files_project => { $"($context)檔案：專案搜尋" }
+        directories => { $directory }
+        history_here | history_all => {
+          let scope = (if $action == history_here { '目前目錄' } else { '全域' })
+          let status = (match $history_status { success => { '成功' }, failed => { '失敗或中斷' }, _ => { '全部' } })
+          $"歷史：($scope) / ($status)"
+        }
+        _ => { $"($context)($notice)選擇項目" }
+      }
+    } else if $action == files_browser {
       $"檔案：目錄瀏覽 · ($directory)(char newline)Tab 切換專案搜尋 · ↑↓ 選擇 · ← / Backspace 上一層 · → / Enter 進入 · Esc 關閉"
     } else if $action == files_project {
       $"($context)檔案：專案搜尋 · Tab 切換目錄瀏覽(char newline)輸入文字搜尋 · ↑↓ 選擇 · Enter 確認 · Backspace 刪字／空白返回 · Esc 關閉"
@@ -617,7 +666,7 @@ def --env "menu run" [initial_action: string] {
 def "menu actions" [] {
   [
     {label: '收藏命令', action: favorites}
-    {label: '歷史搜尋（預設目前目錄，→ 全域）', action: history_here}
+    {label: (if (menu has-fzf) { '歷史搜尋（預設目前目錄，→ 全域）' } else { '歷史搜尋（預設目前目錄）' }), action: history_here}
     {label: '依目前指令插入歷史片段（Snippet）', action: snippets}
     {label: '本專案操作', action: project}
     {label: '選檔案，用 nvim 開啟', action: files}
