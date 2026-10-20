@@ -21,12 +21,13 @@ def --env "menu insert-arguments" [values: list<string>] {
   menu insert $"($leading)(menu argument-text $values)($trailing)"
 }
 
-# Multi-select uses Space; Tab keeps its normal controller navigation meaning.
+# Multi-select uses Space; Tab switches browsing/project-search modes.
 # In search results Enter toggles a path, so spaces remain available for queries.
 def "menu select-paths" [title: string, --kind: string = 'any', --single] {
   mut directory = $env.PWD
   mut selected = []
   mut search = false
+  mut query = ''
   loop {
     let entries = (if $search {
       menu project-files (menu project-root) | each {|item| {label: $item.label, path: $item.path, kind: file} }
@@ -41,11 +42,14 @@ def "menu select-paths" [title: string, --kind: string = 'any', --single] {
       {label: '搜尋專案檔案', kind: search}
     ] | where {|item| not (($kind == file) and ($item.kind == use)) or (not $single) } })
     let items = ($controls | append $paths)
+    let mode = (if $search { '專案搜尋' } else { '目錄瀏覽' })
     let hint = (if $search { 'Enter 勾選檔案後返回瀏覽 · Backspace 空白時返回瀏覽' } else { 'Space 勾選 · Enter 進入目錄／選檔 · ← / Backspace 上一層' })
-    let choice = (menu pick $items $"($title)：($directory)(char newline)($hint) · 已選 ($selected | length) 項(char newline)(menu navigation-hint --fuzzy=$search --browse=(not $search))" --fuzzy=$search --browse=(not $search) --path-controls=(not $search))
+    let choice = (menu pick $items $"($title)：($directory)(char newline)($mode) · Tab 切換瀏覽／搜尋 · ↑↓ 選擇(char newline)($hint) · 已選 ($selected | length) 項(char newline)(menu navigation-hint --fuzzy=$search --browse=(not $search))" --fuzzy=$search --browse=(not $search) --path-controls=(not $search) --file-controls --query (if $search { $query } else { '' }))
     if $choice.key == cancel { return {key: cancel} }
+    if $search { $query = ($choice.query? | default '') }
+    if $choice.key == tab { $search = not $search; continue }
     if $choice.key == back {
-      if $search { $search = false; continue }
+      if $search { $search = false; $query = ''; continue }
       if $directory == $env.PWD { return {key: back} }
       $directory = ($directory | path dirname)
       continue

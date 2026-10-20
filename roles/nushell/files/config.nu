@@ -833,3 +833,6 @@ source scripts/gamepad.nu
 
 # Load user overrides after the defaults to allow command redefinitions.
 source ~/.config/custom.nu
+
+# Apply after custom.nu so NU_THEME can select auto, light or dark at startup.
+update-nushell-theme --force

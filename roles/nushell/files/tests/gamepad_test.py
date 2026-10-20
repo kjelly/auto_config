@@ -624,6 +624,49 @@ class ControllerTests(unittest.TestCase):
         self.assertEqual(log["file"], str(target))
         self.assertEqual(log["input"], "ORIGINAL FILE")
 
+    def test_file_tab_switch_preserves_directory_and_query_even_without_matches(self):
+        target = self.child / "needle 'quote' $(literal) 中文.txt"
+        target.touch()
+        self.menu('files')
+        self.choose()  # Browser.
+        self.choose(1)  # Child directory.
+        self.send(TAB, 0.35)
+        self.send('needle')
+        self.send(TAB, 0.35)
+        self.choose(1)  # Retained child directory: select its file.
+        command = self.state()['buffer'].replace('^nvim ', 'echo ', 1)
+        result = subprocess.run([NU, '-n', '-c', command + ' | to json'],
+                                text=True, capture_output=True, check=True)
+        self.assertEqual(json.loads(result.stdout), ['--', str(target)])
+        self.menu('files')
+        self.choose()
+        self.send(TAB, 0.35)
+        self.send('needle-no-match')
+        self.send(TAB, 0.35)  # No selected row; switch must still work.
+        self.send(TAB, 0.35)  # Search text is restored.
+        self.send(BACK * len('-no-match'))
+        self.send(ENTER)
+        command = self.state()['buffer'].replace('^nvim ', 'echo ', 1)
+        result = subprocess.run([NU, '-n', '-c', command + ' | to json'],
+                                text=True, capture_output=True, check=True)
+        self.assertEqual(json.loads(result.stdout), ['--', str(target)])
+        self.assertEqual(self.state()['pwd'], str(self.cwd))
+
+    def test_file_tab_switch_empty_project_and_cancel_preserve_commandline(self):
+        (self.cwd / 'ordinary-file').unlink()
+        self.send('print 中文')
+        self.send(LEFT)
+        before = self.state()
+        self.menu('files')
+        self.choose()
+        self.send(TAB, 0.35)  # Empty project search.
+        self.send(TAB, 0.35)  # Back to browser.
+        self.choose(1)  # Navigate into the child, not a launcher/menu row.
+        self.send(TAB, 0.35)
+        self.send(TAB, 0.35)
+        self.send(ESC, 0.35)
+        self.assertEqual(self.state(), before)
+
     def test_project_menu_stages_go_command_without_running_it(self):
         (self.cwd / "go.mod").write_text("module example.test/project\n")
         self.send(f"cd {literal(self.child)}")

@@ -1,7 +1,9 @@
 """Isolated fixtures only: never source custom.nu, a real profile or user history."""
+import base64
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import sqlite3
 import subprocess
@@ -23,6 +25,8 @@ class ShellConfigTests(unittest.TestCase):
         self.bin = self.base / 'bin'
         self.bin.mkdir()
         self.env = dict(os.environ, TEST_BASE=str(self.base))
+        for key in ['NU_THEME', 'NU_THEME_STATE', 'GAMEPAD_TASK_RUNNING']:
+            self.env.pop(key, None)
 
     def tearDown(self):
         self.temp.cleanup()
@@ -42,9 +46,13 @@ class ShellConfigTests(unittest.TestCase):
             return json.loads(r.stdout)
         return r
 
-    def test_theme_numeric_width_and_hints_key(self):
-        actual = self.nu('def "term size" [] { {columns: 100 rows: 32} }; $env.EINK_WIDTH = "100"; update-nushell-theme; $env.config.color_config.hints | to json')
-        self.assertEqual(actual, 'dark_gray_bold')
+    def test_auto_theme_follows_terminal_without_width_or_color_queries(self):
+        actual = self.nu('def --env "term size" [] { $env.TEST_TERM_QUERIED = true; {columns: 100 rows: 32} }; '
+                         'def --env "term query" [...args] { $env.TEST_TERM_QUERIED = true }; '
+                         '$env.EINK_WIDTH = "100"; update-nushell-theme; '
+                         '{mode: $env.NU_THEME_STATE.mode, hints: $env.config.color_config.hints, '
+                         'queried: ($env.TEST_TERM_QUERIED? | default false)} | to json')
+        self.assertEqual(actual, {'mode': 'auto', 'hints': {'fg': 'default', 'attr': 'u'}, 'queried': False})
 
     def test_task_worker_skips_interactive_theme_and_tmux_refresh(self):
         tmux_called = self.base / 'tmux-called'
@@ -61,8 +69,66 @@ class ShellConfigTests(unittest.TestCase):
         self.assertFalse(actual['queried'])
 
     def test_theme_cache_and_env_change(self):
-        result = self.nu('def "term size" [] { {columns: 100 rows: 32} }; $env.EINK_WIDTH = "100"; update-nushell-theme; $env.config.color_config.hints = "cache-marker"; update-nushell-theme; let cached = $env.config.color_config.hints; $env.EINK_WIDTH = "80"; update-nushell-theme; [$cached $env.config.color_config.hints] | to json')
-        self.assertEqual(result, ['cache-marker', 'cyan'])
+        result = self.nu('update-nushell-theme; $env.config.color_config.hints = "cache-marker"; '
+                         'update-nushell-theme; let cached = $env.config.color_config.hints; '
+                         '$env.NU_THEME = "dark"; update-nushell-theme; '
+                         '[$cached $env.config.color_config.hints] | to json')
+        self.assertEqual(result, ['cache-marker', {'fg': '#b0b0b0', 'attr': 'u'}])
+
+    def test_theme_replaces_inherited_ls_colors_and_can_be_reapplied(self):
+        result = self.nu('$env.LS_COLORS = "di=37;47:*.nu=37;47"; update-nushell-theme; '
+                         'let initial = $env.LS_COLORS; $env.LS_COLORS = "di=30;40"; '
+                         'update-nushell-theme; $env.config.color_config.hints = "override"; '
+                         'nu-theme auto; {same: ($initial == $env.LS_COLORS), '
+                         'hints: $env.config.color_config.hints} | to json')
+        self.assertTrue(result['same'])
+        self.assertEqual(result['hints'], {'fg': 'default', 'attr': 'u'})
+
+    def test_auto_rendered_ls_and_tables_use_only_terminal_foreground(self):
+        (self.base / 'directory').mkdir(mode=0o777)
+        (self.base / 'directory').chmod(0o1777)
+        for name in ['plain.txt', 'source.nu', 'image.jpg', 'archive.tar', 'executable']:
+            (self.base / name).write_text('fixture')
+        (self.base / 'executable').chmod(0o755)
+        (self.base / 'link').symlink_to('plain.txt')
+        (self.base / 'broken').symlink_to('missing')
+        os.mkfifo(self.base / 'pipe')
+        rendered = self.nu('$env.config.use_ansi_coloring = true; $env.config.ls.clickable_links = false; '
+                           '$env.LS_COLORS = "*.nu=37;47:di=30;40"; nu-theme auto; '
+                           '[(ls -a | table --width 200 | into string) '
+                           '([{text: "hello", bool: true, size: 1kb, date: (date now), duration: 1sec}] '
+                           '| table --width 200 | into string)] | each { encode base64 } | to json')
+        rendered = [base64.b64decode(text).decode() for text in rendered]
+        for text in rendered:
+            codes = re.findall(r'\x1b\[([0-9;]*)m', text)
+            self.assertTrue(codes)
+            # These styles inherit the foreground on BOTH black and white backgrounds.
+            self.assertLessEqual({part for code in codes for part in code.split(';')},
+                                 {'', '0', '1', '4', '7', '39'})
+        for name in ['directory', 'source.nu', 'image.jpg', 'archive.tar', 'executable', 'broken', 'pipe']:
+            self.assertIn(name, rendered[0])
+        self.assertRegex(rendered[0], r'\x1b\[1(?:;39)?m[^\n]*directory')
+
+    def test_explicit_color_palettes_have_contrast_on_their_background(self):
+        def luminance(color):
+            rgb = [int(color[i:i + 2], 16) / 255 for i in (1, 3, 5)]
+            linear = [c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4 for c in rgb]
+            return sum(c * weight for c, weight in zip(linear, (0.2126, 0.7152, 0.0722)))
+
+        for mode, background in [('light', 1), ('dark', 0)]:
+            with self.subTest(mode=mode):
+                result = self.nu(f'nu-theme {mode}; {{palette: (shell-theme-palette {mode}), '
+                                 'ls: $env.LS_COLORS, menus: $env.config.menus} | to json')
+                for color in result['palette'].values():
+                    if color == 'default':
+                        continue
+                    light, dark = sorted([background, luminance(color)], reverse=True)
+                    self.assertGreaterEqual((light + 0.05) / (dark + 0.05), 4.5, color)
+                self.assertIn('38;2;', result['ls'])
+
+    def test_invalid_theme_command_keeps_current_mode(self):
+        actual = self.nu('nu-theme light; try { nu-theme invalid }; $env.NU_THEME | to json')
+        self.assertEqual(actual, 'light')
 
     def test_output_theme_does_not_launch_tmux(self):
         self.stub('tmux', 'raise SystemExit("must not launch tmux")\n')

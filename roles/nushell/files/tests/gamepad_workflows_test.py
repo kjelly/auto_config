@@ -65,6 +65,55 @@ class WorkflowTests(unittest.TestCase):
                                 text=True, capture_output=True, check=True)
         self.assertEqual(json.loads(result.stdout), [str(self.cwd / 'ordinary-file')])
 
+    def test_path_tab_switch_preserves_checked_paths_directory_and_query(self):
+        target = self.child / "needle 'quote' $(literal) 中文.txt"
+        target.touch()
+        self.menu('insert_paths')
+        self.send(core.END)
+        self.send(' ')  # Check ordinary-file.
+        self.choose(4)  # Browse the child directory after controls and '..'.
+        self.send(core.TAB, 0.35)
+        self.send('needle-no-match')
+        self.send(core.TAB, 0.35)  # Back to the retained child directory.
+        self.send(core.TAB, 0.35)
+        self.send(core.BACK * len('-no-match'))
+        self.choose()  # Check the search result and return to browser.
+        self.send(core.HOME)
+        self.choose()  # Apply both paths.
+        state = self.state()
+        result = subprocess.run([core.NU, '-n', '-c', '[' + state['buffer'] + '] | to json'],
+                                text=True, capture_output=True, check=True)
+        self.assertEqual(json.loads(result.stdout), [str(self.cwd / 'ordinary-file'), str(target)])
+        self.assertEqual(state['pwd'], str(self.cwd))
+
+    def test_path_tab_switch_empty_search_back_and_cancel_preserve_buffer(self):
+        (self.cwd / 'ordinary-file').unlink()
+        self.send('print 中文')
+        self.send(core.LEFT)
+        before = self.state()
+        self.menu('insert_paths')
+        self.send(core.TAB, 0.35)
+        self.send(core.TAB, 0.35)
+        self.send(core.TAB, 0.35)
+        self.send(core.BACK, 0.35)  # Empty search returns to browser.
+        self.send(core.ESC, 0.35)
+        self.assertEqual(self.state(), before)
+
+    def test_single_path_template_supports_tab_mode_switch(self):
+        self.menu('templates')
+        self.choose()  # Compare files.
+        for _ in range(2):
+            self.send(core.TAB, 0.35)
+            self.send('ordinary')
+            self.choose()
+        command = self.state()['buffer']
+        self.assertTrue(command.startswith('^diff -- '), command)
+        arguments = command.removeprefix('^diff -- ')
+        result = subprocess.run([core.NU, '-n', '-c', '[' + arguments + '] | to json'],
+                                text=True, capture_output=True, check=True)
+        self.assertEqual(json.loads(result.stdout), [str(self.cwd / 'ordinary-file'),
+                                                   str(self.cwd / 'ordinary-file')])
+
     def test_template_compare_files_stages_without_running(self):
         self.menu('templates')
         self.choose()  # Compare two files.

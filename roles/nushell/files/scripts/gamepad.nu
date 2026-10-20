@@ -47,8 +47,8 @@ def "menu favorites" [] {
 # 不使用內建 input list --fuzzy：它沒有自訂按鍵／返回事件的介面，
 # 無法做到「有搜尋文字時 Backspace 刪字，空白時返回上一層」。
 # fzf 的 backward-eof 事件可區分這兩種情況，並保留歷史切換所需的查詢文字。
-def "menu pick" [items: list<record>, title: string, --browse, --fuzzy, --history-controls, --path-controls, --query: string = '', --editor-state: path] {
-  if ($items | is-empty) and (not $fuzzy) and (not $history_controls) { return {key: back} }
+def "menu pick" [items: list<record>, title: string, --browse, --fuzzy, --history-controls, --path-controls, --file-controls, --query: string = '', --editor-state: path] {
+  if ($items | is-empty) and (not $fuzzy) and (not $history_controls) and (not $file_controls) { return {key: back} }
   if (which fzf | is-empty) {
     error make {msg: '命令選單需要 fzf；請確認 fzf 在 PATH 中。'}
   }
@@ -78,6 +78,7 @@ def "menu pick" [items: list<record>, title: string, --browse, --fuzzy, --histor
   let bindings = ([
     'enter:print(enter)+accept,shift-tab:up,page-up:page-up,page-down:page-down'
     $navigation $back $endpoints
+    (if $file_controls { 'tab:print(tab)+accept' } else { '' })
     (if $path_controls { 'space:print(toggle)+accept' } else { '' })
     (if $editor_state != null {
       # Keep one fzf process alive. Commands contain only fixed shell syntax;
@@ -106,10 +107,16 @@ def "menu pick" [items: list<record>, title: string, --browse, --fuzzy, --histor
   if $history_controls and ($key in [left right tab]) {
     return {key: $key, query: ($output | get 0)}
   }
+  # Mode switches must work with an empty project or a query with no matches.
+  # Return before decoding a selected row, which may not exist in either case.
+  if $file_controls and ($key == tab) {
+    return {key: tab, query: ($output | get 0)}
+  }
   if $result.exit_code in [1 130] { return {key: cancel} }
   if $result.exit_code != 0 { error make {msg: $"fzf: ($result.stderr | str trim)"} }
   let index = ($output | get 2 | split row (char tab) | get 0 | into int)
-  {key: $key, item: ($items | get $index), index: $index}
+  let selected = {key: $key, item: ($items | get $index), index: $index}
+  if $file_controls { $selected | insert query ($output | get 0) } else { $selected }
 }
 
 def --env "menu remember" [] {
@@ -381,6 +388,7 @@ def --env "menu run" [initial_action: string] {
   mut notice = ''
   mut history_query = (if $initial_action in [history_here history_all] { commandline } else { '' })
   mut history_status = 'all'
+  mut file_query = ''
   mut root = ''
   loop {
     if $action == main {
@@ -508,7 +516,8 @@ def --env "menu run" [initial_action: string] {
       tmux => { menu tmux-items }
     })
     let is_history = ($action in [history_here history_all])
-    if ($items | is-empty) and (not $is_history) {
+    let is_files = ($action in [files_browser files_project])
+    if ($items | is-empty) and (not $is_history) and (not $is_files) {
       $notice = (if $action == snippets {
         $"找不到可接續的歷史片段；請先輸入曾使用的指令前綴。(char newline)"
       } else { $"沒有可用項目，請選擇其他功能。(char newline)" })
@@ -519,7 +528,11 @@ def --env "menu run" [initial_action: string] {
     let context = (if $action == snippets {
       $"插入歷史片段：依游標前文字比對 · 目前目錄優先(char newline)"
     } else if $action =~ '^(project|git|files_project)' { $"專案：($root)(char newline)" } else { '' })
-    let title = (if $action in [directories files_browser] {
+    let title = (if $action == files_browser {
+      $"檔案：目錄瀏覽 · ($directory)(char newline)Tab 切換專案搜尋 · ↑↓ 選擇 · ← / Backspace 上一層 · → / Enter 進入 · Esc 關閉"
+    } else if $action == files_project {
+      $"($context)檔案：專案搜尋 · Tab 切換目錄瀏覽(char newline)輸入文字搜尋 · ↑↓ 選擇 · Enter 確認 · Backspace 刪字／空白返回 · Esc 關閉"
+    } else if $action == directories {
       $"($directory)(char newline)← / Backspace 上一層 · → / Enter 進入 · Esc 關閉"
     } else if $is_history {
       let scope = (if $action == history_here { '目前目錄' } else { '全域' })
@@ -531,9 +544,14 @@ def --env "menu run" [initial_action: string] {
       $"($context)($notice)↑↓ / Tab 選擇 · Enter 確認 · Backspace 返回上一層 · Esc 關閉"
     })
     let header = $"($title)(char newline)(menu navigation-hint --fuzzy=$fuzzy --browse=($action in [directories files_browser]))"
-    let selected = (menu pick $items $header --browse=($action in [directories files_browser]) --fuzzy=$fuzzy --history-controls=$is_history --query (if $is_history { $history_query } else { '' }))
+    let selected = (menu pick $items $header --browse=($action in [directories files_browser]) --fuzzy=$fuzzy --history-controls=$is_history --file-controls=$is_files --query (if $is_history { $history_query } else if $action == files_project { $file_query } else { '' }))
     if $selected.key == cancel { return }
     $notice = ''
+    if $is_files and ($selected.key == tab) {
+      if $action == files_project { $file_query = $selected.query }
+      $action = (if $action == files_browser { 'files_project' } else { 'files_browser' })
+      continue
+    }
     if $is_history and ($selected.key in [left right tab]) {
       $history_query = $selected.query
       if $selected.key == tab {
@@ -545,6 +563,7 @@ def --env "menu run" [initial_action: string] {
     }
     if $selected.key == back {
       if $is_history { $history_query = '' }
+      if $action == files_project { $file_query = '' }
       if ($action in [directories files_browser]) and ($directory != ($directory | path dirname)) {
         $directory = ($directory | path dirname)
       } else { $action = (menu parent $action) }

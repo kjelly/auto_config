@@ -104,6 +104,28 @@ class RenderTests(unittest.TestCase):
         self.assert_no_launcher_residue(screen)
         self.assertNotIn("插入歷史片段：", screen)
 
+    def test_file_tab_mode_hints_and_query_on_narrow_screen(self):
+        self.tmux('resize-window', '-x', '45', '-y', '20')
+        self.open_menu(4)
+        self.wait_for('瀏覽目前目錄與子目錄')
+        self.tmux('send-keys', 'Enter')
+        screen = self.wait_for('檔案：目錄瀏覽')
+        self.assertIn('Tab 切換', screen)
+        self.assert_no_launcher_residue(screen)
+        self.tmux('send-keys', 'Tab')
+        self.wait_for('檔案：專案搜尋', absent=('檔案：目錄瀏覽',))
+        self.tmux('send-keys', '-l', 'selected-no-match')
+        self.wait_for('selected-no-match')
+        self.tmux('send-keys', 'Tab')
+        self.wait_for('檔案：目錄瀏覽', absent=('檔案：專案搜尋',))
+        self.tmux('send-keys', 'Tab')
+        screen = self.wait_for('selected-no-match', absent=('檔案：目錄瀏覽',))
+        self.assertIn('檔案：專案搜尋', screen)
+        self.assertIn('Tab 切換', screen)
+        self.assert_no_launcher_residue(screen)
+        self.tmux('send-keys', 'Escape')
+        self.wait_for('TEST>', absent=('檔案：專案搜尋',))
+
     def test_fzf_browser_does_not_leave_launcher_rows(self):
         self.open_menu(7)
         screen = self.wait_for("使用此目錄")
