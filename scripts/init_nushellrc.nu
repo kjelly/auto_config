@@ -4,7 +4,7 @@ def main [ ] {
   mkdir ~/.config/nushell
   let script_dir = ($nu.default-config-dir | path join 'scripts')
   mkdir $script_dir
-  for name in [gamepad.nu gamepad-tools.nu gamepad-edit.nu gamepad-workflows.nu gamepad-tasks.nu gamepad-task-worker.nu history-query.nu shell-integration.nu secure-edit.nu login-env.nu] {
+  for name in [gamepad.nu gamepad-ai.nu gamepad-tools.nu gamepad-edit.nu gamepad-workflows.nu gamepad-tasks.nu gamepad-task-worker.nu history-query.nu shell-integration.nu secure-edit.nu login-env.nu] {
     http get --raw $"https://raw.githubusercontent.com/kjelly/auto_config/master/roles/nushell/files/scripts/($name)"
     | save --force ($script_dir | path join $name)
   }

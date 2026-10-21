@@ -302,11 +302,11 @@ class ControllerTests(unittest.TestCase):
                 self.choose()
                 self.assertEqual(self.state()['buffer'], 'print ITEM_0')
 
-    def test_main_home_end_reach_management_and_favorites(self):
+    def test_main_home_end_reach_ai_and_favorites(self):
         self.send(ESC)
         self.send(END)
         self.choose()
-        self.assertIn('游標移到目前行首'.encode(), self.output)
+        self.assertIn('語意搜尋歷史指令'.encode(), self.output)
         self.send(BACK)
         self.send(END + HOME)
         self.choose()

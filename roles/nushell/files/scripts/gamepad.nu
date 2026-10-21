@@ -380,6 +380,7 @@ def "menu snippets" [] {
 source gamepad-tools.nu
 source gamepad-workflows.nu
 source gamepad-tasks.nu
+source gamepad-ai.nu
 
 # Browsing does not change PWD or run hooks. Only 'use this directory' stages cd.
 # to nuon quotes paths as Nu literals, including spaces, quotes and interpolation.
@@ -442,7 +443,8 @@ def --env "menu run" [initial_action: string] {
       $action = $selected.item.action
       continue
     }
-    if $action in [insert_paths templates clipboard history_programs drafts tasks] {
+    if $action in [insert_paths templates clipboard history_programs drafts tasks ai] {
+      let is_ai = ($action == ai)
       let result = (try {
         match $action {
           insert_paths => {
@@ -463,8 +465,11 @@ def --env "menu run" [initial_action: string] {
           }
           drafts => { menu drafts-menu }
           tasks => { menu tasks-menu }
+          ai => { menu ai-menu }
         }
-      } catch {|err| {key: back, notice: $err.msg} })
+      } catch {|err|
+        if $is_ai and $err.msg == 'Operation interrupted' { {key: cancel} } else { {key: back, notice: $err.msg} }
+      })
       if $result.key != back { return }
       $notice = ($result.notice? | default '') + (char newline)
       $action = 'main'
@@ -682,6 +687,7 @@ def "menu actions" [] {
     {label: '命令草稿（暫存／恢復）', action: drafts}
     {label: 'tmux 任務（執行／查看／中止／重跑）', action: tasks}
     {label: '管理收藏與命令列', action: manage}
+    {label: 'AI 助手（Ollama）', action: ai}
   ]
 }
 

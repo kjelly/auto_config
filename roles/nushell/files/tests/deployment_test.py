@@ -15,7 +15,7 @@ except ImportError:
     yaml = None
 
 REPO = Path(os.environ.get('AUTO_CONFIG_REPO', Path.home() / 'nfs/auto_config'))
-SCRIPTS = ['gamepad.nu', 'gamepad-tools.nu', 'gamepad-edit.nu', 'gamepad-workflows.nu', 'gamepad-tasks.nu', 'gamepad-task-worker.nu', 'history-query.nu', 'shell-integration.nu', 'secure-edit.nu', 'login-env.nu']
+SCRIPTS = ['gamepad.nu', 'gamepad-ai.nu', 'gamepad-tools.nu', 'gamepad-edit.nu', 'gamepad-workflows.nu', 'gamepad-tasks.nu', 'gamepad-task-worker.nu', 'history-query.nu', 'shell-integration.nu', 'secure-edit.nu', 'login-env.nu']
 
 
 @unittest.skipUnless(yaml and shutil.which('nu') and (REPO / 'roles/nushell/tasks/config.yml').exists(), 'requires PyYAML, Nushell and auto_config checkout')

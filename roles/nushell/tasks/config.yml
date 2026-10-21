@@ -12,6 +12,7 @@
     mode: '0644'
   loop:
     - gamepad.nu
+    - gamepad-ai.nu
     - gamepad-tools.nu
     - gamepad-edit.nu
     - gamepad-workflows.nu
