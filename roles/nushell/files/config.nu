@@ -260,7 +260,9 @@ $new_config.hooks.env_change.PWD = [
 $new_config.hooks.pre_prompt = ($new_config.hooks.pre_prompt? | default [] | append [
         {||
             let seq = $"\e]1337;CurrentDir=($env.PWD)(char bel)"
-            if "TMUX" in $env {
+            if "NVIM" in $env {
+              print -n $seq
+            } else if "TMUX" in $env {
               print -n $"\ePtmux;($seq | str replace --all "\e" "\e\e")\e\\"
             } else {
               print -n $seq
