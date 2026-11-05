@@ -9,6 +9,7 @@ require("config.options")
 require("config.theme").setup()
 require("config.terminal")
 require("config.actions")
+require("config.bash").setup()
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then

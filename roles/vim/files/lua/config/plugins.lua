@@ -370,6 +370,8 @@ return {
 				{ "<leader>a", group = "Code actions" },
 				{ "<leader>b", group = "Buffer/Bookmark" },
 				{ "<leader>bc", desc = "Copy file path" },
+				{ "<leader>bj", desc = "Bash to single line" },
+				{ "<leader>by", desc = "Bash copy single line" },
 				{ "<leader>c", group = "Comment/cd" },
 				{ "<leader>d", group = "doc" },
 				{ "<leader>e", group = "Edit" },
